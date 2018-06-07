@@ -1,0 +1,67 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=methane
+#MOLECULE 
+MOLNAME=MTN
+#ATOMS 
+    1   6 "CT"      0.000001000      0.000000000      0.000000000  " " "MTN"       1    -0.20000 "NO_HYBRID" ""  "CT"      12.01100  
+    2   1 "HT1"     -0.617765000      0.873651000      0.000000000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"      1.00790 
+    3   1 "HT2"      0.617765000      0.000000000     -0.873651000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"      1.00790 
+    4   1 "HT3"      0.617765000      0.000000000      0.873651000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"      1.00790 
+    5   1 "HT4"     -0.617765000     -0.873651000      0.000000000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"      1.00790 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    3     1  SINGLE
+    4     1  SINGLE
+    5     1  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+MOLNAME=MTN#CH_ZERO
+#ATOMS 
+    1   6 "CT"      0.000001000      0.000000000      0.000000000  " " "MTN"       1      0.00000 "NO_HYBRID" ""  "CT"      12.01100  
+    2   1 "HT1"     -0.617765000      0.873651000      0.000000000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "HC"       1.00790 
+    3   1 "HT2"      0.617765000      0.000000000     -0.873651000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "HC"       1.00790 
+    4   1 "HT3"      0.617765000      0.000000000      0.873651000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "HC"       1.00790 
+    5   1 "HT4"     -0.617765000     -0.873651000      0.000000000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "HC"      1.00790 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    3     1  SINGLE
+    4     1  SINGLE
+    5     1  SINGLE
+#END BONDS 
+#END MOLECULE
+#MOLECULE 
+MOLNAME=MTN#CH_P1
+#ATOMS 
+    1   6 "CT"      0.000001000      0.000000000      0.000000000  " " "MTN"       1      0.80000 "NO_HYBRID" ""  "CT"      12.01100  
+    2   1 "HT1"     -0.617765000      0.873651000      0.000000000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"       1.00790 
+    3   1 "HT2"      0.617765000      0.000000000     -0.873651000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"       1.00790 
+    4   1 "HT3"      0.617765000      0.000000000      0.873651000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"       1.00790 
+    5   1 "HT4"     -0.617765000     -0.873651000      0.000000000  " " "MTN"       1     0.05000 "NO_HYBRID" ""  "HC"      1.00790 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    3     1  SINGLE
+    4     1  SINGLE
+    5     1  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+MOLNAME=MTN#DUM
+#ATOMS 
+    1  99 "CT"      0.000001000      0.000000000      0.000000000  " " "MTN"       1      0.00000 "NO_HYBRID" ""   "DC"      12.01100  
+    2  99 "HT1"     -0.617765000      0.873651000      0.000000000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "DH"       1.00790 
+    3  99 "HT2"      0.617765000      0.000000000     -0.873651000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "DH"       1.00790 
+    4  99 "HT3"      0.617765000      0.000000000      0.873651000  " " "MTN"       1     0.00000 "NO_HYBRID" ""   "DH"       1.00790 
+    5  99 "HT4"     -0.617765000     -0.873651000      0.000000000  " " "MTN"       1     0.00000 "NO_HYBRID" ""  "DH"       1.00790 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    3     1  SINGLE
+    4     1  SINGLE
+    5     1  SINGLE
+#END BONDS 
+#END MOLECULE
+#END MOL_SET

@@ -1,0 +1,20 @@
+# DIRFRC_DEFINES are set in configure script!
+CPP = /lib/cpp
+CPPFLAGS =
+F90_DEFINES = -DNO_C_UNDERSCORE -DUSE_MPI_MODULE="use mpi"
+
+MODULE_SUFFIX = mod
+CPUFLAGS = -qarch=$(IBM_PROCESSOR_TYPE) -qtune=$(IBM_PROCESSOR_TYPE)
+F90FLAGS = $(CPUFLAGS) -qsuffix=f=f90 -qdpc -q64 -c
+F90_OPT_DBG = -g -O0
+F90_OPT_LO =  -qmaxmem=-1
+F90_OPT_MED = -qmaxmem=-1 -O
+# -qhot causes crash on pwr5
+#F90_OPT_HI =  -O3 -qstrict -qhot
+F90_OPT_HI =  -O3 -qstrict
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CFLAGS = $(CPUFLAGS) -DNO_C_UNDERSCORE -q64
+
+LOADFLAGS = -q64
+LOADLIBS = -lm

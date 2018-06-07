@@ -1,0 +1,176 @@
+.SUFFIXES: .SUFFIXES .tex .dvi .c,v .h,v .cpp
+# 
+#  Generic Header 
+#
+MPI_INC = ../../../mpi/include 
+BASE    =  ../DO_LIB
+INCL    = -I$(BASE)/include -I$(BASE)/template -I../generic -I$(MPI_INC)
+LIBS    = -L$(BASE) -ldo $(FLIBS)  $(LIB_FLAG) -L$(MPI_LIB) -lm  
+CCFLAGS = -DTIMER $(FLAGS) $(OPT_FLAG) $(COMP_FLAG) $(INCL) 
+
+CXX     = g++
+CXXFLAGS = -O3 -Dlinux -DGNU -DGCC_NEW $(INCL) 
+ 
+#
+#  Generic Rules
+#
+#%.c : RCS/%.c,v
+#	-co $*.c
+
+#%.h : RCS/%.h,v
+#	-co $*.h
+
+#.cpp.o:
+#	$(CXX) $(CXXFLAGS) -c $<
+VPATH = ../generic 
+
+%.o : %.cpp
+	$(CXX) $(CXXFLAGS) -c $<
+
+#.h.tex:
+#	totex $<
+#
+#  Targets
+#
+all: ipack libipack.a
+#
+# Definitions
+#
+SRCC = 	alloc.cpp	 hrr2.cpp	  one_el.cpp	   stest.cpp \
+	angular.cpp	 hrr_set.cpp	  operators.cpp	   stest1.cpp \
+	basis.cpp	 input.cpp	  orbinfo.cpp	   storage.cpp \
+	coef_array.cpp	 integ_array.cpp  output.cpp	   symdesig.cpp \
+	coef_set.cpp	 ipack.cpp	  output1.cpp	   symlogic.cpp \
+	const.cpp	 itest.cpp	  output2.cpp	   symop.cpp \
+	contract.cpp	 kinetic.cpp	  output3.cpp	   test_symmetry.cpp \
+	e_field.cpp	 memchk.cpp	  overlap.cpp	   transpose.cpp \
+	element.cpp	 memmgr.cpp	  parallel.cpp  print.cpp  twoel.cpp \
+	f.cpp		 moment.cpp	  quad.cpp	   twoel0.cpp \
+	fix.cpp		 nuc_e_field.cpp  rec.cpp	   types.cpp \
+	four_stor.cpp	 nuc_mom.cpp	  rec_stor.cpp	   vault.cpp \
+	function.cpp	 nuc_rep.cpp	  sphere.cpp	   vrr.cpp \
+	hrr1.cpp	 nuclear.cpp	  spin_orb.cpp     integ_file.cpp \
+	e_field.cpp      ipack_main.cpp
+
+OBJ = function.o  integ_array.o coef_array.o rec.o basis.o f.o \
+      quad.o contract.o vrr.o twoel0.o hrr1.o kinetic.o overlap.o nuclear.o \
+      coef_set.o hrr2.o  input.o operators.o  symdesig.o\
+      hrr_set.o storage.o output1.o output2.o parallel.o print.o output3.o \
+      sphere.o symop.o symlogic.o twoel.o rec_stor.o one_el.o \
+      four_stor.o const.o orbinfo.o types.o nuc_rep.o vault.o \
+      element.o e_field.o moment.o angular.o spin_orb.o alloc.o fix.o \
+      integ_file.o nuc_mom.o nuc_e_field.o qc_utilities.o ipack_main.o
+
+TEX = basis.tex  f.tex  integ.tex  twoel0.tex integ_file.tex \
+      coef_array.tex  function.tex  integ_array.tex   quad.tex \
+      types.tex contract.tex  hrr1.tex  hrr2.tex rec.tex  vrr.tex \
+      kinetic.tex nuclear.tex overlap.tex  operators.tex \
+      coef_set.tex ipack.tex const.tex input.tex hrr_set.tex \
+      output1.tex  output2.tex print.tex index.tex storage.tex output3.tex \
+      sphere.tex one_el.tex twoel.tex symdesig.tex symop.tex sphere.tex \
+      rec_stor.tex four_stor.tex symlogic.tex tquadruple.tex tpair.tex \
+      flexfile.tex angular.tex alloc.tex orbinfo.tex e_field.tex  \
+      transpose.tex element.tex vault.tex nuc_e_field.tex nuc_mom.tex \
+      nuc_rep.tex spin_orb.tex ipack_main.tex
+
+clean:
+	rm *.o *~ *.dvi *.aux *.log *.a
+
+ipack: $(OBJ) ipack.o parallel.o 
+	$(CXX) $(CXXFLAGS) $(OPT_FLAG) -o ipack ipack.o $(OBJ) $(LIBS) $(BIND_FLAG)
+
+libipack.a: ipack_main.o $(OBJ)
+	ar ruv libipack.a $(OBJ) ipack_main.o
+	ranlib libipack.a
+
+doc.dvi: $(TEX) doc.tex
+	latex doc.tex
+
+tar    : 
+	tar -cf ipack03.tar *.[ch] makefile sample* doc.tex symmetry.tex 
+
+#depend: force
+#	makedep $(INCL) *.c
+
+force: ;
+
+#
+#  AUXILIARY (TEST) PROGRAMS
+#
+itest: itest.c
+	$(CXX) $(CXXFLAGS) $(OPT_FLAG) -o itest itest.o $(LIBS) $(BIND_FLAG)
+
+memtest: memtest.o memchk.o
+	$(CXX) $(CXXFLAGS) $(OPT_FLAG) -o memtest memtest.o memchk.o $(LIBS) $(BIND_FLAG)
+
+stest1: stest1.o $(OBJ)
+	$(CXX) $(CXXFLAGS) $(OPT_FLAG) -o stest1 stest1.o types.o $(LIBS) $(BIND_FLAG)
+
+test_symmetry: test_symmetry.o types.o
+	$(CXX) $(CXXFLAGS) $(OPT_FLAG) -o test_symmetry transform.o types.o $(LIBS) $(BOND_FLAG)
+#
+#  DEPENDENCIES FOR DOCUMENTATION
+#
+index.tex: doc.idx
+	makeindex doc.idx
+	mv doc.ind index.tex
+
+e_field.tex     : e_field.h e_field.cpp
+f.tex		: f.h f.cpp
+integ.tex       : integ.cpp 
+ipack.tex       : ipack.cpp
+twoel0.tex	: twoel0.cpp
+function.tex    : function.cpp function.h
+quad.tex        : quad.cpp quad.h
+types.tex       : types.cpp types.h
+coef_set.tex    : coef_set.h coef_set.cpp
+contract.tex    : contract.cpp
+hrr1.tex        : hrr1.h hrr1.cpp
+hrr2.tex        : hrr2.h hrr2.cpp
+vrr.tex 	: vrr.h vrr.cpp
+rec.tex   	: rec.cpp rec.h
+basis.tex	: basis.cpp basis.h
+coef_array.tex 	: coef_array.cpp coef_array.h
+kinetic.tex     : kinetic.h kinetic.cpp
+nuclear.tex 	: nuclear.h nuclear.cpp 
+overlap.tex	: overlap.h overlap.cpp
+integ_array.tex	: integ_array.cpp integ_array.h
+transpose.tex   : transpose.cpp
+element.tex     : element.h element.cpp
+vault.tex       : vault.h vault.cpp
+output1.tex     : output1.cpp
+output2.tex     : output2.cpp
+integ_file.tex  : integ_file.cpp integ_file.h
+anglular.tex    : angular.cpp angular.h 
+flexfile.tex    : flexfile.h
+print.tex       : print.cpp
+coef_set.tex	: coef_set.h coef_set.cpp
+operators.tex   : operators.cpp operators.h
+hrr_set.tex     : hrr_set.h hrr_set.cpp
+const.tex       : const.h 
+output3.tex     : output3.cpp 
+sphere.tex      : sphere.cpp sphere.h
+input.tex       : input.cpp
+rec_stor.tex    : rec_stor.cpp rec_stor.h
+four_stor.tex   : four_stor.cpp four_stor.h
+output3.tex     : output3.cpp
+symdesig.tex    : symdesig.cpp symdesig.h
+symop.tex       : symop.cpp symop.h
+one_el.tex      : one_el.h one_el.cpp
+twoel.tex       : twoel.cpp twoel.h
+sphere.tex      : sphere.cpp sphere.h
+symlogic.tex    : symlogic.cpp
+tquadruple.tex  : tquadruple.h
+tpair.tex       : tpair.h
+alloc.tex       : alloc.cpp
+orbinfo.tex     : orbinfo.h orbinfo.cpp
+spin_orb.tex    : spin_orb.cpp spin_orb.h
+nuc_mom.tex     : nuc_mom.h nuc_mom.cpp
+nuc_e_field.tex : nuc_e_field.cpp nuc_e_field.h
+symlogic.tex    : symlogic.cpp
+#
+#  DEPENDENCIES FOR OBJECTS
+#
+#include depends
+
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="MG_HOH1" >
+<molecule name="MG_HOH1" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    1    MG  12      0.033000000     -0.317000000      0.335000000 </atom>
+<res name="HOH"  no="2" /> 
+  <atom>    2     O  8      0.033000000     -0.317000000      2.443000000 <bonds> 4  3  </bonds></atom>
+  <atom>    3    H1  1      0.800000000     -0.317000000      3.009000000 <bonds> 2  </bonds></atom>
+  <atom>    4    H2  1     -0.737000000     -0.271000000      3.003000000 <bonds> 2  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+<zmat mset_name="MG_HOH1" nat="4" >
+  Mg  
+   O      1         rMO1   
+   H      2        rOH11       1        aMOH1   
+   H      2        rOH12       3        aHOH1       1       dMHOH1   
+   
+       aHOH1   107.526418 
+       aMOH1   126.425101 
+      dMHOH1  -177.099188 
+        rMO1     2.108000 
+       rOH11     0.953229 
+       rOH12     0.953214 
+</zmat>
+<atgrp id="MG_AT" size=" 1" >
+  molname=MG_HOH1 
+ MG1.MG  
+</atgrp>
+</molset>
+</HARLEM_DATA>

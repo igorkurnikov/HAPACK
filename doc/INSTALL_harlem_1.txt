@@ -1,0 +1,107 @@
+LINUX:
+
+LINUX distribution name and ID:  
+
+UBUNTU(12.04) packages:
+
+subversion
+zlib1g-dev  
+python-dev
+mpich2
+libgmp-dev
+
+link / to /export ( required for some links in /home/igor/local/bin )
+
+---------------------------------------------------------------------------------
+HAPACK checkout command:
+svn --username igor checkout https://crete.chem.cmu.edu/svn/harlemsvn/HAPACK
+----------------cd ---------------------------------------------------------------
+HAPACK compilation commands:
+
+LINUX NOGUI (IGOR CMU):
+
+../HAPACK/configure --prefix /home/igor/HARLEM --with-wx-config=/home/igor/local/bin/wx-config --with-mpich=/usr/lib/mpich2 --with-mkl64=/opt/intel/mkl
+
+LINUX NOGUI (INTERX cluster):
+../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/share/apps/local/bin/wx-config --with-mpich=/opt/openmpi/ --with-mkl64=/share/apps/MOLPROLIBS/mkl
+
+wxWidgets libraries on INTERX cluster:
+
+/home/kurnikov/MYPROG/wxWidgets/wx-config
+
+/share/apps/local/bin/wx-config
+
+MKL libraries on INTERX cluster:
+
+/share/apps/MOLPROLIBS/mkl/lib/intel64
+
+MPI include flags (INTERX cluster):
+mpicxx --showme:compile   :   -I/opt/openmpi/include -pthread
+MPI link flags (INTERX cluster):
+mpicxx --showme:link  :  -pthread -L/opt/openmpi/lib -lmpi_cxx -lmpi -libverbs -ldat -lrt -lnsl -lutil -lm -ldl -lm -Wl,--export-dynamic -lrt -lnsl -lutil -lm -ldl
+
+taken from MMFitter install: 
+c-make-run.sh:MPI_INCLUDE=$(mpicxx --showme:compile)
+c-make-run.sh:MPI_LINK_FLAGS=$(mpicxx --showme:link)
+
+-------------------------------------------------------------------------------
+swig build configure params:
+configure --prefix ${HOME}/local --without-prse 
+----------------------------------------------------------------------------------
+wxWidgets 2.8.10 flags:
+
+make install --ignore  ( pass some errors during install)
+
+with intel c++ 13 and python 2.7 needed to 
+#include <cstddef>  to pnpmod_wrap.cpp,  hamolset_wrap.cpp and 
+to resolve ptrdiff_t type
+
+plugged 
+ 
+%begin %{
+#include <mpi.h>  
+#include <cstddef>  
+%}
+
+into hamolset.i file and halib.i file   I hope it fixed the issue
+--------------------------------------------------------------------------------------------
+wxWidgets config on linux:
+
+NOGUI:
+
+mkdir wxWidgets/build_nogui:
+
+Igor CMU Linux:
+../configure --disable-gui --disable-shared --prefix=/export/home/igor/local    - 
+
+InterX cluster:
+export CC=/opt/centos/devtoolset-1.1/root/usr/bin/gcc
+export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++
+../configure --disable-gui --disable-shared --prefix=/export/apps/local           - 
+make
+
+------------------------------------------------------------------------------------------
+INTEL complilers and MKL on LINUX:
+
+File to use: 
+parallel_studio_xe_2013_update2_linux.tgz
+
+Intel® Parallel Studio XE for Linux* 
+Your product serial number is: N433-2DHW3DJL
+Get new product updates and releases through: March 29, 2014
+
+--------------------------------------------------------------------------------------------
+mortlib in
+
+~/MYPROG/AMBER11_IGOR
+---------------------------------------------------------------------------------------------
+
+MKL library needed to be present:
+
+mkl_sequential.dll
+mkl_core.dll
+mkl_avx.dll    - (mkl_core.dll and mkl_sequential.dll depends on it but never complain....) 
+
+may be for additional functions other MKL libraries are needed
+In the currently used MKL version they are in :
+c:\Program Files (x86)\Intel\Composer XE 2013\redist\ia32\mkl  

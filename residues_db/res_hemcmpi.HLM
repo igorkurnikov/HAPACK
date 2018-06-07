@@ -1,0 +1,206 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=res_hemcmpi
+#MOLECULE 
+MOLNAME=HEM#CMPI
+#ATOMS 
+    1  26 "FE"     24.178173776      1.571540823      1.660384789  " " "HEM"       1     1.28000 "NO_HYBRID" ""  "FE"     55.84700 
+    2   7 "NA"     24.156209873      3.630917915      1.951732656  " " "HEM"       1    -0.14000 "NO_HYBRID" ""  "NP"     14.00670 
+    3   6 "C1A"     25.266305895      4.450717814      1.947866445  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+    4   6 "C2A"     24.856164614      5.779917457      2.178327810  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+    5   6 "CAA"     25.800965082      6.956087217      2.242177380  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CT"     12.01100 
+    6   1 "HAA1"     26.331831143      7.048207408      1.294656881  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+    7   1 "HAA2"     26.519558011      6.802270392      3.047201968  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+    8   6 "CBA"     25.035066037      8.265422511      2.507958755  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CT"     12.01100 
+    9   1 "HBA1"     24.505581888      8.190841658      3.457792548  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   10   1 "HBA2"     24.317855020      8.436778675      1.705247461  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   11   6 "CGA"     26.023084541      9.428289239      2.565312119  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "C"     12.01100 
+   12   8 "O1A"     26.277524719     10.021760834      1.483345547  " " "HEM"       1    -0.40000 "NO_HYBRID" ""  "O2"     15.99940 
+   13   8 "O2A"     26.513952451      9.712021839      3.690542987  " " "HEM"       1    -0.40000 "NO_HYBRID" ""  "O2"     15.99940 
+   14   6 "C3A"     23.454031243      5.759042555      2.325590323  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   15   6 "CMA"     22.592582086      6.971134660      2.587960445  " " "HEM"       1    -0.30000 "NO_HYBRID" ""  "CT"     12.01100 
+   16   1 "HMA1"     22.709583816      7.684208158      1.771910948  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   17   1 "HMA2"     21.548127605      6.667121524      2.657176401  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   18   1 "HMA3"     22.897310684      7.438271141      3.524456035  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   19   6 "C4A"     23.044284276      4.417636453      2.181239743  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   20   6 "CHB"     21.764156403      3.934557043      2.250571647  " " "HEM"       1    -0.07000 "NO_HYBRID" ""  "CD"     12.01100 
+   21   1 "HHB"     20.941342702      4.609781479      2.433463901  " " "HEM"       1     0.15000 "NO_HYBRID" ""  "HC"      1.00790 
+   22   6 "C1B"     21.366033463      2.631205014      2.110316118  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   23   7 "NB"     22.229807117      1.582009881      1.870556556  " " "HEM"       1    -0.14000 "NO_HYBRID" ""  "NO"     14.00670 
+   24   6 "C2B"     20.048529594      2.134021097      2.181672312  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   25   6 "CMB"     18.818384353      2.973403091      2.431233033  " " "HEM"       1    -0.30000 "NO_HYBRID" ""  "CT"     12.01100 
+   26   1 "HMB2"     18.721068617      3.719738027      1.642808140  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   27   1 "HMB3"     17.936041864      2.333442486      2.435940124  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   28   1 "HMB1"     18.908795485      3.473801010      3.395353227  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   29   6 "C3B"     20.122117467      0.740712000      1.978264875  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   30   6 "CAB"     18.955313113     -0.217712283      1.968752148  " " "HEM"       1    -0.10000 "NO_HYBRID" ""  "CY"     12.01100 
+   31   6 "CBB"     18.319955915     -0.480625664      0.830289243  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CX"     12.01100 
+   32   6 "C4B"     21.482651361      0.423167605      1.787967524  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   33   6 "CHC"     22.015150861     -0.817759399      1.556786967  " " "HEM"       1    -0.07000 "NO_HYBRID" ""  "CD"     12.01100 
+   34   1 "HHC"     21.368942989     -1.681537070      1.504791544  " " "HEM"       1     0.15000 "NO_HYBRID" ""  "HC"      1.00790 
+   35   6 "C1C"     23.318037465     -1.195024647      1.364283897  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   36   7 "NC"     24.384388463     -0.319113712      1.372977648  " " "HEM"       1    -0.14000 "NO_HYBRID" ""  "NP"     14.00670 
+   37   6 "C2C"     23.797789053     -2.499992105      1.129766640  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   38   6 "CMC"     22.936701614     -3.737729260      1.048310171  " " "HEM"       1    -0.30000 "NO_HYBRID" ""  "CT"     12.01100 
+   39   1 "HMC2"     22.216824568     -3.627427133      0.237316657  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   40   1 "HMC1"     23.566266160     -4.607131629      0.858868879  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   41   1 "HMC3"     22.404551435     -3.873364150      1.989861743  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   42   6 "C3C"     25.197990060     -2.406068321      0.992962164  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   43   6 "CAC"     26.143133696     -3.554100677      0.730616556  " " "HEM"       1    -0.10000 "NO_HYBRID" ""  "CY"     12.01100 
+   44   6 "CBC"     26.437872799     -3.900516951     -0.519193281  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CX"     12.01100 
+   45   6 "C4C"     25.536996781     -1.046179549      1.147483904  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   46   6 "CHD"     26.790974316     -0.497402959      1.090172514  " " "HEM"       1    -0.07000 "NO_HYBRID" ""  "CD"     12.01100 
+   47   1 "HHD"     27.648783521     -1.128285365      0.909754232  " " "HEM"       1     0.15000 "NO_HYBRID" ""  "HC"      1.00790 
+   48   6 "C1D"     27.189097256      0.805949070      1.230428042  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   49   7 "ND"     26.325323602      1.855144203      1.470187603  " " "HEM"       1    -0.14000 "NO_HYBRID" ""  "NO"     14.00670 
+   50   6 "C2D"     28.506601126      1.303132987      1.159071849  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   51   6 "CMD"     29.736746367      0.463750994      0.909511127  " " "HEM"       1    -0.30000 "NO_HYBRID" ""  "CT"     12.01100 
+   52   1 "HMD1"     29.646335234     -0.036646926     -0.054609067  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   53   1 "HMD2"     30.619088856      1.103711599      0.904804036  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   54   1 "HMD3"     29.834062102     -0.282583942      1.697936020  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   55   6 "C3D"     28.433013252      2.696442085      1.362479285  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CB"     12.01100 
+   56   6 "C4D"     27.072479358      3.013986478      1.552776636  " " "HEM"       1     0.06000 "NO_HYBRID" ""  "CC"     12.01100 
+   57   6 "CHA"     26.539979858      4.254913484      1.783957192  " " "HEM"       1    -0.07000 "NO_HYBRID" ""  "CD"     12.01100 
+   58   1 "HHA"     27.186187729      5.118691154      1.835952616  " " "HEM"       1     0.15000 "NO_HYBRID" ""  "HC"      1.00790 
+   59   6 "CAD"     29.632091858      3.614216770      1.362830487  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CT"     12.01100 
+   60   1 "HAD1"     30.134669569      3.556600902      0.397327480  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   61   1 "HAD2"     30.322396436      3.310663887      2.149872567  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   62   6 "CBD"     29.209762133      5.073907867      1.612909480  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "CT"     12.01100 
+   63   1 "HBD1"     28.712781158      5.148271890      2.580163274  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   64   1 "HBD2"     28.525054291      5.394208907      0.827618187  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00790 
+   65   6 "CGD"     30.449820033      5.970069908      1.605838183  " " "HEM"       1    -0.20000 "NO_HYBRID" ""  "C"     12.01100 
+   66   8 "O1D"     30.798405610      6.462284897      0.499577589  " " "HEM"       1    -0.40000 "NO_HYBRID" ""  "O2"     15.99940 
+   67   8 "O2D"     31.034833343      6.152545902      2.706775029  " " "HEM"       1    -0.40000 "NO_HYBRID" ""  "O2"     15.99940 
+   68   1 "HAB"     19.325653114     -1.204305195      2.221308498  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   69   1 "HBB1"     17.813999102      0.322556839      0.288825883  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   70   1 "HBB2"     18.303955231     -1.493469057      0.438766269  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   71   1 "HAC"     27.083387737     -3.276268818      1.193829033  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   72   1 "HBC2"     27.469965772     -3.861449240     -0.866397558  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   73   1 "HBC1"     25.646565293     -4.223673273     -1.196508144  " " "HEM"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+   74   8 "O"     24.041042628      1.751193452      0.380181687  " " "HEM"       1    -1.00000 "NO_HYBRID" "A"  "O"     15.99940 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1    23  SINGLE
+    1    36  SINGLE
+    1    49  SINGLE
+    1    74  SINGLE
+    2     3  SINGLE
+    2    19  SINGLE
+    3     4  SINGLE
+    3    57  SINGLE
+    4     5  SINGLE
+    4    14  SINGLE
+   38    39  SINGLE
+   38    40  SINGLE
+   38    41  SINGLE
+   38    37  SINGLE
+    5     6  SINGLE
+    5     7  SINGLE
+    5     8  SINGLE
+    8     9  SINGLE
+    8    10  SINGLE
+    8    11  SINGLE
+   11    12  SINGLE
+   11    13  SINGLE
+   14    15  SINGLE
+   14    19  SINGLE
+   15    16  SINGLE
+   15    17  SINGLE
+   15    18  SINGLE
+   19    20  SINGLE
+   20    21  SINGLE
+   20    22  SINGLE
+   22    23  SINGLE
+   22    24  SINGLE
+   23    32  SINGLE
+   24    25  SINGLE
+   24    29  SINGLE
+   25    26  SINGLE
+   25    27  SINGLE
+   25    28  SINGLE
+   29    30  SINGLE
+   29    32  SINGLE
+   30    31  SINGLE
+   30    68  SINGLE
+   31    69  SINGLE
+   31    70  SINGLE
+   32    33  SINGLE
+   33    34  SINGLE
+   33    35  SINGLE
+   35    36  SINGLE
+   35    37  SINGLE
+   36    45  SINGLE
+   37    42  SINGLE
+   42    43  SINGLE
+   42    45  SINGLE
+   43    44  SINGLE
+   43    71  SINGLE
+   44    72  SINGLE
+   44    73  SINGLE
+   45    46  SINGLE
+   46    47  SINGLE
+   46    48  SINGLE
+   48    49  SINGLE
+   48    50  SINGLE
+   49    56  SINGLE
+   50    51  SINGLE
+   50    55  SINGLE
+   51    52  SINGLE
+   51    53  SINGLE
+   51    54  SINGLE
+   55    56  SINGLE
+   55    59  SINGLE
+   56    57  SINGLE
+   57    58  SINGLE
+   59    60  SINGLE
+   59    61  SINGLE
+   59    62  SINGLE
+   62    63  SINGLE
+   62    64  SINGLE
+   62    65  SINGLE
+   65    66  SINGLE
+   65    67  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+ 10001   1.00000      0  
+ 11   1.00000      0  
+ 12   1.00000      0  
+ 15   1.00000      0  
+ 16   1.00000      0  
+ 17   1.00000      0  
+ 18   1.00000      0  
+ 19   1.00000      0  
+ 20   1.00000      0  
+ 21   1.00000      0  
+ 22   1.00000      0  
+ 23   1.00000      0  
+ 24   1.00000      0  
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$HEM#CMPI$HEM1.NA  $HEM#CMPI$HEM1.C1A  $HEM#CMPI$HEM1.C4A  $HEM#CMPI$HEM1.FE  
+$HEM#CMPI$HEM1.NB  $HEM#CMPI$HEM1.C1B  $HEM#CMPI$HEM1.C4B  $HEM#CMPI$HEM1.FE  
+$HEM#CMPI$HEM1.NC  $HEM#CMPI$HEM1.C1C  $HEM#CMPI$HEM1.C4C  $HEM#CMPI$HEM1.FE  
+$HEM#CMPI$HEM1.ND  $HEM#CMPI$HEM1.C1D  $HEM#CMPI$HEM1.C4D  $HEM#CMPI$HEM1.FE  
+$HEM#CMPI$HEM1.C1A  $HEM#CMPI$HEM1.C2A  $HEM#CMPI$HEM1.NA  $HEM#CMPI$HEM1.CHA  
+$HEM#CMPI$HEM1.C1B  $HEM#CMPI$HEM1.C2B  $HEM#CMPI$HEM1.NB  $HEM#CMPI$HEM1.CHB  
+$HEM#CMPI$HEM1.C1C  $HEM#CMPI$HEM1.C2C  $HEM#CMPI$HEM1.NC  $HEM#CMPI$HEM1.CHC  
+$HEM#CMPI$HEM1.C1D  $HEM#CMPI$HEM1.C2D  $HEM#CMPI$HEM1.ND  $HEM#CMPI$HEM1.CHD  
+$HEM#CMPI$HEM1.C2A  $HEM#CMPI$HEM1.C3A  $HEM#CMPI$HEM1.C1A  $HEM#CMPI$HEM1.CAA  
+$HEM#CMPI$HEM1.C2B  $HEM#CMPI$HEM1.C3B  $HEM#CMPI$HEM1.C1B  $HEM#CMPI$HEM1.CMB  
+$HEM#CMPI$HEM1.C2C  $HEM#CMPI$HEM1.C3C  $HEM#CMPI$HEM1.C1C  $HEM#CMPI$HEM1.CMC  
+$HEM#CMPI$HEM1.C2D  $HEM#CMPI$HEM1.C3D  $HEM#CMPI$HEM1.C1D  $HEM#CMPI$HEM1.CMD  
+$HEM#CMPI$HEM1.C3A  $HEM#CMPI$HEM1.C4A  $HEM#CMPI$HEM1.C2A  $HEM#CMPI$HEM1.CMA  
+$HEM#CMPI$HEM1.C3B  $HEM#CMPI$HEM1.C4B  $HEM#CMPI$HEM1.C2B  $HEM#CMPI$HEM1.CAB  
+$HEM#CMPI$HEM1.C3C  $HEM#CMPI$HEM1.C4C  $HEM#CMPI$HEM1.C2C  $HEM#CMPI$HEM1.CAC  
+$HEM#CMPI$HEM1.C3D  $HEM#CMPI$HEM1.C4D  $HEM#CMPI$HEM1.C2D  $HEM#CMPI$HEM1.CAD  
+$HEM#CMPI$HEM1.C4A  $HEM#CMPI$HEM1.NA  $HEM#CMPI$HEM1.C3A  $HEM#CMPI$HEM1.CHB  
+$HEM#CMPI$HEM1.C4B  $HEM#CMPI$HEM1.NB  $HEM#CMPI$HEM1.C3B  $HEM#CMPI$HEM1.CHC  
+$HEM#CMPI$HEM1.C4C  $HEM#CMPI$HEM1.NC  $HEM#CMPI$HEM1.C3C  $HEM#CMPI$HEM1.CHD  
+$HEM#CMPI$HEM1.C4D  $HEM#CMPI$HEM1.ND  $HEM#CMPI$HEM1.C3D  $HEM#CMPI$HEM1.CHA  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

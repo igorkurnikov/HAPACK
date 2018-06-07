@@ -1,0 +1,2 @@
+#!/bin/sh 
+pmemd -O -i pept_3.inp -o pept_3.out -p pept_3.top -c pept_3.crd -r pept_3.rst -ref pept_3.ref -x pept_3.mdcrd -v pept_3.mdvel -e pept_3.mden 

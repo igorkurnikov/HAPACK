@@ -1,0 +1,108 @@
+g++ -O3 -Dlinux -DGNU -DGCC_NEW -I../DO_LIB/include -I../DO_LIB/template -I../generic -I../../../mpi/include   -c types.cpp
+In file included from ../DO_LIB/include/numer.h:52,
+                 from ../generic/vtype.h:25,
+                 from const.h:91,
+                 from types.h:36,
+                 from types.cpp:27:
+../DO_LIB/template/tnumarray.h:177: warning: friend declaration `NumArray<Base> 
+   operator+(const NumArray<Base>&, const NumArray<Base>&)' declares a 
+   non-template function
+../DO_LIB/template/tnumarray.h:177: warning: (if this is not what you intended, 
+   make sure the function template has already been declared and add <> after 
+   the function name here) -Wno-non-template-friend disables this warning
+../DO_LIB/template/tnumarray.h:179: warning: friend declaration `NumArray<Base> 
+   operator-(const NumArray<Base>&, const NumArray<Base>&)' declares a 
+   non-template function
+../DO_LIB/template/tnumarray.h:182: warning: friend declaration `NumArray<Base> 
+   operator*(const NumArray2D<Base>&, const NumArray<Base>&)' declares a 
+   non-template function
+../DO_LIB/template/tnumarray.h:184: warning: friend declaration `NumArray<Base> 
+   operator*(const NumArray<Base>&, const NumArray2D<Base>&)' declares a 
+   non-template function
+../DO_LIB/template/tnumarray.h:631: warning: friend declaration `
+   NumArray2D<Base> operator*(const NumArray2D<Base>&, const NumArray2D<Base>&)
+   ' declares a non-template function
+../DO_LIB/template/tnumarray.h:633: warning: friend declaration `
+   NumArray2D<Base> operator+(const NumArray2D<Base>&, const NumArray2D<Base>&)
+   ' declares a non-template function
+../DO_LIB/template/tnumarray.h:635: warning: friend declaration `
+   NumArray2D<Base> operator-(const NumArray2D<Base>&, const NumArray2D<Base>&)
+   ' declares a non-template function
+types.cpp:33: error: specialization of std::basic_ostream<_CharT, _Traits>& 
+   std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, 
+   _Traits = std::char_traits<char>] after instantiation
+types.cpp:33: error: prototype for `std::basic_ostream<_CharT, _Traits>& 
+   std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, 
+   _Traits = std::char_traits<char>]' does not match any in class `
+   std::basic_ostream<char, std::char_traits<char> >'
+/usr/include/g++/bits/ostream.tcc:313: error: candidates are: 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(std::basic_streambuf<_CharT, _Traits>*) [with _CharT = 
+   char, _Traits = std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:289: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(const void*) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:265: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(long double) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/ostream:219: error:                 std::basic_ostream<_CharT, 
+   _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with 
+   _CharT = char, _Traits = std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:241: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(double) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:216: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(long long unsigned int) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:181: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(long long int) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/ostream:204: error:                 std::basic_ostream<_CharT, 
+   _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) 
+   [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/include/g++/ostream:193: error:                 std::basic_ostream<_CharT, 
+   _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT 
+   = char, _Traits = std::char_traits<char>]
+/usr/include/g++/ostream:189: error:                 std::basic_ostream<_CharT, 
+   _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned 
+   int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/include/g++/ostream:178: error:                 std::basic_ostream<_CharT, 
+   _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with 
+   _CharT = char, _Traits = std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:98: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(bool) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:156: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(long unsigned int) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:122: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(long int) [with _CharT = char, _Traits = 
+   std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:86: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(std::ios_base&(*)(std::ios_base&)) [with _CharT = char, 
+   _Traits = std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:74: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(std::basic_ios<_CharT, 
+   _Traits>&(*)(std::basic_ios<_CharT, _Traits>&)) [with _CharT = char, _Traits 
+   = std::char_traits<char>]
+/usr/include/g++/bits/ostream.tcc:63: error:                 
+   std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, 
+   _Traits>::operator<<(std::basic_ostream<_CharT, 
+   _Traits>&(*)(std::basic_ostream<_CharT, _Traits>&)) [with _CharT = char, 
+   _Traits = std::char_traits<char>]
+types.cpp:33: error: `std::basic_ostream<_CharT, _Traits>& 
+   std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, 
+   _Traits = std::char_traits<char>]' and `std::basic_ostream<_CharT, _Traits>& 
+   std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, 
+   _Traits = std::char_traits<char>]' cannot be overloaded
+make: *** [types.o] Error 1

@@ -1,0 +1,108 @@
+data:
+-----------------------------------------------------
+ewald_coef ( p_mm_model->pme_ew_coeff )
+
+computed in mdin_ewald_dat_mod:  compute_ew_coeff() called in c++ if p_mm_model->pme_ew_coeff == 0.0 at start
+
+
+
+---------------------------------------------------------------------------------------------------------
+nb_pairlist_mod:
+
+double precision, save, allocatable   :: gbl_saved_imgcrd(:,:)
+integer, allocatable, save            :: gbl_ipairs(:)  - atom(images) pair list   set in get_nb_list()
+integer, save                         :: ipairs_size  - allocation size of gbl_ipairs array ( automatically adjusted in pme_list )
+---------------------------------------------------------------------------------------------------------
+img_mod:  
+
+atoms images - atom arranged sequentially in rectangular buckets  (cit_tbl_x_dim X cit_tbl_y_dim X cit_tbl_z_dim )
+               within periodical box 
+
+type(img_rec), save, allocatable  gbl_img(:) - img_rec is (x,y,z, qterm (sq_polinv) in amoeba) - should it be recomputed then for changed polarization
+                                               x,y,z - atom(images) coordinates within unit cell ( 0-a,0-b,0-c) for periodical box
+integer, save, allocatable                    :: gbl_atm_img_map(:) - map atom indexes to image indexes
+integer, save, allocatable                    :: gbl_img_atm_map(:) - map image indexes to atom indexes
+integer, save, allocatable                    :: gbl_img_iac(:)     - ff atom types of images 
+integer, save, allocatable                    :: gbl_excl_img_flags(:)
+
+! my_img_* covers the range of images you "own"; ie. forces are accumulated
+! in the local process for those images.  These are assigned WITHOUT wrapping.
+! used_img_* covers the range of images you "use"; ie. you may need 
+! coordinate information and will report nonbonded force information to the
+! owner for some images in this range. This range may wrap through natom to 1.
+
+integer, save         :: my_img_lo, my_img_hi    ! low and high indexes of atoms that belong to a processor 
+integer, save         :: used_img_lo, used_img_hi
+
+logical, save         :: used_img_range_wraps ! from lo through natom to hi
+
+------------------------------------------------------------------------------------------------------------
+parallel_dat_mod:
+
+! Used for async mpi sends/recvs in fft and force code.
+
+  integer, allocatable, save    :: gbl_taskmap(:)
+  integer, allocatable, save    :: gbl_inv_taskmap(:)
+  integer, allocatable, save    :: gbl_img_div_tbl(:)  ! distribution of atoms on processors
+                                                       ! idx from img_lo = gbl_img_div_tbl(task_id) + 1
+                                                       ! img_hi = gbl_img_div_tbl(task_id + 1) 
+
+! The following three arrays are for use in mpi routines defined in this
+  ! module; the vectors they are used on (crd,frc,vel) DO NOT
+  ! contain data that is segregated by owning task (ie., these are not
+  ! really division tables).  Instead, data must be marshalled into and out of
+  ! temporary buffers according to gbl_atm_owner_map().
+
+  integer, save         :: extra_used_atm_cnt
+
+  integer, allocatable, save    :: gbl_atm_offsets(:)      ! VGB
+  integer, allocatable, save    :: gbl_vec_offsets(:)      ! VGB
+  integer, allocatable, save    :: gbl_vec_rcvcnts(:)      ! allocated(0:numtasks) - number of coordiates per MPI process (task) ( num atoms per MPI process X 3)  
+
+!  integer, allocatable, save    :: gbl_atm_owner_map(:)    ! allocated(natom), = taskid (rank) atom belong to  ( = 0 for serial run)
+
+  integer, allocatable, save    :: gbl_send_atm_lst(:)
+  integer, allocatable, save    :: gbl_send_atm_cnts(:)
+  integer, allocatable, save    :: gbl_recv_atm_lsts(:,:)
+  integer, allocatable, save    :: gbl_recv_atm_cnts(:)
+  integer, allocatable, save    :: gbl_extra_used_atms(:)   ! Atom used when computing energies and forces but not owned by the processor 
+
+  integer, save :: siz_dbl_mpi_bufs = 0                                     !VGB
+
+  double precision, allocatable, save   :: dbl_mpi_send_buf(:)              !VGB
+  double precision, allocatable, save   :: dbl_mpi_recv_buf(:)              !VGB
+
+-------------------------------------------------------------------------------------------------------------
+gbl_img_div_tbl is set in:
+  
+divide_images_evenly() - simple
+divide_images_recip_biased() - if not all processors doing recip space caclulations
+
+these arrays set in  
+pme_list()
+call:
+
+get_fract_crds - compute fractional lattice coordinates ( from 0 to +0.9999... ) from cartesian coords crd
+
+amoeba_setup_cit_master()/setup_cit() 
+get_nb_list()
+get_excl_img_list()
+claim_recip_imgs()/claim_recip_imgs_nonorthog()
+find_img_range()
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+am_direct_ene_frc() - compute direct part of PME sum for electrostatic interactions
+and other non-bonded interactions.
+
+use ipairs() == gbl_ipairs()
+    img()    == gbl_img()
+	tranvec() 
+ 
+
+--------------------------------------------------------------------
+direct VDW interactions:
+am_vdw_direct_ene_frc_i() called by am_direct_ene_frc() 
+
+compute

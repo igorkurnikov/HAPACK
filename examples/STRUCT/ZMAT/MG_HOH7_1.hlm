@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="MG_HOH7" >
+<molecule name="MG_HOH7" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    1    MG  12      0.033000000     -0.317000000      0.335000000 </atom>
+<res name="HOH"  no="2" /> 
+  <atom>    2     O  8      0.033000000     -0.317000000      2.443000000 <bonds> 4  3  </bonds></atom>
+  <atom>    3    H1  1      0.800000000     -0.317000000      3.009000000 <bonds> 2  </bonds></atom>
+  <atom>    4    H2  1     -0.737000000     -0.271000000      3.003000000 <bonds> 2  </bonds></atom>
+<res name="HOH"  no="3" /> 
+  <atom>    5     O  8     -2.075000000     -0.215000000      0.474000000 <bonds> 6  7  </bonds></atom>
+  <atom>    6    H1  1     -2.600000000      0.580000000      0.475000000 <bonds> 5  </bonds></atom>
+  <atom>    7    H2  1     -2.672000000     -0.943000000      0.320000000 <bonds> 5  </bonds></atom>
+<res name="HOH"  no="4" /> 
+  <atom>    8     O  8      0.148000000      1.762000000      0.221000000 <bonds> 9  10  </bonds></atom>
+  <atom>    9    H1  1      0.225000000      2.391000000      0.931000000 <bonds> 8  </bonds></atom>
+  <atom>   10    H2  1      0.082000000      2.247000000     -0.607000000 <bonds> 8  </bonds></atom>
+<res name="HOH"  no="5" /> 
+  <atom>   11     O  8      0.059000000     -0.322000000     -1.756000000 <bonds> 12  13  </bonds></atom>
+  <atom>   12    H1  1      0.464000000     -0.943000000     -2.353000000 <bonds> 11  </bonds></atom>
+  <atom>   13    H2  1     -0.102000000      0.485000000     -2.252000000 <bonds> 11  </bonds></atom>
+<res name="HOH"  no="6" /> 
+  <atom>   14     O  8      2.133000000     -0.539000000      0.495000000 <bonds> 15  16  </bonds></atom>
+  <atom>   15    H1  1      2.770000000      0.153000000      0.342000000 <bonds> 14  </bonds></atom>
+  <atom>   16    H2  1      2.616000000     -1.361000000      0.526000000 <bonds> 14  </bonds></atom>
+<res name="HOH"  no="7" /> 
+  <atom>   17     O  8     -0.151000000     -2.509000000      0.362000000 <bonds> 18  19  </bonds></atom>
+  <atom>   18    H1  1     -0.168000000     -3.022000000      1.165000000 <bonds> 17  </bonds></atom>
+  <atom>   19    H2  1     -0.306000000     -3.118000000     -0.355000000 <bonds> 17  </bonds></atom>
+<res name="HOH"  no="8" /> 
+  <atom>   20     O  8     -0.184000000      2.426000000     -2.530000000 <bonds> 21  22  </bonds></atom>
+  <atom>   21    H1  1      0.518000000      2.829000000     -3.034000000 <bonds> 20  </bonds></atom>
+  <atom>   22    H2  1     -0.989000000      2.811000000     -2.867000000 <bonds> 20  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+</molset>
+</HARLEM_DATA>

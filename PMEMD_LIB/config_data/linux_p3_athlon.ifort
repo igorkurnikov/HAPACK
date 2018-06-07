@@ -1,0 +1,20 @@
+DIRFRC_DEFINES = -DDIRFRC_EFS -DDIRFRC_NOVEC
+CPP = /lib/cpp
+CPPFLAGS = -traditional -P
+F90_DEFINES = -DFFTLOADBAL_2PROC
+
+F90 = ifort
+MODULE_SUFFIX = mod
+F90FLAGS = -c -auto
+F90_OPT_DBG = -g -traceback
+F90_OPT_LO =  -tpp6 -O0
+F90_OPT_MED = -tpp6 -O2
+F90_OPT_HI =  -tpp6 -ip -O3
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = gcc
+CFLAGS =
+
+LOAD = ifort
+LOADFLAGS =
+LOADLIBS = -limf -Wl,-rpath=$(IFORT_RPATH)

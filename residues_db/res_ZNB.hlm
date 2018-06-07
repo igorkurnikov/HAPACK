@@ -1,0 +1,27 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=residue_ZNB
+#MOLECULE 
+MOLNAME=ZNB
+#ATOMS 
+    1  16 "DZ1"     -6.000000000     12.502000000      4.334000000 "A" "ZNB"     1     0.50000 "NO_HYBRID" "" "DZ"    32.06000 
+    2  16 "DZ2"     -5.930260818     13.971109323      4.592756222 "A" "ZNB"     1     0.50000 "NO_HYBRID" "" "DZ"    32.06000 
+    3  16 "DZ3"     -4.718052971     13.163457023      4.565486752 "A" "ZNB"     1     0.50000 "NO_HYBRID" "" "DZ"    32.06000 
+    4  16 "DZ4"     -5.439747371     13.455392012      3.329530263 "A" "ZNB"     1     0.50000 "NO_HYBRID" "" "DZ"    32.06000 
+    5  30 "ZN"       -5.536008755     13.262005912      4.203221033 "A" "ZNB"     1     0.00000 "NO_HYBRID" "" "ZN"    65.38000 
+#END ATOMS 
+#BONDS 
+    1     4  SINGLE
+    1     5  SINGLE
+    1     2  SINGLE
+    1     3  SINGLE
+    4     5  SINGLE
+    4     2  SINGLE
+    4     3  SINGLE
+    5     2  SINGLE
+    5     3  SINGLE
+    2     3  SINGLE
+#END BONDS 
+#END MOLECULE 
+#ATOM LISTS 
+#END ATOM LISTS 
+#END MOL_SET

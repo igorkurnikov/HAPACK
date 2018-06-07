@@ -1,0 +1,258 @@
+    Molecular Mechanics Calculations using HARLEM and AMBER. 
+
+            Tutorial: Energy Minimization and Molecular Dynamic Simulation of ALA-LYS-TYR peptide.
+
+Files:
+
+1)pept_1_init.pdb      - Initial geometry of ALA-LYS-TYR peptide (no hydrogens) in PDB format
+2)calc_dih_1.py        - PYTHON script to compute a torsional angle in the points of MD trajectory
+3)print_ene_1.py       - PYTHON script to print total energy in the points of MD trajectory
+4)print_ene_2.py       - PYTHON script to print energies in the points of MD trajectory
+5)calc_dist_1.py       - PYTHON script to compute distance between atoms TYR3.O and LYS2.NZ in MD snapshots 
+6)comp_rms_1.py        - PYTHON script to compute RMS deviation of atoms of the first molecules along MD
+
+
+Initial setup:
+
+	1) Create a new directory with the name md_tutorial1.
+
+	2) Copy files pept_1_init.pdb and *.py to this directory.
+
+
+
+1. MM model setup and Energy Minimization of the peptide:
+
+	Start HARLEM and load the initial geometry of the molecule provided in the file pept_1_init.pdb. 
+       
+      	File->Open Molecule - open file dialog box.
+      	Choose "Protein Data Bank" (pdb) as the file type to load the file.
+
+
+2. Fixing Molecular Structure according to Residue Templates:
+
+	INFO: Molecular structures resolved by x-ray crystallography usually lack hydrogen atoms.
+   	Often other groups of atoms are missing. To model a molecule we first need to fix the chemical 
+ 	structure to correspond to a correct molecular template.
+   	HARLEM uses AMBER force-field and has a database of molecular structures for amino acid residues,
+   	nucleotides, water, some organic molecules and simple ions. All molecular templates and 
+   	force-field parameters are stored in the dyrectory
+   	HARLEM\residues_db. 
+
+   	The format of the template files is HARLEM file format: hlm. 
+   	You can load any of the templates into HARLEM to visualize chemical groups known to HARLEM.
+
+
+   	In this case we need to add missing hydrogen atoms and make sure the residue templates match.
+   	To do so:
+
+   	1)Open the Edit Residue Parameters Dialog ( Edit->Edit Residue Parameters)
+
+   	2)Check if the first residue has a modifier NT (N-terminal) and that 
+		the last residue has a modifier CT (C-terminal).
+		This is needed to properly terminate the polypeptide chain. 
+		There are special templates for end residues, hence there are 3 templates for each residue.
+   
+   	3)Check if the residue atom names and order conforms with the residue templates:
+        	In the Edit Residue Parameters Dialog click on Edit->Check Res Struct
+         	If there is a mismatch with a template the Console Window will display 
+			diagnostic messages listing atoms that are missing compared to templates.   
+   
+   	4)Add hydrogens and other missing atoms of the residues:   
+         	In Edit Residue Parameters Dialog click Edit->Add All Missing Atoms. 
+         	Hydrogen atoms will be attached. 
+         	Check Console Window for diagnostic messages.
+ 
+   	5)Check again if the residues atom names now conform to the residue templates:
+         	In Edit Residue Parameters Dialog click Edit->Check Res Struct
+         	In the Console Window check for diagnostic messages. 
+         	If the templates match, then no messages should appear.
+
+   	6)Save the fixed molecule in the HLM format (*.hlm): 
+         	Go to File->Save Molecule dialog
+	 	Save the file as pept_1.hlm inside your directory.
+
+
+3. Initial Structure Relaxation using Energy Minimization.
+
+   	INFO: Energy minimization is needed to optimize the geometry of the newly added atoms 
+   	and remove clashes between atoms that may exist in the structure.
+
+   	1) Open the Molecular Mechanics Module Dialog:
+         	Menu item: Basic Models -> Molecular Mechanics Calc 
+
+   	2) Set Molecular Mechanics Model of the system:
+        	Click on the "Edit MM Model" panel. 
+		Click "Init MM Model" (Press this button only ONCE!)
+        	You will see a list of the residue atoms appear in the window. Initiating the model allows
+			you to modify the individual properties of a particular atom in the model before 
+			running a simulation. In this part of the tutorial, do not modify any of the atoms.  
+      
+   	3) Switch to the "MM Run parameters" panel. 
+
+   	4) Set the "Type of Caclulations" to Energy Minimization.
+
+   	5) Set the Number of Minimization Steps to 2000.
+
+   	6) Save the AMBER Input Files: 
+         	Click "Save All AMBER Input Files" button. This creates input, topology, and coordinate
+			files for the molecule you are working on.
+	 	Remember to click "Save ALL AMBER Input Files" everytime you make a change in the 
+			Molecular Mechanics Module dialog.
+         	Optionally: In your working directory examine with an editor 
+         	SANDER input files: (pept_1_init.inp, pept_1_init.top, pept_1_init.crd)
+
+   	7) Run minimization (using external SANDER program of AMBER7):
+          	Click "Run MM Calculations".
+          	Examine the diagnostics in the console window. 
+   
+   	8) Load coordinates of the minimized energy structure from AMBER Restart file:
+
+          	Click "Load Restart File"
+          	Note the changed molecular geometry.
+          	Optionally: In your working directory examine SANDER output files 
+                     ( pept_1_init.out, pept_1_init.rst) 
+
+   	9) Save the minimized energy structure in the HLM format as pept_1min.hlm.   
+
+
+4. Energy minimization and Molecular Dynamics of the peptide in Water:
+
+   	1) Close All Dialog Boxes and Molecular View Window 
+     		(Or you can close and restart HARLEM)
+  
+   	2) Load peptide ALA-LYS-TYR peptide in the minimized energy geometry: 
+		File->Open Molecule - open file dialog box.
+		Open the pept_1min.hlm file you created earlier.
+
+   	3) Solvate the peptide with water:
+        Go to Edit->Solvate Molecules 
+        In the Solvate Molecular Set" Dialog press "Solvate Molecule"
+        Check the structure.
+
+     	INFO: To solvate a solute molecule HARLEM places a cubic box of water molecules around 
+     	the solute molecule. The box of water is prequilibrated for a simulation at room temperature. 
+	The water molecules which overlap in space with the solute molecule are removed. 
+	The procedure is simple and extra spaces will be created around the solute. 
+	Energy minimization is used to allow water to equilibrate in the vicinity of the solute.
+
+  	4) Run Energy minimization for the solvated peptide 
+     		(Analogous to the unsolvated peptide - follow the same instructions above: Items 3.1 to 3.8)
+
+  	5) Save the energy minimized solvated peptide in the HLM format to pept_1_box.hlm.
+
+  	6) Close all Dialog Windows and Molecular View Window (or close and open HARLEM again).
+
+  	7) Open the energy minimized solvated peptide from pept_1_box.hlm.
+
+  	8) Open the Molecular Mechanics Module Dialog:
+         	Go to Basic Models -> Molecular Mechanics Calc. 
+
+  	9) Set Molecular Mechanics Model of the system
+		Click on the "Edit MM Model" panel.
+         	Click "Init MM Model" button
+
+  	10) Set Constant Pressure Boundary conditions:
+		Click on the "Force Field Parameters" panel.          
+		In the Periodic Boundary Conditions select "PERIODICITY CONST PRESSURE".
+          	Click "Set Module Parameters from Control Values" (Press only ONCE!)
+
+  	11) Switch to the "MM Run parameters" panel
+
+  	12) Set Type of Calculations to "MD simulations"
+
+  	13) Set Frequency to output coordinates:
+		On the bottom right of the dialog under "Output Freq"
+		Set "coordinates" to 10. One snapshot every 10 MD steps will be saved to pept_1_box.mdcrd file.
+		Note that the other ouput frequency values are also set to 10. Each ouput file will save snapshots
+			every 10 MD steps. 
+		If you change one of these values, you should make sure the rest are the same, otherwise you 
+			will take snapshots at different MD steps.
+
+  	14) Set "MD steps number" to 2000.
+		Note that "MD time step" shows the length of time of one step, in this case 0.00100 picoseconds.
+		"MD steps number" is the number of steps, hence we have set the simulation to run for 2 picoseconds.
+		If you want to change the amount of time of the trajectory, change the number of MD steps.
+
+  	15) Save Sander input files: 
+           	Click "Save All AMBER Input Files".
+  
+  	16) Run MD simulations 
+      		Click "Run MM Calculations".
+      		Check for diagnostics and updated geometry in the Molecular View window.
+ 
+  	17) After MD calculations have stopped - replay the trajectory by clicking "Playback Trajectory". 
+      
+  	18) Save the final geometry of the solvated peptide to pept_1_box.hlm file in the HLM format.
+
+
+5. Analysis of MD trajectory using PYTHON scripts: 
+
+   	1) Start HARLEM.
+
+   	2) Load file pept_1_box.hlm. 
+
+   	3) Open Molecular Mechanics Module Dialog:
+         	Go to Basic Models->Molecular Mechanics Calc. 
+  
+   	4) Set Molecular Mechanics Model of the system:
+         	Go to the "Edit MM Model" panel.
+		Click "Init MM Model"
+         	
+   	5) Switch to "MM Run parameters" panel.
+
+   	6) Set script to use:
+		Click on "Choose Script" under "Script to run on MD points". 
+		Choose calc_dih_1.py in your directory (Script to measure a particular torsional angle).
+         	You should examine the calc_dih_1.py file with the sc1.exe editor in your HARLEM directory.
+		Note that it saves data to a file called "tor1.dat."
+
+   	7) Playback MD trajectory in pept_1_box.mdcrd file while using the script:
+		Click "Playback Trajectory".
+
+   	8) Check file tor1.dat using a text editor. 
+		Copy the data to Excel and plot the computed evolution of the dihedral angle
+      		TYR3.CE1-TYR3.CZ-TYR3.OH-TYR3.HH measured in tor1.dat.
+
+   	9) Print time dependence of the total, potential, kinetic energies and temperature of the system:
+
+          	9a) In the Molecular Mechanics Module dialog playback the MD trajectory while running 
+			the print_ene_2.py script on the MD points of the trajectory.
+
+          	9b) Open print_ene_2.py with a text editor to see the structure of the script.
+              		Note 3 sections:
+                  	if(script_status == STATUS_START):  - Script initialilization
+                  	elif(script_status == STATUS_STOP): - Script final part executed after MD analysis
+                  	else                              : - Part of the script executed at every point of MD trajectory
+                     
+          	9c) Using Excel, plot time dependence of total, potential and kinetic energies from ene_2.dat. 
+   
+
+Exercises: 
+
+1) Starting from the minimized structure of pept_1_box.hlm:
+	Change the charge of the LYS2 NZ atom to +5.0e in the Edit->Edit Atom Parameters menu.
+	Run MD simulations with a periodical boundary condition at constant pressure for 5 ps.
+      	Save MD snapshots and energies every 20 MD steps.
+      	Replay MD trajectory restricting view only to the solvated molecule using the script reduce_traj_1.py,
+		which can be found in the harlem\examples\MD folder.
+      	Plot the distance between the atoms TYR3.O and LYS2.NZ along the MD trajectory using the script 
+		calc_dist_1.py (data saved to dist1.dat file).
+      	Explain the results observed. 
+      	Compute and plot total, potential, and kinetic energies of the system using the print_ene_2.py script
+		(data saved to ene_2.dat).
+      	Compute the rms deviation of the atoms from the initial structure along MD trajectory using the 
+		comp_rms_1.py script (data saved to rms_1.dat, check the original tutorial directory for the file 
+		rms_1ref.dat to compare your results). 
+              
+
+2) Modify calc_dih_1.py to measure the torsional angle for rotation of the TYR ring.
+      	Compute time evolution of this torsional angle along the MD trajectory using the data in tor1.dat.
+ 
+
+3) Modify peptide ALA-LYS-TYR to ALA-GLU-TYR using Edit Residue Parameters dialog:
+	Click Delete Extra Atoms and then click Add Missing Atoms.
+      	Minimize the energy of the peptide without water.
+      	Solvate the peptide in a box of water and minimize the energy.
+      	Run MD simulations for 5 ps at constant pressure. 
+      	Print and plot time evolution of the total energy in the system using the script print_ene_1.py.
+

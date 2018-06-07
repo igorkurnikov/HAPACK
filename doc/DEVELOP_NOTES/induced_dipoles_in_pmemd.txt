@@ -1,0 +1,155 @@
+ind_dip_d(3, i) - induced dipoles on atoms ... what is the difference between ind_dip_p and ind_dip_d?
+ind_dip_p(3, i) 
+
+allocated and belong to amoeba_induced_mod along with arrays:
+
+polarizability(:)
+screen_polar(:)
+is_polarizable(:)
+
+dipole_dipole_tensor(k, n), dipole/dipole interaction tensors,
+  k = 1 - 6 - tensor indexes - ( xx, xy,xz, yy, yz, zz ) 
+  n - index of dipole-dipole pair     
+  i = dipole_dipole_list(1, n)  - first atom center of the pair 
+  j = dipole_dipole_list(2, n)  - second atom center of the pair
+
+adjust_list(k,n)  k=1,2, n =1,num_adjust_list  - similar to   dipole_dipole_list  for some reasons is separate...
+                                                 - Local scaling appled may be???
+
+adj_dip_dip_tensor -  ?? dipole_dipole_tensor with local adjust factors applied ??? 
+
+
+dip_field_d(k,i) k = 1,3  i = 1,natom  (direct_gradphi in am_adjust_permfield() & am_adjust_calc_permfield)
+dip_field_p(k,i) k = 1,3  i = 1,natom  (polar_gradphi  in am_adjust_permfield() & am_adjust_calc_permfield)
+
+induced dipoled set and used in:
+-----------------------------------------------------------------------------------------------------------
+am_induced_eval_uni()/am_induced_eval_mpi()  called by am_nonbond_eval() called by amoeba_force_uni()/amoeba_force_mpi()
+calculate induced dipoles
+contain cycle for convergence of induced dipole moments and fields:
+
+First called:
+am_nonbond_perm_fields()  - compute multipole fields at atoms positions 
+then
+am_induced_fields_to_ind_dips()  - compute induced dipoles corresponding to electric fields
+then
+am_induced_sor_update() - update ind_dip_p and ind_dip_d in iterations
+am_induced_rms_diff() - compute rms of ind_dip_p and ind_dip_d
+------------------------------------------------------------------------------------------------------------
+am_nonbond_perm_fields() - compute multipole fields at atoms positions, 
+                         - dip_field_p and dip_field_d zeroed before call to  am_nonbond_perm_fields() in am_induced_eval_uni()/_mpi()
+                         - probably should put calculations of polarizability corrections there
+						 - and do mpi_allreduce() analogous to that for dip_field_p and dip_field_d
+						 - more specifically to am_direct_permfield_i() ?? probably because it cycles on atom pairs
+
+call:
+am_recip_perm_field()
+am_direct_permfield()
+am_adjust_permfield()
+am_self_permfield()
+am_induced_add_cart_to_dip() 
+
+----------------------------------------------------------------------------------------------
+am_direct_permfield() called by am_nonbond_perm_fields()
+calculate direct electric multipole field from direct PME sum
+
+call:
+am_direct_permfield_i() to compute dipole field on one atom 
+
+
+------------------------------------------------------------------------------------------------------------
+am_direct_calc_dipdip_field()  called by am_direct_dip_dip_field()  
+
+Compute field at atom positions due to induced dipoles.
+for dipole pairs in dipole_dipole_list
+
+using dipole_dipole_tensor
+
+dip_field_d  - computed using ind_dip_d  
+dip_field_p  - computed using ind_dip_p
+--------------------------------------------------------------------------------------------------------
+am_adjust_calc_dip_dip_fields() called in am_adjust_dip_dip_fields()   
+
+Compute electric field (dip_field_d & dip_field_p)  at atom positions due to induced dipoles.
+for dipole-dipole pairs in  adjust_list
+
+using  adj_dip_dip_tensor
+
+dipole_dipole_tensor, ind_dip_d, ind_dip_p, dip_field_d, dip_field_p - all passed by func arguments
+-------------------------------------------------------------------------------------------------
+am_induced_fields_to_ind_dips()
+
+compute induced dipoles corresponding to electric fields 
+at polarizable dipole positions ( just mutiply fields by polarizabilty...)
+Place to put complicated more algorithms for computation 
+of induced dipoles. 
+----------------------------------------------------------------------------------------------
+
+am_nonbond_dip_dip_fields() 
+
+compute energies associated with dipole-dipole interations?? or just field???
+
+call:
+am_recip_dipole_field()
+am_direct_dip_dip_field()
+am_adjust_dip_dip_fields()
+am_self_dipole_field()
+
+ind_dip_d, ind_dip_p, dip_field_d, dip_field_p - all passed by func arguments
+--------------------------------------------------------------------
+
+am_nonbond_ene_frc() - probably main function to compute non-bonded interactions
+                        
+use ind_dip_d, ind_dip_p  from amoeba_induced_mod  - place to interface to c/c++
+
+call:  
+am_recip_ene_frc() compute e_rec_ind  - reciprical space induced energy??
+am_direct_ene_frc() compute e_dir_ind - direct space induced energy ??
+am_adjust_ene_frc()  compute e_adj_ind - adjusted interactions induced energy ??
+am_self_ene_torque() compute e_self_ind - self induced energy ??
+
+ene_ind = e_rec_ind + e_dir_ind + e_adj_ind + e_self_ind
+
+--------------------------------------------------------------------------------------
+am_recip_ene_frc() - compute reciprical space enlectrostatic energies and forces including 
+                     polarizability forces.... Complicated
+
+call:
+am_recip_dip_to_frac_dip() - convert ind_dip_d, ind_dip_p in real space to reciprical space (fdip1, fdip2)
+
+----------------------------------------------------------------------------------------------------
+am_direct_ene_frc_i   called by am_direct_ene_frc()  ( also call  am_vdw_direct_ene_frc_i() )
+
+Compute contributions to energy and forces for dipole pairs  ????
+Look like one of the main and most complicated functions for energy and force calculations
+
+ind_dip_d, ind_dip_p  - passed by func arguments
+
+
+
+---------------------------------------------------------------------------------------
+am_adjust_calc_ene_frc()  called by am_adjust_ene_frc() 
+
+Compute contributions to energy and forces for ?? dipole paires in adjust_list ???
+Look like one of the main and most complicated functions for energy and force calculations
+
+ind_dip_d, ind_dip_p  - passed by func arguments
+------------------------------------------------------------------------------------------------------
+am_self_ene_torque() 
+
+Compute contributions to energy and forces due to self interaction
+Look like one of the main and most complicated functions for energy and force calculations
+
+ind_dip_d, ind_dip_p  - passed by func arguments
+------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+

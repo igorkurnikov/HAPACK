@@ -1,0 +1,1358 @@
+  <RestrainingRules> 
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_1_CA">
+           <LinkToAtom_a>THR(1):CA</LinkToAtom_a>
+            <Anchor_C X="-9.808" Y="16.482" Z="-48.932" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_2_CA">
+           <LinkToAtom_a>VAL(2):CA</LinkToAtom_a>
+            <Anchor_C X="-6.278" Y="17.720" Z="-49.939" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_3_CA">
+           <LinkToAtom_a>PHE(3):CA</LinkToAtom_a>
+            <Anchor_C X="-4.479" Y="21.102" Z="-49.397" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_4_CA">
+           <LinkToAtom_a>HID(4):CA</LinkToAtom_a>
+            <Anchor_C X="-1.376" Y="22.175" Z="-51.462" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_5_CA">
+           <LinkToAtom_a>LYS(5):CA</LinkToAtom_a>
+            <Anchor_C X="1.600" Y="23.567" Z="-49.377" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_6_CA">
+           <LinkToAtom_a>ARG(6):CA</LinkToAtom_a>
+            <Anchor_C X="2.350" Y="26.187" Z="-52.199" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_7_CA">
+           <LinkToAtom_a>TYR(7):CA</LinkToAtom_a>
+            <Anchor_C X="-0.930" Y="28.009" Z="-51.074" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_8_CA">
+           <LinkToAtom_a>LEU(8):CA</LinkToAtom_a>
+            <Anchor_C X="-0.259" Y="27.720" Z="-47.219" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_9_CA">
+           <LinkToAtom_a>LYS(9):CA</LinkToAtom_a>
+            <Anchor_C X="1.242" Y="31.102" Z="-46.056" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_10_CA">
+           <LinkToAtom_a>LYS(10):CA</LinkToAtom_a>
+            <Anchor_C X="2.408" Y="30.737" Z="-42.363" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_26_CA">
+           <LinkToAtom_a>CYS(26):CA</LinkToAtom_a>
+            <Anchor_C X="-3.765" Y="31.296" Z="-44.214" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_27_CA">
+           <LinkToAtom_a>TYR(27):CA</LinkToAtom_a>
+            <Anchor_C X="-4.605" Y="28.826" Z="-47.061" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_28_CA">
+           <LinkToAtom_a>ASP(28):CA</LinkToAtom_a>
+            <Anchor_C X="-5.006" Y="31.368" Z="-49.914" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_29_CA">
+           <LinkToAtom_a>PRO(29):CA</LinkToAtom_a>
+            <Anchor_C X="-4.938" Y="29.841" Z="-53.515" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_30_CA">
+           <LinkToAtom_a>THR(30):CA</LinkToAtom_a>
+            <Anchor_C X="-6.049" Y="33.168" Z="-55.227" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASN_31_CA">
+           <LinkToAtom_a>ASN(31):CA</LinkToAtom_a>
+            <Anchor_C X="-3.135" Y="35.118" Z="-53.449" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_32_CA">
+           <LinkToAtom_a>ASP(32):CA</LinkToAtom_a>
+            <Anchor_C X="-5.427" Y="38.125" Z="-52.424" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_33_CA">
+           <LinkToAtom_a>GLY(33):CA</LinkToAtom_a>
+            <Anchor_C X="-5.333" Y="37.340" Z="-48.585" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_34_CA">
+           <LinkToAtom_a>THR(34):CA</LinkToAtom_a>
+            <Anchor_C X="-9.165" Y="36.561" Z="-48.349" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_35_CA">
+           <LinkToAtom_a>GLY(35):CA</LinkToAtom_a>
+            <Anchor_C X="-8.444" Y="32.753" Z="-47.795" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_36_CA">
+           <LinkToAtom_a>GLU(36):CA</LinkToAtom_a>
+            <Anchor_C X="-9.393" Y="30.568" Z="-44.752" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_43_CA">
+           <LinkToAtom_a>LEU(43):CA</LinkToAtom_a>
+            <Anchor_C X="5.032" Y="15.415" Z="-37.247" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_44_CA">
+           <LinkToAtom_a>LYS(44):CA</LinkToAtom_a>
+            <Anchor_C X="8.737" Y="16.534" Z="-36.851" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_45_CA">
+           <LinkToAtom_a>ALA(45):CA</LinkToAtom_a>
+            <Anchor_C X="11.356" Y="15.384" Z="-39.499" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_46_CA">
+           <LinkToAtom_a>ASP(46):CA</LinkToAtom_a>
+            <Anchor_C X="13.590" Y="13.555" Z="-36.883" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_47_CA">
+           <LinkToAtom_a>CYS(47):CA</LinkToAtom_a>
+            <Anchor_C X="10.696" Y="11.338" Z="-35.385" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_48_CA">
+           <LinkToAtom_a>GLY(48):CA</LinkToAtom_a>
+            <Anchor_C X="11.224" Y="7.518" Z="-35.498" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_49_CA">
+           <LinkToAtom_a>PRO(49):CA</LinkToAtom_a>
+            <Anchor_C X="8.796" Y="4.703" Z="-36.698" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_50_CA">
+           <LinkToAtom_a>GLN(50):CA</LinkToAtom_a>
+            <Anchor_C X="6.961" Y="4.500" Z="-33.250" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_51_CA">
+           <LinkToAtom_a>HID(51):CA</LinkToAtom_a>
+            <Anchor_C X="5.836" Y="8.226" Z="-33.520" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_52_CA">
+           <LinkToAtom_a>ARG(52):CA</LinkToAtom_a>
+            <Anchor_C X="5.136" Y="7.971" Z="-37.365" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_53_CA">
+           <LinkToAtom_a>SER(53):CA</LinkToAtom_a>
+            <Anchor_C X="2.775" Y="4.892" Z="-36.874" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_54_CA">
+           <LinkToAtom_a>GLY(54):CA</LinkToAtom_a>
+            <Anchor_C X="1.033" Y="6.750" Z="-33.928" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_56_CA">
+           <LinkToAtom_a>LYS(56):CA</LinkToAtom_a>
+            <Anchor_C X="-1.086" Y="8.163" Z="-38.869" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_57_CA">
+           <LinkToAtom_a>GLN(57):CA</LinkToAtom_a>
+            <Anchor_C X="-3.488" Y="6.881" Z="-36.081" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_59_CA">
+           <LinkToAtom_a>ILE(59):CA</LinkToAtom_a>
+            <Anchor_C X="-5.055" Y="11.518" Z="-38.602" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_60_CA">
+           <LinkToAtom_a>ASP(60):CA</LinkToAtom_a>
+            <Anchor_C X="-7.295" Y="8.329" Z="-39.019" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_61_CA">
+           <LinkToAtom_a>ILE(61):CA</LinkToAtom_a>
+            <Anchor_C X="-9.144" Y="8.984" Z="-35.638" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_63_CA">
+           <LinkToAtom_a>ARG(63):CA</LinkToAtom_a>
+            <Anchor_C X="-10.940" Y="11.998" Z="-39.978" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_64_CA">
+           <LinkToAtom_a>THR(64):CA</LinkToAtom_a>
+            <Anchor_C X="-13.682" Y="9.521" Z="-38.672" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_65_CA">
+           <LinkToAtom_a>LEU(65):CA</LinkToAtom_a>
+            <Anchor_C X="-14.876" Y="11.888" Z="-35.780" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_66_CA">
+           <LinkToAtom_a>TYR(66):CA</LinkToAtom_a>
+            <Anchor_C X="-17.514" Y="14.585" Z="-36.594" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_67_CA">
+           <LinkToAtom_a>HID(67):CA</LinkToAtom_a>
+            <Anchor_C X="-19.123" Y="16.507" Z="-33.645" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_68_CA">
+           <LinkToAtom_a>GLU(68):CA</LinkToAtom_a>
+            <Anchor_C X="-19.846" Y="20.221" Z="-32.807" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_69_CA">
+           <LinkToAtom_a>HID(69):CA</LinkToAtom_a>
+            <Anchor_C X="-17.712" Y="19.843" Z="-29.543" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_70_CA">
+           <LinkToAtom_a>ILE(70):CA</LinkToAtom_a>
+            <Anchor_C X="-14.689" Y="18.220" Z="-31.351" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_75_CA">
+           <LinkToAtom_a>GLY(75):CA</LinkToAtom_a>
+            <Anchor_C X="-8.223" Y="17.672" Z="-44.711" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_76_CA">
+           <LinkToAtom_a>CYS(76):CA</LinkToAtom_a>
+            <Anchor_C X="-4.487" Y="16.787" Z="-45.019" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_77_CA">
+           <LinkToAtom_a>CYS(77):CA</LinkToAtom_a>
+            <Anchor_C X="-1.516" Y="18.494" Z="-46.780" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_78_CA">
+           <LinkToAtom_a>GLU(78):CA</LinkToAtom_a>
+            <Anchor_C X="1.238" Y="16.528" Z="-48.655" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_79_CA">
+           <LinkToAtom_a>ASP(79):CA</LinkToAtom_a>
+            <Anchor_C X="4.573" Y="17.400" Z="-46.927" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_80_CA">
+           <LinkToAtom_a>GLN(80):CA</LinkToAtom_a>
+            <Anchor_C X="7.346" Y="16.730" Z="-49.523" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_81_CA">
+           <LinkToAtom_a>GLY(81):CA</LinkToAtom_a>
+            <Anchor_C X="9.915" Y="17.300" Z="-46.686" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_82_CA">
+           <LinkToAtom_a>GLU(82):CA</LinkToAtom_a>
+            <Anchor_C X="9.603" Y="15.015" Z="-43.543" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_83_CA">
+           <LinkToAtom_a>LYS(83):CA</LinkToAtom_a>
+            <Anchor_C X="7.812" Y="12.390" Z="-45.854" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_84_CA">
+           <LinkToAtom_a>SER(84):CA</LinkToAtom_a>
+            <Anchor_C X="4.426" Y="12.491" Z="-43.995" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_85_CA">
+           <LinkToAtom_a>LEU(85):CA</LinkToAtom_a>
+            <Anchor_C X="0.949" Y="14.129" Z="-44.109" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_86_CA">
+           <LinkToAtom_a>GLN(86):CA</LinkToAtom_a>
+            <Anchor_C X="0.287" Y="17.321" Z="-42.085" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_101_CA">
+           <LinkToAtom_a>LEU(101):CA</LinkToAtom_a>
+            <Anchor_C X="-9.295" Y="31.827" Z="-18.722" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_102_CA">
+           <LinkToAtom_a>PRO(102):CA</LinkToAtom_a>
+            <Anchor_C X="-6.229" Y="33.469" Z="-16.863" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_103_CA">
+           <LinkToAtom_a>ARG(103):CA</LinkToAtom_a>
+            <Anchor_C X="-6.766" Y="36.743" Z="-18.927" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_105_CA">
+           <LinkToAtom_a>SER(105):CA</LinkToAtom_a>
+            <Anchor_C X="-12.789" Y="36.242" Z="-15.908" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_106_CA">
+           <LinkToAtom_a>ILE(106):CA</LinkToAtom_a>
+            <Anchor_C X="-15.720" Y="34.005" Z="-17.072" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_107_CA">
+           <LinkToAtom_a>GLY(107):CA</LinkToAtom_a>
+            <Anchor_C X="-18.775" Y="33.361" Z="-14.791" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_108_CA">
+           <LinkToAtom_a>LEU(108):CA</LinkToAtom_a>
+            <Anchor_C X="-19.856" Y="30.078" Z="-13.032" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_109_CA">
+           <LinkToAtom_a>ALA(109):CA</LinkToAtom_a>
+            <Anchor_C X="-22.753" Y="29.144" Z="-15.465" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_110_CA">
+           <LinkToAtom_a>GLN(110):CA</LinkToAtom_a>
+            <Anchor_C X="-20.591" Y="29.707" Z="-18.651" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_111_CA">
+           <LinkToAtom_a>LEU(111):CA</LinkToAtom_a>
+            <Anchor_C X="-17.774" Y="27.423" Z="-17.158" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_112_CA">
+           <LinkToAtom_a>LEU(112):CA</LinkToAtom_a>
+            <Anchor_C X="-20.555" Y="24.782" Z="-16.377" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_113_CA">
+           <LinkToAtom_a>LEU(113):CA</LinkToAtom_a>
+            <Anchor_C X="-21.724" Y="25.127" Z="-20.092" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_114_CA">
+           <LinkToAtom_a>PHE(114):CA</LinkToAtom_a>
+            <Anchor_C X="-18.072" Y="24.314" Z="-21.226" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_115_CA">
+           <LinkToAtom_a>ALA(115):CA</LinkToAtom_a>
+            <Anchor_C X="-18.181" Y="21.301" Z="-18.736" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_116_CA">
+           <LinkToAtom_a>GLN(116):CA</LinkToAtom_a>
+            <Anchor_C X="-21.531" Y="20.087" Z="-20.322" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_117_CA">
+           <LinkToAtom_a>GLN(117):CA</LinkToAtom_a>
+            <Anchor_C X="-20.183" Y="20.606" Z="-23.952" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_118_CA">
+           <LinkToAtom_a>ILE(118):CA</LinkToAtom_a>
+            <Anchor_C X="-16.981" Y="18.537" Z="-23.066" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_119_CA">
+           <LinkToAtom_a>CYS(119):CA</LinkToAtom_a>
+            <Anchor_C X="-19.333" Y="15.694" Z="-21.749" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_120_CA">
+           <LinkToAtom_a>GLU(120):CA</LinkToAtom_a>
+            <Anchor_C X="-21.402" Y="15.809" Z="-25.067" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_121_CA">
+           <LinkToAtom_a>GLY(121):CA</LinkToAtom_a>
+            <Anchor_C X="-18.146" Y="15.567" Z="-27.203" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_MET_122_CA">
+           <LinkToAtom_a>MET(122):CA</LinkToAtom_a>
+            <Anchor_C X="-16.650" Y="12.790" Z="-24.908" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_123_CA">
+           <LinkToAtom_a>ALA(123):CA</LinkToAtom_a>
+            <Anchor_C X="-20.015" Y="10.786" Z="-24.851" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_124_CA">
+           <LinkToAtom_a>TYR(124):CA</LinkToAtom_a>
+            <Anchor_C X="-19.859" Y="10.818" Z="-28.744" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_125_CA">
+           <LinkToAtom_a>LEU(125):CA</LinkToAtom_a>
+            <Anchor_C X="-16.092" Y="9.759" Z="-28.598" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_126_CA">
+           <LinkToAtom_a>HID(126):CA</LinkToAtom_a>
+            <Anchor_C X="-16.941" Y="6.697" Z="-26.343" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_127_CA">
+           <LinkToAtom_a>ALA(127):CA</LinkToAtom_a>
+            <Anchor_C X="-20.033" Y="5.795" Z="-28.561" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_128_CA">
+           <LinkToAtom_a>GLN(128):CA</LinkToAtom_a>
+            <Anchor_C X="-17.525" Y="5.664" Z="-31.555" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_129_CA">
+           <LinkToAtom_a>HID(129):CA</LinkToAtom_a>
+            <Anchor_C X="-15.462" Y="3.322" Z="-29.154" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_130_CA">
+           <LinkToAtom_a>TYR(130):CA</LinkToAtom_a>
+            <Anchor_C X="-12.382" Y="5.668" Z="-28.692" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_131_CA">
+           <LinkToAtom_a>ILE(131):CA</LinkToAtom_a>
+            <Anchor_C X="-10.764" Y="6.867" Z="-25.406" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_133_CA">
+           <LinkToAtom_a>ARG(133):CA</LinkToAtom_a>
+            <Anchor_C X="-6.159" Y="9.742" Z="-22.869" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_145_CA">
+           <LinkToAtom_a>ASP(145):CA</LinkToAtom_a>
+            <Anchor_C X="-18.063" Y="32.657" Z="-25.459" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_146_CA">
+           <LinkToAtom_a>ARG(146):CA</LinkToAtom_a>
+            <Anchor_C X="-20.836" Y="29.881" Z="-25.643" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_147_CA">
+           <LinkToAtom_a>LEU(147):CA</LinkToAtom_a>
+            <Anchor_C X="-19.034" Y="27.112" Z="-27.765" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_148_CA">
+           <LinkToAtom_a>VAL(148):CA</LinkToAtom_a>
+            <Anchor_C X="-16.158" Y="24.747" Z="-26.739" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_156_CA">
+           <LinkToAtom_a>ALA(156):CA</LinkToAtom_a>
+            <Anchor_C X="-6.352" Y="8.772" Z="-28.532" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_157_CA">
+           <LinkToAtom_a>LYS(157):CA</LinkToAtom_a>
+            <Anchor_C X="-6.879" Y="4.992" Z="-29.000" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_158_CA">
+           <LinkToAtom_a>ALA(158):CA</LinkToAtom_a>
+            <Anchor_C X="-9.658" Y="2.635" Z="-30.236" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_159_CA">
+           <LinkToAtom_a>VAL(159):CA</LinkToAtom_a>
+            <Anchor_C X="-10.867" Y="0.187" Z="-27.516" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_160_CA">
+           <LinkToAtom_a>PRO(160):CA</LinkToAtom_a>
+            <Anchor_C X="-12.212" Y="-3.087" Z="-29.223" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_161_CA">
+           <LinkToAtom_a>GLU(161):CA</LinkToAtom_a>
+            <Anchor_C X="-16.039" Y="-3.692" Z="-28.809" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_162_CA">
+           <LinkToAtom_a>GLY(162):CA</LinkToAtom_a>
+            <Anchor_C X="-15.444" Y="-6.876" Z="-26.620" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_163_CA">
+           <LinkToAtom_a>HID(163):CA</LinkToAtom_a>
+            <Anchor_C X="-12.962" Y="-4.992" Z="-24.252" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_164_CA">
+           <LinkToAtom_a>GLU(164):CA</LinkToAtom_a>
+            <Anchor_C X="-13.685" Y="-2.214" Z="-21.661" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_165_CA">
+           <LinkToAtom_a>TYR(165):CA</LinkToAtom_a>
+            <Anchor_C X="-9.938" Y="-1.058" Z="-21.497" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_166_CA">
+           <LinkToAtom_a>TYR(166):CA</LinkToAtom_a>
+            <Anchor_C X="-6.643" Y="-0.613" Z="-23.424" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_167_CA">
+           <LinkToAtom_a>ARG(167):CA</LinkToAtom_a>
+            <Anchor_C X="-3.184" Y="-1.225" Z="-21.779" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_168_CA">
+           <LinkToAtom_a>VAL(168):CA</LinkToAtom_a>
+            <Anchor_C X="-0.914" Y="1.893" Z="-22.013" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_169_CA">
+           <LinkToAtom_a>ARG(169):CA</LinkToAtom_a>
+            <Anchor_C X="2.953" Y="1.943" Z="-21.951" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_170_CA">
+           <LinkToAtom_a>GLU(170):CA</LinkToAtom_a>
+            <Anchor_C X="5.343" Y="3.328" Z="-19.256" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_171_CA">
+           <LinkToAtom_a>ASP(171):CA</LinkToAtom_a>
+            <Anchor_C X="6.059" Y="6.764" Z="-20.853" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_172_CA">
+           <LinkToAtom_a>GLY(172):CA</LinkToAtom_a>
+            <Anchor_C X="7.334" Y="10.166" Z="-19.506" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_173_CA">
+           <LinkToAtom_a>ASP(173):CA</LinkToAtom_a>
+            <Anchor_C X="5.042" Y="12.377" Z="-21.779" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_174_CA">
+           <LinkToAtom_a>SER(174):CA</LinkToAtom_a>
+            <Anchor_C X="1.854" Y="10.752" Z="-20.159" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_175_CA">
+           <LinkToAtom_a>PRO(175):CA</LinkToAtom_a>
+            <Anchor_C X="-0.329" Y="13.381" Z="-18.257" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_176_CA">
+           <LinkToAtom_a>VAL(176):CA</LinkToAtom_a>
+            <Anchor_C X="-0.040" Y="11.518" Z="-14.865" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_177_CA">
+           <LinkToAtom_a>PHE(177):CA</LinkToAtom_a>
+            <Anchor_C X="-1.574" Y="14.463" Z="-12.783" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TRP_178_CA">
+           <LinkToAtom_a>TRP(178):CA</LinkToAtom_a>
+            <Anchor_C X="-4.831" Y="14.023" Z="-14.914" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_179_CA">
+           <LinkToAtom_a>TYR(179):CA</LinkToAtom_a>
+            <Anchor_C X="-4.758" Y="10.115" Z="-14.655" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_180_CA">
+           <LinkToAtom_a>ALA(180):CA</LinkToAtom_a>
+            <Anchor_C X="-6.749" Y="7.709" Z="-12.393" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_181_CA">
+           <LinkToAtom_a>PRO(181):CA</LinkToAtom_a>
+            <Anchor_C X="-5.069" Y="5.115" Z="-9.987" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_182_CA">
+           <LinkToAtom_a>GLU(182):CA</LinkToAtom_a>
+            <Anchor_C X="-5.588" Y="2.052" Z="-12.367" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_183_CA">
+           <LinkToAtom_a>CYS(183):CA</LinkToAtom_a>
+            <Anchor_C X="-3.709" Y="4.012" Z="-15.197" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_184_CA">
+           <LinkToAtom_a>LEU(184):CA</LinkToAtom_a>
+            <Anchor_C X="-0.734" Y="4.861" Z="-12.810" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_185_CA">
+           <LinkToAtom_a>LYS(185):CA</LinkToAtom_a>
+            <Anchor_C X="-0.551" Y="1.372" Z="-11.053" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_186_CA">
+           <LinkToAtom_a>GLU(186):CA</LinkToAtom_a>
+            <Anchor_C X="-2.052" Y="-1.324" Z="-13.439" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_187_CA">
+           <LinkToAtom_a>TYR(187):CA</LinkToAtom_a>
+            <Anchor_C X="-1.485" Y="0.739" Z="-16.735" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_188_CA">
+           <LinkToAtom_a>LYS(188):CA</LinkToAtom_a>
+            <Anchor_C X="-5.144" Y="0.007" Z="-17.884" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_189_CA">
+           <LinkToAtom_a>PHE(189):CA</LinkToAtom_a>
+            <Anchor_C X="-7.111" Y="2.980" Z="-19.363" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_190_CA">
+           <LinkToAtom_a>TYR(190):CA</LinkToAtom_a>
+            <Anchor_C X="-10.938" Y="2.420" Z="-19.357" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_191_CA">
+           <LinkToAtom_a>TYR(191):CA</LinkToAtom_a>
+            <Anchor_C X="-13.814" Y="4.741" Z="-20.533" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_192_CA">
+           <LinkToAtom_a>ALA(192):CA</LinkToAtom_a>
+            <Anchor_C X="-14.230" Y="5.623" Z="-16.751" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_193_CA">
+           <LinkToAtom_a>SER(193):CA</LinkToAtom_a>
+            <Anchor_C X="-10.486" Y="6.762" Z="-16.799" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_194_CA">
+           <LinkToAtom_a>ASP(194):CA</LinkToAtom_a>
+            <Anchor_C X="-11.423" Y="9.728" Z="-19.182" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_195_CA">
+           <LinkToAtom_a>VAL(195):CA</LinkToAtom_a>
+            <Anchor_C X="-14.211" Y="10.660" Z="-16.576" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TRP_196_CA">
+           <LinkToAtom_a>TRP(196):CA</LinkToAtom_a>
+            <Anchor_C X="-11.370" Y="11.086" Z="-13.922" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_197_CA">
+           <LinkToAtom_a>SER(197):CA</LinkToAtom_a>
+            <Anchor_C X="-9.497" Y="13.357" Z="-16.461" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_198_CA">
+           <LinkToAtom_a>PHE(198):CA</LinkToAtom_a>
+            <Anchor_C X="-12.826" Y="15.372" Z="-16.930" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_199_CA">
+           <LinkToAtom_a>GLY(199):CA</LinkToAtom_a>
+            <Anchor_C X="-12.969" Y="15.906" Z="-13.068" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_200_CA">
+           <LinkToAtom_a>VAL(200):CA</LinkToAtom_a>
+            <Anchor_C X="-9.396" Y="17.437" Z="-13.201" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_201_CA">
+           <LinkToAtom_a>THR(201):CA</LinkToAtom_a>
+            <Anchor_C X="-10.412" Y="19.499" Z="-16.394" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_202_CA">
+           <LinkToAtom_a>LEU(202):CA</LinkToAtom_a>
+            <Anchor_C X="-13.546" Y="20.764" Z="-14.408" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_203_CA">
+           <LinkToAtom_a>TYR(203):CA</LinkToAtom_a>
+            <Anchor_C X="-11.118" Y="21.666" Z="-11.485" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_204_CA">
+           <LinkToAtom_a>GLU(204):CA</LinkToAtom_a>
+            <Anchor_C X="-8.985" Y="23.712" Z="-14.037" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_205_CA">
+           <LinkToAtom_a>LEU(205):CA</LinkToAtom_a>
+            <Anchor_C X="-12.177" Y="25.579" Z="-15.310" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_206_CA">
+           <LinkToAtom_a>LEU(206):CA</LinkToAtom_a>
+            <Anchor_C X="-13.382" Y="26.569" Z="-11.726" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_207_CA">
+           <LinkToAtom_a>THR(207):CA</LinkToAtom_a>
+            <Anchor_C X="-9.764" Y="27.746" Z="-10.749" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_208_CA">
+           <LinkToAtom_a>HID(208):CA</LinkToAtom_a>
+            <Anchor_C X="-9.710" Y="29.748" Z="-14.150" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_209_CA">
+           <LinkToAtom_a>CYS(209):CA</LinkToAtom_a>
+            <Anchor_C X="-6.530" Y="27.710" Z="-15.180" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_210_CA">
+           <LinkToAtom_a>ASP(210):CA</LinkToAtom_a>
+            <Anchor_C X="-4.358" Y="29.536" Z="-12.500" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_211_CA">
+           <LinkToAtom_a>SER(211):CA</LinkToAtom_a>
+            <Anchor_C X="-0.757" Y="28.092" Z="-12.625" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_212_CA">
+           <LinkToAtom_a>SER(212):CA</LinkToAtom_a>
+            <Anchor_C X="-0.434" Y="28.279" Z="-8.734" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_213_CA">
+           <LinkToAtom_a>GLN(213):CA</LinkToAtom_a>
+            <Anchor_C X="-3.730" Y="26.195" Z="-8.419" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_214_CA">
+           <LinkToAtom_a>SER(214):CA</LinkToAtom_a>
+            <Anchor_C X="-2.786" Y="23.744" Z="-11.345" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_215_CA">
+           <LinkToAtom_a>PRO(215):CA</LinkToAtom_a>
+            <Anchor_C X="-2.938" Y="19.858" Z="-10.827" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_216_CA">
+           <LinkToAtom_a>PRO(216):CA</LinkToAtom_a>
+            <Anchor_C X="0.956" Y="19.340" Z="-11.114" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_217_CA">
+           <LinkToAtom_a>THR(217):CA</LinkToAtom_a>
+            <Anchor_C X="1.666" Y="22.226" Z="-8.590" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_218_CA">
+           <LinkToAtom_a>LYS(218):CA</LinkToAtom_a>
+            <Anchor_C X="-0.967" Y="21.065" Z="-5.969" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_219_CA">
+           <LinkToAtom_a>PHE(219):CA</LinkToAtom_a>
+            <Anchor_C X="0.070" Y="17.300" Z="-6.170" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_220_CA">
+           <LinkToAtom_a>LEU(220):CA</LinkToAtom_a>
+            <Anchor_C X="3.899" Y="18.164" Z="-5.997" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_221_CA">
+           <LinkToAtom_a>GLU(221):CA</LinkToAtom_a>
+            <Anchor_C X="3.087" Y="20.184" Z="-2.749" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_222_CA">
+           <LinkToAtom_a>LEU(222):CA</LinkToAtom_a>
+            <Anchor_C X="1.673" Y="16.857" Z="-1.238" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_223_CA">
+           <LinkToAtom_a>ILE(223):CA</LinkToAtom_a>
+            <Anchor_C X="4.411" Y="14.515" Z="-2.761" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_224_CA">
+           <LinkToAtom_a>GLY(224):CA</LinkToAtom_a>
+            <Anchor_C X="7.479" Y="16.899" Z="-2.700" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_225_CA">
+           <LinkToAtom_a>ILE(225):CA</LinkToAtom_a>
+            <Anchor_C X="10.102" Y="17.397" Z="-5.510" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_226_CA">
+           <LinkToAtom_a>ALA(226):CA</LinkToAtom_a>
+            <Anchor_C X="12.998" Y="15.155" Z="-4.127" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_227_CA">
+           <LinkToAtom_a>GLN(227):CA</LinkToAtom_a>
+            <Anchor_C X="11.456" Y="11.599" Z="-4.197" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_228_CA">
+           <LinkToAtom_a>GLY(228):CA</LinkToAtom_a>
+            <Anchor_C X="13.724" Y="10.089" Z="-7.003" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_229_CA">
+           <LinkToAtom_a>GLN(229):CA</LinkToAtom_a>
+            <Anchor_C X="11.752" Y="7.884" Z="-9.500" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_MET_230_CA">
+           <LinkToAtom_a>MET(230):CA</LinkToAtom_a>
+            <Anchor_C X="8.817" Y="7.493" Z="-6.925" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_231_CA">
+           <LinkToAtom_a>THR(231):CA</LinkToAtom_a>
+            <Anchor_C X="6.740" Y="10.660" Z="-7.998" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_232_CA">
+           <LinkToAtom_a>VAL(232):CA</LinkToAtom_a>
+            <Anchor_C X="4.004" Y="8.471" Z="-9.752" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_233_CA">
+           <LinkToAtom_a>LEU(233):CA</LinkToAtom_a>
+            <Anchor_C X="4.176" Y="5.841" Z="-6.844" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_234_CA">
+           <LinkToAtom_a>ARG(234):CA</LinkToAtom_a>
+            <Anchor_C X="3.571" Y="8.629" Z="-4.190" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_235_CA">
+           <LinkToAtom_a>LEU(235):CA</LinkToAtom_a>
+            <Anchor_C X="0.787" Y="10.151" Z="-6.481" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_236_CA">
+           <LinkToAtom_a>THR(236):CA</LinkToAtom_a>
+            <Anchor_C X="-0.910" Y="6.633" Z="-6.527" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_237_CA">
+           <LinkToAtom_a>GLU(237):CA</LinkToAtom_a>
+            <Anchor_C X="-0.421" Y="6.256" Z="-2.656" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_238_CA">
+           <LinkToAtom_a>LEU(238):CA</LinkToAtom_a>
+            <Anchor_C X="-2.180" Y="9.647" Z="-1.793" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_239_CA">
+           <LinkToAtom_a>LEU(239):CA</LinkToAtom_a>
+            <Anchor_C X="-5.112" Y="8.852" Z="-4.251" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_240_CA">
+           <LinkToAtom_a>GLU(240):CA</LinkToAtom_a>
+            <Anchor_C X="-5.528" Y="5.309" Z="-2.638" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_241_CA">
+           <LinkToAtom_a>ARG(241):CA</LinkToAtom_a>
+            <Anchor_C X="-5.673" Y="7.115" Z="0.844" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLY_242_CA">
+           <LinkToAtom_a>GLY(242):CA</LinkToAtom_a>
+            <Anchor_C X="-8.628" Y="9.213" Z="-0.636" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_243_CA">
+           <LinkToAtom_a>GLU(243):CA</LinkToAtom_a>
+            <Anchor_C X="-6.659" Y="12.589" Z="-0.808" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_244_CA">
+           <LinkToAtom_a>ARG(244):CA</LinkToAtom_a>
+            <Anchor_C X="-7.807" Y="14.875" Z="-3.693" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_245_CA">
+           <LinkToAtom_a>LEU(245):CA</LinkToAtom_a>
+            <Anchor_C X="-7.258" Y="18.370" Z="-5.219" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_246_CA">
+           <LinkToAtom_a>PRO(246):CA</LinkToAtom_a>
+            <Anchor_C X="-9.066" Y="21.061" Z="-3.037" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_247_CA">
+           <LinkToAtom_a>ARG(247):CA</LinkToAtom_a>
+            <Anchor_C X="-12.380" Y="22.937" Z="-3.712" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_248_CA">
+           <LinkToAtom_a>PRO(248):CA</LinkToAtom_a>
+            <Anchor_C X="-11.639" Y="26.059" Z="-5.950" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASP_249_CA">
+           <LinkToAtom_a>ASP(249):CA</LinkToAtom_a>
+            <Anchor_C X="-12.659" Y="29.438" Z="-4.345" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_250_CA">
+           <LinkToAtom_a>LYS(250):CA</LinkToAtom_a>
+            <Anchor_C X="-16.343" Y="30.284" Z="-5.271" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_251_CA">
+           <LinkToAtom_a>CYS(251):CA</LinkToAtom_a>
+            <Anchor_C X="-17.016" Y="26.664" Z="-6.622" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_252_CA">
+           <LinkToAtom_a>PRO(252):CA</LinkToAtom_a>
+            <Anchor_C X="-20.437" Y="25.375" Z="-5.226" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_253_CA">
+           <LinkToAtom_a>CYS(253):CA</LinkToAtom_a>
+            <Anchor_C X="-20.320" Y="22.502" Z="-2.624" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_254_CA">
+           <LinkToAtom_a>GLU(254):CA</LinkToAtom_a>
+            <Anchor_C X="-22.522" Y="20.130" Z="-4.793" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_255_CA">
+           <LinkToAtom_a>VAL(255):CA</LinkToAtom_a>
+            <Anchor_C X="-20.411" Y="20.927" Z="-7.999" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_256_CA">
+           <LinkToAtom_a>TYR(256):CA</LinkToAtom_a>
+            <Anchor_C X="-17.309" Y="19.845" Z="-5.871" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_257_CA">
+           <LinkToAtom_a>HID(257):CA</LinkToAtom_a>
+            <Anchor_C X="-19.239" Y="16.591" Z="-4.847" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_258_CA">
+           <LinkToAtom_a>LEU(258):CA</LinkToAtom_a>
+            <Anchor_C X="-19.928" Y="15.956" Z="-8.652" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_MET_259_CA">
+           <LinkToAtom_a>MET(259):CA</LinkToAtom_a>
+            <Anchor_C X="-16.106" Y="16.447" Z="-9.218" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_260_CA">
+           <LinkToAtom_a>LYS(260):CA</LinkToAtom_a>
+            <Anchor_C X="-15.187" Y="14.033" Z="-6.276" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASN_261_CA">
+           <LinkToAtom_a>ASN(261):CA</LinkToAtom_a>
+            <Anchor_C X="-17.764" Y="11.466" Z="-7.723" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_CYS_262_CA">
+           <LinkToAtom_a>CYS(262):CA</LinkToAtom_a>
+            <Anchor_C X="-15.742" Y="11.868" Z="-11.036" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TRP_263_CA">
+           <LinkToAtom_a>TRP(263):CA</LinkToAtom_a>
+            <Anchor_C X="-12.676" Y="11.004" Z="-8.740" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_264_CA">
+           <LinkToAtom_a>GLU(264):CA</LinkToAtom_a>
+            <Anchor_C X="-13.897" Y="7.651" Z="-7.156" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_265_CA">
+           <LinkToAtom_a>THR(265):CA</LinkToAtom_a>
+            <Anchor_C X="-10.835" Y="5.297" Z="-6.640" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_266_CA">
+           <LinkToAtom_a>GLU(266):CA</LinkToAtom_a>
+            <Anchor_C X="-13.175" Y="2.391" Z="-7.750" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ALA_267_CA">
+           <LinkToAtom_a>ALA(267):CA</LinkToAtom_a>
+            <Anchor_C X="-13.748" Y="3.013" Z="-11.535" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_SER_268_CA">
+           <LinkToAtom_a>SER(268):CA</LinkToAtom_a>
+            <Anchor_C X="-17.310" Y="1.396" Z="-11.547" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_269_CA">
+           <LinkToAtom_a>PHE(269):CA</LinkToAtom_a>
+            <Anchor_C X="-18.584" Y="4.078" Z="-8.990" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ARG_270_CA">
+           <LinkToAtom_a>ARG(270):CA</LinkToAtom_a>
+            <Anchor_C X="-17.645" Y="6.982" Z="-11.447" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_271_CA">
+           <LinkToAtom_a>PRO(271):CA</LinkToAtom_a>
+            <Anchor_C X="-20.580" Y="8.360" Z="-13.644" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_272_CA">
+           <LinkToAtom_a>THR(272):CA</LinkToAtom_a>
+            <Anchor_C X="-20.384" Y="7.878" Z="-17.501" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PHE_273_CA">
+           <LinkToAtom_a>PHE(273):CA</LinkToAtom_a>
+            <Anchor_C X="-20.350" Y="10.940" Z="-19.895" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_274_CA">
+           <LinkToAtom_a>GLU(274):CA</LinkToAtom_a>
+            <Anchor_C X="-24.033" Y="10.050" Z="-20.860" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ASN_275_CA">
+           <LinkToAtom_a>ASN(275):CA</LinkToAtom_a>
+            <Anchor_C X="-24.959" Y="10.334" Z="-17.062" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_276_CA">
+           <LinkToAtom_a>LEU(276):CA</LinkToAtom_a>
+            <Anchor_C X="-23.022" Y="13.712" Z="-16.700" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_277_CA">
+           <LinkToAtom_a>ILE(277):CA</LinkToAtom_a>
+            <Anchor_C X="-24.843" Y="15.565" Z="-19.655" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_PRO_278_CA">
+           <LinkToAtom_a>PRO(278):CA</LinkToAtom_a>
+            <Anchor_C X="-28.425" Y="15.768" Z="-18.024" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_ILE_279_CA">
+           <LinkToAtom_a>ILE(279):CA</LinkToAtom_a>
+            <Anchor_C X="-26.874" Y="16.664" Z="-14.552" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LEU_280_CA">
+           <LinkToAtom_a>LEU(280):CA</LinkToAtom_a>
+            <Anchor_C X="-24.609" Y="19.500" Z="-16.019" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_281_CA">
+           <LinkToAtom_a>LYS(281):CA</LinkToAtom_a>
+            <Anchor_C X="-27.678" Y="20.854" Z="-18.047" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_THR_282_CA">
+           <LinkToAtom_a>THR(282):CA</LinkToAtom_a>
+            <Anchor_C X="-29.728" Y="21.177" Z="-14.734" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_VAL_283_CA">
+           <LinkToAtom_a>VAL(283):CA</LinkToAtom_a>
+            <Anchor_C X="-26.635" Y="22.566" Z="-12.783" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_HID_284_CA">
+           <LinkToAtom_a>HID(284):CA</LinkToAtom_a>
+            <Anchor_C X="-26.024" Y="25.103" Z="-15.721" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLU_285_CA">
+           <LinkToAtom_a>GLU(285):CA</LinkToAtom_a>
+            <Anchor_C X="-29.778" Y="26.182" Z="-15.462" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_LYS_286_CA">
+           <LinkToAtom_a>LYS(286):CA</LinkToAtom_a>
+            <Anchor_C X="-29.421" Y="26.745" Z="-11.614" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_TYR_287_CA">
+           <LinkToAtom_a>TYR(287):CA</LinkToAtom_a>
+            <Anchor_C X="-26.502" Y="29.318" Z="-11.792" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+      <RestraintDefinition IsRelativeCoords="false" Title="PositionRestraint_GLN_288_CA">
+           <LinkToAtom_a>GLN(288):CA</LinkToAtom_a>
+            <Anchor_C X="-27.477" Y="30.967" Z="-15.221" />
+           <ForceConstant_Ca>1.000000</ForceConstant_Ca> 
+           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> 
+      </RestraintDefinition>
+  </RestrainingRules> 

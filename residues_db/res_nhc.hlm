@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="res_nhc" >
+<molecule name="NHC" />
+<chain  id=" " />
+<res name="NHC"  no="1" /> 
+  <atom hb_st="D" >    1    N   7      1.019338441      0.099224519      0.349221028 <bonds> 2  3  </bonds></atom>
+  <atom ff_s="H"  >    2    H1  1      1.735483194      0.771902031      0.115251681 <bonds> 1  </bonds></atom>
+  <atom ff_s="H"  >    3    H2  1      0.046462573      0.370417901      0.357387843 <bonds> 1  </bonds></atom>
+</molset>
+</HARLEM_DATA>

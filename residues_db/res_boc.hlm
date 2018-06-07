@@ -1,0 +1,29 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=res_boc
+#MOLECULE 
+MOLNAME=BOC
+#ATOMS 
+    1   6 "C"    -25.163668206      1.997923629     -0.558070070  " " "BOC"       1     0.67000 "NO_HYBRID" ""  "C"     12.01100 
+    2   8 "O"    -24.940810925      3.199630560     -0.687205972  " " "BOC"       1    -0.57000 "NO_HYBRID" ""  "O"     15.99940 
+    3   8 "OE"    -24.356612007      1.190063057     -1.012451614  " " "BOC"       1    -0.20000 "NO_HYBRID" ""  "OS"     15.99940 
+    4   6 "CA"    -23.344169496      1.588545291     -1.586099651  " " "BOC"       1    -0.08000 "SP3" ""  "CT"     12.01100 
+    5   1 "HA1"    -22.469513916      1.205265773     -1.081645068  " " "BOC"       1     0.06000 "NO_HYBRID" ""  "HT"      1.00790 
+    6   1 "HA2"    -23.349651871      1.242507320     -2.609147874  " " "BOC"       1     0.06000 "NO_HYBRID" ""  "HT"      1.00790 
+    7   1 "HA3"    -23.323105933      2.668246663     -1.571912504  " " "BOC"       1     0.06000 "NO_HYBRID" ""  "HT"      1.00790 
+    8   1 "HT"    -26.055275772      1.656966449     -0.052912521  " " "TAL"       2     0.00000 "NO_HYBRID" ""  ""      1.00790 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1     8  SINGLE
+    3     4  SINGLE
+    4     5  SINGLE
+    4     6  SINGLE
+    4     7  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#END MOL_SET

@@ -1,0 +1,328 @@
+
+          -------------------------------------------------------
+          Amber 10 SANDER                              2008
+          -------------------------------------------------------
+
+| PMEMD implementation of SANDER, Release 10
+
+| Run on 01/12/2012 at 18:01:22
+
+  [-O]verwriting output
+
+File Assignments:
+|   MDIN: mpept_box.inp                                                         
+|  MDOUT: mpept_box.out                                                         
+| INPCRD: mpept_box.crd                                                         
+|   PARM: mpept_box.top                                                         
+| RESTRT: mpept_box.rst                                                         
+|   REFC: mpept_box.ref                                                         
+|  MDVEL: mpept_box.mdvel                                                       
+|   MDEN: mpept_box.mden                                                        
+|  MDCRD: mpept_box.mdcrd                                                       
+| MDINFO: mdinfo                                                                
+
+ 
+ Here is the input file:
+ 
+ Amber Input file for the molecule set mpept_box                               
+                                                                               
+ &cntrl                                                                        
+ imin=0,  nstlim=10,  nscm=1000,                                               
+ t=       0.000,  dt=       0.001,                                             
+ ntpr=10,  ntwr=500,  ntwx=0,  ntwv=0,  ntwe=10,  ioutfm=0,  ntwprt=0,         
+ ntf=1,  ntb=2,  dielc= 1.000,  iamoeba=1,                                     
+ cut=12.000,  scnb= 2.000,  scee= 1.200,  iwrap=0,                             
+ irest= 0,  ntx= 1,                                                            
+igb=0,                                                                         
+ibelly=0, ntr=0,                                                               
+ temp0=300.000,  tempi=300.000,  heat= 0.000,  ntt=1,                          
+ dtemp=   0.0000,  tautp=   0.5000,  vlimit=20.000,                            
+ ntp=1,  pres0= 1.000,  comp=44.600,  taup= 1.000,                             
+ ntc=1, tol=   0.0005000,                                                      
+ jfastw=0,                                                                     
+  &end                                                                         
+                                                                               
+ &ewald                                                                        
+ skinnb=    2.000000, nbtell=0, order=5, ew_coeff=    0.000000                 
+ &end                                                                          
+
+
+| INFO:    The dtemp ctrl option is deprecated and ignored.
+| INFO:    The heat ctrl option is deprecated and ignored.
+ 
+ 
+|  INFO: Old style inpcrd file read
+
+ 
+| Conditional Compilation Defines Used:
+| AMOEBA
+| DIRFRC_COMTRANS
+| DIRFRC_EFS
+| PUBFFT
+| FFTLOADBAL_2PROC
+ 
+| Largest sphere to fit in unit cell has radius =    27.741
+
+| New format PARM file being parsed.
+| Version =    1.000 Date = 05/22/06 Time = 12:10:21
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+ getting new box info from bottom of inpcrd
+
+ NATOM  =   14594 NTYPES =       1 NBONH =       0 MBONA  =       0
+ NTHETH =       0 MTHETA =       0 NPHIH =       0 MPHIA  =       0
+ NHPARM =       0 NPARM  =       0 NNB   =   22380 NRES   =    4560
+ NBONA  =       0 NTHETA =       0 NPHIA =       0 NUMBND =       0
+ NUMANG =       0 NPTRA  =       0 NATYP =       1 NPHB   =       0
+ IFBOX  =       1 NMXRS  =      26 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+| Coordinate Index Table dimensions:     9    7    8
+| Direct force subcell size =     7.1753    7.9261    7.0390
+
+     BOX TYPE: RECTILINEAR
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+                                                                                
+
+General flags:
+     imin    =       0, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       1, ntpr    =      10, ntrx    =       1, ntwr    =     500
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =      10
+     ioutfm  =       0, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       2, igb     =       0, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     =  12.00000, intdiel =   1.00000
+     scnb    =   2.00000, scee    =   1.20000
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Molecular dynamics:
+     nstlim  =        10, nscm    =      1000, nrespa  =         1
+     t       =   0.00000, dt      =   0.00100, vlimit  =  20.00000
+
+Berendsen (weak-coupling) temperature regulation:
+     temp0   = 300.00000, tempi   = 300.00000, tautp   =   0.50000
+
+Pressure regulation:
+     ntp     =       1
+     pres0   =   1.00000, comp    =  44.60000, taup    =   1.00000
+
+Ewald parameters:
+     verbose =       0, ew_type =       0, nbflag  =       1, use_pme =       1
+     vdwmeth =       1, eedmeth =       1, netfrc  =       1
+     Box X =   64.578   Box Y =   55.483   Box Z =   56.312
+     Alpha =   90.000   Beta  =   90.000   Gamma =   90.000
+     NFFT1 =   72       NFFT2 =   60       NFFT3 =   60
+     Cutoff=   12.000   Tol   =0.100E-04
+     Ewald Coefficient =  0.22664
+     Interpolation order =    5
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+ Amber Coordinate file for the molecule set mpept_box                           
+ begin time read from input coords =     0.000 ps
+
+| Dynamic Memory, Types Used:
+| Reals             1305320
+| Integers           613096
+
+| Nonbonded Pairs Initial Allocation: 9054117
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+ ---------------------------------------------------
+ APPROXIMATING switch and d/dx switch using CUBIC SPLINE INTERPOLATION
+ using   5000.0 points per unit in tabled values
+ TESTING RELATIVE ERROR over r ranging from 0.0 to cutoff
+| CHECK switch(x): max rel err =   0.2738E-14   at   2.422500
+| CHECK d/dx switch(x): max rel err =   0.7967E-11   at   2.716640
+ ---------------------------------------------------
+|---------------------------------------------------
+| APPROXIMATING direct energy using CUBIC SPLINE INTERPOLATION
+|  with   50.0 points per unit in tabled values
+| Relative Error Limit not exceeded for r .gt.   2.27
+| APPROXIMATING direct force using CUBIC SPLINE INTERPOLATION
+|  with   50.0 points per unit in tabled values
+| Relative Error Limit not exceeded for r .gt.   2.78
+|---------------------------------------------------
+| num_pairs_in_ee_cut, size_dipole_dipole_list =     763464    954330
+
+ NSTEP =        0   TIME(PS) =       0.000  TEMP(K) =   302.67  PRESS = 16979.9
+ Etot   =    -13534.2457  EKtot   =     13165.6109  EPtot      =    -26699.8566
+ BOND   =      1823.9026  ANGLE   =      5651.8061  DIHED      =       942.1273
+ 1-4 NB =      1579.2008  1-4 EEL =         0.0000  VDWAALS    =     15626.6080
+ EELEC  =    -38100.5852  EHBOND  =         0.0000  RESTRAINT  =         0.0000
+ EKCMT  =     13165.6109  VIRIAL  =   -123558.1725  VOLUME     =    201764.8359
+ EPOLZ  =    -14222.9161
+ Dipole convergence: rms =  0.883E-02 iters =   7.00
+                                                    Density    =         0.7341
+ ------------------------------------------------------------------------------
+
+ ACCURATE ENE: 
+ NSTEP=            0 TEMP=    302.667237722152      PRESS= 
+   16979.9010077361     
+ TOT_ENE=   -13534.2456950761      KIN_ENE=    13165.6108939137      POT_ENE= 
+  -26699.8565889898     
+ BOND_ENE=    1823.90257365869      ANGLE_ENE=    5651.80614998957      
+ DIHED_ENE=    942.127271555340     
+ VDW_14=    1579.20076805441      ELECTR_14=   0.000000000000000E+000 VDW_ENE=
+   15626.6079896278     
+ ELECT_ENE=  -38100.5852342351      HBOND_ENE=  0.000000000000000E+000 
+ RESTR_ENE=   0.000000000000000E+000
+ ------------------------------------------------------------------------------
+
+
+ NSTEP =       10   TIME(PS) =       0.010  TEMP(K) =   385.29  PRESS = 10611.4
+ Etot   =    -13750.3414  EKtot   =     16759.7201  EPtot      =    -30510.0614
+ BOND   =      1417.6531  ANGLE   =      3750.1653  DIHED      =       860.2026
+ 1-4 NB =      1001.0888  1-4 EEL =         0.0000  VDWAALS    =     14862.5592
+ EELEC  =    -38258.3100  EHBOND  =         0.0000  RESTRAINT  =         0.0000
+ EKCMT  =     16759.7201  VIRIAL  =    -60272.0136  VOLUME     =    202023.7065
+ EPOLZ  =    -14143.4205
+ Dipole convergence: rms =  0.820E-02 iters =   6.00
+                                                    Density    =         0.7332
+ ------------------------------------------------------------------------------
+
+ ACCURATE ENE: 
+ NSTEP=           10 TEMP=    385.293034950310      PRESS= 
+   10611.3505188940     
+ TOT_ENE=   -13750.3413515502      KIN_ENE=    16759.7200690334      POT_ENE= 
+  -30510.0614205836     
+ BOND_ENE=    1417.65311646029      ANGLE_ENE=    3750.16531206511      
+ DIHED_ENE=    860.202602268477     
+ VDW_14=    1001.08884287919      ELECTR_14=   0.000000000000000E+000 VDW_ENE=
+   14862.5591977523     
+ ELECT_ENE=  -38258.3100119565      HBOND_ENE=  0.000000000000000E+000 
+ RESTR_ENE=   0.000000000000000E+000
+ ------------------------------------------------------------------------------
+
+
+      A V E R A G E S   O V E R      10 S T E P S
+
+
+ NSTEP =       10   TIME(PS) =       0.010  TEMP(K) =   307.03  PRESS =  3851.3
+ Etot   =    -13506.0534  EKtot   =     13355.4318  EPtot      =    -26861.4852
+ BOND   =      3610.2816  ANGLE   =      5017.2611  DIHED      =       914.0577
+ 1-4 NB =      1274.7445  1-4 EEL =         0.0000  VDWAALS    =     15929.6928
+ EELEC  =    -38949.5274  EHBOND  =         0.0000  RESTRAINT  =         0.0000
+ EKCMT  =     13355.4318  VIRIAL  =     -7297.7793  VOLUME     =    201978.1924
+ EPOLZ  =    -14657.9955
+ Dipole convergence: rms =  0.855E-02 iters =   6.40
+                                                    Density    =         0.7333
+ ------------------------------------------------------------------------------
+
+ ACCURATE ENE: 
+ NSTEP=           10 TEMP=    307.031073703168      PRESS= 
+   3851.32885594887     
+ TOT_ENE=   -13506.0534165895      KIN_ENE=    13355.4317908277      POT_ENE= 
+  -26861.4852074172     
+ BOND_ENE=    3610.28158728147      ANGLE_ENE=    5017.26112829361      
+ DIHED_ENE=    914.057742176016     
+ VDW_14=    1274.74449079080      ELECTR_14=   0.000000000000000E+000 VDW_ENE=
+   15929.6927645309     
+ ELECT_ENE=  -38949.5274443983      HBOND_ENE=  0.000000000000000E+000 
+ RESTR_ENE=   0.000000000000000E+000
+ ------------------------------------------------------------------------------
+
+
+      R M S  F L U C T U A T I O N S
+
+
+ NSTEP =       10   TIME(PS) =       0.010  TEMP(K) =    33.28  PRESS =  8848.5
+ Etot   =       107.8530  EKtot   =      1447.4675  EPtot      =      1543.7559
+ BOND   =      1177.8582  ANGLE   =       659.0230  DIHED      =        28.0946
+ 1-4 NB =       202.5308  1-4 EEL =         0.0000  VDWAALS    =       583.9414
+ EELEC  =       639.9388  EHBOND  =         0.0000  RESTRAINT  =         0.0000
+ EKCMT  =      1447.4675  VIRIAL  =     77711.1455  VOLUME     =       101.5330
+ EPOLZ  =       391.0817
+ Dipole convergence: rms =  0.472E-03 iters =   0.49
+                                                    Density    =         0.0004
+ ------------------------------------------------------------------------------
+
+ ACCURATE ENE: 
+ NSTEP=           10 TEMP=    33.2761614580299      PRESS= 
+   8848.49088565576     
+ TOT_ENE=    107.853038203262      KIN_ENE=    1447.46751282557      POT_ENE= 
+   1543.75585016451     
+ BOND_ENE=    1177.85822725533      ANGLE_ENE=    659.023036313807      
+ DIHED_ENE=    28.0945728642547     
+ VDW_14=    202.530826854926      ELECTR_14=   0.000000000000000E+000 VDW_ENE=
+   583.941409185849     
+ ELECT_ENE=   639.938796530609      HBOND_ENE=  0.000000000000000E+000 
+ RESTR_ENE=   0.000000000000000E+000
+ ------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+   5.  TIMINGS
+--------------------------------------------------------------------------------
+
+|  NonSetup CPU Time in Major Routines:
+|
+|     Routine           Sec        %
+|     ------------------------------
+|     Nonbond          21.56   99.35
+|     Bond              0.00    0.00
+|     Angle             0.02    0.07
+|     Dihedral          0.03    0.14
+|     Shake             0.00    0.00
+|     RunMD             0.09    0.43
+|     Other             0.00    0.00
+|     ------------------------------
+|     Total            21.70
+
+|  Amoeba Nonbond Pairlist CPU Time:
+|
+|     Routine              Sec        %
+|     ---------------------------------
+|     Set Up Cit           0.00    0.00
+|     Build List           0.14    0.65
+|     ---------------------------------
+|     Total                0.14    0.65
+
+|  Amoeba Direct Force CPU Time:
+|
+|     Routine              Sec        %
+|     ---------------------------------
+|     NonBonded Calc      14.15   65.20
+|     Exclude Masked       0.34    1.58
+|     Other                0.25    1.15
+|     ---------------------------------
+|     Total               14.74   67.94
+
+|  Amoeba Reciprocal Force CPU Time:
+|
+|     Routine              Sec        %
+|     ---------------------------------
+|     1D bspline           0.28    1.29
+|     Grid Charges         1.53    7.05
+|     Scalar Sum           0.22    1.01
+|     Gradient Sum         1.92    8.84
+|     FFT                  2.78   12.80
+|     ---------------------------------
+|     Total                6.72   30.98
+
+|  Setup CPU time:            1.37 seconds
+|  NonSetup CPU time:        21.70 seconds
+|  Total CPU time:           23.07 seconds     0.01 hours
+
+|  Setup wall time:           2    seconds
+|  NonSetup wall time:       22    seconds
+|  Total wall time:          24    seconds     0.01 hours

@@ -1,0 +1,4 @@
+#!/bin/bash  
+export CUDA_VISIBLE_DEVICES=1
+/home/igor/amber12/bin/pmemd.cuda -O -i bpti_box.inp -o bpti_box.out -p bpti_box.top -c bpti_box.crd -r bpti_box.rst -ref bpti_box.ref -x bpti_box.mdcrd -v bpti_box.mdvel -e bpti_box.mden  
+ 

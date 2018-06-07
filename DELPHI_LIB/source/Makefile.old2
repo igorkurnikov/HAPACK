@@ -1,0 +1,24 @@
+#include ../../make.inc
+
+FORTRAN = pgf77
+#FORTRAN = g77
+OPTS    = -c -O3 -Mextend 
+#OPTS    = -c -O3 -ffixed-line-length-132 
+
+OBJ=    \
+itit4j.o non.o relfac4b.o setcrg4.o \
+mem4.o phintp4.o scaler4.o setin4.o \
+mkeps4f.o qdiff4s.o setbc4.o setout4.o
+
+all: delphi_lib
+
+delphi_lib: $(OBJ)
+	ar cr delphi_lib.a $(OBJ) 
+
+clean:
+	rm -f *.o
+
+%.o : %.f 
+	$(FORTRAN) $(OPTS) -c $*.f
+
+

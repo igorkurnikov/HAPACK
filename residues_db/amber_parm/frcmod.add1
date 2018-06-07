@@ -1,0 +1,512 @@
+Additional parameters for AMBER force field
+MASS
+  
+BOND
+FE-NP   50.000     2.01000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+FE-LO  200.000     1.78      ! Heme Parameteres   D.A. Giammona, Ph.D. thesis
+FE-LC  200.000     1.75000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+LC-LO 1000.000     1.12000   ! Heme Parameteres D.A. Giammona, Ph.D. thesis
+FE-NB   60.000     2.01000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+FE-NO   50.000     2.01000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+NP-CC  316.000     1.38400   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+NO-CC  316.000     1.38400   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CC-CB  273.000     1.44400   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CC-CD  391.000     1.39100   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CB-CB  418.000     1.35700   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CB-CT  297.000     1.50100   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CB-CY  297.000     1.50100   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CD-HC  338.000     1.09000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CY-HC  340.000     1.08000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CX-HC  340.000     1.08000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+CY-CX  570.000     1.34000   ! Heme Parameteres  D.A. Giammona, Ph.D. thesis
+LO-LO  848.000     1.25000   ! Heme Parameteres    unbound O2 ligand   D.A. Giammona, Ph.D. thesis
+S -CY   70.000     1.80700   ! Heme Parameters     Iain
+S -Fe   70.000     2.35200   ! Heme Parameters     Iain
+H -NA   70.000     1.08000   ! Rua  Parameters     Iain
+H -N4   70.000     1.08000   ! Rua  Parameters     Iain
+H -N5   70.000     1.08000   ! Rua  Parameters     Iain
+H -N6   70.000     1.08000   ! Rua  Parameters     Iain
+H -N7   70.000     1.08000   ! Rua  Parameters     Iain
+RU-NA  300.000     2.03000   ! Rua and RBP  Parameters     Igor
+RU-N4  300.000     2.00000   ! Rua and RBP  Parameters     Igor
+RU-N5  300.000     2.00000   ! Rua and RBP  Parameters     Igor
+RU-N6  300.000     2.00000   ! Rua and RBP  Parameters     Igor
+RU-N7  300.000     2.00000   ! Rua and RBP  Parameters     Igor
+RU-N8  200.000     2.03000   ! Ru-tpy Igor
+RU-NB  300.000     2.00000   ! Rua and RBP  Parameters     Igor  
+RU-RBP_NB  300.000     2.00000   ! Rua and RBP  Parameters     Igor
+N4-CA  400.000     1.37      ! RBP  Parameters     Igor  
+N5-CA  400.000     1.37      ! RBP  Parameters     Igor  
+N6-CA  400.000     1.37      ! RBP  Parameters     Igor  
+N7-CA  400.000     1.37      ! RBP  Parameters     Igor  
+NB-CA  400.000     1.37      ! RBP  Parameters     Igor  
+N -CA  400.000     1.37      ! RBP  Parameters     Igor  
+RBP_NB-CR  488.0    1.335    ! RBP  Parameters     Igor  from HIS
+RBP_NB-CV  410.0    1.394    ! RBP  Parameters     Igor  from HIS
+F -CA  400.000     1.36      ! F-biphenyl          Igor
+CG-HP  360.0    1.095       Copy of CG-HC, GLYCAM, add by mikola
+N3-CG  355.0    1.490       Methanaminium (eqm value from crystal avg), GLYCAM, add by mikola
+CG-HC  340.0    1.090       Parm94, GLYCAM, add by mikola
+C -OS  450.0    1.323       Parm99, GLYCAM, add by mikola
+CG-OS  285.0    1.460       Parm94   K calculated from methyl sulphate (eqm value from THEOCHEM 395/396 (1997) 107-122), GLYCAM, add by mikola
+CG-C   220.0    1.530       2-Methylpropanoate, GLYCAM, add by mikola
+CG-CG  310.0    1.520       Butane (gauche, and trans), GLYCAM, add by mikola
+CP-H1  340.0    1.090       Copy of CG-H1, GLYCAM, add by mikola
+CP-OS  285.0    1.460       Copy of CG-OS, GLYCAM, add by mikola
+CG-CP  310.0    1.520       Copy of CG-CG, GLYCAM, add by mikola
+CG-H1  340.0    1.090       Parm94, GLYCAM, add by mikola
+CL_LPD -OC_LPD     600.00   1.230
+CL_LPD -CG_LPD     400.00   1.530
+CI_LPD -CE_LPD     400.00   1.530
+CI_LPD -OE_LPD     400.00   1.430
+CJ_LPD -CE_LPD     400.00   1.530
+CJ_LPD -OE_LPD     400.00   1.430
+CP_LPD -NL_LPD     450.00   1.470
+CE_LPD -OE_LPD     400.00   1.430
+CF_LPD -CI_LPD     400.00   1.530
+NL_LPD -CF_LPD     450.00   1.470
+OE_LPD -PO_LPD     300.00   1.610
+OE_LPD -CL_LPD     450.00   1.360
+PO_LPD -OP_LPD     400.00   1.480
+CG_LPD -CG_LPD     400.00   1.530
+CG_LPD -CH_LPD     400.00   1.530
+H -C    400.000    1.08000   ! Lea Formamide parameters
+C-H2  340.0    1.0823       !Lea DMF parameters! From "changed from 331 bsd on NMA nmodes; SUGARS"and bond lengh from outup of Gaussian
+
+ANGLE
+NB-FE-NP    50.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NB-FE-NO    50.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NB-FE-LC     0.000      90.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+NB-FE-LO     0.000      90.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+NP-FE-NP     0.000      90.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+NO-FE-NO     0.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NO-FE-NP    50.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NO-FE-LC    45.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NO-FE-LO    45.000      90.000   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NP-FE-LC    45.000      90.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+NP-FE-LO    45.000      90.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+FE-NP-CC    30.000     127.400   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+FE-NO-CC    30.000     127.400   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NO-CC-CB    70.000     110.300   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NP-CC-CB    70.000     110.300   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NO-CC-CD    70.000     125.500   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+NP-CC-CD    70.000     125.500   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+CC-NP-CC    70.000     105.400   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+CC-NO-CC    70.000     105.400   ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+CC-CB-CB    70.000     107.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CC-CD-CC    70.000     124.100   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CC-CD    70.000     125.400   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CC-CB-CT    70.000     124.900   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CB-CT    70.000     128.200   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CC-CD-HC    30.000     118.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CR-NB-FE     0.000     110.000   ! Heme Parameters    D.A. Giammona, Ph.D. thesis
+CV-NB-FE     0.000     110.000   ! Heme Parameters    D.A. Giammona, Ph.D. thesis
+CB-CT-HC    35.000     109.500   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CB-CY    70.000     128.200   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CY-HC    35.000     120.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CY-CX    70.000     120.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CY-CX-HC    35.000     120.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CC-CB-CY    70.000     124.900   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CX-CY-HC    35.000     120.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+CB-CT-CT    63.000     114.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+HC-CX-HC    35.000     120.000   ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+FE-LC-LO    35.000     180.000   ! Heme Parameters    D.A. Giammona, Ph.D. thesis
+FE-LO-LO    35.000     135.000   ! Heme Parameters    D.A. Giammona, Ph.D. thesis
+LP-SH-LP   600.000     160.000   ! Heme Parameters    D.A. Giammona, Ph.D. thesis
+CT-S -CY    70.000     106.000   ! Heme Parameters Iain
+CX-CY-S     70.000     110.100   ! Heme Parameters Iain
+HC-CY-S     70.000     111.800   ! Heme Parameters Iain
+S -CY-CB    70.000     107.300   ! Heme Parameters Iain
+S -FE-NO    70.000      90.000   ! Heme Parameters Iain
+S -FE-NP    70.000      90.000   ! Heme Parameters Iain
+FE-S -CT    70.000     111.500   ! Heme Parameters Iain 
+S -FE-NB    70.000     174.400   ! Heme Parameters Iain 
+CA-CB-CC    70.000     120.000   ! Heme B params Igor
+HA-CA-HA    70.000     120.000   ! Heme B params Igor
+H -N7- H    70.000     109.400   ! Rua Parameters Iain
+H -N6- H    70.000     109.400   ! Rua Parameters Iain
+H -N5- H    70.000     109.400   ! Rua Parameters Iain
+H -N4- H    70.000     109.400   ! Rua Parameters Iain
+H -NA- H    70.000     109.400   ! Rua Parameters Iain
+H -N7-RU    70.000     109.500   ! Rua Parameters Iain
+H -N6-RU    70.000     109.500   ! Rua Parameters Iain
+H -N5-RU    70.000     109.500   ! Rua Parameters Iain
+H -N4-RU    70.000     109.500   ! Rua Parameters Iain
+H -NA-RU    70.000     109.500   ! Rua Parameters Iain
+RU-NB-CR    70.000     127.000   ! Rua Parameters Iain
+RU-NB-CV    70.000     124.700   ! Rua Parameters Iain
+S -CT-C      70.000     109.500   ! RBP and RUA Igor
+S -CT-HC     70.000     109.500   ! RBP and RUA Igor
+CA-CA-NA   70.000     120.000   ! RBP and RUA Igor
+CA-CA-N    70.000     120.000   ! RBP and RUA Igor
+NB-RU-NA      70.000      90.000   ! RBP and RUA Igor
+NB-RU-RBP_NB  70.000      90.000   ! RBP and RUA Igor
+NB-RU-NB    70.000      90.000   ! RBP and RUA Igor
+NB-RU-N4    70.000      90.000   ! RBP and RUA Igor
+NB-RU-N6    70.000      90.000   ! RBP and RUA Igor
+NB-RU-N5    70.000      90.000   ! RBP and RUA Igor
+NB-RU-N7    70.000     180.000   ! RBP and RUA Igor
+NA-RU-N5    70.000     180.000   ! RBP and RUA Igor
+N6-RU-N4    70.000     180.000   ! RBP and RUA Igor
+NA-RU-N4    70.000      90.000   ! RBP and RUA Igor
+NA-RU-N7    70.000      90.000   ! RBP and RUA Igor
+NA-RU-N6    70.000      90.000   ! RBP and RUA Igor
+RBP_NB-RU-N5    70.000     180.000   ! RBP and RUA Igor
+RBP_NB-RU-N4    70.000      90.000   ! RBP and RUA Igor
+RBP_NB-RU-N7    70.000      90.000   ! RBP and RUA Igor
+RBP_NB-RU-N6    70.000      90.000   ! RBP and RUA Igor
+N5-RU-N4    70.000      90.000   ! RBP and RUA Igor
+N5-RU-N7    70.000      90.000   ! RBP and RUA Igor
+N5-RU-N6    70.000      90.000   ! RBP and RUA Igor
+N7-RU-N4    70.000      90.000   ! RBP and RUA Igor
+N6-RU-N7    70.000      90.000   ! RBP and RUA Igor
+N4-RU-N8    70.000      90.000   ! RBP and RUA Igor
+RU-N4-CA    70.000    120.000   !  RBP Igor
+RU-N5-CA    70.000    120.000   !  RBP Igor
+RU-N6-CA    70.000    120.000   !  RBP Igor
+RU-N7-CA    70.000    120.000   !  RBP Igor
+RU-N8-CA    70.000    120.000   !  RBP Igor
+CA-N -C      70.000    120.000   !  RBP Igor
+CA-N -H      70.000    120.000   !  RBP Igor
+CA-NA-CA    70.000    120.000   !  RBP Igor
+CA-NB-CA    70.000    120.000   !  RBP Igor
+CA-N4-CA    70.000    120.000   !  RBP Igor
+CA-N5-CA    70.000    120.000   !  RBP Igor
+CA-N6-CA    70.000    120.000   !  RBP Igor
+CA-N7-CA    70.000    120.000   !  RBP Igor
+CA-NA-RU    70.000    120.000   !  RBP Igor
+CA-NB-RU    70.000    120.000   !  RBP Igor
+CA-N4-RU    70.000    120.000   !  RBP Igor
+CA-N5-RU    70.000    120.000   !  RBP Igor
+CA-N6-RU    70.000    120.000   !  RBP Igor
+CA-N7-RU    70.000    120.000   !  RBP Igor
+CA-CA-NB    70.000    120.000   !  RBP Igor
+CA-CA-N4    70.000    120.000   !  RBP Igor
+CA-CA-N5    70.000    120.000   !  RBP Igor
+CA-CA-N6    70.000    120.000   !  RBP Igor
+CA-CA-N7    70.000    120.000   !  RBP Igor
+CA-NA-CA    70.000    120.000   !  RBP Igor
+NA-CA-HA    70.000    120.000   !  RBP Igor
+NB-CA-HA    70.000    120.000   !  RBP Igor
+N4-CA-HA    70.000    120.000   !  RBP Igor
+N5-CA-HA    70.000    120.000   !  RBP Igor
+N6-CA-HA    70.000    120.000   !  RBP Igor
+N7-CA-HA    70.000    120.000   !  RBP Igor
+NA-CR-RBP_NB   70.0      120.00  ! RBP  Parameters     Igor  from HIS
+CC-CV-RBP_NB   70.0      120.00  ! RBP  Parameters     Igor  from HIS
+RU-RBP_NB-CR    70.000     127.000   ! RBP  Parameters     Igor
+RU-RBP_NB-CV    70.000     124.700   ! RBP  Parameters     Igor
+CR-RBP_NB-CV    70.0       117.00    ! RBP  Parameters     from HIS
+H5-CR-RBP_NB    50.0      120.00     ! RBP  Parameters     from HIS
+H4-CV-RBP_NB    50.0      120.00     ! RBP  Parameters     from HIS
+NA-RU-NA    70.000      90.000   ! RU-TPY Igor
+N8-RU-N8    70.000      90.000   ! RU-TPY Igor
+N8-RU-NA     0.000      90.000   ! RU-TPY Igor
+F -CA-CA     70.000     120.000   ! F-biphenyl Igor 
+N3-CG-HP     57.0     109.6    Methanaminium (eqm. value copied from NT-CG-H1), GLYCAM, add by mikola
+HP-CG-HP     40.0     109.5    Copy of HC-CG-HC
+CG-N3-CG     54.0     111.1    , GLYCAM, add by mikola
+CG-CG-CG     45.00    113.50   Propane, GLYCAM, add by mikola
+CG-CG-HC     45.00    112.60   Ethane, GLYCAM, add by mikola
+N3-CG-CP     67.0     111.6    Copy of NT-CG-CG, GLYCAM, add by mikola
+CG-CP-H1     45.00    111.00   Copy of CG-CG-H1, GLYCAM, add by mikola
+OS-CP-CG     70.00    108.50   Copy of OS-CG-CG, GLYCAM, add by mikola
+HP-CG-CP     45.0     112.6    Copy of CG-CG-HC, GLYCAM, add by mikola
+P -OS-CP     50.0     121.0    K calculated from dimethyl phosphate (eqm value from crystal average), GLYCAM, add by mikola
+H1-CP-H1     45.00    109.50   Copy of H1-CG-H1, GLYCAM, add by mikola
+HC-CG-HC     40.00    109.50   Methane, Ethane, GLYCAM, add by mikola
+OS-C -O      80.0     125.00   Parm99, GLYCAM, add by mikola
+OS-C -CG     95.0     110.80   K calculated from methyl acetate (eqm value from crystal average), GLYCAM, add by mikola
+OS-CG-CP     70.00    108.50   Copy of OS-CG-CG, GLYCAM, add by mikola
+CG-OS-C      60.0     117.00   K calculated from methyl acetate (eqm value from crystal average), GLYCAM, add by mikola
+H1-CG-OS     60.00    110.00   Methoxymethane (Dimethyl ether) - best fit for trans and gauche hyrdogens, GLYCAM, add by mikola
+H1-CG-H1     45.00    109.50   Methanol, Propanol, GLYCAM, add by mikola
+H1-CP-OS     60.00    110.00   Copy of H1-CG-OS, GLYCAM, add by mikola
+CP-CG-H1     45.00    111.00   Copy of CG-CG-H1, GLYCAM, add by mikola
+C -CG-HC     50.00    109.50   Parm94, GLYCAM, add by mikola
+CP-CG-CG     45.00    113.50   Copy of CG-CG-CG, GLYCAM, add by mikola
+CG-CG-H1     45.00    111.00   Propanol, GLYCAM, add by mikola
+OS-CG-CG     70.00    108.50   Methoxyethane (Ethylmethyl ether), GLYCAM, add by mikola
+CG-CG-H1     45.00    111.00   Propanol, GLYCAM, add by mikola
+C -CG-CG     63.00    111.10   Parm94, GLYCAM, add by mikola
+CG-C -O      80.00    121.70   Force constant taken from Parm94, Angle set to HF/6-31G(d) value N-Methylethanamide, GLYCAM, add by mikola
+CL_LPD  CG_LPD  CG_LPD     55.00       111.00
+CI_LPD  CE_LPD  CJ_LPD     55.00       109.50
+CI_LPD  CE_LPD  OE_LPD     55.00       109.50
+CI_LPD  OE_LPD  CL_LPD    50.00       120.00
+CI_LPD  OE_LPD  PO_LPD     47.50       120.00
+CJ_LPD  CE_LPD  OE_LPD     55.00       109.50
+CJ_LPD  OE_LPD  CL_LPD     50.00       120.00
+CP_LPD  NL_LPD  CP_LPD     55.00       109.50
+CP_LPD  NL_LPD  CF_LPD     55.00       109.50
+CE_LPD  OE_LPD  CL_LPD     50.00       120.00
+CF_LPD  CI_LPD  OE_LPD     55.00       109.50
+NL_LPD  CF_LPD  CI_LPD     55.00       109.50
+OC_LPD  CL_LPD  CG_LPD     60.00       121.00
+OP_LPD  PO_LPD  OP_LPD     70.00       120.00
+OE_LPD  CL_LPD  OC_LPD     60.00       124.00
+OE_LPD  CL_LPD  CG_LPD     60.00       115.00
+OE_LPD  CI_LPD  CE_LPD     55.00       111.00
+OE_LPD  CJ_LPD  CE_LPD     55.00       111.00
+OE_LPD  PO_LPD  OP_LPD     47.50       109.50
+OE_LPD  PO_LPD  OE_LPD     47.50       103.00
+CG_LPD  CG_LPD  CG_LPD     55.00       111.00
+CG_LPD  CG_LPD  CH_LPD     55.00       111.00
+N -C -H    55.00       120.00       ! Lea Formamide parameters 
+H -C -O    55.00       120.00       ! Lea Formamide parameters 
+N -C -H2    55.00       120.00       ! Lea Formamide parameters - used for DMF too, but I am not sure about it.
+H2 -C -O    55.00       120.00       ! Lea Formamide parameters - used for DMF too, but I am not sure about it.
+N3-CT-H1   50.0        109.50        !  For GLF                
+
+DIHE
+X -NB-FE-X    1       0.000       0.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -NO-FE-X    1       0.000     180.000       2.000    ! Heme Parameters  D.A. Giammona, Ph.D. thesis
+X -NP-FE-X    1       0.000     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -NO-CC-X    4       5.700     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -NP-CC-X    4       5.700     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CC-CB-X    4       3.150     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CB-CB-X    4      21.500     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CD-CC-X    4       7.900     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CB-CT-X    1       0.000     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CB-CY-X    4       0.000     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -CY-CX-X    4      30.000     180.000       2.000    ! Heme Parameters   D.A. Giammona, Ph.D. thesis
+X -FE-LO-X    1       0.0       180.0         2.000    ! Heme Parameters      D.A. Giammona, Ph.D. thesis
+X -FE-S -X    1       0.0         0.0         2.0      ! Heme Parameters Iain
+X -CY-S -X    1       0.0         0.0         2.0      ! Heme Parameters Iain
+X -N4-RU-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -NA-RU-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -N5-RU-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -N6-RU-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -N7-RU-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -RU-NB-X    1       0.0       180.000       2.000    ! Rua Parameters Iain
+X -RBP_NB-RU-X    1       0.0       180.000       2.000    ! Igor RBP parameters
+X -N8-RU-X    1       0.0       180.000       2.000    ! Igor tpy
+HP-CG-N3-CG   1    0.25          0.0             3          Dimethylammonium, GLYCAM, add by mikola
+HC-CG-CG-CG   1    0.10          0.0             3.         Propane, GLYCAM, add by mikola
+CG-CG-CG-C    1    0.45          0.0             1.         Butane, GLYCAM, add by mikola
+HC-CG-CG-C    1    0.10          0.0             3.         Propane, GLYCAM, add by mikola
+HC-CG-CG-HC   1    0.13          0.0             3.         Ethane, GLYCAM, add by mikola
+CG-CG-CG-CG   1    0.45          0.0             1.         Butane, GLYCAM, add by mikola
+O -C -CG-CG   1    0.50          0.0            -3          Propanamide (coupled to N -C -CG-CG), GLYCAM, add by mikola
+              1   -0.10          0.0            -2
+              1   -0.05          0.0             1
+CG-N3-CG-CP   1    0.1           0.0            -3          Copy of CG-N3-CG-CG, GLYCAM, add by mikola
+              1   -0.2           0.0            -2
+              1    0.1           0.0             1
+N3-CG-CP-H1   1    0.1           0.0             3          Copy of NT-CG-CG-H1, GLYCAM, add by mikola
+N3-CG-CP-OS   1    1.5           0.0            -3          2-Methoxyethanaminium, GLYCAM, add by mikola
+              1    0.5           0.0            -2
+              1   -0.5           0.0             1
+HP-CG-CP-H1   1    0.13          0.0             3.         Copy of HC-CG-CG-HC, GLYCAM, add by mikola
+HP-CG-CP-OS   1    0.05          0.0             3.         Copy of HC-CG-CG-OS, GLYCAM, add by mikola
+P -OS-CP-CG   1    0.10          0.0            -3          Methyl ethyl phosphate, GLYCAM, add by mikola
+              1    0.05          0.0            -2
+              1   -1.20          0.0             1
+H1-CP-OS-P    1    0.07          0.0             3.         Dimethyl phosphate, GLYCAM, add by mikola
+O2-P -OS-CP   1    0.10          0.0            -3.         Dimethyl phosphate, GLYCAM, add by mikola
+              1   -0.50          0.0            -2.
+              1    0.10          0.0             1
+H1-CG-CP-OS   1    0.05          0.0             3.         Copy of H1-CG-CG-OS, GLYCAM, add by mikola
+OS-CP-CG-CG   1   -0.27          0.0             1.         Copy of OS-CG-CG-CG, GLYCAM, add by mikola
+OS-CG-CP-OS   1    0.82          0.0             2.         Copy of OS-CG-CG-OS, GLYCAM, add by mikola
+H1-CG-CP-H1   1    0.17          0.0             3.         Copy of H1-CG-CG-H1, GLYCAM, add by mikola
+H1-CP-CG-CG   1    0.15          0.0             3.         Copy of H1-CG-CG-CG, GLYCAM, add by mikola
+H1-CP-CG-OS   1    0.05          0.0             3.         Copy of H1-CG-CG-OS, GLYCAM, add by mikola
+H1-CG-CG-CP   1    0.15          0.0             3.         Copy of H1-CG-CG-CG, GLYCAM, add by mikola
+OS-CG-CG-CP   1   -0.27          0.0             1.         Copy of OS-CG-CG-CG, GLYCAM, add by mikola
+H1-CG-CG-H1   1    0.17          0.0             3.         Ethanol, GLYCAM, add by mikola
+H1-CG-CG-OS   1    0.05          0.0             3.         Methoxyethane, GLYCAM, add by mikola
+CP-CG-OS-C    1   -0.04          0.0            -3          Copy of CG-CG-OS-C, GLYCAM, add by mikola
+              1    0.47          0.0             1
+H1-CG-OS-C    1    0.0           0.0             3          Methyl acetate, GLYCAM, add by mikola
+CG-C -OS-CG   1    3.0           0.0             2          Methyl acetate, GLYCAM, add by mikola
+OS-C -CG-HC   1    0.0           0.0             3          Methyl acetate, GLYCAM, add by mikola
+OS-CG-CG-OS   1    0.82          0.0             2.         DiEthers, GLYCAM, add by mikola
+CG-CG-OS-C    1   -0.04          0.0            -3          Ethyl acetate, 2-Methoxy 3-O-Acetyl THP, GLYCAM, add by mikola
+              1    0.47          0.0             1
+CG-OS-C -O    1   -3.20          0.0             2          Methyl acetate, GLYCAM, add by mikola
+OS-C -CG-CG   1    0.20          0.0             3          Methyl propanoate, GLYCAM, add by mikola
+HC-CG-C -O    1    0.00          0.0             3.         Ethanamide, GLYCAM, add by mikola
+CL_LPD-CG_LPD-CG_LPD-CG_LPD   1    -2.229       180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    -5.212         0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1     5.007       180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1     0.602       180.000       4.000    ! DMPC Re-parameterized- Linda
+CI_LPD-CE_LPD-OE_LPD-CL_LPD   1     1.621       180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1     1.586       180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    -1.044         0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    -0.252         0.000      -4.000    ! DMPC Re-parameterized- Linda
+                              1    -0.249         0.000       3.000    ! DMPC Re-parameterized- Linda
+CJ_LPD-CE_LPD-OE_LPD-CL_LPD   1     0.822       180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    -0.635         0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    2.341        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.266        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.231          0.000       4.000    ! DMPC Re-parameterized- Linda
+CJ_LPD-CE_LPD-CL_LPD-OC_LPD   1    0.849        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.446          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.857        180.000       1.000    ! DMPC Re-parameterized- Linda
+CJ_LPD-OE_LPD-CL_LPD-CG_LPD   1    4.229        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.018          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -4.144          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.939          0.000       3.000    ! DMPC Re-parameterized- Linda
+CI_LPD-OE_LPD-PO_LPD-OP_LPD   1   -2.204          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.301        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.909          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.323          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.160        180.000       4.000    ! DMPC Re-parameterized- Linda
+CI_LPD-OE_LPD-PO_LPD-OE_LPD   1    0.576        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -1.750          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.078        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.252          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -0.575          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.284        180.000       4.000    ! DMPC Re-parameterized- Linda
+CP_LPD-NL_LPD-CF_LPD-CI_LPD   1    6.501        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -9.587          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    3.502        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    6.588          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -4.862          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    2.297        180.000       4.000    ! DMPC Re-parameterized- Linda
+CE_LPD-CJ_LPD-OE_LPD-CL_LPD   1    0.697        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.222          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.941          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    1.417        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.378        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.303        180.000       4.000    ! DMPC Re-parameterized- Linda
+CE_LPD-OE_LPD-CL_LPD-OC_LPD   1    0.426        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.925          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.965        180.000       1.000    ! DMPC Re-parameterized- Linda
+CE_LPD-OE_LPD-CL_LPD-CG_LPD   1    1.217        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.354          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    1.240        180.000       1.000    ! DMPC Re-parameterized- Linda
+CF_LPD-CI_LPD-OE_LPD-PO_LPD   1   -0.210        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -2.880          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    4.119        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.385        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.524          0.000       4.000    ! DMPC Re-parameterized- Linda
+NL_LPD-CF_LPD-CI_LPD-OE_LPD   1   -0.622          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -0.395          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.397        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.697        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.699          0.000       3.000    ! DMPC Re-parameterized- Linda
+OC_LPD-CL_LPD-CG_LPD-CG_LPD   1    0.396        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.482          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.189        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.275          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -0.181          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.059        180.000       4.000    ! DMPC Re-parameterized- Linda
+OE_LPD-CL_LPD-CG_LPD-CG_LPD   1    0.904        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.293          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.321        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.285        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.688          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.153          0.000       4.000    ! DMPC Re-parameterized- Linda
+OE_LPD-CI_LPD-CE_LPD-OE_LPD   1    0.600          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.410        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.548          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.452          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.462        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    0.558        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    0.045        180.000       4.000    ! DMPC Re-parameterized- Linda
+OE_LPD-CI_LPD-CE_LPD-CJ_LPD   1    0.308        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -1.068          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.616        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.004        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.448          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.179          0.000      -4.000    ! DMPC Re-parameterized- Linda
+                              1    0.760          0.000       2.000    ! DMPC Re-parameterized- Linda
+OE_LPD-CJ_LPD-CE_LPD-OE_LPD   1    1.087          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    1.225        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.059          0.000      -4.000    ! DMPC Re-parameterized- Linda
+                              1   -0.037          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -0.010        180.000       2.000    ! DMPC Re-parameterized- Linda
+OE_LPD-CJ_LPD-CE_LPD-CI_LPD   1    0.830        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1   -1.425          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.401        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -0.996          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -0.598          0.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1   -0.174        180.000      -4.000    ! DMPC Re-parameterized- Linda
+                              1   -0.421          0.000       4.000    ! DMPC Re-parameterized- Linda
+PO_LPD-OE_LPD-CI_LPD-CE_LPD   1   -0.521          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.862          0.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    0.800        180.000      -3.000    ! DMPC Re-parameterized- Linda
+                              1    1.413        180.000      -1.000    ! DMPC Re-parameterized- Linda
+                              1    1.475          0.000       3.000    ! DMPC Re-parameterized- Linda
+CG_LPD-CG_LPD-CG_LPD-CH_LPD   1   -2.286        180.00       -2.000    ! DMPC Re-parameterized- Linda
+                              1   -6.687          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    7.557          0.000       1.000    ! DMPC Re-parameterized- Linda
+CG_LPD-CG_LPD-CG_LPD-CG_LPD   1   -1.541        180.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1   -5.063          0.000      -2.000    ! DMPC Re-parameterized- Linda
+                              1    6.082        180.000       1.000    ! DMPC Re-parameterized- Linda
+CJ_LPD-OE_LPD-CL_LPD-OC_LPD   2    4.000         180.0       2.0     !GROMACS missing -LO , from Tieleman parameters
+
+IMPROPER
+X -CC-CC-X    0       1.000     180.000       2.000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+X -CC-CB-X    0       1.000     180.000       2.000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+X -CB-NP-X    0       1.000     180.000       2.000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+X -CB-NO-X    0       1.000     180.000       2.000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+RU-N5-X -X           100.0       180.0         2.000   !RBP parameters 
+RU-N7-X -X           100.0       180.0         2.000   !RBP parameters 
+RU-N4-X -X           100.0       180.0         2.000   !RBP parameters 
+RU-N6-X -X           100.0       180.0         2.000   !RBP parameters
+RU-RBP_NB-X -X       100.0       180.0         2.000   !RBP parameters
+X -CA-CA-X           100.0       180.0         2.000   !RBP parameters
+X -CA-NA-X           100.0       180.0         2.000   !RBP parameters
+X -CA-N5-X           100.0       180.0         2.000   !RBP parameters
+X -CA-N7-X           100.0       180.0         2.000   !RBP parameters
+X -CA-N8-X           100.0       180.0         2.000   !RTP Igor 
+X -CA-N4-X           100.0       180.0         2.000   !RBP parameters
+X -CA-N6-X           100.0       180.0         2.000   !RBP parameters
+RU-NA-X -X           100.0       180.0         2.000   !RBP parameters
+RU-N8-X -X           100.0       180.0         2.000   !RBP parameters
+HA-CA-X -X           100.0       180.0         2.000   !RBP parameters
+CT-CA-X -X           100.0       180.0         2.000   !RBP parameters
+H -CA-X -X           100.0       180.0         2.000   !RBP parameters
+HA-CA-X -X           100.0       180.0         2.000   !RBP parameters
+RU-N7-CA-N6          100.0       180.0         2.000   !RBP parameters
+RU-N5-CA-N4          100.0       180.0         2.000   !RBP parameters
+RU-NB-X -X           100.0       180.0         2.000   !RU-HIS parameter
+CT-C -N -H           10.0        180.0         2.000   ! RU-WIRES Parameters Igor     
+CI_LPD  CJ_LPD  CE_LPD OE_LPD        10.00      -120.0        1.0     ! DPMS Parameters LINDA 
+CG_LPD OC_LPD CL_LPD OE_LPD        10.00       -180.0        1.0    ! DPMS Parameters LINDA 
+H  C  N  H           10.5        180.          2.000   !  Lea parameters for formamide    
+O  N  C  H           10.5        180.          2.000   !   Lea parameters for formamide
+C -CT-N -CT          10.5        180.          2.000   !   Lea parameters for formamide  - used for DMF too, but I am not sure about it   
+H2-N -C -O           10.5        180.          2.000   !   Lea parameters for formamide  - used for DMF too, but I am not sure about it    
+
+NONB
+  IB          5.0     0.1                solvated ion for vacuum approximation
+  CL         2.223     0.107     0.0       ! Heme parameters 
+  FE         1.20000   0.05000   0.00000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+  LO         1.60000   0.20000   0.00000   ! Heme parameters   D.A. Giammona, Ph.D. thesis
+  LC         1.85      0.12      0.0       ! Heme parameters         D.A. Giammona, Ph.D. thesis
+  NP         1.8240  0.1700               ! Heme parameters         D.A. Giammona, Ph.D. thesis
+  NO         1.8240  0.1700               ! Heme parameters         D.A. Giammona, Ph.D. thesis
+  N4         1.8240  0.1700               ! RBP and RUAM parameters
+  N5         1.8240  0.1700               ! RBP and RUAM parameters
+  N6         1.8240  0.1700               ! RBP and RUAM parameters
+  N7         1.8240  0.1700               ! RBP and RUAM parameters
+  RU         1.20000   0.05000   0.00000   ! RBP and RUAM parameters
+  RBP_NB         1.8240  0.1700               ! RBP and RUAM parameters
+  N8         1.8240  0.1700               ! RBP and RUAM parameters
+  H_ST       1.487     0.0157              ! OPLS  =std
+  C_ST       1.908     0.086               ! OPLS
+  N_ST       1.824     0.17                ! OPLS
+  O_ST       1.6612    0.21                ! OPLS
+  XXST       1.908     0.086               ! OPLS
+  CG          1.9080  0.1094             Spellmeyer GLYCAM, add by mikola
+  CP          1.9080  0.1094             Spellmeyer, GLYCAM, add by mikola
+  CL_LPD          2.1045  0.10505      ! DPMC params Gromacs in Amber (Linda)      Tail carbonyl carbon
+  CI_LPD          2.1326  0.11806      ! DPMC params Gromacs in Amber (Linda)      Glycerol CH2
+  CJ_LPD          2.1326  0.11806      ! DPMC params Gromacs in Amber (Linda)      Glycerol CH2, for "CE"
+  CP_LPD          2.2225  0.14496      ! DPMC params Gromacs in Amber (Linda)      Head-group CH3 (choline)
+  CE_LPD          2.1328  0.08000      ! DPMC params Gromacs in Amber (Linda)      Glycerol CH1
+  CF_LPD          2.1916  0.11800      ! DPMC params Gromacs in Amber (Linda)      Head-group CH2
+  NL_LPD          1.8240  0.17000       ! DPMC params Gromacs in Amber (Linda)     Head-group nitrogen
+  OC_LPD          1.6612  0.21000      ! DPMC params Gromacs in Amber (Linda)      Tail carbonyl oxygen
+  OP_LPD          1.6612  0.21000      ! DPMC params Gromacs in Amber (Linda)      Head-group phosphate oxygen
+  OE_LPD          1.6836  0.21012      ! DPMC params Gromacs in Amber (Linda)      Ester oxygen
+  PO_LPD          2.1000  0.20000      ! DPMC params Gromacs in Amber (Linda)      Head-group phosphorus
+  CG_LPD          2.2224  0.09102      ! DPMC params Gromacs in Amber (Linda)      Tail CH2
+  CH_LPD          2.2225  0.13598      ! DPMC params Gromacs in Amber (Linda)      Tail terminal CH3
+  AU_RP           50.0      0.2            ! Au nano particle 50 Ang radius    (Tatiana)
+  AU_RT           10.0      0.2            ! Au nano particle 10 Ang radius    (Tatiana)
+

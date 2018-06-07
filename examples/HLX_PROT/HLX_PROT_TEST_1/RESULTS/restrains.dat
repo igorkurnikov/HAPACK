@@ -1,0 +1,8 @@
+DISTANCE_CONSTRAINS
+# Format: 
+# $MolID$ResIDResNumber:ChainID.AtomID $MolID$ResIDResNumber:ChainID.AtomID Distance
+DONE
+TOPOLOGY
+# Format: 
+# $MolID$ Inside
+DONE

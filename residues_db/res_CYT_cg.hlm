@@ -1,0 +1,19 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=C
+#MOLECULE 
+MOLNAME=C#CG
+#ATOMS 
+    1   0 "PH"      8.192000000      3.087000000      5.565000000  " " "C"       1    -1.00000 "NO_HYBRID" ""  "PH"     94.97 
+    2   0 "SG"      6.903000000     -0.479000000      4.659000000  " " "C"       1     0.00000 "NO_HYBRID" ""  "SG"     83.11 
+    3   0 "CB"      2.162000000      0.258000000      3.566000000  " " "C"       1     0.00000 "NO_HYBRID" ""  "CB"    110.1 
+#END ATOMS 
+#BONDS 
+    1   2 SINGLE
+    2   3 SINGLE 
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#END MOL_SET

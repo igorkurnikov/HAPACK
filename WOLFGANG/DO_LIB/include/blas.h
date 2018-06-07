@@ -1,0 +1,125 @@
+/*IGN
+%  Dortmund C++ Class and Template Library 
+%  Copyright (C) 1994 Wolfgang Wenzel
+
+%  This library is free software; you can redistribute it and/or
+%  modify it under the terms of the GNU Library General Public
+%  License as published by the Free Software Foundation; either
+%  version 2 of the License, or (at your option) any later version.
+
+%  This library is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+%  Library General Public License for more details.
+
+%  You should have received a copy of the GNU Library General Public
+%  License along with this library; if not, write to the Free
+%  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  
+%  $Id: blas.h,v 1.1.1.1 2008/04/08 19:44:31 igor Exp $
+*/
+
+/*TEX 
+\chapter{BLAS Interface}
+
+\section{Introduction}
+
+In this chapter we describe the interface of the Matrix and Vector
+classes with the Basis Linear Algebra Subroutines (BLAS) package.  The
+purpose of interfacing with BLAS is to get nearly the maximal possible
+speed for various fundamental operations.  The speed up over the
+hand-coded equivalents is machine and operation dependent, but can be
+up to a factor of $10$!  (For a more complete description of BLAS try
+the manual pages of most modern workstations, or NETLIB at
+netlib@ornl.gov ).
+
+To activate this option the compiler time flag \name{-DBLAS} should be
+used, and the standard library libblas.a should be loaded using
+\name{-lblas}.  {\bf Ask Matthew about how this should be done.}
+
+Not all Matrix and Vector functions have been interfaced yet.
+Below is a list of those interfaced.  If you want another function
+interfaced ask Matthew (mms@pacific.mps.ohio-stae.edu) -- it is not
+difficult, just tedious.
+
+\noindent
+\name{Vector\& Vector::operator=(const Vector\& v);}  \\
+\name{Vector\& Vector::operator+=(const Vector\& v);}  \\
+\name{double Vector::operator*(const Vector\& v);}  \\
+\name{void Vector::multiply(const Matrix\& mat, const Vector\& vec);}  \\
+
+\noindent
+\name{void Matrix::multiply(const Matrix\& mat2, const Matrix\& mat3);}  \\
+\name{void Matrix::multiply\_transpose\_1(const Matrix\& mat2, const Matrix\& mat3);}  \\
+
+\noindent
+\name{friend Vector operator+(const Vector\& vec1,const Vector\& vec2);}  \\
+\name{friend Vector operator-(const Vector\& vec1,const Vector\& vec2);}  \\
+
+\noindent
+Further the following functions (not in the BLAS package) have
+unrolled-loop implementations. 
+
+\noindent
+\name{void Vector::set(const double value);}  \\
+\name{Vector\& Vector::operator+=(const double value);}  \\ */
+
+#ifndef BLAS_H
+#define BLAS_H
+
+  //  The machine dependent macro definitions.
+
+#if defined(GNU) || defined(ALPHA)
+#define Mdcopy dcopy_
+#define Mdaxpy daxpy_
+#define Mddot  ddot_
+#define Mdgemv dgemv_
+
+#ifdef SUN     //  IMSL
+
+#define Mdmrrrr dmrrrr_
+#define Mdmxtyf dmxtyf_
+#define Mdmxytf dmxytf_
+
+#else
+
+#define Mdgemm dgemm_
+
+#endif
+
+#endif
+
+#ifdef XLC
+#define Mdcopy dcopy
+#define Mdaxpy daxpy
+#define Mddot  ddot
+#define Mdgemv dgemv
+#define Mdgemm dgemm
+#endif
+
+  //  Now the BLAS functions.
+
+  extern "C" {
+
+    void Mdcopy( int*, double*, int*, double*, int* );
+    void Mdaxpy( int*, double*, double*, int*, double*, int* );
+    double Mddot( int*, double*, int*, double*, int* );
+    void Mdgemv( char*, int*, int*, double*, double*, int*, 
+                        double*, int*, double*, double*, int* );
+    void Mdgemm( char*, char*, int*, int*, int*, 
+                 double*, double*, int*, double*, int*, double*, double*, int* );
+
+    void Mdmrrrr( int*, int*, double*, int*, 
+                  int*, int*, double*, int*, int*, int*, double*, int* );
+    void Mdmxtyf( int*, int*, double*, int*, 
+                  int*, int*, double*, int*, int*, int*, double*, int* );
+    void Mdmxytf( int*, int*, double*, int*, 
+                  int*, int*, double*, int*, int*, int*, double*, int* );
+
+  }
+
+  //  The actual implementation
+
+#include "blas_implement.h"
+
+#endif

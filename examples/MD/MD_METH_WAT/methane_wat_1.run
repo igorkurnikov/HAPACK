@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd -O -i methane_wat_1.inp -o methane_wat_1.out -p methane_wat_1.top -c methane_wat_1.crd -r methane_wat_1.rst -ref methane_wat_1.ref -x methane_wat_1.mdcrd -v methane_wat_1.mdvel -e methane_wat_1.mden 

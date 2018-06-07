@@ -1,0 +1,14 @@
+Virial Reciprocal Sum:
+pmemd : 
+
+vir%elec_recip  
+
+
+----------------------------------
+in pmemd_amoeba: 
+
+computed in:
+
+am_recip_scalar_sum()
+
+

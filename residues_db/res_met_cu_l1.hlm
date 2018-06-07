@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="met_cu_l1" >
+<molecule name="MET#CU_L1" />
+<chain  id=" " />
+<res name="MET"  no="1" /> 
+  <atom hb_st="D" >    1     N  7    -13.154345395     -7.507205429      0.292364824 <bonds> 2  3  18  </bonds></atom>
+  <atom>    2     H  1    -12.969305696     -6.612263547     -0.137680915 <bonds> 1  </bonds></atom>
+  <atom>    3    CA  6    -12.326986317     -8.635146834     -0.085558641 <bonds> 1  4  5  16  </bonds></atom>
+  <atom>    4    HA  1    -11.815556469     -9.022648928      0.795566570 <bonds> 3  </bonds></atom>
+  <atom>    5    CB  6    -13.167481093     -9.753590326     -0.692417510 <bonds> 3  6  7  8  </bonds></atom>
+  <atom>    6   HB2  1    -13.904695607    -10.090994548      0.036124288 <bonds> 5  </bonds></atom>
+  <atom>    7   HB3  1    -13.678684231     -9.383362008     -1.581069492 <bonds> 5  </bonds></atom>
+  <atom>    8    CG  6    -12.261895953    -10.919141050     -1.075865111 <bonds> 5  9  10  11  </bonds></atom>
+  <atom>    9   HG2  1    -11.524657004    -10.582594268     -1.804778683 <bonds> 8  </bonds></atom>
+  <atom>   10   HG3  1    -11.750668380    -11.290226807     -0.187584903 <bonds> 8  </bonds></atom>
+  <atom hb_st="A" >   11    SD  16    -13.245616601    -12.255779783     -1.798215847 <bonds> 8  12  </bonds></atom>
+  <atom>   12    CE  6    -11.959086878    -13.438634683     -2.135996187 <bonds> 11  13  14  15  </bonds></atom>
+  <atom>   13   HE1  1    -11.460119625    -13.709198717     -1.205444316 <bonds> 12  </bonds></atom>
+  <atom>   14   HE2  1    -12.394094836    -14.330500618     -2.587043001 <bonds> 12  </bonds></atom>
+  <atom>   15   HE3  1    -11.234108250    -13.001566179     -2.822638096 <bonds> 12  </bonds></atom>
+  <atom>   16     C  6    -11.282116077     -8.227826643     -1.114548652 <bonds> 3  17  19  </bonds></atom>
+  <atom hb_st="A" >   17     O  8    -11.221471810     -7.067991793     -1.516476997 <bonds> 16  </bonds></atom>
+<res name="HED"  no="2" /> 
+  <atom>   18    HT  1    -13.919558710     -7.726692083      1.022210144 <bonds> 1  </bonds></atom>
+<res name="TAL"  no="3" /> 
+  <atom>   19    HT  1    -10.560279464     -8.912731006     -1.534379471 <bonds> 16  </bonds></atom>
+</molset>
+</HARLEM_DATA>

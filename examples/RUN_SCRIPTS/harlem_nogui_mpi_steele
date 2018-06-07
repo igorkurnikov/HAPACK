@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Script to run HARLEM using MPICH on STEELE 
+#
+
+module load intel32
+module load mpich2-intel32
+
+export HARLEM_ROOTDIR=${HOME}/HARLEM
+export HARLEM_HOME=${HARLEM_ROOTDIR}/
+export PATH="${HARLEM_ROOTDIR}/bin:$PATH"
+export PYTHONPATH="${PYTHONPATH}:${HARLEM_ROOTDIR}/scripts"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}\
+:/opt/intel/mkl/10.2.0.013/lib/32\
+:${HARLEM_ROOTDIR}/lib\
+:${HOME}/PROG_SRC/lib"
+
+mpiexec -envall $1 $2 ${HARLEM_ROOTDIR}/bin/harlem_nogui_bin $3 $4 $5 $6 $7 $8 $9

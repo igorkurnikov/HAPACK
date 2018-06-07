@@ -1,0 +1,206 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=RES_AZURIN
+#MOLECULE 
+MOLNAME=RBP
+#ATOMS 
+    1   6 "CB"      2.107147131     -5.426688258      1.214874239  " " "RBP"       1    -0.01350 "NO_HIBRID" ""  "CT"     12.01100 
+    2   1 "HB1"      1.454301739     -5.693790581      0.383042980  " " "RBP"       1     0.04020 "NO_HIBRID" ""  "HC"      1.00790 
+    3   1 "HB2"      1.832249946     -6.022592705      2.085098594  " " "RBP"       1     0.04020 "NO_HIBRID" ""  "HC"      1.00790 
+    4   1 "HB3"      3.140940680     -5.640752703      0.942669701  " " "RBP"       1     0.04020 "NO_HIBRID" ""  "HC"      1.00790 
+    5   6 "CG"      1.964374161     -3.952326135      1.530033263  " " "RBP"       1    -0.02660 "NO_HIBRID" ""  "CA"     12.01100 
+    6   7 "ND1"      2.321120693     -3.337369934      2.711321450  " " "RBP"       1    -0.38110 "NO_HIBRID" ""  "NA"     14.00670 
+    7   1 "HD1"      2.766535939     -3.799557893      3.497904281  " " "RBP"       1     0.36490 "NO_HIBRID" ""  "H"      1.00790 
+    8   6 "CE1"      2.118023695     -1.978139242      2.560657798  " " "RBP"       1     0.20570 "NO_HIBRID" ""  "CA"     12.01100 
+    9   1 "HE1"      2.373704953     -1.227392104      3.295874656  " " "RBP"       1     0.13920 "NO_HIBRID" ""  "HA"      1.00790 
+   10   7 "NE2"      1.602445739     -1.754154196      1.291471023  " " "RBP"       1    -0.57270 "NO_HIBRID" ""  "NA"     14.00670 
+   11   6 "CD2"      1.546462403     -2.971327888      0.628897201  " " "RBP"       1     0.12920 "NO_HIBRID" ""  "CA"     12.01100 
+   12   1 "HD2"      1.277468347     -3.141378478     -0.405951577  " " "RBP"       1     0.11470 "NO_HIBRID" ""  "HA"      1.00790 
+   13  44 "RU"      1.397928925      0.074719214      0.368419061  " " "RBP"       1     1.00000 "NO_HIBRID" ""  "RU"    101.07000 
+   14   7 "NL1"      0.154709526      0.904717893      1.740095669  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "N4"     14.00670 
+   15   6 "CL6"     -0.434948023      0.222325686      2.797850768  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   16   1 "HL6"     -0.268540077     -0.831898476      2.944782084  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   17   6 "CL5"     -1.272766145      0.908866408      3.693578200  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   18   1 "HL5"     -1.724754301      0.382038809      4.521788552  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   19   6 "CL4"     -1.529284466      2.278003603      3.506349217  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   20   1 "HL4"     -2.176734630      2.805403215      4.191351358  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   21   6 "CL3"     -0.961727660      2.951883548      2.410698226  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   22   1 "HL3"     -1.197067612      3.996492603      2.275121569  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   23   6 "CL2"     -0.129553848      2.248802069      1.513375442  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   24   6 "CM2"      0.445598421      2.810851967      0.354341887  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   25   6 "CM3"      0.292233107      4.157169063     -0.043978783  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   26   1 "HM3"     -0.273329877      4.866315722      0.540462427  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   27   6 "CM4"      0.879728115      4.600554156     -1.241161006  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   28   1 "HM4"      0.761384891      5.627019719     -1.557424075  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   29   6 "CM5"      1.594165531      3.695998694     -2.045041964  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   30   1 "HM5"      2.019458587      4.026294741     -2.980152834  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   31   6 "CM6"      1.748012540      2.361549387     -1.633571254  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   32   1 "HM6"      2.295886360      1.686957589     -2.271743788  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   33   7 "NM1"      1.191059841      1.938212859     -0.430126251  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "N5"     14.00670 
+   34   7 "NP1"      2.762513358     -0.514976267     -1.018187432  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "N6"     14.00670 
+   35   6 "CP6"      2.479972403     -1.251155444     -2.164197828  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   36   1 "HP6"      1.488456854     -1.621678847     -2.366562166  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   37   6 "CP5"      3.504965286     -1.537353851     -3.082764679  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   38   1 "HP5"      3.287458953     -2.101240409     -3.977373502  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   39   6 "CP4"      4.813914059     -1.092850792     -2.831113850  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   40   1 "HP4"      5.604151249     -1.311397525     -3.535293166  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   41   6 "CP3"      5.097891306     -0.379317730     -1.653463438  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   42   1 "HP3"      6.114350533     -0.063682350     -1.477989947  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   43   6 "CP2"      4.059629584     -0.100238331     -0.738251830  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   44   6 "CN2"      4.232986706      0.592285091      0.479445841  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   45   6 "CN3"      5.465906788      1.105594319      0.937335244  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   46   1 "HN3"      6.376266939      0.999065425      0.369256913  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   47   6 "CN4"      5.522423337      1.784431783      2.167481811  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   48   1 "HN4"      6.461717072      2.182338581      2.523927401  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   49   6 "CN5"      4.355088611      1.946947477      2.932619896  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   50   1 "HN5"      4.395806328      2.468893799      3.877106584  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   51   6 "CN6"      3.133713296      1.433185471      2.464906372  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "CA"     12.01100 
+   52   1 "HN6"      2.250691476      1.571603961      3.068222033  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "HA"      1.00790 
+   53   7 "NN1"      3.085859864      0.762058104      1.247027845  " " "RBP"       1     0.00000 "NO_HIBRID" ""  "N7"     14.00670 
+#END ATOMS 
+#BONDS 
+   14    13  SINGLE
+   14    23  SINGLE
+   14    15  SINGLE
+   13    10  SINGLE
+   13    34  SINGLE
+   13    33  SINGLE
+   13    53  SINGLE
+   12    11  SINGLE
+   11    10  SINGLE
+   11     5  SINGLE
+   10     8  SINGLE
+    9     8  SINGLE
+    8     6  SINGLE
+    7     6  SINGLE
+    6     5  SINGLE
+    5     1  SINGLE
+    4     1  SINGLE
+    3     1  SINGLE
+    2     1  SINGLE
+   26    25  SINGLE
+   25    24  SINGLE
+   25    27  SINGLE
+   24    23  SINGLE
+   24    33  SINGLE
+   23    21  SINGLE
+   22    21  SINGLE
+   21    19  SINGLE
+   20    19  SINGLE
+   19    17  SINGLE
+   18    17  SINGLE
+   17    15  SINGLE
+   16    15  SINGLE
+   36    35  SINGLE
+   35    34  SINGLE
+   35    37  SINGLE
+   34    43  SINGLE
+   33    31  SINGLE
+   32    31  SINGLE
+   31    29  SINGLE
+   30    29  SINGLE
+   29    27  SINGLE
+   28    27  SINGLE
+   47    45  SINGLE
+   47    49  SINGLE
+   47    48  SINGLE
+   46    45  SINGLE
+   45    44  SINGLE
+   44    43  SINGLE
+   44    53  SINGLE
+   43    41  SINGLE
+   42    41  SINGLE
+   41    39  SINGLE
+   40    39  SINGLE
+   39    37  SINGLE
+   38    37  SINGLE
+   53    51  SINGLE
+   52    51  SINGLE
+   51    49  SINGLE
+   50    49  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+MOLNAME=RUA
+#ATOMS 
+    1  44 "RU"     11.599694735     -0.230205975     -0.124626336  " " "RUA"       1    -1.00000 "NO_HIBRID" ""  "RU"    101.07000 
+    2   7 "N1"     10.541514512      1.106463886      0.921111825  " " "RUA"       1    -0.20000 "NO_HIBRID" ""  "NA"     14.00670 
+    3   1 "H11"      9.487356377      0.902720426      0.804324720  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+    4   1 "H12"     10.807141940      1.038894995      1.965753636  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+    5   1 "H13"     10.757816158      2.100603337      0.558757923  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+    6   7 "N2"     11.655641250     -1.434421691      1.471222810  " " "RUA"       1    -0.20000 "NO_HIBRID" ""  "N4"     14.00670 
+    7   1 "H21"     10.802310814     -2.096174269      1.453596348  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+    8   1 "H22"     12.563910860     -2.018389434      1.450534866  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+    9   1 "H23"     11.630956112     -0.839901624      2.372519950  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   10   7 "N3"     12.657874957     -1.566875836     -1.170364496  " " "RUA"       1    -0.20000 "NO_HIBRID" ""  "N5"     14.00670 
+   11   1 "H31"     11.985202863     -2.252504029     -1.664152138  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   12   1 "H32"     13.255662644     -1.054621118     -1.909718935  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   13   1 "H33"     13.304988426     -2.116329460     -0.502723221  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   14   7 "N4"     11.543748219      0.974009741     -1.720475482  " " "RUA"       1    -0.20000 "NO_HIBRID" ""  "N6"     14.00670 
+   15   1 "H41"     10.670248426      0.746390667     -2.313423766  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   16   1 "H42"     11.498893724      2.002663311     -1.394500164  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   17   1 "H43"     12.431848471      0.824175501     -2.316485249  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   18   7 "N5"     13.295903626      0.643394730      0.475121281  " " "RUA"       1    -0.20000 "NO_HIBRID" ""  "N7"     14.00670 
+   19   1 "H51"     13.063013280      1.481266495      1.115537546  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   20   1 "H52"     13.895638683     -0.070188058      1.020572898  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+   21   1 "H53"     13.846312900      0.991520284     -0.386422816  " " "RUA"       1     0.00000 "NO_HIBRID" ""  "H"      1.00790 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    2     5  SINGLE
+    2     4  SINGLE
+    2     3  SINGLE
+    1    14  SINGLE
+    1    10  SINGLE
+    1     6  SINGLE
+    1    18  SINGLE
+   15    14  SINGLE
+   14    17  SINGLE
+   14    16  SINGLE
+   13    10  SINGLE
+   12    10  SINGLE
+   11    10  SINGLE
+    9     6  SINGLE
+    8     6  SINGLE
+    7     6  SINGLE
+   21    18  SINGLE
+   20    18  SINGLE
+   19    18  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$RBP$RBP1.NL1  $RBP$RBP1.CL2  $RBP$RBP1.CL3  $RBP$RBP1.CM2  
+$RBP$RBP1.NP1  $RBP$RBP1.CP2  $RBP$RBP1.CP3  $RBP$RBP1.CN2  
+$RBP$RBP1.NM1  $RBP$RBP1.CM2  $RBP$RBP1.CM3  $RBP$RBP1.CL2  
+$RBP$RBP1.CM2  $RBP$RBP1.CM3  $RBP$RBP1.CM4  $RBP$RBP1.HM3  
+$RBP$RBP1.CM3  $RBP$RBP1.CM4  $RBP$RBP1.CM5  $RBP$RBP1.HM4  
+$RBP$RBP1.CM4  $RBP$RBP1.CM5  $RBP$RBP1.CM6  $RBP$RBP1.HM5  
+$RBP$RBP1.CM5  $RBP$RBP1.CM6  $RBP$RBP1.NM1  $RBP$RBP1.HM6  
+$RBP$RBP1.RU  $RBP$RBP1.NM1  $RBP$RBP1.CM2  $RBP$RBP1.CM6  
+$RBP$RBP1.NN1  $RBP$RBP1.CN2  $RBP$RBP1.CN3  $RBP$RBP1.CP2  
+$RBP$RBP1.CN2  $RBP$RBP1.CN3  $RBP$RBP1.CN4  $RBP$RBP1.HN3  
+$RBP$RBP1.CN3  $RBP$RBP1.CN4  $RBP$RBP1.CN5  $RBP$RBP1.HN4  
+$RBP$RBP1.CN4  $RBP$RBP1.CN5  $RBP$RBP1.CN6  $RBP$RBP1.HN5  
+$RBP$RBP1.CN5  $RBP$RBP1.CN6  $RBP$RBP1.NN1  $RBP$RBP1.HN6  
+$RBP$RBP1.RU  $RBP$RBP1.NN1  $RBP$RBP1.CN2  $RBP$RBP1.CN6  
+$RBP$RBP1.CL2  $RBP$RBP1.CL3  $RBP$RBP1.CL4  $RBP$RBP1.HL3  
+$RBP$RBP1.CL3  $RBP$RBP1.CL4  $RBP$RBP1.CL5  $RBP$RBP1.HL4  
+$RBP$RBP1.CL4  $RBP$RBP1.CL5  $RBP$RBP1.CL6  $RBP$RBP1.HL5  
+$RBP$RBP1.CL5  $RBP$RBP1.CL6  $RBP$RBP1.NL1  $RBP$RBP1.HL6  
+$RBP$RBP1.RU  $RBP$RBP1.NL1  $RBP$RBP1.CL2  $RBP$RBP1.CL6  
+$RBP$RBP1.CP2  $RBP$RBP1.CP3  $RBP$RBP1.CP4  $RBP$RBP1.HP3  
+$RBP$RBP1.CP3  $RBP$RBP1.CP4  $RBP$RBP1.CP5  $RBP$RBP1.HP4  
+$RBP$RBP1.CP4  $RBP$RBP1.CP5  $RBP$RBP1.CP6  $RBP$RBP1.HP5  
+$RBP$RBP1.CP5  $RBP$RBP1.CP6  $RBP$RBP1.NP1  $RBP$RBP1.HP6  
+$RBP$RBP1.RU  $RBP$RBP1.NP1  $RBP$RBP1.CP2  $RBP$RBP1.CP6  
+$RBP$RBP1.RU  $RBP$RBP1.NE2  $RBP$RBP1.CD2  $RBP$RBP1.CE1  
+$RBP$RBP1.HD2  $RBP$RBP1.CD2  $RBP$RBP1.NE2  $RBP$RBP1.CG  
+$RBP$RBP1.CB  $RBP$RBP1.CG  $RBP$RBP1.CD2  $RBP$RBP1.ND1  
+$RBP$RBP1.HD1  $RBP$RBP1.ND1  $RBP$RBP1.CG  $RBP$RBP1.CE1  
+$RBP$RBP1.RU  $RBP$RBP1.NN1  $RBP$RBP1.CN2  $RBP$RBP1.NP1  
+$RBP$RBP1.RU  $RBP$RBP1.NM1  $RBP$RBP1.CM2  $RBP$RBP1.NL1  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

@@ -1,0 +1,4 @@
+MPI_DEFINES = -DMPI -DSLOW_NONBLOCKING_MPI
+MPI_INCLUDE = -I$(MPI_HOME)/include
+MPI_LIBDIR = $(MPI_HOME)/lib
+MPI_LIBS = -L$(MPI_LIBDIR) -llamf77mpi -lmpi -llam -ldl -lpthread

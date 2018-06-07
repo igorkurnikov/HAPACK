@@ -1,0 +1,15 @@
+# KDevelop Custom Project File List
+include
+include/haconsts.h
+include/haobject.h
+include/tinystr.h
+include/tinyxml.h
+include/wxgraphs.h
+src
+src/haconsts.cpp
+src/haobject.cpp
+src/tinystr.cpp
+src/tinyxml.cpp
+src/tinyxmlerror.cpp
+src/tinyxmlparser.cpp
+src/wxgraphs.cpp

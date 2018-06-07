@@ -1,0 +1,19 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=G
+#MOLECULE 
+MOLNAME=G#CG
+#ATOMS 
+    1   0 "PH"     -8.729000000     -2.411000000      1.193000000  " " "G"      1     -1.00000 "NO_HYBRID" ""  "PH"     94.97 
+    2   0 "SG"     -5.590000000     -4.538000000      2.099000000  " " "G"      1     0.00000 "NO_HYBRID" ""  "SG"      83.11 
+    3   0 "GB"     -0.394000000     -1.023000000      3.326000000  " " "G"      1     0.00000 "NO_HYBRID" ""  "GB"     150.1 
+#END ATOMS 
+#BONDS 
+     1   2 SINGLE
+     2   3 SINGLE 
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#END MOL_SET

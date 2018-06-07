@@ -1,0 +1,25 @@
+DIRFRC_DEFINES = -DDIRFRC_COMTRANS -DDIRFRC_EFS
+MPI_DEFINES =
+MPI_INCLUDE =
+MPI_LIBDIR =
+MPI_LIBS =
+                                                                                
+CPP = /lib/cpp
+CPPFLAGS = -traditional
+F90_DEFINES =
+
+F90 = qk-pgf90
+MODULE_SUFFIX = mod
+F90FLAGS = -c 
+F90_OPT_DBG = -g
+F90_OPT_LO = -O2
+F90_OPT_MED = -O3 -Munroll -Mnoframe -Mscalarsse -Mvect=sse -Mcache_align
+F90_OPT_HI = -O4 -Munroll -Mnoframe -Mscalarsse -Mvect=sse -Mcache_align
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = gcc
+CFLAGS =
+
+LOAD = qk-pgf90
+LOADFLAGS =
+LOADLIBS = -L/opt/xt-libsci/default/pgi/cnos64/lib -lsci -L/opt/acml/2.6/pgi64/lib -lacml

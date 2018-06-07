@@ -1,0 +1,12 @@
+exe C:\harlem\harlem.exe
+n 2
+wdir c:\harlem\examples\MD\TI_METH_CH
+hosts 
+cfg 
+mpich1 
+env 
+map 
+channel default
+extra -localroot
+window no
+log no

@@ -1,0 +1,31 @@
+thole_expon_coef is used in:
+
+--------------------------------------------------------------------------------
+subroutine am_direct_ene_frc_i()
+and 
+subroutine am_direct_permfield_i()
+
+
+asq = thole_expon_coeff * img(img_i)%qterm  
+
+expon = asq * delr2 * delr * img(img_j)%qterm
+
+thus:
+
+expon = thole_expon_coeff * img(img_i)%qterm * delr2 * delr * img(img_j)%qterm
+
+--------------------------------------------------------------------------------
+subroutine am_adjust_calc_permfield()
+
+expon = thole_expon_coeff * delr2 * delr * sq_polinv(i) * sq_polinv(j)
+
+sq_polinv() is atm_qterm array of prmtop_dat_mod   in calling subroutine am_adjust_permfield()
+
+--------------------------------------------------------------------------------
+subroutine am_adjust_calc_ene_frc()
+
+expon = thole_expon_coeff * delr2 * delr * sq_polinv(i) * sq_polinv(j)
+
+sq_polinv() is atm_qterm array of prmtop_dat_mod   in calling subroutine am_adjust_ene_frc()
+
+--------------------------------------------------------------------------------

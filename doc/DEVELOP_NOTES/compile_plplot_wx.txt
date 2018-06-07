@@ -1,0 +1,33 @@
+Open Visual Studio 10 shell:
+
+in c:\PROG_SRC
+mkdir build_vs10_7
+chdir build_vs10_7
+
+set path=c:\PROG_SRC\plplot-5.9\build_vs10_7\dll;%path%
+set path=c:\wxWidgets\lib\vc_dll;%path%
+set WXWINDLL=c:\wxWidgets\lib\vc_dll
+
+"c:\Program Files (x86)\CMake 2.8\bin\cmake" c:\PROG_SRC\plplot-5.9 
+-DCMAKE_INSTALL_PREFIX:PATH=c:\local 
+-DCMAKE_BUILD_TYPE:STRING=Release
+-G "NMake Makefiles" 
+-DwxWidgets_LIB_DIR=%WXWINDLL% -DwxWidgets_CONFIGURATION=msw 
+-DBUILD_TEST=ON
+
+nmake
+nmake install
+-----------------------------------------------------------
+dlls to copy to c:\harlem directory:
+
+csirocsa.dll
+plplotcxxd.dll
+plplotd.dll
+plplotwxwidgetsd.dll
+qsastime.dll 
+
+wxwidgets.dll  - this one is not reiqured to start harlem so it will 
+		      not complain it absence on start up 
+		 although on plotting harlem will crush without obvious 
+		   warning
+-------------------------------------------------------------------

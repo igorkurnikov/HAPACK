@@ -1,0 +1,4 @@
+HAPACK checkout command:
+
+svn --username igor checkout https://crete.chem.cmu.edu/svn/harlemsvn/HAPACK
+

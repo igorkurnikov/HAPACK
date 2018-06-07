@@ -1,0 +1,83 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=REZ_BENZ
+#MOLECULE 
+MOLNAME=BNZ#FULL
+#ATOMS 
+    1   6 "C1"      4.079832642     -0.773485320      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    2   6 "C2"      4.079832642      0.626514680      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    3   6 "C3"      5.292268207      1.326514680      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    4   6 "C4"      6.504703773      0.626514680      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    5   6 "C5"      6.504703773     -0.773485320      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    6   6 "C6"      5.292268207     -1.473485320      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    7   1 "H1"      3.135864952     -1.318485320      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+    8   1 "H2"      3.135864952      1.171514680      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+    9   1 "H3"      5.292268207      2.416514680      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   10   1 "H4"      7.448671463      1.171514680      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   11   1 "H5"      7.448671463     -1.318485320      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   12   1 "H6"      5.292268207     -2.563485320      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     6  SINGLE
+    1     7  SINGLE
+    2     3  SINGLE
+    2     8  SINGLE
+    3     4  SINGLE
+    3     9  SINGLE
+    4     5  SINGLE
+    4    10  SINGLE
+    5     6  SINGLE
+    5    11  SINGLE
+    6    12  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+MOLNAME=BNZ
+#ATOMS 
+    1   6 "C1"     -1.489000000     -0.723000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    2   6 "C2"     -1.489000000      0.677000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    3   6 "C3"     -0.276564435      1.377000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    4   6 "C4"      0.935871131      0.677000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    5   6 "C5"      0.935871131     -0.723000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    6   6 "C6"     -0.276564435     -1.423000000      0.000000000  " " "BNZ"       1    -0.23800 "SP2" ""  "CA"      1.00000 
+    7   1 "H2"     -2.432967690      1.222000000      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+    8   1 "H3"     -0.276564435      2.467000000      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+    9   1 "H5"      1.879838821     -1.268000000      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   10   1 "H6"     -0.276564435     -2.513000000      0.000000000  " " "BNZ"       1     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   11   1 "HT"     -2.432967690     -1.268000000      0.000000000  " " "HED"       2     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+   12   1 "HT"      1.879838821      1.222000000      0.000000000  " " "TAL"       3     0.23800 "NO_HYBRID" ""  "HA"      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     6  SINGLE
+    1    11  SINGLE
+    2     3  SINGLE
+    2     7  SINGLE
+    3     4  SINGLE
+    3     8  SINGLE
+    4     5  SINGLE
+    4    12  SINGLE
+    5     6  SINGLE
+    5     9  SINGLE
+    6    10  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$BNZ$BNZ1.C6  $BNZ$BNZ1.C2  $BNZ$BNZ1.C1  $BNZ$HED2.HT  
+$BNZ$BNZ1.C1  $BNZ$BNZ1.C3  $BNZ$BNZ1.C2  $BNZ$BNZ1.H2  
+$BNZ$BNZ1.C2  $BNZ$BNZ1.C4  $BNZ$BNZ1.C3  $BNZ$BNZ1.H3  
+$BNZ$BNZ1.C3  $BNZ$BNZ1.C5  $BNZ$BNZ1.C4  $BNZ$TAL3.HT  
+$BNZ$BNZ1.C4  $BNZ$BNZ1.C6  $BNZ$BNZ1.C5  $BNZ$BNZ1.H5  
+$BNZ$BNZ1.C5  $BNZ$BNZ1.C1  $BNZ$BNZ1.C6  $BNZ$BNZ1.H6  
+$BNZ#FULL$BNZ1.C6  $BNZ#FULL$BNZ1.C2  $BNZ#FULL$BNZ1.C1  $BNZ#FULL$BNZ1.H1  
+$BNZ#FULL$BNZ1.C1  $BNZ#FULL$BNZ1.C3  $BNZ#FULL$BNZ1.C2  $BNZ#FULL$BNZ1.H2  
+$BNZ#FULL$BNZ1.C2  $BNZ#FULL$BNZ1.C4  $BNZ#FULL$BNZ1.C3  $BNZ#FULL$BNZ1.H3  
+$BNZ#FULL$BNZ1.C3  $BNZ#FULL$BNZ1.C5  $BNZ#FULL$BNZ1.C4  $BNZ#FULL$BNZ1.H4  
+$BNZ#FULL$BNZ1.C4  $BNZ#FULL$BNZ1.C6  $BNZ#FULL$BNZ1.C5  $BNZ#FULL$BNZ1.H5  
+$BNZ#FULL$BNZ1.C5  $BNZ#FULL$BNZ1.C1  $BNZ#FULL$BNZ1.C6  $BNZ#FULL$BNZ1.H6  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

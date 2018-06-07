@@ -1,0 +1,29 @@
+#include ../../make.inc
+include ./../../HALIB/Makefile.inc
+
+OPTS    = -c -O3 -ffixed-line-length-132
+#OPTS    = -c -O3 -ffixed-line-length-132 
+
+OBJ= jumcall.o ampar91.o ampar94.o ang.o assemb.o axeout.o   \
+backbo.o build.o cataxe.o close.o combi.o cosdir.o deltor.o   \
+delval.o dis.o disth.o ecomp.o ecomp91.o ecomp94.o   \
+enecyl.o energ91.o energ94.o energy.o equim.o equiv.o fitsug.o   \
+flex.o grads.o gradt.o helix.o helloc.o joie.o   \
+kapa.o kline.o ligaxe.o ligput.o liner.o lmoout.o   \
+loops.o mc11a.o microb.o minfor.o minim.o   \
+molin.o move.o openb.o pairc.o pairs.o penalty.o   \
+present.o putbac.o renoe.o reset.o setbac.o setd.o   \
+setgeo.o setvar.o tbasl.o tjunl.o torp.o
+
+all: jumna_lib
+
+jumna_lib: $(OBJ)
+	ar cr $(JUMNA_LIB) $(OBJ) 
+
+clean:
+	rm -f *.o
+
+%.o : %.f 
+	$(FORT) $(OPTS) -c $*.f
+
+

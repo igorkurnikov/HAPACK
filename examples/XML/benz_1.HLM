@@ -1,0 +1,42 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=benz_1
+#MOLECULE 
+MOLNAME=PYRCAT
+#ATOMS 
+    1   1 "H4"      0.929362915     -1.970376530     -0.389593887  " " "BZF"      10     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    2   6 "C1"     -2.755236949     -0.880002027      0.216134841  " " "BZF"      13     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    3   6 "C2"     -1.754779914      0.087552176      0.064726166  " " "BZF"      14     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    4   6 "C3"     -0.428702844     -0.304870524     -0.153273890  " " "BZF"      15     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    5   6 "C4"     -0.103082805     -1.664847428     -0.219865272  " " "BZF"      16     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    6   6 "C5"     -1.103539839     -2.632401632     -0.068456598  " " "BZF"      17     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    7   6 "C6"     -2.429616910     -2.239978932      0.149543459  " " "BZF"      18     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    8   1 "H1"     -3.787682668     -0.574472926      0.385863456  " " "BZF"      19     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    9   1 "H2"     -2.008298373      1.146391336      0.116572314  " " "BZF"      20     0.00000 "NO_HYBRID" ""  ""      1.00000 
+   10   1 "H5"     -0.850021380     -3.691240793     -0.120302745  " " "BZF"      22     0.00000 "NO_HYBRID" ""  ""      1.00000 
+   11   1 "H"     -3.201398050     -2.986377889      0.266344437  " " "TRM"    5001     0.00000 "NO_HYBRID" ""  ""      1.00790 
+   12   1 "H"      0.343078296      0.441528434     -0.270074866  " " "TRM"    5002     0.00000 "NO_HYBRID" ""  ""      1.00790 
+#END ATOMS 
+#BONDS 
+    1     5  SINGLE
+    2     3  SINGLE
+    2     7  SINGLE
+    2     8  SINGLE
+    3     4  SINGLE
+    3     9  SINGLE
+    4     5  SINGLE
+    4    12  SINGLE
+    5     6  SINGLE
+    6     7  SINGLE
+    6    10  SINGLE
+    7    11  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+ 100001   1.00000      1  $PYRCAT$TRM5001.H  
+ 100002   1.00000      1  $PYRCAT$TRM5002.H  
+#END GROUPS 
+#ATOM LISTS 
+ DONOR       6  $PYRCAT$BZF14.C2  $PYRCAT$BZF15.C3  $PYRCAT$BZF16.C4  $PYRCAT$BZF17.C5  $PYRCAT$BZF18.C6  $PYRCAT$BZF13.C1  
+ ACCEPTOR       0  
+#END ATOM LISTS 
+#END MOL_SET

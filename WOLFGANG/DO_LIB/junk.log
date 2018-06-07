@@ -1,0 +1,48 @@
+cxx -DALPHA -O -DBLAS -I./include -I./template  -c inverse.cpp
+cxx: Error: ./template/tnumarray.h, line 186: overloaded function
+          "operator+" is not a template
+friend NumArray<Base> operator+ <Base>(const NumArray<Base>& v,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 188: nontype
+          "Array<Base>::operator- [with Base=Base]" is not a template
+friend NumArray<Base> operator- <Base>(const NumArray<Base>& v,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 191: function
+          "NumArray<Base>::operator*" is not a template
+friend NumArray<Base> operator* <Base>(const NumArray2D<Base>& mat,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 193: function
+          "NumArray<Base>::operator*" is not a template
+friend NumArray<Base> operator* <Base>(const NumArray<Base>& v,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 191: function
+          "NumArray<Base>::operator* [with Base=int]" is not a template
+          detected during instantiation of class
+                    "NumArray<Base> [with Base=int]" at line 176 of
+                    "./include/numer.h"
+friend NumArray<Base> operator* <Base>(const NumArray2D<Base>& mat,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 193: function
+          "NumArray<Base>::operator* [with Base=int]" is not a template
+          detected during instantiation of class
+                    "NumArray<Base> [with Base=int]" at line 176 of
+                    "./include/numer.h"
+friend NumArray<Base> operator* <Base>(const NumArray<Base>& v,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 191: function
+          "NumArray<Base>::operator* [with Base=double]" is not a template
+          detected during instantiation of class
+                    "NumArray<Base> [with Base=double]" at line 273 of
+                    "./include/numer.h"
+friend NumArray<Base> operator* <Base>(const NumArray2D<Base>& mat,
+----------------------^
+cxx: Error: ./template/tnumarray.h, line 193: function
+          "NumArray<Base>::operator* [with Base=double]" is not a template
+          detected during instantiation of class
+                    "NumArray<Base> [with Base=double]" at line 273 of
+                    "./include/numer.h"
+friend NumArray<Base> operator* <Base>(const NumArray<Base>& v,
+----------------------^
+cxx: Info: 8 errors detected in the compilation of "inverse.cpp".
+*** Exit 1
+Stop.

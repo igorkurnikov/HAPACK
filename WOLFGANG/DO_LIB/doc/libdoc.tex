@@ -1,0 +1,53 @@
+\documentstyle[12pt]{report}
+
+\textwidth 7.0in
+\textheight 9.0in
+\oddsidemargin -0.2in
+\evensidemargin -0.2in
+\topmargin -0.25in
+\headheight 0in
+\headsep 0in
+\topskip 0in
+\footheight .3in
+\footskip .3in
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ba}{\begin{eqnarray}}
+\newcommand{\ea}{\end{eqnarray}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+
+\newcommand{\name}[1]{{\em {#1}}}
+\newcommand{\nameindex}[1]{{\em {#1}}}
+\makeindex
+%
+%   Specific Definitions
+%
+\begin{document}
+\title{{\bf DoLib} \\ Dortmund C++ Class \& \\ Template Library}
+\author{Wolfgang Wenzel \\
+        {\small Dortmund University } \\
+        {\small Theoretical Physics I} \\
+        {\small D-44221 Dortmund} \\
+        {\small Germany }}
+
+\date{\today}
+\maketitle
+\tableofcontents
+
+\include{intro}
+\include{blas} 
+\include{stringc}
+\include{tarray}
+\include{tnumarray}
+\include{numer}
+\include{inverse1}
+\include{inverse2}
+\include{determinant1}
+\include{determinant2}
+\include{diagonalize1} 
+\include{diagonalize2} 
+\include{index}
+
+\end{document}

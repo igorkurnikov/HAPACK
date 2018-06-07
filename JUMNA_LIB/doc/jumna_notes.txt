@@ -1,0 +1,181 @@
+/strjm/hel variables used:
+
+Read: 
+in assemb.f
+   axeout.f
+   backbo.f
+   build.f
+   equim.f
+   helix.f
+   microb.f
+
+Changed:
+   in close.f
+   helloc.f
+   liner.f - just reading from input
+   microb.f 
+-----------------------------------------------------------------------
+ecomp_()
+
+use only /mrc/corm 
+corm changes in 
+
+backbo_()
+build_()
+gradt_() - numerical test of gradients
+insout()
+ligput()
+microb() - big time
+openb()
+pdbouta()
+setbac()
+setgeo()
+setvar()
+
+
+
+---------------------------------------------------------------------------------
+
+Analyze reset() function
+
+
+setbac_() - computes cartesian coordinates for new 
+values of independent variables 
+for each residue is:
+in strjm_.set  l=1, kap(1,in)  in= itr(is)  - indep variables
+
+then adjust dep ring variables in:
+   kap  
+
+------------------------------------------------------------------
+For GC
+    CG
+unit cell energy
+
+ Tot ene=   33.208(w/pen),  -24.423(wo/pen) penalty=    57.631
+ Vdw =    10.058  Electr=   -64.836
+ VAng ene =     8.004  Torsional =    22.351
+----------------------------------------------------------------
+No unit cell energy:
+
+Tot ene=   24.085(w/pen),  -33.547(wo/pen) penalty=    57.631
+Vdw =    40.823  Electr=  -135.079
+VAng ene =    16.007  Torsional =    44.702
+-------------------------------------------------------------------
+
+after  microb_() no symm
+
+Tot ene=295890.471(w/pen),295177.940(wo/pen) penalty=   712.531
+Vdw = 295108.286  Electr=  -147.033
+VAng ene =   178.145  Torsional =    38.542
+
+-----------------------------------------------------------------
+
+For:
+
+GCGCGCGCGCGCGCGC
+CGCGCGCGCGCGCGCG
+
+(unit cell energy)
+
+Tot ene=  962.324(w/pen),   98.325(wo/pen) penalty=   863.999
+Vdw =   520.267  Electr= -1032.384
+VAng ene =   172.564  Torsional =   437.879
+
+(symm 1 nucl)
+
+Tot ene=  881.885(w/pen),   17.886(wo/pen) penalty=   863.999
+Vdw =    44.330  Electr=   -67.879
+VAng ene =    11.754  Torsional =    29.681
+
+(symm 2 nucl)
+
+Tot ene=  883.891(w/pen),   19.892(wo/pen) penalty=   863.999
+Vdw =    72.518  Electr=  -135.496
+VAng ene =    23.509  Torsional =    59.361
+
+
+After just build to run ene (obtained with
+
+Tot ene=   19.892(w/pen),   19.892(wo/pen) penalty=     0.000
+Vdw =    72.518  Electr=  -135.496
+VAng ene =    23.509  Torsional =    59.361
+
+After Build to run ene + penalty
+
+Tot ene= 1538.790(w/pen),   19.892(wo/pen) penalty=  1518.898
+Vdw =    72.518  Electr=  -135.496
+VAng ene =    23.509  Torsional =    59.361
+
+-----------------------------------------------------------------------
+with microb_() run before
+    
+ Tot ene=2098253.745(w/pen),2098253.745(wo/pen) penalty=     0.000
+ Vdw = 2098220.563  Electr=  -127.563
+ VAng ene =   104.577  Torsional =    56.169
+-------------------------------------------------------------------
+No symmetry
+
+Tot ene=  962.324(w/pen),   98.325(wo/pen) penalty=   863.999
+Vdw =   520.267  Electr= -1032.384
+VAng ene =   172.564  Torsional =   437.879
+
+---------------------------------------------------------------------
+
+For GC 
+    CG
+
+coordinates of atom 48 c2.O3X (o3') changes during call to  microb_
+
+final corm(48,1) - 7.2943   -??
+final corm(49,1) - 7.28355  - correct
+final corm(50,1) - 2.936937 - correct
+orig before close_()  -  
+              Corm(48,1) = 5.759849  - not correct   
+              corm(49,1) = 7.283554 - correct
+              corm(50,1) = 2.936937 - correct
+
+in close() after setgeo() changed:
+
+              Corm(48,1) = 5.576410  - not correct   
+              corm(49,1) = 7.283554 - correct
+              corm(50,1) = 2.936937 - correct
+
+in close() after backbo() changed:
+
+              Corm(48,1) = 5.576372  - not correct   
+              corm(49,1) = 7.283554 - correct
+              corm(50,1) = 2.936937 - correct
+
+after microb_() didn't changed
+afer ecomp didn't changed
+            
+changed after reord() if not to call reord everything is fine!
+ 
+
+              Corm(49,1) = 7.294276  - final 
+              corm(49,1) = 7.283554 - correct
+              corm(50,1) = 2.936937 - correct
+------------------------------------------------------------------------   
+
+ Tot ene= 1436.354(w/pen),-1608.718(wo/pen) penalty=  3045.072
+ Vdw =     0.000  Electr= -1608.718
+ VAng ene =     0.000  Torsional =     0.000
+
+----------------------------------------------------------------------------
+
+Sugur pucker :                      phase < 36.0  -    C3'-endo
+                                    36.0 <  phase < 72.0  -  C4'-exo
+in backbo.f:                        72.0 <  phase < 108.0 -  O1'-endo
+                                   108.0 <  phase < 144.0 -  C1'-exo
+puck = sugt(1+int(ph/36.0))        144.0 <  phase < 180.0 -  C2'-endo
+                                   180.0 <  phase < 216.0 -  C3'-exo 
+                                   216.0 <  phase < 252.0 -  C4'-endo
+                                   252.0 <  phase < 288.0 -  O1'-exo 
+                                   288.0 <  phase < 324.0 -  C1'-endo
+                                   324.0 <  phase < 360.0 -  C2'-exo 
+ 
+data sugt/'C3''-endo','C4''-exo ','O1''-endo','C1''-exo ',
+     1'C2''-endo','C3''-exo ','C4''-endo','O1''-exo ',
+     1'C1''-endo','C2''-exo '/
+-------------------------------------------

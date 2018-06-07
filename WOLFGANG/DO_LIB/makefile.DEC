@@ -1,0 +1,129 @@
+.SUFFIXES: .SUFFIXES .tex .dvi .cpp 
+# 
+#  Generic Header 
+#
+BASE    = .
+INCL    = -I$(BASE)/include -I$(BASE)/template
+LIBS    = -L$(BASE) -ldo $(FLIBS) -lm $(BIND_FLAG)
+CXXFLAGS = $(FLAGS) $(COMP_FLAG) $(OPT_FLAG) -DIPACK $(INCL)
+#
+#  Generic Rules
+#
+.cpp.o:
+	$(CXX) $(CXXFLAGS) -c $<
+.cpp.tex:
+	totex $<
+.f.o:
+	$(FF) $(OPT_FLAG) -c $<
+
+########################################################
+#
+#  Targets
+#
+
+#  For IBM-RS6000
+
+#CC     = xlC -+
+#CFLAGS = -O -DXLC
+#FF	= xlf -O
+
+#  For LINUX
+#CC     = g++
+#CFLAGS = -O3 -x c++ -DGNU 
+
+#  For SUN - g++
+
+#CC     = g++
+#CFLAGS = -O4 -fforce-mem -DGNU -DSUN -DBLAS
+#FF     = f77 -fast -O3 -cg87
+
+#  For ALPHA (g++ or cxx)
+
+#CC     = g++
+#CFLAGS = -O4 -fforce-mem -DGNU -DALPHA -DBLAS
+
+#CC     = cxx
+#CFLAGS = -DALPHA -O -DBLAS
+
+CXX     = cxx
+CXXFLAGS = -DALPHA -O  -DBLAS $(INCL) 
+
+
+#FF     = f77 -fast -O4
+
+#  For all machines
+
+INCL   = -I$(BASE)/include -I$(BASE)/template
+FILES  = *.cpp include/*.h template/*.h test/*.cpp test/makefile \
+         doc/makefile doc/intro.tex doc/libdoc.tex util/makefile doc/blas.tex \
+         util/*.cpp
+
+########################################################
+
+
+OBJ    = stringc.o inverse.o determinant.o diagonalize.o xtime.o svd.o 
+libdo.a: $(OBJ)
+	ar ruv libdo.a $(OBJ)
+	ranlib libdo.a
+dsvdc.o : dsvdc.f
+
+
+########################################################
+
+dsvdc_a.o : dsvdc_a.f
+OBJ_a    = stringc_a.o inverse_a.o determinant_a.o diagonalize_a.o dsvdc_a.o
+libdo_a.a: $(OBJ_a)
+	ar ruv libdo_a.a $(OBJ_a)
+	ranlib libdo_a.a
+
+########################################################
+
+.C.o:
+	$(CXX) $(CFLAGS) $(INCL) -c $<
+    
+OBJ_ag    = stringc_ag.o inverse_ag.o determinant_ag.o diagonalize_ag.o
+libdo_ag.a: $(OBJ_ag)
+	ar ruv libdo_ag.a $(OBJ_ag)
+	ranlib libdo_ag.a
+
+########################################################
+
+src.tar: $(FILES)
+	tar -cf src.tar $(FILES) makefile
+
+lib01.tar: $(FILES)
+	co -r V01 $(FILES)
+	tar -cf lib01.tar $(FILES) makefile
+
+lib03.tar: $(FILES) 
+	#co -rV03 $(FILES)
+	tar -cf lib03.tar $(FILES) makefile
+
+lib04.tar: $(FILES) 
+	co -rV04 $(FILES)
+	tar -cf lib04.tar $(FILES) makefile
+
+lib05.tar: $(FILES) 
+	co -rV05 $(FILES)
+	tar -cf lib05.tar $(FILES) makefile
+
+lib06.tar: $(FILES) 
+	co -rV06 $(FILES)
+	tar -cf lib06.tar $(FILES) makefile
+
+lib08.tar: $(FILES) 
+	gtar -Zcf lib08.tar $(FILES) makefile
+
+lib11.tar: $(FILES) 
+	tar -cf lib11.tar $(FILES) makefile
+
+depend:
+	makedepend $(INCL) *.c
+
+checkin:
+	ci -u $(FILES) makefile
+
+clean:  
+	rm *.o *~ *.bak
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

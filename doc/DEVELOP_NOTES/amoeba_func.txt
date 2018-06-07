@@ -1,0 +1,43 @@
+
+data structures:
+Main Energy/force functions:
+
+amoeba_force_uni()/amoeba_force_mpi
+
+call: 
+am_nonbond_eval() 
+am_val_eval()
+get_crd_constraint_energy()
+
+----------------------------------------------------------------------------
+am_nonbond_eval() 
+call:
+
+am_induced_eval_mpi()/am_induced_eval_uni() - calculate induced dipoles 
+am_nonbond_ene_frc()
+am_mpole_torque_to_force()
+
+------------------------------------------------------------------------------
+am_nonbond_ene_frc() - non-bonded energy/forces calculations:
+call:
+am_recip_ene_frc()
+am_direct_ene_frc()
+am_adjust_ene_frc()
+am_self_ene_torque()
+am_vdw_longrange_ene()
+
+-----------------------------------------------------------------------
+am_direct_ene_frc()  
+call:
+am_direct_ene_frc_i()
+am_vdw_direct_ene_frc_i()
+
+--------------------------------------------------------------------
+am_self_dipole_field()
+
+computes corrections to field at atom position due to induced dipole 
+at this point (because of Ewald summation??) (both for dip_field_d and
+dip_field_p)
+
+delta_field(k) = 4.0*ew_coeff^3/(3.0*sqrt(pi))* ind_dip(k)
+----------------------------------------------------------------------

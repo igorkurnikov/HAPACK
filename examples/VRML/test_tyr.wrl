@@ -1,0 +1,76 @@
+#VRML V1.0 ascii
+Separator {
+Info {
+  string "Created by igor
+date: Sat Jul 27 21:14:35 2002
+" }
+Complexity { fields [ SFFloat value ] value 0.5 }
+DEF Viewer Info { string "examiner" }
+
+DEF Cameras Switch { whichChild -1
+ DEF Front PerspectiveCamera { 
+   position      0.000 0.000  100.00 
+   orientation   0 0 1 0 
+   focalDistance 5  
+   heightAngle   0.1  }
+}
+
+Translation { translation    0.738  -10.123   -6.822 }
+
+Separator {
+Separator {
+Complexity { fields [ SFFloat value ] value 0.8 }
+Material { #2
+ ambientColor 0.150 0.150 1.000
+ diffuseColor 0.150 0.150 1.000
+ specularColor 0.800 0.800 0.800
+ shininess 0.750 }
+Separator {
+ Translation { translation 1.621 13.190 6.511 }
+ DEF CPK7 Sphere { radius 1.650 } }
+Material { #3
+ ambientColor 1.000 0.000 0.000
+ diffuseColor 1.000 0.100 0.100
+ specularColor 0.800 0.800 0.800
+ shininess 0.750 }
+Separator {
+ Translation { translation 0.286 10.632 8.545 }
+ DEF CPK8 Sphere { radius 1.600 } }
+Separator {
+ Translation { translation -3.097 7.057 5.458 }
+ USE CPK8 }
+Material { #8
+ ambientColor 0.300 0.300 0.300
+ diffuseColor 0.300 0.300 0.300
+ specularColor 0.400 0.400 0.400
+ shininess 0.750 }
+Separator {
+ Translation { translation 0.715 12.045 6.657 }
+ DEF CPK6 Sphere { radius 1.800 } }
+Separator {
+ Translation { translation 1.125 11.125 7.815 }
+ USE CPK6 }
+Separator {
+ Translation { translation 0.755 11.229 5.322 }
+ USE CPK6 }
+Separator {
+ Translation { translation -0.203 10.044 5.354 }
+ USE CPK6 }
+Separator {
+ Translation { translation -1.547 10.337 5.645 }
+ USE CPK6 }
+Separator {
+ Translation { translation 0.193 8.750 5.100 }
+ USE CPK6 }
+Separator {
+ Translation { translation -2.496 9.329 5.673 }
+ USE CPK6 }
+Separator {
+ Translation { translation -0.801 7.705 5.156 }
+ USE CPK6 }
+Separator {
+ Translation { translation -2.079 8.031 5.430 }
+ USE CPK6 }
+ }
+}
+}

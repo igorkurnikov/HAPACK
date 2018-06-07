@@ -1,0 +1,9 @@
+Iterators in HARLEM:
+
+Make all iterators in HARLEM compatible with PYTHON.
+Add __iter__() 
+and next()  function throwing std::out_of_range()
+
+need to modify AtomIteratorMolSet() FirstAtom() already called in the constructor
+that's why I can not move first_called flag to FirstAtom() method
+

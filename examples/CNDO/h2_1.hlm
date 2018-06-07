@@ -1,0 +1,15 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=H2_MSET
+#MOLECULE 
+MOLNAME=H2
+#ATOMS 
+    1   1 "H"        -0.500000000      0.000     -0.0000  " " "MOL"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    2   1 "H1"       0.50000000        0.000     -0.0000  " " "MOL"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#END MOL_SET

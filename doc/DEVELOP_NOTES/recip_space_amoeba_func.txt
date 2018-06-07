@@ -1,0 +1,122 @@
+pbc_mod:
+
+connect to c/c++ structures
+
+common / pbc_int / 
+integer            is_orthog
+common / pbc_dbl /
+double precision:
+ucell(3,3) - direct lattice vectors
+recip(3,3) - reciprocal lattice vectors:  def see init_pbc_fun()
+  for orthog:  (1/a,0,0)  (0, 1/b,0) (0,0,1/c) 
+  for nonorth:  ( (u1 x u2)/uc_volume, (u3 x u1)/uc_volume, (u1 x u2)/uc_volume )
+ 
+cut_factor(3) - handles "spherical cutoff protusion" in nonorthogonal unit cell
+reclng(3) -  
+  for orthog = ( a,b,c) 
+
+pbc_alpha, pbc_beta, pbc_gamma
+uc_volume - unit cell volume
+  for orthog    = a * b * c
+  for nonorthog = u1 .dot. ( u2 x u3 )
+ 
+uc_sphere - max radius of sphere contained in the unit cell
+  for orthog = 0.5* min(a,b,c) 
+
+----------------------------------------------------------------------------------------------
+pme_recip_mod
+
+double precision, allocatable, save, private  :: m1_exp_tbl(:)
+double precision, allocatable, save, private  :: m2_exp_tbl(:)
+double precision, allocatable, save, private  :: m3_exp_tbl(:)
+
+double precision, allocatable, save           :: gbl_prefac1(:)  ! computed by load_prefacs()  using dftmod() and factor_lambda()  0
+double precision, allocatable, save           :: gbl_prefac2(:)  ! used by  am_recip_get_recip_gfunc()  to compute gbl_G_func() 
+double precision, allocatable, save           :: gbl_prefac3(:)
+
+integer, save                       :: max_recip_imgs
+integer, save                       :: recip_img_lo, recip_img_hi
+logical, save                       :: recip_img_range_wraps
+
+-----------------------------------------------------------------------------------------------
+amoeba_recip_mod
+
+integer  amba_fft_alloc_size
+logical  perm_field_done = .false.
+integer  my_chg_cnt
+integer, parameter dr_order = 3 - max charge derivative order ( because only deraivatives of quadrupoles used ??? )  
+
+  ! This storage should be allocated on entry to and deallocated on exit
+  ! from a nonbond evaluation step.  This will allow for resizing the data
+  ! as needed.
+
+ double precision, allocatable, save   :: gbl_G_func(:) - function to multiply FFT transform of charge field as in gbl_Qperm to solve for FFT transform of electric field 
+ double precision, allocatable, save   :: gbl_Qperm(:) - 3D FFT transform of permanent multipoles - computed in am_recip_perm_field()
+ double precision, allocatable, save   :: gbl_Q1(:)   - 3-dim b-spline expansions of multipoles and/or induced dipoles 
+ double precision, allocatable, save   :: gbl_Q2(:)   - 3-dim b-spline expansions of induced dipoles 
+ double precision, allocatable, save   :: gbl_theta1(:,:,:)  - one-dim spline coef of multipoles ??? indexed by deriv, spline idx and charge num 
+ double precision, allocatable, save   :: gbl_theta2(:,:,:)  - one-dim spline coef of multipoles 1st dir ??? 
+ double precision, allocatable, save   :: gbl_theta3(:,:,:)  - one-dim spline coef of multipoles 1st dir ??? 
+ integer, allocatable, save            :: gbl_init_grid_ind(:,:)
+
+  ! BUGBUG - Must eventually img-base these:
+ double precision, allocatable, save   :: gbl_fractional_multipole(:,:) ! multipoles in fractional coordinates ( in reciprocal lattice coordinates ??) 
+ double precision, allocatable, save   :: gbl_perm_F_field(:,:) ! electric field ( monopole, dipole, quadrupole) at polarizable charge centers from permanent multipoles ( fractional crd?)
+ integer, allocatable, save            :: gbl_my_chgs(:)  ! charges belonged to give MPI processor 
+
+--------------------------------------------------------------------------------------------
+am_recip_perm_field() use only atom coordinates crd (in arguments) 
+                      and atom multipoles (global_multipole from amoeba_multipoles_mod)
+					  return in arguments: cart_dipole_field - electric field from  permanent multipoles at polarizable atoms positions
+
+output cart_dipole_field(3, *) ( electric field at atom positions??? )
+
+call am_recip_bspline_fill() - fill  bspline coeffs expansions of (unit) multipoles over grid points ( gbl_theta 1-3  through arguments) 
+                                     gbl_init_grid_ind - start grid indexes in spline expansion of charges  
+									 my_chg_cnt and gbl_my_chgs - list of charge centers corresponding to MPI processors
+use am_recip_bspline_fill_gen() - takes weight w - fractional position of the center betw grid points - very general function
+
+am_recip_global_to_fractional() - convert multipoles for fractional ( reciprocal lattice? coordinates )
+
+am_recip_perm_fill_grid() - distribute multipoles in 3D b-spline expansion over grid 
+
+fft3drc_forward() - FFT transform b-splined charge distribution  gbl_Q1
+
+am_recip_get_recip_gfunc() - find G-functios to multiply charge distribution FFT transform 
+am_recip_g_times_q()       - multiply FFT transformed charge distribution by G -function to find
+                             FFT transform of electric field
+
+fft3drc_back() - get electric field on the grid in normal space
+am_recip_get_perm_f_field() - find electric field (monopole, dipole, quadrupole) on the atomic centers (fractional coordinates) 
+am_recip_fdip_to_cdip_field() - find electric field on polarizable atomic centers ( cartesian coordinates ) 
+
+---------------------------------------------------------------------------------------------
+am_recip_ene_frc() - compute energy in reciprocal space??
+
+call am_recip_perm_field() 
+am_recip_dip_to_frac_dip()
+am_recip_dipole_fill_grids()
+
+fft3drc_forward() - 3D FFT transform of charge destribution of polariazed charges
+
+am_recip_scalar_sum() - find electric field of polarized charges (Qtmp1, Qtmp2) in k-space 
+fft3drc_back() - transform polarized charges electric field into real space ( reciprocal space grid )
+am_recip_get_ind_f_fields() - transform polarized charges electric field to charge centers (fractional coordinates) 
+
+am_recip_perm_ene_grad() - compute coulomb energies just by dot product of multipole field in fractional coordinates and multipoles in fractional coordinates 
+                           
+
+-----------------------------------------------------------------------------------------
+am_recip_dip_to_frac_dip() covert induced dipoles to ??? reciprocal space ???
+
+ind_dip_p (ind_dip_1) -> f_dipole1   for orthog =  ( ind_dip_1(1) * 1/dx , ind_dip_1(2)* 1/dy , ind_dip_1(3) * 1/dz )
+ind_dip_d (ind_dip_2) -> f_dipole2 
+
+------------------------------------------------------------------------------
+am_recip_xform_matrices() 
+
+----------------------------------------------------------------------------- 
+am_recip_dipole_fill_grids()  ( similar to am_recip_perm_fill_grid() ) distribute induced dipoles as charges on the grid ???
+
+Q1(2 * fft_x_dim, fft_y_dim, my_xy_slab_cnt)  - b-spline charge expansions on the grid corresponding to induced dipoles ind_dip_p (ifip1)
+Q2(2 * fft_x_dim, fft_y_dim, my_xy_slab_cnt)   b-spline charge expansions on the grid corresponding to induced dipoles ind_dip_d (ifip2)

@@ -1,0 +1,73 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=trp_to_lys_st1
+#MOLECULE 
+MOLNAME=TRP#PT_LYS_ST1
+#ATOMS 
+    1   7 "N"     16.971898562      7.678231555      1.087623796  " " "TRP"       1    -0.41570 "NO_HYBRID" "D"  "N"     14.00670 
+    2   1 "H"     17.512260122      8.503991315      0.872611696  " " "TRP"       1     0.27190 "NO_HYBRID" ""  "H"      1.00790 
+    3   6 "CA"     17.527447973      6.384912270      0.743689095  " " "TRP"       1    -0.02750 "NO_HYBRID" ""  "CT"     12.01100 
+    4   1 "HA"     17.636873668      5.784160280      1.646586134  " " "TRP"       1     0.11230 "NO_HYBRID" ""  "H1"      1.00790 
+    5   6 "CB"     16.621344872      5.639713639     -0.230621519  " " "TRP"       1    -0.00500 "NO_HYBRID" ""  "CT"     12.01100 
+    6   1 "HB2"     15.642987283      5.488404764      0.225472826  " " "TRP"       1     0.03390 "NO_HYBRID" ""  "HC"      1.00790 
+    7   1 "HB3"     16.509511047      6.224684260     -1.143530368  " " "TRP"       1     0.03390 "NO_HYBRID" ""  "HC"      1.00790 
+    8   6 "CG"     17.118338936      4.276648249     -0.649130354  " " "TRP"       1    -0.14150 "NO_HYBRID" ""  "C*"     12.01100 
+    9   6 "CD1"     16.517922671      3.422152551     -1.488735864  " " "TRP"       1    -0.16380 "NO_HYBRID" ""  "CW"     12.01100 
+   10   1 "HD1"     15.565966568      3.687971678     -1.948322383  " " "TRP"       1     0.20620 "NO_HYBRID" ""  "H4"      1.00790 
+   11   7 "NE1"     17.355907480      2.266979514     -1.579602321  " " "TRP"       1    -0.20000 "NO_HYBRID" "D"  "NA"     14.00670 
+   12   1 "HE1"     17.167025174      1.447967012     -2.139639816  " " "TRP"       1     0.26590 "NO_HYBRID" ""  "H"      1.00790 
+   13   6 "CE2"     18.408100031      2.442486459     -0.819215479  " " "TRP"       1     1.00000 "NO_HYBRID" ""  "CN"     12.01100 
+   14  99 "CZ2"     19.479028545      1.564527269     -0.613546378  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DC"     12.01100 
+   15  99 "HZ2"     19.497918397      0.599758671     -1.120463261  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DH"      1.00790 
+   16  99 "CH2"     20.471894691      2.006922237      0.252827390  " " "TRP"       1     0.00000  "NO_HYBRID" ""  "DC"     12.01100 
+   17  99 "HH2"     21.335716581      1.375214028      0.459845457  " " "TRP"       1     0.00000  "NO_HYBRID" ""  "DH"      1.00790 
+   18  99 "CZ3"     20.386830642      3.215238588      0.848843921  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DC"     12.01100 
+   19  99 "HZ3"     21.174853475      3.545873858      1.525453360  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DH"      1.00790 
+   20  99 "CE3"     19.298041428      4.083093739      0.626435547  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DC"     12.01100 
+   21  99 "HE3"     19.262541913      5.051769430      1.124940502  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DH"      1.00790 
+   22  99 "CD2"     18.298032360      3.637516073     -0.246171127  " " "TRP"       1     0.00000 "NO_HYBRID" ""  "DC"     12.01100 
+   23   6 "C"     18.893474929      6.531969587      0.088839111  " " "TRP"       1     0.59730 "NO_HYBRID" ""  "C"     12.01100 
+   24   8 "O"     19.384876839      7.644812661     -0.085933470  " " "TRP"       1    -0.56790 "NO_HYBRID" "A"  "O"     15.99940 
+   25   1 "HT"     16.000073036      7.647137193      1.557717711  " " "HED"       2     0.00000 "NO_HYBRID" ""  ""      1.00000 
+   26   1 "HT"     19.486685972      5.694383734     -0.247242125  " " "TAL"       3     0.00000 "NO_HYBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1    25  SINGLE
+    3     4  SINGLE
+    3     5  SINGLE
+    3    23  SINGLE
+    5     6  SINGLE
+    5     7  SINGLE
+    5     8  SINGLE
+    8     9  SINGLE
+    8    22  SINGLE
+    9    10  SINGLE
+    9    11  SINGLE
+   11    12  SINGLE
+   11    13  SINGLE
+   13    14  SINGLE
+   13    22  SINGLE
+   14    15  SINGLE
+   14    16  SINGLE
+   16    17  SINGLE
+   16    18  SINGLE
+   18    19  SINGLE
+   18    20  SINGLE
+   20    21  SINGLE
+   20    22  SINGLE
+   23    24  SINGLE
+   23    26  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$TRP#PT_LYS_ST1$HED2.HT  $TRP#PT_LYS_ST1$TRP1.CA  $TRP#PT_LYS_ST1$TRP1.N  $TRP#PT_LYS_ST1$TRP1.H  
+$TRP#PT_LYS_ST1$TRP1.CA  $TRP#PT_LYS_ST1$TAL3.HT  $TRP#PT_LYS_ST1$TRP1.C  $TRP#PT_LYS_ST1$TRP1.O  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

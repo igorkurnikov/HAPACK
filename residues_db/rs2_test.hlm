@@ -1,0 +1,63 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=RES_TEST
+#MOLECULE 
+MOLNAME=PHE#CT
+#ATOMS 
+    1   7 "N"     11.419254734      4.468179353      1.033280873  " " "PHE"       1    -0.38210 "NO_HIBRID" ""  "N"     14.00670 
+    2   1 "H"     11.982322678      5.151329343      0.547111578  " " "PHE"       1     0.26810 "NO_HIBRID" ""  "H"      1.00790 
+    3   6 "CA"     11.738612485      3.065553494      0.859348918  " " "PHE"       1    -0.18250 "NO_HIBRID" ""  "CT"     12.01100 
+    4   1 "HA"     11.985500983      2.626046050      1.825774951  " " "PHE"       1     0.10980 "NO_HIBRID" ""  "H1"      1.00790 
+    5   6 "CB"     10.559096127      2.303608171      0.264533414  " " "PHE"       1    -0.09590 "NO_HIBRID" ""  "CT"     12.01100 
+    6   1 "HB2"      9.700081223      2.385265155      0.930510540  " " "PHE"       1     0.04430 "NO_HIBRID" ""  "HC"      1.00790 
+    7   1 "HB3"     10.305888583      2.726346865     -0.707720636  " " "PHE"       1     0.04430 "NO_HIBRID" ""  "HC"      1.00790 
+    8   6 "CG"     10.797248461      0.828679029      0.045518586  " " "PHE"       1     0.05520 "NO_HIBRID" ""  "CA"     12.01100 
+    9   6 "CD1"      9.783775919      0.028773209     -0.495798404  " " "PHE"       1    -0.13000 "NO_HIBRID" ""  "CA"     12.01100 
+   10   1 "HD1"      8.822803866      0.470673341     -0.759155551  " " "PHE"       1     0.14080 "NO_HIBRID" ""  "HA"      1.00790 
+   11   6 "CE1"     10.004579407     -1.338710763     -0.698858507  " " "PHE"       1    -0.18470 "NO_HIBRID" ""  "CA"     12.01100 
+   12   1 "HE1"      9.215518642     -1.961494580     -1.120312450  " " "PHE"       1     0.14610 "NO_HIBRID" ""  "HA"      1.00790 
+   13   6 "CZ"     11.238855438     -1.906288914     -0.360601622  " " "PHE"       1    -0.09440 "NO_HIBRID" ""  "CA"     12.01100 
+   14   1 "HZ"     11.410766725     -2.970972864     -0.518698418  " " "PHE"       1     0.12800 "NO_HIBRID" ""  "HA"      1.00790 
+   15   6 "CE2"     12.252327981     -1.106383094      0.180715368  " " "PHE"       1    -0.18470 "NO_HIBRID" ""  "CA"     12.01100 
+   16   1 "HE2"     13.213300034     -1.548283226      0.444072516  " " "PHE"       1     0.14610 "NO_HIBRID" ""  "HA"      1.00790 
+   17   6 "CD2"     12.031524492      0.261100877      0.383775473  " " "PHE"       1    -0.13000 "NO_HIBRID" ""  "CA"     12.01100 
+   18   1 "HD2"     12.820585257      0.883884695      0.805229415  " " "PHE"       1     0.14080 "NO_HIBRID" ""  "HA"      1.00790 
+   19   6 "C"     12.926956872      2.885891372     -0.074483582  " " "PHE"       1     0.76600 "NO_HIBRID" ""  "C"     12.01100 
+   20   8 "O"     13.482851882      3.862742768     -0.571658690  " " "PHE"       1    -0.80260 "NO_HIBRID" ""  "O2"     15.99940 
+   21   8 "OXT"     13.345105514      1.761777321     -0.342737779  " " "PHE"       1    -0.80260 "NO_HIBRID" ""  "O2"     15.99940 
+   22   1 "HT"     10.332267548      5.393256110      1.844197444  " " "HED"       2     0.00000 "NO_HIBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1    22  SINGLE
+    3     4  SINGLE
+    3     5  SINGLE
+    3    19  SINGLE
+    5     6  SINGLE
+    5     7  SINGLE
+    5     8  SINGLE
+    8     9  SINGLE
+    8    17  SINGLE
+    9    10  SINGLE
+    9    11  SINGLE
+   11    12  SINGLE
+   11    13  SINGLE
+   13    14  SINGLE
+   13    15  SINGLE
+   15    16  SINGLE
+   15    17  SINGLE
+   17    18  SINGLE
+   19    20  SINGLE
+   19    21  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$PHE#CT$PHE1.CA  $PHE#CT$PHE1.OXT  $PHE#CT$PHE1.C  $PHE#CT$PHE1.O  
+$PHE#CT$HED2.HT  $PHE#CT$PHE1.CA  $PHE#CT$PHE1.N  $PHE#CT$PHE1.H  
+$PHE#CT$PHE1.CA  $PHE#CT$HED2.HT  $PHE#CT$PHE1.C  $PHE#CT$PHE1.O  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

@@ -1,0 +1,687 @@
+#!/bin/sh
+
+#
+# PMEMD Configuration utility.
+# Author: Bob Duke
+# 
+
+#------------------------------------------------------------------------------
+#  set up usage statement:
+#------------------------------------------------------------------------------
+usage(){
+cat << EOD
+
+Usage:
+
+./configure <platform> <compiler> <parallel implementation> \\
+            [fft option] [binary trajectory option]
+
+    where <platform> is one of
+
+    aix                 (IBM AIX, 32 bit addressing (recommended))
+    aix64               (IBM AIX, 64 bit addressing (not recommended))
+    cray_xd1            (Cray XD1)
+    cray_xt3            (Cray XT3)
+    linux_p3_athlon     (Linux, Intel Pentium III or AMD Athlon, IA32)
+    linux_p4            (Linux, Intel Pentium IV, IA32)
+    linux64_opteron     (Linux, AMD Opteron or later, x86_64)
+    linux_em64t         (Linux, Intel EM64T-compatible, x86_64)
+    osf1_alpha          (OSF1 Tru64 UNIX, HP or Compaq AlphaServer processors)
+    sgi_altix           (SGI Linux, Intel Itanium 2 processors, IA64)
+    sgi_mips            (SGI IRIX UNIX, MIPS R8k,10k,12k,14k or 16k processors)
+
+    where <compiler> is one of
+
+    compaqf90           (Compaq Fortran 90, osf1_alpha only)
+    f90                 (Native Fortran 90, sgi_mips)
+    ifort               (Intel Fortran Compiler, v8+, linux*, sgi_altix)
+    pathf90             (Pathscale Fortran 90/95, linux64_opteron only)
+    pgf90               (Portland Group Fortran 90/95, cray*, linux*)
+    xlf90               (IBM xlf90/mpxlf90/mpxlf90_r, aix_spx only)
+
+    where <parallel implementation> is one of
+
+    lam                 (LAM mpi, all platforms)
+    mpi                 (native mpi, aix*, cray*, osf1_alpha, sgi_altix,
+                         sgi_mips)
+    mpich               (MPICH mpi, all platforms)
+    mpich2              (MPICH2 mpi, all platforms)
+    mpich_gm            (Myrinet MPICH GM mpi, all platforms)
+    mvapich             (Infiniband MPICH mpi, all platforms)
+    nopar               (uniprocessor, no mpi, all platforms)
+    quadrics            (Quadrics mpi, all platforms)
+
+    where [fft option] is one of
+
+    pubfft              (public fft implementation, all platforms (default))
+    fftw                (fftw 3.0, user-provided)
+    sgifft              (vendor-provided fft, SGI platforms only)
+    old_sgifft          (vendor-provided fft, older SGI platforms only)
+
+    where [binary trajectory option] is one of
+
+    nobintraj          (don't use netCDF bintraj facility (default))
+    bintraj            (use netCDF bintraj facility (requires netCDF))
+
+    The platform, compiler and parallel option MUST be specified. If the fft
+    option is not specified, it defaults to pubfft, the public fft
+    implementation included with pmemd.  If the binary trajectory option is
+    not specified, it defaults to nobintraj.
+
+    PMEMD 9 ships with support for the above configurations.
+    Users may define other platform/compiler/parallel option/fft option
+    combinations by creating a file:
+    config_data/<platform>.<compiler>.<parallel opt>
+
+===========================================================
+EOD
+exit 1
+}
+
+# Uncomment the following line to debug this script:
+# set -x
+
+umask 022
+
+command="$0 $*"
+
+basedir=`basename $PWD`
+amber_src_dir=`dirname $PWD`
+
+if [ $# -eq 1 ]; then
+  if [ $1 = -help -o $1 = -HELP ]; then
+    usage
+  fi
+  if [ $1 = -h -o $1 = -H ]; then
+    usage
+  fi
+fi
+
+if [ $basedir != pmemd ]; then
+  echo
+  echo "The PMEMD configuration script must be executed from within"
+  echo "  the pmemd directory!"
+  echo "PMEMD Configuration Failed!"
+  exit 1
+fi
+
+if [ ! -d config_data ]; then
+  echo
+  echo "The PMEMD configuration script requires data in the config_data"
+  echo "  directory, which does not exist!"
+  echo "PMEMD Configuration Failed!"
+  exit 1
+fi
+
+if [ $# -ne 3 -a $# -ne 4 -a $# -ne 5 ]; then
+  echo
+  echo "The command \"$command\""
+  echo "  has an incorrect number of parameters!"
+  echo "PMEMD Configuration Failed!"
+  usage
+fi
+
+platform=$1
+compiler=$2
+parallel_opt=$3
+
+fft_opt=pubfft
+bintraj_opt=nobintraj
+
+if [ $# -ge 4 ]; then
+  if [ $4 = pubfft -o $4 = fftw -o $4 = sgifft -o $4 = old_sgifft ]; then
+    fft_opt=$4
+  elif [ $4 = nobintraj -o $4 = bintraj ]; then
+    bintraj_opt=$4
+  else
+    echo
+    echo "The command \"$command\""
+    echo "  has an illegal option \"$4\""
+    echo "PMEMD Configuration Failed!"
+    usage
+  fi
+fi
+
+if [ $# -eq 5 ]; then
+  if [ $5 = pubfft -o $5 = fftw -o $5 = sgifft -o $5 = old_sgifft ]; then
+    fft_opt=$5
+  elif [ $5 = nobintraj -o $5 = bintraj ]; then
+    bintraj_opt=$5
+  else
+    echo
+    echo "The command \"$command\""
+    echo "  has an illegal option \"$5\""
+    echo "PMEMD Configuration Failed!"
+    usage
+  fi
+fi
+
+rm -f config.h
+
+if [ -f config.h ]; then
+  echo "Error deleting old config.h file!"
+  echo "PMEMD Configuration Failed!"
+  exit 1
+fi
+
+# Math libraries are only defined for a few platforms.  The default, that
+# will be overridden if necessary, is:
+
+  cat << EOD >> config.h
+MATH_DEFINES =
+MATH_LIBS =
+EOD
+
+if [ $platform = aix -o \
+     $platform = aix64 ]; then
+  echo "Please enter IBM aix processor type (pwr3,pwr4,pwr5):"
+  read IBM_PROCESSOR_TYPE
+
+  while [ $IBM_PROCESSOR_TYPE != pwr3 -a \
+          $IBM_PROCESSOR_TYPE != pwr4 -a \
+          $IBM_PROCESSOR_TYPE != pwr5 ]
+  do
+    echo "IBM aix processor type incorrect or not supported!"
+    echo "Please enter IBM aix processor type (pwr3,pwr4,pwr5):"
+    echo "(note that the input is case-sensitive)"
+    read IBM_PROCESSOR_TYPE
+  done
+
+  echo "Use massvp libraries? (better performance) (answer yes or no):"
+  read query_answer
+
+  while [ $query_answer != yes -a \
+          $query_answer != no ]
+  do
+    echo "Query answer must be \"yes\" or \"no\"!"
+    echo "(note that the input is case-sensitive)"
+    echo "Use massvp libraries? (better performance) (answer yes or no):"
+    read query_answer
+  done
+
+  if [ $query_answer = yes ]; then
+
+    cat << EOD >> config.h
+MATH_DEFINES = -DMASSV
+EOD
+
+    if [ -z "$MASSVP_LIBDIR" ]; then
+      echo "Please enter name of directory where massvp libraries are installed:"
+      read MASSVP_LIBDIR
+    else
+      echo "configure assumes massvp libraries are installed in $MASSVP_LIBDIR"
+    fi
+
+    if [ $IBM_PROCESSOR_TYPE = pwr3 ]; then
+
+      cat << EOD >> config.h
+MATH_LIBS = -L$MASSVP_LIBDIR -lmassvp3
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS
+EOD
+    elif [ $IBM_PROCESSOR_TYPE = pwr4 ]; then
+      cat << EOD >> config.h
+MATH_LIBS = -L$MASSVP_LIBDIR -lmassvp4
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS -DSLOW_INDIRECTVEC
+EOD
+    elif [ $IBM_PROCESSOR_TYPE = pwr5 ]; then
+      cat << EOD >> config.h
+MATH_LIBS = -L$MASSVP_LIBDIR -lmassvp5
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS
+EOD
+    else
+      echo "PMEMD Configuration Internal Error!"
+      echo "Unexpected IBM aix processor type while configure MASSVP!"
+      echo "PMEMD Configuration Failed!"
+      exit 1
+    fi
+  else
+
+    if [ $IBM_PROCESSOR_TYPE = pwr3 ]; then
+
+      cat << EOD >> config.h
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS
+EOD
+    elif [ $IBM_PROCESSOR_TYPE = pwr4 ]; then
+      cat << EOD >> config.h
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS -DSLOW_INDIRECTVEC
+EOD
+    elif [ $IBM_PROCESSOR_TYPE = pwr5 ]; then
+      cat << EOD >> config.h
+DIRFRC_DEFINES = -DDIRFRC_EFS -DIRFRC_COMTRANS
+EOD
+    else
+      echo "PMEMD Configuration Internal Error!"
+      echo "Unexpected IBM aix processor type while configuring MASSVP!"
+      echo "PMEMD Configuration Failed!"
+      exit 1
+    fi
+  fi
+
+  if [ $parallel_opt = nopar ]; then
+  cat << EOD >> config.h
+F90 = xlf90
+CC = cc
+LOAD = xlf90
+EOD
+  else
+  cat << EOD >> config.h
+F90 = mpxlf90_r
+CC = mpcc_r
+LOAD = mpxlf90_r
+EOD
+  fi
+
+  cat << EOD >> config.h
+IBM_PROCESSOR_TYPE = $IBM_PROCESSOR_TYPE
+EOD
+fi
+
+if [ $platform = sgi_mips ]; then
+  echo "Please enter MIPS processor type (r10000,r12000,r14000,r16000):"
+  echo "(this may be determined using \"hinv -c processor\")"
+  read MIPS_PROCESSOR_TYPE
+
+  while [ $MIPS_PROCESSOR_TYPE != r10000 -a \
+          $MIPS_PROCESSOR_TYPE != r12000 -a \
+          $MIPS_PROCESSOR_TYPE != r14000 -a \
+          $MIPS_PROCESSOR_TYPE != r16000 ]
+  do
+    echo "MIPS processor type incorrect or not supported!"
+    echo "Please enter MIPS processor type (r10000,r12000,r14000,r16000):"
+    echo "(this may be determined using "hinv -c processor")"
+    echo "(note that the input is case-sensitive)"
+    read MIPS_PROCESSOR_TYPE
+  done
+
+  cat << EOD >> config.h
+MIPS_PROCESSOR_TYPE = -$MIPS_PROCESSOR_TYPE
+EOD
+fi
+
+if [ $platform = osf1_alpha ]; then
+  echo "Please enter ALPHA processor type (ev4,ev5,ev56,pca56,ev6,ev67,ev7,host):"
+  read ALPHA_PROCESSOR_TYPE
+
+  while [ $ALPHA_PROCESSOR_TYPE != ev4 -a \
+          $ALPHA_PROCESSOR_TYPE != ev5 -a \
+          $ALPHA_PROCESSOR_TYPE != ev56 -a \
+          $ALPHA_PROCESSOR_TYPE != pca56 -a \
+          $ALPHA_PROCESSOR_TYPE != ev6 -a \
+          $ALPHA_PROCESSOR_TYPE != ev67 -a \
+          $ALPHA_PROCESSOR_TYPE != ev7 -a \
+          $ALPHA_PROCESSOR_TYPE != host ]
+  do
+    echo "ALPHA processor type incorrect or not supported!"
+    echo "Please enter ALPHA processor type (ev4,ev5,ev56,pca56,ev6,ev67,ev7,host):"
+    echo "(note that the input is case-sensitive)"
+    read ALPHA_PROCESSOR_TYPE
+  done
+
+  cat << EOD >> config.h
+ALPHA_PROCESSOR_TYPE = $ALPHA_PROCESSOR_TYPE
+EOD
+fi
+
+if [ $compiler = ifort ]; then
+
+  ifort -v >& /dev/null
+  if [ $? -eq 0 ]; then
+    echo "Intel ifort compiler found; version information:"
+    ifort -v
+  else
+    echo "The configure utility REQUIRES that ifort be found!"
+    echo "Please source ifortvars.sh (for sh) or ifortvars.csh (for csh)."
+    echo "PMEMD Configuration Failed!"
+    exit 1
+  fi
+
+  if [ -z "$LD_LIBRARY_PATH" ]; then
+    echo "The configure utility REQUIRES that LD_LIBRARY_PATH be set!"
+    echo "Please source ifortvars.sh (for sh) or ifortvars.csh (for csh)."
+    echo "PMEMD Configuration Failed!"
+    exit 1
+  fi
+
+  cat << EOD >> config.h
+IFORT_RPATH = $LD_LIBRARY_PATH
+EOD
+
+  use_mkl=no
+
+  if [ -z "$MKL_HOME" ]; then
+
+    echo "Use Intel MKL? (better performance) (answer yes or no):"
+    read query_answer
+
+    while [ $query_answer != yes -a \
+            $query_answer != no ]
+    do
+      echo "Query answer must be \"yes\" or \"no\"!"
+      echo "(note that the input is case-sensitive)"
+      echo "Use Intel MKL? (better performance) (answer yes or no):"
+      read query_answer
+    done
+
+    use_mkl=$query_answer
+
+    if [ $use_mkl = yes ]; then
+      echo "Please enter name of directory where Intel MKL files are installed:"
+      read MKL_HOME
+    fi
+  else
+    echo "configure assumes Intel MKL is installed in $MKL_HOME"
+    use_mkl=yes
+  fi
+
+  if [ $use_mkl = yes ]; then
+
+    cat << EOD >> config.h
+MATH_DEFINES = -DMKL
+EOD
+
+    if [ $platform = linux_p3_athlon -o \
+         $platform = linux_p4 ]; then
+
+      cat << EOD >> config.h
+MATH_LIBS = -L$MKL_HOME/lib/32  -lmkl -lguide -lpthread   
+EOD
+    elif [ $platform = linux64_opteron -o \
+           $platform = linux_em64t ]; then
+      cat << EOD >> config.h
+MATH_LIBS = -L$MKL_HOME/lib/em64t -lmkl_em64t -lpthread
+EOD
+    elif [ $platform = sgi_altix ]; then
+      cat << EOD >> config.h
+MATH_LIBS = -L$MKL_HOME/lib/64 -lmkl_ipf -lpthread
+EOD
+    else
+      echo "PMEMD Configuration Internal Error!"
+      echo "Unexpected platform type while configuring Intel MKL!"
+      echo "PMEMD Configuration Failed!"
+      exit 1
+    fi
+  fi
+fi
+
+if [ $compiler = pathf90 ]; then
+
+  pathf90 -v >& /dev/null
+  if [ $? -eq 0 ]; then
+    echo "Pathscale pathf90 compiler found; version information:"
+    pathf90 -v
+  else
+    echo "The configure utility REQUIRES that pathf90 be found!"
+    echo "Please source pscale.sh (for sh) or pscale.csh (for csh) for 64 bit linux."
+    echo "Please source pscale32.sh (for sh) or pscale32.csh (for csh) for 32 bit linux."
+    echo "PMEMD Configuration Failed!"
+    exit 1
+  fi
+
+  if [ -z "$LD_LIBRARY_PATH" ]; then
+    echo "The configure utility REQUIRES that LD_LIBRARY_PATH be set!"
+    echo "Please source pscale.sh (for sh) or pscale.csh (for csh) for 64 bit linux."
+    echo "Please source pscale32.sh (for sh) or pscale32.csh (for csh) for 32 bit linux."
+    echo "PMEMD Configuration Failed!"
+    exit 1
+  fi
+
+  cat << EOD >> config.h
+PATHSCALE_RPATH = $LD_LIBRARY_PATH
+EOD
+
+# Handle pathscale linkage conventions.  By default, pathf90 follows g77 name
+# mangling conventions for linkage.  If you are using mpi, and mpi was built
+# to be g77-compatible, you should select the default.  If mpi was built to be
+# compatible with the fortran name mangling conventions used by ifort or pgf90,
+# then you should select the non-default linkage convention.  If you try one
+# and have problems linking, it may be worthwhile to try the other.
+
+  echo "Use default pathf90 link convention (GNU-compatible) (answer yes or no):"
+  read query_answer
+
+  while [ $query_answer != yes -a \
+          $query_answer != no ]
+  do
+    echo "Query answer must be \"yes\" or \"no\"!"
+    echo "(note that the input is case-sensitive)"
+    echo "Use default pathf90 linkage convention (GNU-compatible) (answer yes or no):"
+    read query_answer
+  done
+
+  if [ $query_answer = yes ]; then
+
+    cat << EOD >> config.h
+PATHSCALE_LINK_DEFINES = -DDBL_C_UNDERSCORE
+PATHSCALE_LOADOPT =
+LOAD = pathf90
+EOD
+
+  else
+    cat << EOD >> config.h
+PATHSCALE_LINK_DEFINES =
+PATHSCALE_LOADOPT = -fno-second-underscore
+EOD
+  fi
+
+fi
+
+# Handle fft configuration.
+
+if [ -f config_data/fft.$fft_opt ]; then
+
+  if [ $fft_opt = fftw ]; then
+    if [ -z "$FFT_INCLUDEDIR" ]; then
+      echo "Please enter name of directory where fftw headers are installed:"
+      read FFT_INCLUDEDIR
+    else
+      echo "configure assumes fftw headers are installed in $FFT_INCLUDEDIR"
+    fi
+    cat << EOD >> config.h
+FFT_INCLUDEDIR = $FFT_INCLUDEDIR
+EOD
+    if [ -z "$FFT_LIBDIR" ]; then
+      echo "Please enter name of directory where fftw libraries are installed:"
+      read FFT_LIBDIR
+    else
+      echo "configure assumes fftw libraries are installed in $FFT_LIBDIR"
+    fi
+    cat << EOD >> config.h
+FFT_LIBDIR = $FFT_LIBDIR
+EOD
+  fi
+
+  echo "File config_data/fft.$fft_opt being used..."
+  cat config_data/fft.$fft_opt >> config.h
+
+# NOTE that no effort is made to insure that vendor-specific fft
+# implementations are only used with a platform from the same vendor.
+
+else
+
+  echo
+  echo "No configuration information found for fft option: $fft_opt"
+  echo "You either entered an incorrect fft option or"
+  echo "need to create \"fft.$fft_opt\" in the config_data directory."
+  echo "PMEMD Configuration Failed!"
+  usage
+
+fi
+
+# Handle binary trajectory configuration.
+
+if [ $bintraj_opt = bintraj ]; then
+
+  if [ -z "$NETCDF_HOME" ]; then
+    if [ -f "../netcdf/lib/libnetcdf.a" ]; then
+      NETCDF_HOME="$amber_src_dir/netcdf"
+      echo "configure assumes netCDF files are in $NETCDF_HOME."
+    else
+      echo "Please enter directory where netCDF files are installed:"
+      read NETCDF_HOME
+    fi
+  else
+    echo "configure assumes netCDF files are in $NETCDF_HOME."
+  fi
+
+  cat << EOD >> config.h
+NETCDF_HOME = $NETCDF_HOME
+NETCDF_DEFINES = -DBINTRAJ
+NETCDF_MOD = netcdf.mod
+NETCDF_LIBS = \$(NETCDF_HOME)/lib/libnetcdf.a
+EOD
+
+else
+
+  cat << EOD >> config.h
+NETCDF_HOME =
+NETCDF_DEFINES =
+NETCDF_MOD =
+NETCDF_LIBS =
+EOD
+
+fi
+
+# For lam, mpich, mpich2, mpich_gm, mvapich and quadrics there are generic
+# interconnect.x files available, which will provide various values, but which
+# require the MPI_HOME environment variable; the MPI_LIBDIR2 environment
+# variable is also required for mpich_gm mvapich, and quadrics.  Here we
+# assume that if a 3-part config_data file is found ending with one of these
+# interconnects, it too will require these environment variables.  This facility
+# is provided so we can override some generic interconnect settings for a
+# specific configuration, and so users/vendors can provide their own
+# config_data files.
+
+if [ -f config_data/$platform.$compiler.$parallel_opt ]; then
+
+  echo "File config_data/$platform.$compiler.$parallel_opt being used..."
+
+  if [ $parallel_opt = lam -o \
+       $parallel_opt = mpich -o \
+       $parallel_opt = mpich2 -o \
+       $parallel_opt = mpich_gm -o \
+       $parallel_opt = mvapich -o \
+       $parallel_opt = quadrics ]; then
+    if [ -z "$MPI_HOME" ]; then
+      echo "Please enter directory where $parallel_opt mpi files are installed:"
+      read MPI_HOME
+    else
+      echo "configure assumes $parallel_opt files are in $MPI_HOME."
+    fi
+    cat << EOD >> config.h
+MPI_HOME = $MPI_HOME
+EOD
+    if [ $parallel_opt = mpich_gm ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Myrinet libgm.a is installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Myrinet libgm.a file is in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+
+    if [ $parallel_opt = mvapich ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Infiniband libraries are installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Infiniband libraries are in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+
+    if [ $parallel_opt = quadrics ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Quadrics libelan.a is installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Quadrics libelan.a file is in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+  fi
+
+  cat config_data/$platform.$compiler.$parallel_opt >> config.h
+
+elif [ -f config_data/$platform.$compiler -a \
+       -f config_data/interconnect.$parallel_opt ]; then
+
+  echo "File config_data/$platform.$compiler being used..."
+  echo "File config_data/interconnect.$parallel_opt being used..."
+
+  if [ $parallel_opt != nopar ]; then
+    if [ -z "$MPI_HOME" ]; then
+      echo "Please enter directory where $parallel_opt mpi files are installed:"
+      read MPI_HOME
+    else
+      echo "configure assumes $parallel_opt files are in $MPI_HOME."
+    fi
+    cat << EOD >> config.h
+MPI_HOME = $MPI_HOME
+EOD
+    if [ $parallel_opt = mpich_gm ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Myrinet libgm.a is installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Myrinet libgm.a file is in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+
+    if [ $parallel_opt = mvapich ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Infiniband libraries are installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Infiniband libraries are in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+
+    if [ $parallel_opt = quadrics ]; then
+      if [ -z "$MPI_LIBDIR2" ]; then
+        echo "Please enter name of directory where Quadrics libelan.a is installed:"
+        read MPI_LIBDIR2
+      else
+        echo "configure assumes Quadrics libelan.a file is in $MPI_LIBDIR2."
+      fi
+      cat << EOD >> config.h
+MPI_LIBDIR2 = $MPI_LIBDIR2
+EOD
+    fi
+  fi
+  cat config_data/interconnect.$parallel_opt >> config.h
+  cat config_data/$platform.$compiler >> config.h
+
+else
+
+  echo
+  echo "No configuration information found for the combination:"
+  echo "Platform Option = $platform"
+  echo "Compiler Option = $compiler"
+  echo "Parallel Option = $parallel_opt"
+  echo "If you need this combination, you must create an appropriate file"
+  echo "\"$platform.$compiler.$parallel_opt\" in the config_data directory."
+  echo "PMEMD Configuration Failed!"
+  usage
+
+fi
+
+if [  ! -f config.h ]; then
+  echo "Error creating config.h file!"
+  echo "PMEMD Configuration Failed!"
+  exit 1
+fi
+
+echo "PMEMD Configurate successfully completed."

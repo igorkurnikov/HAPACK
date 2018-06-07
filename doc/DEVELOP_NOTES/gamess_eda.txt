@@ -1,0 +1,86 @@
+Energy decomposition in GAMESS:
+
+exam28 - example of Morokuma energy decomposition 
+		    (KITAURA-MOROKUMA analysis) in GAMESS;
+
+duplicates a result from Table 16 of                                 
+H.Umeyama, K.Morokuma, J.Am.Chem.Soc. 99,1316(1977) 
+		    
+hoh - NH3  dimer 4-31G basis set
+
+GAMESS compute and store in exam2.dat:
+
+1) Energy and MO coef of  molecule 1 ( E_10 = -75.907638 ) 13 MO 
+2) Energy and MO coef of  molecule 1 ( E_20 = -56.102424 ) 15 MO
+	
+for the complex 28 MO
+
+names from Morokuma paper:
+
+Umeyama,H; Morokuma,K; 
+MOLECULAR-ORBITAL STUDIES OF ELECTRON DONOR-ACCEPTOR COMPLEXES .3. 
+ENERGY AND CHARGE DECOMPOSITION ANALYSES FOR SEVERAL STRONG COMPLEXES 
+-OC-BH3, H3N-BH3, CH3H2N-BH3, (CH3)3N-BH3, AND H3N-BF3
+J. Am. Chem. Soc.(1976) v.98(23) pp.7208-7220
+
+SCF starting with initial guess of schmidt orthogonalized 
+MOs of fragments:
+ 
+3) E3 (first iteration)              = -132.0180907108    E3 - E0 =  ES + EX = -0.008020287
+    E4 (tot converged complex) = -132.024343          E4 - E0 =  Delta E  = -0.14281 
+									EX = (ES+EX) - ES = +0.0143073
+
+Transform HF and overlap matricies to the basis of MOs of fragments 
+and keep only interaction matrix elements connecting occupies MO's of mol 1 with 
+vacant MOs of mol 2. Repeat to convergence. Do the same reversing mol 2 and 1.
+
+4) E5 (first iteration) = -132.049869806           E5 - E0       = ESX                 =  -0.039807806
+    E6 (mol 1) = -132.050363                          E6_m1 - E0  = ESX + ECT_M1  =  -0.040301
+
+5) E5 (first iteration) = -132.049869806           E5 - E0       = ESX                 =  -0.039807806
+    E6 (mol 2) = -132.053156                          E6_m2 - E0  = ESX + ECT_M2  =  -0.043094
+
+	 						    ECT_m1       =  -0.000493194
+							    ECT_m2       =  -0.003779388 
+							    ECT = ECT_m1 + ECT_m2 = -0.001786
+
+Drop from AO integrals involving differential overlap 
+between fragments. Respective electron densities stay in the space of 
+Atomic orbitals of fragments...
+
+6) E1 (first iteration)  = -132.032398     E1 - E0 =  ES         = -0.022336 
+    E2 (converged )  = -132.034184       E2 - E0 =  ES + EPL = -0.024122
+								EPL         = -0.001786
+
+7) E2(split) (mol 1)  = -132.033467       E2_m1 - E0 = ES + EPL_M1 = -0.023405
+8) E2(split) (mol 2)  = -132.032983       E2_m2 - E0 = ES + EPL_M2 = -0.022921
+	 				          EPL_1 = -0.001069
+						  EPL_2 = -0.000585
+
+
+RESULTS OF KITAURA-MOROKUMA ANALYSIS: 
+
+                                         HARTREE    KCAL/MOLE
+ ELECTROSTATIC ENERGY             ES=   -0.022336     -14.02
+ EXCHANGE REPULSION ENERGY        EX=    0.014308       8.98
+ POLARIZATION ENERGY              PL=   -0.001786      -1.12
+ CHARGE TRANSFER ENERGY           CT=   -0.003780      -2.37
+ HIGH ORDER COUPLING ENERGY      MIX=   -0.000687      -0.43
+ TOTAL INTERACTION ENERGY,   DELTA-E=   -0.014282      -8.96
+
+ DECOMPOSITION OF CT
+ CHARGE TRANSFER ENERGY, MON=  1  CT=   -0.000494      -0.31
+ CHARGE TRANSFER ENERGY, MON=  2  CT=   -0.003286      -2.06
+
+ DECOMPOSITION OF PL
+ EPL,                    MON=  1  PL=   -0.001068      -0.67
+ EPL,                    MON=  2  PL=   -0.000584      -0.37
+ HIGH ORDER COUPLING FOR PL,    PMIX=   -0.000133      -0.08
+ 
+              GAMESS   literature                                               
+        ES=   -14.02     -14.0                                                  
+        EX=     8.98       9.0                                                  
+        PL=    -1.12      -1.1                                                  
+        CT=    -2.37      -2.4                                                  
+       MIX=    -0.43      -0.4                                                  
+      total    -8.96      -9.0             

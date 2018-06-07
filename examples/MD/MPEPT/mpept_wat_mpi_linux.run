@@ -1,0 +1,5 @@
+#!/usr/bin/bash -f 
+export DO_PARALLEL='/opt/mpich_intel/ch-p4/bin/mpirun -np 2 -machinefile ${HOME}/mp_machines'
+export SANDER_EXE='/usr/local/amber9/exe/pmemd'
+#export SANDER_EXE='/usr/local/amber9/exe/sander.MPI'
+${DO_PARALLEL} ${SANDER_EXE} -O -i mpept_wat.inp -o mpept_wat.out -p mpept_wat.top -c mpept_wat.crd -r mpept_wat.rst -ref mpept_wat.ref -x mpept_wat.mdcrd -v mpept_wat.mdvel -e mpept_wat.mden

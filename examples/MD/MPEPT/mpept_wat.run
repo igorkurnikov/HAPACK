@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd -O -i C:\harlem\examples\MD\MPEPT\mpept_wat.inp -o C:\harlem\examples\MD\MPEPT\mpept_wat.out -p C:\harlem\examples\MD\MPEPT\mpept_wat.top -c C:\harlem\examples\MD\MPEPT\mpept_wat.crd -r C:\harlem\examples\MD\MPEPT\mpept_wat.rst -ref C:\harlem\examples\MD\MPEPT\mpept_wat.ref -x C:\harlem\examples\MD\MPEPT\mpept_wat.mdcrd -v C:\harlem\examples\MD\MPEPT\mpept_wat.mdvel -e C:\harlem\examples\MD\MPEPT\mpept_wat.mden 

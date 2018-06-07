@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FF_ATOM_SYMBOL_MAP  ff_name="amoebabio09">
+    <DATA ff_smbl="tinker_at_type" res="GLY">  
+	N	1	
+	CA	2
+	C	3
+	HN	4
+	O	5
+	HA	6
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" 	res="ALA" res="VAL" res="LEU" res="ILE" res="PHE" 
+						res="TYR" res="TRP" res="HIS#PROT" res="HIS" res="HIS#EPSILON" 
+						res="ASP" res="ASN" res="GLU" res="GLN" res="MET" 
+						res="LYS" res="ARG" res="ORN" >  
+	N	7	
+	CA	8
+	C	9
+	HN	10
+	O	11
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="SER" res="THR">  
+	N	7	
+	CA	33
+	C	9
+	HN	10
+	O	11
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="CYS"  res="CYS#UNPROT" >  
+	N	7	
+	CA	44
+	C	9
+	HN	10
+	O	11
+	HA	12
+    </DATA>
+   <DATA ff_smbl="tinker_at_type"  res="PRO">  
+	N	50	
+	CA	51
+	C	52
+	O	53
+	HA	54
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="GLY#NT">  
+	N	198	
+	CA	2
+	C	3
+	HN	199
+	O	5
+	HA	6
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" 	res="ALA#NT" res="VAL#NT" res="LEU#NT" res="ILE#NT"  res="PHE#NT"
+						res="TYR#NT" res="TRP#NT" res="HIS#PROT_NT" res="HIS#NT" res="HIS#EPSILON_NT"
+						res="ASP#NT" res="ASN#NT" res="GLU#NT" res="GLN#NT" res="MET#NT"
+						res="LYS#NT" res="ARG#NT" res="ORN#NT">  
+	N	198	
+	CA	8
+	C	9
+	HN	199
+	O	11
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="SER#NT" res="THR#NT">  
+	N	198
+	CA	33
+	C	9
+	HN	199
+	O	11
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="CYS#NT"  res="CYS#UNPROT_NT" >  
+	N	198	
+	CA	44
+	C	9
+	HN	199
+	O	11
+	HA	12
+    </DATA>
+   <DATA ff_smbl="tinker_at_type"  res="PRO#NT">  
+	N	202	
+	CA	204
+	C	205
+	HN	203
+	O	206
+	HA	207
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="GLY#CT">  
+	N	1	
+	CA	2
+	C	200
+	HN	4
+	OXT	201
+	HA	6
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" 	res="ALA#CT" res="VAL#CT" res="LEU#CT" res="ILE#CT"  res="PHE#CT"
+						res="TYR#CT" res="TRP#CT" res="HIS#PROT_CT" res="HIS#CT" res="HIS#EPSILON_CT"
+						res="ASP#CT" res="ASN#CT" res="GLU#CT" res="GLN#CT" res="MET#CT"
+						res="LYS#CT" res="ARG#CT" res="ORN#CT">  
+	N	7	
+	CA	8
+	C	200
+	HN	10
+	OXT	201
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="SER#CT" res="THR#CT">  
+	N	7
+	CA	33
+	C	200
+	HN	10
+	OXT	201
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="CYS#CT"  res="CYS#UNPROT_CT" >  
+	N	7	
+	CA	44
+	C	200
+	HN	10
+	OXT	201
+	HA	12
+    </DATA>
+    <DATA ff_smbl="tinker_at_type"  res="PRO#CT">  
+	N	50	
+	CA	51
+	C	200
+	OXT	201
+	HA	54
+    </DATA>    
+    <DATA ff_smbl="tinker_at_type" res="ALA" res="ALA#NT" res="ALA#CT">  
+	CB	13	
+	HB	14
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="VAL" res="VAL#NT" res="VAL#CT">  
+	CB	15	
+	HB	16
+	CG1	17
+	HG1	18
+	CG2	17
+	HG2	18
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="LEU" res="LEU#NT" res="LEU#CT">  
+	CB	19	
+	HB	20
+	CG	21
+	HG	22
+	CD1	23
+	HD1	24
+	CD2	23
+	HD2	24
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="ILE" res="ILE#NT" res="ILE#CT">  
+	CB	25	
+	HB	26
+	CG1	29
+	HG1	30
+	CG2	27
+	HG2	28
+	CD	31
+	HD	32
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="SER" res="SER#NT" res="SER#CT">  
+	CB	34	
+	HB	35
+	OG	36
+	HG	37
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="THR" res="THR#NT" res="THR#CT">  
+	CB	38	
+	HB	39
+	OG1	42
+	HG1	43
+	CG2	40
+	HG2	41
+    </DATA>
+     <DATA ff_smbl="tinker_at_type" res="CYS" res="CYS#NT" res="CYS#CT">  
+	CB	45	
+	HB	46
+	SG	47
+	HG	48
+    </DATA>
+     <DATA ff_smbl="tinker_at_type" res="CYS#UNPROT" res="CYS#UNPROT_NT" res="CYS#UNPROT_CT">  
+	CB	45	
+	HB	46
+	SG	49
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="PRO">  
+	CB	55	
+	HB	56
+	CG	57
+	HG	58
+	CD	59
+	HD	60
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="PRO#NT">  
+	CB	55	
+	HB	56
+	CG	57
+	HG	58
+	CD	208
+	HD	209
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="PHE" res="PHE#NT" res="PHE#CT">  
+	CB	61	
+	HB	62
+	CG	63
+	CD	64
+	HD	65
+	CE	66
+	HE	67
+	CZ	68
+	HZ	69
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="TYR" res="TYR#NT" res="TYR#CT">  
+	CB	70	
+	HB	71
+	CG	72
+	CD	73
+	HD	74
+	CE	75
+	HE	76
+	CZ	77
+	OH	78
+	HH	79
+    </DATA>
+     <DATA ff_smbl="tinker_at_type" res="TRP" res="TRP#NT" res="TRP#CT">  
+	CB	80	
+	HB	81
+	CG	82
+	CD1	83
+	HD1	84
+	CD2	85
+	NE1	86
+	HE1	87
+	CE2	88
+	CE3	89
+	HE3	90
+	CZ2	91
+	HZ2	92
+	CZ3	93
+	HZ3	94
+	CH2	95
+	HH2	96
+    </DATA>  
+    <DATA ff_smbl="tinker_at_type" res="HIS#PROT" res="HIS#PROT_NT" res="HIS#PROT_CT">  
+	CB	97	
+	HB	98
+	CG	99
+	ND1	100
+	HD1	101
+	CD2	102
+	HD2	103
+	CE1	104
+	HE1	105
+	NE2	106
+	HE2	107
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="HIS" res="HIS#NT" res="HIS#CT">  
+	CB	108	
+	HB	109
+	CG	110
+	ND1	111
+	HD1	112
+	CD2	113
+	HD2	114
+	CE1	115
+	HE1	116
+	NE2	117
+    </DATA>
+    <DATA ff_smbl="tinker_at_type" res="HIS#EPSILON" res="HIS#EPSILON_NT" res="HIS#EPSILON_CT>  
+	CB	118	
+	HB	119
+	CG	120
+	ND1	121
+	CD2	122
+	HD2	123
+	CE1	124
+	HE1	125
+	NE2	126
+	HE2	127
+    </DATA>               
+    <DATA ff_smbl="tinker_at_type" res="ASP" res="ASP#NT" res="ASP#CT">  
+	CB	128	
+	HB	129
+	CG	130
+	OD	131
+    </DATA>               
+    <DATA ff_smbl="tinker_at_type" res="ASN" res="ASN#NT" res="ASN#CT">  
+	CB	138	
+	HB	139
+	CG	140
+	OD1	141
+	ND2	142
+	HD2	143
+    </DATA>               
+    <DATA ff_smbl="tinker_at_type" res="GLU" res="GLU#NT" res="GLU#CT">  
+	CB	144	
+	HB	145
+	CG	146
+	HG	147
+	CD	148
+	OE	149
+    </DATA>               
+    <DATA ff_smbl="tinker_at_type" res="GLN" res="GLN#NT" res="GLN#CT">  
+	CB	150	
+	HB	151
+	CG	138
+	HG	139
+	CD	140
+	OE1	141
+	NE2	142
+	HE2	143
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" res="MET" res="MET#NT" res="MET#CT">  
+	CB	152	
+	HB	153
+	CG	154
+	HG	155
+	SD	156
+	CE	157
+	HE	158
+    </DATA>                
+    <DATA ff_smbl="tinker_at_type" res="LYS" res="LYS#NT" res="LYS#CT">  
+	CB	159	
+	HB	160
+	CG	161
+	HG	162
+	CD	163
+	HD	164
+	CE	165
+	HE	166
+	NZ	167
+	HZ	168
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" res="ARG" res="ARG#NT" res="ARG#CT">  
+	CB	169	
+	HB	170
+	CG	171
+	HG	172
+	CD	173
+	HD	174
+	NE	175
+	HE	176
+	CZ	177
+	NH	178
+	HH	179
+    </DATA>          
+    <DATA ff_smbl="tinker_at_type" res="ORN" res="ORN#NT" res="ORN#CT">  
+	CB	180	
+	HB	181
+	CG	182
+	HG	183
+	CD	184
+	HD	185
+	NE	186
+	HE	187
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" res="ACE">  
+	CH3	188	
+	H	189
+	C	190
+	O	191
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" res="CT">  
+	N	192	
+	HN	193
+    </DATA> 
+    <DATA ff_smbl="tinker_at_type" res="NME">  
+	N	194	
+	HN	195
+	CH3	196
+	H	197
+    </DATA>
+</ff_symbol_map>

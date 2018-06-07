@@ -1,0 +1,58 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=gly_dimer
+#MOLECULE 
+MOLNAME=PEPT
+#ATOMS 
+    1   7 "N"     -3.303226367     -0.809225523     -0.358329787  " " "GLY#NT"       1    -0.41570 "SP2" "D"  "N3"     14.00670 
+    2   6 "CA"     -2.171564437      0.075269247     -0.549511061  " " "GLY#NT"       1     0.03370 "NO_HYBRID" ""  "CT"     12.01100 
+    3   6 "C"     -1.043947398     -0.630628685     -1.290000710  " " "GLY#NT"       1     0.59730 "NO_HYBRID" ""  "C"     12.01100 
+    4   8 "O"     -1.166016973     -1.801617029     -1.642077855  " " "GLY#NT"       1    -0.56790 "NO_HYBRID" ""  "O"     15.99940 
+    5   1 "H1"     -2.992749672     -1.603553793      0.182731042  " " "GLY#NT"       1     0.19970 "NO_HYBRID" ""  "H"      1.00790 
+    6   1 "H2"     -3.554313618     -1.125262946     -1.284167537  " " "GLY#NT"       1     0.19970 "NO_HYBRID" ""  "H"      1.00790 
+    7   1 "H3"     -3.965174444     -0.280595670      0.191647687  " " "GLY#NT"       1     0.19970 "NO_HYBRID" ""  "H"      1.00790 
+    8   1 "HA2"     -2.481975727      0.942515654     -1.132287607  " " "GLY#NT"       1     0.08950 "NO_HYBRID" ""  "HP"      1.00790 
+    9   1 "HA3"     -1.799091229      0.404443559      0.420544598  " " "GLY#NT"       1     0.08950 "NO_HYBRID" ""  "HP"      1.00790 
+   10   7 "N"      0.056990307      0.087369702     -1.525363164  " " "GLY#CT"       2    -0.34790 "NO_HYBRID" ""  "N"     14.00670 
+   11   1 "H"      0.109900489      1.047529245     -1.215926311  " " "GLY#CT"       2     0.27470 "NO_HYBRID" ""  "H"      1.07900 
+   12   6 "CA"      1.199545972     -0.469785452     -2.220881450  " " "GLY#CT"       2    -0.24000 "NO_HYBRID" ""  "CT"     12.01100 
+   13   6 "C"      2.314147650      0.558031035     -2.354897759  " " "GLY#CT"       2     0.73410 "NO_HYBRID" ""  "C"     12.01100 
+   14   8 "O"      2.175359988      1.691343584     -1.901159231  " " "GLY#CT"       2    -0.58940 "NO_HYBRID" ""  "O2"     15.99940 
+   15   8 "OXT"      3.366676084      0.266841784     -2.918665188  " " "GLY#CT"       2    -0.80550 "NO_HYBRID" "A"  "O2"     15.99940 
+   16   1 "HA2"      1.580969016     -1.326810450     -1.665791714  " " "GLY#CT"       2     0.10560 "NO_HYBRID" ""  "H1"      1.00790 
+   17   1 "HA3"      0.898084516     -0.788738357     -3.218623920  " " "GLY#CT"       2     0.10560 "NO_HYBRID" ""  "H1"      1.00790 
+#END ATOMS 
+#BONDS 
+    5     1  SINGLE
+    6     1  SINGLE
+    1     7  SINGLE
+    1     2  SINGLE
+    8     2  SINGLE
+    9     2  SINGLE
+    3     4  SINGLE
+    3    10  SINGLE
+    3     2  SINGLE
+   10    11  SINGLE
+   10    12  SINGLE
+   12    16  SINGLE
+   12    17  SINGLE
+   12    13  SINGLE
+   13    14  SINGLE
+   13    15  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#QCHEM MODULE 
+BASIS=3-21G
+LOC_ORB_BASIS=VALENCE_AO
+#END QCHEM MODULE 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$PEPT$GLY1.CA  $PEPT$GLY2.N  $PEPT$GLY1.C  $PEPT$GLY1.O  
+$PEPT$GLY1.C  $PEPT$GLY2.CA  $PEPT$GLY2.N  $PEPT$GLY2.H  
+$PEPT$GLY2.CA  $PEPT$GLY2.OXT  $PEPT$GLY2.C  $PEPT$GLY2.O  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

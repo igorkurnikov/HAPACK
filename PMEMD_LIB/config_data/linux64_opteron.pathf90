@@ -1,0 +1,20 @@
+DIRFRC_DEFINES = -DDIRFRC_EFS -DDIRFRC_NOVEC
+CPP = /lib/cpp
+CPPFLAGS = -traditional -P
+F90_DEFINES = $(PATHSCALE_LINK_DEFINES) -DFFTLOADBAL_2PROC
+
+F90 = pathf90
+MODULE_SUFFIX = mod
+F90FLAGS = -c
+F90_OPT_DBG = -g
+F90_OPT_LO =  -O1 -mtune=opteron -msse -msse2
+F90_OPT_MED = -O2 -mtune=opteron -msse -msse2
+F90_OPT_HI =  -O3 -OPT:Ofast -mtune=opteron -msse -msse2
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = pathcc
+CFLAGS = -O2 -mtune=opteron -msse -msse2 $(PATHSCALE_LINK_DEFINES)
+
+LOAD = pathf90 $(PATHSCALE_LOADOPT)
+LOADFLAGS =
+LOADLIBS = -Wl,-rpath=$(PATHSCALE_RPATH)

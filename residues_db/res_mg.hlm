@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="res_mg" >
+<molecule name="MG" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    1    MG  12      0.000000000      0.000000000      0.000000000 </atom>
+</molset>
+</HARLEM_DATA>

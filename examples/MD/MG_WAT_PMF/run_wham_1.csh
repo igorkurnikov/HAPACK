@@ -1,0 +1,1 @@
+wham  1.8  4.0 65 0.001 300.0  0  mg_wat_pmf_meta_1.dat  mg_wat_pmf_free_ene_1.dat 

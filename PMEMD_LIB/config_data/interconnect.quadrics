@@ -1,0 +1,4 @@
+MPI_DEFINES = -DMPI
+MPI_INCLUDE = -I$(MPI_HOME)/include
+MPI_LIBDIR = $(MPI_HOME)/lib
+MPI_LIBS = -L$(MPI_LIBDIR) -lmpi -L$(MPI_LIBDIR2) -lelan

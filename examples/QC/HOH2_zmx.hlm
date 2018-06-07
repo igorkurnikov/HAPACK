@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="HOH2" >
+<molecule name="HOH2" />
+<chain  id=" " />
+<res name="HOH"  no="1" /> 
+  <atom>    1     O  8      0.000000000      0.000000000      0.000000000 <bonds> 3  2  </bonds></atom>
+  <atom>    2    H1  1      0.756506000      0.000000000      0.571931000 <bonds> 1  </bonds></atom>
+  <atom>    3    H2  1     -0.756506000      0.000000000      0.571931000 <bonds> 1  </bonds></atom>
+<res name="HOH"  no="2" /> 
+  <atom>    4     O  8      0.000000000      2.637231000     -1.368572000 <bonds> 6  5  </bonds></atom>
+  <atom>    5    H1  1      0.000000000      1.755637000     -1.009677000 <bonds> 4  </bonds></atom>
+  <atom>    6    H2  1      0.000000000      2.526339000     -2.308809000 <bonds> 4  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+<zmat mset="HOH2" nat="6" nz="7" >
+   O  
+   X      1     1.000000   
+   H      1         rH11       2         aHOX   
+   H      1         rH21       2         aHOX       3   180.000000   
+   O      1          rOO       2        theta       3          dO2   
+   H      5         rH12       1        alpha       2         dH12   
+   H      5         rH22       6         aH22       1         dH22   
+   
+        aH22   105.424713 
+        aHOX    52.910119 
+       alpha     5.275599 
+        dH12   180.000000 
+        dH22   180.000000 
+         dO2   -90.000000 
+        rH11     0.948370 
+        rH12     0.951847 
+        rH21     0.948370 
+        rH22     0.946754 
+         rOO     2.971191 
+       theta   117.426730 
+</zmat>
+<crd_snap name="OPT_GEOM_QCHEM" >
+   0.0000000   0.0000000   0.0000000   0.7565060   0.0000000   0.5719310
+  -0.7565060   0.0000000   0.5719310   0.0000000   2.6372310  -1.3685720
+   0.0000000   1.7556370  -1.0096770   0.0000000   2.5263390  -2.3088090
+<pbox>    50.000000    50.000000    50.000000    90.000000    90.000000    90.000000</pbox>
+</crd_snap>
+</molset>
+<qchem> mset="HOH2">
+<atbas name="6-31G(d)"/>
+<loc_orb_bas id="FULL_ATOMIC_BASIS"/>
+</qchem>
+</HARLEM_DATA>

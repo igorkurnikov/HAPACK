@@ -1,0 +1,37 @@
+atmcrg(4,natom)
+
+atomcrg(1,i),atomcrg(2,i),atomcrg(3,i) - grid coord of the atom
+atmcrg(4,i) - atom charge
+
+chrgv2(4,natom) - same format - for atoms inside the grid
+                  nqgrd - the number of such atoms
+cgbp(2,ngcrg) - array of denominators of charged grid points 
+               (and at boundary? )uses in itit, set in setchrg4
+ibc - a number of such points 
+
+
+
+
+oldmid(3) - object center
+
+setout() - Set eplisons?? 
+
+chrgup() - distribute charges on the grid
+gchrgp(3,i) - grid coord of charged grid points
+gchrg(i) - charge in this point
+
+icont1b - number of charged grid points
+
+setbc() - set boundary conditions
+
+nhgp = (ngrid*ngrid*ngrid + 1)/2;
+
+arrays 
+sf1(nhgp)
+sf2(nhgp) - in main, itit, nitit, relfac
+
+in nitit addisionally:  qval(ngcrg), qmap1(nhgp), qmap2(nhgp), debmap2(nhgp)
+
+
+
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Script to run HARLEM
+#
+export HARLEM_ROOTDIR=/export/home/igor/HARLEM
+export HARLEM_HOME=${HARLEM_ROOTDIR}/
+export PATH="${HARLEM_ROOTDIR}/bin:$PATH"
+export PYTHONPATH="${PYTHONPATH}:/export/home/igor/HARLEM/scripts"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}\
+:/opt/intel/mkl/10.0.1.014/lib/32\
+:/export/home/igor/PROG_SRC/wxWidgets-2.8.10/build_nogui/lib\
+:${HARLEM_ROOTDIR}/lib\
+:${HARLEM_ROOTDIR}/lib/HARLEM\
+:/libssh"
+echo $LD_LIBRARY_PATH
+#mpirun -machinefile ~/mp_machines -np 2 /export/home/igor/HARLEM/bin/harlem_nogui_bin $1 $2 $3 $4 $5 $6 $7 $8 $9
+mpiexec $1 $2 /export/home/igor/HARLEM/bin/harlem_nogui_bin $3 $4 $5 $6 $7 $8 $9

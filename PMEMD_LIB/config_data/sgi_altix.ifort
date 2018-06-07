@@ -1,0 +1,20 @@
+DIRFRC_DEFINES = -DSLOW_INDIRECTVEC
+CPP = /lib/cpp
+CPPFLAGS = -traditional -P
+F90_DEFINES =
+
+F90 = ifort
+MODULE_SUFFIX = mod
+F90FLAGS = -c -auto
+F90_OPT_DBG = -g -traceback
+F90_OPT_LO = -IPF_fma -ftz -tpp2 -ip -O0
+F90_OPT_MED = -IPF_fma -ftz -tpp2 -ip -O2
+F90_OPT_HI = -IPF_fma -ftz -tpp2 -ip -O3
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = gcc
+CFLAGS =
+
+LOAD = ifort
+LOADFLAGS =
+LOADLIBS = -limf -Wl,-rpath=$(IFORT_RPATH)

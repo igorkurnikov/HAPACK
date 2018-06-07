@@ -1,0 +1,11 @@
+pmemd:
+
+nb_pairlist_mod::nb_pairlist() ipairs_size_coef =  0.225
+ nb_pairlist_mod::nb_pairlist() cutlist =  7.571
+ nb_pairlist_mod::nb_pairlist() atm_cnt =  635
+ nb_pairlist_mod::nb_pairlist() pt 2 ipairs_size =  63908
+ nb_pairlist_mod::nb_pairlist() pt 3 ipairs_size =  63908
+ 
+ pmemd_lib:
+ 
+ 

@@ -1,0 +1,40 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=ASP_PROT
+#MOLECULE 
+MOLNAME=ASP#PROT
+#ATOMS 
+    1   7 "N"   3.325770 1.547909  0.0           " " "ASP"      1   -0.415700 "NO_HYBRID" "D"  "N"     14.00670 
+    2   1 "H"   3.909407 0.723611  0.0           " " "ASP"      1    0.271900 "NO_HYBRID" ""   "H"      1.00790 
+    3   6 "CA"  3.970048 2.845795  0.0           " " "ASP"      1    0.034100 "NO_HYBRID" ""  "CX"     12.01100 
+    4   1 "HA"  3.671663 3.400129 -0.889820      " " "ASP"      1    0.086400 "NO_HYBRID" ""  "H1"      1.00790 
+    5   6 "CB"  3.576965 3.653838  1.232143      " " "ASP"      1   -0.031600 "NO_HYBRID" ""   "2C"     12.01100 
+    6   1 "HB2" 2.496995 3.801075  1.241379      " " "ASP"      1    0.048800 "NO_HYBRID" ""   "HC"      1.00790 
+    7   1 "HB3" 3.877484 3.115795  2.131197      " " "ASP"      1    0.048800 "NO_HYBRID" ""   "HC"      1.00790 
+    8   6 "CG"  4.275101 5.011380  1.194527      " " "ASP"      1    0.646200 "NO_HYBRID" ""   "C"     12.01100 
+    9   8 "OD1" 3.669108 5.954940  0.620011      " " "ASP"      1   -0.555400 "NO_HYBRID" "A"  "O"     15.99940 
+   10   8 "OD2" 5.407731 5.091879  1.740667      " " "ASP"      1   -0.637600 "NO_HYBRID" "D"  "OH"     15.99940 
+   11   1 "HD2" 5.742902 5.987179  1.652920      " " "ASP"      1    0.474700 "NO_HYBRID" ""   "HO"      1.00790 
+   12   6 "C"   5.485541 2.705207   0.0          " " "ASP"      1    0.597300 "NO_HYBRID" ""  "C"     12.01100 
+   13   8 "O"   6.008824 1.593175   0.0          " " "ASP"      1   -0.567900 "NO_HYBRID" "A" "O"     15.99940 
+   14   1 "HT"  2.325770 1.547909  0.0           " " "HED"      2    0.000000 "NO_HYBRID" ""  ""      1.00000 
+   15   1 "HT"  6.185541 3.505207   0.0          " " "TAL"      3    0.000000 "NO_HYBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1    14  SINGLE
+    3     4  SINGLE
+    3     5  SINGLE
+    3    12  SINGLE
+    5     6  SINGLE
+    5     7  SINGLE
+    5     8  SINGLE
+    8     9  SINGLE
+    8    10  SINGLE
+   10    11  SINGLE
+   12    13  SINGLE
+   12    15  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+#END MOL_SET

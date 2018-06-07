@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ff_atom_symbol_map  ff_name="amber94">
+    <data ff_smbl="tinker_at_type" res="GLY">  
+	N	1	
+	CA	2
+	C	3
+	HN	4
+	O	5
+	HA	6
+    </data>
+    <data ff_smbl="tinker_at_type" 	res="ALA">  
+	N	7	
+	CA	8
+	C	9
+	HN	10
+	O	11
+	HA	12
+    </data>
+    <data ff_smbl="tinker_at_type" 	res="VAL">  
+	N	15	
+	CA	16
+	C	17
+	HN	18
+	O	19
+	HA	20
+    </data>
+    <data ff_smbl="tinker_at_type" 	res="LEU">  
+	N	27	
+	CA	28
+	C	29
+	HN	30
+	O	31
+	HA	32
+    </data>
+    <data ff_smbl="tinker_at_type" 	res="ILE">  
+	N	41	
+	CA	42
+	C	43
+	HN	44
+	O	45
+	HA	46
+    </data>
+    <data ff_smbl="tinker_at_type"  res="SER" >  
+	N	55	
+	CA	56
+	C	57
+	HN	58
+	O	59
+	HA	60
+    </data>
+    <data ff_smbl="tinker_at_type"  res="THR">  
+	N	65	
+	CA	66
+	C	67
+	HN	68
+	O	69
+	HA	70
+    </data>
+    <data ff_smbl="tinker_at_type"  res="CYS" >  
+	N	77	
+	CA	78
+	C	79
+	HN	80
+	O	81
+	HA	82
+    </data>
+    <data ff_smbl="tinker_at_type"  res="CYS#UNPROT" >  
+	N	87	
+	CA	88
+	C	89
+	HN	90
+	O	91
+	HA	92
+    </data>
+   <data ff_smbl="tinker_at_type"  res="PRO">  
+	N	96	
+	CA	97
+	C	98
+	O	99
+	HA	100
+	CB	101	
+	HB	102
+	CG	103
+	HG	104
+	CD	105
+	HD	106
+    </data>
+  <data ff_smbl="tinker_at_type"  res="PRO#NT">  
+	N	404	
+	CA	405
+	C	406
+	HN	407
+	O	408
+	HA	409
+	CB	101	
+	HB	102
+	CG	103
+	HG	104
+	CD	410
+	HD	411
+    </data>
+   <data ff_smbl="tinker_at_type"  res="PRO#CT">  
+	N	555	
+	CA	556
+	C	557
+	O	558
+	HA	559
+	CB	101	
+	HB	102
+	CG	103
+	HG	104
+	CD	105
+	HD	106
+    </data>
+    <data ff_smbl="tinker_at_type"  res="PHE" >  
+	N	107	
+	CA	108
+	C	109
+	HN	110
+	O	111
+	HA	112
+    </data>
+    <data ff_smbl="tinker_at_type"  res="TYR" >  
+	N	122	
+	CA	123
+	C	124
+	HN	125
+	O	126
+	HA	127
+    </data>
+    <data ff_smbl="tinker_at_type"  res="TRP" >  
+	N	138	
+	CA	139
+	C	140
+	HN	141
+	O	142
+	HA	143
+    </data>
+    <data ff_smbl="tinker_at_type"  res="HIS#PROT" >  
+	N	161	
+	CA	162
+	C	163
+	HN	164
+	O	165
+	HA	166
+    </data>
+    <data ff_smbl="tinker_at_type"  res="HIS" >  
+	N	178	
+	CA	179
+	C	180
+	HN	181
+	O	182
+	HA	183
+    </data>
+    <data ff_smbl="tinker_at_type"  res="HIS#EPSILON" >  
+	N	194	
+	CA	195
+	C	196
+	HN	197
+	O	198
+	HA	199
+    </data>
+    <data ff_smbl="tinker_at_type"  res="ASP" >  
+	N	210	
+	CA	211
+	C	212
+	HN	213
+	O	214
+	HA	215
+    </data>
+    <data ff_smbl="tinker_at_type"  res="ASN" >  
+	N	220	
+	CA	221
+	C	222
+	HN	223
+	O	224
+	HA	225
+    </data>
+    <data ff_smbl="tinker_at_type"  res="GLU" >  
+	N	232	
+	CA	233
+	C	234
+	HN	235
+	O	236
+	HA	237
+    </data>
+    <data ff_smbl="tinker_at_type"  res="GLN" >  
+	N	244
+	CA	245
+	C	246
+	HN	247
+	O	248
+	HA	249
+    </data>
+    <data ff_smbl="tinker_at_type"  res="MET" >  
+	N	258
+	CA	259
+	C	260
+	HN	261
+	O	262
+	HA	263
+    </data>
+    <data ff_smbl="tinker_at_type"  res="LYS" >  
+	N	271
+	CA	272
+	C	273
+	HN	274
+	O	275
+	HA	276
+    </data>
+    <data ff_smbl="tinker_at_type"  res="ARG" >  
+	N	287
+	CA	288
+	C	289
+	HN	290
+	O	291
+	HA	292
+    </data>
+    <data ff_smbl="tinker_at_type"  res="ORN" >  
+	N	304
+	CA	305
+	C	306
+	HN	307
+	O	308
+	HA	309
+    </data>
+    <data ff_smbl="tinker_at_type"  res="AIB" >  
+	N	318
+	CA	319
+	C	320
+	HN	321
+	O	322
+	CB	323
+	HB	324
+    </data>
+    <data ff_smbl="tinker_at_type"  res="AIB#NT" >  
+	N	496
+	CA	497
+	C	498
+	HN	499
+	O	500
+	CB	323
+	HB	324
+    </data>
+    <data ff_smbl="tinker_at_type"  res="AIB#CT" >  
+	N	644
+	CA	645
+	C	646
+	HN	647
+	OXT	648
+	CB	323
+	HB	324
+    </data>
+    <data ff_smbl="tinker_at_type"  res="PGLU" >  
+	N	325
+	CA	326
+	C	327
+	HN	328
+	O	329
+	HA	330
+    </data>
+    <data ff_smbl="tinker_at_type" res="GLY#NT">  
+	N	350	
+	CA	351
+	C	352
+	HN	353
+	O	354
+	HA	355 
+    </data> 
+    <data ff_smbl="tinker_at_type" res="ALA#NT">  
+	N	356	
+	CA	357
+	C	358
+	HN	359
+	O	360
+	HA	361 
+    </data>
+    <data ff_smbl="tinker_at_type" res="VAL#NT">  
+	N	362	
+	CA	363
+	C	364
+	HN	365
+	O	366
+	HA	367 
+    </data> 
+    <data ff_smbl="tinker_at_type" res="LEU#NT">  
+	N	368	
+	CA	369
+	C	370
+	HN	371
+	O	372
+	HA	373 
+    </data>     
+    <data ff_smbl="tinker_at_type" res="ILE#NT">  
+	N	374	
+	CA	375
+	C	376
+	HN	377
+	O	378
+	HA	379 
+    </data> 
+    <data ff_smbl="tinker_at_type" res="SER#NT">  
+	N	380	
+	CA	381
+	C	382
+	HN	383
+	O	384
+	HA	385 
+    </data>     
+    <data ff_smbl="tinker_at_type" res="THR#NT">  
+	N	386	
+	CA	387
+	C	388
+	HN	389
+	O	390
+	HA	391 
+    </data>     
+    <data ff_smbl="tinker_at_type" res="CYS#NT">  
+	N	392	
+	CA	393
+	C	394
+	HN	395
+	O	396
+	HA	397 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="CYS#UNPROT_NT">  
+	N	398	
+	CA	399
+	C	400
+	HN	401
+	O	402
+	HA	403 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="PHE#NT">  
+	N	412	
+	CA	413
+	C	414
+	HN	415
+	O	416
+	HA	417 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="TYR#NT">  
+	N	418	
+	CA	419
+	C	420
+	HN	421
+	O	422
+	HA	423 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="TRP#NT">  
+	N	424	
+	CA	425
+	C	426
+	HN	427
+	O	428
+	HA	429 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="HIS#PROT_NT">  
+	N	430	
+	CA	431
+	C	432
+	HN	433
+	O	434
+	HA	435 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="HIS#NT">  
+	N	436	
+	CA	437
+	C	438
+	HN	439
+	O	440
+	HA	441 
+    </data>
+     <data ff_smbl="tinker_at_type" res="HIS#EPSILON_NT">  
+	N	442
+	CA	443
+	C	444
+	HN	445
+	O	446
+	HA	447 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="ASP#NT">  
+	N	448
+	CA	449
+	C	450
+	HN	451
+	O	452
+	HA	453 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="ASN#NT">  
+	N	454
+	CA	455
+	C	456
+	HN	457
+	O	458
+	HA	459 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="GLU#NT">  
+	N	460
+	CA	461
+	C	462
+	HN	463
+	O	464
+	HA	465 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="GLN#NT">  
+	N	466
+	CA	467
+	C	468
+	HN	469
+	O	470
+	HA	471 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="MET#NT">  
+	N	472
+	CA	473
+	C	474
+	HN	475
+	O	476
+	HA	477 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="LYS#NT">  
+	N	478
+	CA	479
+	C	480
+	HN	481
+	O	482
+	HA	483 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="ARG#NT">  
+	N	484
+	CA	485
+	C	486
+	HN	487
+	O	488
+	HA	489 
+    </data>     
+     <data ff_smbl="tinker_at_type" res="ORN#NT">  
+	N	490
+	CA	491
+	C	492
+	HN	493
+	O	494
+	HA	495 
+    </data>     
+      <data ff_smbl="tinker_at_type" res="GLY#CT">  
+	N	501	
+	CA	502
+	C	503
+	HN	504
+	OXT	505
+	HA	506
+    </data>
+      <data ff_smbl="tinker_at_type" res="ALA#CT">  
+	N	507	
+	CA	508
+	C	509
+	HN	510
+	OXT	511
+	HA	512
+    </data>
+      <data ff_smbl="tinker_at_type" res="VAL#CT">  
+	N	513	
+	CA	514
+	C	515
+	HN	516
+	OXT	517
+	HA	518
+    </data>
+      <data ff_smbl="tinker_at_type" res="LEU#CT">  
+	N	519	
+	CA	520
+	C	521
+	HN	522
+	OXT	523
+	HA	524
+    </data>
+      <data ff_smbl="tinker_at_type" res="ILE#CT">  
+	N	525	
+	CA	526
+	C	527
+	HN	528
+	OXT	529
+	HA	530
+    </data>
+      <data ff_smbl="tinker_at_type" res="SER#CT">  
+	N	531	
+	CA	532
+	C	533
+	HN	534
+	OXT	535
+	HA	536
+    </data>
+      <data ff_smbl="tinker_at_type" res="THR#CT">  
+	N	537	
+	CA	538
+	C	539
+	HN	540
+	OXT	541
+	HA	542
+    </data>
+      <data ff_smbl="tinker_at_type" res="CYS#CT">  
+	N	543	
+	CA	544
+	C	545
+	HN	546
+	OXT	547
+	HA	548
+    </data>
+      <data ff_smbl="tinker_at_type" res="CYS#UNPROT_CT">  
+	N	549	
+	CA	550
+	C	551
+	HN	552
+	OXT	553
+	HA	554
+    </data>
+      <data ff_smbl="tinker_at_type" res="TYR#CT">  
+	N	566	
+	CA	567
+	C	568
+	HN	569
+	OXT	570
+	HA	571
+    </data>
+      <data ff_smbl="tinker_at_type" res="TRP#CT">  
+	N	572	
+	CA	573
+	C	574
+	HN	575
+	OXT	576
+	HA	577
+    </data>
+      <data ff_smbl="tinker_at_type" res="HIS#PROT_CT">  
+	N	578	
+	CA	579
+	C	580
+	HN	581
+	OXT	582
+	HA	583
+    </data>
+      <data ff_smbl="tinker_at_type" res="HIS#CT">  
+	N	584	
+	CA	585
+	C	586
+	HN	587
+	OXT	588
+	HA	589
+    </data>
+      <data ff_smbl="tinker_at_type" res="HIS#EPSILON_CT">  
+	N	590	
+	CA	591
+	C	592
+	HN	593
+	OXT	594
+	HA	595
+    </data>
+      <data ff_smbl="tinker_at_type" res="ASP#CT">  
+	N	596	
+	CA	597
+	C	598
+	HN	599
+	OXT	600
+	HA	601
+    </data>
+      <data ff_smbl="tinker_at_type" res="ASN#CT">  
+	N	602	
+	CA	603
+	C	604
+	HN	605
+	OXT	606
+	HA	607
+    </data>
+      <data ff_smbl="tinker_at_type" res="GLU#CT">  
+	N	608	
+	CA	609
+	C	610
+	HN	611
+	OXT	612
+	HA	613
+    </data>
+      <data ff_smbl="tinker_at_type" res="GLN#CT">  
+	N	614	
+	CA	615
+	C	616
+	HN	617
+	OXT	618
+	HA	619
+    </data>
+      <data ff_smbl="tinker_at_type" res="MET#CT">  
+	N	620	
+	CA	621
+	C	622
+	HN	623
+	OXT	624
+	HA	625
+    </data>
+      <data ff_smbl="tinker_at_type" res="LYS#CT">  
+	N	626	
+	CA	627
+	C	628
+	HN	629
+	OXT	630
+	HA	631
+    </data>
+       <data ff_smbl="tinker_at_type" res="ARG#CT">  
+	N	632	
+	CA	633
+	C	634
+	HN	635
+	OXT	636
+	HA	637
+    </data>
+    <data ff_smbl="tinker_at_type" res="ORN#CT">  
+	N	638	
+	CA	639
+	C	640
+	HN	641
+	OXT	642
+	HA	643
+    </data>
+   
+    <data ff_smbl="tinker_at_type" res="ALA" res="ALA#NT" res="ALA#CT">  
+	CB	13	
+	HB	14
+    </data>
+    <data ff_smbl="tinker_at_type" res="VAL" res="VAL#NT" res="VAL#CT">  
+	CB	21	
+	HB	22
+	CG1	23
+	HG1	24
+	CG2	25
+	HG2	26
+    </data>
+    <data ff_smbl="tinker_at_type" res="LEU" res="LEU#NT" res="LEU#CT">  
+	CB	33	
+	HB	34
+	CG	35
+	HG	36
+	CD1	37
+	HD1	38
+	CD2	39
+	HD2	40
+    </data>
+    <data ff_smbl="tinker_at_type" res="ILE" res="ILE#NT" res="ILE#CT">  
+	CB	47	
+	HB	48
+	CG1	49
+	HG1	50
+	CG2	51
+	HG2	52
+	CD	53
+	HD	54
+    </data>
+    <data ff_smbl="tinker_at_type" res="SER" res="SER#NT" res="SER#CT">  
+	CB	61	
+	HB	62
+	OG	63
+	HG	64
+    </data>
+    <data ff_smbl="tinker_at_type" res="THR" res="THR#NT" res="THR#CT">  
+	CB	71	
+	HB	72
+	OG1	73
+	HG1	74
+	CG2	75
+	HG2	76
+    </data>
+     <data ff_smbl="tinker_at_type" res="CYS" res="CYS#NT" res="CYS#CT">  
+	CB	83	
+	HB	84
+	SG	85
+	HG	86
+    </data>
+     <data ff_smbl="tinker_at_type" res="CYS#UNPROT" res="CYS#UNPROT_NT" res="CYS#UNPROT_CT">  
+	CB	93	
+	HB	94
+	SG	95
+    </data>
+    <data ff_smbl="tinker_at_type" res="PHE" res="PHE#NT" res="PHE#CT">  
+	CB	113	
+	HB	114
+	CG	115
+	CD	116
+	HD	117
+	CE	118
+	HE	119
+	CZ	120
+	HZ	121
+    </data>
+    <data ff_smbl="tinker_at_type" res="TYR" res="TYR#NT" res="TYR#CT">  
+	CB	128	
+	HB	129
+	CG	130
+	CD	131
+	HD	132
+	CE	133
+	HE	134
+	CZ	135
+	OH	136
+	HH	137
+    </data>
+     <data ff_smbl="tinker_at_type" res="TRP" res="TRP#NT" res="TRP#CT">  
+	CB	144	
+	HB	145
+	CG	146
+	CD1	147
+	HD1	148
+	CD2	149
+	NE1	150
+	HE1	151
+	CE2	152
+	CE3	153
+	HE3	154
+	CZ2	155
+	HZ2	156
+	CZ3	157
+	HZ3	158
+	CH2	159
+	HH2	160
+    </data>  
+    <data ff_smbl="tinker_at_type" res="HIS#PROT" res="HIS#PROT_NT" res="HIS#PROT_CT">  
+	CB	167	
+	HB	168
+	CG	169
+	ND1	170
+	HD1	171
+	CD2	172
+	HD2	173
+	CE1	174
+	HE1	175
+	NE2	176
+	HE2	177
+    </data>
+    <data ff_smbl="tinker_at_type" res="HIS" res="HIS#NT" res="HIS#CT">  
+	CB	184	
+	HB	185
+	CG	186
+	ND1	187
+	HD1	188
+	CD2	189
+	HD2	190
+	CE1	191
+	HE1	192
+	NE2	193
+    </data>
+    <data ff_smbl="tinker_at_type" res="HIS#EPSILON" res="HIS#EPSILON_NT" res="HIS#EPSILON_CT>  
+	CB	200	
+	HB	201
+	CG	202
+	ND1	203
+	CD2	204
+	HD2	205
+	CE1	206
+	HE1	207
+	NE2	208
+	HE2	209
+    </data>               
+    <data ff_smbl="tinker_at_type" res="ASP" res="ASP#NT" res="ASP#CT">  
+	CB	216	
+	HB	217
+	CG	218
+	OD	219
+    </data>               
+    <data ff_smbl="tinker_at_type" res="ASN" res="ASN#NT" res="ASN#CT">  
+	CB	226	
+	HB	227
+	CG	228
+	OD1	229
+	ND2	230
+	HD2	231
+    </data>               
+    <data ff_smbl="tinker_at_type" res="GLU" res="GLU#NT" res="GLU#CT">  
+	CB	238	
+	HB	239
+	CG	240
+	HG	241
+	CD	242
+	OE	243
+    </data>               
+    <data ff_smbl="tinker_at_type" res="GLN" res="GLN#NT" res="GLN#CT">  
+	CB	250	
+	HB	251
+	CG	252
+	HG	253
+	CD	254
+	OE1	255
+	NE2	256
+	HE2	257
+    </data> 
+    <data ff_smbl="tinker_at_type" res="MET" res="MET#NT" res="MET#CT">  
+	CB	264	
+	HB	265
+	CG	266
+	HG	267
+	SD	268
+	CE	269
+	HE	270
+    </data>                
+    <data ff_smbl="tinker_at_type" res="LYS" res="LYS#NT" res="LYS#CT">  
+	CB	277	
+	HB	278
+	CG	279
+	HG	280
+	CD	281
+	HD	282
+	CE	283
+	HE	284
+	NZ	285
+	HZ	286
+    </data> 
+    <data ff_smbl="tinker_at_type" res="ARG" res="ARG#NT" res="ARG#CT">  
+	CB	293	
+	HB	294
+	CG	295
+	HG	296
+	CD	297
+	HD	298
+	NE	299
+	HE	300
+	CZ	301
+	NH	302
+	HH	303
+    </data>          
+    <data ff_smbl="tinker_at_type" res="ORN" res="ORN#NT" res="ORN#CT">  
+	CB	310	
+	HB	311
+	CG	312
+	HG	313
+	CD	314
+	HD	315
+	NE	316
+	HE	317
+    </data>
+    <data ff_smbl="tinker_at_type" res="PGLU" res="PGLU#NT" res="PGLU#CT">  
+	CB	331	
+	HB	332
+	CG	333
+	HG	334
+	CD	335
+	OE	336
+    </data>
+    <data ff_smbl="tinker_at_type" res="FML">  
+	C	337
+	H	338
+	O	339
+    </data> 
+    <data ff_smbl="tinker_at_type" res="ACE">  
+	CH3	340	
+	H	341
+	C	342
+	O	343
+    </data> 
+    <data ff_smbl="tinker_at_type" res="CT">  
+	N	344	
+	HN	345
+    </data> 
+    <data ff_smbl="tinker_at_type" res="NME">  
+	N	346	
+	HN	347
+	CH3	348
+	H	349
+    </data>
+    <data ff_smbl="tinker_at_type" res="A#R" res="A#R3" res="A#R5" >  
+	O5X	1001	
+	C5X	1002
+	H5X1	1003
+	H5X2	1004
+	C4X	1005
+	H4X	1006
+	O4X	1007
+	C1X	1008
+	H1X	1009
+	C3X	1010
+	H3X	1011
+	C2X	1012
+	H2X?	1013
+	O2X   1014
+	HOX	1015
+	O3X	1016
+	N9	1017
+	C4	1018
+	C5	1019
+	N7	1020
+	C8	1021
+	N3	1022
+	C2	1023
+	N1	1024
+	C6	1025
+	H2	1026
+	N6	1027
+	H61	1028
+	H61	1029
+	H8	1030
+    </data>
+   <data ff_smbl="tinker_at_type" res="G#R" res="G#R3" res="G#R5" >  
+	O5X	1031	
+	C5X	1032
+	H5X1	1033
+	H5X2	1034
+	C4X	1035
+	H4X	1036
+	O4X	1037
+	C1X	1038
+	H1X	1039
+	C3X	1040
+	H3X	1041
+	C2X	1042
+	H2X?	1043
+	O2X   1044
+	HOX	1045
+	O3X	1046
+	N9	1047
+	C4	1048
+	C5	1049
+	N7	1050
+	C8	1051
+	N3	1052
+	C2	1053
+	N1	1054
+	C6	1055
+	H1	1056
+	N2	1057
+	H21	1058
+	H22	1059
+	O6	1060
+	H8	1061
+    </data>
+   <data ff_smbl="tinker_at_type" res="C#R" res="C#R3" res="C#R5" >  
+	O5X	1062	
+	C5X	1063
+	H5X1	1064
+	H5X2	1065
+	C4X	1066
+	H4X	1067
+	O4X	1068
+	C1X	1069
+	H1X	1070
+	C3X	1071
+	H3X	1072
+	C2X	1073
+	H2X?	1074
+	O2X   1075
+	HOX	1076
+	O3X	1077
+	N1	1078
+	C2	1079
+	N3	1080
+	C4	1081
+	C5	1082
+	C6	1083
+	O2	1084
+	N4	1085
+	H41	1086
+	H42	1087
+	H5	1088
+	H6	1089
+    </data>
+   <data ff_smbl="tinker_at_type" res="U#R" res="U#R3" res="U#R5">  
+	O5X	1090	
+	C5X	1091
+	H5X1	1092
+	H5X2	1093
+	C4X	1094
+	H4X	1095
+	O4X	1096
+	C1X	1097
+	H1X	1098
+	C3X	1099
+	H3X	1100
+	C2X	1101
+	H2X?	1102
+	O2X   1103
+	HOX	1104
+	O3X	1105
+	N1	1106
+	C2	1107
+	N3	1108
+	C4	1109
+	C5	1110
+	C6	1111
+	O2	1112
+	H3	1113
+	O4	1114
+	H5	1115
+	H6	1116
+    </data>
+    <data ff_smbl="tinker_at_type" res="A" res="A#D3" res="A#D5" res="A#DN">  
+	O5X	1117	
+	C5X	1118
+	H5X1	1119
+	H5X2	1120
+	C4X	1121
+	H4X	1122
+	O4X	1123
+	C1X	1124
+	H1X	1125
+	C3X	1126
+	H3X	1127
+	C2X	1128
+	H2X1	1129
+	H2X2 1130
+	O3X	1131
+	N9	1132
+	C4	1133
+	C5	1134
+	N7	1135
+	C8	1136
+	N3	1137
+	C2	1138
+	N1	1139
+	C6	1140
+	H2	1141
+	N6	1142
+	H61	1143
+	H61	1144
+	H8	1145
+    </data>
+    <data ff_smbl="tinker_at_type" res="G" res="G#D3" res="G#D5" res="G#DN">  
+	O5X	1146	
+	C5X	1147
+	H5X1	1148
+	H5X2	1149
+	C4X	1150
+	H4X	1151
+	O4X	1152
+	C1X	1153
+	H1X	1154
+	C3X	1155
+	H3X	1156
+	C2X	1157
+	H2X1	1158
+	H2X2 1159
+	O3X	1160
+	N9	1161
+	C4	1162
+	C5	1163
+	N7	1164
+	C8	1165
+	N3	1166
+	C2	1167
+	N1	1168
+	C6	1169
+	H1	1170
+	N2	1171
+	H21	1172
+	H22	1173
+	O6	1174
+	H8	1175
+    </data>
+   <data ff_smbl="tinker_at_type" res="C" res="C#DN" res="C#D3" res="C#D5">  
+	O5X	1176
+	C5X	1177
+	H5X1	1178
+	H5X2	1179
+	C4X	1180
+	H4X	1181
+	O4X	1182
+	C1X	1183
+	H1X	1184
+	C3X	1185
+	H3X	1186
+	C2X	1187
+	H2X1	1188
+	H2X2	1189
+	O3X	1190
+	N1	1191
+	C2	1192
+	N3	1193
+	C4	1194
+	C5	1195
+	C6	1196
+	O2	1197
+	N4	1198
+	H41	1199
+	H42	1200
+	H5	1201
+	H6	1202
+    </data>
+   <data ff_smbl="tinker_at_type" res="T" res="T#DN" res="T#D3" res="T#D5">  
+	O5X	1203
+	C5X	1204
+	H5X1	1205
+	H5X2	1206
+	C4X	1207
+	H4X	1208
+	O4X	1209
+	C1X	1210
+	H1X	1211
+	C3X	1212
+	H3X	1213
+	C2X	1214
+	H2X1	1215
+	H2X2	1216
+	O3X	1217
+	N1	1218
+	C2	1219
+	N3	1220
+	C4	1221
+	C5	1222
+	C6	1223
+	O2	1224
+	H3	1225
+	O4	1226
+	C7	1227
+	H7	1228
+	H6	1229
+    </data>
+    <data ff_smbl="tinker_at_type" res="HOH" res="WAT" >  
+	O	2001
+	H	2002
+    </data>
+   <data ff_smbl="tinker_at_type" res="NA" >  
+	NA	2004
+    </data>
+   <data ff_smbl="tinker_at_type" res="K" >  
+	K	2005
+    </data>
+   <data ff_smbl="tinker_at_type" res="MG" >  
+	MG	2008
+    </data> 
+   <data ff_smbl="tinker_at_type" res="CA" >  
+	CA	2009
+    </data>
+
+</ff_symbol_map>

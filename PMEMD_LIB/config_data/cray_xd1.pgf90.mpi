@@ -1,0 +1,27 @@
+DIRFRC_DEFINES = -DDIRFRC_COMTRANS -DDIRFRC_EFS
+MPI_HOME = /usr/mpich/mpich-1.2.6-pgi605
+MPI_DEFINES = -DMPI
+MPI_INCLUDE = -I$(MPI_HOME)/include
+MPI_LIBDIR = $(MPI_HOME)/lib
+MPI_LIBDIR2 = /usr/local/lib64
+MPI_LIBS = -L$(MPI_LIBDIR) -lmpich -L$(MPI_LIBDIR2) -lrapl -lpthread
+
+CPP = /lib/cpp
+CPPFLAGS = -traditional -P
+F90_DEFINES = -DFFTLOADBAL_2PROC
+
+F90 = pgf90
+MODULE_SUFFIX = mod
+F90FLAGS = -c
+F90_OPT_DBG = -g
+F90_OPT_LO =  -fastsse -O1
+F90_OPT_MED = -fastsse -O2
+F90_OPT_HI =  -fastsse -O3
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = pgcc
+CFLAGS = -fastsse -O3
+
+LOAD = pgf90
+LOADFLAGS =
+LOADLIBS =

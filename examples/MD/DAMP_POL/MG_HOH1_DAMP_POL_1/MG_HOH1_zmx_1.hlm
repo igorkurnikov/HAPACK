@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="MG_HOH1" >
+<molecule name="MG_HOH1" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    1    MG  12      0.000000000      0.000000000      0.000000000 </atom>
+<res name="HOH"  no="2" /> 
+  <atom>    2     O  8      0.000000000      0.000000000      1.933960000 <bonds> 4  3  </bonds></atom>
+  <atom>    3    H1  1      0.000000000     -0.770996000      2.518390000 <bonds> 2  </bonds></atom>
+  <atom>    4    H2  1      0.000000000      0.770996000      2.518390000 <bonds> 2  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+<zmat mset="MG_HOH1" nat="4" nz="6" >
+  Mg  
+   O      1          rMO   
+   X      2     1.000000       1    90.000000   
+   X      2     1.000000       3    90.000000       1         dXOM   
+   H      2         rOH1       4      aHOH_hf       3    90.000000   
+   H      2         rOH2       4      aHOH_hf       3   -90.000000   
+   
+     aHOH_hf    52.837163 
+        dXOM   180.000000 
+         rMO     1.933960 
+        rOH1     0.967467 
+        rOH2     0.967467 
+</zmat>
+<atgrp id="MG_AT" size=" 1" >
+  molname=MG_HOH1 
+ MG1.MG  
+</atgrp>
+<crd_snap name="OPT_GEOM_QCHEM" >
+   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   1.9339600
+   0.0000000  -0.7709960   2.5183900   0.0000000   0.7709960   2.5183900
+<pbox>    50.000000    50.000000    50.000000    90.000000    90.000000    90.000000</pbox>
+</crd_snap>
+</molset>
+<qchem> mset="MG_HOH1">
+<atbas name="6-31G(d)"/>
+<loc_orb_bas id="FULL_ATOMIC_BASIS"/>
+</qchem>
+</HARLEM_DATA>

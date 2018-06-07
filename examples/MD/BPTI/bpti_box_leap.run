@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd_amba -O -i bpti_box.inp -o bpti_box_amoeba_leap.out -p bpti_box_amoeba_leap.top -c bpti_box.crd -r bpti_box_leap.rst -ref bpti_box_leap.ref -x bpti_box_amoeba_leap.mdcrd -v bpti_box_leap.mdvel -e bpti_box_amoeba_leap.mden 

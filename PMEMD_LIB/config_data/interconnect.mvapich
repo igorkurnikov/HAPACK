@@ -1,0 +1,4 @@
+MPI_DEFINES = -DMPI
+MPI_INCLUDE = -I$(MPI_HOME)/include
+MPI_LIBDIR = $(MPI_HOME)/lib
+MPI_LIBS = -L$(MPI_LIBDIR) -lmpich -L$(MPI_LIBDIR2) -lmtl_common -lvapi -lmosal -lmpga -lpthread

@@ -1,0 +1,12 @@
+import wx
+bibl_db = BiblDB()
+bibl_db.Init()
+ref = bibl_db.GetRefByID(6046)
+auth = bibl_db.GetAuthByID(1797)
+print auth.last_name.c_str()
+print auth.first_name.c_str()
+print auth.initials
+auths = bibl_db.GetAuthForRef(6046)
+print auths.size()
+#auth1 = auths.GetByIdx(0)
+#print auth1.last_name.c_str()

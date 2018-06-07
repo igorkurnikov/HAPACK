@@ -1,0 +1,43 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=res_nma
+#MOLECULE 
+MOLNAME=NMA
+#ATOMS 
+    1   1 "H1"     -8.517000000     -0.960000000     -6.355000000  " " "NMA"       1     0.0173 "NO_HYBRID" ""  "HC"      1.00790 
+    2   6 "C1"     -7.446000000     -0.859000000     -6.183000000  " " "NMA"       1     -.0411 "NO_HYBRID" ""  "CT"     12.01100 
+    3   1 "H2"     -6.878000000     -1.781000000     -6.308000000  " " "NMA"       1     0.0173 "NO_HYBRID" ""  "HC"      1.00790 
+    4   1 "H3"     -7.362000000     -0.620000000     -5.123000000  " " "NMA"       1     0.0173 "NO_HYBRID" ""  "HC"      1.00790 
+    5   6 "C"     -6.983000000      0.241000000     -7.120000000  " " "NMA"       1     0.5869 "NO_HYBRID" ""  "C"     12.01100 
+    6   8 "O"     -6.097000000      0.072000000     -7.974000000  " " "NMA"       1     -.5911 "NO_HYBRID" ""  "O"     15.99940 
+    7   7 "N"     -7.788000000      1.364000000     -7.215000000  " " "NMA"       1     -.4192 "NO_HYBRID" ""  "N"     14.00670 
+    8   1 "HN"     -8.420000000      1.504000000     -6.440000000  " " "NMA"       1     0.2823 "NO_HYBRID" ""  "H"      1.00790 
+    9   6 "C2"     -7.554000000      2.438000000     -8.207000000  " " "NMA"       1     -.2078 "NO_HYBRID" ""  "CT"     12.01100 
+   10   1 "H4"     -7.892000000      2.031000000     -9.160000000  " " "NMA"       1     0.1127 "NO_HYBRID" ""  "H1"      1.00790 
+   11   1 "H5"     -8.200000000      3.299000000     -8.034000000  " " "NMA"       1     0.1127 "NO_HYBRID" ""  "H1"      1.00790 
+   12   1 "H6"     -6.510000000      2.743000000     -8.279000000  " " "NMA"       1     0.1127 "NO_HYBRID" ""  "H1"      1.00790 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+   11     9  SINGLE
+   12     9  SINGLE
+    8     7  SINGLE
+    2     5  SINGLE
+    2     3  SINGLE
+    2     4  SINGLE
+    5     6  SINGLE
+    5     7  SINGLE
+   10     9  SINGLE
+    9     7  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$NMA$NMA1.C  $NMA$NMA1.C2  $NMA$NMA1.N  $NMA$NMA1.HN  
+$NMA$NMA1.C1  $NMA$NMA1.N  $NMA$NMA1.C  $NMA$NMA1.O  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

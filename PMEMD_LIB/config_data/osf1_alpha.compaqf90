@@ -1,0 +1,21 @@
+DIRFRC_DEFINES = -DDIRFRC_COMTRANS
+CPP = /lib/cpp
+CPPFLAGS = -C
+F90_DEFINES =
+
+F90 = f90
+MODULE_SUFFIX = mod
+CPUFLAGS = -arch $(ALPHA_PROCESSOR_TYPE) -tune $(ALPHA_PROCESSOR_TYPE)
+F90FLAGS = $(CPUFLAGS) -c
+F90_OPT_DBG = -g
+F90_OPT_LO = -O3 -align dcommons -assume buffered_io -assume noaccuracy_sensitive -automatic -math_library fast
+F90_OPT_MED = -O4 -align dcommons -assume buffered_io -assume noaccuracy_sensitive -automatic -math_library fast 
+F90_OPT_HI = -O4 -align dcommons -assume buffered_io -assume noaccuracy_sensitive -automatic -math_library fast
+F90_OPT_DFLT =  $(F90_OPT_HI)
+
+CC = cc
+CFLAGS = $(CPUFLAGS) -std1
+
+LOAD = f90
+LOADFLAGS =
+LOADLIBS = -ldxml -lm

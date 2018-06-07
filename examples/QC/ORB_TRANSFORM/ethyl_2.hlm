@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="ethyl" >
+<molecule name="ETH" />
+<chain  id="A" />
+<res name="ETH"  no="1" /> 
+  <atom>    1    C1  6     -0.003900499      0.200965668     -0.626112557 <bonds> 3  5  2  </bonds></atom>
+  <atom>    2    C2  6      0.003900499     -0.200965668      0.626112557 <bonds> 1  6  4  </bonds></atom>
+  <atom>    3    H3  1      0.742278407      0.869377447     -1.012253936 <bonds> 1  </bonds></atom>
+  <atom>    4    H4  1      0.756811800      0.120572471      1.320662935 <bonds> 2  </bonds></atom>
+  <atom>    5    H5  1     -0.756811800     -0.120572471     -1.320662935 <bonds> 1  </bonds></atom>
+  <atom>    6    H6  1     -0.742278407     -0.869377447      1.012253936 <bonds> 2  </bonds></atom>
+</molset>
+</HARLEM_DATA>

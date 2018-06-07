@@ -1,0 +1,32 @@
+#VRML V1.0 ascii
+#Created by HARLEM v0.2
+
+DEF Viewer Info { string "examiner" }
+DEF Title Info { string "ALK" }
+DEF Creator Info { string "Created by HARLEM v0.1" }
+DEF Background Info { string "0.000 0.000 0.000" }
+
+Separator {
+  Material { diffuseColor 1.000 1.000 1.000 }
+  Separator {
+    Translation { translation -0.327 2.839 0.000 }
+    Sphere { radius 2.079 }
+    Translation { translation 2.335 -1.651 -1.651 }
+    Sphere { radius 2.079 }
+    Translation { translation 0.000 0.000 3.302 }
+    Sphere { radius 2.079 }
+    Translation { translation -4.015 -2.376 0.000 }
+    Sphere { radius 2.079 }
+    Translation { translation 0.000 0.000 -3.302 }
+    Sphere { radius 2.079 }
+    Translation { translation 2.335 -1.651 1.651 }
+    Sphere { radius 2.079 }
+  }
+  Material { diffuseColor 0.784 0.784 0.784 }
+  Separator {
+    Translation { translation 0.840 1.188 0.000 }
+    Sphere { radius 2.925 }
+    Translation { translation -1.680 -2.376 0.000 }
+    Sphere { radius 2.925 }
+  }
+}

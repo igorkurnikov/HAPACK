@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="res_ca_neutral" >
+<molecule name="CA#NEUTRAL" />
+<chain  id=" " />
+<res name="CA"  no="1" /> 
+  <atom>    1    CA  20      0.000000000      0.000000000      0.000000000 </atom>
+</molset>
+</HARLEM_DATA>

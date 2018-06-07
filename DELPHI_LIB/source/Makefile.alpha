@@ -1,0 +1,23 @@
+#
+# makefile for qdiffxs, anthony nicholls, 1989
+# version 2.3, rewritten to fortran 77 ansi standard
+#
+#FFLAGS = -no -db -cs 
+#--------------------------
+#
+OBJ4 =	qdiff4s.o elb.o up.o cent4.o cfind4.o ichash4.o irhash4.o \
+ rent4.o rfind4.o \
+ phintp4.o scaler4.o chrgit4.o setbc4.o conplt.o itit4j.o expand4.o mkeps4f.o \
+ wrteps4.o relfac4b.o rfe4c.o cse.o setcrg4.o mem4.o chrg1sub.o non.o setout4.o\
+ setin4.o rdlin4.o anagrd4.o cputime.o setrc4.o rdprm4.o
+#-----------------------------
+# rules- iris:
+.f.o:
+	f77 -c -O4 -extend_source  $*.f
+#-----------------------
+# qdiffxs
+#-----------------------
+qdiffxs: $(OBJ4) 
+	f77 -o qdiffxs -O4  $(OBJ4) 
+$(OBJ4): qdiffpar4.h
+#------------------------------------

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="gly" >
+<molecule name="GLYD" />
+<chain  id=" " />
+<res name="GLY" name_mod="NT"  no="1" /> 
+  <atom hb_st="D"  ff_s="N3"  chrg="   0.29430" >    1     N  7     12.147456908     16.264343094      8.078515266 <bonds> 5  3  4  2  </bonds></atom>
+  <atom ff_s="H"  chrg="   0.16420" >    2    H1  1     11.255231838     16.713273682      7.911748128 <bonds> 1  </bonds></atom>
+  <atom ff_s="H"  chrg="   0.16420" >    3    H2  1     11.990168299     15.337560294      8.446793274 <bonds> 1  </bonds></atom>
+  <atom ff_s="H"  chrg="   0.16420" >    4    H3  1     12.658042470     16.214405496      7.208339985 <bonds> 1  </bonds></atom>
+  <atom ff_s="CX"  chrg="  -0.01000" >    5    CA  6     12.912209514     17.075058205      9.042013686 <bonds> 8  1  6  7  </bonds></atom>
+  <atom ff_s="HP"  chrg="   0.08950" >    6   HA2  1     12.516082666     16.876941707     10.036235770 <bonds> 5  </bonds></atom>
+  <atom ff_s="HP"  chrg="   0.08950" >    7   HA3  1     13.978071564     16.867853786      8.996252866 <bonds> 5  </bonds></atom>
+  <atom ff_s="C"  chrg="   0.61630" >    8     C  6     12.641466066     18.524907877      8.715373164 <bonds> 5  9  10  </bonds></atom>
+  <atom hb_st="A"  ff_s="O"  chrg="  -0.57220" >    9     O  8     12.516271224     18.855322637      7.553079992 <bonds> 8  </bonds></atom>
+<res name="GLY" name_mod="CT"  no="2" /> 
+  <atom hb_st="D"  ff_s="N"  chrg="  -0.38210" >   10     N  7     12.400624975     19.314150800      9.780805817 <bonds> 11  12  8  </bonds></atom>
+  <atom ff_s="H"  chrg="   0.26810" >   11     H  1     12.718333362     18.973606040     10.667371780 <bonds> 10  </bonds></atom>
+  <atom ff_s="CX"  chrg="  -0.24930" >   12    CA  6     11.073238521     19.936032392      9.871401054 <bonds> 10  15  13  14  </bonds></atom>
+  <atom ff_s="H1"  chrg="   0.10560" >   13   HA2  1     11.010931096     20.554592176     10.767590548 <bonds> 12  </bonds></atom>
+  <atom ff_s="H1"  chrg="   0.10560" >   14   HA3  1     10.872427161     20.564493827      9.005171560 <bonds> 12  </bonds></atom>
+  <atom ff_s="C"  chrg="   0.72310" >   15     C  6      9.960001694     18.883011333      9.956189994 <bonds> 12  17  16  </bonds></atom>
+  <atom hb_st="A"  ff_s="O2"  chrg="  -0.78550" >   16     O  8     10.304350516     17.672760860      9.980910970 <bonds> 15  </bonds></atom>
+  <atom hb_st="A"  ff_s="O2"  chrg="  -0.78550" >   17   OXT  8      8.794044060     19.307186879      9.947982270 <bonds> 15  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+</molset>
+</HARLEM_DATA>
