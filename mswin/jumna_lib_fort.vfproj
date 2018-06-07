@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectType="typeStaticLibrary" ProjectCreator="Intel Fortran" Keyword="Static Library" Version="11.0" ProjectIdGuid="{9DA0246F-B731-4863-B5F5-4CB526DEA345}" SccProjectName="Svn" SccLocalPath="Svn" SccAuxPath="Svn" SccProvider="SubversionScc">
+	<Platforms>
+		<Platform Name="Win32"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32" OutputDirectory="c:\local\lib" IntermediateDirectory="Debug/jumna_lib" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/$(ProjectName)_deb.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32" OutputDirectory="c:\local\lib" IntermediateDirectory="Release/jumna_lib" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" AdditionalIncludeDirectories="../JUMNA_LIB/sources" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/jumna_lib_fort.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="del  $(OutDir)/libjumna.a&#xA;lib $(OutDir)/jumna_lib_fort.lib $(OutDir)/jumna_lib_c.lib /OUT:$(OutDir)/libjumna.a"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Data">
+		<File RelativePath="..\JUMNA_LIB\sources\nucamb91.lre"/>
+		<File RelativePath="..\JUMNA_LIB\sources\nucamb94.lre"/>
+		<File RelativePath="..\JUMNA_LIB\sources\nucave.lre"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ribamb91.lre"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ribamb94.lre"/></Filter>
+		<Filter Name="include files">
+		<File RelativePath="..\JUMNA_LIB\sources\jumna_data.inc"/></Filter>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="..\JUMNA_LIB\sources\ampar91.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ampar94.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ang.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\assemb.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\axeout.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\backbo.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\build.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\cataxe.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\close.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\combi.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\cosdir.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\deltor.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\delval.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\dis.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\disth.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ecomp.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ecomp91.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ecomp94.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\enecyl.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\energ91.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\energ94.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\energy.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\equim.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\equiv.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\fitsug.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\flex.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\grads.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\gradt.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\helix.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\helloc.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\joie.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\jumcall.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\kapa.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\kline.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ligaxe.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\ligput.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\liner.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\lmoout.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\loops.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\mc11a.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\microb.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\minfor.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\minim.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\molin.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\move.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\openb.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\pairc.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\pairs.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\penalty.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\present.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\putbac.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\renoe.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\reset.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\setbac.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\setd.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\setgeo.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\setvar.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\tbasl.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\tjunl.f"/>
+		<File RelativePath="..\JUMNA_LIB\sources\torp.f"/></Filter></Files>
+	<Globals/></VisualStudioProject>

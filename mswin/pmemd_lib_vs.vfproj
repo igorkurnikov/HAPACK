@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectType="typeStaticLibrary" ProjectCreator="Intel Fortran" Keyword="Static Library" Version="11.0" ProjectIdGuid="{B2AEF62A-7E0C-44A0-9073-ECB37333FDE4}" SccProjectName="Svn" SccLocalPath="Svn" SccAuxPath="Svn" SccProvider="SubversionScc">
+	<Platforms>
+		<Platform Name="Win32"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32" OutputDirectory="c:\local\lib" IntermediateDirectory="Debug\pmemd_lib" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" HeapArrays="1" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;c:\Program Files (x86)\MPICH2\include;C:/Program Files/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS" SourceFileFormat="fileFormatFree" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" Traceback="true" RuntimeChecks="rtChecksAll" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/pmemd_lib_fort_deb.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32" OutputDirectory="c:\local\lib" IntermediateDirectory="Release/pmemd_lib" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" HeapArrays="10" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;C:/Program Files/MPICH2/include;C:/Program Files (x86)/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS;VAR_POLAR" SourceFileFormat="fileFormatFree" OpenMPDiagLevel="openMPDiagLevel0" ParallelizerDiagLevel="parallelizerDiagLevel0" VectorizerDiagLevel="vectorizerDiagLevel0" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/pmemd_lib_fort.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="harlem_add">
+		<File RelativePath="..\PMEMD_LIB\src\nonbond_constr.F90"/></Filter>
+		<Filter Name="Header Files" Filter="fi;fd">
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_mpole_index.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\copyright.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\find_img_pairs_comtran_1cut.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\find_img_pairs_comtran_2cut.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\find_img_pairs_nocomtran_1cut.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\find_img_pairs_nocomtran_2cut.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\pack_nb_list_dflt.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\short_ene_novec.i"/>
+		<File RelativePath="..\PMEMD_LIB\src\short_ene_vec.i"/></Filter>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="..\PMEMD_LIB\src\alltasks_setup.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_adjust.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_bonds.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_direct.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_flags.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_force.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_induced.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_interface.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_multipoles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_opbend_angles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_pitorsions.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_recip.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_reg_angles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_self.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_stretch_bend.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_stretch_torsions.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_torsion_torsion.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_torsions.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_trig_angles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_ureyb.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_valence.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\amoeba_vdw.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\angles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\bonds.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\bspline.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\cit.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\constraints.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\dihedrals.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\dynamics.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\dynamics_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\ene_frc_splines.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\erfcfun.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\fft1d.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\file_io.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\file_io_add.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\file_io_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\force_proxy.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\gb_ene.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\gb_force.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\gbl_constants.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\gbl_datatypes.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\img.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\loadbal.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\mdin_amoeba_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\mdin_ctrl_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\mdin_ewald_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\nb_pairlist.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\parallel.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\parallel_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pbc.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pme_direct.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pme_fft.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pme_force.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pme_recip.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\pme_setup.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\prmtop_dat.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\random.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\runfiles.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\shake.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\state_info.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\timers.F90"/>
+		<File RelativePath="..\PMEMD_LIB\src\veclib.F90"/></Filter></Files>
+	<Globals/></VisualStudioProject>

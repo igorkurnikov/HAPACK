@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C7812881-BC78-4122-A245-E87506BCA1A6}</ProjectGuid>
+    <RootNamespace>ipack_lib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/WOLFGANG/IPACK\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/WOLFGANG/IPACK\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/WOLFGANG/IPACK\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/WOLFGANG/IPACK\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\WOLFGANG\IPACK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)ipack.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\WOLFGANG\IPACK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)ipack.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\WOLFGANG\IPACK\alloc.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\angular.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\basis.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\coef_array.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\coef_set.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\const.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\contract.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\e_field.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\element.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\f.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\fix.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\flexfile.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\four_stor.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\function.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\hrr1.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\hrr2.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\hrr_set.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\input.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\integ.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\integ_array.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\integ_file.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\ipack.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\ipack_main.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\itest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\kinetic.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\make_ftable.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\memmgr.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\memtest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\moment.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\nuc_e_field.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\nuc_mom.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\nuc_rep.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\nuclear.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\one_el.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\operators.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\orbinfo.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\output.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\output1.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\output2.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\output3.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\overlap.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\print.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\qc_utilities.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\quad.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\rec.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\rec_stor.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\sphere.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\spin_orb.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\stest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\stest1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\storage.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\symdesig.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\symlogic.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\symop.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\test.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\test_symmetry.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\tpair.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\tquadruple.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\transpose.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\IPACK\twoel.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\twoel0.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\types.cpp" />
+    <ClCompile Include="..\WOLFGANG\IPACK\vrr.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\integ_file.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\generic\iphys_file.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\memchk.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\misc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\generic\orb_init.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\generic\orbital.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\parallel.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\qc_utilities.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\WOLFGANG\generic\symmetry.cpp" />
+    <ClCompile Include="..\WOLFGANG\generic\vault.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\WOLFGANG\IPACK\angular.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\basis.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\buffer.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\coef_array.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\coef_set.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\const.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\e_field.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\element.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\f.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\four_stor.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\ftable.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\function.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\hrr1.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\hrr2.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\hrr_set.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\integ_array.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\integ_file.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\ipack.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\kinetic.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\memmgr.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\moment.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\nuc_e_field.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\nuc_mom.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\nuc_rep.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\nuclear.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\one_el.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\operators.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\orbinfo.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\output.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\overlap.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\parameters.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\qc_utilities.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\quad.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\rec.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\rec_stor.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\sphere.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\spin_orb.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\storage.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\symdesig.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\symop.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\tpair.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\tquadruple.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\twoel.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\typesip.h" />
+    <ClInclude Include="..\WOLFGANG\IPACK\vrr.h" />
+    <ClInclude Include="..\WOLFGANG\generic\avl.h" />
+    <ClInclude Include="..\WOLFGANG\generic\corefile.h" />
+    <ClInclude Include="..\WOLFGANG\generic\flexfile.h" />
+    <ClInclude Include="..\WOLFGANG\generic\havl.h" />
+    <ClInclude Include="..\WOLFGANG\generic\integ_file.h" />
+    <ClInclude Include="..\WOLFGANG\generic\iphys_file.h" />
+    <ClInclude Include="..\WOLFGANG\generic\memchk.h" />
+    <ClInclude Include="..\WOLFGANG\generic\misc.h" />
+    <ClInclude Include="..\WOLFGANG\generic\orbital.h" />
+    <ClInclude Include="..\WOLFGANG\generic\parallel.h" />
+    <ClInclude Include="..\WOLFGANG\generic\qc_utilities.h" />
+    <ClInclude Include="..\WOLFGANG\generic\symmetry.h" />
+    <ClInclude Include="..\WOLFGANG\generic\vault.h" />
+    <ClInclude Include="..\WOLFGANG\generic\vtype.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
