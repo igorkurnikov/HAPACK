@@ -15,9 +15,12 @@ from .utils import FileBB_CheckFileExistence, ShowVectorField3D, MolSet_RefreshA
 
 
 def pnps_run(ScriptFileName):
+    import inspect
+    import os
     import subprocess
+    curdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return subprocess.Popen(
-        ["C:\MYPROG\HAPACK\PNPS\\vs15\\x64\Release\PNPS.EXE", ScriptFileName],
+        [os.path.join(curdir,"PNPS64","PNPS.EXE", ScriptFileName],
         env={"PYTHONPATH": ""}
     )
 
