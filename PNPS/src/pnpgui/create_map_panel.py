@@ -140,7 +140,7 @@ class CreateMapsPanel(PNPSBasePanel):
                     self.NumCtrl_GridSizeY.GetValue(),
                     self.NumCtrl_GridSizeZ.GetValue()]
         GridScale = self.NumCtrl_GridScale.GetValue()
-        if self.DrawnSimBox_SimBox is not None:
+        if self.DrawnSimBox_SimBox is None:
             # Draw box
             ircenter0 = [GridSize[0] / 2, GridSize[1] / 2, GridSize[2] / 2]
 
@@ -208,7 +208,7 @@ class CreateMapsPanel(PNPSBasePanel):
         MemXY = [self.NumCtrl_MemX.GetValue(), self.NumCtrl_MemY.GetValue()]
         MemR = [self.NumCtrl_MemR1.GetValue(), max([GridSize[0] / GridScale, GridSize[1] / GridScale])]
 
-        if self.DrawnMembrane_Mem is not None:
+        if self.DrawnMembrane_Mem is None:
             # Draw Membrane
             ircenter0 = [GridSize[0] / 2, GridSize[1] / 2, GridSize[2] / 2]
 
