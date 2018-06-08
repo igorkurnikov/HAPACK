@@ -17,6 +17,8 @@
 /mswin/pnplib_vs.vcxproj.user
 /mswin/vf_lib.vcxproj.user
 /mswin/hapack.sln.DotSettings.user
+/mswin/Debug
+/mswin/Release
 /PNPS/vs15/.vs
 /PNPS/vs15/Debug
 /PNPS/vs15/x64
