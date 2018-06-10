@@ -22,6 +22,9 @@
     <Filter Include="Generated Files">
       <UniqueIdentifier>{370b450a-ed02-4438-894b-83d87f1240cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="python\pnps">
+      <UniqueIdentifier>{dc6dedda-3139-4290-80d4-e11f46d96ee1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\buildworldni.cpp">
@@ -141,8 +144,8 @@
     <CustomBuild Include="..\src\llpnps.i">
       <Filter>Source Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\src\pnps.py">
-      <Filter>python</Filter>
+    <CustomBuild Include="..\src\pnps\__init__.py">
+      <Filter>python\pnps</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
