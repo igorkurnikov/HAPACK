@@ -1,0 +1,12 @@
+language: none
+build:
+    pre_ci_boot:
+        image_name: nsimakov/harlem_ready
+        image_tag: 1
+        pull: true
+        options: "--user root -e HOME=/root -t"
+    ci:
+        - cd src/gitlab.com/$REPO_FULL_NAME/PNPS/src
+	- make
+	- cd ../regtests
+	- PYTHONPATH=/root/src/gitlab.com/mkurnikovagroup/HAPACK/PNPS/src python -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .

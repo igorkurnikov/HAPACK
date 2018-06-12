@@ -1,5 +1,7 @@
 *.obj
 *.pyc
+*.o
+*.so
 /mswin/harlem_python_tests_1/obj
 /mswin/UpgradeLog.XML
 /mswin/_UpgradeReport_Files
@@ -24,3 +26,5 @@
 /PNPS/vs15/x64
 /PNPS/src/llpnps_wrap.cxx
 /PNPS/.idea
+/PNPS/src/llpnps.py
+
