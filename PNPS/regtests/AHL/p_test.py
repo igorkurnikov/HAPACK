@@ -1,5 +1,5 @@
 
-def test_ahl_poisson():
+def test_ahl_poisson(shared_datadir):
     import pnps
     import os
 
@@ -29,7 +29,7 @@ def test_ahl_poisson():
     # add atoms
     builder.addAtoms(
         DielConst=4.0,
-        PQR=os.path.join("..","7ahlc_std_amber_pdb2pqr.pqr")
+        PQR=os.path.join(str(shared_datadir), "7ahlc_std_amber_pdb2pqr.pqr")
     )
     # add membrane with hole, note that second value in R is large
     builder.addTube(
@@ -43,17 +43,35 @@ def test_ahl_poisson():
     builder.BuildContWorld(contworld)
 
     # Write created maps to file system
-    contworld.WriteNodeIndexing("S1_System.systop")
+    # contworld.WriteNodeIndexing("S1_System.systop")
     # Clean-up
     del builder
 
     pnps.SolveP(contworld,
-            MaxIterations=-2,
-            Convergence=0.0,
-            Relaxation=1.0)
+                MaxIterations=-2,
+                Convergence=0.0,
+                Relaxation=1.0)
 
-    contworld.WritePotential("S2_Pot.bin")
+    # contworld.WritePotential("S2_Pot.bin")
+    E = contworld.SystemEnergy
 
     del contworld
+
+    Eref = 1.63854188269094e+05
+
+    def abs_rel_diff(val, ref):
+        return abs((val - ref) / ref)
+
+    dE = abs_rel_diff(E, Eref)
+
+    print("Absolute relative difference with reference is %s" % dE)
+
+    assert dE < 1.0e-7
+
+
 if __name__ == "__main__":
-    test_ahl_poisson()
+    # This is for stand-alone/debug execution
+    import inspect
+    import os
+    cur_dir = os.path.dirname(os.path.abspath(inspect.getframeinfo(inspect.currentframe()).filename))
+    test_ahl_poisson(os.path.join(cur_dir, "data"))
