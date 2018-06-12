@@ -9,4 +9,4 @@ build:
         - cd /root/src/gitlab.com/$REPO_FULL_NAME/PNPS/src
         - make
         - cd ../regtests
-        - PYTHONPATH=/root/src/gitlab.com/mkurnikovagroup/HAPACK/PNPS/src python -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .
+        - PYTHONPATH=/root/src/gitlab.com/$REPO_FULL_NAME/PNPS/src python -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .
