@@ -20,7 +20,8 @@ extern "C" {
 }
 
 
-#if !defined(HARLEM_MOD)
+#if 0
+// !defined(HARLEM_MOD)
 int main(int argc, char *argv[])
 {
 	int argc4py = 0;

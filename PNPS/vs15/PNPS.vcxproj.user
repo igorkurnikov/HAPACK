@@ -2,12 +2,18 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommandArguments>p.py</LocalDebuggerCommandArguments>
-    <LocalDebuggerWorkingDirectory>..\..\..\harlem_pnp_test\OmpG</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>..\examples\AHL\P</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommand>C:\harlem\Python27amd64\python_d.exe</LocalDebuggerCommand>
+    <LocalDebuggerEnvironment>PATH=C:\harlem\Python27amd64;%PATH%
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommandArguments>p.py</LocalDebuggerCommandArguments>
-    <LocalDebuggerWorkingDirectory>..\..\..\harlem_pnp_test\OmpG</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>..\examples\AHL\P</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommand>C:\harlem\Python27amd64\python.exe</LocalDebuggerCommand>
+    <LocalDebuggerEnvironment>PATH=C:\harlem\Python27amd64;%PATH%
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>
