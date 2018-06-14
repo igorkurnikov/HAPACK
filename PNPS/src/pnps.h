@@ -1,7 +1,10 @@
-#ifndef PNPSOBJECT_H
-#define PNPSOBJECT_H
+#ifndef PNPS_H
+#define PNPS_H
 
 #include <string>
+
+/* Version number of package */
+#define PNPSVERSION "8.3"
 
 #define PNP_MAP_IO_STRING_LENGTH 512
 
