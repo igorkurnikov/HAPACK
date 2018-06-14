@@ -81,6 +81,9 @@
     <ClCompile Include="..\src\llpnps_wrap.cxx">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\pnpsapp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\buildworldni.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\tinyxml\tinyxml.h">
       <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pnpsapp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

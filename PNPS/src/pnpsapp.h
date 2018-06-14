@@ -26,11 +26,11 @@
 #endif
 
 #include "vector"
-#include "zlib.h"
-/* Version number of package */
-#define PNPSVERSION "8.3"
-#define PNP_MAP_IO_STRING_LENGTH 512
+#include <zlib.h>
+
 #include <string>
+
+#include "pnps.h"
 
 class TiXmlElement;
 

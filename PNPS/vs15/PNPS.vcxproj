@@ -149,6 +149,7 @@
     <ClCompile Include="..\src\pnpdebug.cpp" />
     <ClCompile Include="..\src\pnpinterfaces.cpp" />
     <ClCompile Include="..\src\pnps.cpp" />
+    <ClCompile Include="..\src\pnpsapp.cpp" />
     <ClCompile Include="..\src\pnpstructs.cpp" />
     <ClCompile Include="..\src\pnputil.cpp" />
     <ClCompile Include="..\src\poissonboltzmannsolver.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="..\src\pnpdebug.h" />
     <ClInclude Include="..\src\pnpinterfaces.h" />
     <ClInclude Include="..\src\pnps.h" />
+    <ClInclude Include="..\src\pnpsapp.h" />
     <ClInclude Include="..\src\pnpstructs.h" />
     <ClInclude Include="..\src\pnputil.h" />
     <ClInclude Include="..\src\poissonboltzmannsolver.h" />

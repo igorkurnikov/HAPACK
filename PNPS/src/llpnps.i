@@ -84,6 +84,7 @@
 }
 %{
 #include "pnps.h"
+#include "pnpsapp.h"
 #include "pnpinterfaces.h"
 #include "mapio.h"
 #include "contworld.h"
@@ -111,6 +112,7 @@ namespace std {
 };
 
 %include "pnps.h"
+%include "pnpsapp.h"
 %include "pnpinterfaces.h"
 %include "mapio.h"
 %template(HaPyDoubleVectorField3D) HaVectorField3D<double>;
