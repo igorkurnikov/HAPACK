@@ -69,7 +69,7 @@ def test_ahl_poisson(shared_datadir):
     print("Difference with reference is %s" % dE)
     print("Absolute relative difference with reference is %s" % dErel)
 
-    assert dErel < 1.0e-7
+    assert dErel < 3.0e-7
 
 
 if __name__ == "__main__":
