@@ -9,7 +9,7 @@
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>p.py</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>test.py</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>..\examples\AHL\P</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommand>C:\harlem\Python27amd64\python.exe</LocalDebuggerCommand>

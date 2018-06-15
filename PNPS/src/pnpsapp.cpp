@@ -13,6 +13,10 @@
 #  include "mpi.h"
 #endif
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -34,6 +38,7 @@ FILE *PNPStdOut;
 FILE *PNPStdErr;
 PNPSApp::PNPSApp()
 {
+	SetNumOfThreads(-2);
 }
 int PNPSApp::init(int np,int ng,int nppg,const char *t_TempDir, int SuperGroupNumber, int FirstSuperGroupProc)
 {
@@ -270,6 +275,30 @@ int PNPSApp::BcastCStr(char *CStr,int root)
 #endif
 	return EXIT_SUCCESS;
 }
+
+int PNPSApp::GetNumOfThreads() const
+{
+	return omp_get_max_threads();
+}
+int PNPSApp::SetNumOfThreads(const int m_NumOfThread)
+{
+#ifdef _OPENMP
+	//printf("Set threads number to %d\n\n", num_threads);
+	if (m_NumOfThread <= 0) {
+		omp_set_num_threads(omp_get_num_procs());
+	}
+	else {
+		omp_set_num_threads(m_NumOfThread);
+	}
+#else
+	if (m_NumOfThread>1)
+		printf("Warning: This version was compiled without openmp support!\n");
+
+	num_threads = 1;
+#endif
+	return GetNumOfThreads();
+}
+
 TiXmlElement* PNPSApp::BcastTiXmlElement(TiXmlElement *Elt)
 {
 #ifdef MPI_PARALLEL

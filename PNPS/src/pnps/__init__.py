@@ -1,6 +1,6 @@
 import llpnps
 
-from llpnps import ContWorld, GetWorldBuilder
+from llpnps import ContWorld, GetWorldBuilder, PNPSApp
 
 
 def SolveP(contworld,

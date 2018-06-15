@@ -197,10 +197,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">llpnps.i;buildworldni.h;contworld.h;mapio.h;nernstplanksolver.h;pbwithljsolver.h;pnpconfig.h;pnpconstants.h;pnpdebug.h;pnpinterfaces.h;pnps.h;pnpstructs.h;pnputil.h;poissonboltzmannsolver.h;poissonnernstplancksolver.h;poissonsolver.h;sissgausps.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">llpnps.i;buildworldni.h;contworld.h;mapio.h;nernstplanksolver.h;pbwithljsolver.h;pnpconfig.h;pnpconstants.h;pnpdebug.h;pnpinterfaces.h;pnps.h;pnpstructs.h;pnputil.h;poissonboltzmannsolver.h;poissonnernstplancksolver.h;poissonsolver.h;sissgausps.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Identity);../src/buildworldni.h;../src/contworld.h;../src/mapio.h;../src/nernstplanksolver.h;../src/pbwithljsolver.h;../src/pnpconfig.h;../src/pnpconstants.h;../src/pnpdebug.h;../src/pnpinterfaces.h;../src/pnps.h;../src/pnpstructs.h;../src/pnputil.h;../src/poissonboltzmannsolver.h;../src/poissonnernstplancksolver.h;../src/poissonsolver.h;../src/pnpsapp.h;%(Outputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Identity);../src/buildworldni.h;../src/contworld.h;../src/mapio.h;../src/nernstplanksolver.h;../src/pbwithljsolver.h;../src/pnpconfig.h;../src/pnpconstants.h;../src/pnpdebug.h;../src/pnpinterfaces.h;../src/pnps.h;../src/pnpstructs.h;../src/pnputil.h;../src/poissonboltzmannsolver.h;../src/poissonnernstplancksolver.h;../src/poissonsolver.h;../src/pnpsapp.h;%(Outputs)</AdditionalInputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
