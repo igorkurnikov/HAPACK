@@ -87,12 +87,15 @@ def test_ahl_poisson(shared_datadir):
     assert dE < 1.0e-7
 
 
-def test_ahl_poisson_parallel(shared_datadir):
-    results = [
-        run_ahl_poisson(shared_datadir, 1),
-        run_ahl_poisson(shared_datadir, 2),
-        run_ahl_poisson(shared_datadir, 4)
-    ]
+def test_ahl_poisson_parallel(shared_datadir, NumOfThreads=None):
+    if NumOfThreads is None:
+        NumOfThreads=(1, 2, 4)
+
+    results = []
+
+    for nt in NumOfThreads:
+        results.append(run_ahl_poisson(shared_datadir, nt))
+
     Eref = results[0][1]
     print "%2s %20s %10s %10s %10s" % ("NT", "E", "dE", "Time", "Poisson Time")
     for nt, E, t, tP in results:
@@ -107,4 +110,4 @@ if __name__ == "__main__":
     import os
     cur_dir = os.path.dirname(os.path.abspath(inspect.getframeinfo(inspect.currentframe()).filename))
     test_ahl_poisson(os.path.join(cur_dir, "data"))
-    test_ahl_poisson_parallel(os.path.join(cur_dir, "data"))
+    test_ahl_poisson_parallel(os.path.join(cur_dir, "data"), (1, 2, 4, 8))
