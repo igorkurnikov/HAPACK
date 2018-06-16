@@ -28,6 +28,8 @@
 
 #include <stdlib.h>
 
+#include <assert.h>
+
 PoissonSolver::PoissonSolver()
  : GenericSolver()
 {
@@ -2208,12 +2210,57 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 #else
 		double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
 #endif
-
+		// check that black and white nodes matches
+		int FirstNode = 0;
+		GrdPnt = 1+1*GS_Y+1*GS_XY;
+		assert(World->NIndexing->NIndex[GrdPnt] & NodeIndexing::BlackAndWhiteMask == 1);
+		printf("black and white at 1,1,1 %d\n",World->NIndexing->NIndex[GrdPnt] & NodeIndexing::BlackAndWhiteMask);
+		printf("black and white at 2,1,1 %d\n", World->NIndexing->NIndex[GrdPnt+1] & NodeIndexing::BlackAndWhiteMask);
 		//Iteration itself
 		for (iteration = 1; iteration <= MaxIterations; iteration++)
 		{
 			//calculation over black and white nodes
 			for (j = 0; j <= 1; j++) {
+                
+				if (j == 0) {
+                    #pragma omp for
+					for (int iz = 1; iz<GS_Z-1; iz++)
+					{
+						int izgrid = iz * GS_XY;
+						for (int iy = 1; iy<GS_Y-1; iy++)
+						{
+							int iygrid = izgrid + iy * GS_X;
+                            #pragma ivdep
+							for (int ix = 1+(iy+iz)%2; ix<GS_X-1; ix+=2)
+							{
+								GrdPnt = iygrid + ix;
+								potential[GrdPnt] = potential[GrdPnt] * om1 + om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + \
+									potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
+
+							}
+						}
+					}
+				}
+				else {
+                    #pragma omp for
+					for (int iz = 1; iz<GS_Z-1; iz++)
+					{
+						int izgrid = iz * GS_XY;
+						for (int iy = 1; iy<GS_Y-1; iy++)
+						{
+							int iygrid = izgrid + iy * GS_X;
+                            #pragma ivdep
+							for (int ix = 2- (iy + iz) % 2; ix<GS_X-1; ix += 2)
+							{
+								GrdPnt = iygrid + ix;
+								potential[GrdPnt] = potential[GrdPnt] * om1 + om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + \
+									potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
+
+							}
+						}
+					}
+				}
+
 				#pragma omp for
 				for (i = SingularNum[j]; i < SingularNum[j + 1]; i++) {
 					GrdPnt = IndexSingular[i];
@@ -2229,18 +2276,12 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 					tmp1 = tmp1 + tmp2;
 					tmp2 = tmp3 + QstS[i];
 					tmp1 = dielectricZSSUM[i] * (tmp1 + tmp2);
-					potential[GrdPnt] = potential[GrdPnt] * om1 + tmp1;
+					potential[GrdPnt] += tmp1 - om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
 				}
 				#pragma omp for
 				for (i = ChargeNum[j]; i < ChargeNum[j + 1]; i++) {
 					GrdPnt = IndexCharge[i];
-					tmp1 = potential[GrdPnt + 1] + potential[GrdPnt - 1];
-					tmp2 = potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X];
-					tmp3 = potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY];
-					tmp4 = potential[GrdPnt] * om1;
-					tmp5 = om2d6 * (tmp1 + tmp2 + tmp3 + Qst[i]);
-					//tmp6 = denominator[GrdPnt]*(tmp3+staticCharge[GrdPnt]);
-					potential[GrdPnt] = tmp4 + tmp5;
+					potential[GrdPnt] += om2d6 * Qst[i];
 				}
 				#pragma omp for
 				for (i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
@@ -2252,26 +2293,12 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 					tmp5 = potential[GrdPnt + GS_XY] * dielectricZDB[i];
 					tmp6 = potential[GrdPnt - GS_XY] * dielectricZmDB[i];
 					tmp7 = potential[GrdPnt] * om1;
-					potential[GrdPnt] = tmp7 + dielectricZDBSUM[i] * (tmp1 + tmp2 + tmp3 + tmp4 + tmp5 + tmp6);
-					//potential[GrdPnt]+=100.0;
-				}
-				#pragma omp for
-				for (i = NoSingularNum[j]; i < NoSingularNum[j + 1]; i++) {
-					GrdPnt = IndexNoSingular[i];
-					potential[GrdPnt] = potential[GrdPnt] * om1 + om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
-					//potential[GrdPnt]+=10.0;
+					potential[GrdPnt] += dielectricZDBSUM[i] * (tmp1 + tmp2 + tmp3 + tmp4 + tmp5 + tmp6) - om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
 				}
 				#pragma omp for
 				for (i = QmobNum[j]; i < QmobNum[j + 1]; i++) {
 					GrdPnt = IndexQmob[i];
-					tmp1 = potential[GrdPnt + 1] + potential[GrdPnt - 1];
-					tmp2 = potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X];
-					tmp3 = potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY];
-					tmp4 = potential[GrdPnt] * om1;
-					tmp5 = om2d6 * (tmp1 + tmp2 + tmp3 + Qmob[i]);
-					//tmp6 = denominator[GrdPnt]*(tmp3+staticCharge[GrdPnt]);
-					potential[GrdPnt] = tmp4 + tmp5;
-					//potential[GrdPnt]+=1.0;
+					potential[GrdPnt] += om2d6 * Qmob[i];
 				}
 				#pragma omp for
 				for (i = QmobDielBoarderNum[j]; i < QmobDielBoarderNum[j + 1]; i++) {
@@ -2288,7 +2315,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 					tmp1 = tmp1 + tmp2;
 					tmp2 = tmp3 + QmobDielBoarder[i];
 					tmp1 = dielectricZQmobDBSUM[i] * (tmp1 + tmp2);
-					potential[GrdPnt] = potential[GrdPnt] * om1 + tmp1;
+					potential[GrdPnt] += tmp1 - om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
 				}
 				#pragma omp for
 				for (i = QmobDielBoarderQstNum[j]; i < QmobDielBoarderQstNum[j + 1]; i++) {
@@ -2305,7 +2332,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 					tmp1 = tmp1 + tmp2;
 					tmp2 = tmp3 + QmobDielBoarderQst[i] + QstQmobDielBoarderQst[i];
 					tmp1 = dielectricZQmobDBSUMQst[i] * (tmp1 + tmp2);
-					potential[GrdPnt] = potential[GrdPnt] * om1 + tmp1;
+					potential[GrdPnt] += tmp1 - om2d6 * (potential[GrdPnt + 1] + potential[GrdPnt - 1] + potential[GrdPnt + GS_X] + potential[GrdPnt - GS_X] + potential[GrdPnt + GS_XY] + potential[GrdPnt - GS_XY]);
 				}
 				#pragma omp master
 				{
