@@ -115,7 +115,7 @@ class PoissonSolver : public GenericSolver,public PnpsObject
 		float *dielectricChMob;
 		
 		//bool *QmobFlag;
-		bool *CalcVolume;//!<volume there run calculation
+		bool *CalcVolume;//!<volume there run calculation currently not working
     
 		int QmobDielBoarderNum[3];
 		int *IndexQmobDielBoarder;
