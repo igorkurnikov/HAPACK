@@ -75,8 +75,11 @@ def run_ahl_poisson(m_datadir, NumOfThreads=None):
     end = time.time()
     return NumOfThreads, E, end - start, endP - startP
 
+
+Eref = 1.63854188269094e+05
+
+
 def test_ahl_poisson(shared_datadir):
-    Eref = 1.63854188269094e+05
 
     nt, E, t, tP = run_ahl_poisson(shared_datadir)
 
@@ -96,7 +99,7 @@ def test_ahl_poisson_parallel(shared_datadir, NumOfThreads=None):
     for nt in NumOfThreads:
         results.append(run_ahl_poisson(shared_datadir, nt))
 
-    Eref = results[0][1]
+    #Eref = results[0][1]
     print "%2s %20s %10s %10s %10s" % ("NT", "E", "dE", "Time", "Poisson Time")
     for nt, E, t, tP in results:
         print "%2d %20.12e %10.3e %10.3f %10.3f" % (nt, E, abs(E - Eref), t, tP)
