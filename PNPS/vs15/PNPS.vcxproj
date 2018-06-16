@@ -28,22 +28,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 19.0</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 19.0</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 19.0</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 19.0</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -113,6 +113,8 @@
       <AdditionalIncludeDirectories>c:\PROG_SRC\Python-2.7.13\PC;C:\PROG_SRC\Python-2.7.13\Include;C:\PROG_SRC\zlib-1.2.11;$(ProjectDir)\..\tinyxml</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\PROG_SRC\Python-2.7.13\PCbuild\amd64;C:\PROG_SRC\zlib-1.2.11\contrib\vstudio\vc14\x64\ZlibStatRelease;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -125,6 +127,8 @@
       <AdditionalIncludeDirectories>c:\PROG_SRC\Python-2.7.13\PC;C:\PROG_SRC\Python-2.7.13\Include;C:\PROG_SRC\zlib-1.2.11;$(ProjectDir)\..\tinyxml</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\PROG_SRC\Python-2.7.13\PCbuild\amd64;C:\PROG_SRC\zlib-1.2.11\contrib\vstudio\vc14\x64\ZlibStatRelease;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -163,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\buildworldni.h" />
     <ClInclude Include="..\src\contworld.h" />
+    <ClInclude Include="..\src\field3d.h" />
     <ClInclude Include="..\src\mapio.h" />
     <ClInclude Include="..\src\nernstplanksolver.h" />
     <ClInclude Include="..\src\pbwithljsolver.h" />
