@@ -297,8 +297,6 @@ int PNPSApp::SetNumOfThreads(const int m_NumOfThread)
 #else
 	if (m_NumOfThread>1)
 		printf("Warning: This version was compiled without openmp support!\n");
-
-	num_threads = 1;
 #endif
 	return GetNumOfThreads();
 }
