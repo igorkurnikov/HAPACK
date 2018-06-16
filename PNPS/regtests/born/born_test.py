@@ -40,7 +40,7 @@ def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0):
     builder.BuildContWorld(contworld)
 
     # Write created maps to file system
-    contworld.WriteNodeIndexing("S1_System.systop")
+    # contworld.WriteNodeIndexing("S1_System.systop")
     # Clean-up
     del builder
 
@@ -49,7 +49,7 @@ def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0):
                 Convergence=0.0,
                 Relaxation=1.0)
 
-    contworld.WritePotential("S2_Pot.bin")
+    # contworld.WritePotential("S2_Pot.bin")
     E = contworld.SystemEnergy
 
     del contworld
@@ -105,9 +105,24 @@ def test_born_solvation_energy():
     def abs_rel_diff(val, ref):
         return abs((val - ref) / ref)
 
-    assert abs_rel_diff(dEsim, ref_dEsim) < 1.0e-4
-    assert abs_rel_diff(sd, ref_sd) < 1.0e-4
-    assert abs_rel_diff(abs_diff, ref_abs_diff) < 1.0e-4
+    print("Difference with Reference:")
+    print("\tSimulated solvation energy:       %.3e" % (dEsim-ref_dEsim))
+    print("\tSimulated solvation energy, StDev:       %.3e" % (sd - ref_sd))
+    print("Relative difference with Reference:")
+    print("\tSimulated solvation energy:       %.3e" % ((dEsim - ref_dEsim)/ref_dEsim))
+    print("\tSimulated solvation energy, StDev:       %.3e" % ((sd - ref_sd)/ref_sd))
+
+
+    print(dEsim)
+    print(sd)
+    print(abs_diff)
+    print(rel_diff)
+    print(abs(sd-ref_sd)/ref_dEsim)
+    print(abs(abs_diff - ref_abs_diff) / ref_dEsim)
+
+    assert abs_rel_diff(dEsim, ref_dEsim) < 1.0e-6
+    assert abs((sd-ref_sd)/ref_dEsim) < 1.0e-6
+    assert abs(abs_diff - ref_abs_diff) / ref_dEsim < 1.0e-6
 
 
 if __name__ == "__main__":
