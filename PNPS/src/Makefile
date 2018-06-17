@@ -1,10 +1,10 @@
 CXX = g++
-CXXFLAGS = -fopenmp  -O3 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
+CXXFLAGS = -fopenmp  -O3 -std=c++11 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
 
 SWIG = swig
 SWIGFLAGS = -c++ -python -shadow
 
-LDFLAGS = -shared -fopenmp 
+LDFLAGS = -shared -fopenmp -std=c++11
 
 _llpnps.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolver.o \
            pnpdebug.o pnpinterfaces.o pnps.o pnpsapp.o pnpstructs.o \
