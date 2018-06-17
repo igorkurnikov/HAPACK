@@ -1347,9 +1347,18 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 						PrintLog("Invalid bond type of bonded atom in %s \n",line.c_str());
 						break;
 					}
-					if( btype_str[0] == 'd' ) pbnd->SetDouble();
-					if( btype_str[0] == 'a' ) pbnd->SetAromatic();
-					if( btype_str[0] == 'v' ) pbnd->SetVirtual();
+					if( btype_str[0] == 'd' ) 
+					{
+						pbnd->SetDouble();
+					}
+					if( btype_str[0] == 'a' ) 
+					{
+						pbnd->SetAromatic();
+					}
+					if( btype_str[0] == 'v' ) 
+					{
+						pbnd->SetVirtual();
+					}
 				}
 			}	// atom line processing
 		} // while(1) 

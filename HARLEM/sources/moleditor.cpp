@@ -1360,7 +1360,14 @@ int MolEditor::FixBondsUsingTempl(HaMolSet* pmset)
 						break;
 					}
 				}
-				if( pbnd_t ) pbnd_r->SetTypeFrom( *pbnd_t);
+				if( pbnd_t ) 
+				{
+					if( pbnd_t->GetTypeString() != pbnd_r->GetTypeString() )
+					{
+						PrintLog(" Change Bond type between atoms %s %s  from %s to %s \n", aptr->GetRef().c_str(), aptr2->GetRef().c_str(), pbnd_r->GetTypeString().c_str(), pbnd_t->GetTypeString().c_str() );
+						pbnd_r->SetTypeFrom( *pbnd_t);
+					}
+				}
 			}
 			AtomGroup bonded_atoms;
 			aptr->GetBondedAtoms(bonded_atoms);

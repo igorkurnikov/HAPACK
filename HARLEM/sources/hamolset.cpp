@@ -506,6 +506,11 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					if( name_mod == "PROT")    res_name_save = "HIP";
 				}
 
+				if( res_name == "CYS")
+				{
+					if( name_mod == "UNPROT") res_name_save = "CYX";
+				}
+
 				os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
 				const HaAtom* aptr;
 				std::vector<HaBond*> bonds;

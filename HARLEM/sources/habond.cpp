@@ -153,8 +153,19 @@ bool HaBond::SetTypeFrom(const HaBond& ref)
 	return true;
 }
 
+std::string HaBond::GetTypeString() const
+{
+	if( this->IsSingle() ) return "SINGLE";
+	if( this->IsDouble() ) return "DOUBLE";
+	if( this->IsTriple() ) return "TRIPLE";
+	if( this->IsAromatic() ) return "AROMATIC";
+	if( this->IsVirtual() )  return "VIRTUAL";
+	return "UNKNOWN";
+}
+
 HaBond* HaBond::assign(HaAtom* src, HaAtom* dst )
 {
+	type = SINGLE_BOND;
 	flag = NormBondFlag;
 	Select();
 	// atom with a smaller pointer is always the first 

@@ -55,7 +55,9 @@ public:
   void SetAromatic() { flag &= 0x0F; flag |= AromBondFlag; } 
   void SetDouble()   { flag &= 0x0F; flag |= DoubBondFlag; } 
   void SetTriple()   { flag &= 0x0F; flag |= TripBondFlag; } 
-  void SetVirtual()   { type = VIRTUAL_BOND; } 
+  void SetVirtual()   { type = VIRTUAL_BOND; }
+
+  std::string GetTypeString() const; // Get bond type as a string 
 
 // Properties Manipulation Utilities:
 
