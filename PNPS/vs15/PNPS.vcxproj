@@ -146,6 +146,7 @@
       </PreprocessorDefinitions>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="..\src\mapio.cpp" />
     <ClCompile Include="..\src\nernstplanksolver.cpp" />
