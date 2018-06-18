@@ -113,7 +113,7 @@
       <AdditionalIncludeDirectories>c:\PROG_SRC\Python-2.7.13\PC;C:\PROG_SRC\Python-2.7.13\Include;C:\PROG_SRC\zlib-1.2.11;$(ProjectDir)\..\tinyxml</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OpenMP>GenerateParallelCode</OpenMP>
+      <OpenMP>None</OpenMP>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -127,7 +127,7 @@
       <AdditionalIncludeDirectories>c:\PROG_SRC\Python-2.7.13\PC;C:\PROG_SRC\Python-2.7.13\Include;C:\PROG_SRC\zlib-1.2.11;$(ProjectDir)\..\tinyxml</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OpenMP>GenerateParallelCode</OpenMP>
+      <OpenMP>None</OpenMP>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
