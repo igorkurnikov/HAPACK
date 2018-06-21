@@ -6,6 +6,8 @@ SWIGFLAGS = -c++ -python -shadow
 
 LDFLAGS = -shared -fopenmp -std=c++11
 
+all:_llpnps.so
+
 _llpnps.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolver.o \
            pnpdebug.o pnpinterfaces.o pnps.o pnpsapp.o pnpstructs.o \
            pnputil.o poissonboltzmannsolver.o poissonnernstplancksolver.o poissonsolver.o \
