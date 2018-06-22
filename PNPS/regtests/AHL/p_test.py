@@ -77,7 +77,7 @@ def run_ahl_poisson(m_datadir, NumOfThreads=None):
 
 
 Eref = 1.63854733927233e+05
-
+dE_tolerance = 5.0e-7
 
 def test_ahl_poisson(shared_datadir):
 
@@ -87,7 +87,7 @@ def test_ahl_poisson(shared_datadir):
 
     print("Absolute relative difference with reference is %s" % dE)
 
-    assert dE < 1.0e-7
+    assert dE < dE_tolerance
 
 
 def test_ahl_poisson_parallel(shared_datadir, NumOfThreads=None):
@@ -104,7 +104,7 @@ def test_ahl_poisson_parallel(shared_datadir, NumOfThreads=None):
     for nt, E, t, tP in results:
         print "%2d %20.12e %10.3e %10.3f %10.3f" % (nt, E, abs(E - Eref), t, tP)
         dE = abs_rel_diff(E, Eref)
-        assert dE < 1.0e-7
+        assert dE < dE_tolerance
 
 
 if __name__ == "__main__":
