@@ -1,10 +1,10 @@
-CXX = g++
-CXXFLAGS = -fopenmp  -O3 -std=c++11 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
+CXX = icpc
+CXXFLAGS = -xHost -qopenmp  -O3 -std=c++11 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
 
 SWIG = swig
 SWIGFLAGS = -c++ -python -shadow
 
-LDFLAGS = -shared -fopenmp -std=c++11
+LDFLAGS = -shared -qopenmp -std=c++11
 
 all:_llpnps.so
 
