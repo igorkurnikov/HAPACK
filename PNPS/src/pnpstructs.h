@@ -127,6 +127,7 @@ public:
             }
         }
     }
+    void BorderExchange(const bool *PBC);
 };
 
 

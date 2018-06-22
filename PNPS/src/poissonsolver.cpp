@@ -2102,7 +2102,11 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
                     int iu = IndexQmob[i];
                     PotU[iu] += om2d6 * Qmob[i];
                 }
+
+                PotBW->BorderExchange(World->PBC);
             }
+            
+
 
 			//checking and printing energy
 
