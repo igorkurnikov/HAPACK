@@ -77,7 +77,7 @@ void FieldBW::BorderExchange(const bool *PBC)
             // index   0  0     LL   L   L
             // ix      0  1     G-2 G-1
             //
-            for (int iz = 0; iz < GS_Z; iz++) {
+            /*for (int iz = 0; iz < GS_Z; iz++) {
                 for (int iy = 0; iy < GS_Y; iy++) {
                     int iu0 = iy * StrideX + iz * StrideXY;
                     int iuL = H_X - 1 + iy * StrideX + iz * StrideXY;
@@ -92,6 +92,24 @@ void FieldBW::BorderExchange(const bool *PBC)
                         W[iu0] = B[iuLL];
                         W[iuL] = B[iu0];
                     }
+                }
+            }*/
+            for (int iz = 0; iz < GS_Z; iz ++) {
+                //i.e. starts with black
+                for (int iy = (iz + 1) % 2; iy < GS_Y; iy+=2) {
+                    int iu0 = iy * StrideX + iz * StrideXY;
+                    int iuL = H_X - 1 + iy * StrideX + iz * StrideXY;
+                    int iuLL = iuL - 1;
+                    B[iu0] = W[iuLL];
+                    B[iuL] = W[iu0];
+                }
+                //i.e. starts with white
+                for (int iy = iz % 2; iy < GS_Y; iy+=2) {
+                    int iu0 = iy * StrideX + iz * StrideXY;
+                    int iuL = H_X - 1 + iy * StrideX + iz * StrideXY;
+                    int iuLL = iuL - 1;
+                    W[iu0] = B[iuLL];
+                    W[iuL] = B[iu0];
                 }
             }
         }

@@ -73,6 +73,7 @@ def test_on_dipole():
     print "%6s %6s %6s %20s %20s" % ("PBC_X", "PBC_Y", "PBC_Z", "E", "dE")
     for x, y, z, _, _, Eref, E in E_List:
         print "%6s %6s %6s %20.7f %20.7f" % (str(x), str(y), str(z), E, E - Eref)
+    for x, y, z, _, _, Eref, E in E_List:
         assert abs(E - Eref) < 0.001
 
 
