@@ -1208,13 +1208,14 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 			{
 				pMol = CreateMolecule();
 				
-				std::string mol_name = str_arr[2];
+				std::string mol_name = "MOL";
+				if( str_arr.size() > 2 )  mol_name = str_arr[2];
+				else if( str_arr.size() > 1) mol_name = str_arr[1];
+
 				if( mol_name[0] == '\"') mol_name.erase(0,1);
 				if( mol_name.size() > 1 && mol_name[ mol_name.size() - 1] == '\"') mol_name.erase(mol_name.size() - 1,1);
 
 				if( str_arr.size() > 2) pMol->SetObjName( mol_name.c_str());
-				else if( str_arr.size() > 1) pMol->SetObjName( str_arr[1].c_str());
-				else if( str_arr.size() > 1) pMol->SetObjName( "MOL" );
 				
 				continue;
 			}
