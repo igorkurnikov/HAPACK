@@ -182,8 +182,28 @@ AC_SUBST(MPI_LIBS)
 
 
 ###BOOST
-AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
-AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
+AC_ARG_WITH([boost],
+	  AS_HELP_STRING([--with-boost=DIR],[build with boost, which is located at DIR]),
+	  [
+	    AS_IF([test "$with_boost" != yes],
+	      [
+		AC_MSG_NOTICE([Path to open package: $with_boost])
+		AS_IF([test "$BOOST_INCLUDE" != ""],
+			AC_SUBST(BOOST_INCLUDE,$BOOST_INCLUDE),
+			AC_SUBST(BOOST_INCLUDE,"-I[$with_boost]/include"))
+		AS_IF([test "$BOOST_LIBS" != ""],
+			AC_SUBST(BOOST_LIBS,$BOOST_LIBS),
+			AC_SUBST(BOOST_LIBS,"-L[$with_boost]/lib -lboost_filesystem -lboost_system  "))
+	      ],
+	      [
+		AC_MSG_NOTICE(["Path to boost is not specified"])
+	      ]
+	    )
+	  ]
+)
+
+##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
+##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
 
 ###SWIG
 AC_PROG_SWIG
@@ -200,6 +220,7 @@ AC_SUBST(PYTHON_LDFLAGS, `python-config --ldflags`)
 #AC_SUBST(PYTHON_LDFLAGS, "-L${PYTHON_PREFIX}/lib ${PYTHON_LDFLAGS}")
 
 ##############wxWidgets
+
 AM_OPTIONS_WXCONFIG
 
 AM_PATH_WXCONFIG([2.6.0],[wxWin=1],[wxWin=0],,)
@@ -301,9 +322,9 @@ AC_CONFIG_FILES([HALIB/halib_base/Makefile])
 #AC_CONFIG_FILES([HALIB/halib_base_py/Makefile])
 #Config PNPS
 AC_CONFIG_FILES([PNPS/Makefile])
-AS_IF([test "$enable_mpi" == "yes"],
-    AC_CONFIG_FILES([PNPS/mpi/Makefile]))
-AC_CONFIG_FILES([PNPS/pnps/Makefile])
+#AS_IF([test "$enable_mpi" == "yes"],
+#    AC_CONFIG_FILES([PNPS/mpi/Makefile]))
+#AC_CONFIG_FILES([PNPS/pnps/Makefile])
 #AC_CONFIG_FILES([PNPS/pnps_d/Makefile])
 #AC_CONFIG_FILES([PNPS/wxUtil/Makefile])
 AC_CONFIG_FILES([PNPS/libpnp/Makefile])
@@ -348,14 +369,17 @@ AC_MSG_RESULT([HARLEM flags:])
 AC_MSG_RESULT(AS_HELP_STRING([HARLEM_MOD_DEFS],$HARLEM_MOD_DEFS))
 
 AC_MSG_RESULT([MPI flags:])
-AC_MSG_RESULT(AS_HELP_STRING([MPICC],$MPICC))
-AC_MSG_RESULT(AS_HELP_STRING([MPICXX],$MPICXX))
-AC_MSG_RESULT(AS_HELP_STRING([MPIF77],$MPIF77))
-AC_MSG_RESULT(AS_HELP_STRING([MPIFC],$MPIFC))
+##AC_MSG_RESULT(AS_HELP_STRING([MPICC],$MPICC))
+##AC_MSG_RESULT(AS_HELP_STRING([MPICXX],$MPICXX))
+##AC_MSG_RESULT(AS_HELP_STRING([MPIF77],$MPIF77))
+##AC_MSG_RESULT(AS_HELP_STRING([MPIFC],$MPIFC))
 AC_MSG_RESULT(AS_HELP_STRING([MPI_FLAG],$MPI_FLAG))
 AC_MSG_RESULT(AS_HELP_STRING([MPI_INCLUDE],$MPI_INCLUDE))
-AC_MSG_RESULT(AS_HELP_STRING([MPI_LDFLAGS],$MPI_LDFLAGS))
+##AC_MSG_RESULT(AS_HELP_STRING([MPI_LDFLAGS],$MPI_LDFLAGS))
 AC_MSG_RESULT(AS_HELP_STRING([MPI_LIBS],$MPI_LIBS))
+
+AC_MSG_RESULT(AS_HELP_STRING([BOOST_INCLUDE],$BOOST_INCLUDE))
+AC_MSG_RESULT(AS_HELP_STRING([BOOST_LIBS],$BOOST_LIBS))
 
 AC_MSG_RESULT([BLAS and LAPACK flags:])
 AC_MSG_RESULT(AS_HELP_STRING([BLAS_LIBS],$BLAS_LIBS))

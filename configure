@@ -788,6 +788,7 @@ with_mpich
 with_mvapich
 with_impi
 with_openmpi
+with_boost
 with_wxdir
 with_wx_config
 with_wx_prefix
@@ -1445,6 +1446,7 @@ Optional Packages:
   --with-mvapich=DIR      build with mvapich, which is located at DIR
   --with-impi=DIR         build with impi, which is located at DIR
   --with-openmpi=DIR      build with openmpi, which is located at DIR
+  --with-boost=DIR        build with boost, which is located at DIR
   --with-wxdir=PATH       Use uninstalled version of wxWidgets in PATH
   --with-wx-config=CONFIG wx-config script to use (optional)
   --with-wx-prefix=PREFIX Prefix where wxWidgets is installed (optional)
@@ -7401,10 +7403,43 @@ fi
 
 
 ###BOOST
-BOOST_INCLUDE="-I../../local/include"
 
-BOOST_LIBS="-L ../../local/lib -lboost_filesystem -lboost_system "
+# Check whether --with-boost was given.
+if test "${with_boost+set}" = set; then :
+  withval=$with_boost;
+	    if test "$with_boost" != yes; then :
 
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to open package: $with_boost" >&5
+$as_echo "$as_me: Path to open package: $with_boost" >&6;}
+		if test "$BOOST_INCLUDE" != ""; then :
+  BOOST_INCLUDE=$BOOST_INCLUDE
+
+else
+  BOOST_INCLUDE="-I$with_boost/include"
+
+fi
+		if test "$BOOST_LIBS" != ""; then :
+  BOOST_LIBS=$BOOST_LIBS
+
+else
+  BOOST_LIBS="-L$with_boost/lib -lboost_filesystem -lboost_system  "
+
+fi
+
+else
+
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to boost is not specified\"" >&5
+$as_echo "$as_me: \"Path to boost is not specified\"" >&6;}
+
+
+fi
+
+
+fi
+
+
+##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
+##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
 
 ###SWIG
 
@@ -7535,6 +7570,7 @@ PYTHON_LDFLAGS=`python-config --ldflags`
 #AC_SUBST(PYTHON_LDFLAGS, "-L${PYTHON_PREFIX}/lib ${PYTHON_LDFLAGS}")
 
 ##############wxWidgets
+
 
 
 # Check whether --with-wxdir was given.
@@ -7941,12 +7977,9 @@ ac_config_files="$ac_config_files HALIB/halib_base/Makefile"
 #Config PNPS
 ac_config_files="$ac_config_files PNPS/Makefile"
 
-if test "$enable_mpi" == "yes"; then :
-  ac_config_files="$ac_config_files PNPS/mpi/Makefile"
-
-fi
-ac_config_files="$ac_config_files PNPS/pnps/Makefile"
-
+#AS_IF([test "$enable_mpi" == "yes"],
+#    AC_CONFIG_FILES([PNPS/mpi/Makefile]))
+#AC_CONFIG_FILES([PNPS/pnps/Makefile])
 #AC_CONFIG_FILES([PNPS/pnps_d/Makefile])
 #AC_CONFIG_FILES([PNPS/wxUtil/Makefile])
 ac_config_files="$ac_config_files PNPS/libpnp/Makefile"
@@ -8721,8 +8754,6 @@ do
     "HALIB/halib/Makefile") CONFIG_FILES="$CONFIG_FILES HALIB/halib/Makefile" ;;
     "HALIB/halib_base/Makefile") CONFIG_FILES="$CONFIG_FILES HALIB/halib_base/Makefile" ;;
     "PNPS/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/Makefile" ;;
-    "PNPS/mpi/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/mpi/Makefile" ;;
-    "PNPS/pnps/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/pnps/Makefile" ;;
     "PNPS/libpnp/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/libpnp/Makefile" ;;
     "MY_VFLIB/Makefile") CONFIG_FILES="$CONFIG_FILES MY_VFLIB/Makefile" ;;
     "DELPHI_LIB/Makefile") CONFIG_FILES="$CONFIG_FILES DELPHI_LIB/Makefile" ;;
@@ -9504,22 +9535,22 @@ $as_echo "  HARLEM_MOD_DEFS         $HARLEM_MOD_DEFS" >&6; }
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: MPI flags:" >&5
 $as_echo "MPI flags:" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPICC                   $MPICC" >&5
-$as_echo "  MPICC                   $MPICC" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPICXX                  $MPICXX" >&5
-$as_echo "  MPICXX                  $MPICXX" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPIF77                  $MPIF77" >&5
-$as_echo "  MPIF77                  $MPIF77" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPIFC                   $MPIFC" >&5
-$as_echo "  MPIFC                   $MPIFC" >&6; }
+##AC_MSG_RESULT(AS_HELP_STRING([MPICC],$MPICC))
+##AC_MSG_RESULT(AS_HELP_STRING([MPICXX],$MPICXX))
+##AC_MSG_RESULT(AS_HELP_STRING([MPIF77],$MPIF77))
+##AC_MSG_RESULT(AS_HELP_STRING([MPIFC],$MPIFC))
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_FLAG                $MPI_FLAG" >&5
 $as_echo "  MPI_FLAG                $MPI_FLAG" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_INCLUDE             $MPI_INCLUDE" >&5
 $as_echo "  MPI_INCLUDE             $MPI_INCLUDE" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_LDFLAGS             $MPI_LDFLAGS" >&5
-$as_echo "  MPI_LDFLAGS             $MPI_LDFLAGS" >&6; }
+##AC_MSG_RESULT(AS_HELP_STRING([MPI_LDFLAGS],$MPI_LDFLAGS))
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_LIBS                $MPI_LIBS" >&5
 $as_echo "  MPI_LIBS                $MPI_LIBS" >&6; }
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   BOOST_INCLUDE           $BOOST_INCLUDE" >&5
+$as_echo "  BOOST_INCLUDE           $BOOST_INCLUDE" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   BOOST_LIBS              $BOOST_LIBS" >&5
+$as_echo "  BOOST_LIBS              $BOOST_LIBS" >&6; }
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: BLAS and LAPACK flags:" >&5
 $as_echo "BLAS and LAPACK flags:" >&6; }

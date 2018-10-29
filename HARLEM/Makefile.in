@@ -86,17 +86,18 @@ am__objects_1 = apbsmod.$(OBJEXT) abstree.$(OBJEXT) \
 	hasimulator.$(OBJEXT) hastl.$(OBJEXT) hastring.$(OBJEXT) \
 	hasurface.$(OBJEXT) hatests.$(OBJEXT) hatypes.$(OBJEXT) \
 	hazindo.$(OBJEXT) march_cube.$(OBJEXT) \
-	mm_driver_amber.$(OBJEXT) mm_elements.$(OBJEXT) \
-	mm_force_field.$(OBJEXT) mm_model.$(OBJEXT) \
-	mm_params.$(OBJEXT) mm_traj_anal.$(OBJEXT) moleditor.$(OBJEXT) \
-	molmech_evt_handler.$(OBJEXT) molset_evt_handler.$(OBJEXT) \
-	ndo.$(OBJEXT) nuclacidmod.$(OBJEXT) object3d.$(OBJEXT) \
-	outfile.$(OBJEXT) protonredox.$(OBJEXT) repres.$(OBJEXT) \
-	qc_params.$(OBJEXT) rigidbodycoord.$(OBJEXT) script.$(OBJEXT) \
-	stmmod.$(OBJEXT) trajanal.$(OBJEXT) transfor.$(OBJEXT) \
-	vec3d.$(OBJEXT) axx_fit.$(OBJEXT) delphutil.$(OBJEXT) \
-	gextr.$(OBJEXT) gmath.$(OBJEXT) gsurf.$(OBJEXT) fd05.$(OBJEXT) \
-	id05.$(OBJEXT) mc11.$(OBJEXT) va13.$(OBJEXT) za02.$(OBJEXT)
+	mm_driver_amber.$(OBJEXT) mm_driver_gromacs.$(OBJEXT) \
+	mm_elements.$(OBJEXT) mm_force_field.$(OBJEXT) \
+	mm_model.$(OBJEXT) mm_params.$(OBJEXT) mm_traj_anal.$(OBJEXT) \
+	moleditor.$(OBJEXT) molmech_evt_handler.$(OBJEXT) \
+	molset_evt_handler.$(OBJEXT) ndo.$(OBJEXT) \
+	nuclacidmod.$(OBJEXT) object3d.$(OBJEXT) outfile.$(OBJEXT) \
+	protonredox.$(OBJEXT) repres.$(OBJEXT) qc_params.$(OBJEXT) \
+	rigidbodycoord.$(OBJEXT) script.$(OBJEXT) stmmod.$(OBJEXT) \
+	trajanal.$(OBJEXT) transfor.$(OBJEXT) vec3d.$(OBJEXT) \
+	axx_fit.$(OBJEXT) delphutil.$(OBJEXT) gextr.$(OBJEXT) \
+	gmath.$(OBJEXT) gsurf.$(OBJEXT) fd05.$(OBJEXT) id05.$(OBJEXT) \
+	mc11.$(OBJEXT) va13.$(OBJEXT) za02.$(OBJEXT)
 am__objects_2 = dialogs_wx_1.$(OBJEXT) dialogs_wx_2.$(OBJEXT) \
 	mm_dialogs_wx.$(OBJEXT) qc_dialogs_wx.$(OBJEXT) \
 	wx_prot_redox_dlg.$(OBJEXT) hamainframe_wx.$(OBJEXT) \
@@ -431,6 +432,7 @@ harlem_main_files = \
  sources/hazindo.cpp \
  sources/march_cube.cpp \
  sources/mm_driver_amber.cpp \
+ sources/mm_driver_gromacs.cpp \
  sources/mm_elements.cpp \
  sources/mm_force_field.cpp \
  sources/mm_model.cpp \
@@ -666,6 +668,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/march_cube.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_dialogs_wx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_driver_amber.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_driver_gromacs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_elements.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_force_field.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mm_model.Po@am__quote@
@@ -1504,6 +1507,20 @@ mm_driver_amber.obj: sources/mm_driver_amber.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sources/mm_driver_amber.cpp' object='mm_driver_amber.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mm_driver_amber.obj `if test -f 'sources/mm_driver_amber.cpp'; then $(CYGPATH_W) 'sources/mm_driver_amber.cpp'; else $(CYGPATH_W) '$(srcdir)/sources/mm_driver_amber.cpp'; fi`
+
+mm_driver_gromacs.o: sources/mm_driver_gromacs.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mm_driver_gromacs.o -MD -MP -MF $(DEPDIR)/mm_driver_gromacs.Tpo -c -o mm_driver_gromacs.o `test -f 'sources/mm_driver_gromacs.cpp' || echo '$(srcdir)/'`sources/mm_driver_gromacs.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/mm_driver_gromacs.Tpo $(DEPDIR)/mm_driver_gromacs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sources/mm_driver_gromacs.cpp' object='mm_driver_gromacs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mm_driver_gromacs.o `test -f 'sources/mm_driver_gromacs.cpp' || echo '$(srcdir)/'`sources/mm_driver_gromacs.cpp
+
+mm_driver_gromacs.obj: sources/mm_driver_gromacs.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mm_driver_gromacs.obj -MD -MP -MF $(DEPDIR)/mm_driver_gromacs.Tpo -c -o mm_driver_gromacs.obj `if test -f 'sources/mm_driver_gromacs.cpp'; then $(CYGPATH_W) 'sources/mm_driver_gromacs.cpp'; else $(CYGPATH_W) '$(srcdir)/sources/mm_driver_gromacs.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/mm_driver_gromacs.Tpo $(DEPDIR)/mm_driver_gromacs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sources/mm_driver_gromacs.cpp' object='mm_driver_gromacs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mm_driver_gromacs.obj `if test -f 'sources/mm_driver_gromacs.cpp'; then $(CYGPATH_W) 'sources/mm_driver_gromacs.cpp'; else $(CYGPATH_W) '$(srcdir)/sources/mm_driver_gromacs.cpp'; fi`
 
 mm_elements.o: sources/mm_elements.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mm_elements.o -MD -MP -MF $(DEPDIR)/mm_elements.Tpo -c -o mm_elements.o `test -f 'sources/mm_elements.cpp' || echo '$(srcdir)/'`sources/mm_elements.cpp

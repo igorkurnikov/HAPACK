@@ -133,6 +133,7 @@ harlem_main_files = \
  sources/hazindo.cpp \
  sources/march_cube.cpp \
  sources/mm_driver_amber.cpp \
+ sources/mm_driver_gromacs.cpp \
  sources/mm_elements.cpp \
  sources/mm_force_field.cpp \
  sources/mm_model.cpp \

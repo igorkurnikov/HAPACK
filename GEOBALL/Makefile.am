@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libgeoball.a
 
-#AM_FFLAGS = -ffixed-line-length-132
-AM_FFLAGS = -132
+AM_FFLAGS = -ffixed-line-length-132
+#AM_FFLAGS = -132
 INCLUDES = -I$(top_srcdir)/GEOBALL
 
 libgeoball_a_SOURCES=\
