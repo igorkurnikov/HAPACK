@@ -7,7 +7,7 @@
 
 */
 #include <mpi.h>
-
+#include <math.h>
 #include <tinyxml.h>
 
 #include <boost/algorithm/string.hpp>

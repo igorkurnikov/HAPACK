@@ -171,7 +171,7 @@ int HarlemApp::InitFirst()
 //	memory_manager->print(cout);
 
 // Set HARLEM HOME directory
-	auto path_obj = wxStandardPaths::Get();
+//	auto path_obj = wxStandardPaths::Get();
 
 	wxString harlem_home_str;
 	bool exist = wxGetEnv("HARLEM_HOME",&harlem_home_str);
