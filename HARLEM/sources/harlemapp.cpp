@@ -171,13 +171,12 @@ int HarlemApp::InitFirst()
 //	memory_manager->print(cout);
 
 // Set HARLEM HOME directory
-//	auto path_obj = wxStandardPaths::Get();
-
 	wxString harlem_home_str;
 	bool exist = wxGetEnv("HARLEM_HOME",&harlem_home_str);
     harlem_home_str.Trim();
 #if(_MSC_VER)
-	wxString exe_dir = path_obj.GetDataDir();
+//	auto path_obj = wxStandardPaths::Get();
+	wxString exe_dir = wxStandardPaths::Get().GetDataDir();
 	if( exist && !harlem_home_str.IsEmpty() )
 	{
 		harlem_home_dir = harlem_home_str;  
