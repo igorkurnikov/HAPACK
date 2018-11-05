@@ -87,7 +87,9 @@ extern int RestoreIOToConsole();                //!< Restore STDOUT to console t
 #if !defined(HAIO_CPP)
 extern int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
 extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
-
+#else
+	int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
+	int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #endif
 
 }

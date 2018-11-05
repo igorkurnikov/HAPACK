@@ -15,7 +15,6 @@
 #if !defined(ABSTREE_H)
 #define ABSTREE_H
 
-
 /* Operator Types */
 const int OpAnd =        0x01;
 const int OpOr  =        0x02;

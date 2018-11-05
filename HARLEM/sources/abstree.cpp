@@ -30,6 +30,7 @@
 
 #define ABSTREE_CPP
 
+#include "haio.h"
 #include "command.h"
 #include "hamolset.h"
 #include "hamolecule.h"

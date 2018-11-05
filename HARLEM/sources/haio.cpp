@@ -36,7 +36,8 @@
 #include "harlemapp.h"
 
 
-extern "C" DllExport int PrintLog(const char* str, ... )
+// extern "C" DllExport 
+int PrintLog(const char* str, ... )
 {
 	va_list arg_list;
 	va_start( arg_list, str );     /* Initialize variable arguments. */
@@ -182,8 +183,7 @@ int RedirectIOToFile(const char* fname)
 	return True;
 }
 
-int
-RestoreIOToConsole()
+int RestoreIOToConsole()
 {
 //	if(con_out_fp == NULL)
 //		return False;
@@ -196,7 +196,7 @@ RestoreIOToConsole()
 }
 
 
-extern "C" DllExport 
+// extern "C" DllExport 
 int ErrorInMod(const char* module, const char* msg)
 {
 	cerr << " Error in: " << module << endl;

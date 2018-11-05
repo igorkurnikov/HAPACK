@@ -108,7 +108,7 @@ HaMolSet::HaMolSet()
 	p_mol_editor  = new MolEditor();
 	p_evt_h       = new MolSetEvtHandler(this);
 
-	pApp->AddMolSet(this);
+	if( pApp ) pApp->AddMolSet(this);
 
 	this->SetName("MOLSET");
 }
@@ -122,7 +122,7 @@ HaMolSet::~HaMolSet()
 	if(p_evt_h) delete p_evt_h;
 	if(p_zmat)  delete p_zmat;
 	
-	pApp->DeleteMolSet(this);
+	if( pApp ) pApp->DeleteMolSet(this);
 }
 
 
