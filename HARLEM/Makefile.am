@@ -1,5 +1,5 @@
 
-bin_PROGRAMS = harlembin
+bin_PROGRAMS = harlembin _molset.so
 bin_SCRIPTS  = harlem
 
 #AM_LDFLAGS = -all-static -lz -lm -lpthread -lutil -ldl
@@ -24,6 +24,7 @@ AM_CPPFLAGS = \
  $(BOOST_INCLUDE) \
   $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) \
   -Wno-non-template-friend -Wno-deprecated -fpermissive
+
 harlembin_LDADD = \
  $(top_builddir)/HALIB/halib/halib.a \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
@@ -33,9 +34,11 @@ harlembin_LDADD = \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
  $(top_builddir)/GEOBALL/libgeoball.a -lgmp \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
- $(top_srcdir)/../PROG_SRC/g98/util.a \
  -L$(top_srcdir)/../MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
 
+# $(top_srcdir)/../PROG_SRC/g98/util.a 
+
+AM_FFLAGS = -fPIC
 
 #$(top_builddir)/SANDER_LIB/libsander.a
 
@@ -54,6 +57,9 @@ harlembin_LDADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
  -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgetsd -lplplotcxxd 
  
+_molset_so_CXXFLAGS = -fPIC 
+_molset_so_LDADD = $(harlembin_LDADD) 
+_molset_so_LDFLAGS = -shared 
 
 harlem_wx_files = \
  sources/dialogs_wx_1.cpp \
@@ -171,6 +177,10 @@ harlem_main_files = \
  hamolset_wrap.cpp \
  hasvnrev.cpp
 
+ _molset_so_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
+ hamolset_wrap.cpp \
+ hasvnrev.cpp
+
 #if WITH_LIB_PMEMD
 #harlembin_SOURCES += sources/mm_driver_amber.cpp
 #endif
@@ -196,7 +206,7 @@ FORCE:
 pkgscript_DATA = molset.py 
 
 CLEANFILES = hamolset_wrap.cpp hasvnrev.cpp molset.py harlemwin.res harlembin.exe.manifest \
-	harlembin.lib harlembin.exp harlem.exe 
+	harlembin.lib harlembin.exp harlem.exe _molset.so
 
 ######################################
 wx_libs_dirs := $(filter -L%,${WX_LIBS})

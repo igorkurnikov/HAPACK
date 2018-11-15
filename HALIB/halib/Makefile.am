@@ -8,7 +8,7 @@ INCLUDES = \
  -I$(top_srcdir)/HALIB/include \
   $(PYTHON_CPPFLAGS)
 
-AM_CPPFLAGS =@HARLEM_MOD_DEFS@
+AM_CPPFLAGS =@HARLEM_MOD_DEFS@ -fPIC
   
 halib_a_SOURCES=./../src/haobject.cpp   ./../src/haxml.cpp   ./../src/haconsts.cpp ./../src/tinyxml.cpp ./../src/tinyxmlparser.cpp ./../src/tinyxmlerror.cpp halib_wrap.cpp
 

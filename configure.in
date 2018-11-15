@@ -24,6 +24,8 @@ CXXFLAGS="${CXXFLAGS=}"
 LDFLAGS="${LDFLAGS=}"
 
 AM_INIT_AUTOMAKE([1.10.1 foreign])
+LT_PREREQ([2.2.6])
+LT_INIT
 
 # config header with general definitions and parameters 
 AC_CONFIG_HEADER(config.h)
@@ -338,6 +340,7 @@ AC_CONFIG_FILES([GEOBALL/Makefile])
 AC_CONFIG_FILES([JUMNA_LIB/Makefile])
 AC_CONFIG_FILES([HARLEM/Makefile])
 AC_CONFIG_FILES([HARLEM_NOGUI/Makefile])
+AC_CONFIG_FILES([HARLEM/HARLEM_PYLIB/Makefile])
 #AS_IF([test -n "$WITH_LIB_PMEMD"],
 AC_CONFIG_FILES([PMEMD_LIB/Makefile])
 #Documentation
