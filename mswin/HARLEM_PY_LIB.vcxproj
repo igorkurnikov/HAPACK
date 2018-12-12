@@ -41,12 +41,13 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>_molset_d</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>d:\PROG_SRC\Python-2.7.4\PCbuild</OutDir>
+    <OutDir>c:\PROG_SRC\Python-2.7.4\PCbuild</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>_molset</TargetName>
     <TargetExt>.pyd</TargetExt>
+    <OutDir>c:\PROG_SRC\Python-2.7.4\PCbuild</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -55,12 +56,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;HARLEM_PY_LIB_EXPORTS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;d:\PROG_SRC\Python-2.7.4\PC;d:\PROG_SRC\Python-2.7.4\Include;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\wxWidgets\lib\vc100_dll\mswud;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.7.4\PC;c:\PROG_SRC\Python-2.7.4\Include;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\wxWidgets\lib\vc100_dll\mswud;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib;C:\Program Files (x86)\Intel\Composer XE 2013\compiler\lib\ia32;C:\Program Files\Intel\MKL\10.2.6.037\ia32\lib\;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;d:\PROG_SRC\Python-2.7.4\PCbuild;c:\wxWidgets\lib\vc100_dll;C:\program Files\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\program Files (x86)\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib;C:\Program Files (x86)\Intel\Composer XE 2013\compiler\lib\ia32;C:\Program Files\Intel\MKL\10.2.6.037\ia32\lib\;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;c:\PROG_SRC\Python-2.7.4\PCbuild;c:\wxWidgets\lib\vc100_dll;C:\program Files\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\program Files (x86)\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32</AdditionalLibraryDirectories>
       <AdditionalDependencies>gmp_deb.lib;mpi.lib;fmpich2h.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxtiff.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;ug98_deb.lib;delphi_lib_deb.lib;harlem_lib_fort_deb.lib;jumna_lib_fort_deb.lib;pmemd_lib_fort_deb.lib;geoball_lib_fort_deb.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
@@ -76,7 +77,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Intel\Composer XE 2013\mkl\include;C:\Program Files (x86)\Intel\Composer XE 2013\mkl\include\ia32;C:\Program Files\Intel\MKL\10.2.6.037\include\;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.7.4\Include;c:\PROG_SRC\Python-2.7.4\PC;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\local\include;c:\wxWidgets\lib\vc100_dll\mswu;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Intel\Composer XE 2013\mkl\include;C:\Program Files (x86)\Intel\Composer XE 2013\mkl\include\ia32;C:\Program Files\Intel\MKL\10.2.6.037\include\;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;C:\PROG_SRC\Python-2.7.4\Include;C:\PROG_SRC\Python-2.7.4\PC;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\local\include;c:\wxWidgets\lib\vc100_dll\mswu;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
