@@ -13,8 +13,8 @@ extern "C" {
 
 #include "f2c.h"
 
-#define GAUSSVER 98
-//#undef GAUSSVER 
+//#define GAUSSVER 98
+#undef GAUSSVER 
 
 /* GAUSSIAN Chk-point files numbers:  Description is in L1.F */
 

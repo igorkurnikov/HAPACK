@@ -108,7 +108,7 @@ HaMolSet::HaMolSet()
 	p_mol_editor  = new MolEditor();
 	p_evt_h       = new MolSetEvtHandler(this);
 
-	pApp->AddMolSet(this);
+	if( pApp ) pApp->AddMolSet(this);
 
 	this->SetName("MOLSET");
 }
@@ -122,7 +122,7 @@ HaMolSet::~HaMolSet()
 	if(p_evt_h) delete p_evt_h;
 	if(p_zmat)  delete p_zmat;
 	
-	pApp->DeleteMolSet(this);
+	if( pApp ) pApp->DeleteMolSet(this);
 }
 
 
@@ -504,6 +504,11 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					res_name_save = "HID";
 					if( name_mod == "EPSILON") res_name_save = "HIE";
 					if( name_mod == "PROT")    res_name_save = "HIP";
+				}
+
+				if( res_name == "CYS")
+				{
+					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
 				os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;

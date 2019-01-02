@@ -1,9 +1,9 @@
 noinst_LIBRARIES = libjumna.a
 
 if WITH_GFORTRAN
-AM_FFLAGS = -ffixed-line-length-132 
+AM_FFLAGS = -ffixed-line-length-132 -fPIC
 else
-AM_FFLAGS = -132 
+AM_FFLAGS = -132 -fPIC
 endif
 
 INCLUDES = -I$(top_srcdir)/JUMNA_LIB/sources

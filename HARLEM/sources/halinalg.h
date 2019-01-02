@@ -346,6 +346,13 @@ public:
 size_t ij_indx0(size_t i, size_t j);
 size_t ij_indx1(size_t i, size_t j);
 
+extern "C" 
+{
+	int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck_size, const std::string& form_str);
+	int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_size,  const std::string& form_str);
+	int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size,  const std::string& form_str);
+}
+
 #else
 
 extern size_t ij_indx0(size_t i, size_t j);
@@ -354,7 +361,7 @@ extern size_t ij_indx1(size_t i, size_t j);
 extern "C" 
 {
 	int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck_size, const std::string& form_str);
-	int write_float_array_chuncks( FILE* fp, HaVec_float& fvec, int chunck_size,  const std::string& form_str);
+	int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_size,  const std::string& form_str);
 	int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size,  const std::string& form_str);
 	
 //  int rot_vec(double a[], double n[], double cosa, double sina); //!< rotate vector a around unit vector n by angle defined cosa and sina 

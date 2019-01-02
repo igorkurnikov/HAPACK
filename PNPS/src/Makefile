@@ -1,5 +1,6 @@
 CXX = g++
 CXXFLAGS = -fopenmp  -O3 -std=c++11 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
+# CXXFLAGS = -O3 -c -fpic -I/home/kurnikov/anaconda2/include/python2.7 -I../tinyxml -I../../HARLEM/sources -DEXIT_SUCCESS=0
 
 SWIG = swig
 SWIGFLAGS = -c++ -python -shadow

@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libipack.a
 
-AM_CXXFLAGS = -O3 -Dlinux -DGNU -DGCC_NEW -DTIMER
+AM_CXXFLAGS = -O3 -Dlinux -DGNU -DGCC_NEW -DTIMER -fPIC 
 
 INCLUDES = -I$(top_srcdir)/WOLFGANG/generic \
  -I$(top_srcdir)/WOLFGANG/IPACK \

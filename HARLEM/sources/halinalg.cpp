@@ -225,7 +225,7 @@ int HaMat_double::SqRoot(const int isign)
 	return True;
 }
 
-extern "C" DllExport
+// extern "C" DllExport
 int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck_size, const std::string& form_str)
 {
 	char buf[256];
@@ -286,27 +286,25 @@ int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck
 	return TRUE;
 }
 
-extern "C" DllExport
-int write_float_array_chuncks( FILE* fp, HaVec_double& fvec, int chunck_size, const std::string& form_str)
+// extern "C" DllExport
+int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_size, const std::string& form_str)
 {
-	if( fp == NULL)
-		return FALSE;
-
+	char buf[256];
 	int exp_format = 0;
 	int i;
-	for(i= 0; i < form_str.size(); i++)
-	{
-		if( form_str[i] == 'E')
-		{
-			exp_format = 1;
-			break;
-		}
-	}
+//	for(i= 0; i < strlen(form_str); i++)
+//	{
+//		if( form_str[i] == 'E')
+//		{
+//			exp_format = 1;
+//			break;
+//		}
+//	}
 
 	int nsize = fvec.size();
 		if(nsize == 0)
 		{
-			fprintf(fp,"\n");
+			os << endl;
 			return TRUE;
 		}
 
@@ -318,36 +316,38 @@ int write_float_array_chuncks( FILE* fp, HaVec_double& fvec, int chunck_size, co
 		{
 			if( loc_idx != 0) 
 			{
-				fprintf(fp, "\n");
+				os << endl;
 			}
 			break;
 		}
-#if defined(_MSC_VER) 
-		if( exp_format)  // microsoft printf(%xx.xE) format give three digit exponents   
-		{                // reduce exponents to two digits
-			char buf[128];            
-			int n = sprintf(buf,form_str.c_str(),fvec[i]);
-			for(int j= n-3; j > 0; j--)
-			{
-				buf[j] = buf[j-1];
-			}
-			buf[0]= ' ';
-			fprintf(fp,"%s",buf);
+//#if defined(_MSC_VER) 
+//		if( exp_format)  // microsoft printf(%xx.xE) format give three digit exponents   
+//		{                // reduce exponents to two digits            
+//			int n = sprintf(buf,form_str.c_str(),dvec[i]);
+//			for(int j= n-3; j > 0; j--)
+//			{
+//				buf[j] = buf[j-1];
+//			}
+//			buf[0]= ' ';
+//			os << buf;
+//		}
+//		else
+//#endif
+		{
+			sprintf(buf,form_str.c_str(), fvec[i] );
+			os << buf;
 		}
-		else
-#endif
-			fprintf(fp, form_str.c_str(), fvec[i] );
 		loc_idx++;
 		if( loc_idx >=  chunck_size)
 		{
-			fprintf(fp,"\n");
+			os << endl;
 			loc_idx = 0;
 		}
 	}
 	return TRUE;
 }
 
-extern "C" DllExport
+// extern "C" DllExport
 int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size, const std::string& form_str)
 {
 	char buf[128];
