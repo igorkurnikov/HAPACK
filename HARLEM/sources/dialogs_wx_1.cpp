@@ -348,7 +348,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
 
      sizer_main_v->Add( sizer_h_dir, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-     wxListCtrl *item5 = new wxListCtrl( this, IDC_FILE_LIST, wxDefaultPosition, wxSize(400,120), wxLC_LIST| wxLC_NO_HEADER | wxSUNKEN_BORDER | wxLC_SORT_ASCENDING );
+     wxListCtrl *item5 = new wxListCtrl( this, IDC_FILE_LIST, wxDefaultPosition, wxSize(400,120), wxLC_LIST| wxLC_NO_HEADER | wxSUNKEN_BORDER );
      sizer_main_v->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
 
      wxBoxSizer *item6 = new wxBoxSizer( wxHORIZONTAL );
