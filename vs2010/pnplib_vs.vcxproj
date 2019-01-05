@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
+    <ClCompile Include="..\PNPS\src\contworld.cpp" />
+    <ClCompile Include="..\PNPS\src\llpnps_wrap.cxx" />
+    <ClCompile Include="..\PNPS\src\mapio.cpp" />
+    <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
+    <ClCompile Include="..\PNPS\src\pbwithljsolver.cpp" />
+    <ClCompile Include="..\PNPS\src\pnpdebug.cpp" />
+    <ClCompile Include="..\PNPS\src\pnpinterfaces.cpp" />
+    <ClCompile Include="..\PNPS\src\pnps.cpp" />
+    <ClCompile Include="..\PNPS\src\pnpsapp.cpp" />
+    <ClCompile Include="..\PNPS\src\pnpstructs.cpp" />
+    <ClCompile Include="..\PNPS\src\pnputil.cpp" />
+    <ClCompile Include="..\PNPS\src\poissonboltzmannsolver.cpp" />
+    <ClCompile Include="..\PNPS\src\poissonnernstplancksolver.cpp" />
+    <ClCompile Include="..\PNPS\src\poissonsolver.cpp" />
+    <ClCompile Include="..\PNPS\src\sissgausps.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\PNPS\src\buildworldni.h" />
+    <ClInclude Include="..\PNPS\src\contworld.h" />
+    <ClInclude Include="..\PNPS\src\mapio.h" />
+    <ClInclude Include="..\PNPS\src\nernstplanksolver.h" />
+    <ClInclude Include="..\PNPS\src\pbwithljsolver.h" />
+    <ClInclude Include="..\PNPS\src\pnpconfig.h" />
+    <ClInclude Include="..\PNPS\src\pnpconstants.h" />
+    <ClInclude Include="..\PNPS\src\pnpdebug.h" />
+    <ClInclude Include="..\PNPS\src\pnpinterfaces.h" />
+    <ClInclude Include="..\PNPS\src\pnps.h" />
+    <ClInclude Include="..\PNPS\src\pnpsapp.h" />
+    <ClInclude Include="..\PNPS\src\pnpstructs.h" />
+    <ClInclude Include="..\PNPS\src\pnputil.h" />
+    <ClInclude Include="..\PNPS\src\poissonboltzmannsolver.h" />
+    <ClInclude Include="..\PNPS\src\poissonnernstplancksolver.h" />
+    <ClInclude Include="..\PNPS\src\poissonsolver.h" />
+    <ClInclude Include="..\PNPS\src\sissgausps.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\PNPS\src\llpnps.i">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\PNPS\src\pnps.py">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{00332771-F366-4C97-80A8-51519A1FF394}</ProjectGuid>
+    <RootNamespace>pnplib_vs</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;c:\PROG_SRC\Python-2.7.4\PC;c:\PROG_SRC\Python-2.7.4\Include;c:\Program Files\MPICH2\include;c:\wxWidgets\lib\vc100_dll\mswud;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)pnplib.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.7.4\PC;c:\PROG_SRC\Python-2.7.4\Include;c:\Program Files\MPICH2\include;C:\PROG_SRC\db-4.7.25.0;c:\wxWidgets\lib\vc100_dll\mswu;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;c:\local\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)pnplib.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

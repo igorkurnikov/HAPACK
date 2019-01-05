@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F70239D1-0A54-4F2F-A7FF-37F0EAD8939A}</ProjectGuid>
+    <RootNamespace>vf_lib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/MY_VFLIB\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/MY_VFLIB\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/MY_VFLIB\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/MY_VFLIB\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)vf_lib.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MY_VFLIB\src\allocpool.h" />
+    <ClInclude Include="..\MY_VFLIB\src\argedit.h" />
+    <ClInclude Include="..\MY_VFLIB\src\argloader.h" />
+    <ClInclude Include="..\MY_VFLIB\src\argraph.h" />
+    <ClInclude Include="..\MY_VFLIB\src\dict.h" />
+    <ClInclude Include="..\MY_VFLIB\src\error.h" />
+    <ClInclude Include="..\MY_VFLIB\src\gene.h" />
+    <ClInclude Include="..\MY_VFLIB\src\gene_mesh.h" />
+    <ClInclude Include="..\MY_VFLIB\src\match.h" />
+    <ClInclude Include="..\MY_VFLIB\src\sd_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\sortnodes.h" />
+    <ClInclude Include="..\MY_VFLIB\src\state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\ull_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\ull_sub_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf2_mono_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf2_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf2_sub_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf_mono_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\vf_sub_state.h" />
+    <ClInclude Include="..\MY_VFLIB\src\xsubgraph.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\MY_VFLIB\src\argedit.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\argloader.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\argraph.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\error.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\gene.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\gene_mesh.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\match.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\sd_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\sortnodes.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\ull_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\ull_sub_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf2_mono_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf2_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf2_sub_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf_mono_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\vf_sub_state.cpp" />
+    <ClCompile Include="..\MY_VFLIB\src\xsubgraph.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
