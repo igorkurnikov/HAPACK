@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,6 +14,7 @@
     <ProjectGuid>{7AB0F266-A0A8-47DD-8C82-49E28CF5D872}</ProjectGuid>
     <RootNamespace>hatlem_vs</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -21,11 +22,13 @@
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <UseIntelMKL>Sequential</UseIntelMKL>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <UseIntelMKL>Sequential</UseIntelMKL>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -58,7 +61,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.7.4\PC;c:\PROG_SRC\Python-2.7.4\Include;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\wxWidgets\lib\vc100_dll\mswud;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.7.4\PC;c:\PROG_SRC\Python-2.7.4\Include;C:\ha_dep_libs\vcpkg\installed\x86-windows\include;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\wxWidgets\lib\vc100_dll\mswud;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -70,16 +73,17 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>gmp_deb.lib;mpi.lib;fmpich2h.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxtiff.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;ug98_deb.lib;delphi_lib_deb.lib;harlem_lib_fort_deb.lib;jumna_lib_fort_deb.lib;pmemd_lib_fort_deb.lib;geoball_lib_fort_deb.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gmp_deb.lib;mpi.lib;fmpich2h.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxtiff.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;ug98_deb.lib;delphi_lib_deb.lib;harlem_lib_fort_deb.lib;jumna_lib_fort_deb.lib;pmemd_lib_fort_deb.lib;geoball_lib_fort_deb.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>c:\harlem\harlem_deb.exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE 2013\mkl\lib;C:\Program Files (x86)\Intel\Composer XE 2013\compiler\lib\ia32;C:\Program Files\Intel\MKL\10.2.6.037\ia32\lib\;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;c:\PROG_SRC\Python-2.7.4\PCbuild;c:\wxWidgets\lib\vc100_dll;C:\program Files\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\program Files (x86)\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;C:\ha_dep_libs\vcpkg\installed\x86-windows\lib;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;c:\PROG_SRC\Python-2.7.4\PCbuild;c:\wxWidgets\lib\vc100_dll</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts generated by SWIG to scripts directory</Message>
@@ -118,6 +122,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts generated by SWIG to scripts directory</Message>

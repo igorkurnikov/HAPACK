@@ -1,16 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "harlem_vs", "harlem_vs.vcxproj", "{7AB0F266-A0A8-47DD-8C82-49E28CF5D872}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B2AEF62A-7E0C-44A0-9073-ECB37333FDE4} = {B2AEF62A-7E0C-44A0-9073-ECB37333FDE4}
-		{E6F8393E-5438-4716-9E3C-631BA06A3898} = {E6F8393E-5438-4716-9E3C-631BA06A3898}
-		{9DA0246F-B731-4863-B5F5-4CB526DEA345} = {9DA0246F-B731-4863-B5F5-4CB526DEA345}
-		{8C12817B-8DE4-447A-AB8E-A04B8ED2C0F1} = {8C12817B-8DE4-447A-AB8E-A04B8ED2C0F1}
-		{3F35F899-FA61-423E-986C-B53BFA237DE0} = {3F35F899-FA61-423E-986C-B53BFA237DE0}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pmemd_lib_c", "pmemd_lib_c.vcxproj", "{4E65A9C1-A2BD-42B3-9155-5531FE33009F}"
 EndProject
@@ -493,9 +484,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {865BFAD2-82FE-45A0-A227-90BD4B5284B6}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

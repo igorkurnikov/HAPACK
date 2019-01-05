@@ -11,8 +11,7 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
-    <InterpreterVersion>2.6</InterpreterVersion>
+    <InterpreterId>Global|PythonCore|2.6-32</InterpreterId>
     <Name>harlem_python_tests_1</Name>
     <RootNamespace>harlem_python_tests_1</RootNamespace>
   </PropertyGroup>
@@ -197,4 +196,5 @@
     <Folder Include="XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
