@@ -7,7 +7,7 @@
 
 #define DllImport   __declspec( dllimport )
 
-DllImport int __argc;
+/*DllImport int __argc;
 DllImport char** __argv;
 
 int iargc_ () {
@@ -23,7 +23,28 @@ void getarg_ (int* num, char* arg, int len)
 	{
         arg[i] = 32;
 	}
+}*/
+extern int* __p___argc();
+extern char*** __p___argv();
+
+
+int iargc_ () {
+	int __argc = *__p___argc();
+	return ((int) (__argc - 1));
 }
+
+void getarg_ (int* num, char* arg, int len)
+{
+	int i,lena;
+	char** __argv = *__p___argv();
+	strncpy ( arg, *(__argv + *num), len );
+	lena = strlen(arg);
+	for(i = lena; i < len; i++)
+	{
+		arg[i] = 32;
+	}
+}
+
 
 float etime_ (tarray) float *tarray; {
   tarray[0] = (float) (((double) clock()) / ((double) CLK_TCK));
