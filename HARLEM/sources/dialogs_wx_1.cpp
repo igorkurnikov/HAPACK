@@ -346,7 +346,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
      wxButton *item4 = new wxButton( this, IDC_CHOOSE_DIR, wxT("Choose Dir"), wxDefaultPosition, wxDefaultSize, 0 );
      sizer_h_dir->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
 
-     sizer_main_v->Add( sizer_h_dir, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+     sizer_main_v->Add( sizer_h_dir, 0, wxALL, 5 );
 
      wxListCtrl *item5 = new wxListCtrl( this, IDC_FILE_LIST, wxDefaultPosition, wxSize(400,120), wxLC_LIST| wxLC_NO_HEADER | wxSUNKEN_BORDER );
      sizer_main_v->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -362,7 +362,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
      choose_file_btn = new wxButton( this, IDC_LOAD_FILE, "Load File", wxDefaultPosition, wxDefaultSize, 0 );
      item6->Add( choose_file_btn, 0, wxALIGN_CENTER|wxALL, 5 );
 
-     sizer_main_v->Add( item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+     sizer_main_v->Add( item6, 0, wxALL, 5 );
 
      wxBoxSizer *item10 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -370,9 +370,9 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
      item10->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
 
      file_types_ch = new wxChoice( this, IDC_FILE_TYPE, wxDefaultPosition, wxSize(250,-1), 0, NULL, 0 );
-     item10->Add( file_types_ch, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+     item10->Add( file_types_ch, 0, wxGROW|wxALL, 5 );
 
-     sizer_main_v->Add( item10, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+     sizer_main_v->Add( item10, 0, wxALL, 5 );
 
  //    wxBoxSizer *item16 = new wxBoxSizer( wxHORIZONTAL );
 

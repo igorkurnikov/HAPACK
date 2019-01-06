@@ -71,12 +71,12 @@ wxSizer *bot_bar_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
 
     wxButton *item2 = new wxButton( parent, IDC_CMD_EXEC, wxT("Execute Command:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item1->Add( item2, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item1->Add( item2, 0, wxGROW|wxALL, 5 );
 
     CmdTextCtrl *item3 = new CmdTextCtrl( parent, IDC_CMD_TXT, wxT(""), wxDefaultPosition, wxSize(580,-1), wxTE_PROCESS_ENTER );
-    item1->Add( item3, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item1->Add( item3, 1, wxGROW|wxALL, 5 );
 
-    item0->Add( item1, 2, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
+    item0->Add( item1, 2, wxGROW, 0 );
 
     wxBoxSizer *item4 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -86,9 +86,9 @@ wxSizer *bot_bar_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxTextCtrl *item6 = new wxTextCtrl( parent, IDC_LOG_WIN, wxT(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY );
     item6->SetFont( wxFont( 8, wxROMAN, wxNORMAL, wxNORMAL ) );
-    item4->Add( item6, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item4->Add( item6, 1, wxGROW|wxALL, 5 );
 
-    item0->Add( item4, 3, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
+    item0->Add( item4, 3, wxGROW, 0 );
 
     if (set_sizer)
     {

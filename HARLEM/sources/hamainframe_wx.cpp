@@ -927,14 +927,14 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 	ChooseMolFileDlg load_dlg(NULL, -1, wxString("Open Molecular File"));
 	
 	wxCheckBox* new_view_chk = new wxCheckBox( &load_dlg, -1, wxT("Load into a new View"), wxDefaultPosition, wxDefaultSize, 0 );
-    load_dlg.sizer_main_v->Add( new_view_chk, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    load_dlg.sizer_main_v->Add( new_view_chk, 0, wxALL, 5 );
 
     wxCheckBox* center_chk = new wxCheckBox( &load_dlg, -1, wxT("Translate to the center of the screen"), wxDefaultPosition, wxDefaultSize, 0 );
-    load_dlg.sizer_main_v->Add( center_chk, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    load_dlg.sizer_main_v->Add( center_chk, 0, wxALL, 5 );
 
     wxCheckBox* calc_bonds_chk = new wxCheckBox( &load_dlg, -1, wxT("Build bonds from atom-atom distance criteria"), wxDefaultPosition, wxDefaultSize, 0 );
 //	calc_bonds_chk->SetValidator(wxGenericValidator(&(HaMolSet::p_load_opt_default->calc_bonds)));
-    load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALL, 5 );
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
