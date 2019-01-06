@@ -43,7 +43,7 @@
 // WDR: event table for EditHuckHamDlg
 
 BEGIN_EVENT_TABLE(EditHuckHamDlg,wxDialog)
-    EVT_GRID_CELL_CHANGE( EditHuckHamDlg::OnGridCellChange )
+    EVT_GRID_CELL_CHANGED( EditHuckHamDlg::OnGridCellChange )
     EVT_BUTTON( ID_EDH_REFRESH_GRID, EditHuckHamDlg::RefreshView )
 END_EVENT_TABLE()
 

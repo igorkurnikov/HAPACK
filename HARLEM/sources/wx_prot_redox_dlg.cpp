@@ -188,7 +188,7 @@ BEGIN_EVENT_TABLE(ProtonRedoxDlg, wxFrame)
 	EVT_MENU(IDC_RESPAR_STD_PK_1, ProtonRedoxDlg::OnStdPk1)
 	EVT_MENU(IDC_RESPAR_STD_PK_EP, ProtonRedoxDlg::OnStdPKEP)
 	EVT_MENU(IDC_STD_PK_EP_1, ProtonRedoxDlg::OnStdPKEP_1)
-	EVT_GRID_CELL_CHANGE( ProtonRedoxDlg::OnEndLabelEdit)
+	EVT_GRID_CELL_CHANGED( ProtonRedoxDlg::OnEndLabelEdit)
 END_EVENT_TABLE()
 
 void ProtonRedoxDlg::OnUpdateAltStateList(wxCommandEvent& event)

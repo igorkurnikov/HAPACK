@@ -1774,9 +1774,9 @@ HaEmpiricalMod::LoadEmpConstrains()
 					if (mol_name == mol_name1)
 					{
 						PrintLog ("Molecule# %d %s   %s \n", imol, mol_name.ToStdString().c_str(), (sub_str[1]).ToStdString().c_str());
-						if ( strncmp(sub_str[1],"Inside",6) == 0 )	topology_arr[imol] = 1;
-						if ( strncmp(sub_str[1],"inside",6) == 0 )	topology_arr[imol] = 1;
-						if ( strncmp(sub_str[1],"INSIDE",6) == 0 )	topology_arr[imol] = 1;
+						if ( strncmp(sub_str[1].mb_str(),"Inside",6) == 0 )	topology_arr[imol] = 1;
+						if ( strncmp(sub_str[1].mb_str(),"inside",6) == 0 )	topology_arr[imol] = 1;
+						if ( strncmp(sub_str[1].mb_str(),"INSIDE",6) == 0 )	topology_arr[imol] = 1;
 						
 					}
 				}

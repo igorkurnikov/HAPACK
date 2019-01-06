@@ -2412,7 +2412,7 @@ int MDTrajectory::Open()
 		if(wxFileExt.IsSameAs("mdcrd",false)||wxFileExt.IsSameAs("crd",false))
 		{
 			format=AMBER_CRD;
-			if(OpenAMBER_CRD(wxCrd)==FALSE) return FALSE;
+			if(OpenAMBER_CRD(wxCrd.mb_str())==FALSE) return FALSE;
 		}
 		else if(wxFileExt.IsSameAs("xtc",false))
 		{

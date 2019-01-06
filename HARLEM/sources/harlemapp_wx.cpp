@@ -534,7 +534,9 @@ void HaLogWindow::Show(bool bShow)
 void HaLogWindow::DoLog(wxLogLevel level, const wxChar *szString, time_t t)
 {
     // first let the previous logger show it
-    wxLogPassThrough::DoLog(level, szString, t);
+	wxLogRecordInfo info(__FILE__, __LINE__, "DoLog","HaLogWindow");
+	info.timestamp = t;
+    wxLogPassThrough::DoLogRecord(level, szString, info);
 
     if ( m_pLogFrame ) {
         switch ( level ) {
@@ -545,7 +547,7 @@ void HaLogWindow::DoLog(wxLogLevel level, const wxChar *szString, time_t t)
                 {
                     wxString str;
                     str << _("Status: ") << szString;
-                    DoLogString(str, t);
+                    DoLogString(str.wchar_str(), t);
                 }
                 break;
 
@@ -558,7 +560,7 @@ void HaLogWindow::DoLog(wxLogLevel level, const wxChar *szString, time_t t)
 
             default:
                 // and this will format it nicely and call our DoLogString()
-                wxLog::DoLog(level, szString, t);
+                wxLog::DoLogRecord(level, szString, info);
         }
     }
 }

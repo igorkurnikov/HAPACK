@@ -4461,7 +4461,7 @@ BEGIN_EVENT_TABLE(AtomParamsDlgWX, wxFrame)
 	EVT_BUTTON   (IDC_EDTAT_UPDATE_ATLIST, AtomParamsDlgWX::OnUpdateAtomGroup)
 	EVT_BUTTON   (IDC_EDTAT_TRANSFER_TO_WIN,   AtomParamsDlgWX::OnTransferToWin)
 	EVT_BUTTON   (IDC_EDTAT_TRANSFER_FROM_WIN, AtomParamsDlgWX::OnTransferFromWin)
-	EVT_GRID_CELL_CHANGE( AtomParamsDlgWX::OnEndLabelEdit )
+	EVT_GRID_CELL_CHANGED( AtomParamsDlgWX::OnEndLabelEdit )
 END_EVENT_TABLE()
 
 
@@ -4916,7 +4916,7 @@ void AtomParamsDlgWX::OnLoadCoords(wxCommandEvent& event)
 	if( file_ext == "PDB" || file_ext == "ENT") format = FormatPDB;
 	if( file_ext == "HLM" ) format = FormatHarlem;
 	if( file_ext == "HIN" ) format = FormatHIN;
-	pmset->SetCoordFromFile(path, format);
+	pmset->SetCoordFromFile(path.mb_str(), format);
 }
 
 void AtomParamsDlgWX::OnSetStdZMat(wxCommandEvent& event)
@@ -5202,7 +5202,7 @@ BEGIN_EVENT_TABLE(ResidueParamsDlgWX, wxFrame)
 	EVT_MENU(IDC_ORDER_ATOMS_RES, ResidueParamsDlgWX::OnOrderAtomsInRes)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_AMBER,   ResidueParamsDlgWX::OnRenameAtomsToAmber)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_GROMACS, ResidueParamsDlgWX::OnRenameAtomsToGromacs)
-	EVT_GRID_CELL_CHANGE( ResidueParamsDlgWX::OnEndLabelEdit)
+	EVT_GRID_CELL_CHANGED( ResidueParamsDlgWX::OnEndLabelEdit)
 END_EVENT_TABLE()
 
 void ResidueParamsDlgWX::OnUpdateResidueList(wxCommandEvent& event)
@@ -5948,8 +5948,7 @@ bool EditGroupsDlg::TransferDataToWindow()
 int EditGroupsDlg::ShowModal()
 {
 	modal_run_flag = TRUE;
-	this->MakeModal(true);
-	this->Show();
+	this->ShowModal();
 
 	p_loc_event_loop = new wxEventLoop();
 	p_loc_event_loop->Run();
@@ -6102,7 +6101,7 @@ void EditGroupsDlg::OnClose(wxCloseEvent& event)
 		p_loc_event_loop->Exit();
 //		delete p_loc_event_loop;
 		p_loc_event_loop = NULL;
-		this->MakeModal(false);
+//		this->MakeModal(false);
 		modal_run_flag = FALSE;
 	}
     dlg_open = FALSE;
@@ -7212,22 +7211,22 @@ bool AtomPropColorDlg::TransferDataToWindow()
 		HaColor& color = color_map.GetColorByIdx(i);
 		
 		lbl.Printf("%3d",color.r);
-		p_color_map_grid->SetCellValue(lbl,i,2);
+		p_color_map_grid->SetCellValue(i,2,lbl);
 		lbl.Printf("%3d",color.g);
-		p_color_map_grid->SetCellValue(lbl,i,3);
+		p_color_map_grid->SetCellValue(i,3,lbl);
 		lbl.Printf("%3d",color.b);
 
 		std::string col_name = HaColor::GetColorName(color.r,color.g,color.b);
 		if( !col_name.empty() )
 		{
-			p_color_map_grid->SetCellValue(col_name.c_str(),i,n_col_cname);
+			p_color_map_grid->SetCellValue(i,n_col_cname,col_name.c_str());
 		}
 		wxColour color_wx(color.r,color.g,color.b);
 		p_color_map_grid->SetCellBackgroundColour(i,n_col_cname,color_wx);
 
 		p_color_map_grid->SetReadOnly(i,n_col_cname);
 
-		p_color_map_grid->SetCellValue(lbl,i,4);
+		p_color_map_grid->SetCellValue(i,4,lbl);
 		if( i == 0 || (i >= color_map.min_values.size()) ) 
 		{
 			lbl = "";
@@ -7237,7 +7236,7 @@ bool AtomPropColorDlg::TransferDataToWindow()
 			lbl.Printf("%9.4f",color_map.min_values[i]);
 		}
 
-		p_color_map_grid->SetCellValue(lbl,i,0);
+		p_color_map_grid->SetCellValue(i,0,lbl);
 	}
 	
 	return wxFrame::TransferDataToWindow();
@@ -7362,11 +7361,11 @@ void AtomPropColorDlg::OnGridCellChange( wxGridEvent &event )
 		std::string col_name = HaColor::GetColorName(color.r,color.g,color.b);
 		if( !col_name.empty() )
 		{
-			p_color_map_grid->SetCellValue(col_name.c_str(),row,n_col_cname);
+			p_color_map_grid->SetCellValue(row,n_col_cname,col_name.c_str());
 		}
 		else
 		{
-			p_color_map_grid->SetCellValue("",row,n_col_cname);
+			p_color_map_grid->SetCellValue(row,n_col_cname,"");
 		}
 		wxColour color_wx(color.r,color.g,color.b);
 		p_color_map_grid->SetCellBackgroundColour(row,n_col_cname,color_wx);
@@ -7388,7 +7387,7 @@ void AtomPropColorDlg::OnGridCellChange( wxGridEvent &event )
 		color_map.min_values[row] = dval;
 		
 		lbl.Printf("%9.4f",dval);
-		p_color_map_grid->SetCellValue(lbl,row,n_col_mval);
+		p_color_map_grid->SetCellValue(row,n_col_mval,lbl);
 	}
 
 	return;
@@ -7402,7 +7401,7 @@ BEGIN_EVENT_TABLE(AtomPropColorDlg, wxFrame)
 	EVT_BUTTON( IDC_ADD_COLOR_BY_RGB,  AtomPropColorDlg::OnAddColorByRGB )
 	EVT_BUTTON( IDC_SAVE_COLOR_MAP_FILE, AtomPropColorDlg::OnSaveColorMapFile )
 	EVT_BUTTON( IDC_LOAD_COLOR_MAP_FILE, AtomPropColorDlg::OnLoadColorMapFile )
-	EVT_GRID_CELL_CHANGE( AtomPropColorDlg::OnGridCellChange )
+	EVT_GRID_CELL_CHANGED( AtomPropColorDlg::OnGridCellChange )
 END_EVENT_TABLE()
 
 
@@ -7578,7 +7577,7 @@ BEGIN_EVENT_TABLE(NuclAcidDlgWX, wxFrame)
 	EVT_BUTTON (IDC_SET_TO_JUMNA,   NuclAcidDlgWX::OnSetToJumna)
 	EVT_BUTTON (IDC_UPDATE_GRID,    NuclAcidDlgWX::OnUpdateControls)
     EVT_CLOSE (NuclAcidDlgWX::OnClose)
-	EVT_GRID_CELL_CHANGE( NuclAcidDlgWX::OnGridEndEdit )
+	EVT_GRID_CELL_CHANGED( NuclAcidDlgWX::OnGridEndEdit )
 	EVT_NOTEBOOK_PAGE_CHANGED(IDC_NUCL_ACID_NOTEB, NuclAcidDlgWX::OnPageChange)
 END_EVENT_TABLE()
 

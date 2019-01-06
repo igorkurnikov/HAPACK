@@ -2,7 +2,8 @@
 
 %begin %{
 #include <mpi.h>  
-#include <cstddef>  
+#include <cstddef>
+#include <Python.h>
 
 #ifndef HA_NOGUI
 #include "wx/wxprec.h" 

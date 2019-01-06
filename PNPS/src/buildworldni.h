@@ -11,7 +11,10 @@
 //
 #ifndef BUILDWORLDNI_H
 #define BUILDWORLDNI_H
+
+#ifdef SWIG
 #include <Python.h>
+#endif
 
 #include <vector>
 

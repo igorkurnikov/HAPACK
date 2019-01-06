@@ -13,6 +13,7 @@
 // common includes
 #include "plplot/plstream.h"
 #include "plplot/plevent.h"
+#include "plplot/wxPLplotstream.h"
 
 #include "halinalg.h"
 #include "hachart.h"
@@ -221,7 +222,7 @@ int HaChart2D::ToPLpStream( plstream *pls )
 			continue;
 		}
 
-		pls->wid( 2 );
+		pls->width( 2 );
 		pls->line( np, px->v(), py->v());
 	}
 	return TRUE;
@@ -484,7 +485,7 @@ int HaChart3D::ToPLpStream( plstream *pls )
 			continue;
 		}
 
-		pls->wid( 2 );
+		pls->width( 2 );
 		pls->line3( np, px->v(), py->v(), pz->v() );
 	}
 	return TRUE;

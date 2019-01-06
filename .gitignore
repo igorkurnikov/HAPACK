@@ -22,6 +22,7 @@
 /mswin/Debug
 /mswin/Release
 /mswin/ipch
+/mswin/.vs
 /vs2010/harlem_python_tests_1/obj
 /vs2010/UpgradeLog.XML
 /vs2010/_UpgradeReport_Files

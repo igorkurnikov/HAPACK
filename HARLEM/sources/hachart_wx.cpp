@@ -67,9 +67,10 @@ END_EVENT_TABLE()
 
 
 HaChartWindow::HaChartWindow( wxFrame* frame, wxWindow* parent, wxWindowID id, const wxPoint& pos,
-                            const wxSize& size, long style, int pl_style ) :
-    wxPLplotwindow( parent, id, pos, size, style, pl_style )
+                            const wxSize& size, long style, bool useGraphicsContext) :
+	wxPLplotwindow<wxWindow>(useGraphicsContext, size)
 {
+	Create(parent, id, pos, size, style);
     mframe = frame;
 }
 
@@ -106,12 +107,7 @@ HaChartFrame::HaChartFrame( const wxString& title ) : wxFrame( NULL, wxID_ANY, t
     wxPanel   * panel = new wxPanel( this );
     wxBoxSizer* box   = new wxBoxSizer( wxVERTICAL );
 
-    plotwindow = new HaChartWindow( this, panel, -1, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS,
-#if wxUSE_GRAPHICS_CONTEXT
-        wxPLPLOT_BACKEND_GC | wxPLPLOT_DRAW_TEXT );
-#else
-        wxPLPLOT_BACKEND_AGG | wxPLPLOT_DRAW_TEXT );
-#endif
+	plotwindow = new HaChartWindow(this, panel, -1, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS, wxUSE_GRAPHICS_CONTEXT);
     plotwindow->Connect( wxEVT_CHAR, wxKeyEventHandler( HaChartWindow::OnChar ) );
     box->Add( plotwindow, 1, wxALL | wxEXPAND, 0 );
     panel->SetSizer( box );
@@ -119,7 +115,7 @@ HaChartFrame::HaChartFrame( const wxString& title ) : wxFrame( NULL, wxID_ANY, t
     SetSizeHints( 220, 150 ); // set minimum frame size
 
     wxString m_title = title;
-    switch ( plotwindow->getBackend() )
+    /*switch ( plotwindow->getBackend() )
     {
     case wxPLPLOT_BACKEND_DC:
         m_title += wxT( " (basic)" );
@@ -132,7 +128,7 @@ HaChartFrame::HaChartFrame( const wxString& title ) : wxFrame( NULL, wxID_ANY, t
         break;
     default:
         break;
-    }
+    }*/
     SetTitle( m_title );
 
     PlotTest();
@@ -188,7 +184,7 @@ void HaChartFrame::PlotTest()
     pls->lab( "x", "y", "sin(x)/x" );
 
     pls->col0( 3 );
-    pls->wid( 2 );
+    pls->width( 2 );
     pls->line( np, x, y );
 
     plotwindow->RenewPlot();

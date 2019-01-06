@@ -19,12 +19,12 @@
 
 #include "hachart.h"
 
-class HaChartWindow : public wxPLplotwindow
+class HaChartWindow : public wxPLplotwindow<wxWindow>
 {
 public:
     HaChartWindow( wxFrame* frame, wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition,
                   const wxSize& size = wxDefaultSize, long style = 0,
-                  int pl_style = wxPLPLOT_NONE );
+		          bool useGraphicsContext = true);
 
     void OnChar( wxKeyEvent& event );
 

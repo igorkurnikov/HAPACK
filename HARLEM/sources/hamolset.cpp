@@ -9,6 +9,10 @@
 
 #define HAMOLSET_CPP
 
+#if !defined(HARLEM_PYTHON_NO)
+#include "Python.h"
+#endif
+
 #include  <float.h>
 #include  <math.h>
 
@@ -60,9 +64,7 @@
 #include "molset_evt_handler.h"
 #include "hamatdb.h"
 
-#if !defined(HARLEM_PYTHON_NO)
-#include "Python.h"
-#endif
+
 
 AtomLoadOptions* HaMolSet::p_load_opt_default = new AtomLoadOptions();
 AtomSaveOptions* HaMolSet::p_save_opt_default = new AtomSaveOptions();

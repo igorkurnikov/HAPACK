@@ -1006,11 +1006,10 @@ void HaMainFrameWX::OnSaveImageClipboard(wxCommandEvent &event)
 		wxBitmap btm_img(img);
 
 #if defined(_MSC_VER)
-		if( ::wxOpenClipboard() )
-		{   
-			::wxEmptyClipboard();
-			::wxSetClipboardData(wxDF_BITMAP,&btm_img,x_src,y_src);
-			::wxCloseClipboard();
+		if (wxTheClipboard->Open())
+		{
+			wxTheClipboard->SetData(new wxBitmapDataObject(btm_img));
+			wxTheClipboard->Close();
 		}
 #endif
 	}

@@ -1038,7 +1038,7 @@ void MolMechDlgWX::OnAmberLoadRestart(wxCommandEvent& event)
 		::wxGetCwd(), ptr_mm_mod->p_amber_driver->amber_rst_file.c_str() );
 	if(!rst_file_name.empty())
 	{
-		ptr_mm_mod->p_amber_driver->LoadAmberRestartFile(rst_file_name);	
+		ptr_mm_mod->p_amber_driver->LoadAmberRestartFile(rst_file_name.mb_str());	
 		HaMolSet* pmset= ptr_mm_mod->GetMolSet();
 		pmset->AnnounceGeomChange();
 	}
