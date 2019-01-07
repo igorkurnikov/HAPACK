@@ -730,6 +730,10 @@ int HarlemApp::InitLast()
 #endif
 			}
 		}
+		// Print wellcome message
+		PrintLog("\n");
+		PrintLog("HARLEM (HAmiltonians to Research LargE Molecules)\n");
+		PrintLog("==============================================================================\n\n");
 	}
 	return TRUE;
 }

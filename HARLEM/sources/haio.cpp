@@ -148,8 +148,10 @@ void RedirectIOToConsole()
 	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
 
 	fp = _fdopen( hConHandle, "w" );
-	*stdout = *fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+
 	setvbuf( stdout, NULL, _IONBF, 0 );
+
 
 	lStdHandle = (long)GetStdHandle(STD_INPUT_HANDLE);
 	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
@@ -163,7 +165,7 @@ void RedirectIOToConsole()
 	lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
 	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
 	fp = _fdopen( hConHandle, "w" );
-	*stderr = *fp;
+	freopen_s(&fp, "CONOUT$", "w", stderr);
 
 	setvbuf( stderr, NULL, _IONBF, 0 );
 
