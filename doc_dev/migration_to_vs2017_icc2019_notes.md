@@ -16,6 +16,29 @@ Installed packages
 Intel® Parallel Studio XE Cluster Edition for Windows 2019 Update 1
 It removed Intel Parallel Studio 2013, it can be later reinstalled.
 
+## VCPKG
+
+
+
+```
+# install vcpkg
+cd C:\PROG_SRC\
+git clone https://github.com/nsimakov/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.bat
+# install libraries
+.\vcpkg.exe install boost:x86-windows
+.\vcpkg.exe install python2:x86-windows
+.\vcpkg.exe install wxwidgets:x86-windows
+.\vcpkg.exe install plplot[wxwidgets]:x86-windows
+.\vcpkg.exe install mpir:x86-windows
+
+```
+
+
+
+
+
 ## Code Changes and Problems During Migration
 
 ### AMBER11
@@ -93,3 +116,7 @@ load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 
 should be
 
 load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALL, 5 );
+
+Resolution:
+
+Disable checking in wxWidget library (patch is in our vcpkg repo)
