@@ -25,7 +25,7 @@ It removed Intel Parallel Studio 2013, it can be later reinstalled.
 cd C:\PROG_SRC\
 git clone https://github.com/nsimakov/vcpkg.git
 cd vcpkg
-./bootstrap-vcpkg.bat
+.\bootstrap-vcpkg.bat
 # install libraries
 .\vcpkg.exe install boost:x86-windows
 .\vcpkg.exe install python2:x86-windows
