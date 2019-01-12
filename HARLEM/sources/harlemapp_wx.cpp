@@ -251,12 +251,12 @@ int HarlemAppWX::LoadHaPyGUIModules()
 #ifdef _MSC_VER
   FILE *in;
   std::string HarlemProfilePy = harlem_home_dir + (std::string)"scripts\\hapygui_init.py";
-  in=fopen(HarlemProfilePy.c_str(),"r");
-  if(in!=NULL)
+  //in=fopen(HarlemProfilePy.c_str(),"r");
+  //if(in!=NULL)
   {
-    fclose(in);
-	PrintLog("Loading %s\n",HarlemProfilePy.c_str());
-    return ExecuteScriptFromFile(HarlemProfilePy.c_str());
+  //  fclose(in);
+//	PrintLog("Loading %s\n",HarlemProfilePy.c_str());
+//    return ExecuteScriptFromFile(HarlemProfilePy.c_str());
   }
 #endif
   return 0;

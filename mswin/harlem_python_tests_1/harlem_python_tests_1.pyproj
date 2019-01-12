@@ -195,6 +195,9 @@
     <Folder Include="SYMM_TRANSFORM" />
     <Folder Include="XML" />
   </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|2.6-32" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
