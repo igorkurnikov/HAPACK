@@ -56,7 +56,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;C:\PROG_SRC\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;C:\Program Files\Oracle\Berkeley DB 4.6.21\db-4.6.21\build_windows;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\local\include;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;C:\Program Files\Oracle\Berkeley DB 4.6.21\db-4.6.21\build_windows;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;HA_NOGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -68,9 +68,9 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>gmp_deb.lib;mpi.lib;fmpich2h.lib;libdb47s.lib;wxbase28d.lib;wxexpatd.lib;wxmsw28d_core.lib;wxmsw28d_adv.lib;wxbase28d_net.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxtiff.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98_deb.lib;delphi_lib_deb.lib;harlem_lib_fort_deb.lib;jumna_lib_fort_deb.lib;pmemd_lib_fort_deb.lib;geoball_lib_fort_deb.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>c:\harlem\harlem_nogui_deb.exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Intel\MKL\10.2.6.037\ia32\lib\;C:\PROG_SRC\vcpkg\installed\x86-windows\debug\lib;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;C:\PROG_SRC\db-4.7.25.0\build_windows\Release;C:\program Files\Intel\Compiler\11.0\072\fortran\lib\ia32;C:\program Files (x86)\Intel\Compiler\11.0\072\fortran\lib\ia32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;C:\PROG_SRC\vcpkg\installed\x86-windows\debug\lib;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;C:\PROG_SRC\db-4.7.25.0\build_windows\Release</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -78,12 +78,13 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>C:\Program Files\Intel\MKL\10.2.6.037\include\;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-2.6.4\Include;c:\PROG_SRC\Python-2.6.4\PC;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;c:\local\include;c:\wxWidgets\lib\vc_dll\msw;c:\wxWidgets\include;c:\wxWidgets\src\zlib;c:\wxWidgets\src\expat\lib;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\local\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;HA_NOGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -106,6 +107,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts generated by SWIG to scripts directory</Message>
@@ -173,7 +175,6 @@ copy release\pnplib\pnpmod.py c:\harlem\scripts
     <ClCompile Include="..\HARLEM\sources\molset_evt_handler.cpp" />
     <ClCompile Include="..\HARLEM\sources\rigidbodycoord.cpp" />
     <ClCompile Include="..\HARLEM\sources\vec3d.cpp" />
-    <ClCompile Include="..\HARLEM\sources\expatxmlparser.cpp" />
     <ClCompile Include="..\HARLEM\sources\haio.cpp" />
     <ClCompile Include="..\HARLEM\sources\hastl.cpp" />
     <ClCompile Include="..\HARLEM\sources\hastring.cpp" />
@@ -221,7 +222,6 @@ copy release\pnplib\pnpmod.py c:\harlem\scripts
     <ClCompile Include="..\HARLEM\sources\transfor.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart_wx.cpp" />
-    <ClCompile Include="..\HARLEM\sources\commandxmlparser.cpp" />
     <ClCompile Include="..\HARLEM\sources\hampi.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp_wx.cpp" />
@@ -293,7 +293,6 @@ copy release\pnplib\pnpmod.py c:\harlem\scripts
     <ClInclude Include="..\HARLEM\sources\rigidbodycoord.h" />
     <ClInclude Include="..\HARLEM\sources\vec3d.h" />
     <ClInclude Include="..\HARLEM\sources\builtin.h" />
-    <ClInclude Include="..\HARLEM\sources\expatxmlparser.h" />
     <ClInclude Include="..\HARLEM\sources\f2c.h" />
     <ClInclude Include="..\HARLEM\sources\haconst.h" />
     <ClInclude Include="..\HARLEM\sources\haio.h" />
@@ -327,7 +326,6 @@ copy release\pnplib\pnpmod.py c:\harlem\scripts
     <ClInclude Include="..\HARLEM\sources\oglview.h" />
     <ClInclude Include="..\HARLEM\sources\hachart.h" />
     <ClInclude Include="..\HARLEM\sources\hachart_wx.h" />
-    <ClInclude Include="..\HARLEM\sources\commandxmlparser.h" />
     <ClInclude Include="..\HARLEM\sources\hampi.h" />
     <ClInclude Include="..\HARLEM\sources\harlemapp.h" />
     <ClInclude Include="..\HARLEM\sources\harlemapp_wx.h" />
