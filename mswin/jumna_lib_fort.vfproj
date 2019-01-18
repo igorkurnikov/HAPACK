@@ -22,6 +22,16 @@
 				<Tool Name="VFPreLinkEventTool"/>
 				<Tool Name="VFPreBuildEventTool"/>
 				<Tool Name="VFPostBuildEventTool" CommandLine="del  $(OutDir)/libjumna.a&#xA;lib $(OutDir)/jumna_lib_fort.lib $(OutDir)/jumna_lib_c.lib /OUT:$(OutDir)/libjumna.a"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="PY3 Release|Win32" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" AdditionalIncludeDirectories="../JUMNA_LIB/sources" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/jumna_lib_fort.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="del  $(OutDir)/libjumna.a&#xA;lib $(OutDir)/jumna_lib_fort.lib $(OutDir)/jumna_lib_c.lib /OUT:$(OutDir)/libjumna.a"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
 		<Filter Name="Data">

@@ -11,6 +11,7 @@
 
 #include <mpi.h> 
 #include "haconst.h"
+#include <wchar.h>
 
 #if !defined(HARLEM_PYTHON_NO)
 #include <Python.h>
@@ -513,7 +514,11 @@ int HarlemApp::ExecuteCommand()
 
 
 extern "C" {
-  extern void init_molset();
+#if PY_VERSION_HEX >= 0x03000000
+	extern void PyInit__molset();
+#else
+	extern void init_molset();
+#endif
   extern void init_halib();
   extern void init_llpnps();
 }
@@ -549,14 +554,24 @@ int HarlemApp::Python_AppInit()
 #endif /* !HAVE_SETVBUF */
 
 //	PrintLog(" Python_AppInit pt 3 \n");
+#if PY_VERSION_HEX >= 0x03000000
+	wchar_t *prog_name = Py_DecodeLocale("HARLEM", NULL);
+	Py_SetProgramName(prog_name);
+	PyMem_RawFree(prog_name);
+#else
 	Py_SetProgramName("HARLEM");
+#endif
 
 	/* Initialize the Python interpreter.  Required. */
 	Py_Initialize();	
 //	PrintLog(" Python_AppInit pt 4 \n");
-	
-	if(argc_loc > 1)
+
+#if PY_VERSION_HEX >= 0x03000000
+
+#else
+	if (argc_loc > 1)
 		PySys_SetArgv(argc_loc - 1, argv_loc + 1);
+#endif
 
 	PyObject *v;
 
@@ -570,8 +585,11 @@ int HarlemApp::Python_AppInit()
 	}
 	
 // Load Harlem Python extension modules 
-
+#if PY_VERSION_HEX >= 0x03000000
+	PyInit__molset();
+#else
 	init_molset();
+#endif
 	init_halib();
 	init_llpnps();
 
@@ -611,13 +629,21 @@ int HarlemApp::Python_AppInit()
   
 	v = PySys_GetObject("ps1");
 	if (v == NULL) {
+#if PY_VERSION_HEX >= 0x03000000
+		PySys_SetObject("ps1", v = PyUnicode_FromString(">>> "));
+#else
 		PySys_SetObject("ps1", v = PyString_FromString(">>> "));
+#endif
 		Py_XDECREF(v);
 	}
 	
 	v = PySys_GetObject("ps2");
 	if (v == NULL) {
+#if PY_VERSION_HEX >= 0x03000000
+		PySys_SetObject("ps2", v = PyUnicode_FromString("... "));
+#else
 		PySys_SetObject("ps2", v = PyString_FromString("... "));
+#endif
 		Py_XDECREF(v);
 	}
 	ires = PyRun_SimpleString("print sys.path");

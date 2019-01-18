@@ -23,6 +23,11 @@
     <DebugSymbols>true</DebugSymbols>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'PY3 Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <OutputPath>bin\PY3 Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="ANIMATION\rotate_gif_1.py" />
     <Compile Include="ANIMATION\rotate_pict_1.py" />

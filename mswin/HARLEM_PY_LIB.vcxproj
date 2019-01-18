@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="PY3 Release|Win32">
+      <Configuration>PY3 Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -30,6 +34,13 @@
     <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -37,6 +48,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -50,7 +64,13 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetName>_molset</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>C:\harlem\DLLs</OutDir>
+    <OutDir>C:\Python27\DLLs</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>_molset</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>C:\Python37-32\DLLs</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -89,6 +109,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98.lib;delphi_lib.lib;harlem_lib_fort.lib;jumna_lib_fort.lib;pmemd_lib_fort.lib;geoball_lib_fort.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;c:\local\lib;c:\Program Files (x86)\MPICH2\lib;C:\PROG_SRC\vcpkg\installed\x86-windows\lib</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Python37-32\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\Program Files (x86)\MPICH2\include;c:\local\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98.lib;delphi_lib.lib;harlem_lib_fort.lib;jumna_lib_fort.lib;pmemd_lib_fort.lib;geoball_lib_fort.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;c:\local\lib;c:\Python37-32\libs;c:\Program Files (x86)\MPICH2\lib;C:\PROG_SRC\vcpkg\installed\x86-windows\lib</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
@@ -140,8 +181,12 @@
     <ClCompile Include="..\HARLEM\sources\hapseudopot.cpp" />
     <ClCompile Include="..\HARLEM\sources\haqchem.cpp" />
     <ClCompile Include="..\HARLEM\sources\haresdb.cpp" />
-    <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
-    <ClCompile Include="..\HARLEM\sources\harlemapp_wx.cpp" />
+    <ClCompile Include="..\HARLEM\sources\harlemapp.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\HARLEM\sources\harlemapp_wx.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\HARLEM\sources\harpaham.cpp" />
     <ClCompile Include="..\HARLEM\sources\harpavec.cpp" />
     <ClCompile Include="..\HARLEM\sources\hascattermod.cpp" />
@@ -195,9 +240,7 @@
     <ClCompile Include="..\HARLEM\sources\wxMolFlex.cpp" />
     <ClCompile Include="..\HARLEM\sources\wxpymod.cpp" />
     <ClCompile Include="..\HARLEM\sources\wx_prot_redox_dlg.cpp" />
-    <ClCompile Include="Debug\harlem\hamolset_wrap.cpp">
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
+    <ClCompile Include="Release\harlem\hamolset_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\abstree.h" />

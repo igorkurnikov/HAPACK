@@ -103,7 +103,9 @@
     <ClCompile Include="..\HARLEM\sources\wxMolFlex.cpp" />
     <ClCompile Include="..\HARLEM\sources\wxpymod.cpp" />
     <ClCompile Include="..\HARLEM\sources\wx_prot_redox_dlg.cpp" />
-    <ClCompile Include="Debug\harlem\hamolset_wrap.cpp" />
+    <ClCompile Include="Release\harlem\hamolset_wrap.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\abstree.h" />
