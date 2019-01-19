@@ -1388,7 +1388,11 @@ void HaTests::test_python_1()
 	
     PyObject* str_old = PyDict_GetItemString(global_dict,"str1");
 
+#if PY_VERSION_HEX >= 0x03000000
+	PrintLog(" Here is the extracted str1 content: %s \n", PyBytes_AS_STRING(str_old));
+#else
 	PrintLog(" Here is the extracted str1 content: %s \n", PyString_AsString(str_old));
+#endif
 #endif
 }
 

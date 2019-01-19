@@ -5,8 +5,8 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="PY3 Release|Win32">
-      <Configuration>PY3 Release</Configuration>
+    <ProjectConfiguration Include="PY3_Release|Win32">
+      <Configuration>PY3_Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
@@ -55,18 +55,18 @@
     <CustomBuild Include="..\PNPS\src\llpnps.i">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\PNPS\src\pnps.py">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -82,7 +82,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -99,7 +99,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
@@ -111,18 +111,18 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">Release\pnplib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release\pnplib\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">Release\pnplib\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release\pnplib\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,7 +159,7 @@
       <OutputFile>$(OutDir)pnplib.lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3 Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Program Files\MPICH2\include;C:\PROG_SRC\db-4.7.25.0;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\local\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

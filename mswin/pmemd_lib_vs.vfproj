@@ -23,7 +23,7 @@
 				<Tool Name="VFPreBuildEventTool"/>
 				<Tool Name="VFPostBuildEventTool"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
-		<Configuration Name="PY3 Release|Win32" ConfigurationType="typeStaticLibrary">
+		<Configuration Name="PY3_Release|Win32" ConfigurationType="typeStaticLibrary">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" HeapArrays="10" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;C:/Program Files/MPICH2/include;C:/Program Files (x86)/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS;VAR_POLAR" SourceFileFormat="fileFormatFree" OpenMPDiagLevel="openMPDiagLevel0" ParallelizerDiagLevel="parallelizerDiagLevel0" VectorizerDiagLevel="vectorizerDiagLevel0" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
 				<Tool Name="VFLibrarianTool" OutputFile="$(OutDir)/pmemd_lib_fort.lib"/>
 				<Tool Name="VFResourceCompilerTool"/>
