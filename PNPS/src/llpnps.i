@@ -70,6 +70,7 @@
 %include stl.i
 %include file.i
 %include "carrays.i"
+%include "std_string.i"
 %include "std_vector.i"
 
 

@@ -517,11 +517,13 @@ extern "C" {
 #if PY_VERSION_HEX >= 0x03000000
 	extern void PyInit__molset();
 	extern void PyInit__halib();
+	extern void PyInit__llpnps();
 #else
 	extern void init_molset();
 	extern void init_halib();
+	extern void init_llpnps();
 #endif
-  extern void init_llpnps();
+
 }
 
 int HarlemApp::Python_AppInit()
@@ -589,11 +591,12 @@ int HarlemApp::Python_AppInit()
 #if PY_VERSION_HEX >= 0x03000000
 	PyInit__molset();
 	PyInit__halib();
+	PyInit__llpnps();
 #else
 	init_molset();
 	init_halib();
-#endif
 	init_llpnps();
+#endif
 
 	//PrintLog(" Python_AppInit pt 5 \n")
 	ires = PyRun_SimpleString("import sys");

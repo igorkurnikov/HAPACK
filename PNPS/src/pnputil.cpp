@@ -1744,7 +1744,11 @@ int haPyDict_GetItemAsBool(PyObject *dict, const char *key, bool *v)
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		*v = (bool)PyLong_AsLong(p);
+#else
 		*v=(bool)PyInt_AsLong(p);
+#endif
 	}
 	return EXIT_SUCCESS;
 }
@@ -1753,7 +1757,11 @@ int haPyDict_GetItemAsInt(PyObject *dict, const char *key, int *v)
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		*v = (int)PyLong_AsLong(p);
+#else
 		*v=(int)PyInt_AsLong(p);
+#endif
 	}
 	return EXIT_SUCCESS;
 }
@@ -1771,7 +1779,11 @@ int haPyDict_GetItemAsString(PyObject *dict, const char *key, std::string *v)
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		*v = PyUnicode_AsUTF8(p);
+#else
 		*v=PyString_AsString(p);
+#endif
 	}
 	return EXIT_SUCCESS;
 }
@@ -1782,7 +1794,11 @@ bool haPyDict_GetItemValueAsBool(PyObject *dict, const char *key, bool vdefault)
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		v = (bool)PyLong_AsLong(p);
+#else
 		v=(bool)PyInt_AsLong(p);
+#endif
 	}
 	return v;
 }
@@ -1792,7 +1808,11 @@ int haPyDict_GetItemValueAsInt(PyObject *dict, const char *key, int vdefault)
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		v = (bool)PyLong_AsLong(p);
+#else
 		v=(int)PyInt_AsLong(p);
+#endif
 	}
 	return v;
 }
@@ -1812,7 +1832,11 @@ char* haPyDict_GetItemValueAsString(PyObject *dict, const char *key, const char 
 	PyObject *p=PyDict_GetItemString(dict,key);
 	if(p!=NULL)
 	{
+#if PY_MAJOR_VERSION >= 3
+		v = (char*) PyUnicode_AsUTF8(p);
+#else
 		v=PyString_AsString(p);
+#endif
 	}
 	else
 	{

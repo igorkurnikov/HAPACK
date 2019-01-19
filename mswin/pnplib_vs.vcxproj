@@ -55,7 +55,7 @@
     <CustomBuild Include="..\PNPS\src\llpnps.i">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(Outdir)%(Filename).py</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) &amp;&amp; copy $(OutDir)%(Filename).py c:\harlem\scripts\</Command>
@@ -162,7 +162,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Program Files\MPICH2\include;C:\PROG_SRC\db-4.7.25.0;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\local\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Python37-32\include;c:\Program Files\MPICH2\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;C:\PROG_SRC\vcpkg\installed\x86-windows\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
