@@ -17,9 +17,11 @@
 #if !defined(HACONST_H)
 #define HACONST_H
 
+#if !defined(SWIG)
 #ifndef True
 const int True = 1;
 const int False = 0;
+#endif
 #endif
 
 #ifndef TRUE
