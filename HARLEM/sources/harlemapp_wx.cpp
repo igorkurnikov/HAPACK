@@ -163,35 +163,44 @@ bool HarlemAppWX::OnInit(void)
 	this->argc_loc = this->argc;
 	this->argv_loc = this->argv;
 
-	InitFirst();
-	//run parallel python
-	if(!mpi_py_script.empty()) ExecuteScriptFromFile(mpi_py_script.c_str());
-	
-	if(mpi_driver->myrank != 0 ) return true;
+// IGOR TMP:
+
+	wxLog* p_log = new wxLogStderr();
+	wxLog::SetActiveTarget(p_log);
 
 #if !defined(HA_NOGUI)
 	SetExitOnFrameDelete(true);   // Exit app when the top level frame is deleted
-	if( gui_mode )
+	if (gui_mode)
 	{
 		m_mainFrame = new HaMainFrameWX();
-	
-        m_mainFrame->CreateToolBar();
-        MainToolBarFunc(m_mainFrame->GetToolBar());
-     
-  //   m_mainFrame->Centre(wxBOTH);
-        m_mainFrame->Show(TRUE);
 
-        SetTopWindow(m_mainFrame);
-//	    RedirectIOLogWindow();
-		
-	    if( mpi_driver->nprocs == 1)
-	    { 
-//			CreateCommandWindow();
-		    RedirectIOToConsole();
-	    }
+		m_mainFrame->CreateToolBar();
+		MainToolBarFunc(m_mainFrame->GetToolBar());
 
+		//   m_mainFrame->Centre(wxBOTH);
+		m_mainFrame->Show(TRUE);
 
-		
+		SetTopWindow(m_mainFrame);
+		//	    RedirectIOLogWindow();
+
+		RedirectIOToConsole();
+	}
+#endif
+
+	InitFirst();
+	//run parallel python
+	if (!mpi_py_script.empty()) ExecuteScriptFromFile(mpi_py_script.c_str());
+
+	if (mpi_driver->myrank != 0) return true;
+
+#if !defined(HA_NOGUI)
+	if (gui_mode)
+	{
+		if (mpi_driver->nprocs == 1)
+		{
+			//			CreateCommandWindow();
+			RedirectIOToConsole();
+		}
 //	    wxLog* p_log = new wxLogStderr();
 //	    wxLog::SetActiveTarget(p_log);
 

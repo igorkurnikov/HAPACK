@@ -515,9 +515,9 @@ int HarlemApp::ExecuteCommand()
 
 extern "C" {
 #if PY_VERSION_HEX >= 0x03000000
-	extern void PyInit__molset();
-	extern void PyInit__halib();
-	extern void PyInit__llpnps();
+	extern PyObject* PyInit__molset();
+	extern PyObject* PyInit__halib();
+	extern PyObject* PyInit__llpnps();
 #else
 	extern void init_molset();
 	extern void init_halib();
@@ -559,8 +559,16 @@ int HarlemApp::Python_AppInit()
 //	PrintLog(" Python_AppInit pt 3 \n");
 #if PY_VERSION_HEX >= 0x03000000
 	wchar_t *prog_name = Py_DecodeLocale("HARLEM", NULL);
+
+// Load Harlem Python extension modules  PYTHON 3
+#if PY_VERSION_HEX >= 0x03000000
+	PyImport_AppendInittab("_molset", &PyInit__molset );
+	PyImport_AppendInittab("_halib",  &PyInit__halib );
+	PyImport_AppendInittab("_llpnps", &PyInit__llpnps );
+#endif
+
 	Py_SetProgramName(prog_name);
-	PyMem_RawFree(prog_name);
+//	PyMem_RawFree(prog_name);
 #else
 	Py_SetProgramName("HARLEM");
 #endif
@@ -587,22 +595,24 @@ int HarlemApp::Python_AppInit()
 			Py_DECREF(v);
 	}
 	
-// Load Harlem Python extension modules 
+// Load Harlem Python extension modules  PYTHON 2
 #if PY_VERSION_HEX >= 0x03000000
-	PyInit__molset();
-	PyInit__halib();
-	PyInit__llpnps();
+//	PyImport_AppendInittab( "_molset", &PyInit__molset );
+//	PyObject* halib_py =  PyInit__halib();
+//	PyObject* llpnps = PyInit__llpnps();
 #else
 	init_molset();
 	init_halib();
 	init_llpnps();
 #endif
+	ires = PyRun_SimpleString("import _molset");
+	ires = PyRun_SimpleString("import _halib");
 
 	//PrintLog(" Python_AppInit pt 5 \n")
 	ires = PyRun_SimpleString("import sys");
 	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading sys module \n");
 #if defined(_MSC_VER)
-	std::string python_dll_dir = "sys.path.insert(1,\"" + harlem_home_dir + "dlls\\python_dlls\")";
+	std::string python_dll_dir = "sys.path.insert(1,\"" + harlem_home_dir + "DLLs\")";
 	ires = PyRun_SimpleString(python_dll_dir.c_str());
 	std::string lib_dir = "sys.path.insert(2,\"" + harlem_home_dir + "Lib\")";
 	ires = PyRun_SimpleString(script_dir.c_str());
@@ -621,16 +631,16 @@ int HarlemApp::Python_AppInit()
 	std::string HaDBDir=(std::string)"sys.path.insert(2,\"" + harlem_home_dir + (std::string)"residues_db\")";
 	ires = PyRun_SimpleString(HaDBDir.c_str());
 #endif
-	ires = PyRun_SimpleString("import halib");
-	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading halib module \n");
-	ires = PyRun_SimpleString("from halib import *");
-
-	ires = PyRun_SimpleString("import molset");
-	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading molset module \n");
-	ires = PyRun_SimpleString("from molset import *");
-
-//	if( !ires ) PrintLog("Error in HarlemApp::Python_AppInit() loading harlem profile script \n");
-	ires = PyRun_SimpleString("pApp = cvar.pApp");
+//	ires = PyRun_SimpleString("import halib");
+//	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading halib module \n");
+//	ires = PyRun_SimpleString("from halib import *");
+//
+//	ires = PyRun_SimpleString("import molset");
+//	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading molset module \n");
+//	ires = PyRun_SimpleString("from molset import *");
+//
+////	if( !ires ) PrintLog("Error in HarlemApp::Python_AppInit() loading harlem profile script \n");
+//	ires = PyRun_SimpleString("pApp = cvar.pApp");
   
 	v = PySys_GetObject("ps1");
 	if (v == NULL) {
@@ -651,7 +661,7 @@ int HarlemApp::Python_AppInit()
 #endif
 		Py_XDECREF(v);
 	}
-	ires = PyRun_SimpleString("print sys.path");
+	ires = PyRun_SimpleString("print(sys.path)");
 
 //	Py_Finalize();
 #endif

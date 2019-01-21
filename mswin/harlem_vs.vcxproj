@@ -530,7 +530,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
