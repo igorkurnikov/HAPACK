@@ -75,14 +75,14 @@
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\harlem\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\harlem\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\harlem\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\harlem\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\harlem\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\harlem\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/harlem\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release/harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\harlem\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -216,7 +216,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Python37-32\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-3.7.2\PC;c:\PROG_SRC\Python-3.7.2\Include;C:\PROG_SRC\vcpkg\installed\x86-windows\include;C:\PROG_SRC\vcpkg\installed\x86-windows\include\python2.7;c:\Program Files (x86)\MPICH2\include;c:\Program Files\MPICH2\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -231,7 +231,7 @@
     <Link>
       <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;wxbase31u_net.lib;boost_filesystem-vc140-mt.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98.lib;delphi_lib.lib;harlem_lib_fort.lib;jumna_lib_fort.lib;mortlib.lib;pmemd_lib_fort.lib;geoball_lib_fort.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;c:\Python37-32\libs;C:\PROG_SRC\vcpkg\installed\x86-windows\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;C:\local\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32;C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32;c:\PROG_SRC\Python-3.7.2\PCbuild\win32;C:\PROG_SRC\vcpkg\installed\x86-windows\lib;c:\Program Files (x86)\MPICH2\lib;c:\Program Files\MPICH2\lib;C:\local\lib</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -357,10 +357,24 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="PY3_Debug\harlem\hamolset_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="PY3_Release\harlem\hamolset_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\HARLEM\hamolset_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\HARLEM\sources\hampi.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
@@ -538,7 +552,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow  -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow  -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>

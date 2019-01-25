@@ -67,14 +67,14 @@
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\harlem\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\harlem\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\harlem\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\harlem\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\harlem\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\harlem\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/harlem\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release/harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\harlem\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\harlem\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>

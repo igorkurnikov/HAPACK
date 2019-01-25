@@ -65,14 +65,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/MY_VFLIB\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug/MY_VFLIB\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug/MY_VFLIB\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug/MY_VFLIB\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/MY_VFLIB\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release/MY_VFLIB\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release/MY_VFLIB\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release/MY_VFLIB\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\MY_VFLIB\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\MY_VFLIB\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\MY_VFLIB\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\MY_VFLIB\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\MY_VFLIB\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\MY_VFLIB\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\MY_VFLIB\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\MY_VFLIB\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />

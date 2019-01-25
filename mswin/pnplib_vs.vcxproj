@@ -122,14 +122,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug\pnplib\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\pnplib\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">Debug\pnplib\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release\pnplib\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\pnplib\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Release\pnplib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\pnplib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\pnplib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\pnplib\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(Configuration)\pnplib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\pnplib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\pnplib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\pnplib\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(Configuration)\pnplib\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -199,7 +199,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\Python37-32\include;c:\Program Files\MPICH2\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;C:\PROG_SRC\vcpkg\installed\x86-windows\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;c:\PROG_SRC\Python-3.7.2\PC;c:\PROG_SRC\Python-3.7.2\Include;c:\Program Files\MPICH2\include;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;C:\PROG_SRC\vcpkg\installed\x86-windows\include;c:\Program Files (x86)\MPICH2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
