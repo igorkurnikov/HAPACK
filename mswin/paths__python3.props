@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
-  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="UserMacros">
+    <PYTHON_HOME_PATH>C:\PROG_SRC\Python-3.7.2</PYTHON_HOME_PATH>
+    <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)\PCbuild\$(PlatformName)</PYTHON_BIN_PATH>
+    <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)\PCbuild\$(PlatformName)</PYTHON_DLLS_PATH>
+  </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>paths_win32__python3</_PropertySheetDisplayName>
   </PropertyGroup>
@@ -13,5 +17,9 @@
       <AdditionalLibraryDirectories>C:\PROG_SRC\Python-3.7.2\PCbuild\$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BuildMacro Include="DLL_SEARCH_PATH">
+      <Value>$(DLL_SEARCH_PATH)</Value>
+    </BuildMacro>
+  </ItemGroup>
 </Project>
