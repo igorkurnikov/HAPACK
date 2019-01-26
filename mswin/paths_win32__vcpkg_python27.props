@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
-  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="UserMacros">
+    <VCPKG_ROOT>C:\PROG_SRC\vcpkg\installed\x86-windows</VCPKG_ROOT>
+    <VCPKG_DLL_PATH>$(VCPKG_ROOT)\bin</VCPKG_DLL_PATH>
+    <PYTHON_HOME_PATH>$(VCPKG_ROOT)\share\python2</PYTHON_HOME_PATH>
+    <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
+    <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)\DLLs</PYTHON_DLLS_PATH>
+  </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>paths_win32_vcpkg_python27</_PropertySheetDisplayName>
   </PropertyGroup>
@@ -10,7 +16,7 @@
       <AdditionalIncludeDirectories>C:\PROG_SRC\vcpkg\installed\x86-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\PROG_SRC\vcpkg\installed\x86-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\PROG_SRC\vcpkg\installed\x86-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
