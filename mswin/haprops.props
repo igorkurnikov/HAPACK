@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <Haprops_Debug>$(ConfigurationName.Contains("Debug"))</Haprops_Debug>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IntDir>$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)</IntDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="Haprops_Debug">
+      <Value>$(Haprops_Debug)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

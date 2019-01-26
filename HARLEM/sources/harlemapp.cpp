@@ -572,7 +572,11 @@ int HarlemApp::Python_AppInit()
 #else
 	Py_SetProgramName("HARLEM");
 #endif
-
+	char* env_p;
+	if (env_p = std::getenv("PATH"))
+		std::cout << "Your PATH is: " << env_p << '\n';
+	if (env_p = std::getenv("PYTHONPATH"))
+		std::cout << "Your PYTHONPATH is: " << env_p << '\n';
 	/* Initialize the Python interpreter.  Required. */
 	Py_Initialize();	
 //	PrintLog(" Python_AppInit pt 4 \n");

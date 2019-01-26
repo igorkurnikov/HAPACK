@@ -24,6 +24,11 @@
 /mswin/Release
 /mswin/PY3_Debug
 /mswin/PY3_Release
+/mswin/Debug_Win32
+/mswin/PY3_Debug_Win32
+/mswin/Release_Win32
+/mswin/PY3_Release_Win32
+/mswin/obj
 /mswin/ipch
 /mswin/.vs
 /mswin/delphi_lib.u2d
