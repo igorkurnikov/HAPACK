@@ -153,7 +153,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)
+      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
