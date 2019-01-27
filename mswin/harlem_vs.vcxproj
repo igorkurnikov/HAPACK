@@ -57,7 +57,8 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg_python27.props" />
+    <Import Project="paths_win32__vcpkg.props" />
+    <Import Project="paths_win32__python27.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
@@ -65,7 +66,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg_python27.props" />
+    <Import Project="paths_win32__vcpkg.props" />
     <Import Project="paths__python3.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
@@ -74,7 +75,8 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths_win32_debug__vcpkg_python27.props" />
+    <Import Project="paths_win32_debug__vcpkg.props" />
+    <Import Project="paths_win32_debug__python27.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
@@ -82,7 +84,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths_win32_debug__vcpkg_python27.props" />
+    <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths__python3.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
@@ -138,7 +140,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98_deb.lib;delphi_lib_deb.lib;harlem_lib_fort_deb.lib;jumna_lib_fort_deb.lib;pmemd_lib_fort_deb.lib;geoball_lib_fort_deb.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -228,7 +230,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>mpir.lib;mpi.lib;fmpich2h.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;wxbase31u_net.lib;boost_filesystem-vc140-mt.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;ug98.lib;delphi_lib.lib;harlem_lib_fort.lib;jumna_lib_fort.lib;mortlib.lib;pmemd_lib_fort.lib;geoball_lib_fort.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

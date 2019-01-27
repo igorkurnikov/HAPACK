@@ -4,12 +4,6 @@
   <PropertyGroup Label="UserMacros">
     <VCPKG_ROOT>C:\PROG_SRC\vcpkg\installed\x86-windows</VCPKG_ROOT>
     <VCPKG_DLL_PATH>$(VCPKG_ROOT)\debug\bin</VCPKG_DLL_PATH>
-    <PYTHON_HOME_PATH>$(VCPKG_ROOT)\share\python2</PYTHON_HOME_PATH>
-    <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
-    <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)\DLLs</PYTHON_DLLS_PATH>
-  </PropertyGroup>
-  <PropertyGroup>
-    <_PropertySheetDisplayName>paths_win32_debug_vcpkg_python27</_PropertySheetDisplayName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -20,16 +14,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <BuildMacro Include="DLL_SEARCH_PATH">
-      <Value>$(DLL_SEARCH_PATH)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
     <BuildMacro Include="VCPKG_ROOT">
       <Value>$(VCPKG_ROOT)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
-    <BuildMacro Include="VCPKG_INCLUDE">
-      <Value>$(VCPKG_INCLUDE)</Value>
+    <BuildMacro Include="VCPKG_DLL_PATH">
+      <Value>$(VCPKG_DLL_PATH)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>
