@@ -153,18 +153,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
@@ -196,18 +185,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -245,18 +223,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
@@ -294,18 +261,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>copy /Y $(IntDir)\molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

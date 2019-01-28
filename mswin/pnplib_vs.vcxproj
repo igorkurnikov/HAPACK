@@ -58,12 +58,12 @@
   <ItemGroup>
     <CustomBuild Include="..\PNPS\src\llpnps.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
     </CustomBuild>
