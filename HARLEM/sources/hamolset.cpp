@@ -80,13 +80,18 @@ void SetCurMolSet(HaMolSet* pmset)
 	}
 	HaMolSet::CurMolSet = pmset;
 #if !defined(HARLEM_PYTHON_NO)
+	PyGILState_STATE gstate;
+	gstate = PyGILState_Ensure();
 	int ires = PyRun_SimpleString("mset_c = GetCurMolSet()");
+	PyGILState_Release(gstate);
 	if(!ires) return;
 	if( pmset != NULL )
 	{
+		gstate = PyGILState_Ensure();
 		ires = PyRun_SimpleString("mmod_c  = mset_c.GetMolMechMod(0)");
 		ires = PyRun_SimpleString("elmod_c = mset_c.GetElectrostMod(0)");
 		ires = PyRun_SimpleString("qcmod_c = mset_c.GetQCMod(0)");
+		PyGILState_Release(gstate);
 	}
 #endif
 }
