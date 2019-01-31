@@ -67,7 +67,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
     <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths__python3.props" />
+    <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
@@ -85,7 +85,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
-    <Import Project="paths__python3.props" />
+    <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
@@ -160,6 +160,7 @@ set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
+set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 
 set CONF="$(Configuration)_$(PlatformName)"
@@ -184,7 +185,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -204,6 +205,7 @@ set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
+set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 
 set CONF="$(Configuration)_$(PlatformName)"
@@ -254,6 +256,7 @@ set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
+set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 
 set CONF="$(Configuration)_$(PlatformName)"
@@ -282,7 +285,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -304,6 +307,7 @@ set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
+set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 
 set CONF="$(Configuration)_$(PlatformName)"

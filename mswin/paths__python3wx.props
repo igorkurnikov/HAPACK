@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <PYTHON_HOME_PATH>C:\PROG_SRC\Python37\$(PlatformName)</PYTHON_HOME_PATH>
+    <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
+    <WX_DLLS_PATH>$(PYTHON_HOME_PATH)</WX_DLLS_PATH>
+    <WX_VERSION>30u</WX_VERSION>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\PROG_SRC\Python37\$(PlatformName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\PROG_SRC\Python37\$(PlatformName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="PYTHON_HOME_PATH">
+      <Value>$(PYTHON_HOME_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="PYTHON_BIN_PATH">
+      <Value>$(PYTHON_BIN_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="PYTHON_DLLS_PATH">
+      <Value>$(PYTHON_DLLS_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="WX_DLLS_PATH">
+      <Value>$(WX_DLLS_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="WX_VERSION">
+      <Value>$(WX_VERSION)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

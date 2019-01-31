@@ -4,6 +4,8 @@
   <PropertyGroup Label="UserMacros">
     <VCPKG_ROOT>C:\PROG_SRC\vcpkg\installed\x86-windows</VCPKG_ROOT>
     <VCPKG_DLL_PATH>$(VCPKG_ROOT)\debug\bin</VCPKG_DLL_PATH>
+    <WX_DLLS_PATH>$(VCPKG_ROOT)\debug\bin</WX_DLLS_PATH>
+    <WX_VERSION>31u</WX_VERSION>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -20,6 +22,14 @@
     </BuildMacro>
     <BuildMacro Include="VCPKG_DLL_PATH">
       <Value>$(VCPKG_DLL_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="WX_DLLS_PATH">
+      <Value>$(WX_DLLS_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="WX_VERSION">
+      <Value>$(WX_VERSION)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>

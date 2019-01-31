@@ -22,6 +22,11 @@ if not defined MKL_DLL_PATH (
     echo "This script should run as post-build event in VS"
     exit 1
 )
+if not defined WX_DLLS_PATH (
+    echo "Variable WX_DLLS_PATH is not defined"
+    echo "This script should run as post-build event in VS"
+    exit 1
+)
 
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
@@ -54,22 +59,22 @@ if not exist "%OutputDir%\Lib\NUL" (
 
 if "%IS_DEBUG%" == "Y" (
     echo "Copying Debug Version of Python"
-    xcopy /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
-    xcopy /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
+    xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
+    xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
     
-    xcopy /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
+    xcopy /y /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
     
-    xcopy /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll %OutputDir%
-    xcopy /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
 ) else (
     echo "Copying Release Version of Python"
-    xcopy /d %PYTHON_DLLS_PATH%\*.pyd %OutputDir%\DLLs
-    xcopy /d %PYTHON_DLLS_PATH%\*.pdb %OutputDir%\DLLs
+    xcopy /y /d %PYTHON_DLLS_PATH%\*.pyd %OutputDir%\DLLs
+    xcopy /y /d %PYTHON_DLLS_PATH%\*.pdb %OutputDir%\DLLs
     
-    xcopy /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
+    xcopy /y  /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
     
-    xcopy /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?.dll %OutputDir%
-    xcopy /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
+    xcopy /y  /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
 )
 
 REM ###########################################################################
@@ -93,37 +98,41 @@ boost_fiber       boost_math_tr1f  boost_signals           boost_wave ^
 boost_filesystem  boost_math_tr1l  boost_stacktrace_noop   boost_wserialization
 
 FOR %%G IN (%BOOST_LIBS%) DO (
-    xcopy /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%
 )
 
 REM WXWIDGETS
+echo "Copying wxWidgets Dlls"
 if "%IS_DEBUG%" == "Y" (
-    set WXVER=311ud_
+    set WXVER=ud
 ) else (
-    set WXVER=311u_
+    set WXVER=u
 )
-set WX_LIBS=^
-wxbase%WXVER%net_vc_custom.dll  wxmsw%WXVER%gl_vc_custom.dll        wxmsw%WXVER%richtext_vc_custom.dll ^
-wxbase%WXVER%vc_custom.dll      wxmsw%WXVER%html_vc_custom.dll      wxmsw%WXVER%stc_vc_custom.dll ^
-wxbase%WXVER%xml_vc_custom.dll  wxmsw%WXVER%media_vc_custom.dll     wxmsw%WXVER%webview_vc_custom.dll ^
-wxmsw%WXVER%adv_vc_custom.dll   wxmsw%WXVER%propgrid_vc_custom.dll  wxmsw%WXVER%xrc_vc_custom.dll ^
-wxmsw%WXVER%aui_vc_custom.dll   wxmsw%WXVER%qa_vc_custom.dll ^
-wxmsw%WXVER%core_vc_custom.dll  wxmsw%WXVER%ribbon_vc_custom.dll ^
-plplot.dll  plplotcxx.dll  plplotwxwidgets.dll
+xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%
+xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%
 
-FOR %%G IN (%WX_LIBS%) DO (
-    xcopy /d %VCPKG_DLL_PATH%\%%G %OutputDir%
+if "%IS_DEBUG%" == "Y" (
+    if exist %WX_DLLS_PATH%\plplotd.dll (
+        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll
+    ) else (
+        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
+    )
+) else (
+    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
+)
+FOR %%G IN (%PLPLOT_LIB%) DO (
+    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%
 )
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
-    set OTHER_LIBS=csirocsa.dll mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll qsastime.dll tiffd.dll zlibd1.dll
+    set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll
 ) else (
     set OTHER_LIBS=csirocsa.dll mpir.dll jpeg62.dll freetype.dll libbz2.dll libpng16.dll lzma.dll qsastime.dll tiff.dll zlib1.dll
 )
 
 FOR %%G IN (%OTHER_LIBS%) DO (
-    xcopy /d %VCPKG_DLL_PATH%\%%G %OutputDir%
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%
 )
 
 REM ###########################################################################
@@ -131,7 +140,7 @@ REM Copy MKL
 set MKL_LIBS=mkl_sequential.dll mkl_core.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
-    xcopy /d %MKL_DLL_PATH%\%%G %OutputDir%
+    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%
 )
 REM ###########################################################################
 REM Copy MPI
