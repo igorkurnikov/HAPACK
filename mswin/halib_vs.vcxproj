@@ -61,7 +61,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
     <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths__python3.props" />
+    <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
@@ -74,8 +74,8 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths__python3.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
+    <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
