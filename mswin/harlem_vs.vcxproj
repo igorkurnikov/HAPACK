@@ -755,6 +755,7 @@ $(SolutionDir)copy_dependencies.bat
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Release_Win32\harlem_vs\hamolset_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
