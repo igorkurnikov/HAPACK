@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject ProjectType="typeStaticLibrary" ProjectCreator="Intel Fortran" Keyword="Static Library" Version="11.0" ProjectIdGuid="{3F35F899-FA61-423E-986C-B53BFA237DE0}" SccProjectName="Svn" SccLocalPath="Svn" SccAuxPath="Svn" SccProvider="SubversionScc">
 	<Platforms>
-		<Platform Name="Win32"/></Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
 	<Configurations>
 		<Configuration Name="Debug|Win32" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
@@ -38,6 +39,46 @@
 				<Tool Name="VFLibrarianTool"/>
 				<Tool Name="VFResourceCompilerTool"/>
 				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="PY3_Release|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="PY3_Debug|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
 				<Tool Name="VFCustomBuildTool"/>
 				<Tool Name="VFPreLinkEventTool"/>
 				<Tool Name="VFPreBuildEventTool"/>

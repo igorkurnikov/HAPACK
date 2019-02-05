@@ -28,6 +28,8 @@
 /mswin/PY3_Debug_Win32
 /mswin/Release_Win32
 /mswin/PY3_Release_Win32
+/mswin/Debug_x64
+/mswin/PY3_Debug_x64
 /mswin/obj
 /mswin/ipch
 /mswin/.vs

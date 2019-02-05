@@ -120,3 +120,35 @@ load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALL, 5 );
 Resolution:
 
 Disable checking in wxWidget library (patch is in our vcpkg repo)
+
+
+
+
+
+
+
+# x64 bit
+
+## VCPKG with boost and mpir for 64-bit
+```cmd
+# install vcpkg
+cd C:\PROG_SRC\
+# if vcpgk is not installed overwise use one installed with x86
+#git clone https://github.com/nsimakov/vcpkg.git
+cd vcpkg
+.\bootstrap-vcpkg.bat
+# install libraries
+.\vcpkg.exe install boost:x64-windows
+.\vcpkg.exe install mpir:x64-windows
+
+```
+
+
+
+
+
+
+
+
+
+

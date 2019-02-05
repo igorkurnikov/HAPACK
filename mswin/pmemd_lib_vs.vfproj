@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject ProjectType="typeStaticLibrary" ProjectCreator="Intel Fortran" Keyword="Static Library" Version="11.0" ProjectIdGuid="{B2AEF62A-7E0C-44A0-9073-ECB37333FDE4}" SccProjectName="Svn" SccLocalPath="Svn" SccAuxPath="Svn" SccProvider="SubversionScc">
 	<Platforms>
-		<Platform Name="Win32"/></Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
 	<Configurations>
 		<Configuration Name="Debug|Win32" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" HeapArrays="1" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;c:\Program Files (x86)\MPICH2\include;C:/Program Files/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS" SourceFileFormat="fileFormatFree" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
@@ -38,6 +39,46 @@
 				<Tool Name="VFLibrarianTool"/>
 				<Tool Name="VFResourceCompilerTool"/>
 				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" HeapArrays="1" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;c:\Program Files (x86)\MPICH2\include;C:/Program Files/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS" SourceFileFormat="fileFormatFree" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" HeapArrays="10" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;C:/Program Files/MPICH2/include;C:/Program Files (x86)/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS;VAR_POLAR" SourceFileFormat="fileFormatFree" OpenMPDiagLevel="openMPDiagLevel0" ParallelizerDiagLevel="parallelizerDiagLevel0" VectorizerDiagLevel="vectorizerDiagLevel0" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="PY3_Release|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" HeapArrays="10" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;C:/Program Files/MPICH2/include;C:/Program Files (x86)/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS;VAR_POLAR" SourceFileFormat="fileFormatFree" OpenMPDiagLevel="openMPDiagLevel0" ParallelizerDiagLevel="parallelizerDiagLevel0" VectorizerDiagLevel="vectorizerDiagLevel0" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="PY3_Debug|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" HeapArrays="1" Preprocess="preprocessYes" AdditionalIncludeDirectories="../PMEMD_LIB/src;c:\Program Files (x86)\MPICH2\include;C:/Program Files/MPICH2/include" PreprocessorDefinitions="FFTLOADBAL_2PROC;DIRFRC_COMTRANS" SourceFileFormat="fileFormatFree" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLibrarianTool"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
 				<Tool Name="VFCustomBuildTool"/>
 				<Tool Name="VFPreLinkEventTool"/>
 				<Tool Name="VFPreBuildEventTool"/>
