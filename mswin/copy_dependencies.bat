@@ -82,9 +82,9 @@ REM Copy Things from VCPKG
 
 REM BOOST
 if "%IS_DEBUG%" == "Y" (
-    set BOOST_SUFFIX=-vc141-mt-gd-x32-1_68.dll
+    set BOOST_SUFFIX=-vc141-mt-gd-x*-1_68.dll
 ) else (
-    set BOOST_SUFFIX=-vc141-mt-x32-1_68.dll
+    set BOOST_SUFFIX=-vc141-mt-x*-1_68.dll
 )
 set BOOST_LIBS=^
 boost_atomic      boost_graph      boost_math_tr1          boost_stacktrace_windbg_cached ^
