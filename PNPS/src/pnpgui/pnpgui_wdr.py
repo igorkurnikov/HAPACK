@@ -136,7 +136,7 @@ def pnpPrep( parent, call_fit = True, set_sizer = True ):
     item23.SetToolTip( wx.ToolTip("Calculate total charge, coordinates min max and some other properties") )
     item21.Add( item23, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-    item24 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpAtmParFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Atomic Parameters File:",fileMask="*.atmpar",initialValue="S0_system.atmpar",history=["S0_system.atmpar"],fileMode=wx.SAVE )
+    item24 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpAtmParFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Atomic Parameters File:",fileMask="*.atmpar",initialValue="S0_system.atmpar",history=["S0_system.atmpar"],fileMode=wx.FD_SAVE )
     item21.Add( item24, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item25 = wx.Button( parent, IDBpnpSaveAtmPar, "Save Again", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -196,35 +196,35 @@ def pnpPNPSR( parent, call_fit = True, set_sizer = True ):
     
     item3 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S3_IAVRefined_System.systop",history=["S3_IAVRefined_System.systop","S1_System_Patched.systop","S1_System.systop"],fileMode=wx.OPEN )
+    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S3_IAVRefined_System.systop",history=["S3_IAVRefined_System.systop","S1_System_Patched.systop","S1_System.systop"],fileMode=wx.FD_OPEN )
     item3.Add( item4, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item3, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item5 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S3_IAVRefined_Diffusion.bin",history=["S3_IAVRefined_Diffusion.bin","S1_Diffusion_Patched.bin","S1_Diffusion.bin","None"],fileMode=wx.OPEN )
+    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S3_IAVRefined_Diffusion.bin",history=["S3_IAVRefined_Diffusion.bin","S1_Diffusion_Patched.bin","S1_Diffusion.bin","None"],fileMode=wx.FD_OPEN )
     item5.Add( item6, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item5, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item7 = wx.BoxSizer( wx.VERTICAL )
     
-    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_SRFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.OPEN )
+    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_SRFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.FD_OPEN )
     item7.Add( item8, 1, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT, 5 )
 
     item1.Add( item7, 1, wx.GROW|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
     item9 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item10 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_PotFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential (initial guess):",fileMask="*.bin",initialValue="S3_IAVRefined_Pot.bin",history=["S3_IAVRefined_Pot.bin","S2_PBSR_Pot.bin","None"],fileMode=wx.OPEN )
+    item10 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_PotFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential (initial guess):",fileMask="*.bin",initialValue="S3_IAVRefined_Pot.bin",history=["S3_IAVRefined_Pot.bin","S2_PBSR_Pot.bin","None"],fileMode=wx.FD_OPEN )
     item9.Add( item10, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item9, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item11 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item12 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_ConcFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S3_IAVRefined_Conc.bin",history=["S3_IAVRefined_Conc.bin","S2_PBSR_Conc.bin","None"],fileMode=wx.OPEN )
+    item12 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_ConcFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S3_IAVRefined_Conc.bin",history=["S3_IAVRefined_Conc.bin","S2_PBSR_Conc.bin","None"],fileMode=wx.FD_OPEN )
     item11.Add( item12, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item11, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -348,14 +348,14 @@ def pnpPNPSR( parent, call_fit = True, set_sizer = True ):
     
     item50 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item51 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_PotFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S4_PNPSR_Pot.bin",history=["S4_PNPSR_Pot.bin"],fileMode=wx.SAVE )
+    item51 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_PotFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S4_PNPSR_Pot.bin",history=["S4_PNPSR_Pot.bin"],fileMode=wx.FD_SAVE )
     item50.Add( item51, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item48.Add( item50, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item52 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item53 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_ConcFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S4_PNPSR_Conc.bin",history=["S4_PNPSR_Conc.bin"],fileMode=wx.SAVE )
+    item53 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPNPSR_ConcFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S4_PNPSR_Conc.bin",history=["S4_PNPSR_Conc.bin"],fileMode=wx.FD_SAVE )
     item52.Add( item53, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item48.Add( item52, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -597,7 +597,7 @@ def pnpMapCreation( parent, call_fit = True, set_sizer = True ):
     
     item35 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item36 = filebrowse.FileBrowseButtonWithHistory( parent, IDFBBpnpCrMapAtomParFile, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Atomic Parameters File:",fileMask="*.atmpar",initialValue="S0_system.atmpar",history=["S0_system.atmpar","None"],fileMode=wx.OPEN )
+    item36 = filebrowse.FileBrowseButtonWithHistory( parent, IDFBBpnpCrMapAtomParFile, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Atomic Parameters File:",fileMask="*.atmpar",initialValue="S0_system.atmpar",history=["S0_system.atmpar","None"],fileMode=wx.FD_OPEN )
     item35.Add( item36, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item35.Add( [ 20, 20 ] , 0, wx.ALIGN_CENTER, 5 )
@@ -709,21 +709,21 @@ def pnpMapCreation( parent, call_fit = True, set_sizer = True ):
     
     item68 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item69 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpScriptFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Script Filename:",fileMask="*.py",initialValue="S1_CreateMaps.py",history=["S1_CreateMaps.py"],fileMode=wx.SAVE )
+    item69 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpScriptFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Script Filename:",fileMask="*.py",initialValue="S1_CreateMaps.py",history=["S1_CreateMaps.py"],fileMode=wx.FD_SAVE )
     item69.SetToolTip( wx.ToolTip("Script filename where maps creation instruction will be saved") )
     item68.Add( item69, 1, wx.ALIGN_CENTER, 5 )
 
-    item70 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSysTopFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System.systop"],fileMode=wx.SAVE )
+    item70 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSysTopFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System.systop"],fileMode=wx.FD_SAVE )
     item68.Add( item70, 1, wx.ALIGN_CENTER, 5 )
 
     item66.Add( item68, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 0 )
 
     item71 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item72 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpDiffFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion.bin",history=["S1_Diffusion.bin","None"],fileMode=wx.SAVE )
+    item72 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpDiffFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion.bin",history=["S1_Diffusion.bin","None"],fileMode=wx.FD_SAVE )
     item71.Add( item72, 1, wx.ALIGN_CENTER, 5 )
 
-    item73 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSRFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.SAVE )
+    item73 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSRFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.FD_SAVE )
     item71.Add( item73, 1, wx.ALIGN_CENTER, 5 )
 
     item66.Add( item71, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 0 )
@@ -819,14 +819,14 @@ def pnpPBSR( parent, call_fit = True, set_sizer = True ):
     
     item3 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSysTopFileNameIn, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System_Patched.systop","S1_System.systop"],fileMode=wx.OPEN )
+    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSysTopFileNameIn, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System_Patched.systop","S1_System.systop"],fileMode=wx.FD_OPEN )
     item3.Add( item4, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item3, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item5 = wx.BoxSizer( wx.VERTICAL )
     
-    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSRFileNameIn, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.OPEN )
+    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpSRFileNameIn, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.FD_OPEN )
     item5.Add( item6, 1, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT, 5 )
 
     item1.Add( item5, 1, wx.GROW|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -869,7 +869,7 @@ def pnpPBSR( parent, call_fit = True, set_sizer = True ):
     
     item19 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item20 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpScriptFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Script Filename:",fileMask="*.py",initialValue="S2_PBSR.py",history=["S1_CreateMaps.py"],fileMode=wx.SAVE )
+    item20 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpScriptFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Script Filename:",fileMask="*.py",initialValue="S2_PBSR.py",history=["S1_CreateMaps.py"],fileMode=wx.FD_SAVE )
     item20.SetToolTip( wx.ToolTip("Script filename where maps creation instruction will be saved") )
     item19.Add( item20, 1, wx.ALIGN_CENTER, 5 )
 
@@ -877,14 +877,14 @@ def pnpPBSR( parent, call_fit = True, set_sizer = True ):
 
     item21 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item22 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPotFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S2_PBSR_Pot.bin",history=["S2_PBSR_Pot.bin","None"],fileMode=wx.SAVE )
+    item22 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPotFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S2_PBSR_Pot.bin",history=["S2_PBSR_Pot.bin","None"],fileMode=wx.FD_SAVE )
     item21.Add( item22, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item17.Add( item21, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item23 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item24 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpConcFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S2_PBSR_Conc.bin",history=["S2_PBSR_Conc.bin","None"],fileMode=wx.SAVE )
+    item24 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpConcFileNameOut, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S2_PBSR_Conc.bin",history=["S2_PBSR_Conc.bin","None"],fileMode=wx.FD_SAVE )
     item23.Add( item24, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item17.Add( item23, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -977,35 +977,35 @@ def pnpIAVRef( parent, call_fit = True, set_sizer = True ):
     
     item3 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System_Patched.systop",history=["S1_System_Patched.systop","S1_System.systop"],fileMode=wx.OPEN )
+    item4 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System_Patched.systop",history=["S1_System_Patched.systop","S1_System.systop"],fileMode=wx.FD_OPEN )
     item3.Add( item4, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item3, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item5 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion_Patched.bin",history=["S1_Diffusion_Patched.bin","S1_Diffusion.bin","None"],fileMode=wx.OPEN )
+    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion_Patched.bin",history=["S1_Diffusion_Patched.bin","S1_Diffusion.bin","None"],fileMode=wx.FD_OPEN )
     item5.Add( item6, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item5, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item7 = wx.BoxSizer( wx.VERTICAL )
     
-    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SRFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.OPEN )
+    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SRFileName, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Soft Repultion:",fileMask="*.bin",initialValue="S1_SR.bin",history=["S1_SR.bin","None"],fileMode=wx.FD_OPEN )
     item7.Add( item8, 1, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT, 5 )
 
     item1.Add( item7, 1, wx.GROW|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
     item9 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item10 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_PotFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential (initial guess):",fileMask="*.bin",initialValue="S2_PBSR_Pot.bin",history=["S2_PBSR_Pot.bin"],fileMode=wx.OPEN )
+    item10 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_PotFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential (initial guess):",fileMask="*.bin",initialValue="S2_PBSR_Pot.bin",history=["S2_PBSR_Pot.bin"],fileMode=wx.FD_OPEN )
     item9.Add( item10, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item9, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item11 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item12 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_ConcFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S2_PBSR_Conc.bin",history=["S2_PBSR_Conc.bin"],fileMode=wx.OPEN )
+    item12 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_ConcFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S2_PBSR_Conc.bin",history=["S2_PBSR_Conc.bin"],fileMode=wx.FD_OPEN )
     item11.Add( item12, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item1.Add( item11, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1075,28 +1075,28 @@ def pnpIAVRef( parent, call_fit = True, set_sizer = True ):
     
     item34 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item35 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SysTopFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S3_IAVRefined_System.systop",history=["S3_IAVRefined_System.systop"],fileMode=wx.SAVE )
+    item35 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_SysTopFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S3_IAVRefined_System.systop",history=["S3_IAVRefined_System.systop"],fileMode=wx.FD_SAVE )
     item34.Add( item35, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item32.Add( item34, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item36 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item37 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_DiffFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S3_IAVRefined_Diffusion.bin",history=["S3_IAVRefined_Diffusion.bin","None"],fileMode=wx.SAVE )
+    item37 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_DiffFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S3_IAVRefined_Diffusion.bin",history=["S3_IAVRefined_Diffusion.bin","None"],fileMode=wx.FD_SAVE )
     item36.Add( item37, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item32.Add( item36, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item38 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item39 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_PotFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S3_IAVRefined_Pot.bin",history=["S3_IAVRefined_Pot.bin"],fileMode=wx.SAVE )
+    item39 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_PotFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Electrostatic Potential:",fileMask="*.bin",initialValue="S3_IAVRefined_Pot.bin",history=["S3_IAVRefined_Pot.bin"],fileMode=wx.FD_SAVE )
     item38.Add( item39, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item32.Add( item38, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item40 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item41 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_ConcFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S3_IAVRefined_Conc.bin",history=["S3_IAVRefined_Conc.bin"],fileMode=wx.SAVE )
+    item41 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpIAV_ConcFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Concentrations:",fileMask="*.bin",initialValue="S3_IAVRefined_Conc.bin",history=["S3_IAVRefined_Conc.bin"],fileMode=wx.FD_SAVE )
     item40.Add( item41, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item32.Add( item40, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1289,14 +1289,14 @@ def pnpMapPatch( parent, call_fit = True, set_sizer = True ):
     
     item5 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System.systop"],fileMode=wx.OPEN )
+    item6 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_SysTopFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System.systop",history=["S1_System.systop"],fileMode=wx.FD_OPEN )
     item5.Add( item6, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item4.Add( item5, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item7 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion.bin",history=["S1_Diffusion.bin","None"],fileMode=wx.OPEN )
+    item8 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_DiffFileNameIN, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion.bin",history=["S1_Diffusion.bin","None"],fileMode=wx.FD_OPEN )
     item7.Add( item8, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item4.Add( item7, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1328,14 +1328,14 @@ def pnpMapPatch( parent, call_fit = True, set_sizer = True ):
     
     item15 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item16 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_SysTopFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System_Patched.systop",history=["S1_System_Patched.systop","None"],fileMode=wx.SAVE )
+    item16 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_SysTopFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="System Topology:",fileMask="*.systop",initialValue="S1_System_Patched.systop",history=["S1_System_Patched.systop","None"],fileMode=wx.FD_SAVE )
     item15.Add( item16, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item13.Add( item15, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )
 
     item17 = wx.BoxSizer( wx.HORIZONTAL )
     
-    item18 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_DiffFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion_Patched.bin",history=["S1_Diffusion_Patched.bin","None"],fileMode=wx.SAVE )
+    item18 = filebrowse.FileBrowseButtonWithHistory( parent, IDTCpnpPM_DiffFileNameOUT, wx.DefaultPosition, wx.DefaultSize, 0|524288,labelText="Diffusion:",fileMask="*.bin",initialValue="S1_Diffusion_Patched.bin",history=["S1_Diffusion_Patched.bin","None"],fileMode=wx.FD_SAVE )
     item17.Add( item18, 1, wx.ALIGN_CENTER|wx.RIGHT, 5 )
 
     item13.Add( item17, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL, 5 )

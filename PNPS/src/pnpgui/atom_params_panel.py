@@ -269,7 +269,7 @@ class AtomParamsPanel(PNPSBasePanel):
         `parent` should be Notebook of  PNPFrame
         """
         super(AtomParamsPanel, self).__init__(parent, pnpgui_wdr.pnpPrep, pnpgui_wdr)
-        self.pnpmod = None if self.pmset is None else self.pmset.GetPNPMod(1)
+        self.pnpmod = None if self.pmset is None else self.pmset.GetPNPMod(True)
 
         # Set references to widgets
         self.ChoiceFF4QRdiel = self.FindWindowById(pnpgui_wdr.IDCpnpFF4QRdiel)
@@ -360,7 +360,7 @@ class AtomParamsPanel(PNPSBasePanel):
         from .pnpgui import pnpgui_mod_dir
         res_db = os.path.join(pnpgui_mod_dir, "db_aar_sr1.pan")
         print(("Loading DB for SR-MD from %s ..." % res_db))
-        self.pnpmod.ReadPANDB(res_db, 1)
+        self.pnpmod.ReadPANDB(res_db, True)
         print("done with Loading DB for SR-MD.")
 
     def ValidateParameters(self):
