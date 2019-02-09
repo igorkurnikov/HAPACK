@@ -37,7 +37,67 @@
   <ItemGroup>
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
     <ClCompile Include="..\PNPS\src\contworld.cpp" />
-    <ClCompile Include="..\PNPS\src\llpnps_wrap.cxx" />
+    <ClCompile Include="obj\Debug_Win32\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+    </ClCompile>
+    <ClCompile Include="obj\Release_Win32\pnplib_vs\llpnps_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
     <ClCompile Include="..\PNPS\src\pbwithljsolver.cpp" />
@@ -74,33 +134,22 @@
   <ItemGroup>
     <CustomBuild Include="..\PNPS\src\llpnps.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(OutputPath)\scripts\ %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">../PNPS/src/llpnps_wrap.cxx;$(OutputPath)\scripts\%(Filename).py</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\PNPS\src\pnps.py">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy %(Identity) C:\harlem\scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">copy %(Identity) C:\harlem\scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">copy %(Identity) C:\harlem\scripts</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\harlem\scripts\pnps.py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">C:\harlem\scripts\pnps.py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">C:\harlem\scripts\pnps.py</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -272,6 +321,11 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
+copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
+      <Message>Copy Python Scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
     <ClCompile>
@@ -304,6 +358,11 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
+copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
+      <Message>Copy Python Scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -334,6 +393,11 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
+copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
+      <Message>Copy Python Scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
@@ -364,6 +428,11 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
+copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
+      <Message>Copy Python Scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
