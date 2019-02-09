@@ -152,6 +152,23 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\PNPS\src\pnpgui\atom_params_panel.py" />
+    <None Include="..\PNPS\src\pnpgui\create_map_panel.py" />
+    <None Include="..\PNPS\src\pnpgui\pbsr_panel.py" />
+    <None Include="..\PNPS\src\pnpgui\pnpgui.py" />
+    <None Include="..\PNPS\src\pnpgui\pnpgui_wdr.py" />
+    <None Include="..\PNPS\src\pnpgui\pnpsbasepanel.py" />
+    <None Include="..\PNPS\src\pnpgui\QR_AMBER.py" />
+    <None Include="..\PNPS\src\pnpgui\QR_CHARMM.py" />
+    <None Include="..\PNPS\src\pnpgui\QR_OPLS88.py" />
+    <None Include="..\PNPS\src\pnpgui\QR_PARSE94.py" />
+    <None Include="..\PNPS\src\pnpgui\QR_SAMPLE.py" />
+    <None Include="..\PNPS\src\pnpgui\utils.py" />
+    <None Include="..\PNPS\src\pnpgui\__init__.py" />
+    <None Include="..\PNPS\src\pnpgui\__main__.py" />
+    <None Include="..\PNPS\src\pnps\__init__.py" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00332771-F366-4C97-80A8-51519A1FF394}</ProjectGuid>
     <RootNamespace>pnplib_vs</RootNamespace>

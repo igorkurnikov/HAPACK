@@ -940,6 +940,7 @@ $(SolutionDir)copy_dependencies.bat
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
     </None>
+    <None Include="..\HARLEM\scripts\harlem_profile.py" />
     <None Include="..\HARLEM\sources\rasmol.hlp" />
     <None Include="..\HARLEM\sources\ha_wx_ed.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res.wdr" />
