@@ -681,19 +681,6 @@ int HarlemApp::Python_AppInit()
 		Py_XDECREF(v);
 	}
 
-#if PY_VERSION_HEX >= 0x03000000
-	// Initialize Harlem's wxPython modules
-	ires = PyRun_SimpleString(
-		"try:\n"
-		"    import hapygui_init\n"
-		"except Exception as e :\n"
-		"    print('Can not import hapygui_init module!')\n"
-		"    print(str(e))\n"
-		"    import traceback\n"
-		"    traceback.print_exc()\n"
-	);
-#endif
-
 //	Py_Finalize();
 #endif
 
