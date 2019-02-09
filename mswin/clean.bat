@@ -5,7 +5,8 @@ cd %script_path%
 echo off
 
 if exist "obj" (
-    rmdir  /Q /S "%%D\scripts"
+    echo "Removing obj"
+    rmdir  /Q /S "obj"
 )
 
 FOR %%D IN (PY3_Debug_Win32 PY3_Release_Win32 PY3_Debug_x64 PY3_Release_x64 Release_Win32 Release_x64) DO (
