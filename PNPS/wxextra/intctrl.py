@@ -43,9 +43,9 @@ import  wx
 
 #----------------------------------------------------------------------------
 
-from sys import maxint
-MAXINT = maxint     # (constants should be in upper case)
-MININT = -maxint-1
+from sys import maxsize
+MAXINT = maxsize     # (constants should be in upper case)
+MININT = -maxsize-1
 
 #----------------------------------------------------------------------------
 
@@ -641,7 +641,7 @@ class IntCtrl(wx.TextCtrl):
             value = self.GetValue()
 
         if( not (value is None and self.IsNoneAllowed())
-            and type(value) not in (types.IntType, types.LongType) ):
+            and type(value) not in (int, int) ):
             raise ValueError (
                 'IntCtrl requires integer values, passed %s'% repr(value) )
 
@@ -688,7 +688,7 @@ class IntCtrl(wx.TextCtrl):
         for positive and negative values, respectively.
         """
         current_value = self.GetValue()
-        if not allow_long and type(current_value) is types.LongType:
+        if not allow_long and type(current_value) is int:
             if current_value > 0:
                 self.SetValue(MAXINT)
             else:
@@ -740,10 +740,10 @@ class IntCtrl(wx.TextCtrl):
         """
         if value is None and self.IsNoneAllowed():
             return ''
-        elif type(value) == types.LongType and not self.IsLongAllowed():
+        elif type(value) == int and not self.IsLongAllowed():
             raise ValueError (
                 'IntCtrl requires integer value, passed long' )
-        elif type(value) not in (types.IntType, types.LongType):
+        elif type(value) not in (int, int):
             raise ValueError (
                 'IntCtrl requires integer value, passed %s'% repr(value) )
 
@@ -781,7 +781,7 @@ class IntCtrl(wx.TextCtrl):
                 return int( value )
             except ValueError:
                 if self.IsLongAllowed():
-                    return long( value )
+                    return int( value )
                 else:
                     raise
 
@@ -881,7 +881,7 @@ if __name__ == '__main__':
             self.Bind(EVT_INT, self.OnInt, self.int_ctrl)
 
         def OnInt(self, event):
-            print 'int now', event.GetValue()
+            print('int now', event.GetValue())
 
     class TestApp(wx.App):
         def OnInit(self):
@@ -901,7 +901,7 @@ if __name__ == '__main__':
             dlg.int_ctrl.SetInsertionPoint(1)
             dlg.int_ctrl.SetSelection(1,2)
             rc = dlg.ShowModal()
-            print 'final value', dlg.int_ctrl.GetValue()
+            print('final value', dlg.int_ctrl.GetValue())
             del dlg
             self.frame.Destroy()
 

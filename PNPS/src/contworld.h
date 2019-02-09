@@ -672,11 +672,11 @@ def GetContWorld(**kwargs):
 	"""depriciated"""
 	GridSize = kwargs.get("GridSize")
 	if GridSize==None:
-		print "Error: GridSize must be defined"
+		print("Error: GridSize must be defined")
 		return None
 	GridScale = kwargs.get("GridScale")
 	if GridScale==None:
-		print "Error: GridScale must be defined"
+		print("Error: GridScale must be defined")
 		return None
 	
 	PBC = kwargs.get("PBC",[0,0,0])
@@ -703,7 +703,7 @@ def LoadContWorld(**kwargs):
 
 	
 	if SysTop == None:
-		print "Error: ContTop must be specified"
+		print("Error: ContTop must be specified")
 		return None
 	w=ReadContWorldFromNodeIndexing(str(SysTop))
 

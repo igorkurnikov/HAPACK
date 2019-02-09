@@ -572,7 +572,7 @@ class PNPFrame(wx.Frame):
             main_frame = self
         # init stuff
         self.pmset = pmset
-        self.pnpmod = None if pmset is None else pmset.GetPNPMod(1)
+        self.pnpmod = None if pmset is None else pmset.GetPNPMod(True)
 
         # init widgets
         set_sizer = True

@@ -127,7 +127,7 @@ def RefineIAV(contworld,**kwarg):
 	iavcalc=IAVCalc(contworld)
 	iavcalc.CmdIAVCalcDict(kwarg)
 	del iavcalc
-	print "RefineIAV"
+	print("RefineIAV")
 %}
 #endif
 #endif

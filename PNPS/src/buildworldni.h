@@ -88,7 +88,7 @@ class GenericGeometricalObject:public PnpsObject
 				self.NIonsTypes=m_NIonsTypes
 			if m_NIonsTypes==None:
 				if not (type(iD) is list or type(iD) is tuple):
-					print "Error: iD should be list or tuple"
+					print("Error: iD should be list or tuple")
 					return None
 				m_NIonsTypes=len(iD)
 			
@@ -425,10 +425,10 @@ class BuildWorldNI:public PnpsObject
 				C = float or [float]*NIonsTypes
 			"""
 			if not (type(iD) is list or type(iD) is tuple):
-				print "Error: iD should be list or tuple"
+				print("Error: iD should be list or tuple")
 				return None
 			if len(iD)!=self.NIonsTypes:
-				print "Error: len(iD)!=self.NIonsTypes"
+				print("Error: len(iD)!=self.NIonsTypes")
 				return None
 			m_iD=new_intArray(self.NIonsTypes)
 			for i in range(self.NIonsTypes):intArray_setitem(m_iD,i,iD[i])
@@ -447,7 +447,7 @@ class BuildWorldNI:public PnpsObject
 				m_R = [float]*NIonsTypes
 			"""
 			if len(m_R)!=self.NIonsTypes:
-				print "Error: len(m_R)!=self.NIonsTypes"
+				print("Error: len(m_R)!=self.NIonsTypes")
 				return None
 			mm_R=new_floatArray(self.NIonsTypes)
 			for i in range(self.NIonsTypes):floatArray_setitem(mm_R,i,m_R[i])
@@ -543,13 +543,13 @@ class BuildWorldNI:public PnpsObject
 		def setBulk(self,**kwargs):
 			iEps = kwargs.get("iDielConst")
 			if iEps==None:
-				print "Error: iDielConst must be defined"
+				print("Error: iDielConst must be defined")
 			
 			iD = kwargs.get("iDiffCoef")
 			if iD==None:
-				print "Error: iDiffCoef must be defined"
+				print("Error: iDiffCoef must be defined")
 			if len(iD)!=2:
-				print "Error: iDiffCoef must have two values"
+				print("Error: iDiffCoef must have two values")
 			
 			C = kwargs.get("C",0.1)
 			self.setBulkPar(iEps, iD[0], iD[1], C)
@@ -586,12 +586,12 @@ class BuildWorldNI:public PnpsObject
 			Returned value:
 				GOAtoms - atoms container
 			"""
-			#print "BuildWorldNI::addAtoms()"
+			#print("BuildWorldNI::addAtoms()")
 			
 			if iDielConst==None:
 				iDielConst=self.getEpsilonValueIndex(DielConst)
 			if iDielConst==None:
-				print "Error: iDielConst must be defined"
+				print("Error: iDielConst must be defined")
 			
 			a=GOAtoms()
 			a.setParam(iDielConst, self.iDzero,0.0,NIonsTypes=self.NIonsTypes)
@@ -624,10 +624,10 @@ class BuildWorldNI:public PnpsObject
 				a.NAtoms=a.R.size();
 				atomsLoaded=True
 			if atomsLoaded==False:
-				print "Error: Can not load atoms parameters!"
+				print("Error: Can not load atoms parameters!")
 			a.MakePreRoll=True
 			#for key in kwargs:
-			#	print "keyword arg: %s: %s" % (key, kwargs[key])
+			#	print("keyword arg: %s: %s" % (key, kwargs[key]))
 			self.addGGO(a)
 			a.thisown = 0
 			return a
@@ -654,12 +654,12 @@ class BuildWorldNI:public PnpsObject
 			Returned value:
 				GOTube - tube container
 			"""
-			#print "BuildWorldNI::addTube()"
+			# print("BuildWorldNI::addTube()")
 			
 			if iDielConst==None:
 				iDielConst=self.getEpsilonValueIndex(DielConst)
 			if iDielConst==None:
-				print "Error: iDielConst must be defined"
+				print("Error: iDielConst must be defined")
 			
 			t=GOTube()
 			t.setParam(iDielConst, self.iDzero,0.0,NIonsTypes=self.NIonsTypes)
@@ -687,18 +687,18 @@ class BuildWorldNI:public PnpsObject
 			Returned value:
 				GOMembraneZ- tube container
 			"""
-			#print "BuildWorldNI::addTube()"
+			#print("BuildWorldNI::addTube()")
 			
 			if iDielConst==None:
 				iDielConst=self.getEpsilonValueIndex(DielConst)
 			if iDielConst==None:
-				print "Error: iDielConst must be defined"
+				print("Error: iDielConst must be defined")
 			
 			mz=GOMembraneZ()
 			mz.setParam(iDielConst, self.iDzero,0.0,NIonsTypes=self.NIonsTypes)
 			
 			if not (type(z) is list or type(z) is tuple):
-				print "Error: z must be type of two values"
+				print("Error: z must be type of two values")
 
 			floatArray_setitem(mz.Z,0,z[0])
 			floatArray_setitem(mz.Z,1,z[1])
@@ -744,15 +744,15 @@ def GetBuilderForPNPSR(**kwargs):
 
 	
 	"""
-	print kwargs
+	print(kwargs)
 	DielConstValues = kwargs.get("DielConstValues",None)
-	print DielConstValues
+	print(DielConstValues)
 	if DielConstValues==None:
-		print "Error: DielConstValues must be defined"
+		print("Error: DielConstValues must be defined")
 		return None
 	DiffusionValues = kwargs.get("DiffusionValues",None)
 	if DiffusionValues==None:
-		print "Error: DiffusionValues must be defined"
+		print("Error: DiffusionValues must be defined")
 		return None
 	
 	bld=BuildWorldNI()
@@ -826,13 +826,13 @@ def GetBuilderForPNPSR(**kwargs):
 
 	iEps = kwargs.get("iDielConst",None)
 	if iEps==None:
-		print "Error: iDielConst must be defined"
+		print("Error: iDielConst must be defined")
 			
 	iD = kwargs.get("iDiffCoef",None)
 	if iD==None:
-		print "Error: iDiffCoef must be defined"
+		print("Error: iDiffCoef must be defined")
 	if len(iD)!=2:
-		print "Error: iDiffCoef must have two values"
+		print("Error: iDiffCoef must have two values")
 			
 	C = kwargs.get("C",0.1)
 	bld.setBulkPar(iEps, iD[0], iD[1], C)
@@ -911,16 +911,16 @@ def GetWorldBuilder(
 
 	#get number of mobile ions types
 	if not (type(DiffCoefBulk) is list or type(DiffCoefBulk) is tuple):
-		print "Error: DiffCoefBulk should be list or tuple!"
+		print("Error: DiffCoefBulk should be list or tuple!")
 		return None
 
 	NIonsTypes=len(DiffCoefBulk)
 	if len(DiffCoefBulk)!=len(Rions):
-		print "Error: Different number of mobile ions types: len(DiffCoefBulk)!=len(Rions)"
+		print("Error: Different number of mobile ions types: len(DiffCoefBulk)!=len(Rions)")
 		return None
 	if type(Cbulk) is list or type(Cbulk) is tuple:
 		if len(DiffCoefBulk)!=len(Cbulk):
-			print "Error: Different number of mobile ions types: len(DiffCoefBulk)!=len(Cbulk)"
+			print("Error: Different number of mobile ions types: len(DiffCoefBulk)!=len(Cbulk)")
 			return None
 	bld.NIonsTypes=NIonsTypes
 	
@@ -939,7 +939,7 @@ def GetWorldBuilder(
 	elif DiffusionModel=="MD":
 		bld.setDiffusionMode(BuildWorldNI.Exp)
 	else:
-		print "Error: Unknown Diffusion Model!"
+		print("Error: Unknown Diffusion Model!")
 		return None
 	# Parameters for exponential decay
 	bld.setExpDifPar(KexpDiff,RexpDiff,DiffRmaxAffect)
@@ -980,7 +980,7 @@ def GetWorldBuilder(
 		bld.BoundaryCondition=1
 	else:
 		bld.BoundaryCondition=0
-		print "Error: Unknown Boundary Condition! Should be ZeroBC or CoulBC"
+		print("Error: Unknown Boundary Condition! Should be ZeroBC or CoulBC")
 		return None
 	if RemoveIonsCavities:
 		bld.RemovingCavities=True

@@ -8,7 +8,6 @@
 # Include wxPython modules
 import wx
 import wx.grid
-import wx.animate
 
 # Custom source
 import wx

@@ -15,7 +15,10 @@ def load_qr_db():
 
 def on_pnpgui(_):
     # A message dialog box with an OK button. wx.OK is a standard ID in wxWidgets.
+    import wx
     import molset
+    import hapygui
+
     pmset=molset.GetCurMolSet()
     if pmset is None:
         dlg = wx.MessageDialog(hapygui.GetMainFrame(), "MolSet is not loaded", "Message from PNPGUI", wx.OK)

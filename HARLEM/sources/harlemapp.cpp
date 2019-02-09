@@ -637,6 +637,7 @@ int HarlemApp::Python_AppInit()
 		"    print('Running from VS build directory, adding path to harlem python modules from source code.\\n')\n"
 		"    sys.path.insert(1, os.path.join(HAPACK_DIR, 'HARLEM', 'scripts'))\n"
 		"    sys.path.insert(1, os.path.join(HAPACK_DIR, 'PNPS', 'src'))\n"
+		"    sys.path.insert(1, os.path.join(HAPACK_DIR, 'PNPS'))\n"
 	);
 #else
 	std::string HaScriptDir=(std::string)"sys.path.insert(1,\"" + harlem_home_dir + (std::string)"scripts\")";
@@ -680,6 +681,7 @@ int HarlemApp::Python_AppInit()
 		Py_XDECREF(v);
 	}
 
+#if PY_VERSION_HEX >= 0x03000000
 	// Initialize Harlem's wxPython modules
 	ires = PyRun_SimpleString(
 		"try:\n"
@@ -690,6 +692,7 @@ int HarlemApp::Python_AppInit()
 		"    import traceback\n"
 		"    traceback.print_exc()\n"
 	);
+#endif
 
 //	Py_Finalize();
 #endif
