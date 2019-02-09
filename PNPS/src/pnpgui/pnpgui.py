@@ -8,7 +8,7 @@ from .create_map_panel import CreateMapsPanel
 from .pbsr_panel import PBSRPanel
 
 from .utils import FileBB_CheckFileExistence, ShowVectorField3D
-from pnpgui_wdr import *
+from .pnpgui_wdr import *
 
 try:
     import pnps
@@ -805,7 +805,7 @@ class PNPFrame(wx.Frame):
             # delete all curent elements
             while DielPatchTable.GetNumberRows() > 0:
                 DielPatchTable.DelElementByRow(0)
-                print DielPatchTable.GetNumberRows()
+                print(DielPatchTable.GetNumberRows())
             fIn = open(path, 'rt')
             rawtab = fIn.readlines()
             fIn.close()
@@ -884,7 +884,7 @@ class PNPFrame(wx.Frame):
             # delete all curent elements
             while DiffPatchTable.GetNumberRows() > 0:
                 DiffPatchTable.DelElementByRow(0)
-                print DiffPatchTable.GetNumberRows()
+                print(DiffPatchTable.GetNumberRows())
             fIn = open(path, 'rt')
             rawtab = fIn.readlines()
             fIn.close()
@@ -902,7 +902,7 @@ class PNPFrame(wx.Frame):
         dlg.Destroy()
 
     def PatchMaps_LoadMaps(self, event):
-        print "Loading Map Information..."
+        print("Loading Map Information...")
         # check the existance of input map file
         SomeOfInputFilesDoNotExists = False
         SomeOfInputFilesDoNotExistsMessage = ""
@@ -929,14 +929,14 @@ class PNPFrame(wx.Frame):
         for i in range(14):
             DielConstInUse[i] = NI.GetDielConstInUse(i)
         del NI
-        print DielConstInUse
+        print(DielConstInUse)
 
         self.Table_PatchMap_DielInUse.GetTable().SetNewDielConstInUse(DielConstInUse)
-        print "done with Loading Map Information"
+        print("done with Loading Map Information")
 
     def PatchMaps_PatchMaps(self, event):
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        print "Patching Maps..."
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print("Patching Maps...")
         # Check input values
         # check the existance of input map file
         SomeOfInputFilesDoNotExists = False
@@ -980,9 +980,9 @@ class PNPFrame(wx.Frame):
 
         if self.FileBB_PatchMap_SysTopFileNameOUT.GetValue() == "None":
             if self.FileBB_PatchMap_DiffFileNameOUT.GetValue() == "None":
-                print "Nothing to do"
-                print "done with Patching Maps"
-                print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+                print("Nothing to do")
+                print("done with Patching Maps")
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
                 return
         # Do the magic
         if self.FileBB_PatchMap_DiffFileNameIN.GetValue() != "None":
@@ -1016,7 +1016,7 @@ class PNPFrame(wx.Frame):
                 z2 = DielPatchTable.GetValue(i, 5)
                 R = DielPatchTable.GetValue(i, 6)
                 patcher.PatchDielMaps(epsToOver, epsNew, x, y, z1, z2, R)
-            print "==============================================================================="
+            print("===============================================================================")
             patcher.PushIntDielMaps()
 
         if self.FileBB_PatchMap_DiffFileNameOUT.GetValue() != "None":
@@ -1034,7 +1034,7 @@ class PNPFrame(wx.Frame):
                 z2 = DiffPatchTable.GetValue(i, 7)
                 R = DiffPatchTable.GetValue(i, 8)
                 patcher.PatchDiffMaps(Dscale1K, Dscale2K, Dscale1Cl, Dscale2Cl, x, y, z1, z2, R)
-            print "==============================================================================="
+            print("===============================================================================")
             patcher.DelRefDiff()
 
         if self.FileBB_PatchMap_SysTopFileNameOUT.GetValue() != "None":
@@ -1044,8 +1044,8 @@ class PNPFrame(wx.Frame):
         del patcher
         del contworld
         # Read maps values
-        print "done with Patching Maps"
-        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        print("done with Patching Maps")
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     def PatchMaps_OnViewStaticCharge(self, event):
         if not FileBB_CheckFileExistence(self.FileBB_PatchMap_SysTopFileNameOUT):
@@ -1297,14 +1297,14 @@ class PNPFrame(wx.Frame):
             DiffFileNameOUT = None
         PotFileNameOUT = self.FileBB_IAV_PotFileNameOUT.GetValue()
         ConcFileNameOUT = self.FileBB_IAV_ConcFileNameOUT.GetValue()
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        print "Running IAV Refinement ..."
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print("Running IAV Refinement ...")
         # Load maps
         contworld = pnps.LoadContWorld(SysTop=SysTopFileNameIN, PMF=SRFileName,
                                          Potential=PotFileNameIN, Concentration=ConcFileNameIN,
                                          Diffusion=DiffFileNameIN)
         if contworld == None:
-            print "Error: contworld was not allocated"
+            print("Error: contworld was not allocated")
             return False
 
         pnps.PNPUtil.ConvertPBLJresultsToDynamicCharge(contworld)
@@ -1326,8 +1326,8 @@ class PNPFrame(wx.Frame):
         contworld.WriteDynamicCharge(ConcFileNameOUT)
         # free allocations
         del contworld
-        print "done IAV Refinement"
-        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        print("done IAV Refinement")
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     def IAVRef_OnViewPlainDiff(self, event):
         if not FileBB_CheckFileExistence(self.FileBB_IAV_SysTopFileNameOUT):
@@ -1596,14 +1596,14 @@ class PNPFrame(wx.Frame):
         ConcFileNameOUT = self.FileBB_PNPSR_ConcFileNameOUT.GetValue()
         if ConcFileNameOUT == "None":
             ConcFileNameOUT = None
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        print "Running PNP-SR ..."
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print("Running PNP-SR ...")
         # Load maps
         contworld = pnps.LoadContWorld(SysTop=SysTopFileNameIN, PMF=SRFileName,
                                          Potential=PotFileNameIN, Concentration=ConcFileNameIN,
                                          Diffusion=DiffFileNameIN)
         if contworld == None:
-            print "Error: contworld was not allocated"
+            print("Error: contworld was not allocated")
             return False
 
         # do PNP-SR
@@ -1611,7 +1611,7 @@ class PNPFrame(wx.Frame):
         if (AppPotMode_AloneMem):
             LimitCurrentCalcZ = contworld.AddPotentialAuto(PotDiff)
             if LimitCurrentCalcZ == None:
-                print "Error: can not locate implicit membrane"
+                print("Error: can not locate implicit membrane")
                 del contworld
                 return False
         else:
@@ -1628,8 +1628,8 @@ class PNPFrame(wx.Frame):
         contworld.WriteDynamicCharge(ConcFileNameOUT)
         # free allocations
         del contworld
-        print "done PNP-SR"
-        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        print("done PNP-SR")
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     def PNPSR_OnViewPot(self, event):
         ShowVectorField3D(str(self.FileBB_PNPSR_PotFileNameOUT.GetValue()), self.pmset, "Potential")

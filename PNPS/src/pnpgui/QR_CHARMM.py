@@ -3,7 +3,7 @@ from molset import *
 
 #Load QRDB
 def LoadQRDB_CHARMM():
-	print "Loading QRDB-CHARMM..."
+	print("Loading QRDB-CHARMM...")
 	QRDB=GetQRDB()
 	ref=""
 	notes="harges from CHARMM only dppc;Radii generic"
@@ -156,6 +156,6 @@ def LoadQRDB_CHARMM():
 	#r.SetAtom("C77", 0,2.0)
 	#r.SetAtom("C711", 0,2.0)
 	#r.SetAtom("C715", 0,2.0)
-	print
+	print()
 LoadQRDB_CHARMM()
 

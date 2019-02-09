@@ -20,7 +20,7 @@ def pnps_run(ScriptFileName):
     import subprocess
     curdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     return subprocess.Popen(
-        [os.path.join(curdir,"PNPS64","PNPS.EXE", ScriptFileName],
+        [os.path.join(curdir,"PNPS64","PNPS.EXE"), ScriptFileName],
         env={"PYTHONPATH": ""}
     )
 
@@ -55,7 +55,7 @@ class PNPSBasePanel(wx.Panel):
         # set ref to PNPFrame
         self.pnps_frame = parent.GetParent()
         self.pmset = self.pnps_frame.pmset
-        import pnpgui
+        from . import pnpgui
         assert isinstance(self.pnps_frame, pnpgui.PNPFrame)
 
         # Validation list of NumCtrls
@@ -220,7 +220,7 @@ class PNPSBasePanel(wx.Panel):
         if not self.ValidateParameters():
             return False
 
-        print "Saving PNPS run-script ..."
+        print("Saving PNPS run-script ...")
         script = self.GenerateRunScript()
         if script is None:
             log.error("Can not generate script!")
@@ -240,19 +240,19 @@ class PNPSBasePanel(wx.Panel):
 
         log.debug(script)
 
-        print "done with saving"
+        print("done with saving")
         return True
 
     def OnRunScript(self, _):
         """Save script and start execution in separate process"""
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
         if not self.OnSaveScript(_):
             return
 
         ScriptFileName = str(self.FBB_ScriptFileName.GetValue())
 
-        print "Running " + ScriptFileName
+        print("Running " + ScriptFileName)
 
         self.pnps_process = pnps_run(ScriptFileName)
 
@@ -260,8 +260,8 @@ class PNPSBasePanel(wx.Panel):
         self.timer.Start(1000)
         self.Btn_Stop.Enable(True)
 
-        print "done with running " + ScriptFileName
-        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        print("done with running " + ScriptFileName)
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     def OnStopScript(self, _):
         """Terminate script execution"""

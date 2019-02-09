@@ -323,28 +323,28 @@ class AtomParamsPanel(PNPSBasePanel):
             return
 
         # Load QRDB
-        print "Loading QRdielDB..."
+        print("Loading QRdielDB...")
         self.strHarlemSetQR = "Use Harlem Set Q and R"
         self.ChoiceFF4QRdiel.Append(self.strHarlemSetQR)
         self.ChoiceFF4QRdiel.SetSelection(1)
 
         QRdielDB = molset.GetQRDB()
         if QRdielDB.GetFF("AMBER94") is None:
-            from QR_AMBER import LoadQRDB_AMBER94
+            from .QR_AMBER import LoadQRDB_AMBER94
             LoadQRDB_AMBER94()
 
         if QRdielDB.GetFF("PARSE94") is None:
-            from QR_PARSE94 import LoadQRDB_PARSE94
+            from .QR_PARSE94 import LoadQRDB_PARSE94
             LoadQRDB_PARSE94()
 
         QRdielDB.PrintFFsInfo()
         for i in range(QRdielDB.NumFF()):
             ffname = QRdielDB.GetFFbyNum(i).Name
-            print ffname
+            print(ffname)
             self.ChoiceFF4QRdiel.Append(ffname)
             if ffname == "AMBER94":
                 self.ChoiceFF4QRdiel.SetSelection(i + 1)
-        print "done with loading QRdielDB."
+        print("done with loading QRdielDB.")
 
     def PrepTab_InitDBforSR(self):
         self.ChoiceFF4SR.Append("None")
@@ -359,9 +359,9 @@ class AtomParamsPanel(PNPSBasePanel):
 
         from .pnpgui import pnpgui_mod_dir
         res_db = os.path.join(pnpgui_mod_dir, "db_aar_sr1.pan")
-        print "Loading DB for SR-MD from %s ..." % res_db
+        print(("Loading DB for SR-MD from %s ..." % res_db))
         self.pnpmod.ReadPANDB(res_db, 1)
-        print "done with Loading DB for SR-MD."
+        print("done with Loading DB for SR-MD.")
 
     def ValidateParameters(self):
         return self._ValidateParameters()
@@ -377,8 +377,8 @@ class AtomParamsPanel(PNPSBasePanel):
             log.error("Can not executed this part without Harlem")
             return
 
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        print "Setting Parameters for Molecules..."
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print("Setting Parameters for Molecules...")
         # Process
 
         AtmParFileNameOut = FileBB_GetValue(self.FBB_AtmParFileName_Out)
@@ -404,7 +404,7 @@ class AtomParamsPanel(PNPSBasePanel):
             self.pnpmod.AssignPAN(1)
 
         natoms = self.pnpmod.mSR_A_K.size()
-        print "Total number of atoms is %s" % natoms
+        print(("Total number of atoms is %s" % natoms))
         # Output
         if self.GridAtomParam.GetNumberRows() > 0:
             self.GridAtomParam.DeleteRows(0, self.GridAtomParam.GetNumberRows())
@@ -493,8 +493,8 @@ class AtomParamsPanel(PNPSBasePanel):
                                        self.AtmParTable.AtomsIER1, self.AtmParTable.AtomsIER2,
                                        self.AtmParTable.SR_A_K, self.AtmParTable.SR_N_K, self.AtmParTable.SR_A_Cl,
                                        self.AtmParTable.SR_N_Cl)
-        print "Done with Setting Parameters for Molecules"
-        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        print("Done with Setting Parameters for Molecules")
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     def OnSaveAgainAtomParam(self, _):
         if not self.ValidateParameters():
@@ -502,18 +502,18 @@ class AtomParamsPanel(PNPSBasePanel):
         # @todo make it work
         # do the trick
         AtmParFileName = str(self.FBB_AtmParFileName_Out.GetValue())
-        print "Saving Parameters for Molecules to %s ..." % AtmParFileName
+        print(("Saving Parameters for Molecules to %s ..." % AtmParFileName))
         self.OnCalcStats(None)
         self.saveAtmParTable(AtmParFileName)
-        print "done"
+        print("done")
 
     def OnCalcStats(self, _):
         if self.AtmParTable.natoms == 0:
             log.error("There is no atoms in ")
-        print "Total charge: %s" % sum(self.AtmParTable.AtomsCharge)
-        print "x min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorX),max(self.AtmParTable.AtomsCoorX))
-        print "y min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorY), max(self.AtmParTable.AtomsCoorY))
-        print "z min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorZ), max(self.AtmParTable.AtomsCoorZ))
+        print(("Total charge: %s" % sum(self.AtmParTable.AtomsCharge)))
+        print(("x min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorX),max(self.AtmParTable.AtomsCoorX))))
+        print(("y min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorY), max(self.AtmParTable.AtomsCoorY))))
+        print(("z min,max: %s. %s" % (min(self.AtmParTable.AtomsCoorZ), max(self.AtmParTable.AtomsCoorZ))))
 
 
 

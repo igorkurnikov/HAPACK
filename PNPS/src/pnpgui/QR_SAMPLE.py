@@ -6,7 +6,7 @@ import pnpmod
 from pnpmod import *
 
 #Load QRDB
-print "Loading QRDB-AMBER..."
+print("Loading QRDB-AMBER...")
 QRDB=GetQRDB()
 ff=QRDB.NewFF("AMBER??","Ref to AMBER","Here is Some Notes")
 
@@ -86,6 +86,6 @@ r.SetAtom("HB2" ,  0.06030, r_HC)
 r.SetAtom("HB3" ,  0.06030, r_HC)
 
 ff.PrintEntries()
-print
+print()
 
 

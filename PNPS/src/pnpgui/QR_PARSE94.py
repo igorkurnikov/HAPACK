@@ -5,7 +5,7 @@ import logging as log
 # Load QRDB
 def LoadQRDB_PARSE94():
     """Load PARSE94 QR DB"""
-    print "Loading QRDB-PARSE94..."
+    print("Loading QRDB-PARSE94...")
 
     QRDB = molset.GetQRDB()
     if QRDB.GetFF("PARSE94") is not None:

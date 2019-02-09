@@ -3,7 +3,7 @@ from molset import *
 
 #Load QRDB
 def LoadQRDB_OPLS88():
-	print "Loading QRDB-OPLS88..."
+	print("Loading QRDB-OPLS88...")
 	QRDB=GetQRDB()
 	ref="W. L. Jorgensen and J. Tirado-Rives. The OPLS Force Field for Proteins. Energy Minimizations for Crystals of Cyclic Peptides and Crambin. J. Am. Chem. Soc. 1988, 110, 1657-1666. "
 	notes="OPLS88iThinkItInBohr"

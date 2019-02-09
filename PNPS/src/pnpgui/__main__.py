@@ -1,6 +1,6 @@
 if __name__ == '__main__':
     import wx
-    import pnpgui
+    from . import pnpgui
     import logging
     logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger()

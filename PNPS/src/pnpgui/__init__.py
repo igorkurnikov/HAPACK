@@ -3,13 +3,13 @@
 
 def load_qr_db():
     #Load QRDB
-    print "Loading QRDB..."
+    print("Loading QRDB...")
     QRDB=GetQRDB()
     #import sys
     #print sys.path
-    import QR_AMBER
-    import QR_OPLS88
-    import QR_PARSE94
+    from . import QR_AMBER
+    from . import QR_OPLS88
+    from . import QR_PARSE94
     QRDB.PrintFFsInfo()
 
 
@@ -22,7 +22,7 @@ def on_pnpgui(_):
         dlg.ShowModal() # Show it
         dlg.Destroy() # finally destroy it when finished.
     else:
-        import pnpgui
+        from . import pnpgui
         import molset
         # @todo add ppp
         # pnpgui.pApp = molset.pApp

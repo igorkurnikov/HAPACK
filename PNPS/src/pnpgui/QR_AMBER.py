@@ -4,7 +4,7 @@ import logging as log
 
 def LoadQRDB_AMBER94():
     """Load QRDB-AMBER94"""
-    print "Loading QRDB-AMBER94..."
+    print("Loading QRDB-AMBER94...")
     QRDB = molset.GetQRDB()
 
     if QRDB.GetFF("AMBER94") is not None:
