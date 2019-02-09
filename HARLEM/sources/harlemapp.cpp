@@ -572,11 +572,15 @@ int HarlemApp::Python_AppInit()
 #else
 	Py_SetProgramName("HARLEM");
 #endif
+
+#ifdef _DEBUG
 	char* env_p;
 	if (env_p = std::getenv("PATH"))
 		std::cout << "Your PATH is: " << env_p << '\n';
 	if (env_p = std::getenv("PYTHONPATH"))
 		std::cout << "Your PYTHONPATH is: " << env_p << '\n';
+	std::cout << '\n';
+#endif
 	/* Initialize the Python interpreter.  Required. */
 	Py_Initialize();	
 //	PrintLog(" Python_AppInit pt 4 \n");
@@ -613,28 +617,38 @@ int HarlemApp::Python_AppInit()
 	ires = PyRun_SimpleString("import _halib");
 
 	//PrintLog(" Python_AppInit pt 5 \n")
-	ires = PyRun_SimpleString("import sys");
+	ires = PyRun_SimpleString(
+		"import os\n"
+		"import sys\n"
+	);
 	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading sys module \n");
 #if defined(_MSC_VER)
-	std::string python_dll_dir = "sys.path.insert(1,\"" + harlem_home_dir + "DLLs\")";
-	ires = PyRun_SimpleString(python_dll_dir.c_str());
-	std::string lib_dir = "sys.path.insert(2,\"" + harlem_home_dir + "Lib\")";
-	ires = PyRun_SimpleString(script_dir.c_str());
-	std::string script_dir = "sys.path.insert(3,\"" + harlem_home_dir + "scripts\")";
-	ires = PyRun_SimpleString(script_dir.c_str());
-	std::string res_db_dir = "sys.path.insert(4,\"" + harlem_home_dir + "residues_db\")";
-	ires = PyRun_SimpleString(res_db_dir.c_str());
-	//std::string wxDir=(std::string)"sys.path.insert(3,\"" + harlem_home_dir + (std::string)"Lib\\site-packages\\wx-2.8-msw-unicode\")";
-	//ires = PyRun_SimpleString(wxDir.c_str());
-	//ires = PyRun_SimpleString("import wxversion");
-	//ires = PyRun_SimpleString("wxversion.select('2.8')");
-	//ires = PyRun_SimpleString("sys.path.insert(1,\"c:\\harlem\\scripts\")");
+	std::string set_harlem_home_dir="HARLEM_HOME_DIR = r'" + harlem_home_dir + "\\'[:-2]";
+	ires = PyRun_SimpleString(set_harlem_home_dir.c_str());
+	ires = PyRun_SimpleString(
+		"sys.path.insert(1, os.path.join(HARLEM_HOME_DIR, 'scripts'))\n"
+		"sys.path.insert(1, os.path.join(HARLEM_HOME_DIR, 'residues_db'))\n"
+	);
+
+	// add path of harlem python modules
+	ires = PyRun_SimpleString(
+		"HAPACK_DIR = os.path.dirname(os.path.dirname(HARLEM_HOME_DIR))\n"
+		"if HAPACK_DIR == 'C:\\MYPROG\\HAPACK':\n"
+		"    print('Running from VS build directory, adding path to harlem python modules from source code.\\n')\n"
+		"    sys.path.insert(1, os.path.join(HAPACK_DIR, 'HARLEM', 'scripts'))\n"
+		"    sys.path.insert(1, os.path.join(HAPACK_DIR, 'PNPS', 'src'))\n"
+	);
 #else
 	std::string HaScriptDir=(std::string)"sys.path.insert(1,\"" + harlem_home_dir + (std::string)"scripts\")";
         //ires = PyRun_SimpleString(HaScriptDir.c_str());
 	std::string HaDBDir=(std::string)"sys.path.insert(2,\"" + harlem_home_dir + (std::string)"residues_db\")";
 	ires = PyRun_SimpleString(HaDBDir.c_str());
 #endif
+
+#ifdef _DEBUG
+	ires = PyRun_SimpleString("print('sys.path = ' + str(sys.path))");
+#endif
+
 	ires = PyRun_SimpleString("import halib");
 	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading halib module \n");
 	ires = PyRun_SimpleString("from halib import *");
@@ -665,7 +679,17 @@ int HarlemApp::Python_AppInit()
 #endif
 		Py_XDECREF(v);
 	}
-	ires = PyRun_SimpleString("print(sys.path)");
+
+	// Initialize Harlem's wxPython modules
+	ires = PyRun_SimpleString(
+		"try:\n"
+		"    import hapygui_init\n"
+		"except Exception as e :\n"
+		"    print('Can not import hapygui_init module!')\n"
+		"    print(str(e))\n"
+		"    import traceback\n"
+		"    traceback.print_exc()\n"
+	);
 
 //	Py_Finalize();
 #endif
