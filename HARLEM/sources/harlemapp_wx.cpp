@@ -248,27 +248,33 @@ bool HarlemAppWX::OnInit(void)
 int HarlemAppWX::LoadHaPyGUIModules()
 {
 #ifdef __GNUG__
-  FILE *in;
-  std::string HarlemProfilePy=harlem_home_dir + (std::string)"scripts/hapygui_init.py";
-  in=fopen(HarlemProfilePy.c_str(),"r");
-  if(in!=NULL)
-  {
-    fclose(in);
-    return ExecuteScriptFromFile(HarlemProfilePy.c_str());
-  }
+	FILE *in;
+	std::string HarlemProfilePy=harlem_home_dir + (std::string)"scripts/hapygui_init.py";
+	in=fopen(HarlemProfilePy.c_str(),"r");
+	if(in!=NULL)
+	{
+		fclose(in);
+		return ExecuteScriptFromFile(HarlemProfilePy.c_str());
+	}
 #endif
 #ifdef _MSC_VER
-  FILE *in;
-  std::string HarlemProfilePy = harlem_home_dir + (std::string)"scripts\\hapygui_init.py";
-  //in=fopen(HarlemProfilePy.c_str(),"r");
-  //if(in!=NULL)
-  {
-  //  fclose(in);
-//	PrintLog("Loading %s\n",HarlemProfilePy.c_str());
-//    return ExecuteScriptFromFile(HarlemProfilePy.c_str());
-  }
+#if PY_VERSION_HEX >= 0x03000000
+	// Initialize Harlem's wxPython modules
+	PyRun_SimpleString(
+		"try:\n"
+		"    print('Initiating wxPython')\n"
+		"    import wx\n"
+		"    wx.AppConsole()\n"
+		"    import hapygui_init\n"
+		"except Exception as e :\n"
+		"    print('Can not import hapygui_init module!')\n"
+		"    print(str(e))\n"
+		"    import traceback\n"
+		"    traceback.print_exc()\n"
+	);
 #endif
-  return 0;
+#endif
+	return 0;
 }
 int HarlemAppWX::OnExit()
 {
