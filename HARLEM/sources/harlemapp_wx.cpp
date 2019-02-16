@@ -61,13 +61,6 @@
 IMPLEMENT_APP(HarlemAppWX)
 #else
 IMPLEMENT_APP_NO_MAIN(HarlemAppWX)
-
-int main(int argc, char **argv)
-{
-	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
-	return wxEntry(argc, argv);
-}
-
 #endif
 
 const wxEventType wxEVT_HARLEM_APP = wxNewEventType();
