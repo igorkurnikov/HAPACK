@@ -125,6 +125,7 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 
 void RedirectIOToConsole()
 {
+	return;
 #if defined(_MSC_VER)
 	int hConHandle;
 	long lStdHandle;

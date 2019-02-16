@@ -60,7 +60,14 @@
 //}
 IMPLEMENT_APP(HarlemAppWX)
 #else
-IMPLEMENT_APP(HarlemAppWX)
+IMPLEMENT_APP_NO_MAIN(HarlemAppWX)
+
+int main(int argc, char **argv)
+{
+	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
+	return wxEntry(argc, argv);
+}
+
 #endif
 
 const wxEventType wxEVT_HARLEM_APP = wxNewEventType();
@@ -263,8 +270,8 @@ int HarlemAppWX::LoadHaPyGUIModules()
 	PyRun_SimpleString(
 		"try:\n"
 		"    print('Initiating wxPython')\n"
-		"    import wx\n"
-		"    import hapygui_init\n"
+		"    #import wx\n"
+		"    #import hapygui_init\n"
 		"except Exception as e :\n"
 		"    print('Can not import hapygui_init module!')\n"
 		"    print(str(e))\n"
@@ -278,6 +285,12 @@ int HarlemAppWX::LoadHaPyGUIModules()
 int HarlemAppWX::OnExit()
 {
 	PrintLog("HarlemAppWX::OnExit() end \n");
+#if !defined(HA_NOGUI)
+#if(_MSC_VER)
+
+	//FreeConsole();
+#endif
+#endif
 	return TRUE;
 }
 
