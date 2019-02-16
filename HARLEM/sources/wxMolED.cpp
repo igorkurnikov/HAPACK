@@ -322,7 +322,7 @@ void wxMolED::OnPpjFileBrowse(wxCommandEvent& event)
 void wxMolED::OnNextButtonClick(wxCommandEvent& event)
 {
 	// Now load the PDB file that was selected
-	HaMainFrameWX* frame_main = (wxGetApp()).GetMainFrame();
+	HaMainFrameWX* frame_main = GetHaMainFrameWX();
     
 	wxFileName fname_full;
     fname_full.Assign(topFileDir,topFileName);

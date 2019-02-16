@@ -668,7 +668,7 @@ void SaveImageFileDlg::OnSaveFile( wxCommandEvent &event )
 
 int PrintMessage(const char* str)
 {
-	HaMainFrameWX* frame_main = wxGetApp().GetMainFrame();
+	HaMainFrameWX* frame_main = GetHaMainFrameWX();
 	if(frame_main)
 	{
 		wxTextCtrl* log_win = (wxTextCtrl*) frame_main->FindWindow(IDC_LOG_WIN);
@@ -3221,7 +3221,7 @@ void EditFragmDlgWX::OnCreateFragm(wxCommandEvent& event)
 	if(pmset)
 	{
 		HaMolSet* pfrag = pmset->CreateFragmentFromSelection(frg_name.c_str());
-		HaMainFrameWX* frame_main = wxGetApp().GetMainFrame();
+		HaMainFrameWX* frame_main = GetHaMainFrameWX();
 		frame_main->CreateMolView(pfrag);
 	}
 	TransferDataToWindow();

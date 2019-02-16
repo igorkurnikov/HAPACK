@@ -41,7 +41,7 @@
 #include "mm_elements.h"
 #include "mm_model.h"
 #include "haempirical.h"
-#include "harlemapp_wx.h"
+#include "hamainframe_wx.h"
 
 #include "ha_wx_res_mikola_wdr.h"//<mikola 26March08
 #include "object3d.h"//<mikola 26March08
@@ -829,7 +829,7 @@ void wxFieldPlaneView::OnHide( wxCommandEvent& event )
 void CreatewxFieldPlaneView(PlaneViewOfHaField3D* PlView, HaMolSet* _MolSet,const char *title,int OwnerOfView)
 {
 	wxString Name(title);
-	wxFieldPlaneView *PV=new wxFieldPlaneView(PlView,_MolSet,(wxWindow*)(GetAppWX()->GetMainFrame()),-1,Name);
+	wxFieldPlaneView *PV=new wxFieldPlaneView(PlView,_MolSet,(wxWindow*)GetHaMainFrameWX(),-1,Name);
 	PV->OwnerOfView=OwnerOfView;
 	//wxFieldPlaneView *PV=new wxFieldPlaneView(PlView,_MolSet,parent,-1,Name);
 	PV->Show(true);

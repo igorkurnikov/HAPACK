@@ -188,6 +188,8 @@ private:
     DECLARE_EVENT_TABLE();
 };
 
+HaMainFrameWX* GetHaMainFrameWX();
+
 class MolViewWX;
 
 class MolViewFrame: public wxMDIChildFrame

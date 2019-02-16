@@ -68,6 +68,10 @@
 
 #define IsClose(u,v) (((u)>=(v)-1) && ((u)<=(v)+1))
 
+
+HaMainFrameWX *m_HaMainFrameWX = nullptr;
+HaMainFrameWX* GetHaMainFrameWX() { return m_HaMainFrameWX; }
+
 // For drawing lines in a canvas
 long xpos = -1;
 long ypos = -1;
@@ -794,6 +798,7 @@ END_EVENT_TABLE()
 HaMainFrameWX::HaMainFrameWX() :
     wxMDIParentFrame(NULL, -1, "HARLEM", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
 {
+		m_HaMainFrameWX = this;
 	int xs = wxSystemSettings::GetMetric(wxSYS_SCREEN_X);
     int ys = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y);
 
