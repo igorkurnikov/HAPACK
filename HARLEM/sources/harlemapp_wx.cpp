@@ -264,7 +264,6 @@ int HarlemAppWX::LoadHaPyGUIModules()
 		"try:\n"
 		"    print('Initiating wxPython')\n"
 		"    import wx\n"
-		"    wx.AppConsole()\n"
 		"    import hapygui_init\n"
 		"except Exception as e :\n"
 		"    print('Can not import hapygui_init module!')\n"
