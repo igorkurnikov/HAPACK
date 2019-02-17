@@ -53,6 +53,4 @@ private:
 	int option_primary;
 };
 
-
-
 #endif

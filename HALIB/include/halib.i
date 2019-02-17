@@ -1,5 +1,4 @@
-%module halib
-//%import hamolset.i
+%module(package="harlempy") halib
 
 %begin %{
 #include <cstddef>  

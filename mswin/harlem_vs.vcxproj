@@ -261,10 +261,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -305,10 +302,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -350,10 +344,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -390,14 +381,11 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -445,10 +433,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -495,10 +480,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -546,10 +528,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
@@ -596,10 +575,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"

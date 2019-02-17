@@ -13,8 +13,8 @@
 #define CONTWORLD_H
 
 #include "pnps.h"
-#include "vector"
-#include "string"
+#include <vector>
+#include <string>
 #include <zlib.h>
 
 // #define DIELECTRIC_CONSTANT_0 1000

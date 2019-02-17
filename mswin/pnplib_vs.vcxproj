@@ -254,6 +254,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths_win32_debug__python27.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -261,6 +262,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths_win32_debug__python27.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -268,6 +270,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -275,6 +278,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_x64_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
     <Import Project="paths_x64__mpi.props" />
@@ -322,6 +326,11 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -339,9 +348,9 @@
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
-      <Message>Copy Python Scripts</Message>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
@@ -359,6 +368,11 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
     <ClCompile>
@@ -376,9 +390,9 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
-      <Message>Copy Python Scripts</Message>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -395,6 +409,11 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -411,9 +430,9 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
-      <Message>Copy Python Scripts</Message>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
@@ -430,6 +449,11 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib />
+    <PostBuildEvent>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
     <ClCompile>
@@ -446,9 +470,9 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)llpnps.py $(OutputPath)\scripts</Command>
-      <Message>Copy Python Scripts</Message>
+      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -14,6 +14,9 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="Haprops_Debug">

@@ -36,7 +36,7 @@ namespace std {
 	%template(DoubleVector) vector<double>;
 	%template(StringVector) vector<string>;
 }                    
-                           
+
 %import ../../HALIB/include/halib.i                              
                       
 %{                                                           

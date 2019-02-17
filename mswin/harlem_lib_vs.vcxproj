@@ -135,6 +135,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths_win32_debug__python27.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -144,6 +145,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths_win32_debug__python27.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -153,6 +155,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
     <Import Project="paths_win32__mpi.props" />
@@ -162,6 +165,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
+    <Import Project="haprops_debug.props" />
     <Import Project="paths_x64_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
     <Import Project="paths_x64__intel_compiler.props" />
@@ -209,29 +213,44 @@
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset_d</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset_d</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset_d</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
     <TargetName>_molset_d</TargetName>
     <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>harlem_lib</TargetName>
+    <TargetName>_molset</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -249,7 +268,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -258,12 +277,12 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -294,7 +313,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -302,12 +321,12 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -338,7 +357,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -347,12 +366,12 @@ $(SolutionDir)copy_dependencies.bat
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -383,7 +402,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX).lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -391,12 +410,12 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -431,7 +450,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -442,12 +461,12 @@ $(SolutionDir)copy_dependencies.bat
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -482,7 +501,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -492,12 +511,12 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -532,7 +551,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -543,12 +562,12 @@ $(SolutionDir)copy_dependencies.bat
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
@@ -583,7 +602,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -593,12 +612,12 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\scripts\NUL mkdir $(OutputPath)\scripts
-copy /Y $(IntDir)\molset.py $(OutputPath)\scripts
+      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"

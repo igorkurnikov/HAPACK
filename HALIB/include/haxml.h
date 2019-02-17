@@ -35,13 +35,6 @@ typedef HaAutoTreeObject* (*CreateHaAutoTreeObject)(HaAutoTreeObject*,const char
 
 #include "haobject.h"
 
-//!@brief Class to store Tree like objects
-class HaTreeObject:public HaObject
-{
-  public:
-    HaTreeObject(){};
-    virtual ~HaTreeObject()=0;
-};
 
 TiXmlElement* BldXmlEltFromCstr(const char* Cstr);
 //!@brief like HaTreeObject plus more automatic stuff
