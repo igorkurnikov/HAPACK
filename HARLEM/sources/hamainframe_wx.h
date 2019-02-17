@@ -189,6 +189,8 @@ private:
 };
 
 HaMainFrameWX* GetHaMainFrameWX();
+
+//! HaMainFrameWX starter for starting GUI from python
 void StartHaMainFrameWX();
 
 class MolViewWX;

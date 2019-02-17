@@ -73,6 +73,13 @@ int PrintMessage(const char* str)
 
 #endif
 
+void StartHarlemApp()
+{
+	HarlemApp *m_HarlemApp = new HarlemApp();
+	m_HarlemApp->InitFirst();
+	m_HarlemApp->InitLast();
+}
+
 
 HarlemApp::HarlemApp()
 {
@@ -613,9 +620,6 @@ int HarlemApp::Python_AppInit()
 	init_halib();
 	init_llpnps();
 #endif
-	ires = PyRun_SimpleString("import _molset");
-	ires = PyRun_SimpleString("import _halib");
-
 	//PrintLog(" Python_AppInit pt 5 \n")
 	ires = PyRun_SimpleString(
 		"import os\n"
@@ -626,7 +630,7 @@ int HarlemApp::Python_AppInit()
 	std::string set_harlem_home_dir="HARLEM_HOME_DIR = r'" + harlem_home_dir + "\\'[:-2]";
 	ires = PyRun_SimpleString(set_harlem_home_dir.c_str());
 	ires = PyRun_SimpleString(
-		"sys.path.insert(1, os.path.join(HARLEM_HOME_DIR, 'scripts'))\n"
+		"sys.path.insert(1, HARLEM_HOME_DIR)\n"
 		"sys.path.insert(1, os.path.join(HARLEM_HOME_DIR, 'residues_db'))\n"
 	);
 
@@ -650,13 +654,13 @@ int HarlemApp::Python_AppInit()
 	ires = PyRun_SimpleString("print('sys.path = ' + str(sys.path))");
 #endif
 
-	ires = PyRun_SimpleString("import halib");
+	ires = PyRun_SimpleString("import harlempy.halib");
 	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading halib module \n");
-	ires = PyRun_SimpleString("from halib import *");
+	ires = PyRun_SimpleString("from harlempy.halib import *");
 
-	ires = PyRun_SimpleString("import molset");
+	ires = PyRun_SimpleString("import harlempy.molset");
 	if( ires != 0 ) PrintLog("Error in HarlemApp::Python_AppInit() loading molset module \n");
-	ires = PyRun_SimpleString("from molset import *");
+	ires = PyRun_SimpleString("from harlempy.molset import *");
 
 //	if( !ires ) PrintLog("Error in HarlemApp::Python_AppInit() loading harlem profile script \n");
 	ires = PyRun_SimpleString("pApp = cvar.pApp");

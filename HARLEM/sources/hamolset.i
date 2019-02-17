@@ -98,6 +98,7 @@ namespace std {
 #include "dialogs_wx_2.h"
 void StartHaMainFrameWX();
 #endif
+void StartHarlemApp();
 %}
 
 %pointer_class(int,intp);
@@ -172,3 +173,5 @@ void StartHaMainFrameWX();
 
 void StartHaMainFrameWX();
 #endif
+
+void StartHarlemApp();

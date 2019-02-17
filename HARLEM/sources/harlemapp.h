@@ -115,6 +115,8 @@ public:
 	VecPtr molset_vec;  //!< Vector of pointers to Molecular Sets in the application
 };
 
+//! HarlemApp starter for python runs
+void StartHarlemApp();
 
 /////////////////////////////////////////////////////////////////////////////
 
