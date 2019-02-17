@@ -189,6 +189,7 @@ private:
 };
 
 HaMainFrameWX* GetHaMainFrameWX();
+void StartHaMainFrameWX();
 
 class MolViewWX;
 

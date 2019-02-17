@@ -72,6 +72,22 @@
 HaMainFrameWX *m_HaMainFrameWX = nullptr;
 HaMainFrameWX* GetHaMainFrameWX() { return m_HaMainFrameWX; }
 
+void StartHaMainFrameWX()
+{
+	if (wxTheApp == nullptr) {
+		PrintLog("Can not start HaMainFrameWX wxApp is not started\n");
+	}
+	HaMainFrameWX *m_mainFrame = new HaMainFrameWX();
+
+	m_mainFrame->CreateToolBar();
+	MainToolBarFunc(m_mainFrame->GetToolBar());
+
+	//   m_mainFrame->Centre(wxBOTH);
+	m_mainFrame->Show(TRUE);
+
+	wxTheApp->SetTopWindow(m_mainFrame);
+}
+
 // For drawing lines in a canvas
 long xpos = -1;
 long ypos = -1;

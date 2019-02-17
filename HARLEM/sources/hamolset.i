@@ -96,6 +96,7 @@ namespace std {
 #include "protonredox.h"
 #ifndef HA_NOGUI
 #include "dialogs_wx_2.h"
+void StartHaMainFrameWX();
 #endif
 %}
 
@@ -168,4 +169,6 @@ namespace std {
 
 #ifndef HA_NOGUI
 %include "dialogs_wx_2.h"
+
+void StartHaMainFrameWX();
 #endif
