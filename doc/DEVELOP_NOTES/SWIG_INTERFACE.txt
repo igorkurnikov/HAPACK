@@ -1,0 +1,3 @@
+c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+
+c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -outdir $(Outdir) %(Identity) && copy $(OutDir)%(Filename).py c:\harlem\scripts\
