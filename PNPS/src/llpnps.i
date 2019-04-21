@@ -113,7 +113,10 @@ namespace std {
 %include "pnps.h"
 %include "pnpinterfaces.h"
 %include "mapio.h"
+
+#ifdef HARLEM_MOD
 %template(HaPyDoubleVectorField3D) HaVectorField3D<double>;
+#endif
 
 %include "contworld.h"
 %include "pnpstructs.h"

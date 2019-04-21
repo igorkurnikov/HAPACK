@@ -12,7 +12,6 @@
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
     <ClCompile Include="..\PNPS\src\pbwithljsolver.cpp" />
-    <ClCompile Include="..\PNPS\src\pnpdebug.cpp" />
     <ClCompile Include="..\PNPS\src\pnpinterfaces.cpp" />
     <ClCompile Include="..\PNPS\src\pnps.cpp" />
     <ClCompile Include="..\PNPS\src\pnpsapp.cpp" />

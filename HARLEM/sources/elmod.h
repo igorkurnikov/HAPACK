@@ -109,6 +109,7 @@ Electrostatic Module, replacement of ElectrostMod, mimic its behaviour
 
 @author mikola
 */
+#ifdef ELMOD_COMPILE
 class ElMod : public ElectrostMod
 {
 	public:
@@ -224,6 +225,7 @@ class ElMod : public ElectrostMod
 		int ChargeDistPar;
 		int MemoryLimitOnOneArray;
 };
+#endif
 
 class pKaCalcMod : public  HaCompMod
 {
@@ -392,6 +394,7 @@ class PNPMod : public  HaCompMod
 		ContWorld* m_ContWorld;
 		int RunPNPSFromString(const char* string);
 };
+#ifdef ELMOD_COMPILE
 class ElModRadDist
 {
 	public:
@@ -423,4 +426,5 @@ class ElModRadDist
     HaVec_double** wel;
     int CalcWelRadDistByGrid();
 };
+#endif
 #endif

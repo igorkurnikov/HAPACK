@@ -224,7 +224,7 @@ int HaField3D::SaveGZ(const char* fname,int Columns)
   HaXML::SetAtributeV(&header,"Rmin",Rmin,3);
   HaXML::SetAtributeV(&header,"Rmax",Rmax,3);
   
-  return WriteMapGZ(fname,&header,&m_field_data[0],GS,(float)1.0,"");
+  return HaWriteMapGZ(fname,&header,&m_field_data[0],GS,(float)1.0,"");
 }
 
 int HaField3D::LoadGZ(const char* fname)
@@ -233,7 +233,7 @@ int HaField3D::LoadGZ(const char* fname)
   int GS[3]={-1,-1,-1};
   float Rmin[3],Rmax[3];
   float *vfield=NULL;
-  ReadMapGZ(fname,&header,&vfield,GS,1.0);
+  HaReadMapGZ(fname,&header,&vfield,GS,1.0);
   
   
   bool bres = SetDimensions(GS[0], GS[1], GS[2]);

@@ -249,5 +249,10 @@ class HaXML
     static std::string GetStrByIndex(std::vector<std::string> StrList,int Index);
 };
 
+//! Write to gz-file float array with additional information in header, TiXmlElement should have only attributes
+int HaWriteMapGZ(const char *filename, TiXmlElement *header, float * fmap, int* gridsize, float coef, char* Comments);
+
+//! Read from gz-file float array with additional information in header, TiXmlElement should have only attributes
+int HaReadMapGZ(const char *filename, TiXmlElement** pheader, float **pfmap, int* gridsize, float coef);
 
 #endif // End of define HAXML_H

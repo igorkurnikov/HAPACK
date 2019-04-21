@@ -570,7 +570,7 @@ int HarlemApp::Python_AppInit()
 // Load Harlem Python extension modules  PYTHON 3
 #if PY_VERSION_HEX >= 0x03000000
 	PyImport_AppendInittab("_molset", &PyInit__molset );
-	PyImport_AppendInittab("_halib",  &PyInit__halib );
+	//PyImport_AppendInittab("_halib",  &PyInit__halib );
 	PyImport_AppendInittab("_llpnps", &PyInit__llpnps );
 #endif
 

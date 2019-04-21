@@ -78,6 +78,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HARLEM_PY_LIB", "HARLEM_PY_
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "harlem_lib_vs", "harlem_lib_vs.vcxproj", "{2983D105-9456-41FF-A6DB-41FCE625AE90}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D046183A-16A3-4668-9BAF-928BF4AA4A0F} = {D046183A-16A3-4668-9BAF-928BF4AA4A0F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "halib_py_vs", "halib_py_vs.vcxproj", "{D046183A-16A3-4668-9BAF-928BF4AA4A0F}"
 	ProjectSection(ProjectDependencies) = postProject

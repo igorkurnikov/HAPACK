@@ -32,7 +32,6 @@
 #endif
 
 #include "hampi.h"
-#include "pnpsapp.h"
 #include "harlemapp.h"
 
 
@@ -101,6 +100,34 @@ int ErrorMessage(const char* str)
 static FILE* con_out_fp=NULL;
 static FILE* curr_stdout_fp=NULL;
 
+void AddProcessNumberToFileName(char * out, const char *in, const char *pref, int pnum, int totnum)
+{
+	char in_main[512];
+	char *in_ext, *in_det;
+	strcpy(in_main, in);
+	in_det = strrchr(in_main, '.');
+	if (in_det != NULL)
+	{
+		*in_det = '\0';
+		in_ext = in_det + 1;
+		if (totnum <= 10)
+			sprintf(out, "%s%s%.1d.%s\0", in_main, pref, pnum, in_ext);
+		else if (totnum <= 100)
+			sprintf(out, "%s%s%.2d.%s\0", in_main, pref, pnum, in_ext);
+		else
+			sprintf(out, "%s%s%.3d.%s\0", in_main, pref, pnum, in_ext);
+	}
+	else
+	{
+		if (totnum <= 10)
+			sprintf(out, "%s%s%.1d\0", in_main, pref, pnum);
+		else if (totnum <= 100)
+			sprintf(out, "%s%s%.2d\0", in_main, pref, pnum);
+		else
+			sprintf(out, "%s%s%.3d\0", in_main, pref, pnum);
+	}
+}
+
 int RedirectIOToMultipleFilesMPI(const char* fname)
 {
 	char filenameTMPOUT[512];
@@ -109,7 +136,7 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
 
-	pnpsapp->AddProcessNumberToFileName(filenameTMPOUT,fname,"p_",myrank,nprocs);
+	AddProcessNumberToFileName(filenameTMPOUT,fname,"p_",myrank,nprocs);
 	curr_stdout_fp=fopen(filenameTMPOUT,"a");
 	if(curr_stdout_fp == NULL)
 		return False;

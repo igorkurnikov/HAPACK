@@ -57,7 +57,9 @@ HaCompMod* HaCompMod::CreateCompMod( const int mtype, HaMolSet* new_phost_mset )
 	}
 	else if ( mtype == COMP_MOD_EL )
 	{
+#ifdef ELMOD_COMPILE
 		pmod = new ElMod(new_phost_mset);
+#endif
 	}
 	else if ( mtype == COMP_MOD_PKA_CALC)
 	{

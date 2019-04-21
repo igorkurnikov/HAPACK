@@ -2216,6 +2216,7 @@ void HaMainFrameWX::DoRFDialog(wxCommandEvent &event)
 void
 HaMainFrameWX::OnOpenVectorFieldInHaMolView(wxCommandEvent& event)
 {
+#ifdef PNP_DEPRECATED
 	wxFileDialog dialog(this,
 			wxT("Load Vector Field3D to HaMolView"),
 			wxEmptyString,
@@ -2256,10 +2257,12 @@ HaMainFrameWX::OnOpenVectorFieldInHaMolView(wxCommandEvent& event)
 			PV->Show(true);
 		}
 	}
+#endif
 }
 void 
 HaMainFrameWX::OnOpenDielConstFromNindexInHaMolView(wxCommandEvent& event)
 {
+#ifdef PNP_DEPRECATED
 	wxFileDialog dialog(this,
 			wxT("Open Diel.Conts. Maps From NodeIndex File"),
 			wxEmptyString,
@@ -2302,10 +2305,12 @@ HaMainFrameWX::OnOpenDielConstFromNindexInHaMolView(wxCommandEvent& event)
 		}
 		delete NIndex;
 	}
+#endif
 }
 void 
 HaMainFrameWX::OnOpenDiffConstFromNindexInHaMolView(wxCommandEvent& event)
 {
+#ifdef PNP_DEPRECATED
 	wxFileDialog dialog(this,
 			wxT("Open Diff.Conts. Maps From NodeIndex File"),
 			wxEmptyString,
@@ -2348,10 +2353,12 @@ HaMainFrameWX::OnOpenDiffConstFromNindexInHaMolView(wxCommandEvent& event)
 		}
 		delete NIndex;
 	}
+#endif
 }
 void 
 HaMainFrameWX::OnOpenQstFromNindexInHaMolView(wxCommandEvent& event)
 {
+#ifdef PNP_DEPRECATED
 	wxFileDialog dialog(this,
 			wxT("Open Qstatic Maps From NodeIndex File"),
 			wxEmptyString,
@@ -2390,6 +2397,7 @@ HaMainFrameWX::OnOpenQstFromNindexInHaMolView(wxCommandEvent& event)
 		PV->Show(true);
 		delete NIndex;
 	}
+#endif
 }
 void
 HaMainFrameWX::DoSmlPNPDialog(wxCommandEvent &event)

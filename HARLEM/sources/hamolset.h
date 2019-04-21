@@ -397,7 +397,9 @@ public:
 	HaGaussMod*    GetGaussMod( const bool create_module = false);    //!< Get Gaussian qchem package interaction module associated with the molecular set 
 	HaDaltonMod*      GetDaltonMod( const bool create_module = false);   //!< Get Dalton qchem package  interaction module associated with the molecular set 
 	ElectrostMod*   GetElectrostMod( const bool create_module = false);   //!< Get Continuum Electrostatic computational module associated with the molecular set 
+#ifdef ELMOD_COMPILE
 	ElMod*   GetElMod( const bool create_module = false);   //!< Get Continuum Electrostatic computational module associated with the molecular set 
+#endif
 	pKaCalcMod* GetpKaCalcMod( const bool create_module = false);
 	PNPMod*   GetPNPMod( const bool create_module = false);   //!< Get Continuum Electrostatic computational module associated with the molecular set (PNP)
 	APBSMod*       GetAPBSMod( const bool create_module = false);

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
-
+#include <zlib.h>
 #include <tinyxml.h>
 
 #include "haobject.h"
@@ -1720,3 +1720,182 @@ TiXmlElement* BldXmlEltFromCstr(const char* Cstr)
 }
 
 #endif
+
+
+#ifndef MAP_IO_STRING_LENGTH
+#define MAP_IO_STRING_LENGTH 512
+#endif
+#ifndef MAP_IO_FORCE
+#define MAP_IO_FORCE 1
+#endif
+#ifndef MAP_IO_ADD
+#define MAP_IO_ADD 2
+#endif
+
+//! Write float array in two column format, i.e. value number_of_repetition
+int HaWriteMapGZinTwoColumns(gzFile file, float * fmap, int GSXYZ, float coef)
+{
+	int count;
+	float current;
+	int gridPoint;
+
+	//Write
+	count = 0;
+	current = fmap[0];
+	for (gridPoint = 0; gridPoint < GSXYZ; gridPoint++) {
+		if (current == fmap[gridPoint])
+			count++;
+		else {
+			if (!gzprintf(file, "%.7e %d\n", current*coef, count)) {
+				fprintf(stderr, "ERROR 106: Problems writing to file\n");
+				return EXIT_FAILURE;
+			}
+			count = 1;
+			current = fmap[gridPoint];
+		}
+	}
+	if (!gzprintf(file, "%.7e %d\n", current*coef, count)) {
+		fprintf(stderr, "ERROR 106: Problems writing to file\n");
+		exit(106);
+	}
+	return EXIT_SUCCESS;
+}
+
+int HaReadMapGZOneColumns(gzFile file, float * nmap, unsigned int N, float coef)
+{
+	float current;
+	unsigned int gridPoint;
+	char str[MAP_IO_STRING_LENGTH];
+	unsigned int i;
+
+	gridPoint = 0;
+	while (gzgets(file, str, MAP_IO_STRING_LENGTH) != Z_NULL && gridPoint < N)
+	{
+		nmap[gridPoint] = coef * atof(str);
+		gridPoint++;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+int HaWriteMapGZ(const char *filename, TiXmlElement *header, float * fmap, int* gridsize, float coef, char* Comments)
+{
+	//Build XML Header
+	header->SetArrOfIntAttribute("GridSize", gridsize, 3);
+	header->SetAttribute("Comments", Comments);
+	header->SetIntAttribute("Columns", 2);
+
+	gzFile file;
+	file = gzopen(filename, "wb");
+	if (file == NULL) {
+		fprintf(stderr, "ERROR 102: Can not open file %s\n", filename);
+		return EXIT_FAILURE;
+	}
+	string StrHeader;
+	StrHeader << *header;
+	gzprintf(file, "%s\n", StrHeader.c_str());
+	//header.Print(file);
+	int GSXYZ = gridsize[0] * gridsize[1] * gridsize[2];
+	HaWriteMapGZinTwoColumns(file, fmap, GSXYZ, coef);
+	gzclose(file);
+	return EXIT_SUCCESS;
+}
+
+
+int HaReadMapGZ(gzFile file, float *fmap, int GSXYZ, float coef, int Columns)
+{
+	int count;
+	float current;
+	int gridPoint;
+	char str[MAP_IO_STRING_LENGTH];
+	int i;
+	int coll = MAP_IO_FORCE;
+
+	if (Columns == 1)
+	{
+		HaReadMapGZOneColumns(file, fmap, GSXYZ, coef);
+	}
+	else
+	{
+		gridPoint = 0;
+		while (gridPoint < GSXYZ)
+		{
+			if (Z_NULL == gzgets(file, str, MAP_IO_STRING_LENGTH))
+			{
+				fprintf(stderr, "readMap: problem reading from file\n");
+				return EXIT_FAILURE;
+			}
+			if (2 != sscanf(str, "%f %i\n", &current, &count))
+			{
+				fprintf(stderr, "readMap: unkown format\n");
+				return EXIT_FAILURE;
+			}
+			//gzscanf(file,"%f %i\n",&current,&count);
+			if (gridPoint + count > GSXYZ) {
+				fprintf(stderr, "readMap: too many points file\n");
+				return EXIT_FAILURE;
+			}
+			for (i = gridPoint; i < gridPoint + count; i++) {
+				if (coll == MAP_IO_ADD)
+					fmap[i] += current * coef;
+				else if (coll == MAP_IO_FORCE)
+					fmap[i] = current * coef;
+				else {
+					if (fmap[i] == -1)
+						fmap[i] = current * coef;
+				}
+			}
+			gridPoint += count;
+		}
+	}
+	return EXIT_SUCCESS;
+}
+
+int HaReadMapGZ(const char *filename, TiXmlElement** pheader, float **pfmap, int* gridsize, float coef)
+{
+	//! Read Map from file and return values *fmap
+	gzFile file;
+	char str[MAP_IO_STRING_LENGTH];
+	int i;
+	int GS[3], GSXYZ;
+	int Columns;
+	float *vfield = *pfmap;
+	file = gzopen(filename, "rb");
+	if (file == NULL) {
+		fprintf(stderr, "ERROR 102: Can not open file %s\n", filename);
+		return EXIT_FAILURE;
+	}
+	//Header
+	if (Z_NULL == gzgets(file, str, MAP_IO_STRING_LENGTH)) {
+		fprintf(stderr, "readMap: problem reading from file: %s\n", filename);
+		return EXIT_FAILURE;
+	}
+	//string StrHeader(string);
+	istringstream ins(str);
+	TiXmlElement *header = new TiXmlElement("Field");
+	*pheader = header;
+	ins >> *header;
+	header->GetArrOfIntAttribute("GridSize", GS, 3);
+	if (header->GetIntAttribute("Columns", &Columns) == EXIT_FAILURE)Columns = 2;
+	if (gridsize[0] >= 0)
+	{
+		if (gridsize[0] != GS[0] || gridsize[1] != GS[1] || gridsize[2] != GS[2])
+		{
+			fprintf(stderr, "readMap: Grid size of map in file do not coinside with request\n");
+			return EXIT_FAILURE;
+		}
+	}
+	else
+	{
+		gridsize[0] = GS[0];
+		gridsize[1] = GS[1];
+		gridsize[2] = GS[2];
+	}
+	GSXYZ = GS[0] * GS[1] * GS[2];
+
+	if (vfield == NULL)vfield = new float[GSXYZ];
+	HaReadMapGZ(file, vfield, GSXYZ, coef, Columns);
+	*pfmap = vfield;
+	gzclose(file);
+	return EXIT_SUCCESS;
+}

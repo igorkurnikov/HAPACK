@@ -4857,11 +4857,12 @@ ElectrostMod* HaMolSet::GetElectrostMod( const bool create_module )
 		return( (ElectrostMod*) GetCompModule( COMP_MOD_EL ,create_module) );
 	}
 }
-
+#ifdef ELMOD_COMPILE
 ElMod* HaMolSet::GetElMod( const bool create_module )
 {
 	return( (ElMod*) GetCompModule( COMP_MOD_EL ,create_module) );
 }
+#endif
 pKaCalcMod* HaMolSet::GetpKaCalcMod( const bool create_module )
 {
 	pKaCalcMod* m_pKaCalcMod=(pKaCalcMod*) GetCompModule( COMP_MOD_PKA_CALC ,create_module);

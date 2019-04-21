@@ -227,54 +227,6 @@ int WriteMapGZ(const char *filename, float * fmap, int* gridsize, float coef,int
 	return EXIT_SUCCESS;
 }
 
-// int WriteMapGZ(const char *filename, float * fmap, int* gridsize, float coef,char* Comments) 
-// {
-//	 //! Write array from file *.gz of size Size to map, and each element is multiply be coef
-//	 gzFile file;
-//	 file = gzopen(filename,"wb");
-//	 if(file==NULL) {
-//		 fprintf(stderr,"ERROR 102: Can not open file %s\n", filename);
-//		 return EXIT_FAILURE;
-//	 }
-//	 if(!gzprintf(file,"%s\n %i %i %i %i\n",Comments,gridsize[0],gridsize[1],gridsize[2],2)) {
-// 	fprintf(stderr,"ERROR 106: Problems writing to file\n");
-//		 return EXIT_FAILURE;
-//	 }
-//	 DbgPrint1("Write [%d,%d,%d]\n",gridsize[0],gridsize[1],gridsize[2]);
-//		 /*!
-//	 @author Warren Dukes 
-//	 @date 2002-10-27
-//	 and me
-//	 */
-//	 int count;
-//	 float current;
-//	 int gridPoint;
-//	 int GSXYZ=gridsize[0]*gridsize[1]*gridsize[2];
-//	 
-//	 //Write
-//	 count = 0;
-//	 current = fmap[0];
-//	 for(gridPoint=0;gridPoint<GSXYZ;gridPoint++) {
-//		 if(current==fmap[gridPoint])
-//			 count++;
-//		 else {
-//			 if(!gzprintf(file,"%.7e %d\n",current*coef,count)) {
-// 		fprintf(stderr,"ERROR 106: Problems writing to file\n");
-//				 return EXIT_FAILURE;
-//			 }
-//		 count = 1;
-//		 current = fmap[gridPoint];
-//		 }
-//	 }
-//	 if(!gzprintf(file,"%.7e %d\n",current*coef,count)) {
-// 	fprintf(stderr,"ERROR 106: Problems writing to file\n");
-//		 exit(106);
-//	 }
-//	 
-//	 gzclose(file);
-//	 return EXIT_SUCCESS;
-// }
-
 int ReadMapGZ(gzFile file, float *fmap,int GSXYZ,float coef,int Columns)
 {
 	int count;
@@ -283,30 +235,10 @@ int ReadMapGZ(gzFile file, float *fmap,int GSXYZ,float coef,int Columns)
 	char str[MAP_IO_STRING_LENGTH];
 	int i;
 	int coll=MAP_IO_FORCE;
-	/*!
-	@author Warren Dukes 
-	@date 2002-10-27
-	and me
-	*/
+
 	if(Columns==1)
 	{
 		ReadMapGZOneColumns(file,fmap,GSXYZ,coef);
-		/*gridPoint=0;
-		while(gridPoint<GSXYZ)
-		{
-			if(Z_NULL==gzgets(file,str,MAP_IO_STRING_LENGTH))
-			{
-				fprintf(stderr,"readMap: problem reading from file\n");
-				return EXIT_FAILURE;
-			}
-			if(1!=sscanf(str,"%f\n",&current)) 
-			{
-				fprintf(stderr,"readMap: unkown format\n");
-				return EXIT_FAILURE;
-			}
-			fmap[gridPoint] = current*coef;
-			gridPoint++;
-	}*/
 	}
 	else
 	{
@@ -343,50 +275,7 @@ int ReadMapGZ(gzFile file, float *fmap,int GSXYZ,float coef,int Columns)
 	}
 	return EXIT_SUCCESS;
 }
-/*float* ReadMapGZ(const char *filename, int* gridsize,float coef)
-{
-		//! Read Map from file and return values *fmap
-	gzFile file;
-	char str[MAP_IO_STRING_LENGTH];
-	int i;
-	int GS[3],GSXYZ;
-	float *vfield=NULL;
-	file = gzopen(filename,"rb");
-	if(file==NULL) {
-		fprintf(stderr,"ERROR 102: Can not open file %s\n", filename);
-		return NULL;
-	}
-	//Header
-	if(Z_NULL==gzgets(file,str,MAP_IO_STRING_LENGTH)) {
-		fprintf(stderr,"readMap: problem reading from file: %s\n", filename);
-		return NULL;
-	}
-	//string StrHeader(string);
-	istringstream ins(str);
-	TiXmlElement *header=new TiXmlElement("Field");
-	ins>>*header;
-	HaXML::GetAtributeV(header,"GridSize",GS,3);
-	if(gridsize[0]>=0)
-	{
-		if(gridsize[0]!=GS[0]||gridsize[1]!=GS[1]||gridsize[2]!=GS[2])
-		{
-			fprintf(stderr,"readMap: Grid size of map in file do not coinside with request\n");
-			return NULL;
-		}
-	}
-	else
-	{
-		gridsize[0]=GS[0];
-		gridsize[1]=GS[1];
-		gridsize[2]=GS[2];
-	}
-	GSXYZ=GS[0]*GS[1]*GS[2];
-	
-	if(vfield==NULL)vfield=new float[GSXYZ];
-	ReadMapGZ(file,vfield,GSXYZ,coef);
-	gzclose(file);
-	return vfield;
-}*/
+
 int ReadMapGZ(const char *filename, float *fmap,int* gridsize,float coef)
 {
 	//! Read Map from file and return values *fmap

@@ -11,6 +11,8 @@
 //
 #ifndef PNPDEBUG
 #define PNPDEBUG
+#include <string>
+#include <stdexcept>
 #include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
@@ -82,7 +84,23 @@ inline void pnpError(const char* str,...)
 
 #define pnpThrowError(Message) pnpThrowErrorRaw(__LINE__,__FILE__,Message)
 
-void pnpThrowErrorRaw(const int line,const char* filename,const char* str,...);
+inline void pnpThrowErrorRaw(const int line, const char* filename, const char* str, ...)
+{
+	int i;
+	char *s = new char[10240];
+
+	i = sprintf(s, "(%s:%d): ", filename, line);
+
+	va_list arg_list;
+	va_start(arg_list, str);
+	i += vsprintf(s + i, str, arg_list);
+	va_end(arg_list);
+
+	std::runtime_error e(s);
+	delete s;
+
+	throw e;
+}
 
 #if __GNUC__ < 3 && !defined(_MSC_VER)
 inline int roundf(float f)

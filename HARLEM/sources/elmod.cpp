@@ -452,6 +452,7 @@ void DeleteQRDB()
 		QRDB=NULL;
 	}
 }
+#ifdef ELMOD_COMPILE
 ElMod::ElMod(HaMolSet* new_phost_mset)
 	:ElectrostMod(new_phost_mset,COMP_MOD_EL)
 {
@@ -2124,6 +2125,7 @@ int ElMod::CalcRAroundZero()
 	printf("RAroundZero is %.7f\n", R);
 	return TRUE;
 }
+#endif
 ////////////////////////////////////////////////////////////////////////////
 pKaCalcMod::pKaCalcMod(HaMolSet* new_phost_mset)
 	:HaCompMod(COMP_MOD_PKA_CALC,new_phost_mset)
@@ -2721,6 +2723,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 }
 int pKaCalcMod::RunCalcUsingElMod()
 {
+#ifdef ELMOD_COMPILE
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = TRUE;
@@ -3064,6 +3067,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 	
 	phost_mset->SelectAtoms(&sel_atoms);
 	phost_mset->p_save_opt_default->save_selected = old_save_selected;
+#endif
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::CalcIntrpKa()
@@ -3497,7 +3501,9 @@ int pKaCalcMod::SetAltSt4ResInHomoolgmr(int ResNum)
 PNPMod::PNPMod(HaMolSet* new_phost_mset)
 	:HaCompMod(COMP_MOD_PNP,new_phost_mset)
 {
+#ifdef PNP_DEPRECATED
 	PNPSApp::InitPNPSApp();
+#endif
 	SetNIonsTypes(2);
 	SetIonName(0,"K");
 	SetIonName(1,"Cl");
@@ -5158,6 +5164,7 @@ int PNPMod::RunPNPSFromString(const char* string)
 	return EXIT_FAILURE;
 }
 ///////////////////////////////////////////////////////////////////////////////
+#ifdef ELMOD_COMPILE
 ElModRadDist::ElModRadDist(HaMolSet* new_phost_mset)
 {
 	pmset=new_phost_mset;
@@ -5597,4 +5604,4 @@ int ElModRadDist::PrintRadDist(const char *filename)
 	fclose(out);
 	return EXIT_SUCCESS;
 }
-
+#endif

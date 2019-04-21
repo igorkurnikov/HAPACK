@@ -15,6 +15,9 @@ FOR %%D IN (PY3_Debug_Win32 PY3_Release_Win32 PY3_Debug_x64 PY3_Release_x64 Rele
         if exist "%%D\scripts" (
             rmdir  /Q /S "%%D\scripts"
         )
+        if exist "%%D\harlempy" (
+            rmdir  /Q /S "%%D\harlempy
+        )
         del  /F /Q "%%D\*.lib"
         del  /F /Q "%%D\*.a"
         FOR %%F IN (*.lib harlem.exe harlem.exp harlem.ilk harlem.lib harlem.pdb) DO (
