@@ -414,7 +414,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
 copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
@@ -616,7 +616,7 @@ $(SolutionDir)copy_dependencies.bat
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
 copy /Y $(IntDir)molset.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
@@ -1050,10 +1050,6 @@ $(SolutionDir)copy_dependencies.bat
     </ProjectReference>
     <ProjectReference Include="pmemd_lib_c.vcxproj">
       <Project>{4e65a9c1-a2bd-42b3-9155-5531fe33009f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="pnplib_vs.vcxproj">
-      <Project>{00332771-f366-4c97-80a8-51519a1ff394}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="vf_lib.vcxproj">

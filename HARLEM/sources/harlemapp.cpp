@@ -524,11 +524,11 @@ extern "C" {
 #if PY_VERSION_HEX >= 0x03000000
 	extern PyObject* PyInit__molset();
 	extern PyObject* PyInit__halib();
-	extern PyObject* PyInit__llpnps();
+	//extern PyObject* PyInit__llpnps();
 #else
 	extern void init_molset();
 	extern void init_halib();
-	extern void init_llpnps();
+	//extern void init_llpnps();
 #endif
 
 }
@@ -571,7 +571,7 @@ int HarlemApp::Python_AppInit()
 #if PY_VERSION_HEX >= 0x03000000
 	PyImport_AppendInittab("_molset", &PyInit__molset );
 	//PyImport_AppendInittab("_halib",  &PyInit__halib );
-	PyImport_AppendInittab("_llpnps", &PyInit__llpnps );
+	//PyImport_AppendInittab("_llpnps", &PyInit__llpnps );
 #endif
 
 	Py_SetProgramName(prog_name);
@@ -618,7 +618,7 @@ int HarlemApp::Python_AppInit()
 #else
 	init_molset();
 	init_halib();
-	init_llpnps();
+	//init_llpnps();
 #endif
 	//PrintLog(" Python_AppInit pt 5 \n")
 	ires = PyRun_SimpleString(

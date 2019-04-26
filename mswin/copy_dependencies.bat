@@ -33,7 +33,6 @@ echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
 echo "Output Dir: %OutputDir%"
 
-
 REM Get Python Major Version
 if not x%CONF:PY3=%==x%CONF% (set PYTHON_MAJOR_VERSION=3) else (set PYTHON_MAJOR_VERSION=2)
 echo "Python Major Version: %PYTHON_MAJOR_VERSION%"

@@ -313,11 +313,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
     <TargetName>_llpnps$(PYD_SUFFIX)</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\Lib\site-packages\pnps</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
     <TargetName>_llpnps$(PYD_SUFFIX)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\Lib\site-packages\pnps</OutDir>
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -402,8 +402,9 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)llpnps.py $(OutputPath)</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)llpnps.py $(OutputPath)
+copy /Y $(VCPKG_DLL_PATH)\zlibd1.dll $(OutputPath)</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -486,7 +487,8 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     <Lib />
     <PostBuildEvent>
       <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)llpnps.py $(OutputPath)</Command>
+copy /Y $(IntDir)llpnps.py $(OutputPath)
+copy /Y $(VCPKG_DLL_PATH)\zlib1.dll $(OutputPath)</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Lib>
