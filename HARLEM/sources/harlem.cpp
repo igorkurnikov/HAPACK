@@ -26,7 +26,11 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
+#if defined(_M_IX86)
+	f_start_harlemappwx start_harlemappwx = (f_start_harlemappwx)GetProcAddress(hMolSetDLL, "_start_harlemappwx@8");
+#else
 	f_start_harlemappwx start_harlemappwx = (f_start_harlemappwx)GetProcAddress(hMolSetDLL, "start_harlemappwx");
+#endif
 	if (!start_harlemappwx) {
 		std::cout << "could not locate the function" << std::endl;
 		Sleep(3000000);
