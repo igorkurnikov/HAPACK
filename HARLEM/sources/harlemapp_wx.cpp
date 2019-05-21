@@ -269,8 +269,8 @@ int HarlemAppWX::LoadHaPyGUIModules()
 	PyRun_SimpleString(
 		"try:\n"
 		"    print('Initiating wxPython')\n"
-		"    #import wx\n"
-		"    #import hapygui_init\n"
+		"    import wx\n"
+		"    import hapygui_init\n"
 		"except Exception as e :\n"
 		"    print('Can not import hapygui_init module!')\n"
 		"    print(str(e))\n"

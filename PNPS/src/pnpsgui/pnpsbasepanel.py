@@ -55,8 +55,8 @@ class PNPSBasePanel(wx.Panel):
         # set ref to PNPFrame
         self.pnps_frame = parent.GetParent()
         self.pmset = self.pnps_frame.pmset
-        from . import pnpgui
-        assert isinstance(self.pnps_frame, pnpgui.PNPFrame)
+        from . import pnpsgui
+        assert isinstance(self.pnps_frame, pnpsgui.PNPFrame)
 
         # Validation list of NumCtrls
         self.Validation_NumCtrls = []

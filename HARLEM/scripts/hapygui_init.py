@@ -17,8 +17,8 @@ menuOnCenterAtOrigin = hapygui.GetEditMenu().Append(
 hapygui.GetMainFrame().Bind(wx.EVT_MENU, OnCenterAtOrigin, menuOnCenterAtOrigin)
 
 try:
-    import pnpgui
-    pnpgui.init()
+    import pnpsgui
+    pnpsgui.init()
 except Exception as e:
     print("Can not load pnpgui")
     print(str(e))

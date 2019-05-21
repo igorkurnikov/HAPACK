@@ -357,7 +357,7 @@ class AtomParamsPanel(PNPSBasePanel):
         self.ChoiceFF4SR.Append("SR-MD")
         self.ChoiceFF4SR.SetSelection(1)
 
-        from .pnpgui import pnpgui_mod_dir
+        from .pnpsgui import pnpgui_mod_dir
         res_db = os.path.join(pnpgui_mod_dir, "db_aar_sr1.pan")
         print(("Loading DB for SR-MD from %s ..." % res_db))
         self.pnpmod.ReadPANDB(res_db, True)

@@ -53,50 +53,50 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\PNPS\src\pnpgui\__init__.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\__main__.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\atom_params_panel.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\create_map_panel.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\pbsr_panel.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\pnpgui.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\pnpgui_wdr.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\pnpsbasepanel.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\QR_AMBER.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\QR_CHARMM.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\QR_OPLS88.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\QR_PARSE94.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\QR_SAMPLE.py">
-      <Filter>pnpsgui</Filter>
-    </None>
-    <None Include="..\PNPS\src\pnpgui\utils.py">
-      <Filter>pnpsgui</Filter>
-    </None>
     <None Include="..\PNPS\src\pnps\__init__.py">
       <Filter>pnps</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\__init__.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\__main__.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\atom_params_panel.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\pbsr_panel.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\create_map_panel.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\pnpgui_wdr.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\pnpsbasepanel.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\pnpsgui.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\QR_AMBER.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\QR_CHARMM.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\QR_OPLS88.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\QR_PARSE94.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\QR_SAMPLE.py">
+      <Filter>pnpsgui</Filter>
+    </None>
+    <None Include="..\PNPS\src\pnpsgui\utils.py">
+      <Filter>pnpsgui</Filter>
     </None>
   </ItemGroup>
 </Project>

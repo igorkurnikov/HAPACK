@@ -16,20 +16,20 @@ def load_qr_db():
 def on_pnpgui(_):
     # A message dialog box with an OK button. wx.OK is a standard ID in wxWidgets.
     import wx
-    import molset
+    import harlempy.molset
     import hapygui
 
-    pmset=molset.GetCurMolSet()
+    pmset=harlempy.molset.GetCurMolSet()
     if pmset is None:
         dlg = wx.MessageDialog(hapygui.GetMainFrame(), "MolSet is not loaded", "Message from PNPGUI", wx.OK)
         dlg.ShowModal() # Show it
         dlg.Destroy() # finally destroy it when finished.
     else:
-        from . import pnpgui
-        import molset
+        from . import pnpsgui
+        # import molset
         # @todo add ppp
         # pnpgui.pApp = molset.pApp
-        pnpgui.PNPFrame(pmset)
+        pnpsgui.PNPFrame(pmset)
 
 
 def init():
