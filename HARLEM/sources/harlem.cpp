@@ -1,11 +1,14 @@
 #include <windows.h>
 #include <iostream>
 
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
+
 typedef int(__stdcall *f_start_harlemappwx)(int argc, char **argv);
 
-int main(int argc, char **argv)
+//! Start harlem using HarlemAppWX
+int start_harlemappwx(int argc, char **argv)
 {
-	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
 #ifdef _DEBUG
 	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("harlempy\\_llpnps_d.pyd"));
 	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("harlempy\\_molset_d.pyd"));
@@ -41,6 +44,30 @@ int main(int argc, char **argv)
 	int status = start_harlemappwx(argc, argv);
 
 	FreeLibrary(hMolSetDLL);
-
 	return status;
+}
+
+//! Start harlem using Harlem with python's wxApp
+int start_harlem(int argc, char **argv)
+{
+	wchar_t *program = Py_DecodeLocale("HARLEM CONSOLE", NULL);
+
+	Py_SetProgramName(program);  /* optional but recommended */
+	Py_Initialize();
+
+	PyRun_SimpleString(
+		"from harlem.start_harlem import start_harlem\n"
+		"start_harlem()\n");
+
+	if (Py_FinalizeEx() < 0) {
+		exit(120);
+	}
+	PyMem_RawFree(program);
+	return 0;
+}
+
+int main(int argc, char **argv)
+{
+	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
+	return start_harlem(argc, argv);
 }
