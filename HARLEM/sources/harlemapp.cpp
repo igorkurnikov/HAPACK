@@ -389,7 +389,11 @@ int HarlemApp::ExecuteCommand()
 #if !defined(HARLEM_PYTHON_NO)
 	if(!only_rasmol_command)
 	{
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
 		int ires = PyRun_SimpleString(cmd_pr.GetCmdLine());
+		PyGILState_Release(gstate);
+		
 		if( ires == 0 )
 			return TRUE;
 		else
