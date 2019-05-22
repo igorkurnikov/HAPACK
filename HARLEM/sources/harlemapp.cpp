@@ -540,6 +540,8 @@ extern "C" {
 int HarlemApp::Python_AppInit()
 //! PYTHON initialization: 
 {	
+//Do not need it any more
+#if 0
 #if !defined(HARLEM_PYTHON_NO)
 	int ires;
 
@@ -691,7 +693,7 @@ int HarlemApp::Python_AppInit()
 
 //	Py_Finalize();
 #endif
-
+#endif
 	return TRUE;
 }
 

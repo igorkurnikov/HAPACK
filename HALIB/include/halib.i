@@ -1,4 +1,4 @@
-%module(package="harlempy") halib
+%module(package="harlemll") halib
 
 %begin %{
 #include <cstddef>  

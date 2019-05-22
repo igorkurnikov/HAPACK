@@ -54,7 +54,11 @@ if not exist "%OutputDir%\Lib\NUL" (
 ) else (
     echo "%OutputDir%\Lib already exists"
 )
-
+if not exist "%OutputDir%\harlemll\NUL" (
+    mkdir "%OutputDir%\harlemll"
+) else (
+    echo "%OutputDir%\harlemll already exists"
+)
 
 if "%IS_DEBUG%" == "Y" (
     echo "Copying Debug Version of Python"
@@ -97,7 +101,7 @@ boost_fiber       boost_math_tr1f  boost_signals           boost_wave ^
 boost_filesystem  boost_math_tr1l  boost_stacktrace_noop   boost_wserialization
 
 FOR %%G IN (%BOOST_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\harlemll
 )
 
 REM WXWIDGETS
@@ -107,8 +111,8 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set WXVER=u
 )
-xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%
-xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%
+xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\harlemll
+xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\harlemll
 
 if "%IS_DEBUG%" == "Y" (
     if exist %WX_DLLS_PATH%\plplotd.dll (
@@ -120,7 +124,7 @@ if "%IS_DEBUG%" == "Y" (
     set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
 )
 FOR %%G IN (%PLPLOT_LIB%) DO (
-    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%
+    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%\harlemll
 )
 
 REM OTHERS
@@ -131,7 +135,7 @@ if "%IS_DEBUG%" == "Y" (
 )
 
 FOR %%G IN (%OTHER_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\harlemll
 )
 
 REM ###########################################################################
@@ -139,7 +143,7 @@ REM Copy MKL
 set MKL_LIBS=mkl_sequential.dll mkl_core.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
-    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%
+    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\harlemll
 )
 REM ###########################################################################
 REM Copy MPI
@@ -153,3 +157,14 @@ if not exist "%OutputDir%\residues_db\NUL" (
 )
 
 xcopy /s /e /h /d %script_path%\..\residues_db %OutputDir%\residues_db
+
+REM ###########################################################################
+REM Copy harlempy
+if not exist "%OutputDir%\harlempy\NUL" (
+    mkdir "%OutputDir%\harlempy"
+) else (
+    echo "%OutputDir%\harlempy already exists"
+)
+
+xcopy /s /e /h /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
+

@@ -177,42 +177,42 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll\</OutDir>
     <TargetExt>.pyd</TargetExt>
     <TargetName>_halib</TargetName>
   </PropertyGroup>
@@ -259,7 +259,7 @@
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>halib_vs.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>c:\Program Files (x86)\MPICH2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
@@ -305,7 +305,7 @@
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>halib_vs.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>c:\Program Files\MPICH2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -349,7 +349,7 @@
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>halib_vs.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>c:\Program Files (x86)\MPICH2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
@@ -392,8 +392,8 @@
       <Command>copy /Y $(IntDir)halib.py $(OutputPath)</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>halib_vs.lib;zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>c:\Program Files\MPICH2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>halib_vs.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

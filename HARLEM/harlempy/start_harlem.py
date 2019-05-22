@@ -1,0 +1,17 @@
+"""
+Here is definde start_harlem function which starts Harlem.
+"""
+
+def start_harlem():
+    """
+    Start Harlem
+    """
+    import wx
+    import harlempy.halib
+    import harlempy.molset
+    app = wx.App()
+    harlempy.molset.StartHarlemApp()
+    harlempy.molset.StartHaMainFrameWX()
+    
+    import harlempy.hapygui_init
+    app.MainLoop()

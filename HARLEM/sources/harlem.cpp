@@ -10,11 +10,11 @@ typedef int(__stdcall *f_start_harlemappwx)(int argc, char **argv);
 int start_harlemappwx(int argc, char **argv)
 {
 #ifdef _DEBUG
-	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("harlempy\\_llpnps_d.pyd"));
-	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("harlempy\\_molset_d.pyd"));
+	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("harlemll\\_llpnps_d.pyd"));
+	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("harlemll\\_molset_d.pyd"));
 #else
-	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("harlempy\\_llpnps.pyd"));
-	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("harlempy\\_molset.pyd"));
+	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("harlemll\\_llpnps.pyd"));
+	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("harlemll\\_molset.pyd"));
 #endif
 	/*if (!hLLPNPSDLL) {
 		std::cout << "Cannot load harlempy\\_llpnps.pyd" << std::endl;
@@ -23,7 +23,7 @@ int start_harlemappwx(int argc, char **argv)
 		return EXIT_FAILURE;
 	}*/
 	if (!hMolSetDLL) {
-		std::cout << "Cannot load harlempy\\_molset.pyd" << std::endl;
+		std::cout << "Cannot load harlemll\\_molset.pyd" << std::endl;
 		std::cout << "Last Error: " << GetLastError() << std::endl;
 		Sleep(3000000);
 		return EXIT_FAILURE;
@@ -56,7 +56,7 @@ int start_harlem(int argc, char **argv)
 	Py_Initialize();
 
 	PyRun_SimpleString(
-		"from harlem.start_harlem import start_harlem\n"
+		"from harlempy.start_harlem import start_harlem\n"
 		"start_harlem()\n");
 
 	if (Py_FinalizeEx() < 0) {

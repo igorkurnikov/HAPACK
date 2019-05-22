@@ -321,7 +321,7 @@
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -339,8 +339,8 @@
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -360,8 +360,8 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -381,8 +381,8 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -431,8 +431,8 @@ copy /Y $(VCPKG_DLL_PATH)\zlibd1.dll $(OutputPath)</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -451,8 +451,8 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -471,8 +471,8 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlempy\NUL mkdir $(OutputPath)harlempy
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlempy</Command>
+      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
+copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>

@@ -6,17 +6,14 @@
     <WX_DEBUG>$(ConfigurationName.Replace("PY3_","").Replace("Release","").Replace("Debug","d"))</WX_DEBUG>
   </PropertyGroup>
   <PropertyGroup>
-    <IntDir>$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)</IntDir>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile />
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);$(SolutionDir)$(Configuration)_$(PlatformName)\harlempy</AdditionalLibraryDirectories>
-    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="Haprops_Debug">
