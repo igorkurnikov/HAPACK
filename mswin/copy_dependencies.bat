@@ -166,5 +166,5 @@ if not exist "%OutputDir%\harlempy\NUL" (
     echo "%OutputDir%\harlempy already exists"
 )
 
-xcopy /s /e /h /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
+xcopy /y /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
 
