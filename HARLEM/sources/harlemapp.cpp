@@ -1353,7 +1353,10 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 	{
 		char fname_var[256];
 		strcpy(fname_var,script_fname);
+		PyGILState_STATE gstate;
+		gstate = PyGILState_Ensure();
 		int ires = PyRun_SimpleFile(finp,fname_var);
+		PyGILState_Release(gstate);
 		fclose(finp);
 		if( ires == 0 )
 			return TRUE;
@@ -1372,7 +1375,10 @@ int HarlemApp::ExecuteScriptInString(const char* script_str)
 #if !defined(HARLEM_PYTHON_NO)
 	char script_str_int[50000];
 	strcpy(script_str_int,script_str);
+	PyGILState_STATE gstate;
+	gstate = PyGILState_Ensure();
 	int ires = PyRun_SimpleString(script_str_int);
+	PyGILState_Release(gstate);
 	if( ires == 0 )
 		return True;	
 #endif
