@@ -37,7 +37,7 @@
   <ItemGroup>
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
     <ClCompile Include="..\PNPS\src\contworld.cpp" />
-    <ClCompile Include="obj\Debug_Win32\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
@@ -47,7 +47,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">false</ExcludedFromBuild>
@@ -57,7 +57,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
@@ -67,7 +67,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
@@ -77,7 +77,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
@@ -88,7 +88,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
     </ClCompile>
-    <ClCompile Include="obj\Release_Win32\pnplib_vs\llpnps_wrap.cpp">
+    <ClCompile Include="obj\Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">true</ExcludedFromBuild>
@@ -131,42 +131,42 @@
     <ClInclude Include="..\PNPS\src\sissgausps.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\PNPS\src\llpnps.i">
+    <CustomBuild Include="..\PNPS\src\pnpsll.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)llpnps_wrap.cpp %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(IntDir)llpnps_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\PNPS\src\pnpsgui\atom_params_panel.py" />
-    <None Include="..\PNPS\src\pnpsgui\create_map_panel.py" />
-    <None Include="..\PNPS\src\pnpsgui\pbsr_panel.py" />
-    <None Include="..\PNPS\src\pnpsgui\pnpsgui.py" />
-    <None Include="..\PNPS\src\pnpsgui\pnpgui_wdr.py" />
-    <None Include="..\PNPS\src\pnpsgui\pnpsbasepanel.py" />
-    <None Include="..\PNPS\src\pnpsgui\QR_AMBER.py" />
-    <None Include="..\PNPS\src\pnpsgui\QR_CHARMM.py" />
-    <None Include="..\PNPS\src\pnpsgui\QR_OPLS88.py" />
-    <None Include="..\PNPS\src\pnpsgui\QR_PARSE94.py" />
-    <None Include="..\PNPS\src\pnpsgui\QR_SAMPLE.py" />
-    <None Include="..\PNPS\src\pnpsgui\utils.py" />
-    <None Include="..\PNPS\src\pnpsgui\__init__.py" />
-    <None Include="..\PNPS\src\pnpsgui\__main__.py" />
-    <None Include="..\PNPS\src\pnps\__init__.py" />
+    <None Include="..\PNPS\pnpsgui\atom_params_panel.py" />
+    <None Include="..\PNPS\pnpsgui\create_map_panel.py" />
+    <None Include="..\PNPS\pnpsgui\pbsr_panel.py" />
+    <None Include="..\PNPS\pnpsgui\pnpgui_wdr.py" />
+    <None Include="..\PNPS\pnpsgui\pnpsbasepanel.py" />
+    <None Include="..\PNPS\pnpsgui\pnpsgui.py" />
+    <None Include="..\PNPS\pnpsgui\QR_AMBER.py" />
+    <None Include="..\PNPS\pnpsgui\QR_CHARMM.py" />
+    <None Include="..\PNPS\pnpsgui\QR_OPLS88.py" />
+    <None Include="..\PNPS\pnpsgui\QR_PARSE94.py" />
+    <None Include="..\PNPS\pnpsgui\QR_SAMPLE.py" />
+    <None Include="..\PNPS\pnpsgui\utils.py" />
+    <None Include="..\PNPS\pnpsgui\__init__.py" />
+    <None Include="..\PNPS\pnpsgui\__main__.py" />
+    <None Include="..\PNPS\pnps\__init__.py" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00332771-F366-4C97-80A8-51519A1FF394}</ProjectGuid>
@@ -176,19 +176,19 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
@@ -200,17 +200,17 @@
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
@@ -311,17 +311,44 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
-    <TargetName>_llpnps$(PYD_SUFFIX)</TargetName>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\Lib\site-packages\pnps</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
-    <TargetName>_llpnps$(PYD_SUFFIX)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\Lib\site-packages\pnps</OutDir>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlemll</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.pyd</TargetExt>
+    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -339,10 +366,19 @@
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -360,16 +396,25 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -381,10 +426,20 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>halib_vs.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
     <ClCompile>
@@ -403,17 +458,18 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     <Lib />
     <PostBuildEvent>
       <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)llpnps.py $(OutputPath)
-copy /Y  $(SolutionDir)..\PNPS\src\pnps\* $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
 
-REM if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
-REM copy /Y  $(SolutionDir)..\PNPS\src\pnpsgui\* $(OutputPath)..\pnpsgui\
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
-copy /Y $(VCPKG_DLL_PATH)\zlibd1.dll $(OutputPath)</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>halib_vs.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -431,10 +487,19 @@ copy /Y $(VCPKG_DLL_PATH)\zlibd1.dll $(OutputPath)</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -451,16 +516,25 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -471,10 +545,20 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)harlemll\NUL mkdir $(OutputPath)harlemll
-copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>halib_vs.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
     <ClCompile>
@@ -491,9 +575,14 @@ copy /Y $(IntDir)llpnps.py $(OutputPath)harlemll</Command>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)llpnps.py $(OutputPath)
-copy /Y $(VCPKG_DLL_PATH)\zlib1.dll $(OutputPath)</Command>
+      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
+copy /Y $(IntDir)pnpsll.py $(OutputPath)
+
+if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
+if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
+
+xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Lib>
@@ -501,6 +590,7 @@ copy /Y $(VCPKG_DLL_PATH)\zlib1.dll $(OutputPath)</Command>
     </Lib>
     <Link>
       <AdditionalDependencies>halib_vs.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

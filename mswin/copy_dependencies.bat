@@ -41,6 +41,18 @@ REM Is it debug
 if not x%CONF:Debug=%==x%CONF% (set "IS_DEBUG=Y") else (set "IS_DEBUG=N")
 echo "Is it debug: %IS_DEBUG%"
 
+REM ###########################################################################
+REM Make directories if not exists
+if not exist "%OutputDir%\harlemll\NUL" (
+    mkdir "%OutputDir%\harlemll"
+) else (
+    echo "%OutputDir%\harlemll already exists"
+)
+if not exist "%OutputDir%\pnpsll\NUL" (
+    mkdir "%OutputDir%\pnpsll"
+) else (
+    echo "%OutputDir%\pnpsll already exists"
+)
 
 REM ###########################################################################
 REM Copy python
@@ -54,11 +66,7 @@ if not exist "%OutputDir%\Lib\NUL" (
 ) else (
     echo "%OutputDir%\Lib already exists"
 )
-if not exist "%OutputDir%\harlemll\NUL" (
-    mkdir "%OutputDir%\harlemll"
-) else (
-    echo "%OutputDir%\harlemll already exists"
-)
+
 
 if "%IS_DEBUG%" == "Y" (
     echo "Copying Debug Version of Python"
@@ -136,6 +144,17 @@ if "%IS_DEBUG%" == "Y" (
 
 FOR %%G IN (%OTHER_LIBS%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\harlemll
+)
+
+REM OTHERS of PNPS
+if "%IS_DEBUG%" == "Y" (
+    set OTHER_LIBS=zlibd1.dll
+) else (
+    set OTHER_LIBS=zlib1.dll
+)
+
+FOR %%G IN (%OTHER_LIBS%) DO (
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\pnpsll
 )
 
 REM ###########################################################################

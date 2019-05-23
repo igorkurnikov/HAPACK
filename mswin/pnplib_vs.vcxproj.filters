@@ -3,12 +3,12 @@
   <ItemGroup>
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
     <ClCompile Include="..\PNPS\src\contworld.cpp" />
-    <ClCompile Include="obj\Debug_Win32\pnplib_vs\llpnps_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\llpnps_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\llpnps_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\llpnps_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\llpnps_wrap.cpp" />
-    <ClCompile Include="obj\Release_Win32\pnplib_vs\llpnps_wrap.cpp" />
+    <ClCompile Include="obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\Release_Win32\pnplib_vs\pnpsll_wrap.cpp" />
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
     <ClCompile Include="..\PNPS\src\pbwithljsolver.cpp" />
@@ -42,60 +42,60 @@
     <ClInclude Include="..\PNPS\src\sissgausps.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\PNPS\src\llpnps.i" />
+    <CustomBuild Include="..\PNPS\src\pnpsll.i" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="pnpsgui">
-      <UniqueIdentifier>{51f78f4c-a8cc-4b0e-b507-a7e4592983f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="pnps">
-      <UniqueIdentifier>{1f0a0211-f50c-442a-b874-6a7812aad7ea}</UniqueIdentifier>
+      <UniqueIdentifier>{fe3a8f36-b01d-42a2-a344-a395fe40bece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pnpsgui">
+      <UniqueIdentifier>{e0ce2d6b-c793-4295-a6db-d56fedd70273}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\PNPS\src\pnps\__init__.py">
+    <None Include="..\PNPS\pnps\__init__.py">
       <Filter>pnps</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\__init__.py">
+    <None Include="..\PNPS\pnpsgui\__init__.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\__main__.py">
+    <None Include="..\PNPS\pnpsgui\__main__.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\atom_params_panel.py">
+    <None Include="..\PNPS\pnpsgui\atom_params_panel.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\pbsr_panel.py">
+    <None Include="..\PNPS\pnpsgui\create_map_panel.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\create_map_panel.py">
+    <None Include="..\PNPS\pnpsgui\pbsr_panel.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\pnpgui_wdr.py">
+    <None Include="..\PNPS\pnpsgui\pnpgui_wdr.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\pnpsbasepanel.py">
+    <None Include="..\PNPS\pnpsgui\pnpsbasepanel.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\pnpsgui.py">
+    <None Include="..\PNPS\pnpsgui\pnpsgui.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\QR_AMBER.py">
+    <None Include="..\PNPS\pnpsgui\QR_AMBER.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\QR_CHARMM.py">
+    <None Include="..\PNPS\pnpsgui\QR_CHARMM.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\QR_OPLS88.py">
+    <None Include="..\PNPS\pnpsgui\QR_OPLS88.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\QR_PARSE94.py">
+    <None Include="..\PNPS\pnpsgui\QR_PARSE94.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\QR_SAMPLE.py">
+    <None Include="..\PNPS\pnpsgui\QR_SAMPLE.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnpsgui\utils.py">
+    <None Include="..\PNPS\pnpsgui\utils.py">
       <Filter>pnpsgui</Filter>
     </None>
   </ItemGroup>

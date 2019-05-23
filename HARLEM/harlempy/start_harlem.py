@@ -2,6 +2,7 @@
 Here is definde start_harlem function which starts Harlem.
 """
 
+
 def start_harlem():
     """
     Start Harlem
@@ -15,3 +16,9 @@ def start_harlem():
     
     import harlempy.hapygui_init
     app.MainLoop()
+
+"""
+Launch as module, i.e. python3 -m harlempy.start_harlem
+"""
+if __name__ == "__main__":
+    start_harlem()

@@ -1,4 +1,4 @@
-%module llpnps
+%module pnpsll
 %include "exception.i"
 
 %{

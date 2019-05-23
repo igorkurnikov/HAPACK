@@ -2,6 +2,7 @@
 *.pyc
 *.o
 *.so
+/.idea
 /mswin/harlem_python_tests_1/obj
 /mswin/UpgradeLog.XML
 /mswin/_UpgradeReport_Files
