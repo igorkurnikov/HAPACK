@@ -69,7 +69,7 @@ if not exist "%OutputDir%\Lib\NUL" (
 
 
 if "%IS_DEBUG%" == "Y" (
-    echo "Copying Debug Version of Python"
+    echo "Copying Debug Version of Python %PYTHON_DLLS_PATH%"
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
     
@@ -186,4 +186,14 @@ if not exist "%OutputDir%\harlempy\NUL" (
 )
 
 xcopy /y /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
+
+REM ###########################################################################
+REM Copy wxextra
+if not exist "%OutputDir%\wxextra\NUL" (
+    mkdir "%OutputDir%\wxextra"
+) else (
+    echo "%OutputDir%\wxextra already exists"
+)
+
+xcopy /y /d %script_path%\..\PNPS\wxextra\* %OutputDir%\wxextra\
 
