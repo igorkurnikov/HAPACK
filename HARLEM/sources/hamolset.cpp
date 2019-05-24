@@ -82,15 +82,23 @@ void SetCurMolSet(HaMolSet* pmset)
 #if !defined(HARLEM_PYTHON_NO)
 	PyGILState_STATE gstate;
 	gstate = PyGILState_Ensure();
-	int ires = PyRun_SimpleString("mset_c = GetCurMolSet()");
+	int ires = PyRun_SimpleString(
+		"if 'harlempy' not in dir():\n"
+		"    import harlempy.molset\n"
+		"if 'molset' not in dir(harlempy):\n"
+		"    import harlempy.molset\n"
+		"mset_c = harlempy.molset.GetCurMolSet()\n"
+	);
 	PyGILState_Release(gstate);
 	if(!ires) return;
 	if( pmset != NULL )
 	{
 		gstate = PyGILState_Ensure();
-		ires = PyRun_SimpleString("mmod_c  = mset_c.GetMolMechMod(0)");
-		ires = PyRun_SimpleString("elmod_c = mset_c.GetElectrostMod(0)");
-		ires = PyRun_SimpleString("qcmod_c = mset_c.GetQCMod(0)");
+		ires = PyRun_SimpleString(
+			"mmod_c  = mset_c.GetMolMechMod(0)\n"
+			"elmod_c = mset_c.GetElectrostMod(0)\n"
+			"qcmod_c = mset_c.GetQCMod(0)\n"
+		);
 		PyGILState_Release(gstate);
 	}
 #endif
