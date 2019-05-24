@@ -69,7 +69,7 @@ if not exist "%OutputDir%\Lib\NUL" (
 
 
 if "%IS_DEBUG%" == "Y" (
-    echo "Copying Debug Version of Python %PYTHON_DLLS_PATH%"
+    echo "Copying Debug Version of Python"
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
     
