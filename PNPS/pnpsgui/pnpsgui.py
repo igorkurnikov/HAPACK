@@ -17,7 +17,7 @@ except ImportError:
     pnps = None
     pnps_loaded = False
 try:
-    import molset
+    from harlempy import molset
     harlem_module = True
 except ImportError:
     molset = None

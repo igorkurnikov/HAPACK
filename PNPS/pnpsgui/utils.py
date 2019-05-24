@@ -2,6 +2,10 @@ import os
 
 import wx
 
+try:
+    from harlempy import molset
+except ImportError:
+    molset = None
 
 def FileBB_CheckFileExistence(FileBB, NoneIsValid=False):
     filename = str(FileBB.GetValue())
@@ -22,16 +26,11 @@ def FileBB_GetValue(FileBB):
 
 
 def MolSet_RefreshAllViews(pmset):
-    """Refresh all views in `pmset` MolSet"""
-    # @todo add scaling recalculation
-    from .pnpsgui import molset
-
-    pmset.RefreshAllViews(
-        molset.RFRefresh | molset.RFColour | molset.RFApply | molset.RFMagnify | molset.RFRotate |
-        molset.RFTransX | molset.RFTransY)
-    pmset.RefreshAllViews(
-        molset.RFRefresh | molset.RFColour | molset.RFApply | molset.RFMagnify | molset.RFRotate |
-        molset.RFTransX | molset.RFTransY)
+    """Reset all views in `pmset` MolSet"""
+    pview = pmset.GetActiveMolView()
+    pview.ReDrawFlag = pview.ReDrawFlag | molset.RFInitial
+    pview.InitialTransform()
+    pmset.RefreshAllViews(molset.RFRefresh | molset.RFMagnify)
 
 
 def ShowVectorField3D(filename, pmset, title):

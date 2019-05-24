@@ -1,4 +1,4 @@
-import molset
+from harlempy import molset
 import logging as log
 
 

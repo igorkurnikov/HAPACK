@@ -7,7 +7,7 @@ except ImportError:
     pnps = None
 
 try:
-    import molset
+    from harlempy import molset
 except ImportError:
     molset = None
 

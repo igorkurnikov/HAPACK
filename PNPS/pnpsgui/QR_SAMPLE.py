@@ -1,7 +1,7 @@
-import halib
-from halib import *
-import molset
-from molset import *
+from harlempy import halib
+from harlempy.halib import *
+from harlempy import molset
+from harlempy.molset import *
 import pnpmod
 from pnpmod import *
 

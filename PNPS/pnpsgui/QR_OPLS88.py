@@ -1,5 +1,5 @@
-import molset
-from molset import *
+from harlempy import molset
+from harlempy.molset import *
 
 #Load QRDB
 def LoadQRDB_OPLS88():
