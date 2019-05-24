@@ -24,7 +24,7 @@ def FileBB_GetValue(FileBB):
 def MolSet_RefreshAllViews(pmset):
     """Refresh all views in `pmset` MolSet"""
     # @todo add scaling recalculation
-    from .pnpgui import molset
+    from .pnpsgui import molset
 
     pmset.RefreshAllViews(
         molset.RFRefresh | molset.RFColour | molset.RFApply | molset.RFMagnify | molset.RFRotate |
@@ -35,7 +35,7 @@ def MolSet_RefreshAllViews(pmset):
 
 
 def ShowVectorField3D(filename, pmset, title):
-    from .pnpgui import main_frame, pnps, molset
+    from .pnpsgui import main_frame, pnps, molset
 
     if not os.path.exists(filename):
         dlg = wx.MessageDialog(main_frame, "File %s does not exist" % filename, "Error In Input Values", wx.OK)

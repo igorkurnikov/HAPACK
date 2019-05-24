@@ -29,7 +29,7 @@ def on_pnpgui(_):
         from . import pnpsgui
         # import molset
         # @todo add ppp
-        # pnpgui.pApp = molset.pApp
+        # pnpsgui.pApp = molset.pApp
         pnpsgui.PNPFrame(pmset)
 
 
