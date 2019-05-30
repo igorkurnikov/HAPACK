@@ -86,6 +86,15 @@ void StartHaMainFrameWX()
 	m_mainFrame->Show(TRUE);
 
 	wxTheApp->SetTopWindow(m_mainFrame);
+
+	HaMolSet* pmset = GetCurMolSet();
+	if (pmset != NULL)
+	{
+		pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);
+		pmset->canvas_wx->mol_view->InitialTransform();
+		pmset->canvas_wx->mol_view->DefaultRepresentation();
+		pmset->RefreshAllViews();
+	}
 }
 
 // For drawing lines in a canvas
