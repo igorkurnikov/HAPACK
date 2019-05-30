@@ -818,11 +818,22 @@ int HarlemApp::ProcessOptions()
 //! -script or script_fname  - load script file  (set script_name string)
 //
 {
-	int i;
+	PyObject* sys_mod = PyImport_ImportModule("sys");
+	PyObject* argv_obj = PyObject_GetAttrString(sys_mod, "argv" );
+	int check_list = PyList_Check(argv_obj);
+	Py_ssize_t argv_size = PyList_Size(argv_obj);
+	
+	Py_ssize_t i;
+
+	argv_size = 0;
 		
-	for(i=1; i < argc_loc; i++)
+	for(i=1; i < argv_size; i++)
 	{
-		std::string option = argv_loc[i];
+		PyObject* arg_obj = PyList_GetItem(argv_obj, i);
+
+		const char *arg_str = PyBytes_AS_STRING(arg_obj);
+		std::string option = arg_str;
+//		std::string option = argv_loc[i];
 		boost::trim(option);
 		if( option.length() == 0) continue;
 		
