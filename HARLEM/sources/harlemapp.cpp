@@ -277,7 +277,6 @@ int HarlemApp::InitFirst()
 		}
 	}
 	return TRUE;
-
 }
 
 int HarlemApp::InitParallel()
@@ -824,18 +823,22 @@ int HarlemApp::ProcessOptions()
 	Py_ssize_t argv_size = PyList_Size(argv_obj);
 	
 	Py_ssize_t i;
-
-	argv_size = 0;
 		
 	for(i=1; i < argv_size; i++)
 	{
 		PyObject* arg_obj = PyList_GetItem(argv_obj, i);
-
-		const char *arg_str = PyBytes_AS_STRING(arg_obj);
+		const char *arg_str = PyUnicode_AsUTF8(arg_obj);
 		std::string option = arg_str;
-//		std::string option = argv_loc[i];
 		boost::trim(option);
-		if( option.length() == 0) continue;
+		std::string option_next = "";
+		if ( option.empty() ) continue;
+		if ((i + 1) < argv_size)
+		{
+			arg_obj = PyList_GetItem(argv_obj, i+1);
+			arg_str = PyUnicode_AsUTF8(arg_obj);
+			option_next = arg_str;
+			boost::trim(option_next);
+		}
 		
 		if( option[0] == '-')
 		{
@@ -858,24 +861,24 @@ int HarlemApp::ProcessOptions()
 			{
 				FileFormat = FormatOpt[trunc_opt];
 				i++;
-				if( i >= argc_loc ) 
+				if( i >= argv_size )
 				{
 					PrintLog("No Molecular Geometry Input File Name supplied in the command line\n");
 					continue;
 				}
-				finp_name = argv_loc[i];
+				finp_name = option_next;
 				continue;
 			}
 
 			if( trunc_opt == "script" )
 			{
 				i++;
-				if( i >= argc_loc ) 
+				if( i >= argv_size )
 				{
 					PrintLog("No Script Name supplied in the command line\n");
 					continue;
 				}
-				script_name = argv_loc[i];
+				script_name = option_next;
 				continue;
 			}
 
@@ -884,24 +887,24 @@ int HarlemApp::ProcessOptions()
 				gui_mode = FALSE;
 				cmd_prompt_mode = FALSE;
 				i++;
-				if( i >= argc_loc ) 
+				if( i >= argv_size )
 				{
 					PrintLog("No Script Name supplied in the command line\n");
 					continue;
 				}
-				mpi_py_script = argv_loc[i];
+				mpi_py_script = option_next;
 				continue;
 			}
 
 			if( trunc_opt == "wd" )
 			{
 				i++;
-				if( i >= argc_loc ) 
+				if( i >= argv_size )
 				{
 					PrintLog("No Working Directory Name supplied for -wd option\n");
 					continue;
 				}
-				wxString work_dir = argv_loc[i];
+				wxString work_dir = option_next;
 				PrintLog("Set working directory to %s \n",work_dir.ToStdString().c_str());
 				::wxSetWorkingDirectory(work_dir);
 				continue;
@@ -913,7 +916,7 @@ int HarlemApp::ProcessOptions()
 			{
 				PrintLog("HarlemApp::ProcessOptions()", "Warning: Input File Name already set");
 			}
-			finp_name = argv_loc[i];
+			finp_name = option;
 		}
 	}
 
