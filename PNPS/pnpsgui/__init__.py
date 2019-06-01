@@ -40,6 +40,8 @@ def init():
     import wx
     import harlempy.hapygui
 
-    menu_simple_gui = harlempy.hapygui.GetApplicationsMenu().Append(harlempy.hapygui.NewID(), "PNP GUI",
-                                                                    "GUI for PNP/PNP-SR calculations")
+    menu_simple_gui = harlempy.hapygui.GetApplicationsMenu().Append(
+        harlempy.hapygui.NewID(), "PNP", "GUI for PNP/PNP-SR calculations")
+    menu_simple_gui = harlempy.hapygui.GetApplicationsMenu().Append(
+        harlempy.hapygui.NewID(), "PNP GUI", "GUI for PNP/PNP-SR calculations")
     harlempy.hapygui.GetMainFrame().Bind(wx.EVT_MENU, on_pnpgui, menu_simple_gui)

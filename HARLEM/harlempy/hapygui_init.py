@@ -13,7 +13,7 @@ def OnCenterAtOrigin(e):
     print("    Done")
 
 menuOnCenterAtOrigin = hapygui.GetEditMenu().Append(
-    hapygui.NewID(), "Center Molecules to Origin","Move molecules geometric center to the coordinates origin")
+    hapygui.NewID(), "Center Molecules to Origin", "Move molecules geometric center to the coordinates origin")
 hapygui.GetMainFrame().Bind(wx.EVT_MENU, OnCenterAtOrigin, menuOnCenterAtOrigin)
 
 try:

@@ -401,7 +401,7 @@ class AtomParamsPanel(PNPSBasePanel):
 
         # Soft Repulsion
         if self.ChoiceFF4SR.GetStringSelection() == "SR-MD":
-            self.pnpmod.AssignPAN(1)
+            self.pnpmod.AssignPAN(True)
 
         natoms = self.pnpmod.mSR_A_K.size()
         print(("Total number of atoms is %s" % natoms))
