@@ -19,7 +19,7 @@ def run_ahl_poisson(m_datadir, NumOfThreads=None):
     start = time.time()
     # Create Continuum representation
     contworld = pnps.ContWorld(
-        GridSize=[171, 171, 171],
+        GridSize=[178, 178, 178],
         GridScale=1.0,
         Qions=[1, -1]
     )
@@ -76,7 +76,7 @@ def run_ahl_poisson(m_datadir, NumOfThreads=None):
     return NumOfThreads, E, end - start, endP - startP
 
 
-Eref = 1.63854188269094e+05
+Eref = 1.63854733927233e+05
 
 
 def test_ahl_poisson(shared_datadir):

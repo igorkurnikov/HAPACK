@@ -55,12 +55,12 @@ public:
         GS_XYZ = GS_X * GS_Y * GS_Z;
 
         // Only work with odd set
-        assert(GS_X % 2 == 1);
-        assert(GS_Y % 2 == 1);
-        assert(GS_Z % 2 == 1);
+        //assert(GS_X % 2 == 1);
+        //assert(GS_Y % 2 == 1);
+        //assert(GS_Z % 2 == 1);
 
         Bsize = GS_XYZ / 2;
-        Wsize = GS_XYZ / 2 + 1;
+        Wsize = GS_XYZ / 2;
 
         DeleteCArray(B);
         DeleteCArray(W);
@@ -81,20 +81,48 @@ public:
     }
     void SetFromField(const float* F)
     {
-        for (int ib = 0; ib < Bsize; ++ib) {
+        for (int iz = 0; iz < GS_Z; iz++) {
+            for (int iy = 0; iy < GS_Y; iy++) {
+                for (int ix = 0; ix < GS_X; ix++) {
+                    int GrdPnt = ix + iy * GS_X + iz * GS_XY;
+                    int iu = GrdPnt/2;
+                    if((ix+iy+iz)%2==1){
+                        B[iu] = F[GrdPnt];
+                    }
+                    else{
+                        W[iu] = F[GrdPnt];
+                    }
+                }
+            }
+        }
+        /*for (int ib = 0; ib < Bsize; ++ib) {
             B[ib] = F[2 * ib + 1];
         }
         for (int iw = 0; iw < Wsize; ++iw) {
             W[iw] = F[2 * iw];
-        }
+        }*/
     }
     void SetField(float* F) const
     {
-        for (int ib = 0; ib < Bsize; ++ib) {
+        /*for (int ib = 0; ib < Bsize; ++ib) {
             F[2 * ib + 1] = B[ib];
         }
         for (int iw = 0; iw < Wsize; ++iw) {
             F[2 * iw] = W[iw];
+        }*/
+        for (int iz = 0; iz < GS_Z; iz++) {
+            for (int iy = 0; iy < GS_Y; iy++) {
+                for (int ix = 0; ix < GS_X; ix++) {
+                    int GrdPnt = ix + iy * GS_X + iz * GS_XY;
+                    int iu = GrdPnt / 2;
+                    if ((ix + iy + iz) % 2 == 1) {
+                        F[GrdPnt] = B[iu];
+                    }
+                    else {
+                        F[GrdPnt]=W[iu];
+                    }
+                }
+            }
         }
     }
 };

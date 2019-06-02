@@ -1980,6 +1980,22 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
     }
     PotBW->SetFromField(potential);
 
+    int *DielBoarderHmX=new int[DielBoarderNum[2]];
+
+    for (int j = 0; j <= 1; j++) {
+        for (int i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
+            int GrdPnt = IndexDielBoarder[i];
+            int not_j = !j;
+
+            int iz = GrdPnt / GS_XY;
+            int iy = GrdPnt % GS_XY / GS_X;
+            //int ix = GrdPnt % GS_X;
+            //assert(GrdPnt == ix + iy * GS_X + iz * GS_XY);
+
+            DielBoarderHmX[i] = (not_j + iy + iz) % 2 - 1;
+        }
+    }
+
 	//if 0 continue if > 0 it is good if <0 it is bad
 	int ReturnStatus = 0;
 	int TotalIterations;
@@ -1996,7 +2012,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 #endif
 		// check that black and white nodes matches
 		int FirstNode = 0;
-		GrdPnt = 1+1*GS_Y+1*GS_XY;
+		GrdPnt = 1+1*GS_X+1*GS_XY;
 		assert(World->NIndexing->NIndex[GrdPnt] & NodeIndexing::BlackAndWhiteMask == 1);
 		//Iteration itself
 		for (iteration = 1; iteration <= MaxIterations; iteration++)
@@ -2006,110 +2022,79 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 
             int HmX, HpX, HmY, HpY, HmZ, HpZ;
 
-
             //calculation over black and white nodes
             for (j = 0; j <= 1; j++) {
+                int not_j = !j;
                 if (j == 0) {
                     // for calculation over black nodes
                     PotU = PotBW->B;
                     PotR = PotBW->W;
-                    HmX = 0;
-                    HpX = 1;
-                    HmY = -Hgs_X;
-                    HpY = Hgs_Xp;
-                    HmZ = -Hgs_XY;
-                    HpZ = Hgs_XYp;
                 }
                 else {
                     // for calculation over white nodes
                     PotU = PotBW->W;
                     PotR = PotBW->B;
-                    HmX = -1;
-                    HpX = 0;
-                    HmY = -Hgs_Xp;
-                    HpY = Hgs_X;
-                    HmZ = -Hgs_XYp;
-                    HpZ = Hgs_XY;
+                    
                 }
 
-               
-                if (j == 0) {
-                    #pragma omp for schedule(dynamic)
-                    for (int iz = 1; iz<GS_Z - 1; iz++) {
-                        int izgrid = iz * GS_XY;
-                        for (int iy = 1; iy<GS_Y - 1; iy++) {
-                            int iygrid = izgrid + iy * GS_X;
-                            //ix [1 to GS_X-2] GS_X is odd so GS_X-2 is odd
-                            //if grid 1,iy,iz is odd then  [1 to GS_X-2] num points ( GS_X-2-1)/2 + 1=( GS_X-2-1)/2 + 1=H_X
-                            //if grid 1,iy,iz is even then [2 to GS_X-3] num points ( GS_X-3-2)/2 + 1=( GS_X-3-2)/2 + 1=H_X+1
-                            int iu0 = (iygrid + 1 + (iy + iz) % 2)/2;
-                            int iu1 = iu0 + Hgs_X + (1 + iy + iz) % 2-1;
-
-                            //for (int ix = 1 + (iy + iz) % 2; ix<GS_X - 1; ix += 2) {
-                                //GrdPnt = iygrid + ix;
-                                //int iu = GrdPnt / 2;
-                         // 
-                            /*int c0=0,c1=0;
-                            for (int iu = iu0; iu< iu1; ++iu) {
-                            c0++;
-                            }
-                            for (int iu = iu0;  2 * iu < iygrid + GS_X - 2; ++iu) {
-                            c1++;
-                            }
-                            assert(c0==c1);*/
-                            //if(c0!=c1){
-                           // printf("%d %d\n",c0,c1);
-                          //  }
-                            #pragma ivdep
-                            for (int iu = iu0; iu< iu1; ++iu) {
-
-                                PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu+ HmX] + PotR[iu + HpX] + \
-                                    PotR[iu + HmY] + PotR[iu + HpY] + PotR[iu + HmZ] + PotR[iu + HpZ]);
-                            }
-                        }
-                    }
-                }
-                else {
+                    
 #pragma omp for schedule(dynamic)
-                    for (int iz = 1; iz<GS_Z - 1; iz++) {
-                        int izgrid = iz * GS_XY;
-                        for (int iy = 1; iy<GS_Y - 1; iy++) {
-                            int iygrid = izgrid + iy * GS_X;
-                            int iu0 = (iygrid + 2 - (iy + iz) % 2) / 2;
-                            int iu1 = iu0 + Hgs_X + (iy + iz) % 2 - 1;
+                for (int iz = 1; iz<GS_Z - 1; iz++) {
+                    for (int iy = 1; iy<GS_Y - 1; iy++) {
+                        int iu0 = (j + iy + iz) % 2 + iy * Hgs_X + iz * Hgs_XY;
+                        int iu1 = iu0 + Hgs_X - 1;
+                            
+                        HmX = (not_j + iy + iz) % 2 - 1;
+                        HpX = HmX+1;
+
 #pragma ivdep
-                            for (int iu = iu0; iu< iu1; ++iu) {
-                                PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
-                                    PotR[iu + HmY] + PotR[iu + HpY] + PotR[iu + HmZ] + PotR[iu + HpZ]);
-                            }
+                        for (int iu = iu0; iu< iu1; ++iu) {
+
+                            PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
+                                PotR[iu - Hgs_X] + PotR[iu + Hgs_X] + PotR[iu - Hgs_XY] + PotR[iu + Hgs_XY]);
                         }
                     }
                 }
+                
 
-                #pragma omp for
+#pragma omp for
                 for (i = ChargeNum[j]; i < ChargeNum[j + 1]; i++) {
                     GrdPnt = IndexCharge[i];
                     int iu = GrdPnt / 2;
                     PotU[iu] += om2d6 * Qst[i];
                 }
-                #pragma omp for
+                
+
+#pragma omp for
                 for (i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
                     GrdPnt = IndexDielBoarder[i];
+
+                    //int iz = GrdPnt/ GS_XY;
+                    //int iy = GrdPnt % GS_XY / GS_X;
+                    //int ix = GrdPnt % GS_X;
+                    //assert(GrdPnt == ix + iy * GS_X + iz * GS_XY);
+
+                    //HmX = (not_j + iy + iz) % 2 - 1;
+                    //HpX = HmX + 1;
+
+                    
                     int iu = GrdPnt / 2;
                     PotU[iu] += om2d6 * (\
-                        PotR[iu + HmX] * dielectricXmDB[i] + \
-                        PotR[iu + HpX] * dielectricXDB[i] + \
-                        PotR[iu + HmY] * dielectricYmDB[i] + \
-                        PotR[iu + HpY] * dielectricYDB[i] + \
-                        PotR[iu + HmZ] * dielectricZmDB[i] + \
-                        PotR[iu + HpZ] * dielectricZDB[i]); }
-                #pragma omp for
+                        PotR[iu + DielBoarderHmX[i]] * dielectricXmDB[i] + \
+                        PotR[iu + DielBoarderHmX[i]+1] * dielectricXDB[i] + \
+                        PotR[iu - Hgs_X] * dielectricYmDB[i] + \
+                        PotR[iu + Hgs_X] * dielectricYDB[i] + \
+                        PotR[iu - Hgs_XY] * dielectricZmDB[i] + \
+                        PotR[iu + Hgs_XY] * dielectricZDB[i]);
+                }
+#pragma omp for
                 for (i = QmobNum[j]; i < QmobNum[j + 1]; i++) {
                     GrdPnt = IndexQmob[i];
                     int iu = GrdPnt / 2;
                     PotU[iu] += om2d6 * Qmob[i];
                 }
             }
+
 			//checking and printing energy
 
 			#pragma omp master

@@ -14,7 +14,7 @@ def theoretic_born_enery(diel_from, diel_to, q, R):
 def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0):
     # Create Continuum representation
     contworld = pnps.ContWorld(
-        GridSize=[65, 65, 65],
+        GridSize=[64, 64, 64],
         GridScale=4.0,
         Qions=[1, -1]
     )
@@ -97,10 +97,10 @@ def test_born_solvation_energy():
     rel_diff = abs_diff / dEtheor
     print("Relative difference (sim-theory): %.3f" % rel_diff)
 
-    ref_dEsim = -69.12786293519918
-    ref_sd = 0.1477743546953387
-    ref_abs_diff = -0.787865744857
-    ref_rel_diff = 0.0115286183384
+    ref_dEsim = -69.12774138940426
+    ref_sd = 0.14783895743446462
+    ref_abs_diff = -0.7877441990622032
+    ref_rel_diff = 0.011526839792927715
 
     def abs_rel_diff(val, ref):
         return abs((val - ref) / ref)
