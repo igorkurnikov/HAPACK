@@ -117,49 +117,4 @@ class PoissonBoltzmannSolver : public GenericSolver,public PnpsObject
 		double* ChargesEnergy;
 
 };
-
-#ifdef SWIG
-%pythoncode %{
-def SolvePB(contworld,
-	MaxIterationsLPB=-1,
-	MaxIterationsNPB=-1,
-	Convergence=0.0,
-	Relaxation=1.0,
-	ConvergenceCheck=20,
-	Solver=0,
-	Verbose=True
-	):
-	"""
-	Solve 
-	Input Parameters:
-		MaxIterationsLPB=int, default=-1
-			Maximal number of iterations, negative number means automaticly determined
-
-	Returned value:
-		Exit status
-	"""
-	pb=PoissonBoltzmannSolver()
-	pb.MaxIterationsLPB=MaxIterationsLPB
-	pb.MaxIterationsNPB=MaxIterationsNPB
-	pb.Convergence=Convergence
-	pb.Relaxation=Relaxation
-	pb.ConvergenceCheck=ConvergenceCheck
-	pb.solver=Solver
-	if Verbose:pb.verbose=1
-	else:pb.verbose=0
-
-	pb.ShowParameters()
-	pb.SetRelaxation(Relaxation)
-	if pb.dielectricZSSUM!=None:
-		pb.ShowProperties()
-
-	pb.SetContWorld(contworld)
-	pb.InitSolver()
-	pb.Solve()
-	del pb
-	
-	
-
-%}
-#endif
 #endif
