@@ -1,6 +1,6 @@
-import pnpsll
+import pnpsll.pnpsll as pnpsll
 
-from pnpsll import ContWorld, GetWorldBuilder
+from pnpsll.pnpsll import ContWorld, GetWorldBuilder
 
 
 def SolveP(contworld,
