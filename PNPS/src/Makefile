@@ -13,6 +13,7 @@ _pnpsll.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolve
 	$(CXX) $(LDFLAGS) $^  -o $@
 	mkdir -p ../pnpsll
 	cp _pnpsll.so pnpsll.py ../pnpsll
+	cp pnps.py ../pnps
 
 %.o: %.cxx
 	$(CXX) $(CXXFLAGS) $? -o $@
