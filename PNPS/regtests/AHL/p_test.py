@@ -108,6 +108,15 @@ if __name__ == "__main__":
     # This is for stand-alone/debug execution
     import inspect
     import os
+    import sys
     cur_dir = os.path.dirname(os.path.abspath(inspect.getframeinfo(inspect.currentframe()).filename))
-    test_ahl_poisson(os.path.join(cur_dir, "data"))
-    test_ahl_poisson_parallel(os.path.join(cur_dir, "data"), (1, 2, 4, 8))
+
+    if len(sys.argv) == 1:
+        test_ahl_poisson(os.path.join(cur_dir, "data"))
+
+    if len(sys.argv) == 1:
+        NumOfThreads = (1, 2, 4, 8)
+    else:
+        NumOfThreads = (int(nt) for nt in sys.argv[1:])
+
+    test_ahl_poisson_parallel(os.path.join(cur_dir, "data"), NumOfThreads)
