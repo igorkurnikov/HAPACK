@@ -106,7 +106,7 @@ def test_born_solvation_energy():
         return abs((val - ref) / ref)
 
     assert abs_rel_diff(dEsim, ref_dEsim) < 1.0e-4
-    assert abs_rel_diff(sd, ref_sd) < 1.0e-4
+    assert abs_rel_diff(sd, ref_sd) < 5.0e-4
     assert abs_rel_diff(abs_diff, ref_abs_diff) < 1.0e-4
 
 

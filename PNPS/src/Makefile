@@ -27,5 +27,5 @@ _pnpsll.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolve
 
 clean:
 	rm -f *.o pnpsll_wrap.cxx *.pyc pnpsll.py _pnpsll.so ../pnpsll/_pnpsll.so ../pnpsll/pnpsll.py \
-	    ../pnpsll/pnpsll.pyc rm ../pnps/pnps.py
+	    ../pnpsll/pnpsll.pyc
 
