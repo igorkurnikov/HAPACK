@@ -278,7 +278,11 @@ int PNPSApp::BcastCStr(char *CStr,int root)
 
 int PNPSApp::GetNumOfThreads() const
 {
+#ifdef _OPENMP
 	return omp_get_max_threads();
+#else
+	return 1;
+#endif
 }
 int PNPSApp::SetNumOfThreads(const int m_NumOfThread)
 {
