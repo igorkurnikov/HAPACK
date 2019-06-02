@@ -89,7 +89,8 @@ class PNPSApp
 		TiXmlElement*  BcastTiXmlElement(TiXmlElement *Elt);
 		TiXmlElement*  BcastTiXmlElementWithinGroup(TiXmlElement *Elt);
 		
-		
+		int GetNumOfThreads() const;
+		int SetNumOfThreads(const int m_NumOfThread);
 	public:
 		static int InitPNPSApp();
 		static int InitPNPSApp(int np,int ng,int nppg,const char *t_TempDir, int SuperGroupNumber=0, int FirstSuperGroupProc=0);
