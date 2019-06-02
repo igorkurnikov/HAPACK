@@ -3006,14 +3006,22 @@ int PoissonSolver::GuessNumberOfIteration()
 		}
 	}
 	float spec=2.0*tmp;
-	pnpPrint("Gauss-Seidel Spectral Radius: %f\n",spec);
-	int iter=int(7.8/log(1.0 + sqrt(1.0-spec)));
-	pnpPrint("Estimated Number of Iterations to Convergence: %d\n",iter);
-	DeleteCVecArray(sn,3);
-	delete [] tmpPot;
-	potential=PotPointer;
-	Relaxation=2.0/(1.0 + sqrt(1.0 - spec));
-	pnpPrint("Estimated Relaxation Coefficient: %f\n",Relaxation);
-	SetRelaxation(Relaxation);
+    int iter;
+    if(spec>=1.0){
+        pnpPrint("Error: Found Gauss-Seidel Spectral Radius is bigger then 1: %f\n", spec);
+        pnpPrint("       Please select relaxation parameter and number of iteration manually\n");
+        exit(1);
+    }
+    else {
+	    pnpPrint("Gauss-Seidel Spectral Radius: %f\n",spec);
+	    iter=int(7.8/log(1.0 + sqrt(1.0-spec)));
+	    pnpPrint("Estimated Number of Iterations to Convergence: %d\n",iter);
+	    DeleteCVecArray(sn,3);
+	    delete [] tmpPot;
+	    potential=PotPointer;
+	    Relaxation=2.0/(1.0 + sqrt(1.0 - spec));
+	    pnpPrint("Estimated Relaxation Coefficient: %f\n",Relaxation);
+	    SetRelaxation(Relaxation);
+    }
 	return iter;
 }
