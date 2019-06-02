@@ -30,6 +30,9 @@
 
 #include <assert.h>
 
+#include <algorithm>
+
+
 PoissonSolver::PoissonSolver()
  : GenericSolver()
 {
@@ -2052,9 +2055,9 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
                     
 #pragma omp for schedule(dynamic)
                 for (int iz_big = 1; iz_big<GS_Z - 1; iz_big +=GS_Step) {
-                    int iz_fin = min(GS_Z - 1, iz_big + GS_Step);
+                    int iz_fin = (std::min)(GS_Z - 1, iz_big + GS_Step);
                     for (int iy_big = 1; iy_big<GS_Y - 1; iy_big+=GS_Step) {
-                        int iy_fin=min(GS_Y - 1, iy_big + GS_Step);
+                        int iy_fin=(std::min)(GS_Y - 1, iy_big + GS_Step);
                         
                         for (int iz = iz_big; iz<iz_fin; iz++) {
                             for (int iy = iy_big; iy<iy_fin; iy++) {
