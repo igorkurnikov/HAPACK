@@ -15,34 +15,44 @@
 #include "pnpdebug.h"
 #include <assert.h>
 
+
+#define AligneSize 16
+
 class FieldBW {
 public:
     FieldBW()
     {
         B = nullptr;
         W = nullptr;
+        Borg = nullptr;
+        Worg = nullptr;
         GS_X = 0;
         GS_Y = 0;
         GS_Z = 0;
-        GS_XY = 0;
-        GS_XYZ = 0;
+        StrideX = 0;
+        StrideXY = 0;
         Bsize = 0;
         Wsize = 0;
     }
     ~FieldBW()
     {
-        DeleteCArray(B);
-        DeleteCArray(W);
+        DeleteCArray(Borg);
+        DeleteCArray(Worg);
     }
 
 public:
     float* B;
     float* W;
+    float* Borg;
+    float* Worg;
     int GS_X;
     int GS_Y;
     int GS_Z;
-    int GS_XY;
-    int GS_XYZ;
+    //int GS_XY;
+    //int GS_XYZ;
+    int StrideX;
+    int StrideXY;
+
     int Bsize;
     int Wsize;
 
@@ -51,28 +61,30 @@ public:
         GS_X = GridSize[0];
         GS_Y = GridSize[1];
         GS_Z = GridSize[2];
-        GS_XY = GS_X * GS_Y;
-        GS_XYZ = GS_X * GS_Y * GS_Z;
+        //GS_XY = GS_X * GS_Y;
+        //GS_XYZ = GS_X * GS_Y * GS_Z;
+
+        int H_X = (GS_X + 1) / 2;
+
+        StrideX = H_X;
+        StrideXY = StrideX * GS_Y;
 
         // Only work with odd set
         //assert(GS_X % 2 == 1);
         //assert(GS_Y % 2 == 1);
         //assert(GS_Z % 2 == 1);
 
-        Bsize = GS_XYZ / 2;
-        Wsize = GS_XYZ / 2;
+        Bsize = StrideX * GS_Y * GS_Z;
+        Wsize = StrideX * GS_Y * GS_Z;
 
         DeleteCArray(B);
         DeleteCArray(W);
 
         B = new float[Bsize];
         W = new float[Wsize];
-
-        for (int ib = 0; ib < Bsize; ++ib) {
-            B[ib] = 0.0f;
-        }
-        for (int iw = 0; iw < Wsize; ++iw) {
-            W[iw] = 0.0f;
+        for (int iu = 0; iu < Bsize; ++iu) {
+            B[iu] = 0.0f;
+            W[iu] = 0.0f;
         }
     }
     bool SameSize(int* GridSize)
@@ -81,11 +93,12 @@ public:
     }
     void SetFromField(const float* F)
     {
+        int GS_XY = GS_X * GS_Y;
         for (int iz = 0; iz < GS_Z; iz++) {
             for (int iy = 0; iy < GS_Y; iy++) {
                 for (int ix = 0; ix < GS_X; ix++) {
                     int GrdPnt = ix + iy * GS_X + iz * GS_XY;
-                    int iu = GrdPnt/2;
+                    int iu = ix/2 + iy * StrideX + iz * StrideXY;
                     if((ix+iy+iz)%2==1){
                         B[iu] = F[GrdPnt];
                     }
@@ -95,31 +108,20 @@ public:
                 }
             }
         }
-        /*for (int ib = 0; ib < Bsize; ++ib) {
-            B[ib] = F[2 * ib + 1];
-        }
-        for (int iw = 0; iw < Wsize; ++iw) {
-            W[iw] = F[2 * iw];
-        }*/
     }
     void SetField(float* F) const
     {
-        /*for (int ib = 0; ib < Bsize; ++ib) {
-            F[2 * ib + 1] = B[ib];
-        }
-        for (int iw = 0; iw < Wsize; ++iw) {
-            F[2 * iw] = W[iw];
-        }*/
+        int GS_XY = GS_X * GS_Y;
         for (int iz = 0; iz < GS_Z; iz++) {
             for (int iy = 0; iy < GS_Y; iy++) {
                 for (int ix = 0; ix < GS_X; ix++) {
                     int GrdPnt = ix + iy * GS_X + iz * GS_XY;
-                    int iu = GrdPnt / 2;
+                    int iu = ix / 2 + iy * StrideX + iz * StrideXY;
                     if ((ix + iy + iz) % 2 == 1) {
                         F[GrdPnt] = B[iu];
                     }
                     else {
-                        F[GrdPnt]=W[iu];
+                        F[GrdPnt] = W[iu];
                     }
                 }
             }

@@ -282,6 +282,14 @@ int PoissonSolver::SetContWorld(ContWorld* _world)
 #	else
 	
 #	endif
+
+    if (PotBW == nullptr) {
+        PotBW = new FieldBW();
+    }
+    if (!PotBW->SameSize(World->GridSize)) {
+        PotBW->Init(World->GridSize);
+    }
+
 	return EXIT_SUCCESS;
 }
 int PoissonSolver::ShowParameters()
@@ -549,6 +557,9 @@ int PoissonSolver::InitSolverNIB()
 	DbgPrint0("q=%f QCount=%d GridScale=%f\n",(float)q/4.0f/M_PI/World->GridScale,World->NIndexing->QNum,World->GridScale);
 	q=0.0f;
 
+    int bwStrideX = PotBW->StrideX;
+    int bwStrideXY = PotBW->StrideXY;
+
 	for(k=1;k<GS_Z-1;k++)
 	{
 		kgrid = k*GS_XY;
@@ -564,6 +575,7 @@ int PoissonSolver::InitSolverNIB()
 				{
 					if(NIndex[GrdPnt]&specChargeMask)
 					{
+                        int iu = i/2 + j * bwStrideX + k * bwStrideXY;
 						int iCharge;
 						if (NIndex[GrdPnt] & BlackAndWhiteMask)
 						{
@@ -575,7 +587,7 @@ int PoissonSolver::InitSolverNIB()
 							iCharge = iCharge2;
 							iCharge2++;
 						}
-						IndexCharge[iCharge] = GrdPnt;
+						IndexCharge[iCharge] = iu;
 						if (NIndex[GrdPnt] & DielBoarderMask){
 							dielectricCh[iCharge] = \
 								Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft] + \
@@ -597,6 +609,7 @@ int PoissonSolver::InitSolverNIB()
 					if(NIndex[GrdPnt]&DielBoarderMask)
 					{
 						int iDielBoarder;
+                        int iu = i / 2 + j * bwStrideX + k * bwStrideXY;
 						if(NIndex[GrdPnt]&BlackAndWhiteMask){
 							iDielBoarder = iDielBoarder1;
 							iDielBoarder1++;
@@ -605,7 +618,7 @@ int PoissonSolver::InitSolverNIB()
 							iDielBoarder = iDielBoarder2;
 							iDielBoarder2++;
 						}
-						IndexDielBoarder[iDielBoarder]=GrdPnt;
+						IndexDielBoarder[iDielBoarder]=iu;
 
 						dielectricXDB[iDielBoarder] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft];
 						dielectricYDB[iDielBoarder] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon1) >> NodeIndexing::Epsilon1Sft];
@@ -1924,10 +1937,6 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 	int GS_Z = World->GridSize[2];
 	int GS_XY = GS_X*GS_Y;
 	int GS_XYZ = GS_XY*GS_Z;
-    int Hgs_X = GS_X / 2;
-    int Hgs_Xp = GS_X / 2 + 1;
-    int Hgs_XY = GS_XY / 2;
-    int Hgs_XYp = GS_XY / 2 + 1;
 	bool *PeriodicBoundaryCondition = World->PBC;
 #ifndef PNPDOUBLE
 	//vars
@@ -1972,23 +1981,24 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 		for(int i=0;i<ConvFacMaxHistory;i++)
 			ConvFacHistory[i]=1e10;
 	}
-    if(PotBW==nullptr){
-        PotBW = new FieldBW();
-    }
-    if (!PotBW->SameSize(World->GridSize)) {
-        PotBW->Init(World->GridSize);
-    }
+
     PotBW->SetFromField(potential);
+
+    int bwStrideX = PotBW->StrideX;
+    int bwStrideXY = PotBW->StrideXY;
+    int H_X = (GS_X+1)/2;
+    int GS_X_odd = GS_X % 2;
+
 
     int *DielBoarderHmX=new int[DielBoarderNum[2]];
 
     for (int j = 0; j <= 1; j++) {
         for (int i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
-            int GrdPnt = IndexDielBoarder[i];
+            int iu = IndexDielBoarder[i];
             int not_j = !j;
 
-            int iz = GrdPnt / GS_XY;
-            int iy = GrdPnt % GS_XY / GS_X;
+            int iz = iu / bwStrideXY;
+            int iy = iu % bwStrideXY / bwStrideX;
             //int ix = GrdPnt % GS_X;
             //assert(GrdPnt == ix + iy * GS_X + iz * GS_XY);
 
@@ -1999,6 +2009,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 	//if 0 continue if > 0 it is good if <0 it is bad
 	int ReturnStatus = 0;
 	int TotalIterations;
+
 	#pragma omp parallel
 	{
 		int iteration;
@@ -2020,7 +2031,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
             float *PotU;// potential to update
             float *PotR;// potential to read
 
-            int HmX, HpX, HmY, HpY, HmZ, HpZ;
+            int HmX, HpX;
 
             //calculation over black and white nodes
             for (j = 0; j <= 1; j++) {
@@ -2041,17 +2052,18 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 #pragma omp for schedule(dynamic)
                 for (int iz = 1; iz<GS_Z - 1; iz++) {
                     for (int iy = 1; iy<GS_Y - 1; iy++) {
-                        int iu0 = (j + iy + iz) % 2 + iy * Hgs_X + iz * Hgs_XY;
-                        int iu1 = iu0 + Hgs_X - 1;
+                        int iu0 = (j + iy + iz) % 2;
+                        int iuS = iu0 + iy * bwStrideX + iz * bwStrideXY;
+                        int iuF = iuS + H_X - 2 - (iu0 & GS_X_odd);
                             
                         HmX = (not_j + iy + iz) % 2 - 1;
                         HpX = HmX+1;
 
 #pragma ivdep
-                        for (int iu = iu0; iu< iu1; ++iu) {
+                        for (int iu = iuS; iu<= iuF; ++iu) {
 
                             PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
-                                PotR[iu - Hgs_X] + PotR[iu + Hgs_X] + PotR[iu - Hgs_XY] + PotR[iu + Hgs_XY]);
+                                PotR[iu - bwStrideX] + PotR[iu + bwStrideX] + PotR[iu - bwStrideXY] + PotR[iu + bwStrideXY]);
                         }
                     }
                 }
@@ -2059,38 +2071,25 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 
 #pragma omp for
                 for (i = ChargeNum[j]; i < ChargeNum[j + 1]; i++) {
-                    GrdPnt = IndexCharge[i];
-                    int iu = GrdPnt / 2;
+                    int iu = IndexCharge[i];
                     PotU[iu] += om2d6 * Qst[i];
                 }
                 
 
 #pragma omp for
                 for (i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
-                    GrdPnt = IndexDielBoarder[i];
-
-                    //int iz = GrdPnt/ GS_XY;
-                    //int iy = GrdPnt % GS_XY / GS_X;
-                    //int ix = GrdPnt % GS_X;
-                    //assert(GrdPnt == ix + iy * GS_X + iz * GS_XY);
-
-                    //HmX = (not_j + iy + iz) % 2 - 1;
-                    //HpX = HmX + 1;
-
-                    
-                    int iu = GrdPnt / 2;
+                    int iu = IndexDielBoarder[i];
                     PotU[iu] += om2d6 * (\
                         PotR[iu + DielBoarderHmX[i]] * dielectricXmDB[i] + \
                         PotR[iu + DielBoarderHmX[i]+1] * dielectricXDB[i] + \
-                        PotR[iu - Hgs_X] * dielectricYmDB[i] + \
-                        PotR[iu + Hgs_X] * dielectricYDB[i] + \
-                        PotR[iu - Hgs_XY] * dielectricZmDB[i] + \
-                        PotR[iu + Hgs_XY] * dielectricZDB[i]);
+                        PotR[iu - bwStrideX] * dielectricYmDB[i] + \
+                        PotR[iu + bwStrideX] * dielectricYDB[i] + \
+                        PotR[iu - bwStrideXY] * dielectricZmDB[i] + \
+                        PotR[iu + bwStrideXY] * dielectricZDB[i]);
                 }
 #pragma omp for
                 for (i = QmobNum[j]; i < QmobNum[j + 1]; i++) {
-                    GrdPnt = IndexQmob[i];
-                    int iu = GrdPnt / 2;
+                    int iu = IndexQmob[i];
                     PotU[iu] += om2d6 * Qmob[i];
                 }
             }
@@ -2480,7 +2479,7 @@ int PoissonSolver::CalcSystemEnergyMaxPhiChange(int iteration)
 }
 int PoissonSolver::CalcSystemEnergyStdDevPhi(int iteration)
 {
-	int i,GrdPnt;
+	int i;
 	static double oldSumSQ=0.0,oldSumAbs=0.0,oldTotEn=0.0;
 	double Dev=0.0;
 	double tmp,SumSQ=0.0,SumAbs=0.0;
@@ -2504,8 +2503,7 @@ int PoissonSolver::CalcSystemEnergyStdDevPhi(int iteration)
         }
 	    for(i=ChargeNum[j];i<ChargeNum[j+1];i++)
 	    {
-		    GrdPnt=IndexCharge[i];
-            int ip = GrdPnt/2;
+            int ip = IndexCharge[i];
 		
 		    tmp=double(Pot[ip])*double(Qst[i])*double(dielectricCh[i]);
 		    EnergyCharge+=tmp;
