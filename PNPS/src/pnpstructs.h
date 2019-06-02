@@ -12,6 +12,94 @@
 #ifndef PNPSTRUCTS_H
 #define PNPSTRUCTS_H
 
+#include "pnpdebug.h"
+#include <assert.h>
+
+class FieldBW {
+public:
+    FieldBW()
+    {
+        B = nullptr;
+        W = nullptr;
+        GS_X = 0;
+        GS_Y = 0;
+        GS_Z = 0;
+        GS_XY = 0;
+        GS_XYZ = 0;
+        Bsize = 0;
+        Wsize = 0;
+    }
+    ~FieldBW()
+    {
+        DeleteCArray(B);
+        DeleteCArray(W);
+    }
+
+public:
+    float* B;
+    float* W;
+    int GS_X;
+    int GS_Y;
+    int GS_Z;
+    int GS_XY;
+    int GS_XYZ;
+    int Bsize;
+    int Wsize;
+
+    void Init(int* GridSize)
+    {
+        GS_X = GridSize[0];
+        GS_Y = GridSize[1];
+        GS_Z = GridSize[2];
+        GS_XY = GS_X * GS_Y;
+        GS_XYZ = GS_X * GS_Y * GS_Z;
+
+        // Only work with odd set
+        assert(GS_X % 2 == 1);
+        assert(GS_Y % 2 == 1);
+        assert(GS_Z % 2 == 1);
+
+        Bsize = GS_XYZ / 2;
+        Wsize = GS_XYZ / 2 + 1;
+
+        DeleteCArray(B);
+        DeleteCArray(W);
+
+        B = new float[Bsize];
+        W = new float[Wsize];
+
+        for (int ib = 0; ib < Bsize; ++ib) {
+            B[ib] = 0.0f;
+        }
+        for (int iw = 0; iw < Wsize; ++iw) {
+            W[iw] = 0.0f;
+        }
+    }
+    bool SameSize(int* GridSize)
+    {
+        return GS_X == GridSize[0] && GS_Y == GridSize[1] && GS_Z == GridSize[2];
+    }
+    void SetFromField(const float* F)
+    {
+        for (int ib = 0; ib < Bsize; ++ib) {
+            B[ib] = F[2 * ib + 1];
+        }
+        for (int iw = 0; iw < Wsize; ++iw) {
+            W[iw] = F[2 * iw];
+        }
+    }
+    void SetField(float* F) const
+    {
+        for (int ib = 0; ib < Bsize; ++ib) {
+            F[2 * ib + 1] = B[ib];
+        }
+        for (int iw = 0; iw < Wsize; ++iw) {
+            F[2 * iw] = W[iw];
+        }
+    }
+};
+
+
 #define PlusX 0
 #define MinusX 1
 #define PlusY 2

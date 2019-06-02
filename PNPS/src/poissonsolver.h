@@ -155,8 +155,10 @@ class PoissonSolver : public GenericSolver,public PnpsObject
 		float GridScale;
 #	ifndef PNPDOUBLE
 		float *potential;//!< World->Potential
+        FieldBW *PotBW;
 #	else
 		double *potential;//!< World->Potential
+        FieldBW *PotBW;
 #	endif
 		
     //!variables for solver, setuped in SetParameters(Data* Dt);
