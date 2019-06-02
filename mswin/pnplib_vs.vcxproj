@@ -46,6 +46,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -56,6 +60,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -66,6 +74,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -76,6 +88,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -87,6 +103,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -97,6 +116,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">Disabled</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
@@ -167,10 +190,6 @@
     <None Include="..\PNPS\pnpsgui\__init__.py" />
     <None Include="..\PNPS\pnpsgui\__main__.py" />
     <None Include="..\PNPS\pnps\__init__.py" />
-    <None Include="..\PNPS\src\pnps.py">
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(OutDir)\..\pnps\</DestinationFolders>
-    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00332771-F366-4C97-80A8-51519A1FF394}</ProjectGuid>
@@ -367,6 +386,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -377,8 +397,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -398,6 +417,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -408,8 +428,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -429,6 +448,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -439,8 +459,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -461,6 +480,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -471,8 +491,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -492,6 +511,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -502,8 +522,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -522,6 +541,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -532,8 +552,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -552,6 +571,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -562,8 +582,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -583,6 +602,7 @@ copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Lib />
     <PostBuildEvent>
@@ -593,8 +613,7 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
-copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Lib>

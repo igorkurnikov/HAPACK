@@ -94,9 +94,9 @@ def test_ahl_poisson_parallel(shared_datadir):
         run_ahl_poisson(shared_datadir, 4)
     ]
     Eref = results[0][1]
-    print "%2s %20s %10s %10s %10s" % ("NT", "E", "dE", "Time", "Poisson Time")
+    print("%2s %20s %10s %10s %10s" % ("NT", "E", "dE", "Time", "Poisson Time"))
     for nt, E, t, tP in results:
-        print "%2d %20.12e %10.3e %10.3f %10.3f" % (nt, E, abs(E - Eref), t, tP)
+        print("%2d %20.12e %10.3e %10.3f %10.3f" % (nt, E, abs(E - Eref), t, tP))
         dE = abs_rel_diff(E, Eref)
         assert dE < 1.0e-7
 

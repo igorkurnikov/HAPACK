@@ -1,6 +1,6 @@
-import llpnps
+from pnpsll import pnpsll
 
-from llpnps import ContWorld, GetWorldBuilder, PNPSApp
+from pnpsll.pnpsll import ContWorld, GetWorldBuilder, PNPSApp
 
 
 def SolveP(contworld,
@@ -23,7 +23,7 @@ def SolveP(contworld,
     Returned value:
         Exit status
     """
-    p = llpnps.PoissonSolver()
+    p = pnpsll.PoissonSolver()
     params = {
         'MaxIterations': MaxIterations,
         'Convergence': Convergence,
@@ -61,7 +61,7 @@ def SolvePB(contworld,
     Returned value:
         Exit status
     """
-    pb = llpnps.PoissonBoltzmannSolver()
+    pb = pnpsll.PoissonBoltzmannSolver()
     pb.MaxIterationsLPB = MaxIterationsLPB
     pb.MaxIterationsNPB = MaxIterationsNPB
     pb.Convergence = Convergence

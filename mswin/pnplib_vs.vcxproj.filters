@@ -98,6 +98,5 @@
     <None Include="..\PNPS\pnpsgui\utils.py">
       <Filter>pnpsgui</Filter>
     </None>
-    <None Include="..\PNPS\src\pnps.py" />
   </ItemGroup>
 </Project>
