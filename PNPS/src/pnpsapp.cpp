@@ -204,6 +204,8 @@ int PNPSApp::GetNumProcsInGroup(int GroupNumber)
 }
 PNPSApp* PNPSApp::GetPNPSApp()
 {
+	if (pnpsapp == NULL)
+		InitPNPSApp();
 	return pnpsapp;
 }
 int PNPSApp::InitPNPSApp()
