@@ -2009,6 +2009,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 	//if 0 continue if > 0 it is good if <0 it is bad
 	int ReturnStatus = 0;
 	int TotalIterations;
+    const int GS_Step=4;
 
 	#pragma omp parallel
 	{
@@ -2050,20 +2051,26 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 
                     
 #pragma omp for schedule(dynamic)
-                for (int iz = 1; iz<GS_Z - 1; iz++) {
-                    for (int iy = 1; iy<GS_Y - 1; iy++) {
-                        int iu0 = (j + iy + iz) % 2;
-                        int iuS = iu0 + iy * bwStrideX + iz * bwStrideXY;
-                        int iuF = iuS + H_X - 2 - (iu0 & GS_X_odd);
+                for (int iz_big = 1; iz_big<GS_Z - 1; iz_big +=GS_Step) {
+                    int iz_fin = min(GS_Z - 1, iz_big + GS_Step);
+                    for (int iy_big = 1; iy_big<GS_Y - 1; iy_big+=GS_Step) {
+                        int iy_fin=min(GS_Y - 1, iy_big + GS_Step);
+                        
+                        for (int iz = iz_big; iz<iz_fin; iz++) {
+                            for (int iy = iy_big; iy<iy_fin; iy++) {
+                                int iu0 = (j + iy + iz) % 2;
+                                int iuS = iu0 + iy * bwStrideX + iz * bwStrideXY;
+                                int iuF = iuS + H_X - 2 - (iu0 & GS_X_odd);
                             
-                        HmX = (not_j + iy + iz) % 2 - 1;
-                        HpX = HmX+1;
+                                HmX = (not_j + iy + iz) % 2 - 1;
+                                HpX = HmX+1;
 
-#pragma ivdep
-                        for (int iu = iuS; iu<= iuF; ++iu) {
-
-                            PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
-                                PotR[iu - bwStrideX] + PotR[iu + bwStrideX] + PotR[iu - bwStrideXY] + PotR[iu + bwStrideXY]);
+                                #pragma ivdep
+                                for (int iu = iuS; iu<= iuF; ++iu) {
+                                    PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
+                                        PotR[iu - bwStrideX] + PotR[iu + bwStrideX] + PotR[iu - bwStrideXY] + PotR[iu + bwStrideXY]);
+                                }
+                            }
                         }
                     }
                 }
