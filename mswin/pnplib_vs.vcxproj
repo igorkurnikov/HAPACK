@@ -167,6 +167,10 @@
     <None Include="..\PNPS\pnpsgui\__init__.py" />
     <None Include="..\PNPS\pnpsgui\__main__.py" />
     <None Include="..\PNPS\pnps\__init__.py" />
+    <None Include="..\PNPS\src\pnps.py">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(OutDir)\..\pnps\</DestinationFolders>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00332771-F366-4C97-80A8-51519A1FF394}</ProjectGuid>
@@ -373,7 +377,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -403,7 +408,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -433,7 +439,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -464,7 +471,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -494,7 +502,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -523,7 +532,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -552,7 +562,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
@@ -582,7 +593,8 @@ if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
 if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
 
 xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
+xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\
+copy /Y $(SolutionDir)\..\PNPS\src\pnps.py $(OutputPath)\..\pnps\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Lib>
