@@ -1,1 +1,1 @@
-from pnpsll import *
+from pnpsll.pnpsll import *

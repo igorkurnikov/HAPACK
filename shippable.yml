@@ -2,11 +2,11 @@ language: none
 build:
     pre_ci_boot:
         image_name: nsimakov/harlem_ready
-        image_tag: 1
+        image_tag: 2
         pull: true
         options: "--user root -e HOME=/root -t"
     ci:
         - cd /root/src/gitlab.com/$REPO_FULL_NAME/PNPS/src
         - make
         - cd ../regtests
-        - PYTHONPATH=/root/src/gitlab.com/$REPO_FULL_NAME/PNPS/src python -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .
+        - PYTHONPATH=/root/src/gitlab.com/$REPO_FULL_NAME/PNPS python3 -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .
