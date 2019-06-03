@@ -30,7 +30,7 @@ class HaField3D:public HaObject
 {
 public:
 
-    HaField3D(float *fvec=NULL,int new_Nx=0, int new_Ny=0, int new_Nz=0);
+    HaField3D(float *fvec=NULL,int new_Nx=0, int new_Ny=0, int new_Nz=0, bool deligate_control=false);
 //	HaField3D();
  
 	virtual ~HaField3D();

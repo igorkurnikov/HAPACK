@@ -285,14 +285,17 @@ class NumVector
 //	  nalloc_ = N;
 //    }
 
-	void set_ext_alloc(T* v, size_type N, size_type N_alloc = 0)
+	void set_ext_alloc(T* v, size_type N, size_type N_alloc = 0, bool deligate_control = false)
 	{
 		if(v == NULL) 
 		{
 			throw("Error in NumVector<T>::set_ext_alloc() v == NULL \n");
 		}
 		if(v_ != 0) destroy();
-		amode = EXTERNAL_ALLOC;
+		if (deligate_control)
+			amode = INTERNAL_ALLOC;
+		else
+			amode = EXTERNAL_ALLOC;
 		v_ = v;
 		vm1_ = v_-1;
 		n_ = N;
