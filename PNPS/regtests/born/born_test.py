@@ -11,12 +11,15 @@ def theoretic_born_enery(diel_from, diel_to, q, R):
     return de
 
 
-def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0, GridSize=64):
+def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0, GridSize=64, BC="CoulBC", PBC=None):
+    if PBC is None:
+        PBC = [False, False, False]
     # Create Continuum representation
     contworld = pnps.ContWorld(
         GridSize=[GridSize, GridSize, GridSize],
         GridScale=4.0,
-        Qions=[1, -1]
+        Qions=[1, -1],
+        PBC=PBC
     )
 
     # setup builder
@@ -24,7 +27,7 @@ def solve_p(diel_ion, diel_sol, x=0.0, y=0.0, z=0.0, q=1.0, R=2.0, GridSize=64):
         DielConstBulk=diel_sol,
         Cbulk=0.0,
         DiffusionModel="Plane",
-        BoundaryCondition="CoulBC",
+        BoundaryCondition=BC,
         MakeDielectricMap=True,
         MakeChargeMap=True,
         MakeDiffusionMap=False,
@@ -193,7 +196,44 @@ def test_born_solvation_energy_oddgrid():
     assert abs((sd-ref_sd)/ref_dEsim) < 1.0e-6
     assert abs(abs_diff - ref_abs_diff) / ref_dEsim < 1.0e-6
 
+def test_born_solvation_energy_pbc():
+    """
+    Check PBC by symmetry
+    """
+    pnpsapp = pnps.PNPSApp.GetPNPSApp()
+    pnpsapp.SetNumOfThreads(1)
+
+    diel_ion = 2.0
+    diel_sol = 80.0
+    x = 0.0
+    y = 0.0
+    z = 0.0
+    q = 1.0
+    R = 2.0
+    grid_scale = 4  # grid/A
+
+    PBS_List = [
+        [True, False, False],
+        [False, True, False],
+        [False, False, True],
+        [True, True, False],
+        [False, True, True],
+        [True, False, True],
+    ]
+
+    E_List = [PBC+[solve_p(diel_ion, diel_sol, x, y, z, q, R, 64, "ZeroBC", PBC[:3])] for PBC in PBS_List]
+
+    print("%6s %6s %6s %20s" % ("PBC_X", "PBC_Y", "PBC_Z", "E"))
+    for x, y, z, E in E_List:
+        print("%6s %6s %6s %20.7f" % (str(x), str(y), str(z), E))
+
+    assert abs(E_List[0][3] - E_List[1][3]) < 1e-3
+    assert abs(E_List[0][3] - E_List[2][3]) < 1e-3
+    assert abs(E_List[3][3] - E_List[4][3]) < 1e-3
+    assert abs(E_List[3][3] - E_List[5][3]) < 1e-3
+
 
 if __name__ == "__main__":
     test_born_solvation_energy()
     test_born_solvation_energy_oddgrid()
+    test_born_solvation_energy_pbc()
