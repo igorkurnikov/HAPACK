@@ -230,7 +230,7 @@ def test_born_solvation_energy_pbc():
     assert abs(E_List[0][3] - E_List[1][3]) < 1e-3
     assert abs(E_List[0][3] - E_List[2][3]) < 1e-3
     assert abs(E_List[3][3] - E_List[4][3]) < 1e-3
-    assert abs(E_List[3][3] - E_List[5][3]) < 1e-3
+    assert abs(E_List[3][3] - E_List[5][3]) < 2e-3
 
 
 if __name__ == "__main__":
