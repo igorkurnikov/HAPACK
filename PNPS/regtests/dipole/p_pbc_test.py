@@ -44,7 +44,7 @@ def solve_p(PBC, Relaxation=1.0, MaxIterations=-2, atom1=None, atom2=None, DielB
     builder.BuildContWorld(contworld)
 
     # Write created maps to file system
-    contworld.WriteNodeIndexing("S1_System_%s_%s_%s_systop" % tuple(str(pbc) for pbc in PBC))
+    # contworld.WriteNodeIndexing("S1_System_%s_%s_%s_systop" % tuple(str(pbc) for pbc in PBC))
     # Clean-up
     del builder
 
@@ -53,7 +53,7 @@ def solve_p(PBC, Relaxation=1.0, MaxIterations=-2, atom1=None, atom2=None, DielB
                 Convergence=0.0,
                 Relaxation=Relaxation)
 
-    contworld.WritePotential("Pot_%s_%s_%s.bin" % tuple(str(pbc) for pbc in PBC))
+    # contworld.WritePotential("Pot_%s_%s_%s.bin" % tuple(str(pbc) for pbc in PBC))
     E = contworld.SystemEnergy
 
     del contworld
