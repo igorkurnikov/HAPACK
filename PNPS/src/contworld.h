@@ -177,6 +177,9 @@ class NodeIndexing
 	protected:
 		NodeIndexDescriptor GetShtFromMask(NodeIndex Mask) const;
 	public:
+		int GetNx() const { return GridSize[0]; } //!< return number of grid points along X axes 
+		int GetNy() const { return GridSize[1]; } //!< return number of grid points along Y axes 
+		int GetNz() const { return GridSize[2]; } //!< return number of grid points along Z axes 
 		//! Return Diel Cons of index i in external units (for python)
 		float GetDielConstInUse(int i);
 		//! Set Diel Cons of for i using external units as input (for python)
@@ -187,6 +190,7 @@ class NodeIndexing
 		int SetIonAccess(float **DiffusionsMaps);
 		float* GetCMap(NodeIndexDescriptor FieldType, NodeIndex mask);
 		int* GetIntArrayFromIndexField(NodeIndexDescriptor FieldType, NodeIndex mask);
+		float* GetField(NodeIndexDescriptor FieldType, NodeIndexDescriptor mask, float *Map = NULL);
 		#ifdef HARLEM_MOD
 		HaField3D* GetHaField3D(NodeIndexDescriptor FieldType, NodeIndexDescriptor mask);
 		#endif

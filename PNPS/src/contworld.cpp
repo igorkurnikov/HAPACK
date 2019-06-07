@@ -483,46 +483,77 @@ float* NodeIndexing::GetCMap(NodeIndexDescriptor FieldType, NodeIndex Mask)
 		return GetChargeArray();
 	}
 }
-#ifdef HARLEM_MOD
-HaField3D* NodeIndexing::GetHaField3D(NodeIndexDescriptor FieldType, NodeIndexDescriptor Mask)
+float* NodeIndexing::GetField(NodeIndexDescriptor FieldType, NodeIndexDescriptor Mask, float *Map)
 {
-	if(FieldType<DielConst&&FieldType>Charge)
+	if (FieldType<DielConst&&FieldType>Charge)
 	{
-		fprintf(stderr,"Cannot operate with such FieldType\n");
+		fprintf(stderr, "Cannot operate with such FieldType\n");
 		return NULL;
 	}
 	int i;
-	int GridSizeXYZ= GridSize[0]*GridSize[1]*GridSize[2];
-	//float fpoh= 4*M_PI*GridScale;
-	//float coef=fpoh*COANGS/(GridScale*GridScale*GridScale);
-	
+	int GridSizeXYZ = GridSize[0] * GridSize[1] * GridSize[2];
+
 	float Vmap[NodeIndexMaxValues];
-	NodeIndexDescriptor Sft=GetShtFromMask(Mask);
-	if(FieldType==DielConst)
+	NodeIndexDescriptor Sft = GetShtFromMask(Mask);
+	if (FieldType == DielConst)
 	{
-		for(i=0;i<NodeIndexMaxValues;i++)
+		for (i = 0; i < NodeIndexMaxValues; i++)
 		{
-			Vmap[i]=EPKT*Eps[i];
+			Vmap[i] = EPKT * Eps[i];
 		}
 	}
-	if(FieldType==DiffConst)
+	if (FieldType == DiffConst)
 	{
-		for(i=0;i<NodeIndexMaxValues;i++)
+		for (i = 0; i < NodeIndexMaxValues; i++)
 		{
-			Vmap[i]=D[i];
+			Vmap[i] = D[i];
 		}
 	}
-	if(FieldType==Conc)
+	if (FieldType == Conc)
 	{
-		for(i=0;i<NodeIndexMaxValues;i++)
+		for (i = 0; i < NodeIndexMaxValues; i++)
 		{
-			Vmap[i]=C[i];
+			Vmap[i] = C[i];
 		}
 	}
-	
+
+	if(Map==NULL) Map = new float[GridSizeXYZ];
+	if (FieldType != Charge)
+	{
+
+		for (i = 0; i < GridSizeXYZ; i++)
+		{
+			Map[i] = Vmap[(NIndex[i] & Mask) >> Sft];
+		}
+		return Map;
+	}
+	else
+	{
+		unsigned int count = 0;
+		float fpoh = 4 * M_PI*GridScale;
+		for (i = 0; i < GridSizeXYZ; i++)
+		{
+			if (NIndex[i] & ChargeMask)
+			{
+				Map[i] = Q[count] / fpoh;
+				count++;
+			}
+			else
+			{
+				Map[i] = 0.0f;
+			}
+		}
+		return Map;
+	}
+}
+#ifdef HARLEM_MOD
+HaField3D* NodeIndexing::GetHaField3D(NodeIndexDescriptor FieldType, NodeIndexDescriptor Mask)
+{	
 	HaField3D *Field3D=new HaField3D();
 	Field3D->SetDimensions(GridSize[0],GridSize[1],GridSize[2]);
 	Field3D->SetCenterAsZero(GridScale);
+	GetField(FieldType, Mask, Field3D->GetValPtr(0, 0, 0));
+
 	switch(Mask)
 	{
 		case Epsilon0:
@@ -557,34 +588,7 @@ HaField3D* NodeIndexing::GetHaField3D(NodeIndexDescriptor FieldType, NodeIndexDe
 			Field3D->SetName("ChargeStatic");
 			break;
 	}
-	float *Map=Field3D->GetValPtr(0,0,0);
-	if(FieldType!=Charge)
-	{
-		
-		for(i=0;i<GridSizeXYZ;i++)
-		{
-			Map[i]=Vmap[(NIndex[i]&Mask)>>Sft];
-		}
-		return Field3D;
-	}
-	else
-	{
-		unsigned int count=0;
-		float fpoh = 4*M_PI*GridScale;
-		for(i=0;i<GridSizeXYZ;i++)
-		{
-			if(NIndex[i]&ChargeMask)
-			{
-				Map[i]=Q[count]/fpoh;
-				count++;
-			}
-			else
-			{
-				Map[i]=0.0f;
-			}
-		}
-		return Field3D;
-	}
+	return Field3D;
 }
 #endif
 
