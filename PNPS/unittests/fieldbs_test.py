@@ -1,8 +1,8 @@
 import math
-from pnps import llpnps
-from pnps.llpnps import new_boolArray, boolArray_setitem, boolArray_getitem
-from pnps.llpnps import new_intArray, intArray_setitem, intArray_getitem
-from pnps.llpnps import new_floatArray, floatArray_setitem, floatArray_getitem
+import pnpsll
+from pnps import new_boolArray, boolArray_setitem, boolArray_getitem
+from pnps import new_intArray, intArray_setitem, intArray_getitem
+from pnps import new_floatArray, floatArray_setitem, floatArray_getitem
 
 
 def gen_FieldBW(GS_X, GS_Y, GS_Z, Pot="Gen"):
@@ -11,7 +11,7 @@ def gen_FieldBW(GS_X, GS_Y, GS_Z, Pot="Gen"):
     If Pot is "Gen", init values as ix+iy*10+iz*100
     return tuple(FieldBW,Potential)
     """
-    potbw = llpnps.FieldBW()
+    potbw = pnpsll.pnpsll.FieldBW()
 
     # calculate strides
     GS_XY = GS_X * GS_Y
@@ -97,7 +97,7 @@ def BorderExchangeTest(GS_X, GS_Y, GS_Z, PBC_X, PBC_Y, PBC_Z):
                 grd_pnt_0 = iy * GS_X + iz * GS_XY
                 grd_pnt_L = GS_X - 1 + iy * GS_X + iz * GS_XY
 
-                print floatArray_getitem(PotOut, grd_pnt_0) , GS_X - 2 + iy * 10 + iz * 100
+                print(floatArray_getitem(PotOut, grd_pnt_0) , GS_X - 2 + iy * 10 + iz * 100)
 
                 assert floatArray_getitem(PotOut, grd_pnt_0) == GS_X - 2 + iy * 10 + iz * 100
                 assert floatArray_getitem(PotOut, grd_pnt_0 + 1) == 1 + iy * 10 + iz * 100
