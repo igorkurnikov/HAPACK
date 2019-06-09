@@ -8,5 +8,5 @@ build:
     ci:
         - cd /root/src/gitlab.com/$REPO_FULL_NAME/PNPS/src
         - make
-        - cd ../regtests
+        - cd ../tests
         - PYTHONPATH=/root/src/gitlab.com/$REPO_FULL_NAME/PNPS python3 -m pytest -v --junitxml=../../shippable/testresults/testresults.xml .
