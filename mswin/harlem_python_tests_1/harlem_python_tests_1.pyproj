@@ -4,14 +4,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ec92aabe-e1e3-4d9d-b775-3bdab3f3d171}</ProjectGuid>
-    <ProjectHome>\harlem\examples\</ProjectHome>
+    <ProjectHome>..\..\examples\</ProjectHome>
     <StartupFile>
     </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <InterpreterId>Global|PythonCore|2.6-32</InterpreterId>
+    <InterpreterId>Global|VisualStudio|HARLEM_64BIT_RELEASE</InterpreterId>
     <Name>harlem_python_tests_1</Name>
     <RootNamespace>harlem_python_tests_1</RootNamespace>
   </PropertyGroup>
@@ -206,7 +206,7 @@
     <Folder Include="XML" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|2.6-32" />
+    <InterpreterReference Include="Global|VisualStudio|HARLEM_64BIT_RELEASE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
