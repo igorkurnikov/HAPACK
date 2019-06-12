@@ -1,7 +1,6 @@
 """
-Here is definde start_harlem function which starts Harlem.
+Here we define start_harlem() function that starts Harlem.
 """
-
 
 def start_harlem():
     """
