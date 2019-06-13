@@ -1,16 +1,15 @@
-noinst_LIBRARIES = halib.a
+noinst_LIBRARIES = libhalib.a
 pkgscript_DATA = halib.py
-INCLUDES = \
+AM_CPPFLAGS = \
  -I$(top_srcdir)/HARLEM/sources \
  -I$(top_srcdir)/HARLEM/sources/math \
  -I$(top_srcdir)/HARLEM/sources/gl \
  -I$(top_srcdir)/HARLEM/sources/mVue \
  -I$(top_srcdir)/HALIB/include \
-  $(PYTHON_CPPFLAGS)
+  $(PYTHON_CPPFLAGS) \
+  @HARLEM_MOD_DEFS@ -fPIC
 
-AM_CPPFLAGS =@HARLEM_MOD_DEFS@ -fPIC
-  
-halib_a_SOURCES=./../src/haobject.cpp   ./../src/haxml.cpp   ./../src/haconsts.cpp ./../src/tinyxml.cpp ./../src/tinyxmlparser.cpp ./../src/tinyxmlerror.cpp halib_wrap.cpp
+libhalib_a_SOURCES=./../src/haobject.cpp   ./../src/haxml.cpp   ./../src/haconsts.cpp ./../src/tinyxml.cpp ./../src/tinyxmlparser.cpp ./../src/tinyxmlerror.cpp halib_wrap.cpp
 
 # halib_wrap_dep = \
 #  ./../src/haobject.h \

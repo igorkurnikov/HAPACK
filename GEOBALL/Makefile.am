@@ -1,9 +1,8 @@
 noinst_LIBRARIES = libgeoball.a
 
 AM_FFLAGS = -ffixed-line-length-132 -fPIC 
-AM_CPPFLAGS = -fPIC 
+AM_CPPFLAGS = -fPIC -I$(top_srcdir)/GEOBALL
 #AM_FFLAGS = -132
-INCLUDES = -I$(top_srcdir)/GEOBALL
 
 libgeoball_a_SOURCES=\
 GeoBall.c \

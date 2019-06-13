@@ -6,7 +6,7 @@ else
 AM_FFLAGS = -132 -fPIC
 endif
 
-INCLUDES = -I$(top_srcdir)/JUMNA_LIB/sources
+AM_CPPFLAGS = -I$(top_srcdir)/JUMNA_LIB/sources
 
 libjumna_a_SOURCES=\
 sources/jumcall.f sources/ampar91.f sources/ampar94.f \

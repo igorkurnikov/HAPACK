@@ -7,7 +7,7 @@ AM_FFLAGS = -132 -fPIC
 endif
 
 
-INCLUDES = -I$(top_srcdir)/DELPHI_LIB/source
+AM_CPPFLAGS = -I$(top_srcdir)/DELPHI_LIB/source
 libdelphi_a_SOURCES=\
 source/itit4j.f source/non.f source/relfac4b.f source/setcrg4.f \
 source/mem4.f source/phintp4.f source/scaler4.f source/setin4.f \

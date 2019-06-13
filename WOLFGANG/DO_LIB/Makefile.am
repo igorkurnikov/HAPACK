@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libdo.a
-AM_CPPFLAGS = -DGCC_NEW -DIPACK -fPIC 
-
-INCLUDES = -I$(top_srcdir)/WOLFGANG/DO_LIB \
+AM_CPPFLAGS = -DGCC_NEW -DIPACK -fPIC \
+ -I$(top_srcdir)/WOLFGANG/DO_LIB \
  -I$(top_srcdir)/WOLFGANG/DO_LIB/include \
  -I$(top_srcdir)/WOLFGANG/DO_LIB/template \
  $(MPI_INCLUDE)
