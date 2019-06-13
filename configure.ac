@@ -23,7 +23,7 @@ CPPFLAGS="${CPPFLAGS=}"
 CXXFLAGS="${CXXFLAGS=}"
 LDFLAGS="${LDFLAGS=}"
 
-AM_INIT_AUTOMAKE([1.10.1 foreign])
+AM_INIT_AUTOMAKE([1.10.1 foreign subdir-objects])
 LT_PREREQ([2.2.6])
 LT_INIT
 
@@ -216,9 +216,9 @@ SWIG_MULTI_MODULE_SUPPORT
 
 ###PYTHON
 #AC_PYTHON_DEVEL
-AC_SUBST(PYTHON_PREFIX,`python-config --prefix`)
-AC_SUBST(PYTHON_CPPFLAGS,`python-config --cflags`)
-AC_SUBST(PYTHON_LDFLAGS, `python-config --ldflags`)
+AC_SUBST(PYTHON_PREFIX,`python3-config --prefix`)
+AC_SUBST(PYTHON_CPPFLAGS,`python3-config --cflags`)
+AC_SUBST(PYTHON_LDFLAGS, `python3-config --ldflags`)
 #AC_SUBST(PYTHON_LDFLAGS, "-L${PYTHON_PREFIX}/lib ${PYTHON_LDFLAGS}")
 
 ##############wxWidgets
@@ -340,7 +340,7 @@ AC_CONFIG_FILES([GEOBALL/Makefile])
 AC_CONFIG_FILES([JUMNA_LIB/Makefile])
 AC_CONFIG_FILES([HARLEM/Makefile])
 AC_CONFIG_FILES([HARLEM_NOGUI/Makefile])
-AC_CONFIG_FILES([HARLEM/HARLEM_PYLIB/Makefile])
+AC_CONFIG_FILES([HARLEMLL/Makefile])
 #AS_IF([test -n "$WITH_LIB_PMEMD"],
 AC_CONFIG_FILES([PMEMD_LIB/Makefile])
 #Documentation
