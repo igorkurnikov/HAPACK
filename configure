@@ -12394,8 +12394,7 @@ CC=$lt_save_CC
 # config header with general definitions and parameters
 ac_config_headers="$ac_config_headers config.h"
 
-# Define HAPACK variable to show making in packege,
-# actually just checking config.in
+# Define HAPACK variable to show files are compiled as part of the package,
 
 $as_echo "#define HAPACK /**/" >>confdefs.h
 
@@ -12456,11 +12455,6 @@ CXXLD='$(CXX)'
 
 HARLEM_MOD_DEFS="-DHARLEM_MOD -Dlinux -DGNU -DGCC_NEW  $MODS_DEFS "
 
-
-
-##############Program Check
-#AC_MSG_RESULT(AS_HELP_STRING([with_visualc],$with_visualc))
-#AM_CONDITIONAL([VISUALC], test -n "$WITH_VISUALC")
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -23899,7 +23893,6 @@ fi
 
 ###SWIG
 #AC_PROG_SWIG
-
 #SWIG_ENABLE_CXX
 #SWIG_MULTI_MODULE_SUPPORT
 
@@ -27488,18 +27481,14 @@ $as_echo "  FCFLAGS                 $FCFLAGS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   FCLIBS                  $FCLIBS" >&5
 $as_echo "  FCLIBS                  $FCLIBS" >&6; }
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: HARLEM flags:" >&5
-$as_echo "HARLEM flags:" >&6; }
+#AC_MSG_RESULT([HARLEM flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   HARLEM_MOD_DEFS         $HARLEM_MOD_DEFS" >&5
 $as_echo "  HARLEM_MOD_DEFS         $HARLEM_MOD_DEFS" >&6; }
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: MPI flags:" >&5
-$as_echo "MPI flags:" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_FLAG                $MPI_FLAG" >&5
-$as_echo "  MPI_FLAG                $MPI_FLAG" >&6; }
+#AC_MSG_RESULT([MPI flags:])
+#AC_MSG_RESULT(AS_HELP_STRING([MPI_FLAG],$MPI_FLAG))
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_INCLUDE             $MPI_INCLUDE" >&5
 $as_echo "  MPI_INCLUDE             $MPI_INCLUDE" >&6; }
-##AC_MSG_RESULT(AS_HELP_STRING([MPI_LDFLAGS],$MPI_LDFLAGS))
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_LIBS                $MPI_LIBS" >&5
 $as_echo "  MPI_LIBS                $MPI_LIBS" >&6; }
 
@@ -27508,34 +27497,25 @@ $as_echo "  BOOST_INCLUDE           $BOOST_INCLUDE" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   BOOST_LIBS              $BOOST_LIBS" >&5
 $as_echo "  BOOST_LIBS              $BOOST_LIBS" >&6; }
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: BLAS and LAPACK flags:" >&5
-$as_echo "BLAS and LAPACK flags:" >&6; }
+#AC_MSG_RESULT([BLAS and LAPACK flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   BLAS_LIBS               $BLAS_LIBS" >&5
 $as_echo "  BLAS_LIBS               $BLAS_LIBS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   LAPACK_LIBS             $LAPACK_LIBS" >&5
 $as_echo "  LAPACK_LIBS             $LAPACK_LIBS" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MKL_FLAG                $MKL_FLAG" >&5
-$as_echo "  MKL_FLAG                $MKL_FLAG" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MKL_INCLUDE             $MKL_INCLUDE" >&5
-$as_echo "  MKL_INCLUDE             $MKL_INCLUDE" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   MKL_LIBS                $MKL_LIBS" >&5
-$as_echo "  MKL_LIBS                $MKL_LIBS" >&6; }
+#AC_MSG_RESULT(AS_HELP_STRING([MKL_FLAG],$MKL_FLAG))
+#AC_MSG_RESULT(AS_HELP_STRING([MKL_INCLUDE],$MKL_INCLUDE))
+#AC_MSG_RESULT(AS_HELP_STRING([MKL_LIBS],$MKL_LIBS))
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: PYTHON flags:" >&5
-$as_echo "PYTHON flags:" >&6; }
+#AC_MSG_RESULT([PYTHON flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_CPPFLAGS         $PYTHON_CPPFLAGS" >&5
 $as_echo "  PYTHON_CPPFLAGS         $PYTHON_CPPFLAGS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_LDFLAGS          $PYTHON_LDFLAGS" >&5
 $as_echo "  PYTHON_LDFLAGS          $PYTHON_LDFLAGS" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_SITE_PKG         $PYTHON_SITE_PKG" >&5
-$as_echo "  PYTHON_SITE_PKG         $PYTHON_SITE_PKG" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_EXTRA_LIBS       $PYTHON_EXTRA_LIBS" >&5
-$as_echo "  PYTHON_EXTRA_LIBS       $PYTHON_EXTRA_LIBS" >&6; }
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_EXTRA_LDFLAGS    $PYTHON_EXTRA_LDFLAGS" >&5
-$as_echo "  PYTHON_EXTRA_LDFLAGS    $PYTHON_EXTRA_LDFLAGS" >&6; }
+#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_SITE_PKG],$PYTHON_SITE_PKG))
+#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LIBS],$PYTHON_EXTRA_LIBS))
+#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LDFLAGS],$PYTHON_EXTRA_LDFLAGS))
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: wxWidgets flags:" >&5
-$as_echo "wxWidgets flags:" >&6; }
+#AC_MSG_RESULT([wxWidgets flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   WX_CPPFLAGS             $WX_CPPFLAGS" >&5
 $as_echo "  WX_CPPFLAGS             $WX_CPPFLAGS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   WX_CFLAGS               $WX_CFLAGS" >&5

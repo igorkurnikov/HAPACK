@@ -21,8 +21,9 @@ AM_CPPFLAGS = \
  $(BOOST_INCLUDE) \
   $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) \
   -Wno-non-template-friend -Wno-deprecated -fpermissive 
+
 lib_harlem_la_LIBADD = \
- $(top_builddir)/HALIB/halib/halib.a \
+ $(top_builddir)/HALIB/halib/libhalib.a \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
  $(top_builddir)/MY_VFLIB/libvf.a \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
@@ -30,11 +31,8 @@ lib_harlem_la_LIBADD = \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
  $(top_builddir)/GEOBALL/libgeoball.a -lgmp \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
- $(top_srcdir)/../PROG_SRC/g98/util.a \
- -L$(top_srcdir)/../MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
-
-
-#$(top_builddir)/SANDER_LIB/libsander.a
+ $(top_srcdir)/../../PROG_SRC/g98/util.a \
+ -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
 
 if WITH_LIB_PMEMD
 lib_harlem_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
@@ -49,7 +47,7 @@ lib_harlem_la_LIBADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS)  \
  $(RESOURCES_BIN) \
  -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
- -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgetsd -lplplotcxxd 
+ -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgets -lplplotcxx 
  
 
 harlem_wx_files = \
@@ -165,8 +163,7 @@ harlem_main_files = \
  $(ADD_SRC)
 
 lib_harlem_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
- hamolset_wrap.cpp \
- hasvnrev.cpp
+ hamolset_wrap.cpp 
 
 #if WITH_LIB_PMEMD
 #lib_harlem_la_SOURCES += $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp
@@ -179,20 +176,10 @@ hamolset_wrap.cpp:$(top_srcdir)/HARLEM/sources/hamolset.i
 
 molset.py:hamolset_wrap.cpp
 
-hasvnrev.cpp: $(harlem_main_files) $(harlem_wx_files) sources/hamolset.i
-	echo '#include "hasvnrev.h"'> hasvnrev.cpp
-	echo -n 'const char* HaSVNRevision(){const char* SVN_Version = "' >> hasvnrev.cpp
-	echo -n `svn info $(top_srcdir)/|grep "Revision"` >> hasvnrev.cpp
-	echo '"; return SVN_Version; }'   >> hasvnrev.cpp
-	echo -n 'const char* HaSVNDate(){const char* SVN_Date = "' >> hasvnrev.cpp
-	echo -n `svn info $(top_srcdir)/|grep "Last Changed Date"` >> hasvnrev.cpp
-	echo '"; return SVN_Date; }'   >> hasvnrev.cpp
-#svnversion -n $(top_srcdir)/ >> hasvnrev.cpp
-FORCE:
 
 pkgscript_DATA = molset.py 
 
-CLEANFILES = hamolset_wrap.cpp hasvnrev.cpp molset.py lib_harlem.so 
+CLEANFILES = hamolset_wrap.cpp molset.py lib_harlem.so 
 
 
 

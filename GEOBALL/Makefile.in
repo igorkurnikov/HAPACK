@@ -111,9 +111,9 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libgeoball_a_AR = $(AR) $(ARFLAGS)
 libgeoball_a_LIBADD =
-am_libgeoball_a_OBJECTS = GeoBall.$(OBJEXT) sos_minor_gmp.$(OBJEXT) \
-	alf_gmp.$(OBJEXT) adjust.$(OBJEXT) delcx.$(OBJEXT) \
-	alfcx.$(OBJEXT) truncate_real.$(OBJEXT) compute_vol.$(OBJEXT) \
+am_libgeoball_a_OBJECTS = GeoBall.$(OBJEXT) alf_gmp.$(OBJEXT) \
+	adjust.$(OBJEXT) delcx.$(OBJEXT) alfcx.$(OBJEXT) \
+	truncate_real.$(OBJEXT) compute_vol.$(OBJEXT) \
 	prepare_deriv.$(OBJEXT) spacefill_vol.$(OBJEXT) \
 	vector.$(OBJEXT)
 libgeoball_a_OBJECTS = $(am_libgeoball_a_OBJECTS)
@@ -372,7 +372,7 @@ AM_CPPFLAGS = -fPIC -I$(top_srcdir)/GEOBALL
 #AM_FFLAGS = -132
 libgeoball_a_SOURCES = \
 GeoBall.c \
-sos_minor_gmp.c alf_gmp.c \
+alf_gmp.c \
 adjust.f delcx.f alfcx.f truncate_real.f \
 compute_vol.f prepare_deriv.f spacefill_vol.f vector.f
 
@@ -426,7 +426,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeoBall.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alf_gmp.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sos_minor_gmp.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -672,6 +671,8 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+
+#sos_minor_gmp.c alf_gmp.c 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -6,6 +6,8 @@ AM_CPPFLAGS = -fPIC -I$(top_srcdir)/GEOBALL
 
 libgeoball_a_SOURCES=\
 GeoBall.c \
-sos_minor_gmp.c alf_gmp.c \
+alf_gmp.c \
 adjust.f delcx.f alfcx.f truncate_real.f \
 compute_vol.f prepare_deriv.f spacefill_vol.f vector.f
+
+#sos_minor_gmp.c alf_gmp.c 
