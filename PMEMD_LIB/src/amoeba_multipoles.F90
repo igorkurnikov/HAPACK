@@ -73,6 +73,11 @@ module amoeba_multipoles_mod
   public        coulomb_const_kcal_per_mole
   public        am_mpole_torque_to_force
   public        am_mpole_local_to_global
+  public        set_local_multipoles_list 
+  public        set_chiral_frame_list 
+  public        set_reg_frame_list 
+  public        get_global_multipole 
+  public        set_valid_bit 
 
 contains
 

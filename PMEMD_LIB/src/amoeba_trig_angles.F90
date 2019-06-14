@@ -39,6 +39,10 @@ module amoeba_trig_angles_mod
   public        am_trig_angles_zero_flag
   public        am_trig_angles_set_user_bit
   public        am_trig_angles_eval
+  public        set_trig_angles_list
+  public        set_trig_angles_params
+  public        set_ftable
+  public        set_valid_bit
  
 contains
 

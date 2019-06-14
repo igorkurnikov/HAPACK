@@ -36,6 +36,10 @@ module amoeba_opbend_angles_mod
   public        am_opbend_angles_zero_flag
   public        am_opbend_angles_set_user_bit
   public        am_opbend_angles_eval
+  public        set_opbend_angles_list
+  public        set_opbend_angles_params
+  public        set_ftable
+  public        set_valid_bit
 
 contains
 

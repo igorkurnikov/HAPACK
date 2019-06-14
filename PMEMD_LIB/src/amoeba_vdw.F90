@@ -46,6 +46,9 @@ private
   public        am_vdw_set_user_bit
   public        am_vdw_adjust_ene_frc
   public        am_vdw_longrange_ene
+  public        set_vdw_types_list
+  public        set_vdw_params
+  public        set_valid_bit
 
 contains
 

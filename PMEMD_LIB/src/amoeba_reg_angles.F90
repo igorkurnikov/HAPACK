@@ -38,6 +38,10 @@ module amoeba_reg_angles_mod
   public        am_reg_angles_zero_flag
   public        am_reg_angles_set_user_bit
   public        am_reg_angles_eval
+  public        set_reg_angles_list
+  public        set_reg_angles_params
+  public        set_ftable
+  public        set_valid_bit
   
 contains
 

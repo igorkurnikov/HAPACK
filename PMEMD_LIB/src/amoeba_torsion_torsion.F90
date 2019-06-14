@@ -42,6 +42,10 @@ module amoeba_torsion_torsion_mod
   public        am_tor_tor_zero_flag
   public        am_tor_tor_set_user_bit
   public        am_tor_tor_eval
+  public        set_torsion_torsion_list
+  public        set_torsion_torsion_num_params
+  public        set_torsion_torsion_params
+  public        set_valid_bit
 
 contains
 

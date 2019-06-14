@@ -31,6 +31,10 @@ module amoeba_ureyb_mod
   public        am_ureyb_zero_flag
   public        am_ureyb_set_user_bit
   public        am_ureyb_eval
+  public        set_ureyb_list 
+  public        set_ureyb_params 
+  public        set_ftable 
+  public        set_valid_bit 
 
 contains
 
