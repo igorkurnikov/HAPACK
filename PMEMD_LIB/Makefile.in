@@ -94,18 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/libtool.m4 \
 	$(top_srcdir)/config/ltoptions.m4 \
 	$(top_srcdir)/config/ltsugar.m4 \
 	$(top_srcdir)/config/ltversion.m4 \
-	$(top_srcdir)/config/lt~obsolete.m4 $(top_srcdir)/acinclude.m4 \
-	$(top_srcdir)/config/acha_mpi.m4 \
-	$(top_srcdir)/config/acx_mpi.m4 \
-	$(top_srcdir)/config/acx_blas.m4 \
-	$(top_srcdir)/config/acx_lapack.m4 \
-	$(top_srcdir)/config/ac_python_devel.m4 \
-	$(top_srcdir)/config/ax_compare_version.m4 \
-	$(top_srcdir)/config/ac_pkg_swig.m4 \
-	$(top_srcdir)/config/swig_enable_cxx.m4 \
-	$(top_srcdir)/config/swig_multi_module_support.m4 \
-	$(top_srcdir)/config/swig_python.m4 \
-	$(top_srcdir)/config/wxwin.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/config/lt~obsolete.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -162,7 +151,7 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
-depcomp = $(SHELL) $(top_srcdir)/config/depcomp
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 PPFCCOMPILE = $(FC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -232,8 +221,8 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in \
-	$(top_srcdir)/PMEMD_LIB/src/f90depends \
-	$(top_srcdir)/config/depcomp README
+	$(top_srcdir)/PMEMD_LIB/src/f90depends $(top_srcdir)/depcomp \
+	README
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 VPATH = $(top_srcdir)/PMEMD_LIB/src
 ACLOCAL = @ACLOCAL@
@@ -326,8 +315,6 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-SWIG = @SWIG@
-SWIG_LIB = @SWIG_LIB@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
 WX_CFLAGS = @WX_CFLAGS@
@@ -337,11 +324,12 @@ WX_CPPFLAGS = @WX_CPPFLAGS@
 WX_CXXFLAGS = @WX_CXXFLAGS@
 WX_CXXFLAGS_ONLY = @WX_CXXFLAGS_ONLY@
 WX_LIBS = @WX_LIBS@
-WX_LIBS_BASE = @WX_LIBS_BASE@
-WX_LIBS_GL = @WX_LIBS_GL@
 WX_LIBS_STATIC = @WX_LIBS_STATIC@
 WX_RESCOMP = @WX_RESCOMP@
 WX_VERSION = @WX_VERSION@
+WX_VERSION_MAJOR = @WX_VERSION_MAJOR@
+WX_VERSION_MICRO = @WX_VERSION_MICRO@
+WX_VERSION_MINOR = @WX_VERSION_MINOR@
 ZLIB_CPPFLAGS = @ZLIB_CPPFLAGS@
 ZLIB_LIBS = @ZLIB_LIBS@
 abs_builddir = @abs_builddir@

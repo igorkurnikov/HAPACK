@@ -94,18 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/libtool.m4 \
 	$(top_srcdir)/config/ltoptions.m4 \
 	$(top_srcdir)/config/ltsugar.m4 \
 	$(top_srcdir)/config/ltversion.m4 \
-	$(top_srcdir)/config/lt~obsolete.m4 $(top_srcdir)/acinclude.m4 \
-	$(top_srcdir)/config/acha_mpi.m4 \
-	$(top_srcdir)/config/acx_mpi.m4 \
-	$(top_srcdir)/config/acx_blas.m4 \
-	$(top_srcdir)/config/acx_lapack.m4 \
-	$(top_srcdir)/config/ac_python_devel.m4 \
-	$(top_srcdir)/config/ax_compare_version.m4 \
-	$(top_srcdir)/config/ac_pkg_swig.m4 \
-	$(top_srcdir)/config/swig_enable_cxx.m4 \
-	$(top_srcdir)/config/swig_multi_module_support.m4 \
-	$(top_srcdir)/config/swig_python.m4 \
-	$(top_srcdir)/config/wxwin.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/config/lt~obsolete.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -173,14 +162,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/config/compile $(top_srcdir)/config/config.guess \
-	$(top_srcdir)/config/config.sub \
-	$(top_srcdir)/config/install-sh $(top_srcdir)/config/ltmain.sh \
-	$(top_srcdir)/config/missing config.guess config.sub \
-	config/compile config/config.guess config/config.sub \
-	config/depcomp config/install-sh config/ltmain.sh \
-	config/missing install-sh
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
+	config.guess config.sub depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -313,8 +296,6 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-SWIG = @SWIG@
-SWIG_LIB = @SWIG_LIB@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
 WX_CFLAGS = @WX_CFLAGS@
@@ -324,11 +305,12 @@ WX_CPPFLAGS = @WX_CPPFLAGS@
 WX_CXXFLAGS = @WX_CXXFLAGS@
 WX_CXXFLAGS_ONLY = @WX_CXXFLAGS_ONLY@
 WX_LIBS = @WX_LIBS@
-WX_LIBS_BASE = @WX_LIBS_BASE@
-WX_LIBS_GL = @WX_LIBS_GL@
 WX_LIBS_STATIC = @WX_LIBS_STATIC@
 WX_RESCOMP = @WX_RESCOMP@
 WX_VERSION = @WX_VERSION@
+WX_VERSION_MAJOR = @WX_VERSION_MAJOR@
+WX_VERSION_MICRO = @WX_VERSION_MICRO@
+WX_VERSION_MINOR = @WX_VERSION_MINOR@
 ZLIB_CPPFLAGS = @ZLIB_CPPFLAGS@
 ZLIB_LIBS = @ZLIB_LIBS@
 abs_builddir = @abs_builddir@
@@ -393,7 +375,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 OPT_DIR = 
-SUBDIRS = HALIB MY_VFLIB DELPHI_LIB WOLFGANG GEOBALL JUMNA_LIB  PNPS HARLEM HARLEM_NOGUI doc $(OPT_DIR) 
+SUBDIRS = HALIB MY_VFLIB DELPHI_LIB WOLFGANG GEOBALL JUMNA_LIB  PNPS HARLEM HARLEMLL HARLEM_NOGUI doc $(OPT_DIR) 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

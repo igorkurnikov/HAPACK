@@ -1,15 +1,11 @@
 # Process this file with autoconf to produce a configure script.
-
-AC_PREREQ(2.59)
+AC_PREREQ([2.69])
 AC_INIT([HARLEM],[0.1])
-#AC_INIT(config/config.mk)
+#AC_CONFIG_SRCDIR([config/config.mk])
 
 AC_CONFIG_MACRO_DIR([config])
-AC_CONFIG_AUX_DIR([config])
-AC_CANONICAL_SYSTEM
-#TARGET_CPU="${target_cpu}"
-#TARGET_VENDOR="${target_vendor}"
-#TARGET_OS="${target_os}"
+#AC_CONFIG_AUX_DIR([config])
+AC_CANONICAL_TARGET
 
 dnl ========================================================
 dnl =
@@ -74,17 +70,12 @@ AC_PROG_FC([g90 gfortran ifort])
 AM_CONDITIONAL(WITH_GFORTRAN, test ${F77} == "gfortran")
 #AM_CONDITIONAL(WITH_GFORTRAN, test ${F77} == "gfortran-4.5")
 
-AC_PROG_RANLIB
 AC_PATH_PROGS(AS, $AS as, $CC)
 AC_CHECK_PROGS(AR, ar, :)
 AC_CHECK_PROGS(LD, ld, :)
 AC_CHECK_PROGS(STRIP, strip, :)
 AC_CHECK_PROGS(WINDRES, windres, :)	
 AC_F77_LIBRARY_LDFLAGS
-ACX_BLAS
-ACX_LAPACK
-
-#	depcomp="${top_srcdir}/config/hcpp"
 
 ##############Library Check
 #zlib check
@@ -131,14 +122,12 @@ AC_ARG_WITH([boostinc],
 ##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
 
 ###SWIG
-AC_PROG_SWIG
+#AC_PROG_SWIG
 
-SWIG_ENABLE_CXX
-SWIG_MULTI_MODULE_SUPPORT
-#SWIG_PYTHON
+#SWIG_ENABLE_CXX
+#SWIG_MULTI_MODULE_SUPPORT
 
 ###PYTHON
-#AC_PYTHON_DEVEL
 AC_SUBST(PYTHON_PREFIX,`python3-config --prefix`)
 AC_SUBST(PYTHON_CPPFLAGS,`python3-config --cflags`)
 AC_SUBST(PYTHON_LDFLAGS, `python3-config --ldflags`)
