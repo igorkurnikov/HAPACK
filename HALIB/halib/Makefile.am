@@ -17,7 +17,7 @@ libhalib_a_SOURCES=./../src/haobject.cpp   ./../src/haxml.cpp   ./../src/haconst
 #  ./../src/tinyxml.h
 
 halib_wrap.cpp:$(srcdir)/../include/halib.i
-	$(SWIG) -python -shadow -c++ @HARLEM_MOD_DEFS@ -o halib_wrap.cpp $(srcdir)/../include/halib.i
+	$(SWIG) -python -shadow -c++ -py3 @HARLEM_MOD_DEFS@ -o halib_wrap.cpp $(srcdir)/../include/halib.i
 
 halib.py:halib_wrap.cpp
 

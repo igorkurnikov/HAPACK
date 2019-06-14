@@ -69,8 +69,8 @@
 %include "std_vector.i"
 
 #ifdef HARLEM_MOD
-%import ../../../HARLEM/sources/hamolset.i
-%import ../../../HALIB/include/halib.i
+%import ../../HARLEM/sources/hamolset.i
+%import ../../HALIB/include/halib.i
 #endif
 
 %exception { 

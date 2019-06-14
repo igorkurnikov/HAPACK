@@ -653,16 +653,15 @@ WX_CXXFLAGS
 WX_CFLAGS
 WX_CPPFLAGS
 WX_CONFIG_PATH
+MPI_LIBS
+MPI_INCLUDE
 PYTHON_LDFLAGS
 PYTHON_CPPFLAGS
 PYTHON_PREFIX
 SWIG_LIB
 SWIG
-BOOST_LIBS
 BOOST_INCLUDE
-MPI_FLAG
-MPI_LIBS
-MPI_INCLUDE
+BOOST_LIBS
 ZLIB_CPPFLAGS
 ZLIB_LIBS
 LAPACK_LIBS
@@ -827,11 +826,8 @@ with_libpmemd
 enable_debug
 with_blas
 with_lapack
-with_mpich
-with_mvapich
-with_impi
-with_openmpi
-with_boost
+with_boostlibs
+with_boostinc
 with_wxdir
 with_wx_config
 with_wx_prefix
@@ -1515,11 +1511,8 @@ Optional Packages:
   --with-libpmemd         link to modified pmemd library
   --with-blas=<lib>       use BLAS library <lib>
   --with-lapack=<lib>     use LAPACK library <lib>
-  --with-mpich=DIR        build with mpich, which is located at DIR
-  --with-mvapich=DIR      build with mvapich, which is located at DIR
-  --with-impi=DIR         build with impi, which is located at DIR
-  --with-openmpi=DIR      build with openmpi, which is located at DIR
-  --with-boost=DIR        build with boost, which is located at DIR
+  --with-boostlibs=DIR    build with boost libraries located at DIR
+  --with-boostinc=DIR     build with boost includes located in DIR
   --with-wxdir=PATH       Use uninstalled version of wxWidgets in PATH
   --with-wx-config=CONFIG wx-config script to use (optional)
   --with-wx-prefix=PREFIX Prefix where wxWidgets is installed (optional)
@@ -12483,7 +12476,7 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 if test -n "$ac_tool_prefix"; then
-  for ac_prog in icc gcc
+  for ac_prog in gcc icc
   do
     # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
 set dummy $ac_tool_prefix$ac_prog; ac_word=$2
@@ -12527,7 +12520,7 @@ fi
 fi
 if test -z "$CC"; then
   ac_ct_CC=$CC
-  for ac_prog in icc gcc
+  for ac_prog in gcc icc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -13021,7 +13014,7 @@ if test -z "$CXX"; then
     CXX=$CCC
   else
     if test -n "$ac_tool_prefix"; then
-  for ac_prog in icpc g++
+  for ac_prog in g++ icpc
   do
     # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
 set dummy $ac_tool_prefix$ac_prog; ac_word=$2
@@ -13065,7 +13058,7 @@ fi
 fi
 if test -z "$CXX"; then
   ac_ct_CXX=$CXX
-  for ac_prog in icpc g++
+  for ac_prog in g++ icpc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -16731,7 +16724,7 @@ ac_compile='$F77 -c $FFLAGS conftest.$ac_ext >&5'
 ac_link='$F77 -o conftest$ac_exeext $FFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_f77_compiler_gnu
 if test -n "$ac_tool_prefix"; then
-  for ac_prog in ifort g77 gfortran
+  for ac_prog in g77 gfortran ifort
   do
     # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
 set dummy $ac_tool_prefix$ac_prog; ac_word=$2
@@ -16775,7 +16768,7 @@ fi
 fi
 if test -z "$F77"; then
   ac_ct_F77=$F77
-  for ac_prog in ifort g77 gfortran
+  for ac_prog in g77 gfortran ifort
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -19900,7 +19893,7 @@ ac_compile='$FC -c $FCFLAGS $ac_fcflags_srcext conftest.$ac_ext >&5'
 ac_link='$FC -o conftest$ac_exeext $FCFLAGS $LDFLAGS $ac_fcflags_srcext conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_fc_compiler_gnu
 if test -n "$ac_tool_prefix"; then
-  for ac_prog in ifort g90 gfortran
+  for ac_prog in g90 gfortran ifort
   do
     # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
 set dummy $ac_tool_prefix$ac_prog; ac_word=$2
@@ -19944,7 +19937,7 @@ fi
 fi
 if test -z "$FC"; then
   ac_ct_FC=$FC
-  for ac_prog in ifort g90 gfortran
+  for ac_prog in g90 gfortran ifort
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -23223,8 +23216,6 @@ fi
 
 #AM_CONDITIONAL(WITH_GFORTRAN, test ${F77} == "gfortran-4.5")
 
-#AC_PROG_FPP
-
 if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}ranlib", so it can be a program name with args.
 set dummy ${ac_tool_prefix}ranlib; ac_word=$2
@@ -25389,181 +25380,26 @@ ZLIB_LIBS='-lz -lm'
 
 ZLIB_CPPFLAGS=""
 
-#### MPI:
-
-# Check whether --with-mpich was given.
-if test "${with_mpich+set}" = set; then :
-  withval=$with_mpich;
-	    if test "$with_mpich" != yes; then :
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to mpich package: $with_mpich" >&5
-$as_echo "$as_me: Path to mpich package: $with_mpich" >&6;}
-		if test "$MPI_INCLUDE" != ""; then :
-  MPI_INCLUDE=$MPI_INCLUDE
-
-else
-  MPI_INCLUDE="-I$with_mpich/include"
-
-fi
-		if test "$MPI_LIBS" != ""; then :
-  MPI_LIBS=$MPI_LIBS
-
-else
-  MPI_LIBS="-L$with_mpich/lib -lmpich -lmpl -lfmpich"
-
-fi
-
-else
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to mpich is not specified\"" >&5
-$as_echo "$as_me: \"Path to mpich is not specified\"" >&6;}
-
-
-fi
-
-
-fi
-
-
-
-# Check whether --with-mvapich was given.
-if test "${with_mvapich+set}" = set; then :
-  withval=$with_mvapich;
-	    if test "$with_mvapich" != yes; then :
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to mvapich package: $with_mvapich" >&5
-$as_echo "$as_me: Path to mvapich package: $with_mvapich" >&6;}
-		if test "$MPI_INCLUDE" != ""; then :
-  MPI_INCLUDE=$MPI_INCLUDE
-
-else
-  MPI_INCLUDE="-I$with_mvapich/include"
-
-fi
-		if test "$MPI_LIBS" != ""; then :
-  MPI_LIBS=$MPI_LIBS
-
-else
-  MPI_LIBS="-L$with_mvapich/lib -lmpich -lmpl -lfmpich -llimic2 -lopa "
-
-fi
-
-else
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to mvapich is not specified\"" >&5
-$as_echo "$as_me: \"Path to mvapich is not specified\"" >&6;}
-
-
-fi
-
-
-fi
-
-
-
-# Check whether --with-impi was given.
-if test "${with_impi+set}" = set; then :
-  withval=$with_impi;
-	    if test "$with_impi" != yes; then :
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to impi package: $with_impi" >&5
-$as_echo "$as_me: Path to impi package: $with_impi" >&6;}
-		if test "$MPI_INCLUDE" != ""; then :
-  MPI_INCLUDE=$MPI_INCLUDE
-
-else
-  MPI_INCLUDE="-I$with_impi/include64"
-
-fi
-		if test "$MPI_LIBS" != ""; then :
-  MPI_LIBS=$MPI_LIBS
-
-else
-  MPI_LIBS="-L$with_impi/lib64 -lmpi -lmpiif -lmpigf"
-
-fi
-
-else
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to impi is not specified\"" >&5
-$as_echo "$as_me: \"Path to impi is not specified\"" >&6;}
-
-
-fi
-
-
-fi
-
-
-
-# Check whether --with-openmpi was given.
-if test "${with_openmpi+set}" = set; then :
-  withval=$with_openmpi;
-	    if test "$with_openmpi" != yes; then :
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to open package: $with_openmpi" >&5
-$as_echo "$as_me: Path to open package: $with_openmpi" >&6;}
-		if test "$MPI_INCLUDE" != ""; then :
-  MPI_INCLUDE=$MPI_INCLUDE
-
-else
-  MPI_INCLUDE="-I$with_openmpi/include"
-
-fi
-		if test "$MPI_LIBS" != ""; then :
-  MPI_LIBS=$MPI_LIBS
-
-else
-  MPI_LIBS="-L$with_openmpi/lib -lmpi -lmpi_cxx -lmpi_f77 -lmpi_f90 "
-
-fi
-
-else
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to openmpi is not specified\"" >&5
-$as_echo "$as_me: \"Path to openmpi is not specified\"" >&6;}
-
-
-fi
-
-
-fi
-
-
-
-
-
-
-
 
 ###BOOST
 
-# Check whether --with-boost was given.
-if test "${with_boost+set}" = set; then :
-  withval=$with_boost;
-	    if test "$with_boost" != yes; then :
+# Check whether --with-boostlibs was given.
+if test "${with_boostlibs+set}" = set; then :
+  withval=$with_boostlibs;
+	    if test "$with_boostlibs" != yes; then :
 
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to open package: $with_boost" >&5
-$as_echo "$as_me: Path to open package: $with_boost" >&6;}
-		if test "$BOOST_INCLUDE" != ""; then :
-  BOOST_INCLUDE=$BOOST_INCLUDE
-
-else
-  BOOST_INCLUDE="-I$with_boost/include"
-
-fi
 		if test "$BOOST_LIBS" != ""; then :
   BOOST_LIBS=$BOOST_LIBS
 
 else
-  BOOST_LIBS="-L$with_boost/lib -lboost_filesystem -lboost_system  "
+  BOOST_LIBS="-L$with_boostlibs -lboost_filesystem -lboost_system  "
 
 fi
 
 else
 
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to boost is not specified\"" >&5
-$as_echo "$as_me: \"Path to boost is not specified\"" >&6;}
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to boost libs is not specified\"" >&5
+$as_echo "$as_me: \"Path to boost libs is not specified\"" >&6;}
 
 
 fi
@@ -25571,6 +25407,31 @@ fi
 
 fi
 
+
+
+# Check whether --with-boostinc was given.
+if test "${with_boostinc+set}" = set; then :
+  withval=$with_boostinc;
+	    if test "$with_boostinc" != yes; then :
+
+		if test "$BOOST_INCLUDE" != ""; then :
+  BOOST_INCLUDE=$BOOST_INCLUDE
+
+else
+  BOOST_INCLUDE="-I$with_boostinc"
+
+fi
+
+else
+
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: \"Path to boost include files is not specified\"" >&5
+$as_echo "$as_me: \"Path to boost include files is not specified\"" >&6;}
+
+
+fi
+
+
+fi
 
 ##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
 ##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
@@ -25703,6 +25564,16 @@ PYTHON_LDFLAGS=`python3-config --ldflags`
 
 #AC_SUBST(PYTHON_LDFLAGS, "-L${PYTHON_PREFIX}/lib ${PYTHON_LDFLAGS}")
 
+###MPI
+mpi_include_cxx=`mpicxx -showme:compile`
+mpi_include_fort=`mpifort -showme:compile`
+mpi_libs_cxx=`mpicxx -showme:link`
+mpi_libs_fort=`mpifort -showme:link`
+MPI_INCLUDE="$mpi_include_cxx $mpi_include_fort"
+
+MPI_LIBS="$mpi_libs_cxx $mpi_libs_fort"
+
+
 ##############wxWidgets
 
 
@@ -25812,7 +25683,7 @@ fi
   if test "$WX_CONFIG_PATH" != "no" ; then
     WX_VERSION=""
 
-    min_wx_version=2.6.0
+    min_wx_version=3.0.1
     if test -z "" ; then
       { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wxWidgets version >= $min_wx_version" >&5
 $as_echo_n "checking for wxWidgets version >= $min_wx_version... " >&6; }
@@ -25986,7 +25857,7 @@ if test $wxWin != 1; then
 		returned by
 		'wx-config --libs' or 'wx-config --static --libs' command
 		is in LD_LIBRARY_PATH or equivalent variable and
-		wxWidgets version is 2.6.0 or above" "$LINENO" 5
+		wxWidgets version is 3.0.1 or above" "$LINENO" 5
 fi
 
 ##############mkl
@@ -29212,7 +29083,7 @@ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-##############Print Some Results
+##############Print OUTPUT variables:
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: Configuration Summary:" >&5
 $as_echo "Configuration Summary:" >&6; }
 
@@ -29251,10 +29122,6 @@ $as_echo "  HARLEM_MOD_DEFS         $HARLEM_MOD_DEFS" >&6; }
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: MPI flags:" >&5
 $as_echo "MPI flags:" >&6; }
-##AC_MSG_RESULT(AS_HELP_STRING([MPICC],$MPICC))
-##AC_MSG_RESULT(AS_HELP_STRING([MPICXX],$MPICXX))
-##AC_MSG_RESULT(AS_HELP_STRING([MPIF77],$MPIF77))
-##AC_MSG_RESULT(AS_HELP_STRING([MPIFC],$MPIFC))
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_FLAG                $MPI_FLAG" >&5
 $as_echo "  MPI_FLAG                $MPI_FLAG" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   MPI_INCLUDE             $MPI_INCLUDE" >&5

@@ -90,6 +90,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
+# -I$(top_srcdir)/PNPS/src 
+@WITH_CUDA_TRUE@am__append_1 = -DWITH_CUDA $(NVCCHOSTFLAGS) -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@  $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE)  -fPIC
+@WITH_CUDA_FALSE@am__append_2 = -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@ $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE) -fPIC
 subdir = PNPS/libpnp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/config/libtool.m4 \
@@ -130,44 +133,42 @@ am__libpnp_a_SOURCES_DIST = ./../src/pnps.cpp \
 	./../src/poissonboltzmannsolver.cpp \
 	./../src/nernstplanksolver.cpp \
 	./../src/poissonnernstplancksolver.cpp ./../src/pnputil.cpp \
-	./../src/pbwithljsolver.cpp llpnps_wrap.cpp \
+	./../src/pbwithljsolver.cpp pnpsll_wrap.cpp \
 	./../src/sissgausps.cpp ./../src/pnpstructs.cpp \
 	./../src/pnpdebug.cpp ./../src/cudasolver.cu \
 	./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
 am__dirstamp = $(am__leading_dot)dirstamp
-@WITH_CUDA_FALSE@am_libpnp_a_OBJECTS =  \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnps.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnpinterfaces.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnpsapp.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-contworld.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-buildworldni.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-mapio.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-poissonsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-poissonboltzmannsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-nernstplanksolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-poissonnernstplancksolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnputil.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pbwithljsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	libpnp_a-llpnps_wrap.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-sissgausps.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnpstructs.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/libpnp_a-pnpdebug.$(OBJEXT)
-@WITH_CUDA_TRUE@am_libpnp_a_OBJECTS =  \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pnps.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pnpinterfaces.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pnpsapp.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-contworld.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-buildworldni.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-mapio.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-poissonsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-poissonboltzmannsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-nernstplanksolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-poissonnernstplancksolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pnputil.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pbwithljsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	libpnp_a-llpnps_wrap.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-sissgausps.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/libpnp_a-pnpstructs.$(OBJEXT) \
+@WITH_CUDA_FALSE@am_libpnp_a_OBJECTS = ./../src/pnps.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pnpinterfaces.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pnpsapp.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/contworld.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/buildworldni.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/mapio.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/poissonsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/poissonboltzmannsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/nernstplanksolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/poissonnernstplancksolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pnputil.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pbwithljsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	pnpsll_wrap.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/sissgausps.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pnpstructs.$(OBJEXT) \
+@WITH_CUDA_FALSE@	./../src/pnpdebug.$(OBJEXT)
+@WITH_CUDA_TRUE@am_libpnp_a_OBJECTS = ./../src/pnps.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/pnpinterfaces.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/pnpsapp.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/contworld.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/buildworldni.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/mapio.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/poissonsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/poissonboltzmannsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/nernstplanksolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/poissonnernstplancksolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/pnputil.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/pbwithljsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	pnpsll_wrap.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/sissgausps.$(OBJEXT) \
+@WITH_CUDA_TRUE@	./../src/pnpstructs.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudasolver.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudasolverdouble.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudabldworld.$(OBJEXT)
@@ -188,12 +189,12 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) \
 	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
@@ -328,7 +329,6 @@ MKDIR_P = @MKDIR_P@
 MKL_FLAG = @MKL_FLAG@
 MKL_INCLUDE = @MKL_INCLUDE@
 MKL_LIBS = @MKL_LIBS@
-MPI_FLAG = @MPI_FLAG@
 MPI_INCLUDE = @MPI_INCLUDE@
 MPI_LIBS = @MPI_LIBS@
 NM = @NM@
@@ -437,36 +437,28 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libpnp.a
-pkgscript_DATA = llpnps.py
-AM_CPPFLAGS = \
- -I$(top_srcdir)/HARLEM/sources \
- -I$(top_srcdir)/HARLEM/sources/math \
- -I$(top_srcdir)/HARLEM/sources/gl \
- -I$(top_srcdir)/HARLEM/sources/mVue \
- -I$(top_srcdir)/HALIB/include \
- -I$(top_srcdir)/MY_VFLIB/src \
- -I$(top_srcdir)/WOLFGANG/DO_LIB/include \
- -I$(top_srcdir)/WOLFGANG/DO_LIB/template \
- -I$(top_srcdir)/WOLFGANG/IPACK  \
- -I$(top_srcdir)/WOLFGANG/generic \
- -I$(top_srcdir)/PNPS/src \
- $(OPEN_SCENE_GRAPH_VIEW_INCLUDE) \
- $(BOOST_INCLUDE) \
- $(LIBSSH_INCLUDE)
-
-@WITH_CUDA_FALSE@libpnp_a_CPPFLAGS = -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@ $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE) -fPIC
-# -I$(top_srcdir)/PNPS/src 
-@WITH_CUDA_TRUE@libpnp_a_CPPFLAGS = -DWITH_CUDA $(NVCCHOSTFLAGS) -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@  $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE)  -fPIC
+pkgscript_DATA = pnpsll.py
+AM_CPPFLAGS = -I$(top_srcdir)/HARLEM/sources \
+	-I$(top_srcdir)/HARLEM/sources/math \
+	-I$(top_srcdir)/HARLEM/sources/gl \
+	-I$(top_srcdir)/HARLEM/sources/mVue \
+	-I$(top_srcdir)/HALIB/include -I$(top_srcdir)/MY_VFLIB/src \
+	-I$(top_srcdir)/WOLFGANG/DO_LIB/include \
+	-I$(top_srcdir)/WOLFGANG/DO_LIB/template \
+	-I$(top_srcdir)/WOLFGANG/IPACK \
+	-I$(top_srcdir)/WOLFGANG/generic -I$(top_srcdir)/PNPS/src \
+	$(OPEN_SCENE_GRAPH_VIEW_INCLUDE) $(BOOST_INCLUDE) \
+	$(LIBSSH_INCLUDE) $(am__append_1) $(am__append_2)
 @WITH_CUDA_FALSE@libpnp_a_SOURCES = \
-@WITH_CUDA_FALSE@  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp  ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp llpnps_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/pnpdebug.cpp
+@WITH_CUDA_FALSE@  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp  ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp pnpsll_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/pnpdebug.cpp
 
 
 #  -Wno-non-template-friend -Wno-deprecated
 @WITH_CUDA_TRUE@libpnp_a_SOURCES = \
-@WITH_CUDA_TRUE@  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp llpnps_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/cudasolver.cu  ./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
+@WITH_CUDA_TRUE@  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp pnpsll_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/cudasolver.cu  ./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
 
 cudasolver_dep = ./../src/pnpstructs.cpp
-llpnps_wrap_dep = \
+pnpsll_wrap_dep = \
  ./../src/pnpmod.h \
  ./../src/mapio.h \
  ./../src/contworld.h \
@@ -518,35 +510,35 @@ clean-noinstLIBRARIES:
 ../src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ./../src/$(DEPDIR)
 	@: > ../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnps.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/pnps.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnpinterfaces.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/pnpinterfaces.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnpsapp.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/pnpsapp.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-contworld.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/contworld.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-buildworldni.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/buildworldni.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-mapio.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/mapio.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-poissonsolver.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/poissonsolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-poissonboltzmannsolver.$(OBJEXT):  \
-	../src/$(am__dirstamp) ../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-nernstplanksolver.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/poissonboltzmannsolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-poissonnernstplancksolver.$(OBJEXT):  \
-	../src/$(am__dirstamp) ../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnputil.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/nernstplanksolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pbwithljsolver.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/poissonnernstplancksolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-sissgausps.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/pnputil.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnpstructs.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/pbwithljsolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/libpnp_a-pnpdebug.$(OBJEXT): ../src/$(am__dirstamp) \
+./../src/sissgausps.$(OBJEXT): ../src/$(am__dirstamp) \
+	../src/$(DEPDIR)/$(am__dirstamp)
+./../src/pnpstructs.$(OBJEXT): ../src/$(am__dirstamp) \
+	../src/$(DEPDIR)/$(am__dirstamp)
+./../src/pnpdebug.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
 ./../src/cudasolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
@@ -567,22 +559,22 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpnp_a-llpnps_wrap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-buildworldni.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-contworld.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-mapio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnpdebug.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnps.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnpsapp.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnpstructs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-pnputil.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-poissonsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/libpnp_a-sissgausps.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpsll_wrap.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/buildworldni.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/contworld.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/mapio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/nernstplanksolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pbwithljsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpdebug.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpinterfaces.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnps.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpsapp.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpstructs.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnputil.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonboltzmannsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonnernstplancksolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/sissgausps.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -607,230 +599,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
-
-./../src/libpnp_a-pnps.o: ./../src/pnps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnps.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnps.Tpo -c -o ./../src/libpnp_a-pnps.o `test -f './../src/pnps.cpp' || echo '$(srcdir)/'`./../src/pnps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnps.Tpo ./../src/$(DEPDIR)/libpnp_a-pnps.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnps.cpp' object='./../src/libpnp_a-pnps.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnps.o `test -f './../src/pnps.cpp' || echo '$(srcdir)/'`./../src/pnps.cpp
-
-./../src/libpnp_a-pnps.obj: ./../src/pnps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnps.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnps.Tpo -c -o ./../src/libpnp_a-pnps.obj `if test -f './../src/pnps.cpp'; then $(CYGPATH_W) './../src/pnps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnps.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnps.Tpo ./../src/$(DEPDIR)/libpnp_a-pnps.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnps.cpp' object='./../src/libpnp_a-pnps.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnps.obj `if test -f './../src/pnps.cpp'; then $(CYGPATH_W) './../src/pnps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnps.cpp'; fi`
-
-./../src/libpnp_a-pnpinterfaces.o: ./../src/pnpinterfaces.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpinterfaces.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Tpo -c -o ./../src/libpnp_a-pnpinterfaces.o `test -f './../src/pnpinterfaces.cpp' || echo '$(srcdir)/'`./../src/pnpinterfaces.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpinterfaces.cpp' object='./../src/libpnp_a-pnpinterfaces.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpinterfaces.o `test -f './../src/pnpinterfaces.cpp' || echo '$(srcdir)/'`./../src/pnpinterfaces.cpp
-
-./../src/libpnp_a-pnpinterfaces.obj: ./../src/pnpinterfaces.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpinterfaces.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Tpo -c -o ./../src/libpnp_a-pnpinterfaces.obj `if test -f './../src/pnpinterfaces.cpp'; then $(CYGPATH_W) './../src/pnpinterfaces.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpinterfaces.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpinterfaces.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpinterfaces.cpp' object='./../src/libpnp_a-pnpinterfaces.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpinterfaces.obj `if test -f './../src/pnpinterfaces.cpp'; then $(CYGPATH_W) './../src/pnpinterfaces.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpinterfaces.cpp'; fi`
-
-./../src/libpnp_a-pnpsapp.o: ./../src/pnpsapp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpsapp.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Tpo -c -o ./../src/libpnp_a-pnpsapp.o `test -f './../src/pnpsapp.cpp' || echo '$(srcdir)/'`./../src/pnpsapp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpsapp.cpp' object='./../src/libpnp_a-pnpsapp.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpsapp.o `test -f './../src/pnpsapp.cpp' || echo '$(srcdir)/'`./../src/pnpsapp.cpp
-
-./../src/libpnp_a-pnpsapp.obj: ./../src/pnpsapp.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpsapp.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Tpo -c -o ./../src/libpnp_a-pnpsapp.obj `if test -f './../src/pnpsapp.cpp'; then $(CYGPATH_W) './../src/pnpsapp.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpsapp.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpsapp.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpsapp.cpp' object='./../src/libpnp_a-pnpsapp.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpsapp.obj `if test -f './../src/pnpsapp.cpp'; then $(CYGPATH_W) './../src/pnpsapp.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpsapp.cpp'; fi`
-
-./../src/libpnp_a-contworld.o: ./../src/contworld.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-contworld.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-contworld.Tpo -c -o ./../src/libpnp_a-contworld.o `test -f './../src/contworld.cpp' || echo '$(srcdir)/'`./../src/contworld.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-contworld.Tpo ./../src/$(DEPDIR)/libpnp_a-contworld.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/contworld.cpp' object='./../src/libpnp_a-contworld.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-contworld.o `test -f './../src/contworld.cpp' || echo '$(srcdir)/'`./../src/contworld.cpp
-
-./../src/libpnp_a-contworld.obj: ./../src/contworld.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-contworld.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-contworld.Tpo -c -o ./../src/libpnp_a-contworld.obj `if test -f './../src/contworld.cpp'; then $(CYGPATH_W) './../src/contworld.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/contworld.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-contworld.Tpo ./../src/$(DEPDIR)/libpnp_a-contworld.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/contworld.cpp' object='./../src/libpnp_a-contworld.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-contworld.obj `if test -f './../src/contworld.cpp'; then $(CYGPATH_W) './../src/contworld.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/contworld.cpp'; fi`
-
-./../src/libpnp_a-buildworldni.o: ./../src/buildworldni.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-buildworldni.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-buildworldni.Tpo -c -o ./../src/libpnp_a-buildworldni.o `test -f './../src/buildworldni.cpp' || echo '$(srcdir)/'`./../src/buildworldni.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-buildworldni.Tpo ./../src/$(DEPDIR)/libpnp_a-buildworldni.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/buildworldni.cpp' object='./../src/libpnp_a-buildworldni.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-buildworldni.o `test -f './../src/buildworldni.cpp' || echo '$(srcdir)/'`./../src/buildworldni.cpp
-
-./../src/libpnp_a-buildworldni.obj: ./../src/buildworldni.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-buildworldni.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-buildworldni.Tpo -c -o ./../src/libpnp_a-buildworldni.obj `if test -f './../src/buildworldni.cpp'; then $(CYGPATH_W) './../src/buildworldni.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/buildworldni.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-buildworldni.Tpo ./../src/$(DEPDIR)/libpnp_a-buildworldni.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/buildworldni.cpp' object='./../src/libpnp_a-buildworldni.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-buildworldni.obj `if test -f './../src/buildworldni.cpp'; then $(CYGPATH_W) './../src/buildworldni.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/buildworldni.cpp'; fi`
-
-./../src/libpnp_a-mapio.o: ./../src/mapio.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-mapio.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-mapio.Tpo -c -o ./../src/libpnp_a-mapio.o `test -f './../src/mapio.cpp' || echo '$(srcdir)/'`./../src/mapio.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-mapio.Tpo ./../src/$(DEPDIR)/libpnp_a-mapio.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/mapio.cpp' object='./../src/libpnp_a-mapio.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-mapio.o `test -f './../src/mapio.cpp' || echo '$(srcdir)/'`./../src/mapio.cpp
-
-./../src/libpnp_a-mapio.obj: ./../src/mapio.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-mapio.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-mapio.Tpo -c -o ./../src/libpnp_a-mapio.obj `if test -f './../src/mapio.cpp'; then $(CYGPATH_W) './../src/mapio.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/mapio.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-mapio.Tpo ./../src/$(DEPDIR)/libpnp_a-mapio.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/mapio.cpp' object='./../src/libpnp_a-mapio.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-mapio.obj `if test -f './../src/mapio.cpp'; then $(CYGPATH_W) './../src/mapio.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/mapio.cpp'; fi`
-
-./../src/libpnp_a-poissonsolver.o: ./../src/poissonsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonsolver.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Tpo -c -o ./../src/libpnp_a-poissonsolver.o `test -f './../src/poissonsolver.cpp' || echo '$(srcdir)/'`./../src/poissonsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonsolver.cpp' object='./../src/libpnp_a-poissonsolver.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonsolver.o `test -f './../src/poissonsolver.cpp' || echo '$(srcdir)/'`./../src/poissonsolver.cpp
-
-./../src/libpnp_a-poissonsolver.obj: ./../src/poissonsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonsolver.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Tpo -c -o ./../src/libpnp_a-poissonsolver.obj `if test -f './../src/poissonsolver.cpp'; then $(CYGPATH_W) './../src/poissonsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonsolver.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonsolver.cpp' object='./../src/libpnp_a-poissonsolver.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonsolver.obj `if test -f './../src/poissonsolver.cpp'; then $(CYGPATH_W) './../src/poissonsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonsolver.cpp'; fi`
-
-./../src/libpnp_a-poissonboltzmannsolver.o: ./../src/poissonboltzmannsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonboltzmannsolver.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Tpo -c -o ./../src/libpnp_a-poissonboltzmannsolver.o `test -f './../src/poissonboltzmannsolver.cpp' || echo '$(srcdir)/'`./../src/poissonboltzmannsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonboltzmannsolver.cpp' object='./../src/libpnp_a-poissonboltzmannsolver.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonboltzmannsolver.o `test -f './../src/poissonboltzmannsolver.cpp' || echo '$(srcdir)/'`./../src/poissonboltzmannsolver.cpp
-
-./../src/libpnp_a-poissonboltzmannsolver.obj: ./../src/poissonboltzmannsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonboltzmannsolver.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Tpo -c -o ./../src/libpnp_a-poissonboltzmannsolver.obj `if test -f './../src/poissonboltzmannsolver.cpp'; then $(CYGPATH_W) './../src/poissonboltzmannsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonboltzmannsolver.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonboltzmannsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonboltzmannsolver.cpp' object='./../src/libpnp_a-poissonboltzmannsolver.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonboltzmannsolver.obj `if test -f './../src/poissonboltzmannsolver.cpp'; then $(CYGPATH_W) './../src/poissonboltzmannsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonboltzmannsolver.cpp'; fi`
-
-./../src/libpnp_a-nernstplanksolver.o: ./../src/nernstplanksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-nernstplanksolver.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Tpo -c -o ./../src/libpnp_a-nernstplanksolver.o `test -f './../src/nernstplanksolver.cpp' || echo '$(srcdir)/'`./../src/nernstplanksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Tpo ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/nernstplanksolver.cpp' object='./../src/libpnp_a-nernstplanksolver.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-nernstplanksolver.o `test -f './../src/nernstplanksolver.cpp' || echo '$(srcdir)/'`./../src/nernstplanksolver.cpp
-
-./../src/libpnp_a-nernstplanksolver.obj: ./../src/nernstplanksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-nernstplanksolver.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Tpo -c -o ./../src/libpnp_a-nernstplanksolver.obj `if test -f './../src/nernstplanksolver.cpp'; then $(CYGPATH_W) './../src/nernstplanksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/nernstplanksolver.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Tpo ./../src/$(DEPDIR)/libpnp_a-nernstplanksolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/nernstplanksolver.cpp' object='./../src/libpnp_a-nernstplanksolver.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-nernstplanksolver.obj `if test -f './../src/nernstplanksolver.cpp'; then $(CYGPATH_W) './../src/nernstplanksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/nernstplanksolver.cpp'; fi`
-
-./../src/libpnp_a-poissonnernstplancksolver.o: ./../src/poissonnernstplancksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonnernstplancksolver.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Tpo -c -o ./../src/libpnp_a-poissonnernstplancksolver.o `test -f './../src/poissonnernstplancksolver.cpp' || echo '$(srcdir)/'`./../src/poissonnernstplancksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonnernstplancksolver.cpp' object='./../src/libpnp_a-poissonnernstplancksolver.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonnernstplancksolver.o `test -f './../src/poissonnernstplancksolver.cpp' || echo '$(srcdir)/'`./../src/poissonnernstplancksolver.cpp
-
-./../src/libpnp_a-poissonnernstplancksolver.obj: ./../src/poissonnernstplancksolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-poissonnernstplancksolver.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Tpo -c -o ./../src/libpnp_a-poissonnernstplancksolver.obj `if test -f './../src/poissonnernstplancksolver.cpp'; then $(CYGPATH_W) './../src/poissonnernstplancksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonnernstplancksolver.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Tpo ./../src/$(DEPDIR)/libpnp_a-poissonnernstplancksolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonnernstplancksolver.cpp' object='./../src/libpnp_a-poissonnernstplancksolver.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-poissonnernstplancksolver.obj `if test -f './../src/poissonnernstplancksolver.cpp'; then $(CYGPATH_W) './../src/poissonnernstplancksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonnernstplancksolver.cpp'; fi`
-
-./../src/libpnp_a-pnputil.o: ./../src/pnputil.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnputil.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnputil.Tpo -c -o ./../src/libpnp_a-pnputil.o `test -f './../src/pnputil.cpp' || echo '$(srcdir)/'`./../src/pnputil.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnputil.Tpo ./../src/$(DEPDIR)/libpnp_a-pnputil.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnputil.cpp' object='./../src/libpnp_a-pnputil.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnputil.o `test -f './../src/pnputil.cpp' || echo '$(srcdir)/'`./../src/pnputil.cpp
-
-./../src/libpnp_a-pnputil.obj: ./../src/pnputil.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnputil.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnputil.Tpo -c -o ./../src/libpnp_a-pnputil.obj `if test -f './../src/pnputil.cpp'; then $(CYGPATH_W) './../src/pnputil.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnputil.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnputil.Tpo ./../src/$(DEPDIR)/libpnp_a-pnputil.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnputil.cpp' object='./../src/libpnp_a-pnputil.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnputil.obj `if test -f './../src/pnputil.cpp'; then $(CYGPATH_W) './../src/pnputil.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnputil.cpp'; fi`
-
-./../src/libpnp_a-pbwithljsolver.o: ./../src/pbwithljsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pbwithljsolver.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Tpo -c -o ./../src/libpnp_a-pbwithljsolver.o `test -f './../src/pbwithljsolver.cpp' || echo '$(srcdir)/'`./../src/pbwithljsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pbwithljsolver.cpp' object='./../src/libpnp_a-pbwithljsolver.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pbwithljsolver.o `test -f './../src/pbwithljsolver.cpp' || echo '$(srcdir)/'`./../src/pbwithljsolver.cpp
-
-./../src/libpnp_a-pbwithljsolver.obj: ./../src/pbwithljsolver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pbwithljsolver.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Tpo -c -o ./../src/libpnp_a-pbwithljsolver.obj `if test -f './../src/pbwithljsolver.cpp'; then $(CYGPATH_W) './../src/pbwithljsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pbwithljsolver.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Tpo ./../src/$(DEPDIR)/libpnp_a-pbwithljsolver.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pbwithljsolver.cpp' object='./../src/libpnp_a-pbwithljsolver.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pbwithljsolver.obj `if test -f './../src/pbwithljsolver.cpp'; then $(CYGPATH_W) './../src/pbwithljsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pbwithljsolver.cpp'; fi`
-
-libpnp_a-llpnps_wrap.o: llpnps_wrap.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libpnp_a-llpnps_wrap.o -MD -MP -MF $(DEPDIR)/libpnp_a-llpnps_wrap.Tpo -c -o libpnp_a-llpnps_wrap.o `test -f 'llpnps_wrap.cpp' || echo '$(srcdir)/'`llpnps_wrap.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpnp_a-llpnps_wrap.Tpo $(DEPDIR)/libpnp_a-llpnps_wrap.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='llpnps_wrap.cpp' object='libpnp_a-llpnps_wrap.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libpnp_a-llpnps_wrap.o `test -f 'llpnps_wrap.cpp' || echo '$(srcdir)/'`llpnps_wrap.cpp
-
-libpnp_a-llpnps_wrap.obj: llpnps_wrap.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libpnp_a-llpnps_wrap.obj -MD -MP -MF $(DEPDIR)/libpnp_a-llpnps_wrap.Tpo -c -o libpnp_a-llpnps_wrap.obj `if test -f 'llpnps_wrap.cpp'; then $(CYGPATH_W) 'llpnps_wrap.cpp'; else $(CYGPATH_W) '$(srcdir)/llpnps_wrap.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpnp_a-llpnps_wrap.Tpo $(DEPDIR)/libpnp_a-llpnps_wrap.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='llpnps_wrap.cpp' object='libpnp_a-llpnps_wrap.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libpnp_a-llpnps_wrap.obj `if test -f 'llpnps_wrap.cpp'; then $(CYGPATH_W) 'llpnps_wrap.cpp'; else $(CYGPATH_W) '$(srcdir)/llpnps_wrap.cpp'; fi`
-
-./../src/libpnp_a-sissgausps.o: ./../src/sissgausps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-sissgausps.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-sissgausps.Tpo -c -o ./../src/libpnp_a-sissgausps.o `test -f './../src/sissgausps.cpp' || echo '$(srcdir)/'`./../src/sissgausps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-sissgausps.Tpo ./../src/$(DEPDIR)/libpnp_a-sissgausps.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/sissgausps.cpp' object='./../src/libpnp_a-sissgausps.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-sissgausps.o `test -f './../src/sissgausps.cpp' || echo '$(srcdir)/'`./../src/sissgausps.cpp
-
-./../src/libpnp_a-sissgausps.obj: ./../src/sissgausps.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-sissgausps.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-sissgausps.Tpo -c -o ./../src/libpnp_a-sissgausps.obj `if test -f './../src/sissgausps.cpp'; then $(CYGPATH_W) './../src/sissgausps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/sissgausps.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-sissgausps.Tpo ./../src/$(DEPDIR)/libpnp_a-sissgausps.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/sissgausps.cpp' object='./../src/libpnp_a-sissgausps.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-sissgausps.obj `if test -f './../src/sissgausps.cpp'; then $(CYGPATH_W) './../src/sissgausps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/sissgausps.cpp'; fi`
-
-./../src/libpnp_a-pnpstructs.o: ./../src/pnpstructs.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpstructs.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Tpo -c -o ./../src/libpnp_a-pnpstructs.o `test -f './../src/pnpstructs.cpp' || echo '$(srcdir)/'`./../src/pnpstructs.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpstructs.cpp' object='./../src/libpnp_a-pnpstructs.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpstructs.o `test -f './../src/pnpstructs.cpp' || echo '$(srcdir)/'`./../src/pnpstructs.cpp
-
-./../src/libpnp_a-pnpstructs.obj: ./../src/pnpstructs.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpstructs.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Tpo -c -o ./../src/libpnp_a-pnpstructs.obj `if test -f './../src/pnpstructs.cpp'; then $(CYGPATH_W) './../src/pnpstructs.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpstructs.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpstructs.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpstructs.cpp' object='./../src/libpnp_a-pnpstructs.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpstructs.obj `if test -f './../src/pnpstructs.cpp'; then $(CYGPATH_W) './../src/pnpstructs.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpstructs.cpp'; fi`
-
-./../src/libpnp_a-pnpdebug.o: ./../src/pnpdebug.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpdebug.o -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Tpo -c -o ./../src/libpnp_a-pnpdebug.o `test -f './../src/pnpdebug.cpp' || echo '$(srcdir)/'`./../src/pnpdebug.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpdebug.cpp' object='./../src/libpnp_a-pnpdebug.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpdebug.o `test -f './../src/pnpdebug.cpp' || echo '$(srcdir)/'`./../src/pnpdebug.cpp
-
-./../src/libpnp_a-pnpdebug.obj: ./../src/pnpdebug.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ./../src/libpnp_a-pnpdebug.obj -MD -MP -MF ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Tpo -c -o ./../src/libpnp_a-pnpdebug.obj `if test -f './../src/pnpdebug.cpp'; then $(CYGPATH_W) './../src/pnpdebug.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpdebug.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Tpo ./../src/$(DEPDIR)/libpnp_a-pnpdebug.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpdebug.cpp' object='./../src/libpnp_a-pnpdebug.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpnp_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ./../src/libpnp_a-pnpdebug.obj `if test -f './../src/pnpdebug.cpp'; then $(CYGPATH_W) './../src/pnpdebug.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpdebug.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1073,10 +841,10 @@ uninstall-am: uninstall-pkgscriptDATA
 .cu.o:
 	$(NVCC) $(NVCCFLAGS) -o $@ -c $<
 
-llpnps_wrap.cpp:$(top_srcdir)/PNPS/src/llpnps.i
-	$(SWIG) -python -shadow -c++ $(INCLUDES) @HARLEM_MOD_DEFS@ -o llpnps_wrap.cpp $(top_srcdir)/PNPS/src/llpnps.i
+pnpsll_wrap.cpp:$(top_srcdir)/PNPS/src/pnpsll.i
+	$(SWIG) -python -shadow -c++ -py3 $(INCLUDES) @HARLEM_MOD_DEFS@ -o pnpsll_wrap.cpp $(top_srcdir)/PNPS/src/pnpsll.i
 
-llpnps.py:llpnps_wrap.cpp
+pnpsll.py:pnpsll_wrap.cpp
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

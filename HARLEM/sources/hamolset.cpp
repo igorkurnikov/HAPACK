@@ -5128,7 +5128,7 @@ HaDisplayedSurface* HaMolSet::CalcMolSurfDens()
 // Positive Potential Isosurface
 	sptr = new HaDisplayedSurface();
 	if(sptr == NULL)
-		return false;
+		return NULL;
 
 	AddObject3D(sptr);
 	

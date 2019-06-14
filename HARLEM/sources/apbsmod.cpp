@@ -182,7 +182,7 @@ int APBSMod::Run()
   while(!feof(OUT))
   {
     fgets(line,1024,OUT);
-    printf(line);
+    // printf(line);
 	std::string HaLine(line);
     if(HaLine.find("Global net energy")!=string::npos)
     {

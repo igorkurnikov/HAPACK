@@ -285,7 +285,6 @@ MKDIR_P = @MKDIR_P@
 MKL_FLAG = @MKL_FLAG@
 MKL_INCLUDE = @MKL_INCLUDE@
 MKL_LIBS = @MKL_LIBS@
-MPI_FLAG = @MPI_FLAG@
 MPI_INCLUDE = @MPI_INCLUDE@
 MPI_LIBS = @MPI_LIBS@
 NM = @NM@
@@ -750,7 +749,7 @@ uninstall-am: uninstall-pkgscriptDATA
 #  ./../src/tinyxml.h
 
 halib_wrap.cpp:$(srcdir)/../include/halib.i
-	$(SWIG) -python -shadow -c++ @HARLEM_MOD_DEFS@ -o halib_wrap.cpp $(srcdir)/../include/halib.i
+	$(SWIG) -python -shadow -c++ -py3 @HARLEM_MOD_DEFS@ -o halib_wrap.cpp $(srcdir)/../include/halib.i
 
 halib.py:halib_wrap.cpp
 

@@ -235,7 +235,6 @@ class Fortran_matrix
     {
         if (num_rows() == M && num_cols() == N) return;
 
-		int i_realloc = FALSE;
 		if(nalloc_ < M*N) reserve(M,N);
 
 		if( N > num_cols() )

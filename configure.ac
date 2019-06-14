@@ -66,16 +66,14 @@ AC_SUBST(HARLEM_MOD_DEFS,["-DHARLEM_MOD -Dlinux -DGNU -DGCC_NEW  $MODS_DEFS "])
 #AC_MSG_RESULT(AS_HELP_STRING([with_visualc],$with_visualc))
 #AM_CONDITIONAL([VISUALC], test -n "$WITH_VISUALC")
 
-AC_PROG_CC([icc gcc])
-AC_PROG_CXX([icpc g++])
-AC_PROG_F77([ifort g77 gfortran])
-AC_PROG_FC([ifort g90 gfortran])
+AC_PROG_CC([gcc icc])
+AC_PROG_CXX([g++ icpc])
+AC_PROG_F77([g77 gfortran ifort])
+AC_PROG_FC([g90 gfortran ifort])
 
 AM_CONDITIONAL(WITH_GFORTRAN, test ${F77} == "gfortran")
 #AM_CONDITIONAL(WITH_GFORTRAN, test ${F77} == "gfortran-4.5")
 
-#AC_PROG_FPP
-	
 AC_PROG_RANLIB
 AC_PATH_PROGS(AS, $AS as, $CC)
 AC_CHECK_PROGS(AR, ar, :)
@@ -96,114 +94,39 @@ AC_CHECK_LIB(z, zlibVersion,,
 	AC_MSG_ERROR([Cannot find zlib]))
 AC_SUBST(ZLIB_LIBS,['-lz -lm'])
 AC_SUBST(ZLIB_CPPFLAGS,"")
-#### MPI:
-AC_ARG_WITH([mpich],
-	  AS_HELP_STRING([--with-mpich=DIR],[build with mpich, which is located at DIR]),
-	  [
-	    AS_IF([test "$with_mpich" != yes],
-	      [
-		AC_MSG_NOTICE([Path to mpich package: $with_mpich])
-		AS_IF([test "$MPI_INCLUDE" != ""],
-			AC_SUBST(MPI_INCLUDE,$MPI_INCLUDE),
-			AC_SUBST(MPI_INCLUDE,"-I[$with_mpich]/include"))
-		AS_IF([test "$MPI_LIBS" != ""],
-			AC_SUBST(MPI_LIBS,$MPI_LIBS),
-			AC_SUBST(MPI_LIBS,"-L[$with_mpich]/lib -lmpich -lmpl -lfmpich"))
-	      ],
-	      [
-		AC_MSG_NOTICE(["Path to mpich is not specified"])
-	      ]
-	    )
-	  ]
-)
-
-AC_ARG_WITH([mvapich],
-	  AS_HELP_STRING([--with-mvapich=DIR],[build with mvapich, which is located at DIR]),
-	  [
-	    AS_IF([test "$with_mvapich" != yes],
-	      [
-		AC_MSG_NOTICE([Path to mvapich package: $with_mvapich])
-		AS_IF([test "$MPI_INCLUDE" != ""],
-			AC_SUBST(MPI_INCLUDE,$MPI_INCLUDE),
-			AC_SUBST(MPI_INCLUDE,"-I[$with_mvapich]/include"))
-		AS_IF([test "$MPI_LIBS" != ""],
-			AC_SUBST(MPI_LIBS,$MPI_LIBS),
-			AC_SUBST(MPI_LIBS,"-L[$with_mvapich]/lib -lmpich -lmpl -lfmpich -llimic2 -lopa "))
-	      ],
-	      [
-		AC_MSG_NOTICE(["Path to mvapich is not specified"])
-	      ]
-	    )
-	  ]
-)
-
-AC_ARG_WITH([impi],
-	  AS_HELP_STRING([--with-impi=DIR],[build with impi, which is located at DIR]),
-	  [
-	    AS_IF([test "$with_impi" != yes],
-	      [
-		AC_MSG_NOTICE([Path to impi package: $with_impi])
-		AS_IF([test "$MPI_INCLUDE" != ""],
-			AC_SUBST(MPI_INCLUDE,$MPI_INCLUDE),
-			AC_SUBST(MPI_INCLUDE,"-I[$with_impi]/include64"))
-		AS_IF([test "$MPI_LIBS" != ""],
-			AC_SUBST(MPI_LIBS,$MPI_LIBS),
-			AC_SUBST(MPI_LIBS,"-L[$with_impi]/lib64 -lmpi -lmpiif -lmpigf"))
-	      ],
-	      [
-		AC_MSG_NOTICE(["Path to impi is not specified"])
-	      ]
-	    )
-	  ]
-)
-
-AC_ARG_WITH([openmpi],
-	  AS_HELP_STRING([--with-openmpi=DIR],[build with openmpi, which is located at DIR]),
-	  [
-	    AS_IF([test "$with_openmpi" != yes],
-	      [
-		AC_MSG_NOTICE([Path to open package: $with_openmpi])
-		AS_IF([test "$MPI_INCLUDE" != ""],
-			AC_SUBST(MPI_INCLUDE,$MPI_INCLUDE),
-			AC_SUBST(MPI_INCLUDE,"-I[$with_openmpi]/include"))
-		AS_IF([test "$MPI_LIBS" != ""],
-			AC_SUBST(MPI_LIBS,$MPI_LIBS),
-			AC_SUBST(MPI_LIBS,"-L[$with_openmpi]/lib -lmpi -lmpi_cxx -lmpi_f77 -lmpi_f90 "))
-	      ],
-	      [
-		AC_MSG_NOTICE(["Path to openmpi is not specified"])
-	      ]
-	    )
-	  ]
-)
-
-
-AC_SUBST(MPI_FLAG)
-AC_SUBST(MPI_INCLUDE)
-AC_SUBST(MPI_LIBS)
-
 
 ###BOOST
-AC_ARG_WITH([boost],
-	  AS_HELP_STRING([--with-boost=DIR],[build with boost, which is located at DIR]),
+AC_ARG_WITH([boostlibs],
+	  AS_HELP_STRING([--with-boostlibs=DIR],[build with boost libraries located at DIR]),
 	  [
-	    AS_IF([test "$with_boost" != yes],
+	    AS_IF([test "$with_boostlibs" != yes],
 	      [
-		AC_MSG_NOTICE([Path to open package: $with_boost])
-		AS_IF([test "$BOOST_INCLUDE" != ""],
-			AC_SUBST(BOOST_INCLUDE,$BOOST_INCLUDE),
-			AC_SUBST(BOOST_INCLUDE,"-I[$with_boost]/include"))
 		AS_IF([test "$BOOST_LIBS" != ""],
 			AC_SUBST(BOOST_LIBS,$BOOST_LIBS),
-			AC_SUBST(BOOST_LIBS,"-L[$with_boost]/lib -lboost_filesystem -lboost_system  "))
+			AC_SUBST(BOOST_LIBS,"-L[$with_boostlibs] -lboost_filesystem -lboost_system  "))
 	      ],
 	      [
-		AC_MSG_NOTICE(["Path to boost is not specified"])
+		AC_MSG_NOTICE(["Path to boost libs is not specified"])
 	      ]
 	    )
 	  ]
 )
 
+AC_ARG_WITH([boostinc],
+	  AS_HELP_STRING([--with-boostinc=DIR],[build with boost includes located in DIR]),
+	  [
+	    AS_IF([test "$with_boostinc" != yes],
+	      [
+		AS_IF([test "$BOOST_INCLUDE" != ""],
+			AC_SUBST(BOOST_INCLUDE,$BOOST_INCLUDE),
+			AC_SUBST(BOOST_INCLUDE,"-I[$with_boostinc]"))
+	      ],
+	      [
+		AC_MSG_NOTICE(["Path to boost include files is not specified"])
+	      ]
+	    )
+	  ]
+)
 ##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
 ##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
 
@@ -221,11 +144,19 @@ AC_SUBST(PYTHON_CPPFLAGS,`python3-config --cflags`)
 AC_SUBST(PYTHON_LDFLAGS, `python3-config --ldflags`)
 #AC_SUBST(PYTHON_LDFLAGS, "-L${PYTHON_PREFIX}/lib ${PYTHON_LDFLAGS}")
 
+###MPI
+mpi_include_cxx=`mpicxx -showme:compile`
+mpi_include_fort=`mpifort -showme:compile`
+mpi_libs_cxx=`mpicxx -showme:link`
+mpi_libs_fort=`mpifort -showme:link`
+AC_SUBST(MPI_INCLUDE,"$mpi_include_cxx $mpi_include_fort")
+AC_SUBST(MPI_LIBS,"$mpi_libs_cxx $mpi_libs_fort")
+
 ##############wxWidgets
 
 AM_OPTIONS_WXCONFIG
 
-AM_PATH_WXCONFIG([2.6.0],[wxWin=1],[wxWin=0],,)
+AM_PATH_WXCONFIG([3.0.1],[wxWin=1],[wxWin=0],,)
 
 if test $wxWin != 1; then 
 	  AC_MSG_ERROR([
@@ -235,7 +166,7 @@ if test $wxWin != 1; then
 		returned by
 		'wx-config --libs' or 'wx-config --static --libs' command
 		is in LD_LIBRARY_PATH or equivalent variable and
-		wxWidgets version is 2.6.0 or above])
+		wxWidgets version is 3.0.1 or above])
 fi
 
 ##############mkl
@@ -350,7 +281,7 @@ AC_CONFIG_FILES([doc/Makefile doc/API/Makefile])
 
 AC_OUTPUT
 
-##############Print Some Results
+##############Print OUTPUT variables: 
 AC_MSG_RESULT([Configuration Summary:])
 
 AC_MSG_RESULT(AS_HELP_STRING([CC],$CC))
@@ -372,10 +303,6 @@ AC_MSG_RESULT([HARLEM flags:])
 AC_MSG_RESULT(AS_HELP_STRING([HARLEM_MOD_DEFS],$HARLEM_MOD_DEFS))
 
 AC_MSG_RESULT([MPI flags:])
-##AC_MSG_RESULT(AS_HELP_STRING([MPICC],$MPICC))
-##AC_MSG_RESULT(AS_HELP_STRING([MPICXX],$MPICXX))
-##AC_MSG_RESULT(AS_HELP_STRING([MPIF77],$MPIF77))
-##AC_MSG_RESULT(AS_HELP_STRING([MPIFC],$MPIFC))
 AC_MSG_RESULT(AS_HELP_STRING([MPI_FLAG],$MPI_FLAG))
 AC_MSG_RESULT(AS_HELP_STRING([MPI_INCLUDE],$MPI_INCLUDE))
 ##AC_MSG_RESULT(AS_HELP_STRING([MPI_LDFLAGS],$MPI_LDFLAGS))

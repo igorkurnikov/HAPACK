@@ -1,5 +1,5 @@
 noinst_LIBRARIES = libpnp.a
-pkgscript_DATA = llpnps.py
+pkgscript_DATA = pnpsll.py
 AM_CPPFLAGS = \
  -I$(top_srcdir)/HARLEM/sources \
  -I$(top_srcdir)/HARLEM/sources/math \
@@ -18,18 +18,18 @@ AM_CPPFLAGS = \
 # -I$(top_srcdir)/PNPS/src 
 
 if WITH_CUDA
-libpnp_a_CPPFLAGS = -DWITH_CUDA $(NVCCHOSTFLAGS) -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@  $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE)  -fPIC
+AM_CPPFLAGS += -DWITH_CUDA $(NVCCHOSTFLAGS) -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@  $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE)  -fPIC
 else
-libpnp_a_CPPFLAGS = -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@ $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE) -fPIC
+AM_CPPFLAGS += -D DBG0 -D DBG1 -D DBG2 @HARLEM_MOD_DEFS@ $(PYTHON_CPPFLAGS) $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) $(MPI_INCLUDE) -fPIC
 endif
 
 #  -Wno-non-template-friend -Wno-deprecated
 if WITH_CUDA
 libpnp_a_SOURCES = \
-  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp llpnps_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/cudasolver.cu  ./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
+  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp pnpsll_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/cudasolver.cu  ./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
 else
 libpnp_a_SOURCES = \
-  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp  ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp llpnps_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/pnpdebug.cpp
+  ./../src/pnps.cpp ./../src/pnpinterfaces.cpp ./../src/pnpsapp.cpp ./../src/contworld.cpp ./../src/buildworldni.cpp ./../src/mapio.cpp ./../src/poissonsolver.cpp ./../src/poissonboltzmannsolver.cpp ./../src/nernstplanksolver.cpp ./../src/poissonnernstplancksolver.cpp  ./../src/pnputil.cpp ./../src/pbwithljsolver.cpp pnpsll_wrap.cpp ./../src/sissgausps.cpp ./../src/pnpstructs.cpp ./../src/pnpdebug.cpp
 endif
 
 
@@ -39,7 +39,7 @@ cudasolver_dep = ./../src/pnpstructs.cpp
 	$(NVCC) $(NVCCFLAGS) -o $@ -c $<
 
 
-llpnps_wrap_dep = \
+pnpsll_wrap_dep = \
  ./../src/pnpmod.h \
  ./../src/mapio.h \
  ./../src/contworld.h \
@@ -49,9 +49,9 @@ llpnps_wrap_dep = \
  ./../src/calcctrl.h \
  ./../src/hasurface.h
 
-llpnps_wrap.cpp:$(top_srcdir)/PNPS/src/llpnps.i
-	$(SWIG) -python -shadow -c++ $(INCLUDES) @HARLEM_MOD_DEFS@ -o llpnps_wrap.cpp $(top_srcdir)/PNPS/src/llpnps.i
+pnpsll_wrap.cpp:$(top_srcdir)/PNPS/src/pnpsll.i
+	$(SWIG) -python -shadow -c++ -py3 $(INCLUDES) @HARLEM_MOD_DEFS@ -o pnpsll_wrap.cpp $(top_srcdir)/PNPS/src/pnpsll.i
 
-llpnps.py:llpnps_wrap.cpp
+pnpsll.py:pnpsll_wrap.cpp
 
 
