@@ -127,37 +127,26 @@ am__libpnp_a_SOURCES_DIST = ./../src/pnps.cpp \
 	./../src/pnpdebug.cpp ./../src/cudasolver.cu \
 	./../src/cudasolverdouble.cu ./../src/cudabldworld.cu
 am__dirstamp = $(am__leading_dot)dirstamp
-@WITH_CUDA_FALSE@am_libpnp_a_OBJECTS = ./../src/pnps.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pnpinterfaces.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pnpsapp.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/contworld.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/buildworldni.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/mapio.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/poissonsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/poissonboltzmannsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/nernstplanksolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/poissonnernstplancksolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pnputil.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pbwithljsolver.$(OBJEXT) \
-@WITH_CUDA_FALSE@	pnpsll_wrap.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/sissgausps.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pnpstructs.$(OBJEXT) \
-@WITH_CUDA_FALSE@	./../src/pnpdebug.$(OBJEXT)
-@WITH_CUDA_TRUE@am_libpnp_a_OBJECTS = ./../src/pnps.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/pnpinterfaces.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/pnpsapp.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/contworld.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/buildworldni.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/mapio.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/poissonsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/poissonboltzmannsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/nernstplanksolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/poissonnernstplancksolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/pnputil.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/pbwithljsolver.$(OBJEXT) \
-@WITH_CUDA_TRUE@	pnpsll_wrap.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/sissgausps.$(OBJEXT) \
-@WITH_CUDA_TRUE@	./../src/pnpstructs.$(OBJEXT) \
+@WITH_CUDA_FALSE@am_libpnp_a_OBJECTS = pnps.$(OBJEXT) \
+@WITH_CUDA_FALSE@	pnpinterfaces.$(OBJEXT) pnpsapp.$(OBJEXT) \
+@WITH_CUDA_FALSE@	contworld.$(OBJEXT) buildworldni.$(OBJEXT) \
+@WITH_CUDA_FALSE@	mapio.$(OBJEXT) poissonsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	poissonboltzmannsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	nernstplanksolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	poissonnernstplancksolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	pnputil.$(OBJEXT) pbwithljsolver.$(OBJEXT) \
+@WITH_CUDA_FALSE@	pnpsll_wrap.$(OBJEXT) sissgausps.$(OBJEXT) \
+@WITH_CUDA_FALSE@	pnpstructs.$(OBJEXT) pnpdebug.$(OBJEXT)
+@WITH_CUDA_TRUE@am_libpnp_a_OBJECTS = pnps.$(OBJEXT) \
+@WITH_CUDA_TRUE@	pnpinterfaces.$(OBJEXT) pnpsapp.$(OBJEXT) \
+@WITH_CUDA_TRUE@	contworld.$(OBJEXT) buildworldni.$(OBJEXT) \
+@WITH_CUDA_TRUE@	mapio.$(OBJEXT) poissonsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	poissonboltzmannsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	nernstplanksolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	poissonnernstplancksolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	pnputil.$(OBJEXT) pbwithljsolver.$(OBJEXT) \
+@WITH_CUDA_TRUE@	pnpsll_wrap.$(OBJEXT) sissgausps.$(OBJEXT) \
+@WITH_CUDA_TRUE@	pnpstructs.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudasolver.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudasolverdouble.$(OBJEXT) \
 @WITH_CUDA_TRUE@	./../src/cudabldworld.$(OBJEXT)
@@ -178,12 +167,12 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) \
 	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
@@ -346,6 +335,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+SWIG = @SWIG@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
 WX_CFLAGS = @WX_CFLAGS@
@@ -498,36 +488,6 @@ clean-noinstLIBRARIES:
 ../src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ./../src/$(DEPDIR)
 	@: > ../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnps.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnpinterfaces.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnpsapp.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/contworld.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/buildworldni.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/mapio.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/poissonsolver.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/poissonboltzmannsolver.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/nernstplanksolver.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/poissonnernstplancksolver.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnputil.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pbwithljsolver.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/sissgausps.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnpstructs.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
-./../src/pnpdebug.$(OBJEXT): ../src/$(am__dirstamp) \
-	../src/$(DEPDIR)/$(am__dirstamp)
 ./../src/cudasolver.$(OBJEXT): ../src/$(am__dirstamp) \
 	../src/$(DEPDIR)/$(am__dirstamp)
 ./../src/cudasolverdouble.$(OBJEXT): ../src/$(am__dirstamp) \
@@ -547,46 +507,253 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buildworldni.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/contworld.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mapio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nernstplanksolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pbwithljsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpdebug.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpinterfaces.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnps.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpsapp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpsll_wrap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/buildworldni.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/contworld.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/mapio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/nernstplanksolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pbwithljsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpdebug.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpinterfaces.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnps.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpsapp.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnpstructs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/pnputil.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonboltzmannsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonnernstplancksolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/poissonsolver.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./../src/$(DEPDIR)/sissgausps.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnpstructs.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pnputil.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/poissonboltzmannsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/poissonnernstplancksolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/poissonsolver.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sissgausps.Po@am__quote@
 
 .cpp.o:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
-@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
-@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
-@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .cpp.lo:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
-@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+pnps.o: ./../src/pnps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnps.o -MD -MP -MF $(DEPDIR)/pnps.Tpo -c -o pnps.o `test -f './../src/pnps.cpp' || echo '$(srcdir)/'`./../src/pnps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnps.Tpo $(DEPDIR)/pnps.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnps.cpp' object='pnps.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnps.o `test -f './../src/pnps.cpp' || echo '$(srcdir)/'`./../src/pnps.cpp
+
+pnps.obj: ./../src/pnps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnps.obj -MD -MP -MF $(DEPDIR)/pnps.Tpo -c -o pnps.obj `if test -f './../src/pnps.cpp'; then $(CYGPATH_W) './../src/pnps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnps.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnps.Tpo $(DEPDIR)/pnps.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnps.cpp' object='pnps.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnps.obj `if test -f './../src/pnps.cpp'; then $(CYGPATH_W) './../src/pnps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnps.cpp'; fi`
+
+pnpinterfaces.o: ./../src/pnpinterfaces.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpinterfaces.o -MD -MP -MF $(DEPDIR)/pnpinterfaces.Tpo -c -o pnpinterfaces.o `test -f './../src/pnpinterfaces.cpp' || echo '$(srcdir)/'`./../src/pnpinterfaces.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpinterfaces.Tpo $(DEPDIR)/pnpinterfaces.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpinterfaces.cpp' object='pnpinterfaces.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpinterfaces.o `test -f './../src/pnpinterfaces.cpp' || echo '$(srcdir)/'`./../src/pnpinterfaces.cpp
+
+pnpinterfaces.obj: ./../src/pnpinterfaces.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpinterfaces.obj -MD -MP -MF $(DEPDIR)/pnpinterfaces.Tpo -c -o pnpinterfaces.obj `if test -f './../src/pnpinterfaces.cpp'; then $(CYGPATH_W) './../src/pnpinterfaces.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpinterfaces.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpinterfaces.Tpo $(DEPDIR)/pnpinterfaces.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpinterfaces.cpp' object='pnpinterfaces.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpinterfaces.obj `if test -f './../src/pnpinterfaces.cpp'; then $(CYGPATH_W) './../src/pnpinterfaces.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpinterfaces.cpp'; fi`
+
+pnpsapp.o: ./../src/pnpsapp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpsapp.o -MD -MP -MF $(DEPDIR)/pnpsapp.Tpo -c -o pnpsapp.o `test -f './../src/pnpsapp.cpp' || echo '$(srcdir)/'`./../src/pnpsapp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpsapp.Tpo $(DEPDIR)/pnpsapp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpsapp.cpp' object='pnpsapp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpsapp.o `test -f './../src/pnpsapp.cpp' || echo '$(srcdir)/'`./../src/pnpsapp.cpp
+
+pnpsapp.obj: ./../src/pnpsapp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpsapp.obj -MD -MP -MF $(DEPDIR)/pnpsapp.Tpo -c -o pnpsapp.obj `if test -f './../src/pnpsapp.cpp'; then $(CYGPATH_W) './../src/pnpsapp.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpsapp.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpsapp.Tpo $(DEPDIR)/pnpsapp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpsapp.cpp' object='pnpsapp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpsapp.obj `if test -f './../src/pnpsapp.cpp'; then $(CYGPATH_W) './../src/pnpsapp.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpsapp.cpp'; fi`
+
+contworld.o: ./../src/contworld.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT contworld.o -MD -MP -MF $(DEPDIR)/contworld.Tpo -c -o contworld.o `test -f './../src/contworld.cpp' || echo '$(srcdir)/'`./../src/contworld.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/contworld.Tpo $(DEPDIR)/contworld.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/contworld.cpp' object='contworld.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o contworld.o `test -f './../src/contworld.cpp' || echo '$(srcdir)/'`./../src/contworld.cpp
+
+contworld.obj: ./../src/contworld.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT contworld.obj -MD -MP -MF $(DEPDIR)/contworld.Tpo -c -o contworld.obj `if test -f './../src/contworld.cpp'; then $(CYGPATH_W) './../src/contworld.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/contworld.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/contworld.Tpo $(DEPDIR)/contworld.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/contworld.cpp' object='contworld.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o contworld.obj `if test -f './../src/contworld.cpp'; then $(CYGPATH_W) './../src/contworld.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/contworld.cpp'; fi`
+
+buildworldni.o: ./../src/buildworldni.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT buildworldni.o -MD -MP -MF $(DEPDIR)/buildworldni.Tpo -c -o buildworldni.o `test -f './../src/buildworldni.cpp' || echo '$(srcdir)/'`./../src/buildworldni.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/buildworldni.Tpo $(DEPDIR)/buildworldni.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/buildworldni.cpp' object='buildworldni.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o buildworldni.o `test -f './../src/buildworldni.cpp' || echo '$(srcdir)/'`./../src/buildworldni.cpp
+
+buildworldni.obj: ./../src/buildworldni.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT buildworldni.obj -MD -MP -MF $(DEPDIR)/buildworldni.Tpo -c -o buildworldni.obj `if test -f './../src/buildworldni.cpp'; then $(CYGPATH_W) './../src/buildworldni.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/buildworldni.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/buildworldni.Tpo $(DEPDIR)/buildworldni.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/buildworldni.cpp' object='buildworldni.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o buildworldni.obj `if test -f './../src/buildworldni.cpp'; then $(CYGPATH_W) './../src/buildworldni.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/buildworldni.cpp'; fi`
+
+mapio.o: ./../src/mapio.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mapio.o -MD -MP -MF $(DEPDIR)/mapio.Tpo -c -o mapio.o `test -f './../src/mapio.cpp' || echo '$(srcdir)/'`./../src/mapio.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mapio.Tpo $(DEPDIR)/mapio.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/mapio.cpp' object='mapio.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mapio.o `test -f './../src/mapio.cpp' || echo '$(srcdir)/'`./../src/mapio.cpp
+
+mapio.obj: ./../src/mapio.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT mapio.obj -MD -MP -MF $(DEPDIR)/mapio.Tpo -c -o mapio.obj `if test -f './../src/mapio.cpp'; then $(CYGPATH_W) './../src/mapio.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/mapio.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mapio.Tpo $(DEPDIR)/mapio.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/mapio.cpp' object='mapio.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o mapio.obj `if test -f './../src/mapio.cpp'; then $(CYGPATH_W) './../src/mapio.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/mapio.cpp'; fi`
+
+poissonsolver.o: ./../src/poissonsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonsolver.o -MD -MP -MF $(DEPDIR)/poissonsolver.Tpo -c -o poissonsolver.o `test -f './../src/poissonsolver.cpp' || echo '$(srcdir)/'`./../src/poissonsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonsolver.Tpo $(DEPDIR)/poissonsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonsolver.cpp' object='poissonsolver.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonsolver.o `test -f './../src/poissonsolver.cpp' || echo '$(srcdir)/'`./../src/poissonsolver.cpp
+
+poissonsolver.obj: ./../src/poissonsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonsolver.obj -MD -MP -MF $(DEPDIR)/poissonsolver.Tpo -c -o poissonsolver.obj `if test -f './../src/poissonsolver.cpp'; then $(CYGPATH_W) './../src/poissonsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonsolver.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonsolver.Tpo $(DEPDIR)/poissonsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonsolver.cpp' object='poissonsolver.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonsolver.obj `if test -f './../src/poissonsolver.cpp'; then $(CYGPATH_W) './../src/poissonsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonsolver.cpp'; fi`
+
+poissonboltzmannsolver.o: ./../src/poissonboltzmannsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonboltzmannsolver.o -MD -MP -MF $(DEPDIR)/poissonboltzmannsolver.Tpo -c -o poissonboltzmannsolver.o `test -f './../src/poissonboltzmannsolver.cpp' || echo '$(srcdir)/'`./../src/poissonboltzmannsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonboltzmannsolver.Tpo $(DEPDIR)/poissonboltzmannsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonboltzmannsolver.cpp' object='poissonboltzmannsolver.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonboltzmannsolver.o `test -f './../src/poissonboltzmannsolver.cpp' || echo '$(srcdir)/'`./../src/poissonboltzmannsolver.cpp
+
+poissonboltzmannsolver.obj: ./../src/poissonboltzmannsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonboltzmannsolver.obj -MD -MP -MF $(DEPDIR)/poissonboltzmannsolver.Tpo -c -o poissonboltzmannsolver.obj `if test -f './../src/poissonboltzmannsolver.cpp'; then $(CYGPATH_W) './../src/poissonboltzmannsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonboltzmannsolver.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonboltzmannsolver.Tpo $(DEPDIR)/poissonboltzmannsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonboltzmannsolver.cpp' object='poissonboltzmannsolver.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonboltzmannsolver.obj `if test -f './../src/poissonboltzmannsolver.cpp'; then $(CYGPATH_W) './../src/poissonboltzmannsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonboltzmannsolver.cpp'; fi`
+
+nernstplanksolver.o: ./../src/nernstplanksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT nernstplanksolver.o -MD -MP -MF $(DEPDIR)/nernstplanksolver.Tpo -c -o nernstplanksolver.o `test -f './../src/nernstplanksolver.cpp' || echo '$(srcdir)/'`./../src/nernstplanksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/nernstplanksolver.Tpo $(DEPDIR)/nernstplanksolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/nernstplanksolver.cpp' object='nernstplanksolver.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o nernstplanksolver.o `test -f './../src/nernstplanksolver.cpp' || echo '$(srcdir)/'`./../src/nernstplanksolver.cpp
+
+nernstplanksolver.obj: ./../src/nernstplanksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT nernstplanksolver.obj -MD -MP -MF $(DEPDIR)/nernstplanksolver.Tpo -c -o nernstplanksolver.obj `if test -f './../src/nernstplanksolver.cpp'; then $(CYGPATH_W) './../src/nernstplanksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/nernstplanksolver.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/nernstplanksolver.Tpo $(DEPDIR)/nernstplanksolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/nernstplanksolver.cpp' object='nernstplanksolver.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o nernstplanksolver.obj `if test -f './../src/nernstplanksolver.cpp'; then $(CYGPATH_W) './../src/nernstplanksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/nernstplanksolver.cpp'; fi`
+
+poissonnernstplancksolver.o: ./../src/poissonnernstplancksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonnernstplancksolver.o -MD -MP -MF $(DEPDIR)/poissonnernstplancksolver.Tpo -c -o poissonnernstplancksolver.o `test -f './../src/poissonnernstplancksolver.cpp' || echo '$(srcdir)/'`./../src/poissonnernstplancksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonnernstplancksolver.Tpo $(DEPDIR)/poissonnernstplancksolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonnernstplancksolver.cpp' object='poissonnernstplancksolver.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonnernstplancksolver.o `test -f './../src/poissonnernstplancksolver.cpp' || echo '$(srcdir)/'`./../src/poissonnernstplancksolver.cpp
+
+poissonnernstplancksolver.obj: ./../src/poissonnernstplancksolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT poissonnernstplancksolver.obj -MD -MP -MF $(DEPDIR)/poissonnernstplancksolver.Tpo -c -o poissonnernstplancksolver.obj `if test -f './../src/poissonnernstplancksolver.cpp'; then $(CYGPATH_W) './../src/poissonnernstplancksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonnernstplancksolver.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/poissonnernstplancksolver.Tpo $(DEPDIR)/poissonnernstplancksolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/poissonnernstplancksolver.cpp' object='poissonnernstplancksolver.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o poissonnernstplancksolver.obj `if test -f './../src/poissonnernstplancksolver.cpp'; then $(CYGPATH_W) './../src/poissonnernstplancksolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/poissonnernstplancksolver.cpp'; fi`
+
+pnputil.o: ./../src/pnputil.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnputil.o -MD -MP -MF $(DEPDIR)/pnputil.Tpo -c -o pnputil.o `test -f './../src/pnputil.cpp' || echo '$(srcdir)/'`./../src/pnputil.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnputil.Tpo $(DEPDIR)/pnputil.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnputil.cpp' object='pnputil.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnputil.o `test -f './../src/pnputil.cpp' || echo '$(srcdir)/'`./../src/pnputil.cpp
+
+pnputil.obj: ./../src/pnputil.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnputil.obj -MD -MP -MF $(DEPDIR)/pnputil.Tpo -c -o pnputil.obj `if test -f './../src/pnputil.cpp'; then $(CYGPATH_W) './../src/pnputil.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnputil.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnputil.Tpo $(DEPDIR)/pnputil.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnputil.cpp' object='pnputil.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnputil.obj `if test -f './../src/pnputil.cpp'; then $(CYGPATH_W) './../src/pnputil.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnputil.cpp'; fi`
+
+pbwithljsolver.o: ./../src/pbwithljsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pbwithljsolver.o -MD -MP -MF $(DEPDIR)/pbwithljsolver.Tpo -c -o pbwithljsolver.o `test -f './../src/pbwithljsolver.cpp' || echo '$(srcdir)/'`./../src/pbwithljsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pbwithljsolver.Tpo $(DEPDIR)/pbwithljsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pbwithljsolver.cpp' object='pbwithljsolver.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pbwithljsolver.o `test -f './../src/pbwithljsolver.cpp' || echo '$(srcdir)/'`./../src/pbwithljsolver.cpp
+
+pbwithljsolver.obj: ./../src/pbwithljsolver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pbwithljsolver.obj -MD -MP -MF $(DEPDIR)/pbwithljsolver.Tpo -c -o pbwithljsolver.obj `if test -f './../src/pbwithljsolver.cpp'; then $(CYGPATH_W) './../src/pbwithljsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pbwithljsolver.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pbwithljsolver.Tpo $(DEPDIR)/pbwithljsolver.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pbwithljsolver.cpp' object='pbwithljsolver.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pbwithljsolver.obj `if test -f './../src/pbwithljsolver.cpp'; then $(CYGPATH_W) './../src/pbwithljsolver.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pbwithljsolver.cpp'; fi`
+
+sissgausps.o: ./../src/sissgausps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sissgausps.o -MD -MP -MF $(DEPDIR)/sissgausps.Tpo -c -o sissgausps.o `test -f './../src/sissgausps.cpp' || echo '$(srcdir)/'`./../src/sissgausps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sissgausps.Tpo $(DEPDIR)/sissgausps.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/sissgausps.cpp' object='sissgausps.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sissgausps.o `test -f './../src/sissgausps.cpp' || echo '$(srcdir)/'`./../src/sissgausps.cpp
+
+sissgausps.obj: ./../src/sissgausps.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sissgausps.obj -MD -MP -MF $(DEPDIR)/sissgausps.Tpo -c -o sissgausps.obj `if test -f './../src/sissgausps.cpp'; then $(CYGPATH_W) './../src/sissgausps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/sissgausps.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sissgausps.Tpo $(DEPDIR)/sissgausps.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/sissgausps.cpp' object='sissgausps.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sissgausps.obj `if test -f './../src/sissgausps.cpp'; then $(CYGPATH_W) './../src/sissgausps.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/sissgausps.cpp'; fi`
+
+pnpstructs.o: ./../src/pnpstructs.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpstructs.o -MD -MP -MF $(DEPDIR)/pnpstructs.Tpo -c -o pnpstructs.o `test -f './../src/pnpstructs.cpp' || echo '$(srcdir)/'`./../src/pnpstructs.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpstructs.Tpo $(DEPDIR)/pnpstructs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpstructs.cpp' object='pnpstructs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpstructs.o `test -f './../src/pnpstructs.cpp' || echo '$(srcdir)/'`./../src/pnpstructs.cpp
+
+pnpstructs.obj: ./../src/pnpstructs.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpstructs.obj -MD -MP -MF $(DEPDIR)/pnpstructs.Tpo -c -o pnpstructs.obj `if test -f './../src/pnpstructs.cpp'; then $(CYGPATH_W) './../src/pnpstructs.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpstructs.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpstructs.Tpo $(DEPDIR)/pnpstructs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpstructs.cpp' object='pnpstructs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpstructs.obj `if test -f './../src/pnpstructs.cpp'; then $(CYGPATH_W) './../src/pnpstructs.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpstructs.cpp'; fi`
+
+pnpdebug.o: ./../src/pnpdebug.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpdebug.o -MD -MP -MF $(DEPDIR)/pnpdebug.Tpo -c -o pnpdebug.o `test -f './../src/pnpdebug.cpp' || echo '$(srcdir)/'`./../src/pnpdebug.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpdebug.Tpo $(DEPDIR)/pnpdebug.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpdebug.cpp' object='pnpdebug.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpdebug.o `test -f './../src/pnpdebug.cpp' || echo '$(srcdir)/'`./../src/pnpdebug.cpp
+
+pnpdebug.obj: ./../src/pnpdebug.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT pnpdebug.obj -MD -MP -MF $(DEPDIR)/pnpdebug.Tpo -c -o pnpdebug.obj `if test -f './../src/pnpdebug.cpp'; then $(CYGPATH_W) './../src/pnpdebug.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpdebug.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pnpdebug.Tpo $(DEPDIR)/pnpdebug.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='./../src/pnpdebug.cpp' object='pnpdebug.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o pnpdebug.obj `if test -f './../src/pnpdebug.cpp'; then $(CYGPATH_W) './../src/pnpdebug.cpp'; else $(CYGPATH_W) '$(srcdir)/./../src/pnpdebug.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -742,7 +909,7 @@ clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR) ./../src/$(DEPDIR)
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -788,7 +955,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR) ./../src/$(DEPDIR)
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

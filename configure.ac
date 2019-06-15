@@ -19,7 +19,8 @@ CPPFLAGS="${CPPFLAGS=}"
 CXXFLAGS="${CXXFLAGS=}"
 LDFLAGS="${LDFLAGS=}"
 
-AM_INIT_AUTOMAKE([1.10.1 foreign subdir-objects])
+#AM_INIT_AUTOMAKE([1.10.1 foreign subdir-objects])
+AM_INIT_AUTOMAKE([1.10.1 foreign ])
 LT_PREREQ([2.2.6])
 LT_INIT
 
@@ -119,6 +120,7 @@ AC_ARG_WITH([boostinc],
 #AC_PROG_SWIG
 #SWIG_ENABLE_CXX
 #SWIG_MULTI_MODULE_SUPPORT
+AC_SUBST(SWIG,"swig")
 
 ###PYTHON
 AC_SUBST(PYTHON_PREFIX,`python3-config --prefix`)

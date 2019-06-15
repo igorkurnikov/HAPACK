@@ -661,6 +661,7 @@ MPI_INCLUDE
 PYTHON_LDFLAGS
 PYTHON_CPPFLAGS
 PYTHON_PREFIX
+SWIG
 BOOST_INCLUDE
 BOOST_LIBS
 ZLIB_CPPFLAGS
@@ -2757,6 +2758,7 @@ CPPFLAGS="${CPPFLAGS=}"
 CXXFLAGS="${CXXFLAGS=}"
 LDFLAGS="${LDFLAGS=}"
 
+#AM_INIT_AUTOMAKE([1.10.1 foreign subdir-objects])
 am__api_version='1.15'
 
 # Find a good install program.  We prefer a C program (faster),
@@ -23895,6 +23897,8 @@ fi
 #AC_PROG_SWIG
 #SWIG_ENABLE_CXX
 #SWIG_MULTI_MODULE_SUPPORT
+SWIG="swig"
+
 
 ###PYTHON
 PYTHON_PREFIX=`python3-config --prefix`

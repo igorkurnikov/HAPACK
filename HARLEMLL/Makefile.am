@@ -29,7 +29,7 @@ lib_harlem_la_LIBADD = \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
  $(top_builddir)/WOLFGANG/IPACK/libipack.a \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
- $(top_builddir)/GEOBALL/libgeoball.a -lgmp \
+ $(top_builddir)/GEOBALL/.libs/libgeoball.so -lgmp \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
  $(top_srcdir)/../../PROG_SRC/g98/util.a \
  -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
@@ -171,7 +171,7 @@ lib_harlem_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
 
 
 hamolset_wrap.cpp:$(top_srcdir)/HARLEM/sources/hamolset.i
-	$(SWIG) -python -shadow -py3 -c++ $(INCLUDES) $(harlem_DEFVAR) -o hamolset_wrap.cpp $(top_srcdir)/HARLEM/sources/hamolset.i
+	swig -python -shadow -py3 -c++ $(INCLUDES) $(harlem_DEFVAR) -o hamolset_wrap.cpp $(top_srcdir)/HARLEM/sources/hamolset.i
 
 
 molset.py:hamolset_wrap.cpp

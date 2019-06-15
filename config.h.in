@@ -1,6 +1,6 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define HAPACK variable to show making in package */
+/* Define HAPACK variable to show compilation in the package */
 #undef HAPACK
 
 /* Define to 1 if you have the <dlfcn.h> header file. */

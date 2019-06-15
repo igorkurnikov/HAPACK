@@ -1419,8 +1419,8 @@ int HaSurface::CalcMolSurfAlpha(int calc_d,double solv_rad, HaMat_double& cnt_cr
 	}
 	int i;
 
-	GeoBallSurface(&calc_d, &natom, &solv_rad, cnt_crd_alpha.v(),cnt_rad_alpha.v(), surface_alpha.v(), volume_alpha.v(), 
-		           d_surface_alpha.v(), d_volume_alpha.v() );
+//	GeoBallSurface(&calc_d, &natom, &solv_rad, cnt_crd_alpha.v(),cnt_rad_alpha.v(), surface_alpha.v(), volume_alpha.v(), 
+//		           d_surface_alpha.v(), d_volume_alpha.v() );
 
 	surface_alpha_total =0;
 	for(i=0; i < natom; i++)

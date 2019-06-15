@@ -1595,6 +1595,7 @@ __GMP_DECLSPEC void mpn_tdiv_qr __GMP_PROTO ((mp_ptr, mp_ptr, mp_size_t, mp_srcp
    __GMP_FORCE_foo arranges the inline to be suppressed, eg. mpz_abs.  */
 
 #if defined (__GMP_EXTERN_INLINE) && ! defined (__GMP_FORCE_mpz_abs)
+#if defined(ALF_GMP)
 __GMP_EXTERN_INLINE void
 mpz_abs (mpz_ptr __gmp_w, mpz_srcptr __gmp_u)
 {
@@ -1602,6 +1603,7 @@ mpz_abs (mpz_ptr __gmp_w, mpz_srcptr __gmp_u)
     mpz_set (__gmp_w, __gmp_u);
   __gmp_w->_mp_size = __GMP_ABS (__gmp_w->_mp_size);
 }
+#endif
 #endif
 
 #if GMP_NAIL_BITS == 0
@@ -1618,6 +1620,7 @@ mpz_abs (mpz_ptr __gmp_w, mpz_srcptr __gmp_u)
 #endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_fits_uint_p)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_fits_uint_p)
 __GMP_EXTERN_INLINE
 #endif
@@ -1627,8 +1630,10 @@ mpz_fits_uint_p (mpz_srcptr __gmp_z) __GMP_NOTHROW
   __GMPZ_FITS_UTYPE_P (__gmp_z, __GMP_UINT_MAX);
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_fits_ulong_p)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_fits_ulong_p)
 __GMP_EXTERN_INLINE
 #endif
@@ -1638,8 +1643,10 @@ mpz_fits_ulong_p (mpz_srcptr __gmp_z) __GMP_NOTHROW
   __GMPZ_FITS_UTYPE_P (__gmp_z, __GMP_ULONG_MAX);
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_fits_ushort_p)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_fits_ushort_p)
 __GMP_EXTERN_INLINE
 #endif
@@ -1649,8 +1656,10 @@ mpz_fits_ushort_p (mpz_srcptr __gmp_z) __GMP_NOTHROW
   __GMPZ_FITS_UTYPE_P (__gmp_z, __GMP_USHRT_MAX);
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_get_ui)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_get_ui)
 __GMP_EXTERN_INLINE
 #endif
@@ -1677,8 +1686,10 @@ mpz_get_ui (mpz_srcptr __gmp_z) __GMP_NOTHROW
 #endif
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_getlimbn)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_getlimbn)
 __GMP_EXTERN_INLINE
 #endif
@@ -1691,8 +1702,10 @@ mpz_getlimbn (mpz_srcptr __gmp_z, mp_size_t __gmp_n) __GMP_NOTHROW
   return __gmp_result;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) && ! defined (__GMP_FORCE_mpz_neg)
+#if defined(ALF_GMP)
 __GMP_EXTERN_INLINE void
 mpz_neg (mpz_ptr __gmp_w, mpz_srcptr __gmp_u)
 {
@@ -1701,8 +1714,10 @@ mpz_neg (mpz_ptr __gmp_w, mpz_srcptr __gmp_u)
   __gmp_w->_mp_size = - __gmp_w->_mp_size;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_perfect_square_p)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_perfect_square_p)
 __GMP_EXTERN_INLINE
 #endif
@@ -1719,8 +1734,10 @@ mpz_perfect_square_p (mpz_srcptr __gmp_a)
   return __gmp_result;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_popcount)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_popcount)
 __GMP_EXTERN_INLINE
 #endif
@@ -1737,8 +1754,10 @@ mpz_popcount (mpz_srcptr __gmp_u) __GMP_NOTHROW
   return __gmp_result;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_set_q)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_set_q)
 __GMP_EXTERN_INLINE
 #endif
@@ -1748,8 +1767,10 @@ mpz_set_q (mpz_ptr __gmp_w, mpq_srcptr __gmp_u)
   mpz_tdiv_q (__gmp_w, mpq_numref (__gmp_u), mpq_denref (__gmp_u));
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpz_size)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpz_size)
 __GMP_EXTERN_INLINE
 #endif
@@ -1759,11 +1780,13 @@ mpz_size (mpz_srcptr __gmp_z) __GMP_NOTHROW
   return __GMP_ABS (__gmp_z->_mp_size);
 }
 #endif
+#endif
 
 
 /**************** mpq inlines ****************/
 
 #if defined (__GMP_EXTERN_INLINE) && ! defined (__GMP_FORCE_mpq_abs)
+#if defined(ALF_GMP)
 __GMP_EXTERN_INLINE void
 mpq_abs (mpq_ptr __gmp_w, mpq_srcptr __gmp_u)
 {
@@ -1772,8 +1795,10 @@ mpq_abs (mpq_ptr __gmp_w, mpq_srcptr __gmp_u)
   __gmp_w->_mp_num._mp_size = __GMP_ABS (__gmp_w->_mp_num._mp_size);
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) && ! defined (__GMP_FORCE_mpq_neg)
+#if defined(ALF_GMP)
 __GMP_EXTERN_INLINE void
 mpq_neg (mpq_ptr __gmp_w, mpq_srcptr __gmp_u)
 {
@@ -1781,6 +1806,7 @@ mpq_neg (mpq_ptr __gmp_w, mpq_srcptr __gmp_u)
     mpq_set (__gmp_w, __gmp_u);
   __gmp_w->_mp_num._mp_size = - __gmp_w->_mp_num._mp_size;
 }
+#endif
 #endif
 
 
@@ -2016,6 +2042,7 @@ mpq_neg (mpq_ptr __gmp_w, mpq_srcptr __gmp_u)
 
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpn_add)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpn_add)
 __GMP_EXTERN_INLINE
 #endif
@@ -2027,8 +2054,10 @@ mpn_add (mp_ptr __gmp_wp, mp_srcptr __gmp_xp, mp_size_t __gmp_xsize, mp_srcptr _
   return __gmp_c;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpn_add_1)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpn_add_1)
 __GMP_EXTERN_INLINE
 #endif
@@ -2040,8 +2069,10 @@ mpn_add_1 (mp_ptr __gmp_dst, mp_srcptr __gmp_src, mp_size_t __gmp_size, mp_limb_
   return __gmp_c;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpn_cmp)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpn_cmp)
 __GMP_EXTERN_INLINE
 #endif
@@ -2053,8 +2084,10 @@ mpn_cmp (mp_srcptr __gmp_xp, mp_srcptr __gmp_yp, mp_size_t __gmp_size) __GMP_NOT
   return __gmp_result;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpn_sub)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpn_sub)
 __GMP_EXTERN_INLINE
 #endif
@@ -2066,8 +2099,10 @@ mpn_sub (mp_ptr __gmp_wp, mp_srcptr __gmp_xp, mp_size_t __gmp_xsize, mp_srcptr _
   return __gmp_c;
 }
 #endif
+#endif
 
 #if defined (__GMP_EXTERN_INLINE) || defined (__GMP_FORCE_mpn_sub_1)
+#if defined(ALF_GMP)
 #if ! defined (__GMP_FORCE_mpn_sub_1)
 __GMP_EXTERN_INLINE
 #endif
@@ -2078,6 +2113,7 @@ mpn_sub_1 (mp_ptr __gmp_dst, mp_srcptr __gmp_src, mp_size_t __gmp_size, mp_limb_
   __GMPN_SUB_1 (__gmp_c, __gmp_dst, __gmp_src, __gmp_size, __gmp_n);
   return __gmp_c;
 }
+#endif
 #endif
 
 #if defined (__cplusplus)

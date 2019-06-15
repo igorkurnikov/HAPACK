@@ -111,13 +111,11 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libdelphi_a_AR = $(AR) $(ARFLAGS)
 libdelphi_a_LIBADD =
-am__dirstamp = $(am__leading_dot)dirstamp
-am_libdelphi_a_OBJECTS = source/itit4j.$(OBJEXT) source/non.$(OBJEXT) \
-	source/relfac4b.$(OBJEXT) source/setcrg4.$(OBJEXT) \
-	source/mem4.$(OBJEXT) source/phintp4.$(OBJEXT) \
-	source/scaler4.$(OBJEXT) source/setin4.$(OBJEXT) \
-	source/mkeps4f.$(OBJEXT) source/qdiff4s.$(OBJEXT) \
-	source/setbc4.$(OBJEXT) source/setout4.$(OBJEXT)
+am_libdelphi_a_OBJECTS = itit4j.$(OBJEXT) non.$(OBJEXT) \
+	relfac4b.$(OBJEXT) setcrg4.$(OBJEXT) mem4.$(OBJEXT) \
+	phintp4.$(OBJEXT) scaler4.$(OBJEXT) setin4.$(OBJEXT) \
+	mkeps4f.$(OBJEXT) qdiff4s.$(OBJEXT) setbc4.$(OBJEXT) \
+	setout4.$(OBJEXT)
 libdelphi_a_OBJECTS = $(am_libdelphi_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -132,11 +130,11 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
-F77COMPILE = $(F77) $(AM_FFLAGS) $(FFLAGS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+F77COMPILE = $(F77) $(AM_FFLAGS) $(FFLAGS)
 LTF77COMPILE = $(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS)
 AM_V_F77 = $(am__v_F77_@AM_V@)
@@ -269,6 +267,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+SWIG = @SWIG@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
 WX_CFLAGS = @WX_CFLAGS@
@@ -392,36 +391,6 @@ $(am__aclocal_m4_deps):
 
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-source/$(am__dirstamp):
-	@$(MKDIR_P) source
-	@: > source/$(am__dirstamp)
-source/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) source/$(DEPDIR)
-	@: > source/$(DEPDIR)/$(am__dirstamp)
-source/itit4j.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/non.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/relfac4b.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/setcrg4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/mem4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/phintp4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/scaler4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/setin4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/mkeps4f.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/qdiff4s.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/setbc4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
-source/setout4.$(OBJEXT): source/$(am__dirstamp) \
-	source/$(DEPDIR)/$(am__dirstamp)
 
 libdelphi.a: $(libdelphi_a_OBJECTS) $(libdelphi_a_DEPENDENCIES) $(EXTRA_libdelphi_a_DEPENDENCIES) 
 	$(AM_V_at)-rm -f libdelphi.a
@@ -430,7 +399,6 @@ libdelphi.a: $(libdelphi_a_OBJECTS) $(libdelphi_a_DEPENDENCIES) $(EXTRA_libdelph
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f source/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -443,6 +411,78 @@ distclean-compile:
 
 .f.lo:
 	$(AM_V_F77)$(LTF77COMPILE) -c -o $@ $<
+
+itit4j.o: source/itit4j.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o itit4j.o `test -f 'source/itit4j.f' || echo '$(srcdir)/'`source/itit4j.f
+
+itit4j.obj: source/itit4j.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o itit4j.obj `if test -f 'source/itit4j.f'; then $(CYGPATH_W) 'source/itit4j.f'; else $(CYGPATH_W) '$(srcdir)/source/itit4j.f'; fi`
+
+non.o: source/non.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o non.o `test -f 'source/non.f' || echo '$(srcdir)/'`source/non.f
+
+non.obj: source/non.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o non.obj `if test -f 'source/non.f'; then $(CYGPATH_W) 'source/non.f'; else $(CYGPATH_W) '$(srcdir)/source/non.f'; fi`
+
+relfac4b.o: source/relfac4b.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o relfac4b.o `test -f 'source/relfac4b.f' || echo '$(srcdir)/'`source/relfac4b.f
+
+relfac4b.obj: source/relfac4b.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o relfac4b.obj `if test -f 'source/relfac4b.f'; then $(CYGPATH_W) 'source/relfac4b.f'; else $(CYGPATH_W) '$(srcdir)/source/relfac4b.f'; fi`
+
+setcrg4.o: source/setcrg4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setcrg4.o `test -f 'source/setcrg4.f' || echo '$(srcdir)/'`source/setcrg4.f
+
+setcrg4.obj: source/setcrg4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setcrg4.obj `if test -f 'source/setcrg4.f'; then $(CYGPATH_W) 'source/setcrg4.f'; else $(CYGPATH_W) '$(srcdir)/source/setcrg4.f'; fi`
+
+mem4.o: source/mem4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o mem4.o `test -f 'source/mem4.f' || echo '$(srcdir)/'`source/mem4.f
+
+mem4.obj: source/mem4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o mem4.obj `if test -f 'source/mem4.f'; then $(CYGPATH_W) 'source/mem4.f'; else $(CYGPATH_W) '$(srcdir)/source/mem4.f'; fi`
+
+phintp4.o: source/phintp4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o phintp4.o `test -f 'source/phintp4.f' || echo '$(srcdir)/'`source/phintp4.f
+
+phintp4.obj: source/phintp4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o phintp4.obj `if test -f 'source/phintp4.f'; then $(CYGPATH_W) 'source/phintp4.f'; else $(CYGPATH_W) '$(srcdir)/source/phintp4.f'; fi`
+
+scaler4.o: source/scaler4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o scaler4.o `test -f 'source/scaler4.f' || echo '$(srcdir)/'`source/scaler4.f
+
+scaler4.obj: source/scaler4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o scaler4.obj `if test -f 'source/scaler4.f'; then $(CYGPATH_W) 'source/scaler4.f'; else $(CYGPATH_W) '$(srcdir)/source/scaler4.f'; fi`
+
+setin4.o: source/setin4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setin4.o `test -f 'source/setin4.f' || echo '$(srcdir)/'`source/setin4.f
+
+setin4.obj: source/setin4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setin4.obj `if test -f 'source/setin4.f'; then $(CYGPATH_W) 'source/setin4.f'; else $(CYGPATH_W) '$(srcdir)/source/setin4.f'; fi`
+
+mkeps4f.o: source/mkeps4f.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o mkeps4f.o `test -f 'source/mkeps4f.f' || echo '$(srcdir)/'`source/mkeps4f.f
+
+mkeps4f.obj: source/mkeps4f.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o mkeps4f.obj `if test -f 'source/mkeps4f.f'; then $(CYGPATH_W) 'source/mkeps4f.f'; else $(CYGPATH_W) '$(srcdir)/source/mkeps4f.f'; fi`
+
+qdiff4s.o: source/qdiff4s.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o qdiff4s.o `test -f 'source/qdiff4s.f' || echo '$(srcdir)/'`source/qdiff4s.f
+
+qdiff4s.obj: source/qdiff4s.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o qdiff4s.obj `if test -f 'source/qdiff4s.f'; then $(CYGPATH_W) 'source/qdiff4s.f'; else $(CYGPATH_W) '$(srcdir)/source/qdiff4s.f'; fi`
+
+setbc4.o: source/setbc4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setbc4.o `test -f 'source/setbc4.f' || echo '$(srcdir)/'`source/setbc4.f
+
+setbc4.obj: source/setbc4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setbc4.obj `if test -f 'source/setbc4.f'; then $(CYGPATH_W) 'source/setbc4.f'; else $(CYGPATH_W) '$(srcdir)/source/setbc4.f'; fi`
+
+setout4.o: source/setout4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setout4.o `test -f 'source/setout4.f' || echo '$(srcdir)/'`source/setout4.f
+
+setout4.obj: source/setout4.f
+	$(AM_V_F77)$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o setout4.obj `if test -f 'source/setout4.f'; then $(CYGPATH_W) 'source/setout4.f'; else $(CYGPATH_W) '$(srcdir)/source/setout4.f'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -562,8 +602,6 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-rm -f source/$(DEPDIR)/$(am__dirstamp)
-	-rm -f source/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
