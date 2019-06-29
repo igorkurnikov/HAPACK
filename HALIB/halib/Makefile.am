@@ -1,5 +1,8 @@
 lib_LTLIBRARIES = libhalib.la
 pkgscript_DATA = halib.py
+
+AM_LDFLAGS = -static-libgcc -static -shared 
+
 AM_CPPFLAGS = \
  -I$(top_srcdir)/HARLEM/sources \
  -I$(top_srcdir)/HARLEM/sources/math \
