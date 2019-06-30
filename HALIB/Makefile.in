@@ -94,7 +94,8 @@ am__aclocal_m4_deps = $(top_srcdir)/config/libtool.m4 \
 	$(top_srcdir)/config/ltoptions.m4 \
 	$(top_srcdir)/config/ltsugar.m4 \
 	$(top_srcdir)/config/ltversion.m4 \
-	$(top_srcdir)/config/lt~obsolete.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/config/lt~obsolete.m4 \
+	$(top_srcdir)/config/wxwin.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -284,12 +285,11 @@ WX_CPPFLAGS = @WX_CPPFLAGS@
 WX_CXXFLAGS = @WX_CXXFLAGS@
 WX_CXXFLAGS_ONLY = @WX_CXXFLAGS_ONLY@
 WX_LIBS = @WX_LIBS@
+WX_LIBS_BASE = @WX_LIBS_BASE@
+WX_LIBS_GL = @WX_LIBS_GL@
 WX_LIBS_STATIC = @WX_LIBS_STATIC@
 WX_RESCOMP = @WX_RESCOMP@
 WX_VERSION = @WX_VERSION@
-WX_VERSION_MAJOR = @WX_VERSION_MAJOR@
-WX_VERSION_MICRO = @WX_VERSION_MICRO@
-WX_VERSION_MINOR = @WX_VERSION_MINOR@
 ZLIB_CPPFLAGS = @ZLIB_CPPFLAGS@
 ZLIB_LIBS = @ZLIB_LIBS@
 abs_builddir = @abs_builddir@
@@ -340,7 +340,6 @@ pkgscriptdir = @pkgscriptdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
-runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@

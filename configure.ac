@@ -4,6 +4,7 @@ AC_INIT([HARLEM],[0.1])
 #AC_CONFIG_SRCDIR([config/config.mk])
 
 AC_CONFIG_MACRO_DIR([config])
+m4_include([config/wxwin.m4])
 #AC_CONFIG_AUX_DIR([config])
 AC_CANONICAL_TARGET
 
@@ -130,9 +131,11 @@ AC_SUBST(PYTHON_LDFLAGS, `python3-config --ldflags`)
 
 ###MPI
 mpi_include_cxx=`mpicxx -showme:compile`
-mpi_include_fort=`mpifort -showme:compile`
+#mpi_include_fort=`mpifort -showme:compile`
+mpi_include_fort=`mpif90 -showme:compile`
 mpi_libs_cxx=`mpicxx -showme:link`
-mpi_libs_fort=`mpifort -showme:link`
+#mpi_libs_fort=`mpifort -showme:link`
+mpi_libs_fort=`mpif90 -showme:link`
 AC_SUBST(MPI_INCLUDE,"$mpi_include_cxx $mpi_include_fort")
 AC_SUBST(MPI_LIBS,"$mpi_libs_cxx $mpi_libs_fort")
 

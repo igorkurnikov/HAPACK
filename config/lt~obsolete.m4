@@ -1,1 +1,1 @@
-/usr/share/aclocal/lt~obsolete.m4
+/home/kurnikov/local_GCC_7_4/share/aclocal/lt~obsolete.m4

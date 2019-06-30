@@ -643,12 +643,11 @@ BLAS_LIBS
 MKL_LIBS
 MKL_INCLUDE
 MKL_FLAG
-WX_VERSION_MICRO
-WX_VERSION_MINOR
-WX_VERSION_MAJOR
 WX_RESCOMP
 WX_VERSION
 WX_LIBS_STATIC
+WX_LIBS_BASE
+WX_LIBS_GL
 WX_LIBS
 WX_CXXFLAGS_ONLY
 WX_CFLAGS_ONLY
@@ -789,7 +788,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -890,7 +888,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -1143,15 +1140,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1289,7 +1277,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1442,7 +1430,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -2610,6 +2597,21 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 #AC_CONFIG_SRCDIR([config/config.mk])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #AC_CONFIG_AUX_DIR([config])
@@ -5616,7 +5618,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   lt_cv_deplibs_check_method=pass_all
   ;;
 
-netbsd* | netbsdelf*-gnu)
+netbsd*)
   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
   else
@@ -9309,9 +9311,6 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
   openbsd* | bitrig*)
     with_gnu_ld=no
     ;;
-  linux* | k*bsd*-gnu | gnu*)
-    link_all_deplibs=no
-    ;;
   esac
 
   ld_shlibs=yes
@@ -9566,7 +9565,7 @@ _LT_EOF
       fi
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
 	wlarc=
@@ -10236,7 +10235,6 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
 	if test yes = "$lt_cv_irix_exported_symbol"; then
           archive_expsym_cmds='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations $wl-exports_file $wl$export_symbols -o $lib'
 	fi
-	link_all_deplibs=no
       else
 	archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -o $lib'
 	archive_expsym_cmds='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -exports_file $export_symbols -o $lib'
@@ -10258,7 +10256,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
       esac
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
       else
@@ -11371,18 +11369,6 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
-  ;;
-
-netbsdelf*-gnu)
-  version_type=linux
-  need_lib_prefix=no
-  need_version=no
-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
-  soname_spec='${libname}${release}${shared_ext}$major'
-  shlibpath_var=LD_LIBRARY_PATH
-  shlibpath_overrides_runpath=no
-  hardcode_into_libs=yes
-  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -15296,7 +15282,7 @@ lt_prog_compiler_static_CXX=
 	    ;;
 	esac
 	;;
-      netbsd* | netbsdelf*-gnu)
+      netbsd*)
 	;;
       *qnx* | *nto*)
         # QNX uses GNU C++, but need to define -shared option too, otherwise
@@ -15670,9 +15656,6 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
       exclude_expsyms_CXX='[_]+GLOBAL_OFFSET_TABLE_|[_]+GLOBAL__[FID]_.*|[_]+head_[A-Za-z0-9_]+_dll|[A-Za-z0-9_]+_dll_iname'
       ;;
     esac
-    ;;
-  linux* | k*bsd*-gnu | gnu*)
-    link_all_deplibs_CXX=no
     ;;
   *)
     export_symbols_cmds_CXX='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
@@ -16365,18 +16348,6 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
-  ;;
-
-netbsdelf*-gnu)
-  version_type=linux
-  need_lib_prefix=no
-  need_version=no
-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
-  soname_spec='${libname}${release}${shared_ext}$major'
-  shlibpath_var=LD_LIBRARY_PATH
-  shlibpath_overrides_runpath=no
-  hardcode_into_libs=yes
-  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -17707,9 +17678,6 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
   openbsd* | bitrig*)
     with_gnu_ld=no
     ;;
-  linux* | k*bsd*-gnu | gnu*)
-    link_all_deplibs_F77=no
-    ;;
   esac
 
   ld_shlibs_F77=yes
@@ -17964,7 +17932,7 @@ _LT_EOF
       fi
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds_F77='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
 	wlarc=
@@ -18584,7 +18552,6 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
 	if test yes = "$lt_cv_irix_exported_symbol"; then
           archive_expsym_cmds_F77='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations $wl-exports_file $wl$export_symbols -o $lib'
 	fi
-	link_all_deplibs_F77=no
       else
 	archive_cmds_F77='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -o $lib'
 	archive_expsym_cmds_F77='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -exports_file $export_symbols -o $lib'
@@ -18606,7 +18573,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
       esac
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds_F77='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
       else
@@ -19541,18 +19508,6 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
-  ;;
-
-netbsdelf*-gnu)
-  version_type=linux
-  need_lib_prefix=no
-  need_version=no
-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
-  soname_spec='${libname}${release}${shared_ext}$major'
-  shlibpath_var=LD_LIBRARY_PATH
-  shlibpath_overrides_runpath=no
-  hardcode_into_libs=yes
-  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -21024,9 +20979,6 @@ $as_echo_n "checking whether the $compiler linker ($LD) supports shared librarie
   openbsd* | bitrig*)
     with_gnu_ld=no
     ;;
-  linux* | k*bsd*-gnu | gnu*)
-    link_all_deplibs_FC=no
-    ;;
   esac
 
   ld_shlibs_FC=yes
@@ -21281,7 +21233,7 @@ _LT_EOF
       fi
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds_FC='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
 	wlarc=
@@ -21901,7 +21853,6 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
 	if test yes = "$lt_cv_irix_exported_symbol"; then
           archive_expsym_cmds_FC='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations $wl-exports_file $wl$export_symbols -o $lib'
 	fi
-	link_all_deplibs_FC=no
       else
 	archive_cmds_FC='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -o $lib'
 	archive_expsym_cmds_FC='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -exports_file $export_symbols -o $lib'
@@ -21923,7 +21874,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
       esac
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	archive_cmds_FC='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
       else
@@ -22858,18 +22809,6 @@ fi
   # people can always --disable-shared, the test was removed, and we
   # assume the GNU/Linux dynamic linker is in use.
   dynamic_linker='GNU/Linux ld.so'
-  ;;
-
-netbsdelf*-gnu)
-  version_type=linux
-  need_lib_prefix=no
-  need_version=no
-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
-  soname_spec='${libname}${release}${shared_ext}$major'
-  shlibpath_var=LD_LIBRARY_PATH
-  shlibpath_overrides_runpath=no
-  hardcode_into_libs=yes
-  dynamic_linker='NetBSD ld.elf_so'
   ;;
 
 netbsd*)
@@ -23911,9 +23850,11 @@ PYTHON_LDFLAGS=`python3-config --ldflags`
 
 ###MPI
 mpi_include_cxx=`mpicxx -showme:compile`
-mpi_include_fort=`mpifort -showme:compile`
+#mpi_include_fort=`mpifort -showme:compile`
+mpi_include_fort=`mpif90 -showme:compile`
 mpi_libs_cxx=`mpicxx -showme:link`
-mpi_libs_fort=`mpifort -showme:link`
+#mpi_libs_fort=`mpifort -showme:link`
+mpi_libs_fort=`mpif90 -showme:link`
 MPI_INCLUDE="$mpi_include_cxx $mpi_include_fort"
 
 MPI_LIBS="$mpi_libs_cxx $mpi_libs_fort"
@@ -23950,7 +23891,6 @@ if test "${with_wx_exec_prefix+set}" = set; then :
 else
   wx_config_exec_prefix=""
 fi
-
 
 
 
@@ -24038,7 +23978,7 @@ $as_echo_n "checking for wxWidgets version >= $min_wx_version... " >&6; }
 $as_echo_n "checking for wxWidgets version >= $min_wx_version ()... " >&6; }
     fi
 
-            WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args "
+    WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args  "
 
     WX_VERSION=`$WX_CONFIG_WITH_ARGS --version 2>/dev/null`
     wx_config_major_version=`echo $WX_VERSION | \
@@ -24077,13 +24017,16 @@ $as_echo_n "checking for wxWidgets version >= $min_wx_version ()... " >&6; }
 
 
     if test -n "$wx_ver_ok"; then
+
       { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes (version $WX_VERSION)" >&5
 $as_echo "yes (version $WX_VERSION)" >&6; }
-      WX_LIBS=`$WX_CONFIG_WITH_ARGS --libs `
+      WX_LIBS=`$WX_CONFIG_WITH_ARGS --libs`
+      WX_LIBS_GL=`$WX_CONFIG_WITH_ARGS --libs gl`
+      WX_LIBS_BASE=`$WX_CONFIG_WITH_ARGS --libs xml`
 
                               { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wxWidgets static library" >&5
 $as_echo_n "checking for wxWidgets static library... " >&6; }
-      WX_LIBS_STATIC=`$WX_CONFIG_WITH_ARGS --static --libs  2>/dev/null`
+      WX_LIBS_STATIC=`$WX_CONFIG_WITH_ARGS --static --libs 2>/dev/null`
       if test "x$WX_LIBS_STATIC" = "x"; then
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -24126,16 +24069,16 @@ $as_echo "yes" >&6; }
       fi
 
       if test "x$wx_has_cppflags" = x ; then
-                  WX_CFLAGS=`$WX_CONFIG_WITH_ARGS --cflags `
+                  WX_CFLAGS=`$WX_CONFIG_WITH_ARGS --cflags`
          WX_CPPFLAGS=$WX_CFLAGS
          WX_CXXFLAGS=$WX_CFLAGS
 
          WX_CFLAGS_ONLY=$WX_CFLAGS
          WX_CXXFLAGS_ONLY=$WX_CFLAGS
       else
-                  WX_CPPFLAGS=`$WX_CONFIG_WITH_ARGS --cppflags `
-         WX_CXXFLAGS=`$WX_CONFIG_WITH_ARGS --cxxflags `
-         WX_CFLAGS=`$WX_CONFIG_WITH_ARGS --cflags `
+                  WX_CPPFLAGS=`$WX_CONFIG_WITH_ARGS --cppflags`
+         WX_CXXFLAGS=`$WX_CONFIG_WITH_ARGS --cxxflags`
+         WX_CFLAGS=`$WX_CONFIG_WITH_ARGS --cflags`
 
          WX_CFLAGS_ONLY=`echo $WX_CFLAGS | sed "s@^$WX_CPPFLAGS *@@"`
          WX_CXXFLAGS_ONLY=`echo $WX_CXXFLAGS | sed "s@^$WX_CFLAGS *@@"`
@@ -24157,33 +24100,10 @@ $as_echo "no (version $WX_VERSION is not new enough)" >&6; }
        WX_CPPFLAGS=""
        WX_CXXFLAGS=""
        WX_LIBS=""
+       WX_LIBS_GL=""
+       WX_LIBS_BASE=""
        WX_LIBS_STATIC=""
        WX_RESCOMP=""
-
-       if test ! -z ""; then
-
-          wx_error_message="
-    The configuration you asked for $PACKAGE_NAME requires a wxWidgets
-    build with the following settings:
-
-    but such build is not available.
-
-    To see the wxWidgets builds available on this system, please use
-    'wx-config --list' command. To use the default build, returned by
-    'wx-config --selected-config', use the options with their 'auto'
-    default values."
-
-       fi
-
-       wx_error_message="
-    The requested wxWidgets build couldn't be found.
-    $wx_error_message
-
-    If you still get this error, then check that 'wx-config' is
-    in path, the directory where wxWidgets libraries are installed
-    (returned by 'wx-config --libs' command) is in LD_LIBRARY_PATH
-    or equivalent variable and wxWidgets version is 3.0.1 or above."
-
        wxWin=0
 
     fi
@@ -24193,6 +24113,8 @@ $as_echo "no (version $WX_VERSION is not new enough)" >&6; }
     WX_CPPFLAGS=""
     WX_CXXFLAGS=""
     WX_LIBS=""
+    WX_LIBS_GL=""
+    WX_LIBS_BASE=""
     WX_LIBS_STATIC=""
     WX_RESCOMP=""
 
@@ -24207,12 +24129,6 @@ $as_echo "no (version $WX_VERSION is not new enough)" >&6; }
 
 
 
-
-
-
-      WX_VERSION_MAJOR="$wx_config_major_version"
-  WX_VERSION_MINOR="$wx_config_minor_version"
-  WX_VERSION_MICRO="$wx_config_micro_version"
 
 
 
@@ -26414,6 +26330,7 @@ $as_echo X"$file" |
     cat <<_LT_EOF >> "$cfgfile"
 #! $SHELL
 # Generated automatically by $as_me ($PACKAGE) $VERSION
+# Libtool was configured on host `(hostname || uname -n) 2>/dev/null | sed 1q`:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.

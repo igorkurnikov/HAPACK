@@ -1,1 +1,1 @@
-/usr/share/libtool/build-aux/ltmain.sh
+/home/kurnikov/local_GCC_7_4/share/libtool/build-aux/ltmain.sh

@@ -1,1 +1,1 @@
-/usr/share/aclocal/ltoptions.m4
+/home/kurnikov/local_GCC_7_4/share/aclocal/ltoptions.m4
