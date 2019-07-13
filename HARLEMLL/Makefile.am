@@ -23,7 +23,7 @@ AM_CPPFLAGS = \
   -Wno-non-template-friend -Wno-deprecated -fpermissive 
 
 lib_harlem_la_LIBADD = \
- $(top_builddir)/HALIB/halib/libhalib.a \
+ $(top_builddir)/HALIB/halib/.libs/libhalib.so \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
  $(top_builddir)/MY_VFLIB/libvf.a \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
