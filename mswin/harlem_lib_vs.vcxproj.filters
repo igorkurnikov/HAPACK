@@ -110,6 +110,12 @@
     <ClCompile Include="..\HARLEM\sources\hasurface.cpp" />
     <ClCompile Include="..\HARLEM\sources\march_cube.cpp" />
     <ClCompile Include="..\HARLEM\sources\hatests.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlerror.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlparser.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />
@@ -224,6 +230,10 @@
     <ClInclude Include="..\HARLEM\sources\etablep.h" />
     <ClInclude Include="..\HARLEM\sources\hasurface.h" />
     <ClInclude Include="..\HARLEM\sources\hatests.h" />
+    <ClInclude Include="..\HARLEM\sources\tinyxml.h" />
+    <ClInclude Include="..\HARLEM\sources\haxml.h" />
+    <ClInclude Include="..\HARLEM\sources\haconsts.h" />
+    <ClInclude Include="..\HARLEM\sources\haobject.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\HARLEM\sources\hamolset.i" />

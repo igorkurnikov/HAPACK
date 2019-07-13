@@ -100,7 +100,6 @@ Boost: version 1.68.0
 boost_filesystem-vc140-mt.lib need to be specified directly
 
 
-
 ### GMP
 
 mpir used instead

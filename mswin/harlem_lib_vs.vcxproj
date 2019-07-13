@@ -641,15 +641,18 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\gaufile.cpp" />
     <ClCompile Include="..\HARLEM\sources\haatbasdb.cpp" />
     <ClCompile Include="..\HARLEM\sources\haatombasis.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
     <ClCompile Include="..\HARLEM\sources\hacoord.cpp" />
     <ClCompile Include="..\HARLEM\sources\hadalton.cpp" />
     <ClCompile Include="..\HARLEM\sources\hagaussian.cpp" />
     <ClCompile Include="..\HARLEM\sources\haintengine.cpp" />
     <ClCompile Include="..\HARLEM\sources\halocorb.cpp" />
     <ClCompile Include="..\HARLEM\sources\hamultipole.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
     <ClCompile Include="..\HARLEM\sources\hapseudopot.cpp" />
     <ClCompile Include="..\HARLEM\sources\haqchem.cpp" />
     <ClCompile Include="..\HARLEM\sources\hascattermod.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
     <ClCompile Include="..\HARLEM\sources\hazindo.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_driver_gromacs.cpp" />
     <ClCompile Include="..\HARLEM\sources\ndo.cpp" />
@@ -664,6 +667,9 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\stmmod.cpp" />
     <ClCompile Include="..\HARLEM\sources\haempirical.cpp" />
     <ClCompile Include="..\HARLEM\sources\hasimulator.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlerror.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlparser.cpp" />
     <ClCompile Include="..\HARLEM\sources\trajanal.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_mort_mm.cpp" />
     <ClCompile Include="..\HARLEM\sources\hamolmech.cpp" />
@@ -819,14 +825,17 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\gaufile.h" />
     <ClInclude Include="..\HARLEM\sources\haatbasdb.h" />
     <ClInclude Include="..\HARLEM\sources\haatombasis.h" />
+    <ClInclude Include="..\HARLEM\sources\haconsts.h" />
     <ClInclude Include="..\HARLEM\sources\hadalton.h" />
     <ClInclude Include="..\HARLEM\sources\hagaussian.h" />
     <ClInclude Include="..\HARLEM\sources\haintengine.h" />
     <ClInclude Include="..\HARLEM\sources\halocorb.h" />
     <ClInclude Include="..\HARLEM\sources\hamultipole.h" />
+    <ClInclude Include="..\HARLEM\sources\haobject.h" />
     <ClInclude Include="..\HARLEM\sources\hapseudopot.h" />
     <ClInclude Include="..\HARLEM\sources\haqchem.h" />
     <ClInclude Include="..\HARLEM\sources\hascattermod.h" />
+    <ClInclude Include="..\HARLEM\sources\haxml.h" />
     <ClInclude Include="..\HARLEM\sources\hazindo.h" />
     <ClInclude Include="..\HARLEM\sources\mm_driver_gromacs.h" />
     <ClInclude Include="..\HARLEM\sources\qc_params.h" />
@@ -841,6 +850,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\haempirical.h" />
     <ClInclude Include="..\HARLEM\sources\haenefunc.h" />
     <ClInclude Include="..\HARLEM\sources\hasimulator.h" />
+    <ClInclude Include="..\HARLEM\sources\tinyxml.h" />
     <ClInclude Include="..\HARLEM\sources\trajanal.h" />
     <ClInclude Include="..\HARLEM\sources\ha_mort_mm.h" />
     <ClInclude Include="..\HARLEM\sources\hamolmech.h" />
@@ -1018,10 +1028,6 @@ $(SolutionDir)copy_dependencies.bat
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="halib_vs.vcxproj">
-      <Project>{b7328421-ac6d-4cb8-8355-995a6a479745}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="ipack_lib.vcxproj">
       <Project>{c7812881-bc78-4122-a245-e87506bca1a6}</Project>
