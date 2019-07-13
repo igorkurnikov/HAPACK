@@ -7,7 +7,6 @@ def start_harlem():
     Start Harlem
     """
     import wx
-    import harlempy.halib
     import harlempy.molset
     app = wx.App()
     harlempy.molset.StartHarlemApp()

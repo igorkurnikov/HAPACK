@@ -24257,14 +24257,6 @@ fi
 ##############AC_CONFIG_FILES
 ac_config_files="$ac_config_files Makefile"
 
-#Config HALIB
-ac_config_files="$ac_config_files HALIB/Makefile"
-
-ac_config_files="$ac_config_files HALIB/halib/Makefile"
-
-ac_config_files="$ac_config_files HALIB/halib_base/Makefile"
-
-#AC_CONFIG_FILES([HALIB/halib_base_py/Makefile])
 #Config PNPS
 ac_config_files="$ac_config_files PNPS/Makefile"
 
@@ -25609,9 +25601,6 @@ do
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "HALIB/Makefile") CONFIG_FILES="$CONFIG_FILES HALIB/Makefile" ;;
-    "HALIB/halib/Makefile") CONFIG_FILES="$CONFIG_FILES HALIB/halib/Makefile" ;;
-    "HALIB/halib_base/Makefile") CONFIG_FILES="$CONFIG_FILES HALIB/halib_base/Makefile" ;;
     "PNPS/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/Makefile" ;;
     "PNPS/libpnp/Makefile") CONFIG_FILES="$CONFIG_FILES PNPS/libpnp/Makefile" ;;
     "MY_VFLIB/Makefile") CONFIG_FILES="$CONFIG_FILES MY_VFLIB/Makefile" ;;

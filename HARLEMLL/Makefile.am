@@ -7,7 +7,6 @@ AM_CPPFLAGS = \
  -I$(top_srcdir)/HARLEM/sources \
  -I$(top_srcdir)/HARLEM/sources/math \
  -I$(top_srcdir)/HARLEM/sources/gl \
- -I$(top_srcdir)/HALIB/include \
  -I$(top_srcdir)/MY_VFLIB/src \
  -I$(top_srcdir)/WOLFGANG/DO_LIB/include \
  -I$(top_srcdir)/WOLFGANG/DO_LIB/template \
@@ -70,12 +69,12 @@ harlem_wx_files = \
  $(top_srcdir)/HARLEM/sources/wxpymod.cpp 
  
 harlem_main_files = \
- $(top_srcdir)/HALIB/src/haxml.cpp  \
- $(top_srcdir)/HALIB/src/haobject.cpp  \
- $(top_srcdir)/HALIB/src/haconsts.cpp  \
- $(top_srcdir)/HALIB/src/tinyxmlparser.cpp  \
- $(top_srcdir)/HALIB/src/tinyxmlerror.cpp  \
- $(top_srcdir)/HALIB/src/tinyxml.cpp  \
+ $(top_srcdir)/HARLEM/sources/haxml.cpp  \
+ $(top_srcdir)/HARLEM/sources/haobject.cpp  \
+ $(top_srcdir)/HARLEM/sources/haconsts.cpp  \
+ $(top_srcdir)/HARLEM/sources/tinyxmlparser.cpp  \
+ $(top_srcdir)/HARLEM/sources/tinyxmlerror.cpp  \
+ $(top_srcdir)/HARLEM/sources/tinyxml.cpp  \
  $(top_srcdir)/HARLEM/sources/apbsmod.cpp  \
  $(top_srcdir)/HARLEM/sources/abstree.cpp \
  $(top_srcdir)/HARLEM/sources/atom_mapping.cpp \

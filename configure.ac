@@ -235,11 +235,6 @@ AC_ARG_WITH([cuda],
 AM_CONDITIONAL(WITH_CUDA, test "$with_cuda" = yes)
 ##############AC_CONFIG_FILES
 AC_CONFIG_FILES([Makefile])
-#Config HALIB
-AC_CONFIG_FILES([HALIB/Makefile])
-AC_CONFIG_FILES([HALIB/halib/Makefile])
-AC_CONFIG_FILES([HALIB/halib_base/Makefile])
-#AC_CONFIG_FILES([HALIB/halib_base_py/Makefile])
 #Config PNPS
 AC_CONFIG_FILES([PNPS/Makefile])
 #AS_IF([test "$enable_mpi" == "yes"],
