@@ -23,7 +23,6 @@ AM_CPPFLAGS = \
   -Wno-non-template-friend -Wno-deprecated -fpermissive 
 
 lib_harlem_la_LIBADD = \
- $(top_builddir)/HALIB/halib/.libs/libhalib.so \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
  $(top_builddir)/MY_VFLIB/libvf.a \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
@@ -71,6 +70,12 @@ harlem_wx_files = \
  $(top_srcdir)/HARLEM/sources/wxpymod.cpp 
  
 harlem_main_files = \
+ $(top_srcdir)/HALIB/src/haxml.cpp  \
+ $(top_srcdir)/HALIB/src/haobject.cpp  \
+ $(top_srcdir)/HALIB/src/haconsts.cpp  \
+ $(top_srcdir)/HALIB/src/tinyxmlparser.cpp  \
+ $(top_srcdir)/HALIB/src/tinyxmlerror.cpp  \
+ $(top_srcdir)/HALIB/src/tinyxml.cpp  \
  $(top_srcdir)/HARLEM/sources/apbsmod.cpp  \
  $(top_srcdir)/HARLEM/sources/abstree.cpp \
  $(top_srcdir)/HARLEM/sources/atom_mapping.cpp \
