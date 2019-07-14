@@ -74,6 +74,7 @@ int start_harlem(int argc, char **argv)
 	PySys_SetArgv(argc, argv_p);
 
 	PyRun_SimpleString(
+		"from harlempy import *\n"
 		"from harlempy.start_harlem import start_harlem\n"
 		"start_harlem()\n");
 

@@ -2934,6 +2934,12 @@ int HaMolSet::WrapToUnitCell()
 	return p_mol_ed->WrapToUnitCell(this,per_bc);
 }
 
+ResidueIteratorMolSet HaMolSet::GetResidueIterator()
+{
+	ResidueIteratorMolSet ritr(this);
+	return ritr;
+}
+
 int HaMolSet::GetNChemGroups() const
 {
 	return(ChemGroups.size());
