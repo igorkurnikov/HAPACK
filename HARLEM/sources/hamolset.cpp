@@ -6165,6 +6165,7 @@ ResidueIteratorMolSet::ResidueIteratorMolSet(HaMolSet* pmset)
            res_itr = (*ch_itr).res_map.begin();
 		}
 	}
+	first_called = 0;
 }
 
 ResidueIteratorMolSet::ResidueIteratorMolSet(const ResidueIteratorMolSet& ref)
@@ -6175,6 +6176,8 @@ ResidueIteratorMolSet::ResidueIteratorMolSet(const ResidueIteratorMolSet& ref)
 
 	mol_itr_begin = ref.mol_itr_begin;
 	mol_itr_end   = ref.mol_itr_end;
+
+	first_called = 0;
 }
 
 ResidueIteratorMolSet::~ResidueIteratorMolSet()
@@ -6222,7 +6225,6 @@ HaResidue* ResidueIteratorMolSet::GetFirstRes()
    }
 
    return NULL;
-
 }
 
 HaResidue* ResidueIteratorMolSet::GetNextRes()
@@ -6261,6 +6263,35 @@ HaResidue* ResidueIteratorMolSet::GetCurrRes()
 {
 	if(mol_itr == mol_itr_end) return NULL;
 	return( (HaResidue*)&(*res_itr));
+}
+
+ResidueIteratorMolSet ResidueIteratorMolSet::__iter__() const
+{
+	return (*this);
+}
+
+HaResidue* ResidueIteratorMolSet::next()
+{
+	HaResidue* rptr;
+	if (first_called)
+	{
+		rptr = this->GetNextRes();
+	}
+	else
+	{
+		rptr = GetFirstRes();
+		first_called = 1;
+	}
+	if (rptr == NULL)
+	{
+		throw std::out_of_range("Stop Residue Iterations");
+	}
+	return rptr;
+}
+
+HaResidue* ResidueIteratorMolSet::__next__()
+{
+	return next();
 }
 
 

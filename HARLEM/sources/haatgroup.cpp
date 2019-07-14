@@ -1527,6 +1527,13 @@ HaAtom* AtomIteratorGen::next()
 	return aptr;
 }
 
+HaAtom* AtomIteratorGen::__next__()
+{
+	return next();
+}
+
+
+
 
 AtomIteratorAtomGroup::AtomIteratorAtomGroup(AtomGroup* new_p_at_group)
 {
