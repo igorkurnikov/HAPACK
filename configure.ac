@@ -115,7 +115,7 @@ AC_ARG_WITH([boostinc],
 	  ]
 )
 ##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
-##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
+AC_SUBST(BOOST_LIBS," -lboost_filesystem -lboost_system ")
 
 ###SWIG
 #AC_PROG_SWIG

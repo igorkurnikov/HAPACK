@@ -23830,7 +23830,8 @@ fi
 fi
 
 ##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
-##AC_SUBST(BOOST_LIBS,"-L ../../local/lib -lboost_filesystem -lboost_system ")
+BOOST_LIBS=" -lboost_filesystem -lboost_system "
+
 
 ###SWIG
 #AC_PROG_SWIG
