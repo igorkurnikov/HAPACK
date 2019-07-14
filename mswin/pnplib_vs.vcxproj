@@ -37,6 +37,9 @@
   <ItemGroup>
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
     <ClCompile Include="..\PNPS\src\contworld.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -152,6 +155,7 @@
     <ClInclude Include="..\PNPS\src\poissonnernstplancksolver.h" />
     <ClInclude Include="..\PNPS\src\poissonsolver.h" />
     <ClInclude Include="..\PNPS\src\sissgausps.h" />
+    <ClInclude Include="..\PNPS\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\PNPS\src\pnpsll.i">
@@ -495,7 +499,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <Message>Copying PNPS python scripts</Message>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>halib_vs.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -627,7 +631,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
       <AdditionalDependencies>zlib.lib</AdditionalDependencies>
     </Lib>
     <Link>
-      <AdditionalDependencies>halib_vs.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

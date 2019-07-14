@@ -21,6 +21,9 @@
     <ClCompile Include="..\PNPS\src\poissonnernstplancksolver.cpp" />
     <ClCompile Include="..\PNPS\src\poissonsolver.cpp" />
     <ClCompile Include="..\PNPS\src\sissgausps.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\PNPS\tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PNPS\src\buildworldni.h" />
@@ -40,6 +43,7 @@
     <ClInclude Include="..\PNPS\src\poissonnernstplancksolver.h" />
     <ClInclude Include="..\PNPS\src\poissonsolver.h" />
     <ClInclude Include="..\PNPS\src\sissgausps.h" />
+    <ClInclude Include="..\PNPS\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\PNPS\src\pnpsll.i" />
