@@ -110,6 +110,12 @@
     <ClCompile Include="..\HARLEM\sources\hasurface.cpp" />
     <ClCompile Include="..\HARLEM\sources\march_cube.cpp" />
     <ClCompile Include="..\HARLEM\sources\hatests.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlerror.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlparser.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />
@@ -224,6 +230,10 @@
     <ClInclude Include="..\HARLEM\sources\etablep.h" />
     <ClInclude Include="..\HARLEM\sources\hasurface.h" />
     <ClInclude Include="..\HARLEM\sources\hatests.h" />
+    <ClInclude Include="..\HARLEM\sources\tinyxml.h" />
+    <ClInclude Include="..\HARLEM\sources\haxml.h" />
+    <ClInclude Include="..\HARLEM\sources\haconsts.h" />
+    <ClInclude Include="..\HARLEM\sources\haobject.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\HARLEM\sources\hamolset.i" />
@@ -255,10 +265,25 @@
     <None Include="..\HARLEM\scripts\harlem_profile.py">
       <Filter>python</Filter>
     </None>
-    <None Include="..\HARLEM\scripts\hapygui.py">
+    <None Include="..\HARLEM\harlempy\__main__.py">
       <Filter>python</Filter>
     </None>
-    <None Include="..\HARLEM\scripts\hapygui_init.py">
+    <None Include="..\HARLEM\harlempy\ha_tmp_script.py">
+      <Filter>python</Filter>
+    </None>
+    <None Include="..\HARLEM\harlempy\halib.py">
+      <Filter>python</Filter>
+    </None>
+    <None Include="..\HARLEM\harlempy\hapygui.py">
+      <Filter>python</Filter>
+    </None>
+    <None Include="..\HARLEM\harlempy\hapygui_init.py">
+      <Filter>python</Filter>
+    </None>
+    <None Include="..\HARLEM\harlempy\harlem_profile.py">
+      <Filter>python</Filter>
+    </None>
+    <None Include="..\HARLEM\harlempy\molset.py">
       <Filter>python</Filter>
     </None>
   </ItemGroup>
@@ -266,5 +291,13 @@
     <Filter Include="python">
       <UniqueIdentifier>{f39b302c-fff8-47f1-91fd-906ccf483fea}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\HARLEM\harlempy\start_harlem.py">
+      <Filter>python</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\HARLEM\harlempy\__init__.py">
+      <Filter>python</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -49,6 +49,9 @@ module amoeba_induced_mod
   public        am_induced_eval_mpi
   public        am_induced_eval_uni
   public        am_var_polar_frc
+  public        set_atm_polar
+  public        set_valid_bit
+  public        get_ind_dip
   
   integer, parameter, public :: ndamp = 6
 

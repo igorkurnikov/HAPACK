@@ -115,7 +115,7 @@ class PoissonSolver : public GenericSolver,public PnpsObject
 		float *dielectricChMob;
 		
 		//bool *QmobFlag;
-		bool *CalcVolume;//!<volume there run calculation
+		bool *CalcVolume;//!<volume there run calculation currently not working
     
 		int QmobDielBoarderNum[3];
 		int *IndexQmobDielBoarder;
@@ -155,8 +155,10 @@ class PoissonSolver : public GenericSolver,public PnpsObject
 		float GridScale;
 #	ifndef PNPDOUBLE
 		float *potential;//!< World->Potential
+        FieldBW *PotBW;
 #	else
 		double *potential;//!< World->Potential
+        FieldBW *PotBW;
 #	endif
 		
     //!variables for solver, setuped in SetParameters(Data* Dt);
@@ -207,50 +209,4 @@ class PoissonSolver : public GenericSolver,public PnpsObject
 		double* ChargesEnergy;
 
 };
-#ifdef SWIG
-%pythoncode %{
-def SolveP(contworld,
-	MaxIterations=-1,
-	Convergence=0.0,
-	Relaxation=1.0,
-	ConvergenceCheck=20,
-	Solver=0,
-	Verbose=True,
-	QmobMod=2,
-	MinIterations=0,
-	ConvFacMaxHistory=1
-	):
-	"""
-	Solve 
-	Input Parameters:
-		MaxIterations=int, default=-1
-			Maximal number of iterations, negative number means automaticly determined
-
-	Returned value:
-		Exit status
-	"""
-	p=PoissonSolver()
-	params={
-		'MaxIterations':MaxIterations,
-		'Convergence':Convergence,
-		'Relaxation':Relaxation,
-		'ConvergenceCheck':ConvergenceCheck,
-		'Solver':Solver,#,SolverStr
-		'Verbose':Verbose,
-		'QmobMod':QmobMod,
-		'MinIterations':MinIterations,
-		'ConvFacMaxHistory':ConvFacMaxHistory
-	}
-	p.LoadParamFromPyDict(params)
-
-	p.SetContWorld(contworld)
-	p.InitSolver()
-	p.Solve()
-	del p
-	
-	
-
-%}
-#endif
-
 #endif

@@ -1,17 +1,18 @@
 CXX = g++
-CXXFLAGS = -O3 -c -fpic -I/usr/include/python2.7 -I../tinyxml -DEXIT_SUCCESS=0
-#CXXFLAGS = -O3 -c -fpic -I/home/kurnikov/anaconda2/include/python2.7 -I../tinyxml -I../../HARLEM/sources -DEXIT_SUCCESS=0
+CXXFLAGS = -fopenmp -O3 -std=c++11 -c -fpic -I/usr/include/python3.6 -I../tinyxml -DEXIT_SUCCESS=0
 
 SWIG = swig
-SWIGFLAGS = -c++ -python -shadow
+SWIGFLAGS = -python -py3 -shadow -c++
 
-LDFLAGS = -shared
+LDFLAGS = -shared -fopenmp -std=c++11
 
-_llpnps.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolver.o \
+_pnpsll.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolver.o \
            pnpdebug.o pnpinterfaces.o pnps.o pnpsapp.o pnpstructs.o \
            pnputil.o poissonboltzmannsolver.o poissonnernstplancksolver.o poissonsolver.o \
-           sissgausps.o llpnps_wrap.o tinyxml.o  tinyxmlerror.o  tinyxmlparser.o -lz
+           sissgausps.o pnpsll_wrap.o tinyxml.o  tinyxmlerror.o  tinyxmlparser.o -lz
 	$(CXX) $(LDFLAGS) $^  -o $@
+	mkdir -p ../pnpsll
+	cp _pnpsll.so pnpsll.py ../pnpsll
 
 %.o: %.cxx
 	$(CXX) $(CXXFLAGS) $? -o $@
@@ -26,5 +27,6 @@ _llpnps.so: buildworldni.o contworld.o mapio.o nernstplanksolver.o pbwithljsolve
 	$(SWIG) $(SWIGFLAGS) $<
 
 clean:
-	rm -f *.o llpnps_wrap.cxx *.pyc llpnps.py _llpnps.so
+	rm -f *.o pnpsll_wrap.cxx *.pyc pnpsll.py _pnpsll.so ../pnpsll/_pnpsll.so ../pnpsll/pnpsll.py \
+	    ../pnpsll/pnpsll.pyc
 

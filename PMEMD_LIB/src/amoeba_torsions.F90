@@ -33,6 +33,9 @@ module amoeba_torsions_mod
   public        am_torsions_zero_flag
   public        am_torsions_set_user_bit
   public        am_torsions_eval
+  public        set_torsions_list
+  public        set_torsions_params
+  public        set_valid_bit
  
 contains
 

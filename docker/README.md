@@ -1,18 +1,16 @@
-# Centos-7 based Docker image for Harlem testing
+# Ubuntu based Docker image for Harlem testing
 
-Here are the notes on the preporation of docker container with dependencies for Harlem installation and testing.
+Here are the notes on the preparation of docker container with dependencies for Harlem 
+installation and testing.
 
 ## Creating Image
 
-### Making Slurm RPMs
+### Making Image
 
-First we need slurm RPMs.
-DockerfileMakeSlurmRPM describes simple image for centos 7 rpm making.
-Here is listing on the whole process
-
-```bash
-# make image
-docker build -t nsimakov/harlem_ready:1 -f Dockerfile .
+```shell
+REM make image
+cd C:\MYPROG\HAPACK\docker
+docker build -t nsimakov/harlem_ready:2 -f Dockerfile .
 ```
 
 ### Run
@@ -25,16 +23,20 @@ docker run --name harlemtest -h harlemtest --rm -it nsimakov/harlem_ready:1
 
 ```bash
 #push to docker cloud
-docker push nsimakov/harlem_ready:1
+docker push nsimakov/harlem_ready:2
 ```
 
 ## Testing Harlem In Docker Container Locally
 
-```bash
-#make image in akrr root
-docker build -t pseudo_repo/harlemtest:latest .
+```shell
+REM run
+docker run -v /C/MYPROG/HAPACK:/root/src/gitlab.com/mkurnikovagroup/HAPACK ^
+          --name harlemtest -h harlemtest -it --rm nsimakov/harlem_ready:2 bash
+```
 
-#run
-docker run -v /C/MYPROG/HAPACK:/root/src/gitlab.com/mkurnikovagroup/HAPACK \
-          --name harlemtest -h harlemtest -it --rm pseudo_repo/harlemtest:latest bash
+or without setting names
+
+```shell
+REM run
+docker run -v /C/MYPROG/HAPACK:/root/src/gitlab.com/mkurnikovagroup/HAPACK -it --rm nsimakov/harlem_ready:2 bash
 ```

@@ -24,7 +24,7 @@
 	m_Nx = m_Ny = m_Nz = 0;
 }*/
 
-HaField3D::HaField3D(float *fvec,int new_Nx, int new_Ny, int new_Nz)
+HaField3D::HaField3D(float *fvec,int new_Nx, int new_Ny, int new_Nz, bool deligate_control)
 {
   m_Nx = m_Ny = m_Nz = 0;
   if(new_Nx>0 && new_Ny> 0 && new_Nz > 0)
@@ -33,7 +33,10 @@ HaField3D::HaField3D(float *fvec,int new_Nx, int new_Ny, int new_Nz)
     m_Ny = new_Ny;
     m_Nz = new_Nz;
   }
-  if(fvec != NULL) m_field_data.set_ext_alloc(fvec,m_Nx*m_Ny*m_Nz);
+  if (fvec != NULL)
+  {
+	m_field_data.set_ext_alloc(fvec, m_Nx*m_Ny*m_Nz, deligate_control);
+  }
 }
 
 HaField3D::~HaField3D()
@@ -1416,8 +1419,8 @@ int HaSurface::CalcMolSurfAlpha(int calc_d,double solv_rad, HaMat_double& cnt_cr
 	}
 	int i;
 
-	GeoBallSurface(&calc_d, &natom, &solv_rad, cnt_crd_alpha.v(),cnt_rad_alpha.v(), surface_alpha.v(), volume_alpha.v(), 
-		           d_surface_alpha.v(), d_volume_alpha.v() );
+//	GeoBallSurface(&calc_d, &natom, &solv_rad, cnt_crd_alpha.v(),cnt_rad_alpha.v(), surface_alpha.v(), volume_alpha.v(), 
+//		           d_surface_alpha.v(), d_volume_alpha.v() );
 
 	surface_alpha_total =0;
 	for(i=0; i < natom; i++)

@@ -69,8 +69,8 @@
 %include "std_vector.i"
 
 #ifdef HARLEM_MOD
-%import ../../../HARLEM/sources/hamolset.i
-%import ../../../HALIB/include/halib.i
+%import ../../HARLEM/sources/hamolset.i
+%import ../../HALIB/include/halib.i
 #endif
 
 %exception { 
@@ -84,6 +84,7 @@
 }
 %{
 #include "pnps.h"
+#include "pnpsapp.h"
 #include "pnpinterfaces.h"
 #include "mapio.h"
 #include "contworld.h"
@@ -111,6 +112,7 @@ namespace std {
 };
 
 %include "pnps.h"
+%include "pnpsapp.h"
 %include "pnpinterfaces.h"
 %include "mapio.h"
 

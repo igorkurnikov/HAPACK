@@ -6,6 +6,7 @@ bin_SCRIPTS  = harlem
 AM_LDFLAGS = -lz -lutil 
 
 AM_CPPFLAGS = \
+  -fPIC \
   @HARLEM_MOD_DEFS@ \
  -I$(top_srcdir)/HARLEM/sources \
  -I$(top_srcdir)/HARLEM/sources/math \
@@ -18,7 +19,7 @@ AM_CPPFLAGS = \
  -I$(top_srcdir)/WOLFGANG/generic \
  -I$(top_srcdir)/PNPS/src \
  -I$(top_srcdir)/PNPS/pnpmod \
- -I$(top_srcdir)/../MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc \
+ -I$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc \
  $(PYTHON_CPPFLAGS) \
  $(MPI_INCLUDE) \
  $(BOOST_INCLUDE) \
@@ -26,7 +27,7 @@ AM_CPPFLAGS = \
   -Wno-non-template-friend -Wno-deprecated -fpermissive
 
 harlembin_LDADD = \
- $(top_builddir)/HALIB/halib/halib.a \
+ $(top_builddir)/HALIB/halib/libhalib.a \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
  $(top_builddir)/MY_VFLIB/libvf.a \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
@@ -34,7 +35,7 @@ harlembin_LDADD = \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
  $(top_builddir)/GEOBALL/libgeoball.a -lgmp \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
- -L$(top_srcdir)/../MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
+ -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
 
 # $(top_srcdir)/../PROG_SRC/g98/util.a 
 
@@ -55,7 +56,7 @@ harlembin_LDADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS)  \
  $(RESOURCES_BIN) \
  -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
- -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgetsd -lplplotcxxd 
+ -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgets -lplplotcxx 
  
 _molset_so_CXXFLAGS = -fPIC 
 _molset_so_LDADD = $(harlembin_LDADD) 
@@ -187,7 +188,7 @@ harlem_main_files = \
 
 
 hamolset_wrap.cpp:$(top_srcdir)/HARLEM/sources/hamolset.i
-	$(SWIG) -python -shadow -c++ $(INCLUDES) $(harlem_DEFVAR) -o hamolset_wrap.cpp $(top_srcdir)/HARLEM/sources/hamolset.i
+	$(SWIG) -python -shadow -c++ -py3 $(INCLUDES) $(harlem_DEFVAR) -o hamolset_wrap.cpp $(top_srcdir)/HARLEM/sources/hamolset.i
 
 
 molset.py:hamolset_wrap.cpp

@@ -5,10 +5,8 @@ else
 AM_FCFLAGS = -fpe0  -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE)   -fPIC
 endif
 
-AM_CPPFLAGS = -fPIC 
-
-
-INCLUDES = -I$(top_srcdir)/PMEMD_LIB/src -I/opt/intel/mkl/10.0.1.014/include 
+AM_CPPFLAGS = -fPIC \
+              -I$(top_srcdir)/PMEMD_LIB/src -I/opt/intel/mkl/10.0.1.014/include 
 
 VPATH = $(top_srcdir)/PMEMD_LIB/src
 

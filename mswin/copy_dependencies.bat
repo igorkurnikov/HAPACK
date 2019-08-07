@@ -87,6 +87,8 @@ if "%IS_DEBUG%" == "Y" (
     xcopy /y  /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
 )
+xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
+xcopy /y /d %PYTHON_DLLS_PATH%\*.ico %OutputDir%\DLLs
 
 REM ###########################################################################
 REM Copy Things from VCPKG

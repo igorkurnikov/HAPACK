@@ -10,13 +10,40 @@ python-dev
 mpich2
 libgmp-dev
 
-link / to /export ( required for some links in /home/igor/local/bin )
+UBUNTU(18.04) packages:
+sudo apt-get install libboost-all-dev
+libgmp-dev
+python3-dev
+zlib1g-dev 
+libmpich-dev   - may be this is better
+libopenmpi2    - problems with fortran
+subversion
+libplplotwxwidgets1
+libplplot-dev
+swig 
+libboost-dev
+libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 
----------------------------------------------------------------------------------
-HAPACK checkout command:
-svn --username igor checkout https://crete.chem.cmu.edu/svn/harlemsvn/HAPACK
-----------------cd ---------------------------------------------------------------
+link / to /export ( required for some 
+links in /home/igor/local/bin ):!
+
+
+###MPI
+AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
+AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
+
+
 HAPACK compilation commands:
+
+LINUX:
+libtoolize
+autoreconf
+
+failed to generate depndencies for the library
+able to run compilation of the shared library with:
+configure --disable-dependency-tracking
+
+
 
 LINUX NOGUI (IGOR CMU):
 
@@ -93,7 +120,12 @@ Get new product updates and releases through: March 29, 2014
 --------------------------------------------------------------------------------------------
 mortlib in
 
-~/MYPROG/AMBER11_IGOR
+~/MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc
+to compile go to 
+~/MYPROG/AMBER11_IGOR/AmberTools/src/gleap 
+cmake CMakeLists.txt
+make
+
 ---------------------------------------------------------------------------------------------
 
 MKL library needed to be present:

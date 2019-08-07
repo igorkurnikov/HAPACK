@@ -22,8 +22,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jumna_lib_c", "jumna_lib_c.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vf_lib", "vf_lib.vcxproj", "{F70239D1-0A54-4F2F-A7FF-37F0EAD8939A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "halib_vs", "halib_vs.vcxproj", "{B7328421-AC6D-4CB8-8355-995A6A479745}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pnplib_vs", "pnplib_vs.vcxproj", "{00332771-F366-4C97-80A8-51519A1FF394}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipack_lib", "ipack_lib.vcxproj", "{C7812881-BC78-4122-A245-E87506BCA1A6}"
@@ -66,14 +64,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlem_python_tests_1", "harlem_python_tests_1\harlem_python_tests_1.pyproj", "{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "harlem_lib_vs", "harlem_lib_vs.vcxproj", "{2983D105-9456-41FF-A6DB-41FCE625AE90}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F} = {D046183A-16A3-4668-9BAF-928BF4AA4A0F}
-	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "halib_py_vs", "halib_py_vs.vcxproj", "{D046183A-16A3-4668-9BAF-928BF4AA4A0F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B7328421-AC6D-4CB8-8355-995A6A479745} = {B7328421-AC6D-4CB8-8355-995A6A479745}
-	EndProjectSection
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlempy", "harlempy.pyproj", "{4B046F6A-8909-458F-A5B3-A6655FA7072B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -274,41 +266,6 @@ Global
 		{F70239D1-0A54-4F2F-A7FF-37F0EAD8939A}.Release|Win32.Build.0 = Release|Win32
 		{F70239D1-0A54-4F2F-A7FF-37F0EAD8939A}.Release|x64.ActiveCfg = Release|x64
 		{F70239D1-0A54-4F2F-A7FF-37F0EAD8939A}.Release|x64.Build.0 = Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|Win32.Build.0 = Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|x64.ActiveCfg = Debug|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Debug|x64.Build.0 = Debug|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|Any CPU.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|Mixed Platforms.Build.0 = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|Win32.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|Win32.Build.0 = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|x64.ActiveCfg = Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.g98_stubs_Release|x64.Build.0 = Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|Any CPU.ActiveCfg = PY3_Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|Mixed Platforms.ActiveCfg = PY3_Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|Mixed Platforms.Build.0 = PY3_Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|Win32.ActiveCfg = PY3_Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|Win32.Build.0 = PY3_Debug|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|x64.ActiveCfg = PY3_Debug|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Debug|x64.Build.0 = PY3_Debug|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|Any CPU.ActiveCfg = PY3_Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|Mixed Platforms.ActiveCfg = PY3_Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|Mixed Platforms.Build.0 = PY3_Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|Win32.ActiveCfg = PY3_Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|Win32.Build.0 = PY3_Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|x64.ActiveCfg = PY3_Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.PY3_Release|x64.Build.0 = PY3_Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|Any CPU.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|Win32.ActiveCfg = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|Win32.Build.0 = Release|Win32
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|x64.ActiveCfg = Release|x64
-		{B7328421-AC6D-4CB8-8355-995A6A479745}.Release|x64.Build.0 = Release|x64
 		{00332771-F366-4C97-80A8-51519A1FF394}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{00332771-F366-4C97-80A8-51519A1FF394}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{00332771-F366-4C97-80A8-51519A1FF394}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -670,14 +627,16 @@ Global
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|Win32.ActiveCfg = Debug|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|Win32.Build.0 = Debug|Win32
-		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|x64.ActiveCfg = PY3_Debug|Win32
+		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|x64.ActiveCfg = Debug|x64
+		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Debug|x64.Build.0 = Debug|x64
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Any CPU.ActiveCfg = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Any CPU.Build.0 = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Mixed Platforms.Build.0 = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Win32.ActiveCfg = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|Win32.Build.0 = Release|Win32
-		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|x64.ActiveCfg = PY3_Release|Win32
+		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|x64.ActiveCfg = Release|x64
+		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.PY3_Release|x64.Build.0 = Release|x64
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.Release|Any CPU.ActiveCfg = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{BC4EC7FD-4716-48C1-81D7-EC792544E60C}.Release|Mixed Platforms.Build.0 = Release|Win32
@@ -982,42 +941,26 @@ Global
 		{2983D105-9456-41FF-A6DB-41FCE625AE90}.Release|Win32.Build.0 = Release|Win32
 		{2983D105-9456-41FF-A6DB-41FCE625AE90}.Release|x64.ActiveCfg = Release|x64
 		{2983D105-9456-41FF-A6DB-41FCE625AE90}.Release|x64.Build.0 = Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|Win32.Build.0 = Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|x64.ActiveCfg = Debug|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Debug|x64.Build.0 = Debug|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Any CPU.ActiveCfg = PY3_Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Any CPU.Build.0 = PY3_Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Mixed Platforms.Build.0 = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Win32.ActiveCfg = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|Win32.Build.0 = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|x64.ActiveCfg = Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.g98_stubs_Release|x64.Build.0 = Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|Any CPU.ActiveCfg = PY3_Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|Mixed Platforms.ActiveCfg = PY3_Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|Mixed Platforms.Build.0 = PY3_Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|Win32.ActiveCfg = PY3_Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|Win32.Build.0 = PY3_Debug|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|x64.ActiveCfg = PY3_Debug|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Debug|x64.Build.0 = PY3_Debug|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|Any CPU.ActiveCfg = PY3_Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|Mixed Platforms.ActiveCfg = PY3_Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|Mixed Platforms.Build.0 = PY3_Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|Win32.ActiveCfg = PY3_Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|Win32.Build.0 = PY3_Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|x64.ActiveCfg = PY3_Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.PY3_Release|x64.Build.0 = PY3_Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|Any CPU.ActiveCfg = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|Win32.ActiveCfg = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|Win32.Build.0 = Release|Win32
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|x64.ActiveCfg = Release|x64
-		{D046183A-16A3-4668-9BAF-928BF4AA4A0F}.Release|x64.Build.0 = Release|x64
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.g98_stubs_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.g98_stubs_Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.g98_stubs_Release|Win32.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.g98_stubs_Release|x64.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Release|Win32.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.PY3_Release|x64.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4B046F6A-8909-458F-A5B3-A6655FA7072B}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

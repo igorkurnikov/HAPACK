@@ -275,6 +275,12 @@ public:
 
 	std::string name_mset; //!< the name of the molecular set
 //@}
+
+//! \name Get Iterators on Molecular Structure Elements:
+//@{
+	ResidueIteratorMolSet GetResidueIterator(); // Get Residue Iterator 
+//@}
+
 //! \name Chemical(Functional) Groups:
 //@{
    	int GetNChemGroups() const;    //!< Get total number of chemical groups
@@ -298,6 +304,7 @@ public:
 	typedef list<ChemGroup> ChemGroupsType;
 
 //@}
+
 //! \name Named Atom Groups:
 //@{
 	AtomGroup* AddAtomGroup( const char* id = ""); //!< Add new Atom Group with id
@@ -311,7 +318,6 @@ public:
 	bool DeleteAtomGroup(const char* id );         //!< Delete Atom Group with id
 	bool DeleteAtomGroupPtr( AtomGroup* atgrp_ptr );     //!< Delete Atom Group by pointer
     int CreateAxxMol(const char* mol_name, const char* id); //!< create axxiliary molecule from the group of atoms to set external charges or force centers
-
 //@}
 
 //! \name Atom Coordinate Snapshots
@@ -332,7 +338,6 @@ public:
 	int LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt = NULL ); //!< Load Crd snapshots from file in XML format
 
 //@}  
-
 
 //! \name Secondary Structure Elements:
 //@{
@@ -528,7 +533,25 @@ public:
 	HaResidue* GetFirstRes(); //!< Return the first residue of the molecular Set (=NULL if no atoms) 
 	HaResidue* GetNextRes();  //!< Return next residue in the molecular set (=NULL if no more atoms)
 	HaResidue* GetCurrRes();  //!< Get Residue Pointer corresponding to Current Iterator State
-	
+
+#if defined(SWIG) 
+%exception{
+	try {
+		$action
+		} catch (std::out_of_range) {
+	  PyErr_SetString(PyExc_StopIteration,"End of Atoms in the Atom Collection");
+	  return NULL;
+      }
+}
+#endif
+	HaResidue* next(); //!<  Return next residue in the sequence (first on the first call) throw std::out_of_range() if there are no more residues ( Python compatibility )
+	HaResidue* __next__();
+
+#if defined(SWIG)
+%exception;
+#endif
+	ResidueIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
+
 protected:
 	Residues_type::iterator res_itr;
 	list<HaChain>::iterator ch_itr;
@@ -536,6 +559,8 @@ protected:
 
 	MoleculesType::iterator mol_itr_begin;
 	MoleculesType::iterator mol_itr_end;
+
+	int first_called;
 };
 
 class ResidueIteratorMolSet_const

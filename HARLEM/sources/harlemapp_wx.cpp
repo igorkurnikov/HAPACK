@@ -63,10 +63,12 @@ IMPLEMENT_APP(HarlemAppWX)
 IMPLEMENT_APP_NO_MAIN(HarlemAppWX)
 #endif
 
+#if defined(_MSC_VER)
 extern "C" __declspec(dllexport) int __stdcall start_harlemappwx(int argc, char **argv)
 {
 	return wxEntry(argc, argv);
 }
+#endif
 
 
 const wxEventType wxEVT_HARLEM_APP = wxNewEventType();

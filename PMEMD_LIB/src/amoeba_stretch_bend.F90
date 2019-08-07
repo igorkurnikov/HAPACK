@@ -34,6 +34,9 @@ module amoeba_stretch_bend_mod
   public        am_stretch_bend_zero_flag
   public        am_stretch_bend_set_user_bit
   public        am_stretch_bend_eval
+  public        set_stretch_bend_list
+  public        set_stretch_bend_params
+  public        set_valid_bit
 
 contains
 

@@ -29,6 +29,9 @@ module amoeba_pitorsions_mod
   public        am_pitorsions_zero_flag
   public        am_pitorsions_set_user_bit
   public        am_pitorsions_eval
+  public        set_pitorsions_list
+  public        set_pitorsions_params
+  public        set_valid_bit
 
 
 contains

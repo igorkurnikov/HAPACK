@@ -28,6 +28,11 @@
 
 #include <stdlib.h>
 
+#include <assert.h>
+
+#include <algorithm>
+
+
 PoissonSolver::PoissonSolver()
  : GenericSolver()
 {
@@ -139,6 +144,7 @@ int PoissonSolver::InitZero()
 	ConvFacMaxHistory=1;
 
 	CalcVolume=NULL;
+    PotBW=nullptr;
 	return EXIT_SUCCESS;
 }
 int PoissonSolver::Clear()
@@ -201,6 +207,7 @@ int PoissonSolver::Clear()
 #	ifdef PNPDOUBLE
 	DeleteCArray(potential);
 #	endif
+    DeleteObjByPnt(PotBW);
 	return EXIT_SUCCESS;
 }
 int PoissonSolver::LoadParamFromPyDict(PyObject *dict)
@@ -278,6 +285,14 @@ int PoissonSolver::SetContWorld(ContWorld* _world)
 #	else
 	
 #	endif
+
+    if (PotBW == nullptr) {
+        PotBW = new FieldBW();
+    }
+    if (!PotBW->SameSize(World->GridSize)) {
+        PotBW->Init(World->GridSize);
+    }
+
 	return EXIT_SUCCESS;
 }
 int PoissonSolver::ShowParameters()
@@ -435,16 +450,9 @@ int PoissonSolver::InitSolverNIB()
 	int GrdPnt;
 	
 	NodeIndex* NIndex=World->NIndexing->NIndex;
-  
-	//If volume there run calculation is not set, make a fake one
-//	Clear();
-	
 	//count b/w regions
-	NoSingularNum[0]=0;NoSingularNum[1]=0;NoSingularNum[2]=0;
-	SingularNum[0]=0;SingularNum[1]=0;SingularNum[2]=0;
 	DielBoarderNum[0]=0;DielBoarderNum[1]=0;DielBoarderNum[2]=0;
 	ChargeNum[0]=0;ChargeNum[1]=0;ChargeNum[2]=0;
-	
 	
 	//correction for spesific type of calculation, P(no additional charge) P(NP)(dynamic charge)
 	unsigned int specChargeMask=NodeIndexing::ChargeMask;
@@ -464,121 +472,43 @@ int PoissonSolver::InitSolverNIB()
 	int QmobTot=QmobNum[2]+QmobDielBoarderNum[2]+QmobDielBoarderQstNum[2];
 	bool bQmobHere;
 	bool bCalcVolume;
+	assert(CalcVolume == nullptr);// currently not working
 	bCalcVolume=true;
-	if(QmobTot==0)
+	
+	for(k=1;k<GS_Z-1;k++)
 	{
-		for(k=1;k<GS_Z-1;k++)
+		kgrid = k*GS_XY;
+		for(j=1;j<GS_Y-1;j++)
 		{
-			kgrid = k*GS_XY;
-			for(j=1;j<GS_Y-1;j++)
+			jgrid = kgrid+j*GS_X;
+			for(i=1;i<GS_X-1;i++)
 			{
-				jgrid = kgrid+j*GS_X;
-				for(i=1;i<GS_X-1;i++)
+				GrdPnt = jgrid+i;
+				if(CalcVolume!= nullptr)
+					bCalcVolume=CalcVolume[GrdPnt];
+				if(bCalcVolume)
 				{
-					GrdPnt = jgrid+i;
-					if(CalcVolume!=NULL)
-						bCalcVolume=CalcVolume[GrdPnt];
-					if(bCalcVolume)
+					if(NIndex[GrdPnt]&specChargeMask)
 					{
-						if((NIndex[GrdPnt]&ChargeDielBoarderMask)==ChargeDielBoarderMask)
-						{
-							SingularNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							SingularNum[2]++;
-						}
-						else if(NIndex[GrdPnt]&specChargeMask)
-						{
-							ChargeNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							ChargeNum[2]++;
-						}
-						else if(NIndex[GrdPnt]&DielBoarderMask)
-						{
-							DielBoarderNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							DielBoarderNum[2]++;
-						}
-						else
-						{
-							NoSingularNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							NoSingularNum[2]++;
-						}
+						ChargeNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
+						ChargeNum[2]++;
+					}
+					if(NIndex[GrdPnt]&DielBoarderMask)
+					{
+						DielBoarderNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
+						DielBoarderNum[2]++;
 					}
 				}
 			}
 		}
 	}
-	else
-	{
-		int CountQmobOnDielBoarder=0;
-		int CountQmobOnQst=0;
-		int CountQmobOnDielBoarderAndQst=0;
-		for(k=1;k<GS_Z-1;k++)
-		{
-			kgrid = k*GS_XY;
-			for(j=1;j<GS_Y-1;j++)
-			{
-				jgrid = kgrid+j*GS_X;
-				for(i=1;i<GS_X-1;i++)
-				{
-					GrdPnt = jgrid+i;
-					if(CalcVolume!=NULL)
-						bCalcVolume=CalcVolume[GrdPnt];
-					if(bCalcVolume)
-					{
-						bQmobHere=false;
-						for(IType=0;IType<World->NIonsTypes;IType++)
-							if(World->C[IType][GrdPnt]>0.0)bQmobHere=true;
-						if(bQmobHere==true)
-						{
-							if((NIndex[GrdPnt]&ChargeDielBoarderMask)==ChargeDielBoarderMask)
-								CountQmobOnDielBoarderAndQst++;
-							else
-							{
-								if(NIndex[GrdPnt]&DielBoarderMask)CountQmobOnDielBoarder++;
-								if(NIndex[GrdPnt]&specChargeMask)CountQmobOnQst++;
-							}
-						}
-						else if((NIndex[GrdPnt]&ChargeDielBoarderMask)==ChargeDielBoarderMask)
-						{
-							
-							SingularNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							SingularNum[2]++;
-						}
-						else if(NIndex[GrdPnt]&specChargeMask)
-						{
-							ChargeNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							ChargeNum[2]++;
-						}
-						else if(NIndex[GrdPnt]&DielBoarderMask)
-						{
-							//DbgPrint0("NIndex[%d]=%X\n",GrdPnt,NIndex[GrdPnt]);
-							unsigned int t1=NIndex[GrdPnt];
-							DielBoarderNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							DielBoarderNum[2]++;
-						}
-						else
-						{
-							NoSingularNum[1]+=NIndex[GrdPnt]&BlackAndWhiteMask;
-							NoSingularNum[2]++;
-						}
-					}
-				}
-			}
-		}
-		DbgPrint0("CountQmobOnDielBoarder=%d CountQmobOnQst=%d CountQmobOnDielBoarderAndQst=%d\n",CountQmobOnDielBoarder, CountQmobOnQst, CountQmobOnDielBoarderAndQst);
-		if(CountQmobOnQst>0)
-		{
-			fprintf(stderr,"ERROR\nERROR situation then Qmob On Qst is not implemented yet\n");
-		}
-	}
-	DbgPrint1("InitSolver:Total: MyrankWorld->MyRank=%d icharge=% d    \niDielBoarder=%d iSingular=%d iNoSingular=%d QmobNum=%d\n",
-						World->MyRank,ChargeNum[2],DielBoarderNum[2],SingularNum[2],NoSingularNum[2],QmobNum[2]);
+	DbgPrint1("InitSolver:Total: MyrankWorld->MyRank=%d icharge=% d    \niDielBoarder=%d  QmobNum=%d\n",
+						World->MyRank,ChargeNum[2],DielBoarderNum[2],QmobNum[2]);
 	DbgPrint0("TotalNodes: %d\n",ChargeNum[2]+DielBoarderNum[2]+SingularNum[2]+NoSingularNum[2]+QmobNum[2]);
-	DbgPrint1("InitSolver:Blach cell:: MyrankWorld->MyRank=%d icharge=% d    \niDielBoarder=%d iSingular=%d iNoSingular=%d QmobNum=%d\n",
-						World->MyRank,ChargeNum[1],DielBoarderNum[1],SingularNum[1],NoSingularNum[1],QmobNum[2]);
+	DbgPrint1("InitSolver:Blach cell:: MyrankWorld->MyRank=%d icharge=% d    \niDielBoarder=%d QmobNum=%d\n",
+						World->MyRank,ChargeNum[1],DielBoarderNum[1],QmobNum[2]);
   
-	if(!(IndexNoSingular = new int[NoSingularNum[2]])){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
+
 	if(!(IndexDielBoarder = new int[DielBoarderNum[2]])){
 		fprintf(stderr,"ERROR 204: No memory available\n");
 		exit(204);
@@ -595,30 +525,30 @@ int PoissonSolver::InitSolverNIB()
 		fprintf(stderr,"ERROR 204: No memory available\n");
 		exit(204);
 	}
-	if(!(IndexSingular = new int[SingularNum[2]])){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
-	if(!(QstS = new float[SingularNum[2]])){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
-	if(!(PhiSingular = new float[SingularNum[2]])){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
 	if(!(PhiCharge = new float[ChargeNum[2]])){
 		fprintf(stderr,"ERROR 204: No memory available\n");
 		exit(204);
 	}
+
+	//Allocate dielectric helping array
+	dielectricXDB = new float[DielBoarderNum[2]];
+	dielectricYDB = new float[DielBoarderNum[2]];
+	dielectricZDB = new float[DielBoarderNum[2]];
+	dielectricXmDB = new float[DielBoarderNum[2]];
+	dielectricYmDB = new float[DielBoarderNum[2]];
+	dielectricZmDB = new float[DielBoarderNum[2]];
+
+	if (!dielectricXDB || !dielectricYDB || !dielectricZDB || !dielectricXmDB || !dielectricYmDB || !dielectricZmDB) {
+		fprintf(stderr, "ERROR 204: No memory available\n");
+		exit(204);
+	}
+
 	for(i=0;i<ChargeNum[2];i++)
 		PhiCharge[i]=0.0f;
-	for(i=0;i<SingularNum[2];i++)
-		PhiSingular[i]=0.0f;
 	
-  //fill indexes of nodes types
-	int iCharge=0,iDielBoarder=0,iSingular=0,iNoSingular=0;
-	int iCharge2=ChargeNum[1],iDielBoarder2=DielBoarderNum[1],iSingular2=SingularNum[1],iNoSingular2=NoSingularNum[1];
+    //fill indexes of nodes types
+	int iCharge1=0,iDielBoarder1=0;
+	int iCharge2=ChargeNum[1],iDielBoarder2=DielBoarderNum[1];
 	int QCount=0;
 	float *Q=World->NIndexing->Q;
 	float *Eps=World->NIndexing->Eps;
@@ -627,239 +557,100 @@ int PoissonSolver::InitSolverNIB()
 	{
 		q+=Q[i];
 	}
-	DbgPrint0("q=%f QCount=%d GridScale=%f\n",(float)q/4/M_PI/World->GridScale,World->NIndexing->QNum,World->GridScale);
+	DbgPrint0("q=%f QCount=%d GridScale=%f\n",(float)q/4.0f/M_PI/World->GridScale,World->NIndexing->QNum,World->GridScale);
 	q=0.0f;
-	if(QmobTot==0)
+
+    int bwStrideX = PotBW->StrideX;
+    int bwStrideXY = PotBW->StrideXY;
+
+	for(k=1;k<GS_Z-1;k++)
 	{
-		for(k=1;k<GS_Z-1;k++)
+		kgrid = k*GS_XY;
+		for(j=1;j<GS_Y-1;j++)
 		{
-			kgrid = k*GS_XY;
-			for(j=1;j<GS_Y-1;j++)
+			jgrid = kgrid+j*GS_X;
+			for(i=1;i<GS_X-1;i++)
 			{
-				jgrid = kgrid+j*GS_X;
-				for(i=1;i<GS_X-1;i++)
+				GrdPnt = jgrid+i;
+				if(CalcVolume!=NULL)
+					bCalcVolume=CalcVolume[GrdPnt];
+				if(bCalcVolume)
 				{
-					GrdPnt = jgrid+i;
-					if(CalcVolume!=NULL)
-						bCalcVolume=CalcVolume[GrdPnt];
-					if(bCalcVolume)
+					if(NIndex[GrdPnt]&specChargeMask)
 					{
-						if((NIndex[GrdPnt]&ChargeDielBoarderMask)==ChargeDielBoarderMask)
+                        int iu = i/2 + j * bwStrideX + k * bwStrideXY;
+						int iCharge;
+						if (NIndex[GrdPnt] & BlackAndWhiteMask)
 						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexSingular[iSingular]=GrdPnt;
-								QstS[iSingular]=Q[QCount];
-								q+=Q[QCount];
-								iSingular++;
-							}
-							else
-							{
-								IndexSingular[iSingular2]=GrdPnt;
-								QstS[iSingular2]=Q[QCount];
-								q+=Q[QCount];
-								iSingular2++;
-							}
-						}
-						else if(NIndex[GrdPnt]&specChargeMask)
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexCharge[iCharge]=GrdPnt;
-								dielectricCh[iCharge]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-								Qst[iCharge]=Q[QCount]/dielectricCh[iCharge];
-								q+=Q[QCount];
-								iCharge++;
-							}
-							else
-							{
-								IndexCharge[iCharge2]=GrdPnt;
-								dielectricCh[iCharge2]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-								Qst[iCharge2]=Q[QCount]/dielectricCh[iCharge2];
-								q+=Q[QCount];
-								iCharge2++;
-							}
-						}
-						else if(NIndex[GrdPnt]&DielBoarderMask)
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexDielBoarder[iDielBoarder]=GrdPnt;
-								iDielBoarder++;
-							}
-							else
-							{
-								IndexDielBoarder[iDielBoarder2]=GrdPnt;
-								iDielBoarder2++;
-							}
+							iCharge = iCharge1;
+							iCharge1++;
 						}
 						else
 						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexNoSingular[iNoSingular]=GrdPnt;
-								iNoSingular++;
-							}
-							else
-							{
-								IndexNoSingular[iNoSingular2]=GrdPnt;
-								iNoSingular2++;
-							}
+							iCharge = iCharge2;
+							iCharge2++;
 						}
-						if(NIndex[GrdPnt]&specChargeMask)
-							QCount++;
+						IndexCharge[iCharge] = iu;
+						if (NIndex[GrdPnt] & DielBoarderMask){
+							dielectricCh[iCharge] = \
+								Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft] + \
+								Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon1) >> NodeIndexing::Epsilon1Sft] + \
+								Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon2) >> NodeIndexing::Epsilon2Sft] + \
+								Eps[(NIndex[GrdPnt - 1] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft] + \
+								Eps[(NIndex[GrdPnt - GS_X] & NodeIndexing::Epsilon1) >> NodeIndexing::Epsilon1Sft] + \
+								Eps[(NIndex[GrdPnt - GS_XY] & NodeIndexing::Epsilon2) >> NodeIndexing::Epsilon2Sft];
+							dielectricCh[iCharge] /= 6.0f;
+						}
+						else {
+							dielectricCh[iCharge] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft];
+						}
+
+						Qst[iCharge] = Q[QCount] / dielectricCh[iCharge];
+						q += Q[QCount];
+
 					}
-				}
-			}
-		}
-	}
-	else
-	{
-		for(k=1;k<GS_Z-1;k++)
-		{
-			kgrid = k*GS_XY;
-			for(j=1;j<GS_Y-1;j++)
-			{
-				jgrid = kgrid+j*GS_X;
-				for(i=1;i<GS_X-1;i++)
-				{
-					GrdPnt = jgrid+i;
-					if(CalcVolume!=NULL)
-						bCalcVolume=CalcVolume[GrdPnt];
-					if(bCalcVolume)
+					if(NIndex[GrdPnt]&DielBoarderMask)
 					{
-						bQmobHere=false;
-						for(IType=0;IType<World->NIonsTypes;IType++)
-							if(World->C[IType][GrdPnt]>0.0)bQmobHere=true;
-						if(bQmobHere==true)
-						{
-							
+						int iDielBoarder;
+                        int iu = i / 2 + j * bwStrideX + k * bwStrideXY;
+						if(NIndex[GrdPnt]&BlackAndWhiteMask){
+							iDielBoarder = iDielBoarder1;
+							iDielBoarder1++;
 						}
-						else if((NIndex[GrdPnt]&ChargeDielBoarderMask)==ChargeDielBoarderMask)
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexSingular[iSingular]=GrdPnt;
-								QstS[iSingular]=Q[QCount];
-								q+=Q[QCount];
-								iSingular++;
-							}
-							else
-							{
-								IndexSingular[iSingular2]=GrdPnt;
-								QstS[iSingular2]=Q[QCount];
-								q+=Q[QCount];
-								iSingular2++;
-							}
+						else{
+							iDielBoarder = iDielBoarder2;
+							iDielBoarder2++;
 						}
-						else if(NIndex[GrdPnt]&specChargeMask)
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexCharge[iCharge]=GrdPnt;
-								dielectricCh[iCharge]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-								Qst[iCharge]=Q[QCount]/dielectricCh[iCharge];
-								q+=Q[QCount];
-								iCharge++;
-							}
-							else
-							{
-								IndexCharge[iCharge2]=GrdPnt;
-								dielectricCh[iCharge2]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-								Qst[iCharge2]=Q[QCount]/dielectricCh[iCharge2];
-								q+=Q[QCount];
-								iCharge2++;
-							}
-						}
-						else if(NIndex[GrdPnt]&DielBoarderMask)
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexDielBoarder[iDielBoarder]=GrdPnt;
-								iDielBoarder++;
-							}
-							else
-							{
-								IndexDielBoarder[iDielBoarder2]=GrdPnt;
-								iDielBoarder2++;
-							}
-						}
-						else
-						{
-							if(NIndex[GrdPnt]&BlackAndWhiteMask)
-							{
-								IndexNoSingular[iNoSingular]=GrdPnt;
-								iNoSingular++;
-							}
-							else
-							{
-								IndexNoSingular[iNoSingular2]=GrdPnt;
-								iNoSingular2++;
-							}
-						}
-						if(NIndex[GrdPnt]&specChargeMask)
-							QCount++;
+						IndexDielBoarder[iDielBoarder]=iu;
+
+						dielectricXDB[iDielBoarder] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft];
+						dielectricYDB[iDielBoarder] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon1) >> NodeIndexing::Epsilon1Sft];
+						dielectricZDB[iDielBoarder] = Eps[(NIndex[GrdPnt] & NodeIndexing::Epsilon2) >> NodeIndexing::Epsilon2Sft];
+						dielectricXmDB[iDielBoarder] = Eps[(NIndex[GrdPnt - 1] & NodeIndexing::Epsilon0) >> NodeIndexing::Epsilon0Sft];
+						dielectricYmDB[iDielBoarder] = Eps[(NIndex[GrdPnt - GS_X] & NodeIndexing::Epsilon1) >> NodeIndexing::Epsilon1Sft];
+						dielectricZmDB[iDielBoarder] = Eps[(NIndex[GrdPnt - GS_XY] & NodeIndexing::Epsilon2) >> NodeIndexing::Epsilon2Sft];
+
+						double diel_sum = dielectricXDB[iDielBoarder] + dielectricYDB[iDielBoarder] + dielectricZDB[iDielBoarder] + \
+							dielectricXmDB[iDielBoarder] + dielectricYmDB[iDielBoarder] + dielectricZmDB[iDielBoarder];
+
+						diel_sum /= 6.0;
+						
+						dielectricXDB[iDielBoarder] = dielectricXDB[iDielBoarder] / diel_sum - 1.0f;
+						dielectricYDB[iDielBoarder] = dielectricYDB[iDielBoarder] / diel_sum - 1.0f;
+						dielectricZDB[iDielBoarder] = dielectricZDB[iDielBoarder] / diel_sum - 1.0f;
+						dielectricXmDB[iDielBoarder] = dielectricXmDB[iDielBoarder] / diel_sum - 1.0f;
+						dielectricYmDB[iDielBoarder] = dielectricYmDB[iDielBoarder] / diel_sum - 1.0f;
+						dielectricZmDB[iDielBoarder] = dielectricZmDB[iDielBoarder] / diel_sum - 1.0f;
+
 					}
+						
 				}
+				if(NIndex[GrdPnt]&specChargeMask)
+					QCount++;
 			}
 		}
 	}
 	DbgPrint0("q=%f QCount=%d",(float)q/4/M_PI/World->GridScale,QCount);
-  //Allocate dielectric helping array
-	dielectricXDB = new float[DielBoarderNum[2]];
-	dielectricYDB = new float[DielBoarderNum[2]];
-	dielectricZDB = new float[DielBoarderNum[2]];
-	dielectricXmDB = new float[DielBoarderNum[2]];
-	dielectricYmDB = new float[DielBoarderNum[2]];
-	dielectricZmDB = new float[DielBoarderNum[2]];
-	dielectricZDBSUM = new float[DielBoarderNum[2]];
-	dielectricXS = new float[SingularNum[2]];
-	dielectricYS = new float[SingularNum[2]];
-	dielectricZS = new float[SingularNum[2]];
-	dielectricXmS = new float[SingularNum[2]];
-	dielectricYmS = new float[SingularNum[2]];
-	dielectricZmS = new float[SingularNum[2]];
-	dielectricZSSUM = new float[SingularNum[2]];
-  
-
-  
-	if(!dielectricXDB||!dielectricYDB||!dielectricZDB||!dielectricZDBSUM||!dielectricXS||!dielectricYS||!dielectricZS||!dielectricZSSUM){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
-	if(!dielectricXmDB||!dielectricYmDB||!dielectricZmDB||!dielectricXmS||!dielectricYmS||!dielectricZmS){
-		fprintf(stderr,"ERROR 204: No memory available\n");
-		exit(204);
-	}
-  
-  //float *Epsilon[3];
-  //for(i=0;i<3;i++)Epsilon[i] = World->Epsilon[i];
-  
-	for(i=0;i<SingularNum[2];i++)
-	{
-		GrdPnt=IndexSingular[i];
-		dielectricXS[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-		dielectricYS[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon1)>>NodeIndexing::Epsilon1Sft];
-		dielectricZS[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon2)>>NodeIndexing::Epsilon2Sft];
-		dielectricXmS[i]=Eps[(NIndex[GrdPnt-1]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-		dielectricYmS[i]=Eps[(NIndex[GrdPnt-GS_X]&NodeIndexing::Epsilon1)>>NodeIndexing::Epsilon1Sft];
-		dielectricZmS[i]=Eps[(NIndex[GrdPnt-GS_XY]&NodeIndexing::Epsilon2)>>NodeIndexing::Epsilon2Sft];
-		dielectricZSSUM[i]=dielectricXS[i]+dielectricYS[i]+dielectricZS[i]+dielectricXmS[i]+dielectricYmS[i]+dielectricZmS[i];
-		dielectricZSSUM[i]=Relaxation/dielectricZSSUM[i];
-	}
-	for(i=0;i<DielBoarderNum[2];i++)
-	{
-		GrdPnt=IndexDielBoarder[i];
-		dielectricXDB[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-		dielectricYDB[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon1)>>NodeIndexing::Epsilon1Sft];
-		dielectricZDB[i]=Eps[(NIndex[GrdPnt]&NodeIndexing::Epsilon2)>>NodeIndexing::Epsilon2Sft];
-		dielectricXmDB[i]=Eps[(NIndex[GrdPnt-1]&NodeIndexing::Epsilon0)>>NodeIndexing::Epsilon0Sft];
-		dielectricYmDB[i]=Eps[(NIndex[GrdPnt-GS_X]&NodeIndexing::Epsilon1)>>NodeIndexing::Epsilon1Sft];
-		dielectricZmDB[i]=Eps[(NIndex[GrdPnt-GS_XY]&NodeIndexing::Epsilon2)>>NodeIndexing::Epsilon2Sft];
-		dielectricZDBSUM[i]=dielectricXDB[i]+dielectricYDB[i]+dielectricZDB[i]+dielectricXmDB[i]+dielectricYmDB[i]+dielectricZmDB[i];
-		dielectricZDBSUM[i]=Relaxation/dielectricZDBSUM[i];
-	}
-
 	return EXIT_SUCCESS;
 }
 int PoissonSolver::InitSolverAD()
@@ -2138,19 +1929,6 @@ int PoissonSolver::PoissonSolverW()
 }
 int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 {
-	//DbgPrint2("CPoisson::PoissonSolver %d\n",World->MyRank);
-	//tmp var
-	int iteration;
-	int i,j,k;
-	int GrdPnt;
-	
-#ifndef PNPDOUBLE
-	float tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7;
-#else
-	double tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7;
-#endif
-	
-
 	//local vars
 #ifndef PNPDOUBLE
 	float gridScale = World->GridScale;
@@ -2203,151 +1981,194 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 	if(ConvFacMaxHistory>1)
 	{
 		ConvFacHistory=new double[ConvFacMaxHistory];
-		for(i=0;i<ConvFacMaxHistory;i++)
+		for(int i=0;i<ConvFacMaxHistory;i++)
 			ConvFacHistory[i]=1e10;
 	}
-	//Iteration itself
-	for(iteration=1;iteration<=MaxIterations;iteration++)
+
+    PotBW->SetFromField(potential);
+
+    int bwStrideX = PotBW->StrideX;
+    int bwStrideXY = PotBW->StrideXY;
+    int H_X = (GS_X+1)/2;
+    int GS_X_odd = GS_X % 2;
+
+
+    int *DielBoarderHmX=new int[DielBoarderNum[2]];
+
+    for (int j = 0; j <= 1; j++) {
+        for (int i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
+            int iu = IndexDielBoarder[i];
+            int not_j = !j;
+
+            int iz = iu / bwStrideXY;
+            int iy = iu % bwStrideXY / bwStrideX;
+            //int ix = GrdPnt % GS_X;
+            //assert(GrdPnt == ix + iy * GS_X + iz * GS_XY);
+
+            DielBoarderHmX[i] = (not_j + iy + iz) % 2 - 1;
+        }
+    }
+
+	//if 0 continue if > 0 it is good if <0 it is bad
+	int ReturnStatus = 0;
+	int TotalIterations;
+    const int GS_Step=4;
+
+	#pragma omp parallel
 	{
-		//calculation over black and white nodes
-		for(j=0;j<=1;j++){
-			for(i=SingularNum[j];i<SingularNum[j+1];i++){
-				GrdPnt=IndexSingular[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXS[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmS[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYS[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmS[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZS[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmS[i];				
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+tmp4;
-				tmp3 = tmp5+tmp6;
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+QstS[i];								
-				tmp1 = dielectricZSSUM[i]*(tmp1+tmp2);
-				potential[GrdPnt] = potential[GrdPnt]*om1+tmp1;
-			}
-			for(i=ChargeNum[j];i<ChargeNum[j+1];i++){
-				GrdPnt=IndexCharge[i];
-				tmp1 = potential[GrdPnt+1]+potential[GrdPnt-1];
-				tmp2 = potential[GrdPnt+GS_X]+potential[GrdPnt-GS_X];
-				tmp3 = potential[GrdPnt+GS_XY]+potential[GrdPnt-GS_XY];
-				tmp4 = potential[GrdPnt]*om1;
-				tmp5 = om2d6*(tmp1+tmp2+tmp3+Qst[i]);
-				//tmp6 = denominator[GrdPnt]*(tmp3+staticCharge[GrdPnt]);
-				potential[GrdPnt] = tmp4+tmp5;
-			}
-			for(i=DielBoarderNum[j];i<DielBoarderNum[j+1];i++){
-				GrdPnt=IndexDielBoarder[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXDB[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmDB[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYDB[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmDB[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZDB[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmDB[i];
-				tmp7 = potential[GrdPnt]*om1;
-				potential[GrdPnt] = tmp7+dielectricZDBSUM[i]*(tmp1+tmp2+tmp3+tmp4+tmp5+tmp6);
-				//potential[GrdPnt]+=100.0;
-			}
-			for(i=NoSingularNum[j];i<NoSingularNum[j+1];i++){
-				GrdPnt=IndexNoSingular[i];
-				potential[GrdPnt] = potential[GrdPnt]*om1 + om2d6 * (potential[GrdPnt+1] + potential[GrdPnt-1] + potential[GrdPnt+GS_X] + potential[GrdPnt-GS_X] + potential[GrdPnt+GS_XY] + potential[GrdPnt-GS_XY]);
-				//potential[GrdPnt]+=10.0;
-			}
-			for(i=QmobNum[j];i<QmobNum[j+1];i++){
-				GrdPnt=IndexQmob[i];
-				tmp1 = potential[GrdPnt+1]+potential[GrdPnt-1];
-				tmp2 = potential[GrdPnt+GS_X]+potential[GrdPnt-GS_X];
-				tmp3 = potential[GrdPnt+GS_XY]+potential[GrdPnt-GS_XY];
-				tmp4 = potential[GrdPnt]*om1;
-				tmp5 = om2d6*(tmp1+tmp2+tmp3+Qmob[i]);
-				//tmp6 = denominator[GrdPnt]*(tmp3+staticCharge[GrdPnt]);
-				potential[GrdPnt] = tmp4+tmp5;
-				//potential[GrdPnt]+=1.0;
-			}
-			for(i=QmobDielBoarderNum[j];i<QmobDielBoarderNum[j+1];i++){
-				GrdPnt=IndexQmobDielBoarder[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXQmobDB[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmQmobDB[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYQmobDB[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmQmobDB[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZQmobDB[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmQmobDB[i];				
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+tmp4;
-				tmp3 = tmp5+tmp6;
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+QmobDielBoarder[i];								
-				tmp1 = dielectricZQmobDBSUM[i]*(tmp1+tmp2);
-				potential[GrdPnt] = potential[GrdPnt]*om1+tmp1;
-			}
-			for(i=QmobDielBoarderQstNum[j];i<QmobDielBoarderQstNum[j+1];i++){
-				GrdPnt=IndexQmobDielBoarderQst[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXQmobDBQst[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmQmobDBQst[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYQmobDBQst[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmQmobDBQst[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZQmobDBQst[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmQmobDBQst[i];				
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+tmp4;
-				tmp3 = tmp5+tmp6;
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+QmobDielBoarderQst[i]+QstQmobDielBoarderQst[i];								
-				tmp1 = dielectricZQmobDBSUMQst[i]*(tmp1+tmp2);
-				potential[GrdPnt] = potential[GrdPnt]*om1+tmp1;
-			}
+		int iteration;
+		int i,j, k;
+		int GrdPnt;
+
 #ifndef PNPDOUBLE
-			World->BorderExchange(potential);
+		float tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
 #else
-			World->BorderExchangeDouble(potential);
+		double tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
 #endif
-		}
-		//checking and printing energy
-		
-		if(ckenergy)
-			if((verbose&&(iteration%ConvergenceCheck==0))||iteration==MaxIterations)
+		// check that black and white nodes matches
+		int FirstNode = 0;
+		GrdPnt = 1+1*GS_X+1*GS_XY;
+		assert(World->NIndexing->NIndex[GrdPnt] & NodeIndexing::BlackAndWhiteMask == 1);
+		//Iteration itself
+		for (iteration = 1; iteration <= MaxIterations; iteration++)
 		{
-			CalcSystemEnergy(iteration);
-			relativeChange=totalChange/totalEnergy;
-			
-			if(verbose)
+            float *PotU;// potential to update
+            float *PotR;// potential to read
+
+            int HmX, HpX;
+
+            //calculation over black and white nodes
+            for (j = 0; j <= 1; j++) {
+                int not_j = !j;
+                if (j == 0) {
+                    // for calculation over black nodes
+                    PotU = PotBW->B;
+                    PotR = PotBW->W;
+                }
+                else {
+                    // for calculation over white nodes
+                    PotU = PotBW->W;
+                    PotR = PotBW->B;
+                    
+                }
+
+                    
+#pragma omp for schedule(dynamic)
+                for (int iz_big = 1; iz_big<GS_Z - 1; iz_big +=GS_Step) {
+                    int iz_fin = (std::min)(GS_Z - 1, iz_big + GS_Step);
+                    for (int iy_big = 1; iy_big<GS_Y - 1; iy_big+=GS_Step) {
+                        int iy_fin=(std::min)(GS_Y - 1, iy_big + GS_Step);
+                        
+                        for (int iz = iz_big; iz<iz_fin; iz++) {
+                            for (int iy = iy_big; iy<iy_fin; iy++) {
+                                int iu0 = (j + iy + iz) % 2;
+                                int iuS = iu0 + iy * bwStrideX + iz * bwStrideXY;
+                                int iuF = iuS + H_X - 2 - (iu0 & GS_X_odd);
+                            
+                                HmX = (not_j + iy + iz) % 2 - 1;
+                                HpX = HmX+1;
+
+                                #pragma ivdep
+                                for (int iu = iuS; iu<= iuF; ++iu) {
+                                    PotU[iu] = PotU[iu] * om1 + om2d6 * (PotR[iu + HmX] + PotR[iu + HpX] + \
+                                        PotR[iu - bwStrideX] + PotR[iu + bwStrideX] + PotR[iu - bwStrideXY] + PotR[iu + bwStrideXY]);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+
+#pragma omp for
+                for (i = ChargeNum[j]; i < ChargeNum[j + 1]; i++) {
+                    int iu = IndexCharge[i];
+                    PotU[iu] += om2d6 * Qst[i];
+                }
+                
+
+#pragma omp for
+                for (i = DielBoarderNum[j]; i < DielBoarderNum[j + 1]; i++) {
+                    int iu = IndexDielBoarder[i];
+                    PotU[iu] += om2d6 * (\
+                        PotR[iu + DielBoarderHmX[i]] * dielectricXmDB[i] + \
+                        PotR[iu + DielBoarderHmX[i]+1] * dielectricXDB[i] + \
+                        PotR[iu - bwStrideX] * dielectricYmDB[i] + \
+                        PotR[iu + bwStrideX] * dielectricYDB[i] + \
+                        PotR[iu - bwStrideXY] * dielectricZmDB[i] + \
+                        PotR[iu + bwStrideXY] * dielectricZDB[i]);
+                }
+#pragma omp for
+                for (i = QmobNum[j]; i < QmobNum[j + 1]; i++) {
+                    int iu = IndexQmob[i];
+                    PotU[iu] += om2d6 * Qmob[i];
+                }
+
+                PotBW->BorderExchange(World->PBC);
+            }
+            
+
+
+			//checking and printing energy
+
+			#pragma omp master
 			{
-				//pnpPrintGroup0("<PoissonIterations Nit=\"%8d\" E=\"%20.16e\" dE=\"%.4e\" rel.E=\"%.4e\" ConvFac=\"%.4e\"/>\n", iteration, totalEnergy, totalChange, relativeChange,ConvFac);
-				if(iteration/ConvergenceCheck<=1)
+				TotalIterations = iteration;
+				if (ckenergy)
 				{
-					pnpPrintGroup0("P     =========================================================================\n");
-					pnpPrintGroup0("P      %9s %22s %12s %12s %12s\n","Iteration", "Energy,kT","dE","rel.E","ConvFac");
-					pnpPrintGroup0("P     -------------------------------------------------------------------------\n");
+					if ((verbose && (iteration%ConvergenceCheck == 0)) || iteration == MaxIterations)
+					{
+                        //PotBW->SetField(potential);
+						CalcSystemEnergy(iteration);
+						relativeChange = totalChange / totalEnergy;
+						if (verbose)
+						{
+							if (iteration / ConvergenceCheck <= 1)
+							{
+								pnpPrintGroup0("P     =========================================================================\n");
+								pnpPrintGroup0("P      %9s %22s %12s %12s %12s\n", "Iteration", "Energy,kT", "dE", "rel.E", "ConvFac");
+								pnpPrintGroup0("P     -------------------------------------------------------------------------\n");
+							}
+							pnpPrintGroup0("P      %9d %22.14e %12.4e %12.4e %12.4e\n", iteration, totalEnergy, totalChange, relativeChange, ConvFac);
+						}
+						if (totalEnergy > 1E13)
+						{
+							pnpPrintGroup0("P     -------------------------------------------------------------------------\n");
+							pnpPrintGroup0("P      ERROR: Poisson Solver has diverged, try smaller relaxation\n");
+							pnpPrintGroup0("P     =========================================================================\n");
+							ReturnStatus = -1;
+						}
+						if (ConvFacMaxHistory > 1)
+						{
+							ConvFacHistory[countConvFacHistory] = ConvFac;
+							countConvFacHistory++;
+							if (countConvFacHistory >= ConvFacMaxHistory)
+								countConvFacHistory = 0;
+
+							bool convereged = true;
+							for (i = 0; i < ConvFacMaxHistory; i++)
+								convereged = convereged && (ConvFacHistory[i] <= Convergence);
+
+							if (convereged) {
+								ReturnStatus = 1;
+							}
+						}
+						else if (ConvFac<Convergence&&iteration>MinIterations) {
+							ReturnStatus = 1;
+						};
+					}
 				}
-				pnpPrintGroup0("P      %9d %22.14e %12.4e %12.4e %12.4e\n", iteration, totalEnergy, totalChange, relativeChange,ConvFac);
 			}
-			if(totalEnergy>1E13)
-			{
-				pnpPrintGroup0("P     -------------------------------------------------------------------------\n");
-				pnpPrintGroup0("P      ERROR: Poisson Solver has diverged, try smaller relaxation\n");
-				pnpPrintGroup0("P     =========================================================================\n");
-				return EXIT_FAILURE;
+            #pragma omp barrier
+			if (ReturnStatus!=0) {
+				break;
 			}
-			if(ConvFacMaxHistory>1)
-			{
-				ConvFacHistory[countConvFacHistory]=ConvFac;
-				countConvFacHistory++;
-				if(countConvFacHistory>=ConvFacMaxHistory)
-					countConvFacHistory=0;
-				
-				bool convereged=true;
-				for(i=0;i<ConvFacMaxHistory;i++)
-					convereged=convereged&&(ConvFacHistory[i]<=Convergence);
-				if(convereged)break;//iteration = MaxIterations+1;
-			}
-			else if(ConvFac<Convergence&&iteration>MinIterations)break;
 		}
 	}
-	if(verbose&&ckenergy)
+    PotBW->SetField(potential);
+	if(verbose&&ckenergy&&ReturnStatus>=0)
 	{
 		pnpPrintGroup0("P     -------------------------------------------------------------------------\n");
-		pnpPrintGroup0("P      Results: E=%.14e Niter=%d\n", totalEnergy, iteration-1);
+		pnpPrintGroup0("P      Results: E=%.14e Niter=%d\n", totalEnergy, TotalIterations);
 		pnpPrintGroup0("P     =========================================================================\n");
 		//pnpPrintGroup0("<PoissonFinal E=\"%.10e\" Eerr=\"%.10e\" Niter=\"%d\"/>\n", totalEnergy, totalChange, iteration-1);
 	}
@@ -2359,7 +2180,7 @@ int PoissonSolver::PoissonSolverNIB(bool ckenergy)
 	
 	DeleteCArray(ConvFacHistory);
 	
-	if(Convergence>0.0&&ConvFac>Convergence)
+	if((Convergence>0.0 && ConvFac>Convergence)|| ReturnStatus<0)
 		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
@@ -2672,7 +2493,7 @@ int PoissonSolver::CalcSystemEnergyMaxPhiChange(int iteration)
 }
 int PoissonSolver::CalcSystemEnergyStdDevPhi(int iteration)
 {
-	int i,GrdPnt;
+	int i;
 	static double oldSumSQ=0.0,oldSumAbs=0.0,oldTotEn=0.0;
 	double Dev=0.0;
 	double tmp,SumSQ=0.0,SumAbs=0.0;
@@ -2684,30 +2505,32 @@ int PoissonSolver::CalcSystemEnergyStdDevPhi(int iteration)
 	float dphi=0.0,maxdphi=0.0;
 	int GrdPntMaxDPhi=-1;
 	
-	for(i=0;i<ChargeNum[2];i++)
-	{
-		GrdPnt=IndexCharge[i];
+
+    float *Pot;
+
+    for (int j = 0; j <= 1; j++) {
+        if (j == 0) {
+            Pot = PotBW->B;
+        }
+        else {
+            Pot = PotBW->W;
+        }
+	    for(i=ChargeNum[j];i<ChargeNum[j+1];i++)
+	    {
+            int ip = IndexCharge[i];
 		
-		tmp=double(potential[GrdPnt])*double(Qst[i])*double(dielectricCh[i]);
-		EnergyCharge+=tmp;
-		dphi=potential[GrdPnt]-PhiCharge[i];
-		SumSQ+=dphi*dphi;
-		PhiCharge[i]=potential[GrdPnt];
-	}
-	for(i=0;i<SingularNum[2];i++)
-	{
-		GrdPnt=IndexSingular[i];
-		tmp=double(QstS[i])*double(potential[GrdPnt]);
-		EnergySingular+=tmp;
-		dphi=potential[GrdPnt]-PhiSingular[i];
-		SumSQ+=dphi*dphi;
-		PhiSingular[i]=potential[GrdPnt];
-	}
+		    tmp=double(Pot[ip])*double(Qst[i])*double(dielectricCh[i]);
+		    EnergyCharge+=tmp;
+		    dphi= Pot[ip] -PhiCharge[i];
+		    SumSQ+=dphi*dphi;
+		    PhiCharge[i]= Pot[ip];
+	    }
+    }
 
 	//DbgPrint0("CSE_0       :E=%.16e Eq=%.10e Esing=%.10e EQmob=%.10e\n",(EnergyCharge+EnergySingular+EnergyQmob)/(fpoh*2.0),(EnergyCharge)/(fpoh*2.0),(EnergySingular)/(fpoh*2.0),(EnergyQmob)/(fpoh*2.0));
 	//DbgPrint0("CSE_MaxPhiChange %.5e at %d\n",maxdphi,GrdPntMaxDPhi);
-	totalEnergy=(EnergyCharge+EnergySingular)/(fpoh*2.0);
-	int ChargedNodes=ChargeNum[2]+SingularNum[2];
+	totalEnergy=EnergyCharge/(fpoh*2.0);
+	int ChargedNodes=ChargeNum[2];
 	totalChange=fabs(totalEnergy-OldTotalEnergy);
 	ConvFac=sqrt(SumSQ/double(ChargedNodes));
 	World->SystemEnergy=totalEnergy;
@@ -3139,84 +2962,28 @@ int PoissonSolver::GuessNumberOfIteration()
 	
 	if(solverLoc==NodeIndexBased)
 	{
-		float tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7;
-		float om2 = 1.0;
-		float om1 = 0.0;
-		float om2d6 = 1.0/6.0;
-		for(j=0;j<=1;j++){
-			for(i=SingularNum[j];i<SingularNum[j+1];i++){
-				GrdPnt=IndexSingular[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXS[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmS[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYS[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmS[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZS[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmS[i];				
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+tmp4;
-				tmp3 = tmp5+tmp6;
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3;
-				tmp1 = dielectricZSSUM[i]*(tmp1+tmp2);
-				potential[GrdPnt] = potential[GrdPnt]*om1+tmp1;
-			}
-			for(i=ChargeNum[j];i<ChargeNum[j+1];i++){
-				GrdPnt=IndexCharge[i];
-				tmp1 = potential[GrdPnt+1]+potential[GrdPnt-1];
-				tmp2 = potential[GrdPnt+GS_X]+potential[GrdPnt-GS_X];
-				tmp3 = potential[GrdPnt+GS_XY]+potential[GrdPnt-GS_XY];
-				tmp4 = potential[GrdPnt]*om1;
-				tmp5 = om2d6*(tmp1+tmp2+tmp3);
-				potential[GrdPnt] = tmp4+tmp5;
-			}
-			for(i=DielBoarderNum[j];i<DielBoarderNum[j+1];i++){
-				GrdPnt=IndexDielBoarder[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXDB[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmDB[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYDB[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmDB[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZDB[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmDB[i];
-				tmp7 = potential[GrdPnt]*om1;
-				potential[GrdPnt] = tmp7+dielectricZDBSUM[i]*(tmp1+tmp2+tmp3+tmp4+tmp5+tmp6);
-			}
-			for(i=NoSingularNum[j];i<NoSingularNum[j+1];i++){
-				GrdPnt=IndexNoSingular[i];
-				potential[GrdPnt] = potential[GrdPnt]*om1 + om2d6 * (potential[GrdPnt+1] + potential[GrdPnt-1] + potential[GrdPnt+GS_X] + potential[GrdPnt-GS_X] + potential[GrdPnt+GS_XY] + potential[GrdPnt-GS_XY]);
-			}
-			for(i=QmobNum[j];i<QmobNum[j+1];i++){
-				GrdPnt=IndexQmob[i];
-				tmp1 = potential[GrdPnt+1]+potential[GrdPnt-1];
-				tmp2 = potential[GrdPnt+GS_X]+potential[GrdPnt-GS_X];
-				tmp3 = potential[GrdPnt+GS_XY]+potential[GrdPnt-GS_XY];
-				tmp4 = potential[GrdPnt]*om1;
-				tmp5 = om2d6*(tmp1+tmp2+tmp3);
-				potential[GrdPnt] = tmp4+tmp5;
-			}
-			for(i=QmobDielBoarderNum[j];i<QmobDielBoarderNum[j+1];i++)
-			{
-				GrdPnt=IndexQmobDielBoarder[i];
-				tmp1 = potential[GrdPnt+1]*dielectricXQmobDB[i];
-				tmp2 = potential[GrdPnt-1]*dielectricXmQmobDB[i];
-				tmp3 = potential[GrdPnt+GS_X]*dielectricYQmobDB[i];
-				tmp4 = potential[GrdPnt-GS_X]*dielectricYmQmobDB[i];
-				tmp5 = potential[GrdPnt+GS_XY]*dielectricZQmobDB[i];
-				tmp6 = potential[GrdPnt-GS_XY]*dielectricZmQmobDB[i];				
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3+tmp4;
-				tmp3 = tmp5+tmp6;
-				tmp1 = tmp1+tmp2;
-				tmp2 = tmp3;
-				tmp1 = dielectricZQmobDBSUM[i]*(tmp1+tmp2);
-				potential[GrdPnt] = potential[GrdPnt]*om1+tmp1;
-			}
-#	ifndef PNPDOUBLE
-			World->BorderExchange(potential);
-#	else
-	
-#	endif
-			
+		int oldQmobNum[3];
+		int oldChargeNum[3];
+		int oldConvFacMaxHistory = ConvFacMaxHistory;
+		int oldMaxIterations = MaxIterations;
+
+		for (int ii = 0; ii < 3; ii++) {
+			oldQmobNum[ii] = QmobNum[ii];
+			oldChargeNum[ii] = ChargeNum[ii];
+			QmobNum[ii]=0;
+			ChargeNum[ii]=0;
 		}
+		ConvFacMaxHistory = 1;
+		MaxIterations = 1;
+
+		PoissonSolverNIB(false);
+
+		for (int ii = 0; ii < 3; ii++) {
+			QmobNum[ii] = oldQmobNum[ii];
+			ChargeNum[ii] = oldChargeNum[ii];
+		}
+		ConvFacMaxHistory = oldConvFacMaxHistory;
+		MaxIterations = oldMaxIterations;
 	}
 	else if(solverLoc==ArrayDirect)
 	{
@@ -3243,14 +3010,22 @@ int PoissonSolver::GuessNumberOfIteration()
 		}
 	}
 	float spec=2.0*tmp;
-	pnpPrint("Gauss-Seidel Spectral Radius: %f\n",spec);
-	int iter=int(7.8/log(1.0 + sqrt(1.0-spec)));
-	pnpPrint("Estimated Number of Iterations to Convergence: %d\n",iter);
-	DeleteCVecArray(sn,3);
-	delete [] tmpPot;
-	potential=PotPointer;
-	Relaxation=2.0/(1.0 + sqrt(1.0 - spec));
-	pnpPrint("Estimated Relaxation Coefficient: %f\n",Relaxation);
-	SetRelaxation(Relaxation);
+    int iter;
+    if(spec>=1.0){
+        pnpPrint("Error: Found Gauss-Seidel Spectral Radius is bigger then 1: %f\n", spec);
+        pnpPrint("       Please select relaxation parameter and number of iteration manually\n");
+        exit(1);
+    }
+    else {
+	    pnpPrint("Gauss-Seidel Spectral Radius: %f\n",spec);
+	    iter=int(7.8/log(1.0 + sqrt(1.0-spec)));
+	    pnpPrint("Estimated Number of Iterations to Convergence: %d\n",iter);
+	    DeleteCVecArray(sn,3);
+	    delete [] tmpPot;
+	    potential=PotPointer;
+	    Relaxation=2.0/(1.0 + sqrt(1.0 - spec));
+	    pnpPrint("Estimated Relaxation Coefficient: %f\n",Relaxation);
+	    SetRelaxation(Relaxation);
+    }
 	return iter;
 }

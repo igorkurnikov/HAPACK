@@ -339,6 +339,9 @@ class VectorField3D
 		float GridScale;
 		int Nelem;//!<Number of elements in Vector
 		float **V;//!<Vector Field
+
+		float* GetField(const int i) { return V[i]; }
+		void SetField(const int i, float* v) { V[i] = v; }
 		
 		int SetVectorField3D(int *gridsize, float gridscale, int nelem);
 		int ReadFromFile(const char *filename,float coef=1.0f);

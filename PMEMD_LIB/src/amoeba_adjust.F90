@@ -43,6 +43,9 @@ module amoeba_adjust_mod
   public        am_adjust_permfield
   public        am_adjust_dip_dip_fields
   public        am_adjust_ene_frc
+  public        set_amoeba_adjust_list
+  public        set_adjust_weights
+  public        set_valid_bit
 
 contains
 

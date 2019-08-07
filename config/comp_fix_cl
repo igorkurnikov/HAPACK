@@ -1,2 +1,0 @@
-#!/bin/sh
-gcc -o fix_cl_opt fix_cl_opt.cpp -lstdc++ -mno-cygwin -static

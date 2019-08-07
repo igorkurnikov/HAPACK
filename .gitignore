@@ -2,6 +2,7 @@
 *.pyc
 *.o
 *.so
+.cache
 /.idea
 /mswin/harlem_python_tests_1/obj
 /mswin/UpgradeLog.XML
@@ -69,5 +70,6 @@
 /PNPS/vs15/x64
 /PNPS/src/llpnps_wrap.cxx
 /PNPS/.idea
-/PNPS/src/llpnps.py
+/PNPS/src/pnpsll.py
+/PNPS/pnpsll
 

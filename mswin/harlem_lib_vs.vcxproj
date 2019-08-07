@@ -402,7 +402,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>halib_vs.lib;zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -602,7 +602,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>halib_vs.lib;zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -641,15 +641,18 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\gaufile.cpp" />
     <ClCompile Include="..\HARLEM\sources\haatbasdb.cpp" />
     <ClCompile Include="..\HARLEM\sources\haatombasis.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
     <ClCompile Include="..\HARLEM\sources\hacoord.cpp" />
     <ClCompile Include="..\HARLEM\sources\hadalton.cpp" />
     <ClCompile Include="..\HARLEM\sources\hagaussian.cpp" />
     <ClCompile Include="..\HARLEM\sources\haintengine.cpp" />
     <ClCompile Include="..\HARLEM\sources\halocorb.cpp" />
     <ClCompile Include="..\HARLEM\sources\hamultipole.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
     <ClCompile Include="..\HARLEM\sources\hapseudopot.cpp" />
     <ClCompile Include="..\HARLEM\sources\haqchem.cpp" />
     <ClCompile Include="..\HARLEM\sources\hascattermod.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
     <ClCompile Include="..\HARLEM\sources\hazindo.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_driver_gromacs.cpp" />
     <ClCompile Include="..\HARLEM\sources\ndo.cpp" />
@@ -664,6 +667,9 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\stmmod.cpp" />
     <ClCompile Include="..\HARLEM\sources\haempirical.cpp" />
     <ClCompile Include="..\HARLEM\sources\hasimulator.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxml.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlerror.cpp" />
+    <ClCompile Include="..\HARLEM\sources\tinyxmlparser.cpp" />
     <ClCompile Include="..\HARLEM\sources\trajanal.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_mort_mm.cpp" />
     <ClCompile Include="..\HARLEM\sources\hamolmech.cpp" />
@@ -819,14 +825,17 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\gaufile.h" />
     <ClInclude Include="..\HARLEM\sources\haatbasdb.h" />
     <ClInclude Include="..\HARLEM\sources\haatombasis.h" />
+    <ClInclude Include="..\HARLEM\sources\haconsts.h" />
     <ClInclude Include="..\HARLEM\sources\hadalton.h" />
     <ClInclude Include="..\HARLEM\sources\hagaussian.h" />
     <ClInclude Include="..\HARLEM\sources\haintengine.h" />
     <ClInclude Include="..\HARLEM\sources\halocorb.h" />
     <ClInclude Include="..\HARLEM\sources\hamultipole.h" />
+    <ClInclude Include="..\HARLEM\sources\haobject.h" />
     <ClInclude Include="..\HARLEM\sources\hapseudopot.h" />
     <ClInclude Include="..\HARLEM\sources\haqchem.h" />
     <ClInclude Include="..\HARLEM\sources\hascattermod.h" />
+    <ClInclude Include="..\HARLEM\sources\haxml.h" />
     <ClInclude Include="..\HARLEM\sources\hazindo.h" />
     <ClInclude Include="..\HARLEM\sources\mm_driver_gromacs.h" />
     <ClInclude Include="..\HARLEM\sources\qc_params.h" />
@@ -841,6 +850,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\haempirical.h" />
     <ClInclude Include="..\HARLEM\sources\haenefunc.h" />
     <ClInclude Include="..\HARLEM\sources\hasimulator.h" />
+    <ClInclude Include="..\HARLEM\sources\tinyxml.h" />
     <ClInclude Include="..\HARLEM\sources\trajanal.h" />
     <ClInclude Include="..\HARLEM\sources\ha_mort_mm.h" />
     <ClInclude Include="..\HARLEM\sources\hamolmech.h" />
@@ -926,40 +936,23 @@ $(SolutionDir)copy_dependencies.bat
     <None Include="..\doc\DEVELOP_NOTES\recip_space_amoeba_func.txt" />
     <None Include="..\doc\DEVELOP_NOTES\nonb_inter_amoeba.txt" />
     <None Include="..\doc\INSTALL_harlem_1.txt" />
-    <None Include="..\HARLEM\scripts\hapygui.py">
+    <None Include="..\HARLEM\harlempy\halib.py" />
+    <None Include="..\HARLEM\harlempy\hapygui.py" />
+    <None Include="..\HARLEM\harlempy\hapygui_init.py" />
+    <None Include="..\HARLEM\harlempy\harlem_profile.py" />
+    <None Include="..\HARLEM\harlempy\ha_tmp_script.py" />
+    <None Include="..\HARLEM\harlempy\molset.py" />
+    <CopyFileToFolders Include="..\HARLEM\harlempy\start_harlem.py">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-    </None>
-    <None Include="..\HARLEM\scripts\hapygui_init.py">
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(OutDir)\harlempy</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\HARLEM\harlempy\__init__.py">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">copy %(FullPath) $(TargetDir)scripts</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(TargetDir)\scripts\%(Filename)%(Extension)</Outputs>
-    </None>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">$(OutDir)\..\harlempy\</DestinationFolders>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">true</DeploymentContent>
+    </CopyFileToFolders>
+    <None Include="..\HARLEM\harlempy\__main__.py" />
     <None Include="..\HARLEM\scripts\harlem_profile.py" />
     <None Include="..\HARLEM\sources\rasmol.hlp" />
     <None Include="..\HARLEM\sources\ha_wx_ed.wdr" />
@@ -1035,10 +1028,6 @@ $(SolutionDir)copy_dependencies.bat
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="halib_vs.vcxproj">
-      <Project>{b7328421-ac6d-4cb8-8355-995a6a479745}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="ipack_lib.vcxproj">
       <Project>{c7812881-bc78-4122-a245-e87506bca1a6}</Project>

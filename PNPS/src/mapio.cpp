@@ -1525,15 +1525,8 @@ int VectorField3D::WriteToFileRemovePBC_BIN(const char *filename,float coef,int 
 	//Prepare Values
 	unsigned int i;
 	float fpoh= 4*M_PI*GridScale;
-	int GSorig[3];
+	int GSorig[3] = { GridSize[0] - 2 * pbcX,GridSize[1] - 2 * pbcY,GridSize[2] - 2 * pbcZ };
 	int GS[3]={GridSize[0],GridSize[1],GridSize[2]};
-
-	if(pbcX)
-		GSorig[0]=GS[0]-2;
-	if(pbcY)
-		GSorig[1]=GS[1]-2;
-	if(pbcY)
-		GSorig[2]=GS[2]-2;
 	
 	int GS_XYZ=GS[0]*GS[1]*GS[2];
 	int GSorig_XYZ=GSorig[0]*GSorig[1]*GSorig[2];

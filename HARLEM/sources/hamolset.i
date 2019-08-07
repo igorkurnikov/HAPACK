@@ -36,9 +36,7 @@ namespace std {
 	%template(DoubleVector) vector<double>;
 	%template(StringVector) vector<string>;
 }                    
-
-%import ../../HALIB/include/halib.i                              
-                      
+                                                  
 %{                                                           
                                                             
 #include <hampi.h>                                                                   
@@ -48,8 +46,11 @@ namespace std {
 #include "rapidxml.hpp"                                             
 #include "hastring.h"                            
 #include "harlemapp.h"                     
-#include "hampi.h"             
-#include "haxml.h"      
+#include "hampi.h"   
+#include "haconst.h"
+#include "haconsts.h"
+#include "haxml.h" 
+#include "tinyxml.h"
 #include "halinalg.h"        
 #include "haatom.h"    
 #include "hamolecule.h"          
@@ -109,10 +110,15 @@ void StartHarlemApp();
 
 %include "abstree.h"
 %include "haconst.h"
+
 %include "haio.h"
 %include "hastl.h"
 %include "hastring.h"  
 #include "hatypes.h"
+%include "haconsts.h"
+%include "tinyxml.h"
+%include "haxml.h"
+%include "haobject.h"
 %include "halinalg.h"
 %include "command.h"
 %include "abstree.h"

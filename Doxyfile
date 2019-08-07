@@ -83,8 +83,8 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-#INPUT                  = HARLEM/sources HALIB/src HALIB/include PNPS/src PNPS/wxUtil 
-INPUT                  = HARLEM/sources HALIB/src HALIB/include 
+#INPUT                  = HARLEM/sources PNPS/src PNPS/wxUtil 
+INPUT                  = HARLEM/sources  
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cxx \

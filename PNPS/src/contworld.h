@@ -177,6 +177,9 @@ class NodeIndexing
 	protected:
 		NodeIndexDescriptor GetShtFromMask(NodeIndex Mask) const;
 	public:
+		int GetNx() const { return GridSize[0]; } //!< return number of grid points along X axes 
+		int GetNy() const { return GridSize[1]; } //!< return number of grid points along Y axes 
+		int GetNz() const { return GridSize[2]; } //!< return number of grid points along Z axes 
 		//! Return Diel Cons of index i in external units (for python)
 		float GetDielConstInUse(int i);
 		//! Set Diel Cons of for i using external units as input (for python)
@@ -187,6 +190,7 @@ class NodeIndexing
 		int SetIonAccess(float **DiffusionsMaps);
 		float* GetCMap(NodeIndexDescriptor FieldType, NodeIndex mask);
 		int* GetIntArrayFromIndexField(NodeIndexDescriptor FieldType, NodeIndex mask);
+		float* GetField(NodeIndexDescriptor FieldType, NodeIndexDescriptor mask, float *Map = NULL);
 		#ifdef HARLEM_MOD
 		HaField3D* GetHaField3D(NodeIndexDescriptor FieldType, NodeIndexDescriptor mask);
 		#endif
@@ -359,13 +363,13 @@ class ContWorld:public PnpsObject
 			if len(GridSize)!=3:
 				raise TypeError("ContWorld.__init__:GridSize must be list of three integers")
 			for i in range(3):
-				if not isinstance( GridSize[i], ( int, long ) ):
+				if not isinstance( GridSize[i], int ):
 					raise TypeError("ContWorld.__init__: GridSize must be list of three integers")
 
 			#GridScale
-			if isinstance( GridScale, ( int, long ) ):
+			if isinstance(GridScale, int):
 				GridScale=float(GridScale)
-			if not isinstance( GridScale, ( float ) ):
+			if not isinstance(GridScale,  float):
 				raise TypeError("ContWorld.__init__: GridScale must be float")
 			if GridScale<=0.0:
 				raise ValueError("ContWorld.__init__: GridScale must be positive")
@@ -376,9 +380,9 @@ class ContWorld:public PnpsObject
 			if len(PBC)!=3:
 				raise TypeError("ContWorld.__init__: PBC must be list of three bools (True|False)")
 			for i in range(3):
-				if isinstance( PBC[i], ( int, long ) ):
+				if isinstance( PBC[i], int):
 					PBC[i]=bool(PBC[i])
-				if not isinstance( PBC[i], ( bool ) ):
+				if not isinstance( PBC[i], bool):
 					raise TypeError("ContWorld.__init__: PBC must be list of three bools (True|False)")
 
 			#Qions
@@ -386,9 +390,9 @@ class ContWorld:public PnpsObject
 				if not (type(Qions) is list or type(Qions) is tuple):
 					raise TypeError("ContWorld.__init__: Qions must be list of floats")
 				for i in range(len(Qions)):
-					if isinstance( Qions[i], ( int, long ) ):
+					if isinstance( Qions[i], int):
 						Qions[i]=float(Qions[i])
-					if not isinstance( Qions[i], ( float ) ):
+					if not isinstance(Qions[i], float):
 						raise TypeError("ContWorld.__init__: Qions must be list of floats")
 				Qtot=0.0
 				for i in range(len(Qions)):
@@ -396,7 +400,7 @@ class ContWorld:public PnpsObject
 				if Qtot>0.0001 or Qtot < -0.0001:
 					raise ValueError("ContWorld.__init__: sum of Qions must be zero")
 			#Verbose
-			if isinstance( Verbose, ( int, long ) ):
+			if isinstance(Verbose, int):
 				Verbose=bool(Verbose)
 			if not isinstance( Verbose, ( bool ) ):
 				raise TypeError("ContWorld.__init__: Verbose must be bools (True|False)")
@@ -419,7 +423,7 @@ class ContWorld:public PnpsObject
 				m_Qions=new_floatArray(3)
 				for i in range(m_NIonsTypes):floatArray_setitem(m_Qions,i,Qions[i])
 			#swig auto generated stuff
-			this = _llpnps.new_ContWorld(m_GridSize, GridScale, m_PBC, m_NIonsTypes, m_Qions)
+			this = _pnpsll.new_ContWorld(m_GridSize, GridScale, m_PBC, m_NIonsTypes, m_Qions)
 			try: self.this.append(this)
 			except: self.this = this
 			#delete temporary arrays

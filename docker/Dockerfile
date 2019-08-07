@@ -1,6 +1,8 @@
-FROM centos:7
+FROM ubuntu:18.04
 
 LABEL description="contains dependencies for Harlem installation and testing"
+
+WORKDIR /root
 
 # Install dependencies
 # Dependencies for building:
@@ -8,13 +10,11 @@ LABEL description="contains dependencies for Harlem installation and testing"
 # Dependencies for testing:
 #      python-pip
 RUN \
-    yum -y update && \
-    yum -y install --setopt=tsflags=nodocs epel-release && \
-    yum -y install --setopt=tsflags=nodocs \
-        vim mc \
-        autoconf make gcc gcc-c++ gcc-gfortran swig python python-devel zlib-devel \
-        python-pip && \
-    pip install -U pytest pytest-datadir
+    apt-get update && \
+    apt-get install -y g++ python3 python3-dev python3-pip\
+        make autoconf swig zlib1g-dev\
+        vim mc && \
+    pip3 install -U pytest pytest-datadir
 
 # nsimakov/harlem_ready
 

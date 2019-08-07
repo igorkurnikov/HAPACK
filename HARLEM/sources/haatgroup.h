@@ -181,6 +181,8 @@ try {
 }
 #endif
 	HaAtom* next(); //!<  Return next atom in the sequence (first on the first call) throw std::out_of_range() if no more atoms ( Python compatibility )
+	HaAtom* __next__();
+
 #if defined(SWIG)
 %exception;
 #endif

@@ -31,6 +31,10 @@ module amoeba_bonds_mod
   public        am_bonds_zero_flag
   public        am_bonds_set_user_bit
   public        am_bonds_eval
+  public        set_bond_list 
+  public        set_bond_params 
+  public        set_ftable 
+  public        set_valid_bit 
 
 contains
 
