@@ -162,7 +162,7 @@ void HaMolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_a
 //			throw std::runtime_error(" zero coordinate pseudo atom record is ignored "); 
 //		}
 
-		string serno_str = line.substr(22,4);
+		string serno_str = line.substr(22,4); // Reading Residue ID
 		string temp_str;
 		int i;
 		for( i = 0; i < serno_str.size(); i++)
@@ -174,17 +174,17 @@ void HaMolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_a
 		try { serno = lexical_cast<int>( serno_str ); }
 		catch( bad_lexical_cast&){ serno = 0;}
 
-		if(serno == 0) 
-		{
-			if(pres_cur == NULL)
-			{
-				serno = 1;
-			}
-			else
-			{
-				serno = pres_cur->serno;
-			}
-		}
+//		if(serno == 0) 
+//		{
+//			if(pres_cur == NULL)
+//			{
+//				serno = 1;
+//			}
+//			else
+//			{
+//				serno = pres_cur->serno;
+//			}
+//		}
 
 		if( !pres_cur                       // no active residue 
 			|| (res_ser_no_old != serno )    // new residue number in the stream 
