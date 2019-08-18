@@ -1702,19 +1702,19 @@ AtomGroup* MolMechModel::GetRestrAtoms()
 	return restr_atoms;
 }
 
-int MolMechModel::SaveAtomRestrArbalestIndForm( std::string restr_desc_fname, std::string restr_list_fname )
+int MolMechModel::SaveAtomRestrArbalestIndForm(std::string restr_desc_fname, std::string restr_list_fname)
 {
 	char buf[128];
 	std::string str_tmp;
 	AtomGroup* restr_atoms = GetRestrAtoms();
-	if( !restr_atoms || restr_atoms->GetNAtoms() == 0 )
+	if (!restr_atoms || restr_atoms->GetNAtoms() == 0)
 	{
-		PrintLog("No Restrained Atoms defined" );
+		PrintLog("No Restrained Atoms defined");
 		return FALSE;
 	}
 
 	int num_restr_atoms = restr_atoms->GetNAtoms();
-	if( restr_ref_coords.size() != num_restr_atoms )
+	if (restr_ref_coords.size() != num_restr_atoms)
 	{
 		PrintLog("Error in MAmberMMModel::SaveAtomRestrArbalestIndForm() \n");
 		PrintLog("Dimension of Reference Coordinates array is not equal \n");
@@ -1723,20 +1723,35 @@ int MolMechModel::SaveAtomRestrArbalestIndForm( std::string restr_desc_fname, st
 	}
 
 	double fc_restr = GetAtomRestrForceConst();
-	sprintf(buf,"%12.6f",fc_restr);
+	sprintf(buf, "%12.6f", fc_restr);
 	std::string fc_str = buf;
 
 	std::ofstream os_desc;
 	std::ofstream os_list;
-        
-        os_desc.open(restr_desc_fname.c_str());
-        os_list.open(restr_list_fname.c_str());
+
+	os_desc.open(restr_desc_fname.c_str());
+	os_list.open(restr_list_fname.c_str());
 
 	os_desc << "  <RestrainingRules> " << std::endl;
 	os_list << "  <Restraints> " << std::endl;
- 
+
 	AtomIteratorAtomGroup aitr(restr_atoms);
 	HaAtom* aptr;
+	bool use_chain = false;
+	aptr = aitr.GetFirstAtom();
+	if (aptr)
+	{
+		HaChain* pchain_fst = aptr->GetHostChain();
+		for (; aptr; aptr = aitr.GetNextAtom())
+		{
+			HaChain*   pchain = aptr->GetHostChain();
+			if (pchain != pchain_fst)
+			{
+				use_chain = true;
+				break;
+			}
+		}
+	}
 	int idx_r = -1;
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 	{
@@ -1770,7 +1785,14 @@ int MolMechModel::SaveAtomRestrArbalestIndForm( std::string restr_desc_fname, st
 		}
 		else
 		{
-			atom_id_arb = res_name_save + "("+ res_n_str + "):" + at_name;
+			atom_id_arb = res_name_save + "(" + res_n_str + ")";
+			if (use_chain)
+			{
+				atom_id_arb.push_back('\'');
+				atom_id_arb.push_back(pchain->ident);
+				atom_id_arb.push_back('\'');
+			}
+			atom_id_arb +=  ":" + at_name;
 			atom_restr_id = "PositionRestraint_" + res_name_save + "_" + res_n_str + "_" + at_name;
 		}
 		if( !os_desc.fail() )

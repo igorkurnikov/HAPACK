@@ -526,7 +526,7 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
-				os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
+				os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
 				const HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);

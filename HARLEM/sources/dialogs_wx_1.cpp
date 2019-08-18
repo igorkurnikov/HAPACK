@@ -5948,7 +5948,8 @@ bool EditGroupsDlg::TransferDataToWindow()
 int EditGroupsDlg::ShowModal()
 {
 	modal_run_flag = TRUE;
-	this->ShowModal();
+	wxFrame* frame_p = (wxFrame*)this;
+	frame_p->Show();
 
 	p_loc_event_loop = new wxEventLoop();
 	p_loc_event_loop->Run();
