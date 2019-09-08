@@ -11,14 +11,11 @@ Installed packages
   ** Visual C++ MFC for x86 and x64
 * Python development 
 
-## Intel Compilers
+## Intel Fortran Compiler
 
-Intel® Parallel Studio XE Cluster Edition for Windows 2019 Update 1
-It removed Intel Parallel Studio 2013, it can be later reinstalled.
+Intel® Parallel Studio XE Cluster Edition for Windows 2019 Update 4
 
 ## VCPKG
-
-
 
 ```
 # install vcpkg
@@ -33,11 +30,25 @@ cd vcpkg
 .\vcpkg.exe install plplot[wxwidgets]:x86-windows
 .\vcpkg.exe install mpir:x86-windows
 
+# install vcpkg
+cd C:\PROG_SRC\
+git clone https://github.com/Microsoft/vcpkg
+cd vcpkg
+.\bootstrap-vcpkg.bat
+# install libraries 
+.\vcpkg.exe install boost:x86-windows   # also installs python3
+.\vcpkg.exe install boost:x64-windows   # also installs python3
+.\vcpkg.exe install mpir:x86-windows   
+.\vcpkg.exe install mpir:x64-windows
+
 ```
+## MPI 
+get MPICH2 from GITLAB: 
+gitlab.com/mkurnikovagroup/hapack_dep/mpi/mpich2-1.4.1p1-win-x86-64.msi
+Install with standard options
 
-
-
-
+## SWIG
+get SWIG from GITLAB
 
 ## Code Changes and Problems During Migration
 
@@ -55,12 +66,13 @@ resd.cpp commented assert( is != NULL ), not sure does it have sense to compare 
 
 ### Intel Compilers and MKL
 
-Intel Parallel Studio XE Cluster Edition for Windows 2019 Update 1, changed locations
+Intel Parallel Studio XE Cluster Edition for Windows 2019 Update 4, changed locations
 
-C:\Program Files (x86)\Intel\Composer XE\compiler\lib\ia32
+C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\compiler\lib\ia32
+C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\compiler\lib\intel64
 
-C:\Program Files (x86)\Intel\Composer XE\mkl\lib\ia32
-
+C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\mkl\lib\ia32
+C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\mkl\lib\intel64
 
 
 Problem:
