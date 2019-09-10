@@ -484,6 +484,9 @@ SaveMolFileDlg::SaveMolFileDlg( HaMolSet* pmset_new, wxWindow *parent, wxWindowI
 	chk_box  = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
 	if(pmset->p_save_opt_default->save_amber_pdb)
 		chk_box->SetValue(true);
+	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
+	if (pmset->p_save_opt_default->save_sep_wat_mol)
+		chk_box->SetValue(true);
 
     FillFileTypes();
     wxString cur_dir = ::wxGetCwd();
@@ -546,6 +549,9 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
 
 	chk_box   = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
 	pmset->p_save_opt_default->save_amber_pdb = chk_box->IsChecked() ? TRUE : FALSE;
+
+	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
+	pmset->p_save_opt_default->save_sep_wat_mol = chk_box->IsChecked() ? TRUE : FALSE;
 		
     wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
     wxString file_name = file_name_edt->GetValue();
@@ -5202,6 +5208,7 @@ BEGIN_EVENT_TABLE(ResidueParamsDlgWX, wxFrame)
 	EVT_MENU(IDC_ORDER_ATOMS_RES, ResidueParamsDlgWX::OnOrderAtomsInRes)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_AMBER,   ResidueParamsDlgWX::OnRenameAtomsToAmber)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_GROMACS, ResidueParamsDlgWX::OnRenameAtomsToGromacs)
+	EVT_MENU(IDC_CONVERT_WAT_ARROW_VB, ResidueParamsDlgWX::OnConvertWaterArrowVB)
 	EVT_GRID_CELL_CHANGED( ResidueParamsDlgWX::OnEndLabelEdit)
 END_EVENT_TABLE()
 
@@ -5379,6 +5386,10 @@ void ResidueParamsDlgWX::OnRenameAtomsToAmber(wxCommandEvent& event)
 void ResidueParamsDlgWX::OnRenameAtomsToGromacs(wxCommandEvent& event)
 {
 	p_mol_editor->RenameAtomsToGromacs(pmset);
+}
+void ResidueParamsDlgWX::OnConvertWaterArrowVB(wxCommandEvent& event)
+{
+	p_mol_editor->ConvertWaterArrowVB(pmset);
 }
 /////////////////////////////////////////////////////////////////////
 // EditGeomDlgWX Dialog:

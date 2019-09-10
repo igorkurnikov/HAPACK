@@ -33,6 +33,7 @@ public:
 	int OrderAtomsInRes(HaMolSet* pmset);    //!< order atoms in residues according to residue templates
 	int RenameAtomsToAmber(HaMolSet* pmset); //!< Rename Atoms of Residues according to AMBER databases   
 	int RenameAtomsToGromacs(HaMolSet* pmset); //!< Rename Atoms of Residues according to GROMACS databases  
+	int ConvertWaterArrowVB(HaMolSet* pmset); //!< Convert Water Residues to Separate Molecules, make H-H virtual bond and Rename Water atoms
 	
 	int CreateCovBonds(AtomContainer* at_col); //!< Compute Covalent Bonds based on atom-atom distances and atomic VdW radii  
 	static int BondIfClose(HaAtom* sptr, HaAtom* dptr); //!< Bond two atoms if they they close enough (relative to their VdW radii)

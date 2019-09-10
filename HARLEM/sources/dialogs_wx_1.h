@@ -755,6 +755,7 @@ protected:
 	void OnOrderAtomsInRes(wxCommandEvent& event);
 	void OnRenameAtomsToAmber(wxCommandEvent& event);
 	void OnRenameAtomsToGromacs(wxCommandEvent& event);
+	void OnConvertWaterArrowVB(wxCommandEvent& event);
 	void OnUpdateResidueList(wxCommandEvent& event);
 	void OnResidueRenumber(wxCommandEvent& event);
 	void OnEndLabelEdit(wxGridEvent& event);

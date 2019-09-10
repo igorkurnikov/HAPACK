@@ -483,25 +483,27 @@ int HaMolSet::SavePQRFreeFile(const char* filename)
 }
 
 int HaMolSet::SaveHINToStream(std::ostream& os ) const
-{
+{      
 	if( os.fail() ) return FALSE;
 	char buf[128];
 
 	HaChain* chain;
 	HaResidue* pres;
 	
-	CAtomIntMap at_seqn_map  = GetAtomSeqNumMap();
-
 	MoleculesType::const_iterator mol_itr;
 	int iat = 0;
 	int ires = 0;
 	int imol = 0;
-	for( mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	for( mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++ )
 	{
 		imol++;
 
 		os << "mol " << imol << " " << '\"' << (*mol_itr)->GetObjName() << '\"' << std::endl;
+	
+		const HaMolecule* pmol_c = *mol_itr;
+		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap();
 		ChainIteratorMolecule ch_itr(*mol_itr);
+
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			ResidueIteratorChain ritr_ch(chain);
@@ -509,6 +511,21 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 			for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes())
 			{
 				ires++;
+				bool save_res_as_mol = false;
+				bool save_res_info = true;
+
+				if (this->p_save_opt_default->save_sep_wat_mol)
+				{
+					save_res_as_mol = true;
+					save_res_info = false;
+				}
+				if( save_res_as_mol  && !(pres == ritr_ch.GetFirstRes()) )
+				{
+					imol++;
+					os << "endmol " << imol << std::endl;
+					os << "mol " << imol << " " << '\"' << pres->GetName() << '\"' << std::endl;
+				}
+				if( save_res_as_mol ) at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap();
 				
 				std::string res_name = pres->GetName(); 
 				std::string name_mod = pres->GetNameModifier();
@@ -526,7 +543,7 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
-				os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
+				if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
 				const HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);
@@ -595,7 +612,8 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 //					} // if selected 
 					os << std::endl;	
 				} // end atom
-				os << "endres " << ires << std::endl;
+				if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
+				if( save_res_as_mol && !(pres == ritr_ch.GetFirstRes()) ) os << "endmol " << imol << std::endl;
 			} //  end res
 		} // end chain
 		os << "endmol " << imol << std::endl;
@@ -6168,7 +6186,7 @@ ResidueIteratorMolSet::ResidueIteratorMolSet(HaMolSet* pmset)
         ch_itr = (*mol_itr)->Chains.begin(); 
 		if( ch_itr != (*mol_itr)->Chains.end() )
 		{
-           res_itr = (*ch_itr).res_map.begin();
+           res_itr = (*ch_itr).res_arr.begin();
 		}
 	}
 	first_called = 0;
@@ -6219,14 +6237,14 @@ HaResidue* ResidueIteratorMolSet::GetFirstRes()
 
    while( ch_itr != (*mol_itr)->Chains.end() )
    {
-		if( (*ch_itr).res_map.empty() )
+		if( (*ch_itr).res_arr.empty() )
 		{
 			ch_itr++;
 		}
 		else
 		{
-            res_itr = (*ch_itr).res_map.begin();
-			return (*res_itr).second;
+            res_itr = (*ch_itr).res_arr.begin();
+			return (*res_itr);
 		}
    }
 
@@ -6237,9 +6255,9 @@ HaResidue* ResidueIteratorMolSet::GetNextRes()
 {
   res_itr++;
 
-  if( res_itr != (*ch_itr).res_map.end())
+  if( res_itr != (*ch_itr).res_arr.end())
   {
-	   return (*res_itr).second;
+	   return (*res_itr);
   }
 
   ch_itr++;
@@ -6247,14 +6265,14 @@ HaResidue* ResidueIteratorMolSet::GetNextRes()
   {
 	  while(ch_itr != (*mol_itr)->Chains.end())
 	  {
-		  if( (*ch_itr).res_map.empty() ) 
+		  if( (*ch_itr).res_arr.empty() ) 
 		  { 
 			  ch_itr++;
 		  }
 		  else
 		  {
-			  res_itr = (*ch_itr).res_map.begin();
-			  return (*res_itr).second;
+			  res_itr = (*ch_itr).res_arr.begin();
+			  return (*res_itr);
 		  }
 	  }
 	  mol_itr++;
@@ -6313,7 +6331,7 @@ ResidueIteratorMolSet_const::ResidueIteratorMolSet_const(const HaMolSet* pmset)
         ch_itr = (*mol_itr)->Chains.begin(); 
 		if( ch_itr != (*mol_itr)->Chains.end() )
 		{
-           res_itr = (*ch_itr).res_map.begin();
+           res_itr = (*ch_itr).res_arr.begin();
 		}
 	}
 }
@@ -6352,13 +6370,13 @@ const HaResidue* ResidueIteratorMolSet_const::GetFirstRes()
 
    while( ch_itr != (*mol_itr)->Chains.end() )
    {
-		if( (*ch_itr).res_map.empty() )
+		if( (*ch_itr).res_arr.empty() )
 		{
 			ch_itr++;
 		}
 		else
 		{
-            res_itr = (*ch_itr).res_map.begin();
+            res_itr = (*ch_itr).res_arr.begin();
 			return (*res_itr).second;
 		}
    }
@@ -6370,7 +6388,7 @@ const HaResidue* ResidueIteratorMolSet_const::GetFirstRes()
 const HaResidue* ResidueIteratorMolSet_const::GetNextRes()
 {
   res_itr++;
-  if( res_itr != (*ch_itr).res_map.end())
+  if( res_itr != (*ch_itr).res_arr.end())
   {
 	   return (*res_itr).second;
   }
@@ -6380,13 +6398,13 @@ const HaResidue* ResidueIteratorMolSet_const::GetNextRes()
   {
 	  while(ch_itr != (*mol_itr)->Chains.end())
 	  {
-		  if( (*ch_itr).res_map.empty() ) 
+		  if( (*ch_itr).res_arr.empty() ) 
 		  { 
 			  ch_itr++;
 		  }
 		  else
 		  {
-			  res_itr = (*ch_itr).res_map.begin();
+			  res_itr = (*ch_itr).res_arr.begin();
 			  return (*res_itr).second;
 		  }
 	  }

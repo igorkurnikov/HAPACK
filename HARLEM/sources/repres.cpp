@@ -940,22 +940,22 @@ void HaMolView::DisplayRibbon( HaChain* chain )
  
     prev = False;
 
-	Residues_type::iterator gitr, gnext_itr;
+	vector<HaResidue*>::iterator gitr, gnext_itr;
 	
-	if( chain->res_map.empty() )
+	if( chain->res_arr.empty() )
 	{
 		return ;
 	}
 
-	gitr = chain->res_map.begin();
+	gitr = chain->res_arr.begin();
 	
-    if( (*gitr).second->IsProtein() )
+    if( (*gitr)->IsProtein() )
     {   
-		captr = (*gitr).second->GetAtomByName("CA");
+		captr = (*gitr)->GetAtomByName("CA");
     } 
 	else 
 	{
-		captr = (*gitr).second->GetAtomByName("P");
+		captr = (*gitr)->GetAtomByName("P");
 	}
  
 	gnext_itr = gitr;
@@ -964,11 +964,11 @@ void HaMolView::DisplayRibbon( HaChain* chain )
 	{   
 		gitr = gnext_itr;
 		gnext_itr++;
-		if( gnext_itr == chain->res_map.end() )
+		if( gnext_itr == chain->res_arr.end() )
 			break;
 		
-		gnext = (*gnext_itr).second;
-		group = (*gitr).second;
+		gnext = (*gnext_itr);
+		group = (*gitr);
 		if( gnext->IsProtein() )
 		{   
 			next =  gnext->GetAtomByName("CA");

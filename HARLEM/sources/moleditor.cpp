@@ -1774,6 +1774,81 @@ int MolEditor::RenameAtomsToGromacs(HaMolSet* pmset)
 	return TRUE;
 }
 
+int MolEditor::ConvertWaterArrowVB(HaMolSet* pmset)
+{
+	ResidueIteratorMolSet ritr(pmset);
+	
+	HaResidue* pres;
+	for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	{
+		if (!pres->IsWater()) continue;
+		if ( pres->GetNAtoms() != 3 )
+		{
+			PrintLog("Warning in MolEditor::ConvertWaterArrowVB() : ");
+			PrintLog("Water Residue %s doesn't have 3 atoms - skip", pres->GetRef().c_str() );
+			continue;
+		}
+		HaAtom* pox = nullptr;
+		HaAtom* ph1 = nullptr;
+		HaAtom* ph2 = nullptr;
+
+		AtomIteratorResidue aitr(pres);
+		HaAtom* aptr;
+		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			if (aptr->GetElemNo() == 8) pox = aptr;
+			if (aptr->GetElemNo() == 1)
+			{
+				if (ph1 == nullptr)
+					ph1 = aptr;
+				else
+					ph2 = aptr;
+			}
+		}	
+		if (pox == nullptr || ph1 == nullptr || ph2 == nullptr )
+		{
+			PrintLog("Warning in MolEditor::ConvertWaterArrowVB() : ");
+			PrintLog("Can not assign O,H1,H2 atoms for Water Residue %s - skip", pres->GetRef().c_str());
+			continue;
+		}
+		pox->SetName("O");
+		ph1->SetName("H1");
+		ph2->SetName("H2");
+		
+		pox->SetFFSymbol("OW");
+		ph1->SetFFSymbol("HW");
+		ph2->SetFFSymbol("HW");
+
+		if(!pox->IsBonded(*ph1)) HaAtom::CreateBond(pox, ph1);
+		if(!pox->IsBonded(*ph2)) HaAtom::CreateBond(pox, ph2);
+		if(!ph1->IsBonded(*ph2)) HaAtom::CreateBond(ph1, ph2);
+
+		HaAtom::BondIterator bitr = ph1->Bonds_begin();
+		for (; bitr != ph1->Bonds_end(); bitr++)
+		{
+			HaBond* bptr = *bitr;
+			HaAtom* at2 = nullptr;
+			if (bptr->GetFirstAtom() == ph1) 
+				at2 = bptr->GetSecondAtom();
+			else
+				at2 = bptr->GetFirstAtom();
+			if (at2 == ph2) bptr->SetVirtual();
+		}
+	//	pres = wat_res[i];
+	//	HaMolecule* old_mol = pres->GetHostMol();
+	//	int nr_mol = old_mol->GetNRes();
+	//	if (nr_mol == 1) continue;
+	//	HaMolecule* pmol = pmset->CreateMolecule();
+	//	pmol->SetObjName("HOH");
+	//	HaChain* pchain = pmol->AddChain(' ');
+	//	HaResidue* pres2 = pchain->AddResidue(1);
+	}
+
+
+	PrintLog("MolEditor::ConvertWaterArrowVB() \n");
+	return TRUE;
+}
+
 int MolEditor::AddHydrogens(HaMolSet* pmset)
 {
 	ResidueIteratorMolSet ritr(pmset);

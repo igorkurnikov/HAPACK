@@ -911,7 +911,7 @@ void HaMainFrameWX::OnAbout(wxCommandEvent& WXUNUSED(event))
 	Mes+="Quantum Chemical functionality based on IPACK library of Wolfgang Wenzel \n";
 	Mes+="Command line/scripting interface is based on PYTHON 2.7 \n";
 	Mes+="Also linked to VFLIB, TINYXML, LAPACK, BLAS and other libraries \n\n";
-	Mes+="Build date -  ";Mes+=__DATE__;Mes+="\n";     
+	Mes+="Build date -  ";Mes+=__DATE__;Mes+="\n";        
 //	Mes+=HaSVNRevision();Mes+="\n";             
 //	Mes+=HaSVNDate();              
 	wxMessageBox(Mes, wxString("About HARLEM"));               

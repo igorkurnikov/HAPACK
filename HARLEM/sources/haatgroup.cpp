@@ -1096,6 +1096,39 @@ void HaResidue::SelectAtomsAll()
 	}
 }
 
+AtomIntMap HaResidue::GetAtomSeqNumMap()
+{
+	AtomIntMap at_seq_num_map;
+
+	HaAtom* aptr = nullptr;
+	AtomIteratorAtomGroup aitr(this);
+
+	int i = 0;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		at_seq_num_map[aptr] = i;
+		i++;
+	}
+	return at_seq_num_map;
+}
+
+CAtomIntMap HaResidue::GetAtomSeqNumMap() const
+{
+	CAtomIntMap at_seq_num_map_loc;
+
+	const HaAtom* aptr = nullptr;
+	AtomIteratorAtomGroup_const aitr(this);
+	int i = 0;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		at_seq_num_map_loc[aptr] = i;
+		i++;
+	}
+	return at_seq_num_map_loc;
+}
+
 
 bool HaResidue::IsAmino() const
 {
@@ -1635,30 +1668,30 @@ int AtomIteratorChain::SetForChain(HaChain* new_chain)
 
 HaAtom* AtomIteratorChain::GetFirstAtom()
 {
-	for( ritrm = chain->res_map.begin(); ritrm != chain->res_map.end(); ritrm++)
+	for( ritrm = chain->res_arr.begin(); ritrm != chain->res_arr.end(); ritrm++)
 	{
-		if( (*ritrm).second->GetNAtoms() > 0) break;
+		if( (*ritrm)->GetNAtoms() > 0) break;
 	}
 
-	if( ritrm == chain->res_map.end() ) return NULL;
+	if( ritrm == chain->res_arr.end() ) return NULL;
 
-	aitr = (*ritrm).second->begin();
+	aitr = (*ritrm)->begin();
 	return (*aitr);
 }
 
 HaAtom* AtomIteratorChain::GetNextAtom()
 {
 	aitr++;
-	if( aitr != (*ritrm).second->end() ) return (*aitr);
+	if( aitr != (*ritrm)->end() ) return (*aitr);
 
 	ritrm++;
-	for(; ritrm != chain->res_map.end(); ritrm++)
+	for(; ritrm != chain->res_arr.end(); ritrm++)
 	{
-		if( (*ritrm).second->GetNAtoms() > 0) break;
+		if( (*ritrm)->GetNAtoms() > 0) break;
 	}
-	if( ritrm == chain->res_map.end() ) return NULL;
+	if( ritrm == chain->res_arr.end() ) return NULL;
 
-	aitr = (*ritrm).second->begin();
+	aitr = (*ritrm)->begin();
 	return (*aitr);
 }
 
@@ -1680,9 +1713,7 @@ AtomIteratorChain_const::~AtomIteratorChain_const()
 
 }
 
-
-int
-AtomIteratorChain_const::SetForChain(const HaChain* new_chain)
+int AtomIteratorChain_const::SetForChain(const HaChain* new_chain)
 {
 	chain = new_chain;
 	if(chain == NULL) return FALSE;
@@ -1691,38 +1722,34 @@ AtomIteratorChain_const::SetForChain(const HaChain* new_chain)
 	return TRUE;
 }
 
-
-
 const HaAtom* AtomIteratorChain_const::GetFirstAtom()
 {
-	for( ritrm = chain->res_map.begin(); ritrm != chain->res_map.end(); ritrm++)
+	for( ritrm = chain->res_arr.begin(); ritrm != chain->res_arr.end(); ritrm++)
 	{
-		if( (*ritrm).second->GetNAtoms() > 0) break;
+		if( (*ritrm)->GetNAtoms() > 0) break;
 	}
 
-	if( ritrm == chain->res_map.end() ) return NULL;
+	if( ritrm == chain->res_arr.end() ) return NULL;
 
-	aitr = (*ritrm).second->begin();
+	aitr = (*ritrm)->begin();
 	return (*aitr);
 }
 
 const HaAtom* AtomIteratorChain_const::GetNextAtom()
 {
 	aitr++;
-	if( aitr != (*ritrm).second->end() ) return (*aitr);
+	if( aitr != (*ritrm)->end() ) return (*aitr);
 
 	ritrm++;
-	for(; ritrm != chain->res_map.end(); ritrm++)
+	for(; ritrm != chain->res_arr.end(); ritrm++)
 	{
-		if( (*ritrm).second->GetNAtoms() > 0) break;
+		if( (*ritrm)->GetNAtoms() > 0) break;
 	}
-	if( ritrm == chain->res_map.end() ) return NULL;
+	if( ritrm == chain->res_arr.end() ) return NULL;
 
-	aitr = (*ritrm).second->begin();
+	aitr = (*ritrm)->begin();
 	return (*aitr);
 }
-
-
 
 ResidueIteratorChain::ResidueIteratorChain(HaChain* new_chain)
 {
@@ -1744,30 +1771,26 @@ ResidueIteratorChain::~ResidueIteratorChain()
 
 }
 
-
 HaResidue* ResidueIteratorChain::GetFirstRes()
 {
-   if(chain == NULL) return NULL; 
-   res_itr = chain->res_map.begin();
-   if(res_itr == chain->res_map.end()) return NULL;
-   return (*res_itr).second;
+   if(chain == nullptr) return nullptr; 
+   res_itr = chain->res_arr.begin();
+   if(res_itr == chain->res_arr.end()) return nullptr;
+   return (*res_itr);
 }
 
 HaResidue* ResidueIteratorChain::GetNextRes()
 {
-  if(chain == NULL) { return NULL; }
+  if(chain == nullptr) { return nullptr; }
 
   res_itr++;
 
-  if( res_itr != chain->res_map.end() )
+  if( res_itr != chain->res_arr.end() )
   {
-	   return (*res_itr).second;
+	   return (*res_itr);
   }
-  return NULL;
+  return nullptr;
 }
-
-
-
 
 HaChain::HaChain()
 {
@@ -1784,22 +1807,24 @@ HaChain::HaChain(HaMolecule* new_phost_mol, const char new_ident)
 
 HaChain::~HaChain()
 {
-	multimap<int, HaResidue*, less<int> >::iterator ir_itr;
-	for( ir_itr = res_map.begin(); ir_itr != res_map.end(); ir_itr++)
+	int i, nr = res_arr.size();
+	for(i = 0; i < nr; i++)
 	{
-		HaResidue* pres = (*ir_itr).second;
+		HaResidue* pres = res_arr[i];
 		delete pres;
 	}
+	res_arr.clear();
 	res_map.clear();
 }
 
 int HaChain::GetNAtoms() const
 {
 	int na = 0;
-	multimap<int, HaResidue*, less<int> >::const_iterator ir_itr;
-	for( ir_itr = res_map.begin(); ir_itr != res_map.end(); ir_itr++)
+	int i, nr = res_arr.size();
+	for (i = 0; i < nr; i++)
 	{
-		na += (*ir_itr).second->GetNAtoms();
+		HaResidue* pres = res_arr[i];
+		na += pres->GetNAtoms();
 	}
 	return na;
 }
@@ -1840,7 +1865,7 @@ PointIterator_const* HaChain::GetPointIteratorPtr() const
 	return GetAtomIteratorPtr();
 }
 
-HaResidue* HaChain::AddResidue(const int res_ser_no)
+HaResidue* HaChain::AddResidue(int res_ser_no)
 {
 	if( res_map.count(res_ser_no) > 0 )
 	{
@@ -1848,6 +1873,8 @@ HaResidue* HaChain::AddResidue(const int res_ser_no)
         PrintLog(" Residue Number %d is not unique \n",res_ser_no);
 	}
 	HaResidue* pres = new HaResidue(this);
+	res_arr.push_back(pres);
+
 	pres->serno = res_ser_no;
 	std::pair<int,HaResidue*> ir_pair(res_ser_no,pres);
 	res_map.insert(ir_pair);
@@ -1857,7 +1884,7 @@ HaResidue* HaChain::AddResidue(const int res_ser_no)
 static const int MIN_MAIN_RES_SERNO=0;
 static const int MIN_TERM_RES_SERNO=5000;
 
-int HaChain::GetUniqResSerNo(const int term_res_flag) const
+int HaChain::GetUniqResSerNo(int term_res_flag) const
 {
 	std::multimap<int, HaResidue*, less<int> >::const_iterator ritr;
 	int new_serno;
@@ -1873,7 +1900,6 @@ int HaChain::GetUniqResSerNo(const int term_res_flag) const
 	}
 	new_serno++;
 	return(new_serno);
-
 }
 
 bool HaChain::SetUniqueResNo()
@@ -1896,13 +1922,7 @@ bool HaChain::SetUniqueResNo()
 	}
 	if( !found_same_serno ) return true;
 
-	int nr = res_map.size();
-	vector<HaResidue*> res_arr;
-	res_arr.reserve(nr);
-	for(ritr = res_map.begin(); ritr != res_map.end(); ritr++ )
-	{
-		res_arr.push_back( (*ritr).second );
-	}
+	size_t const nr = res_arr.size();
 	res_map.clear();
 
 	last_serno = -999999;
@@ -1926,7 +1946,7 @@ bool HaChain::SetUniqueResNo()
 HaResidue* HaChain::GetFirstRes()
 {
 	if( res_map.empty() ) return NULL;
-	HaResidue* pres = (*res_map.begin()).second;
+	HaResidue* pres = (*res_arr.begin());
 	return pres;
 }
 
@@ -3102,6 +3122,7 @@ void AtomSaveOptions::SetStdOptions()
 	save_connect    = TRUE;
 	save_atom_ref   = TRUE; 
 	save_amber_pdb  = TRUE;
+	save_sep_wat_mol = FALSE;
 
 	at_ref_type = HaAtom::ATOMREF_ELEM_NO;
 }

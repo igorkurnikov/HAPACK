@@ -1310,7 +1310,7 @@ ResidueIteratorMolecule::ResidueIteratorMolecule(HaMolecule* new_pmol)
 	ch_itr = pmol->Chains.begin(); 
 	if( ch_itr != pmol->Chains.end() )
 	{
-		res_itr = (*ch_itr).res_map.begin();
+		res_itr = (*ch_itr).res_arr.begin();
 	}
 }
 
@@ -1343,8 +1343,8 @@ HaResidue* ResidueIteratorMolecule::GetFirstRes()
 		}
 		else
 		{
-            res_itr = (*ch_itr).res_map.begin();
-			return (*res_itr).second;
+            res_itr = (*ch_itr).res_arr.begin();
+			return (*res_itr);
 		}
    }
 
@@ -1358,9 +1358,9 @@ HaResidue* ResidueIteratorMolecule::GetNextRes()
 
   res_itr++;
 
-  if( res_itr != (*ch_itr).res_map.end())
+  if( res_itr != (*ch_itr).res_arr.end())
   {
-	   return (*res_itr).second;
+	   return (*res_itr);
   }
 
   ch_itr++;
@@ -1373,8 +1373,8 @@ HaResidue* ResidueIteratorMolecule::GetNextRes()
 	  }
 	  else
 	  {
-		  res_itr = (*ch_itr).res_map.begin();
-		  return (*res_itr).second;
+		  res_itr = (*ch_itr).res_arr.begin();
+		  return (*res_itr);
 	  }
   }
   return NULL;
@@ -1575,4 +1575,38 @@ void HaMolecule::Renumber(int start )
 		}
     }
 }
+
+AtomIntMap HaMolecule::GetAtomSeqNumMap()
+{
+	AtomIntMap at_seq_num_map;
+
+	HaAtom* aptr = nullptr;
+	AtomIteratorMolecule aitr(this);
+
+	int i = 0;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		at_seq_num_map[aptr] = i;
+		i++;
+	}
+	return at_seq_num_map;
+}
+
+CAtomIntMap HaMolecule::GetAtomSeqNumMap() const
+{
+	CAtomIntMap at_seq_num_map_loc;
+
+	const HaAtom* aptr = nullptr;
+	AtomIteratorMolecule_const aitr(this);
+	int i = 0;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		at_seq_num_map_loc[aptr] = i;
+		i++;
+	}
+	return at_seq_num_map_loc;
+}
+
 

@@ -149,6 +149,8 @@ public:
 	void DescribeMolecule();
 
 	void Renumber(int start );
+	AtomIntMap GetAtomSeqNumMap();  //!< Get the map of atoms to sequence atom numbers in the molecule
+	CAtomIntMap GetAtomSeqNumMap() const; //!< Get the map of atoms to sequence atom numbers in the molecule - Const version
 	void DescribeSequence();
 
 	static int SeqFormat; //!< Format Sequence in DesribeSequence() function
@@ -243,7 +245,7 @@ public:
 	HaResidue* GetNextRes();  //!< Return next residue of the molecule (=NULL if no more residues)
 	
 protected:
-	Residues_type::iterator res_itr;
+	vector<HaResidue*>::iterator res_itr;
 	list<HaChain>::iterator ch_itr;
 	
 	HaMolecule* pmol;

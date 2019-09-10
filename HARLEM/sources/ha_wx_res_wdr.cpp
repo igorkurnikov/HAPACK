@@ -71,12 +71,12 @@ wxSizer *bot_bar_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
 
     wxButton *item2 = new wxButton( parent, IDC_CMD_EXEC, wxT("Execute Command:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item1->Add( item2, 0, wxGROW|wxALL, 5 );
+    item1->Add( item2, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     CmdTextCtrl *item3 = new CmdTextCtrl( parent, IDC_CMD_TXT, wxT(""), wxDefaultPosition, wxSize(580,-1), wxTE_PROCESS_ENTER );
-    item1->Add( item3, 1, wxGROW|wxALL, 5 );
+    item1->Add( item3, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item1, 2, wxGROW, 0 );
+    item0->Add( item1, 2, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
 
     wxBoxSizer *item4 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -86,9 +86,9 @@ wxSizer *bot_bar_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxTextCtrl *item6 = new wxTextCtrl( parent, IDC_LOG_WIN, wxT(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY );
     item6->SetFont( wxFont( 8, wxROMAN, wxNORMAL, wxNORMAL ) );
-    item4->Add( item6, 1, wxGROW|wxALL, 5 );
+    item4->Add( item6, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item4, 3, wxGROW, 0 );
+    item0->Add( item4, 3, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
 
     if (set_sizer)
     {
@@ -163,7 +163,10 @@ wxSizer *save_mol_file_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item18 = new wxBoxSizer( wxVERTICAL );
 
     wxCheckBox *item19 = new wxCheckBox( parent, IDC_SAVE_AMBER_PDB, wxT("Save AMBER PDB"), wxDefaultPosition, wxDefaultSize, 0 );
-    item18->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
+    item18->Add( item19, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxCheckBox *item20 = new wxCheckBox( parent, IDC_SAVE_SEP_WAT_MOL, wxT("Save Separate Water Molecules"), wxDefaultPosition, wxDefaultSize, 0 );
+    item18->Add( item20, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item13->Add( item18, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
@@ -5153,6 +5156,10 @@ wxMenuBar *res_params_menu()
     item1->Append( IDC_RENAME_ATOMS_TO_AMBER, wxT("Rename Atoms to AMBER notation"), wxT("") );
     item1->Append( IDC_RENAME_ATOMS_TO_GROMACS, wxT("Rename Atoms to GROMACS notation"), wxT("") );
     item0->Append( item1, wxT("Edit") );
+    
+    wxMenu* item2 = new wxMenu;
+    item2->Append( IDC_CONVERT_WAT_ARROW_VB, wxT("Convert Water to ARROW VB"), wxT("") );
+    item0->Append( item2, wxT("Water") );
     
     return item0;
 }

@@ -114,6 +114,7 @@ public:
 	int save_transform; //!< Flag to save atom using transformation matrix of the current Molecular View
 	int save_atom_ref;  //!< Flag to save atom reference at the end of atom line 
 	int save_amber_pdb; //!< Flag to save PDB files with residue names and atom names matching AMBER database
+	int save_sep_wat_mol; //!< Flag to save water as separate molecules 
 
 	HaAtom::AtomRefType at_ref_type; //!< Type of the atom reference to save at the end of the atom line
 
@@ -375,6 +376,9 @@ public:
     int HasSelectedAtoms(); //!< Check if some of the atoms of the residue are selected
 	void SelectAtomsAll();   //!< Select All Atoms in the residue
 
+	AtomIntMap HaResidue::GetAtomSeqNumMap(); //!< Get the map of atoms to sequence atom numbers in the molecule
+	CAtomIntMap HaResidue::GetAtomSeqNumMap() const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
+
 	bool SetUniqueAtomNames();                  //!< Set unique names to atoms of the residue 
 	std::string GetUniqueAtomName(int elem_no); //!< Get unique atom name for element elem_no 
 	bool SplitResidue();
@@ -468,7 +472,7 @@ public:
 	HaAtom* GetNextAtom();  //!< Return Next atom in the chain (=NULL if no more atoms)
 	
 protected:
-	std::multimap<int, HaResidue*, less<int> >::iterator ritrm;
+	std::vector<HaResidue*>::iterator ritrm;
 	vector<HaAtom*>::iterator aitr;
 	
 	HaChain* chain;
@@ -488,13 +492,11 @@ public:
 	const HaAtom* GetNextAtom();  //!< Return Next atom in the chain (=NULL if no more atoms)
 	
 protected:
-	std::multimap<int, HaResidue*, less<int> >::const_iterator ritrm; 
+	std::vector<HaResidue*>::const_iterator ritrm;
 	vector<HaAtom*>::const_iterator aitr;               
 	
 	const HaChain* chain;
 };
-
-typedef std::multimap<int, HaResidue*, less<int> > Residues_type;
 
 class ResidueIteratorChain
 //! Residue iterator class to browse residues of the chain
@@ -508,7 +510,7 @@ public:
 	HaResidue* GetNextRes();  //!< Return Next atom in the chain (=NULL if no more residues)
 	
 protected:
-	Residues_type::iterator res_itr;
+    std::vector<HaResidue*>::iterator res_itr;
 	HaChain* chain;
 };
 
@@ -523,15 +525,15 @@ public:
 
   bool SetParamFrom(const HaChain& chain_ref); //!< copy parameters from reference a reference chain 
   
-  HaResidue* AddResidue(const int res_ser_no);  //!< Add residue to the chain with the serial number
-  int GetUniqResSerNo(const int term_res_flag=0) const; //!< Get residue id number not yet in the chain
+  HaResidue* AddResidue(int res_ser_no);  //!< Add residue to the chain with the serial number
+  int GetUniqResSerNo(int term_res_flag=0) const; //!< Get residue id number not yet in the chain
 
   bool SetUniqueResNo();  //!< Set unique id(serial) numbers to the residues in the chain
 
   HaResidue* GetFirstRes(); //!< Get First Residue of the chain 
   HaResidue* GetResBySerNo(const int res_ser_no); //!< Get the residue by its serial number
 
-  int GetNRes() const { return res_map.size(); }  //!< Get the number of residues in the chain
+  int GetNRes() const { return res_arr.size(); }  //!< Get the number of residues in the chain
 
 // Overidable of AtomContainer:
 
@@ -550,6 +552,7 @@ public:
    
   char ident;                      //!< Chain identifier             
  
+  vector<HaResidue*> res_arr;   //!< Array of Residues in the chain
   multimap<int, HaResidue*, less<int> >  res_map; //!< Map of serial numbers to Residues 
  
   HaMolecule* GetHostMol() { return phost_mol; }  //!< Get the molecule chain belongs to

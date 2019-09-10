@@ -553,7 +553,7 @@ public:
 	ResidueIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 protected:
-	Residues_type::iterator res_itr;
+	vector<HaResidue*>::iterator res_itr;
 	list<HaChain>::iterator ch_itr;
 	MoleculesType::iterator mol_itr;
 
@@ -574,7 +574,7 @@ public:
 	const HaResidue* GetNextRes();  //!< Return the next residue in the sequence (=NULL if no more atoms)
 	
 protected:
-	Residues_type::const_iterator res_itr;
+	vector<HaResidue*>::const_iterator res_itr;
 	list<HaChain>::const_iterator ch_itr;
 	MoleculesType::const_iterator mol_itr;
 
