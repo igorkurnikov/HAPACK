@@ -1781,7 +1781,15 @@ int MolEditor::ConvertWaterArrowVB(HaMolSet* pmset)
 	HaResidue* pres;
 	for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
 	{
-		if (!pres->IsWater()) continue;
+		bool is_water = false;
+		HaMolecule* pMol = pres->GetHostMol();
+		std::string mol_name = pMol->GetObjName();
+		int nres = pMol->GetNRes();
+		if (nres == 1 && mol_name == "HOH" || nres == 1 && mol_name == "WAT")
+			is_water = true;
+		if (pres->IsWater()) is_water = true;
+		if (!is_water) continue;
+
 		if ( pres->GetNAtoms() != 3 )
 		{
 			PrintLog("Warning in MolEditor::ConvertWaterArrowVB() : ");

@@ -491,24 +491,51 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 	HaResidue* pres;
 	
 	MoleculesType::const_iterator mol_itr;
-	int iat = 0;
+	
 	int ires = 0;
 	int imol = 0;
-	for( mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++ )
+	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
 		imol++;
+		std::string mol_name_full = (*mol_itr)->GetObjName();
+		std::string mol_name = mol_name_full;
 
-		os << "mol " << imol << " " << '\"' << (*mol_itr)->GetObjName() << '\"' << std::endl;
+		while (mol_name.size() > 0)
+		{
+			if (std::isdigit(mol_name[mol_name.size() - 1]) || mol_name[mol_name.size() - 1] == '_')
+			{
+				mol_name.erase(mol_name.size() - 1);
+				continue;
+			}
+			break;
+		}
+
 	
 		const HaMolecule* pmol_c = *mol_itr;
 		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap();
 		ChainIteratorMolecule ch_itr(*mol_itr);
+		int iat = 0;
+
+		HaResidue* pres_fst_ch0 = NULL;
+		HaChain* chain_fst = ch_itr.GetFirstChain();
+		if (chain_fst) pres_fst_ch0 = chain_fst->GetFirstRes();
+
+		if(pres_fst_ch0 != NULL && pres_fst_ch0->IsWater() && this->p_save_opt_default->save_sep_wat_mol )
+		{ 
+			os << "mol " << imol << " " << '\"' << "HOH" << '\"' << std::endl;
+		}
+		else
+		{
+			os << "mol " << imol << " " << '\"' << mol_name << '\"' << std::endl;
+		}
+
 
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			ResidueIteratorChain ritr_ch(chain);
 			char id_chain = chain->ident;
-			for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes())
+			HaResidue* pres_fst = ritr_ch.GetFirstRes();
+			for(pres = pres_fst; pres; pres = ritr_ch.GetNextRes())
 			{
 				ires++;
 				bool save_res_as_mol = false;
@@ -519,13 +546,17 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					save_res_as_mol = true;
 					save_res_info = false;
 				}
-				if( save_res_as_mol  && !(pres == ritr_ch.GetFirstRes()) )
+				if( save_res_as_mol  && !(pres == pres_fst_ch0) )
 				{
+					if(!(pres == pres_fst) ) os << "endmol " << imol << std::endl;
 					imol++;
-					os << "endmol " << imol << std::endl;
 					os << "mol " << imol << " " << '\"' << pres->GetName() << '\"' << std::endl;
 				}
-				if( save_res_as_mol ) at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap();
+				if (save_res_as_mol)
+				{
+					iat = 0;
+					at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap();
+				}
 				
 				std::string res_name = pres->GetName(); 
 				std::string name_mod = pres->GetNameModifier();
@@ -613,7 +644,7 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					os << std::endl;	
 				} // end atom
 				if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
-				if( save_res_as_mol && !(pres == ritr_ch.GetFirstRes()) ) os << "endmol " << imol << std::endl;
+//				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << std::endl;
 			} //  end res
 		} // end chain
 		os << "endmol " << imol << std::endl;
@@ -1864,7 +1895,6 @@ int HaMolSet::SaveHINFile(const char* filename )
 	}	
 	
 	int ires = SaveHINToStream(fout);
-
 	return ires;
 }
 
@@ -6377,7 +6407,7 @@ const HaResidue* ResidueIteratorMolSet_const::GetFirstRes()
 		else
 		{
             res_itr = (*ch_itr).res_arr.begin();
-			return (*res_itr).second;
+			return (*res_itr);
 		}
    }
 
@@ -6390,7 +6420,7 @@ const HaResidue* ResidueIteratorMolSet_const::GetNextRes()
   res_itr++;
   if( res_itr != (*ch_itr).res_arr.end())
   {
-	   return (*res_itr).second;
+	   return (*res_itr);
   }
 
   ch_itr++;
@@ -6405,7 +6435,7 @@ const HaResidue* ResidueIteratorMolSet_const::GetNextRes()
 		  else
 		  {
 			  res_itr = (*ch_itr).res_arr.begin();
-			  return (*res_itr).second;
+			  return (*res_itr);
 		  }
 	  }
 	  mol_itr++;

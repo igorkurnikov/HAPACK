@@ -1167,7 +1167,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 	HaResidue* pres_cur = NULL;
 
 	std::map<HaAtom*,int> atom_idx_map;
-	std::map<int,HaAtom*> idx_atom_map;
+	std::map<int,HaAtom*> idx_atom_map;  // indexes of atoms in the molecule
 
 	std::string bond_types_str = "sdtav";
 
@@ -1188,6 +1188,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 
 		std::vector<string> str_arr;
 
+		std::string mol_name = "MOL";
 		while(1)
 		{   
 			std::getline(is_arg,line);
@@ -1208,7 +1209,6 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 			{
 				pMol = CreateMolecule();
 				
-				std::string mol_name = "MOL";
 				if( str_arr.size() > 2 )  mol_name = str_arr[2];
 				else if( str_arr.size() > 1) mol_name = str_arr[1];
 
@@ -1216,6 +1216,8 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				if( mol_name.size() > 1 && mol_name[ mol_name.size() - 1] == '\"') mol_name.erase(mol_name.size() - 1,1);
 
 				if( str_arr.size() > 2) pMol->SetObjName( mol_name.c_str());
+
+				idx_atom_map.clear();
 				
 				continue;
 			}
@@ -1235,18 +1237,18 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				char chain_id_res = ' ';
 				if( str_arr.size() > 5 )  chain_id_res = str_arr[5][0];
 
-				bool start_chain = false;
+				bool chain_started = false;
 				if( pch_cur == NULL )  
 				{
 					pch_cur = pMol->AddChain(chain_id_res);
-					start_chain = true;
+					chain_started = true;
 				}
 
 				if( pch_cur->ident != chain_id_res )
 				{
 					if( pres_cur != NULL && pres_cur->IsAmino() )  pres_cur->SetNameModifier("CT");
 					pch_cur = pMol->AddChain( chain_id_res );
-					start_chain = true;
+					chain_started = true;
 				}
 
 				int res_ser_no = 1;
@@ -1265,7 +1267,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				pres_cur = pch_cur->AddResidue( res_ser_no );
 				
 				if( str_arr.size() > 2 ) pres_cur->SetName( str_arr[2] );
-				if( pres_cur->IsAmino() && start_chain ) pres_cur->SetNameModifier("NT");
+				if( pres_cur->IsAmino() && chain_started ) pres_cur->SetNameModifier("NT");
 
 				continue;
 			}			
@@ -1277,14 +1279,18 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 
 			if( str_arr[0] == "atom" ) 
 			{
-				if( str_arr.size() < 10 ) std::runtime_error( "atom line has too few fields");
+				if( str_arr.size() < 10 ) throw std::runtime_error( "atom line has too few fields");
 
 				if( pch_cur == NULL )  pch_cur = pMol->AddChain(' ');
-				if( pres_cur == NULL ) pres_cur = pch_cur->AddResidue(1);
+				if (pres_cur == NULL)
+				{
+					pres_cur = pch_cur->AddResidue(1);
+					pres_cur->SetName(mol_name);
+				}
 				
-				if( !harlem::IsInt(str_arr[1])) std::runtime_error( "atom index is not integer");
+				if( !harlem::IsInt(str_arr[1])) throw std::runtime_error( "atom index is not integer");
 				int idx_at = boost::lexical_cast<int>(str_arr[1]);
-				if( idx_atom_map.count( idx_at )) std::runtime_error( " not unique atom index in the molecule ");
+				if( idx_atom_map.count( idx_at )) throw std::runtime_error( " not unique atom index in the molecule ");
 				HaAtom* pat = pres_cur->AddNewAtom(); 
 
 				atom_idx_map[pat] = idx_at;
@@ -1315,19 +1321,30 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 					pat->SetCharge( at_ch );
 				}
 
-				if( !harlem::IsFloat(str_arr[7]) ) std::runtime_error( "atom X coordinate is invalid");
-				if( !harlem::IsFloat(str_arr[8]) ) std::runtime_error( "atom Y coordinate is invalid");
-				if( !harlem::IsFloat(str_arr[9]) ) std::runtime_error( "atom Z coordinate is invalid");
+				if( !harlem::IsFloat(str_arr[7]) ) throw std::runtime_error( "atom X coordinate is invalid");
+				if( !harlem::IsFloat(str_arr[8]) ) throw std::runtime_error( "atom Y coordinate is invalid");
+				if( !harlem::IsFloat(str_arr[9]) ) throw std::runtime_error( "atom Z coordinate is invalid");
 
 				pat->SetX_Ang( boost::lexical_cast<double>(str_arr[7]) );
 				pat->SetY_Ang( boost::lexical_cast<double>(str_arr[8]) );
 				pat->SetZ_Ang( boost::lexical_cast<double>(str_arr[9]) );
 
-				if( str_arr.size() < 10 ) continue;
+				if (str_arr.size() < 11) continue;
 
-				if( !harlem::IsInt(str_arr[10]) ) std::runtime_error( "Number of bonds field in atom record is not integer");
-				int nb = boost::lexical_cast<int>(str_arr[10]);
-				if( str_arr.size() < 11 + 2*nb )  std::runtime_error( "atom bond descriptors do not match the number of bonds");
+				if (!harlem::IsInt(str_arr[10]))
+				{
+					PrintLog("Warning in HaMolSet::LoadHINStream() in line \n%s\n", line.c_str());
+					PrintLog("Number of bonds field in atom record is not integer");
+					continue;
+				}
+
+				int const nb = boost::lexical_cast<int>(str_arr[10]);
+				if ( str_arr.size() < (11 + 2 * nb))
+				{
+					PrintLog("Warning in HaMolSet::LoadHINStream()\n");
+					PrintLog("The Number atom bond descriptors do not match the number of bonds\n %s \n - adjusting expected number of bonds \n", line.c_str());
+					nb = 
+				}
 				int i;
 				for( i = 0; i < nb; i++)
 				{
