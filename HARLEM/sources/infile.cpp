@@ -1338,12 +1338,13 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 					continue;
 				}
 
-				int const nb = boost::lexical_cast<int>(str_arr[10]);
+				int nb = boost::lexical_cast<int>(str_arr[10]);
 				if ( str_arr.size() < (11 + 2 * nb))
 				{
 					PrintLog("Warning in HaMolSet::LoadHINStream()\n");
 					PrintLog("The Number atom bond descriptors do not match the number of bonds\n %s \n - adjusting expected number of bonds \n", line.c_str());
-					nb = 
+					nb = (str_arr.size() - 11) / 2;
+					if (nb < 0) nb = 0;
 				}
 				int i;
 				for( i = 0; i < nb; i++)
