@@ -24,6 +24,8 @@ swig
 libboost-dev
 libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 
+gfortran
+
 link / to /export ( required for some 
 links in /home/igor/local/bin ):!
 
@@ -36,8 +38,9 @@ AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
 HAPACK compilation commands:
 
 LINUX:
-libtoolize
-autoreconf
+libtoolize                 --- create ltmain.sh  link
+automake --add-missing     --create compile,missing and depcomp links
+autoreconf    
 
 failed to generate depndencies for the library
 able to run compilation of the shared library with:

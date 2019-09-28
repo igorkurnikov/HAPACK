@@ -1,1 +1,1 @@
-/home/kurnikov/local_GCC_7_4/share/libtool/build-aux/ltmain.sh
+/share/apps/anaconda3/share/libtool/build-aux/ltmain.sh
