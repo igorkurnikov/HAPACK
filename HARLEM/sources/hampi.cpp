@@ -1,5 +1,7 @@
 #include <mpi.h>
-
+#if !defined(_MSC_VER)
+#include <dlfcn.h>
+#endif
 
 #include "haconst.h"
 #include "haio.h"
@@ -39,6 +41,9 @@ HaMPI::HaMPI()
 
 	int ires;
 
+#if !defined(_MSC_VER)
+	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
+#endif
 	ires = MPI_Init(&(pApp->argc_loc), &(pApp->argv_loc)); 
 	if(ires == 0)
 	{
