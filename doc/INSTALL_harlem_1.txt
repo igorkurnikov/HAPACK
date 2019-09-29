@@ -29,11 +29,18 @@ gfortran
 link / to /export ( required for some 
 links in /home/igor/local/bin ):!
 
+GAUSSIAN util.a: 
+unpack g98.tar in ../PROG_SRC
+
+mortlib.a :
+get AMBER11_IGOR:
+got to gleap:
+cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
+make - it will make mortlib.a   although python bidings will not be finished
 
 ###MPI
 AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
 AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
-
 
 HAPACK compilation commands:
 
@@ -42,11 +49,16 @@ libtoolize                 --- create ltmain.sh  link
 automake --add-missing     --create compile,missing and depcomp links
 autoreconf    
 
-failed to generate depndencies for the library
+failed to generate dependencies for the library
 able to run compilation of the shared library with:
 configure --disable-dependency-tracking
 
+MKL install:
 
+gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
+cd l_mkl_2019.5.281
+./install 
+choose /share/apps/intel   for installation dir
 
 LINUX NOGUI (IGOR CMU):
 

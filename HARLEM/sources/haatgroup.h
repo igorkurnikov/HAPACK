@@ -373,11 +373,11 @@ public:
 	std::string GetRef() const;  //!< Get the text reference of the residue
 	virtual bool FillRef(char* buf,int mode = 0) const; //!< Write the text reference of the residue to the buffer
 
-    int HasSelectedAtoms(); //!< Check if some of the atoms of the residue are selected
+	int HasSelectedAtoms(); //!< Check if some of the atoms of the residue are selected
 	void SelectAtomsAll();   //!< Select All Atoms in the residue
 
-	AtomIntMap HaResidue::GetAtomSeqNumMap(); //!< Get the map of atoms to sequence atom numbers in the molecule
-	CAtomIntMap HaResidue::GetAtomSeqNumMap() const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
+	AtomIntMap  GetAtomSeqNumMap(); //!< Get the map of atoms to sequence atom numbers in the molecule
+	CAtomIntMap GetAtomSeqNumMap() const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
 
 	bool SetUniqueAtomNames();                  //!< Set unique names to atoms of the residue 
 	std::string GetUniqueAtomName(int elem_no); //!< Get unique atom name for element elem_no 
