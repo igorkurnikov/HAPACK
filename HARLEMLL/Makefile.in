@@ -141,7 +141,8 @@ lib_harlem_la_DEPENDENCIES = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/PNPS/libpnp/libpnp.a \
 	$(top_builddir)/GEOBALL/.libs/libgeoball.so \
 	$(top_builddir)/JUMNA_LIB/libjumna.a \
-	$(top_srcdir)/../../PROG_SRC/g98/util.a $(am__append_1) \
+	$(top_srcdir)/libs/linux/x64/qcutil.a \
+	$(top_srcdir)/libs/linux/x64/libmort.a $(am__append_1) \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -457,7 +458,7 @@ AM_CPPFLAGS = \
  -I$(top_srcdir)/WOLFGANG/generic \
  -I$(top_srcdir)/PNPS/src \
  -I$(top_srcdir)/PNPS/pnpmod \
- -I$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc \
+ -I$(top_srcdir)/GLEAP/mortsrc \
  $(PYTHON_CPPFLAGS) \
  $(MPI_INCLUDE) \
  $(BOOST_INCLUDE) \
@@ -471,13 +472,13 @@ lib_harlem_la_LIBADD = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/PNPS/libpnp/libpnp.a \
 	$(top_builddir)/GEOBALL/.libs/libgeoball.so -lgmp \
 	$(top_builddir)/JUMNA_LIB/libjumna.a \
-	$(top_srcdir)/../../PROG_SRC/g98/util.a \
-	-L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc \
-	-lmort $(am__append_1) $(am__append_2) $(MPI_LDFLAGS) \
-	$(MPI_LIBS) $(BOOST_LIBS) $(WX_LIBS) $(FLIBS) $(BLAS_LIBS) \
-	$(LAPACK_LIBS) $(RESOURCES_BIN) -L$(PYTHON_PREFIX)/lib \
-	$(PYTHON_LDFLAGS) -lplplotwxwidgets -lplplot -lplplotcxx \
-	-lplplotwxwidgets -lplplotcxx
+	$(top_srcdir)/libs/linux/x64/qcutil.a \
+	$(top_srcdir)/libs/linux/x64/libmort.a $(am__append_1) \
+	$(am__append_2) $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS) \
+	$(WX_LIBS) $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS) \
+	$(RESOURCES_BIN) -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
+	-lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgets \
+	-lplplotcxx
 harlem_wx_files = \
  $(top_srcdir)/HARLEM/sources/dialogs_wx_1.cpp \
  $(top_srcdir)/HARLEM/sources/dialogs_wx_2.cpp \
