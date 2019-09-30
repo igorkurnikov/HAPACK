@@ -1,0 +1,175 @@
+bonding.o :  bonding.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  bonding.o   bonding.cpp
+ 
+ctrlparm.o :  ctrlparm.cpp   ctrlparm.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  ctrlparm.o   ctrlparm.cpp
+ 
+nonbond-lst.o :  nonbond-lst.cpp   ../ambfmt.hpp \
+			../ambfmt/ambfrc.hpp \
+			../ambfmt/amboff.hpp \
+			../ambfmt/energee.hpp \
+			../ambfmt/exclude.hpp \
+			../ambfmt/parmset.hpp \
+			../ambfmt/prmtop.hpp \
+			../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../../../sff/sff.h \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			nonbond-pbc.hpp \
+			nonbond.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  nonbond-lst.o   nonbond-lst.cpp
+ 
+nonbond-egb.o :  nonbond-egb.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			ctrlparm.hpp \
+			nonbond-pbc.hpp \
+			nonbond.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  nonbond-egb.o   nonbond-egb.cpp
+ 
+nonbond-pbc.o :  nonbond-pbc.cpp   ../ambfmt.hpp \
+			../ambfmt/ambfrc.hpp \
+			../ambfmt/amboff.hpp \
+			../ambfmt/energee.hpp \
+			../ambfmt/exclude.hpp \
+			../ambfmt/parmset.hpp \
+			../ambfmt/prmtop.hpp \
+			../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../../../sff/sff.h \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			ctrlparm.hpp \
+			nonbond-pbc.hpp \
+			nonbond.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  nonbond-pbc.o   nonbond-pbc.cpp
+ 

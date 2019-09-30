@@ -1,0 +1,119 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>OpenGL Window</title><meta name="generator" content="DocBook XSL Stylesheets V1.61.2"><meta name="generator" content="GTK-Doc V1.1 (XML mode)"><style type="text/css">
+        .synopsis, .classsynopsis {
+            background: #eeeeee;
+            border: solid 1px #aaaaaa;
+            padding: 0.5em;
+        }
+        .programlisting {
+            background: #eeeeff;
+            border: solid 1px #aaaaff;
+            padding: 0.5em;
+        }
+        .variablelist {
+            padding: 4px;
+            margin-left: 3em;
+        }
+        .navigation {
+            background: #ffeeee;
+            border: solid 1px #ffaaaa;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        .navigation a {
+            color: #770000;
+        }
+        .navigation a:visited {
+            color: #550000;
+        }
+        .navigation .title {
+            font-size: 200%;
+        }
+      </style><link rel="home" href="index.html" title="GtkGLExt Reference Manual"><link rel="up" href="GdkGLExt-API.html" title="Part II. GdkGLExt API Reference"><link rel="previous" href="gtkglext-gdkglpixmap.html" title="OpenGL Pixmap"><link rel="next" href="gtkglext-gdkglfont.html" title="Font Rendering"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><table class="navigation" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle"><td><a accesskey="p" href="gtkglext-gdkglpixmap.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td><td><a accesskey="u" href="GdkGLExt-API.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td><td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td><th width="100%" align="center">GtkGLExt Reference Manual</th><td><a accesskey="n" href="gtkglext-gdkglfont.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td></tr></table><div class="refentry" lang="en"><a name="gtkglext-gdkglwindow"></a><div class="titlepage"><div></div><div></div></div><div class="refnamediv"><h2><span class="refentrytitle">OpenGL Window</span></h2><p>OpenGL Window &#8212; OpenGL window which is located on-screen</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><a name="GdkGLWindow"></a><pre class="synopsis">
+
+#include &lt;gdk/gdkgl.h&gt;
+
+
+struct      <a href="gtkglext-gdkglwindow.html#GdkGLWindow-struct">GdkGLWindow</a>;
+<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* <a href="gtkglext-gdkglwindow.html#gdk-gl-window-new">gdk_gl_window_new</a>              (<a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a> *glconfig,
+                                             GdkWindow *window,
+                                             const int *attrib_list);
+void        <a href="gtkglext-gdkglwindow.html#gdk-gl-window-destroy">gdk_gl_window_destroy</a>           (<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> *glwindow);
+GdkWindow*  <a href="gtkglext-gdkglwindow.html#gdk-gl-window-get-window">gdk_gl_window_get_window</a>        (<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> *glwindow);
+<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* <a href="gtkglext-gdkglwindow.html#gdk-window-set-gl-capability">gdk_window_set_gl_capability</a>   (GdkWindow *window,
+                                             <a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a> *glconfig,
+                                             const int *attrib_list);
+void        <a href="gtkglext-gdkglwindow.html#gdk-window-unset-gl-capability">gdk_window_unset_gl_capability</a>  (GdkWindow *window);
+gboolean    <a href="gtkglext-gdkglwindow.html#gdk-window-is-gl-capable">gdk_window_is_gl_capable</a>        (GdkWindow *window);
+<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* <a href="gtkglext-gdkglwindow.html#gdk-window-get-gl-window">gdk_window_get_gl_window</a>       (GdkWindow *window);
+#define     <a href="gtkglext-gdkglwindow.html#gdk-window-get-gl-drawable">gdk_window_get_gl_drawable</a>      (window)
+
+
+</pre></div><div class="refsect1" lang="en"><h2>Object Hierarchy</h2><pre class="synopsis">
+
+  GObject
+   +----GdkDrawable
+         +----GdkGLWindow
+</pre></div><div class="refsect1" lang="en"><h2>Description</h2><p>
+
+</p></div><div class="refsect1" lang="en"><h2>Details</h2><div class="refsect2" lang="en"><h3><a name="GdkGLWindow-struct"></a>struct GdkGLWindow</h3><pre class="programlisting">struct GdkGLWindow;</pre><p>
+
+</p></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-gl-window-new"></a>gdk_gl_window_new ()</h3><pre class="programlisting"><a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* gdk_gl_window_new              (<a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a> *glconfig,
+                                             GdkWindow *window,
+                                             const int *attrib_list);</pre><p>
+Creates an on-screen rendering area.
+attrib_list is currently unused. This must be set to NULL or empty
+(first attribute of None). See GLX 1.3 spec.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>glconfig</tt></i> :</span></td><td> a <a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a>.
+</td></tr><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td> the GdkWindow to be used as the rendering area.
+</td></tr><tr><td><span class="term"><i class="parameter"><tt>attrib_list</tt></i> :</span></td><td> this must be set to NULL or empty (first attribute of None).
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td> the new <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-gl-window-destroy"></a>gdk_gl_window_destroy ()</h3><pre class="programlisting">void        gdk_gl_window_destroy           (<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> *glwindow);</pre><p>
+Destroys the OpenGL resources associated with <i class="parameter"><tt>glwindow</tt></i> and
+decrements <i class="parameter"><tt>glwindow</tt></i>'s reference count.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>glwindow</tt></i> :</span></td><td> a <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-gl-window-get-window"></a>gdk_gl_window_get_window ()</h3><pre class="programlisting">GdkWindow*  gdk_gl_window_get_window        (<a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> *glwindow);</pre><p>
+Returns the GdkWindow associated with <i class="parameter"><tt>glwindow</tt></i>.
+</p><p>
+Notice that <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> is not GdkWindow, but another
+GdkDrawable which have an associated GdkWindow.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>glwindow</tt></i> :</span></td><td> a <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>.
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td> the GdkWindow associated with <i class="parameter"><tt>glwindow</tt></i>.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-window-set-gl-capability"></a>gdk_window_set_gl_capability ()</h3><pre class="programlisting"><a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* gdk_window_set_gl_capability   (GdkWindow *window,
+                                             <a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a> *glconfig,
+                                             const int *attrib_list);</pre><p>
+Set the OpenGL-capability to the <i class="parameter"><tt>window</tt></i>.
+This function creates a new <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> held by the <i class="parameter"><tt>window</tt></i>.
+attrib_list is currently unused. This must be set to NULL or empty
+(first attribute of None).</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td> the GdkWindow to be used as the rendering area.
+</td></tr><tr><td><span class="term"><i class="parameter"><tt>glconfig</tt></i> :</span></td><td> a <a href="gtkglext-gdkglconfig.html#GdkGLConfig">GdkGLConfig</a>.
+</td></tr><tr><td><span class="term"><i class="parameter"><tt>attrib_list</tt></i> :</span></td><td> this must be set to NULL or empty (first attribute of None).
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td> the <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> used by the <i class="parameter"><tt>window</tt></i> if it is successful,
+              NULL otherwise.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-window-unset-gl-capability"></a>gdk_window_unset_gl_capability ()</h3><pre class="programlisting">void        gdk_window_unset_gl_capability  (GdkWindow *window);</pre><p>
+Unset the OpenGL-capability of the <i class="parameter"><tt>window</tt></i>.
+This function destroys the <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> held by the <i class="parameter"><tt>window</tt></i>.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td> a GdkWindow.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-window-is-gl-capable"></a>gdk_window_is_gl_capable ()</h3><pre class="programlisting">gboolean    gdk_window_is_gl_capable        (GdkWindow *window);</pre><p>
+Returns whether the <i class="parameter"><tt>window</tt></i> is OpenGL-capable.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td> a GdkWindow.
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td> TRUE if the <i class="parameter"><tt>window</tt></i> is OpenGL-capable, FALSE otherwise.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-window-get-gl-window"></a>gdk_window_get_gl_window ()</h3><pre class="programlisting"><a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>* gdk_window_get_gl_window       (GdkWindow *window);</pre><p>
+Returns the <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a> held by the <i class="parameter"><tt>window</tt></i>.</p><p>
+
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td> a GdkWindow.
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td> the <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>.
+</td></tr></tbody></table></div></div><hr><div class="refsect2" lang="en"><h3><a name="gdk-window-get-gl-drawable"></a>gdk_window_get_gl_drawable()</h3><pre class="programlisting">#define     gdk_window_get_gl_drawable(window)</pre><p>
+Returns the <a href="gtkglext-gdkgldrawable.html#GdkGLDrawable">GdkGLDrawable</a> held by the <i class="parameter"><tt>window</tt></i>. In fact, this is macro
+that casts the result of <a href="gtkglext-gdkglwindow.html#gdk-window-get-gl-window">gdk_window_get_gl_window</a> to <a href="gtkglext-gdkgldrawable.html#GdkGLDrawable">GdkGLDrawable</a>.
+</p><div class="variablelist"><table border="0"><col align="left" valign="top"><tbody><tr><td><span class="term"><i class="parameter"><tt>window</tt></i> :</span></td><td>a <a href="gtkglext-gdkglwindow.html#GdkGLWindow">GdkGLWindow</a>.
+</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>the <a href="gtkglext-gdkgldrawable.html#GdkGLDrawable">GdkGLDrawable</a>.
+
+
+</td></tr></tbody></table></div></div></div></div><table class="navigation" width="100%" summary="Navigation footer" cellpadding="2" cellspacing="0"><tr valign="middle"><td align="left"><a accesskey="p" href="gtkglext-gdkglpixmap.html"><b>&lt;&lt; OpenGL Pixmap</b></a></td><td align="right"><a accesskey="n" href="gtkglext-gdkglfont.html"><b>Font Rendering &gt;&gt;</b></a></td></tr></table></body></html>

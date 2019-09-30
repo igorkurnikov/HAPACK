@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+
+
+from os import path
+from sys import exit, stderr
+from string import split
+
+
+def has_path( files, file ):
+    for f in files:
+        if( path.samefile(f, file) ) :
+            return True
+    return False
+
+def list_includes( file ):
+    dir = path.dirname( file )
+
+    incs = []
+
+    fin = open( file, "r" )
+
+    line = fin.readline()
+
+    while len(line) > 0:
+        if line.find( "#include" ) != -1:
+            inc = split(line)[1]
+            
+            if inc[0] == '"':
+                inc = path.join( dir, inc[1:-1] )
+                   
+                if not path.exists(inc) :
+                    stderr.write( inc + ' does not exist! listing ' + file + "\n" )
+                    exit(-1)  
+		   
+                if has_path( incs, inc ) == 0:
+                    incs.append( inc )
+
+            elif inc[0] =='<':
+                inc =  "../" + inc[1:-1]
+                if path.exists(inc) and has_path(incs, inc)==0:
+                    incs.append( inc )
+        line = fin.readline()
+    return incs
+
+
+
+fmake = open( "Makefile", "r" )
+
+sources = []
+
+for line in fmake.readlines():
+    # If SOURCES is found...
+    if( line.find("SOURCES") != -1 ):
+        #...append the third element in the line to "sources"
+	sources.append( split(line)[2] )
+
+for line in fmake.readlines():
+    if( line.find("OBJECTS") != -1 ):
+        break
+    else:
+        sources.append( split(line)[0] )
+
+for file in  sources:
+    tot_incs = list_includes( file )
+
+    begin = 0
+    end  = len( tot_incs )
+
+    while begin < end:
+       for i in xrange(begin, end):
+            cur_incs = list_includes( tot_incs[i] )
+	    #print tot_incs[i], ":", cur_incs
+            for inc in cur_incs:
+                if has_path( tot_incs, inc ) == 0:
+                    tot_incs.append( inc )
+       begin = end
+       end   = len( tot_incs )
+
+    suffix = file.find( ".cpp" )
+    assert suffix != -1
+
+    objfile = file[0:suffix] + ".o" 
+
+    tot_incs.sort()
+
+    print objfile, ": ", file, " ",    
+
+    if len(tot_incs)==1:
+        print tot_incs[0]
+    else:
+        for i in xrange( len(tot_incs) ):
+            if i == 0:
+                print tot_incs[i], "\\"
+            elif i < len(tot_incs)-1:
+                print "\t\t\t", tot_incs[i], "\\"
+            else:
+                print "\t\t\t", tot_incs[i]
+    print "\t$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ", objfile, " ", file
+    print " " 
+

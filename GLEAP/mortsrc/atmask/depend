@@ -1,0 +1,290 @@
+atom.o :  atom.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			atom.hpp \
+			condition.hpp \
+			logic.hpp \
+			mask.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  atom.o   atom.cpp
+ 
+condition.o :  condition.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			condition.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  condition.o   condition.cpp
+ 
+dist.o :  dist.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			dist.hpp \
+			mask.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  dist.o   dist.cpp
+ 
+logic.o :  logic.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			logic.hpp \
+			mask.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  logic.o   logic.cpp
+ 
+mask.o :  mask.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../format.hpp \
+			../format/ext.hpp \
+			../format/mdb.hpp \
+			../format/mol.hpp \
+			../format/top.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			../smarts.hpp \
+			../smarts/finder.hpp \
+			../smarts/ring.hpp \
+			../smarts/subst.hpp \
+			../smarts/tyrule.hpp \
+			atom.hpp \
+			condition.hpp \
+			dist.hpp \
+			logic.hpp \
+			mask.hpp \
+			paren.hpp \
+			resd.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  mask.o   mask.cpp
+ 
+paren.o :  paren.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			mask.hpp \
+			paren.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  paren.o   paren.cpp
+ 
+resd.o :  resd.cpp   ../common.hpp \
+			../common/constant.hpp \
+			../common/crdalgo.hpp \
+			../common/fortran.hpp \
+			../common/funstack.hpp \
+			../common/geometry.hpp \
+			../common/hashcode.hpp \
+			../common/matrix.hpp \
+			../common/numvec.hpp \
+			../common/pertab.hpp \
+			../common/stralgo.hpp \
+			../object.hpp \
+			../object/angl.hpp \
+			../object/atmv.hpp \
+			../object/atom.hpp \
+			../object/bond.hpp \
+			../object/comp.hpp \
+			../object/data.hpp \
+			../object/dihe.hpp \
+			../object/impr.hpp \
+			../object/iter.hpp \
+			../object/mole.hpp \
+			../object/morf.hpp \
+			../object/rang.hpp \
+			../object/rela.hpp \
+			../object/resd.hpp \
+			../object/root.hpp \
+			../objfun.hpp \
+			../objfun/atomfun.hpp \
+			../objfun/bondfun.hpp \
+			../objfun/geomfun.hpp \
+			../objfun/hydrfun.hpp \
+			../objfun/merge.hpp \
+			../objfun/parmfun.hpp \
+			../objfun/wrapper.hpp \
+			condition.hpp \
+			mask.hpp \
+			resd.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  resd.o   resd.cpp
+ 

@@ -1,0 +1,38 @@
+numvec.o :  numvec.cpp   fortran.hpp \
+			numvec.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  numvec.o   numvec.cpp
+ 
+matrix.o :  matrix.cpp   matrix.hpp \
+			numvec.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  matrix.o   matrix.cpp
+ 
+pertab.o :  pertab.cpp   pertab.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  pertab.o   pertab.cpp
+ 
+fortran.o :  fortran.cpp   constant.hpp \
+			fortran.hpp \
+			stralgo.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  fortran.o   fortran.cpp
+ 
+stralgo.o :  stralgo.cpp   constant.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  stralgo.o   stralgo.cpp
+ 
+crdalgo.o :  crdalgo.cpp   constant.hpp \
+			crdalgo.hpp \
+			funstack.hpp \
+			geometry.hpp \
+			matrix.hpp \
+			numvec.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  crdalgo.o   crdalgo.cpp
+ 
+funstack.o :  funstack.cpp   funstack.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  funstack.o   funstack.cpp
+ 
+geometry.o :  geometry.cpp   geometry.hpp \
+			matrix.hpp \
+			numvec.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  geometry.o   geometry.cpp
+ 
+hashcode.o :  hashcode.cpp   hashcode.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  hashcode.o   hashcode.cpp
+ 

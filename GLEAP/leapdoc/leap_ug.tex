@@ -1,0 +1,230 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{array}
+\usepackage{color}
+\usepackage{listings}
+\lstloadlanguages{C++}
+\lstset{language=C++}
+
+\title{sleap User's Guide}
+\author{Wei Zhang\\The Scripps Research Institute\\10550 North Torrey Pines Road\\La Jolla, CA 92037}
+
+\usepackage{latexsym}
+\usepackage{mathptmx}
+\usepackage{courier}
+\usepackage{helvet}
+
+\usepackage{geometry}
+\geometry{verbose,letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1in}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+\paragraph*{}
+  sleap is a rewritten of amber's user interface tleap, This document describes how to obtain, 
+install, test and use sleap. 
+
+\section{Obtaining the source code}
+
+\paragraph*{}
+  The source code of sleap is located in the CVS repository of amber10, the location is, people can
+obtain it via cvs.
+
+\paragraph*{}
+  On our first time obtaining the source code, please use the following command:
+\begin{lstlisting}
+cvs -d:ext:xxx@loyd.scripps.edu:/raid5/cvsroot/ co amber10/src/gleap
+\end{lstlisting}
+which will generate a new directory amber10/src/gleap containing all the code.
+
+\paragraph*{}
+   After you have check out the module, you can use ``cvs update -d'' to get the latest update.
+\section{Installation}
+
+   Installation of sleap is standard procedure and is now part of the installation of amber10.
+\begin{lstlisting}
+                  cd xxx/amber10/src/gleap
+                  make
+\end{lstlisting}
+To compile sleap you need g++ at least version 3.0 (which means g++-2.96 won't work). If everything 
+goes well, you will get the executable sleap under the directory xxx/amber11/src/gleap/leapsrc and
+also xxx/amber11/bin/. Sleap has been compiled and tested on linux and windows (through cygwin). Please 
+report all the errors to amber-developers@scripps.edu.
+
+\section{Test}
+
+\paragraph*{}
+   If compilation goes well, you can try to test your build by running test cases under directry amber10/test/sleap:
+\begin{lstlisting}
+                  cd xxx/amber11/test/sleap
+                  make test
+\end{lstlisting}
+   
+
+\section{Usage}
+
+\subsection{Limitations}
+  sleap now have the following limitations:
+
+\paragraph{SaveAmberParm} won't give the identical topology file as tleap does, while the energy 
+should be identical.
+
+\paragraph{SolvateDonClip} has not been implemented.
+
+vdw radii they are using.
+
+
+\subsection{Unsupported Commands}
+  The following commands are not going to be implemented, since it is not clear to me why do
+they even exist.
+
+\paragraph*{addAtomTypes} It seems to me the only usage of it is designating the hybrid type of 
+an atom, which is determined by chemical environment in sleap.
+
+ 
+\paragraph*{logFile} All the information are dumped to standard output now.
+
+
+\paragraph*{CreateParmset} doesn't understand why we need this command.
+   
+
+ 
+\subsection{New Commands or New Features of old Command}
+
+The follwing new commands have been introdcued to sleap:
+
+\paragraph{loadsdf} allow users to read mdl's sdf format file.
+The grammer of loadsdf is:
+
+\begin{lstlisting}
+    unitname = loadsdf filename
+\end{lstlisting}
+
+
+\paragraph{savesdf} allow users to save mdl's sdf format file.
+The grammer of savesdf is:
+\begin{lstlisting}
+    savesdf unitname filename
+\end{lstlisting}
+
+\paragraph{loadmol2} can now load molecules have more than one residue.
+
+\paragraph{savemol2} allow user to save tripos mol2 format file.
+The garmmer of savemol2 is:
+\begin{lstlisting}
+    savemol2 unitname filename
+\end{lstlisting}
+
+\paragraph{fixbond} assigns bond order automatically. Note that the input molecule
+should have only one residue. The grammer is:
+\begin{lstlisting}
+    fixbond unitname
+\end{lstlisting}
+There is a test case showing how to use fixbond in amber10/test/sleap/fastbld
+
+\paragraph{addhydr} addes hydrogens to a molecule. The molecule should have only
+one residue and have correct bond order assigned. The grammer is:
+\begin{lstlisting}
+    addhydr unitname
+\end{lstlisting}
+There is a test case showing how to use addhydr in amber10/test/sleap/fastbld
+
+\paragraph{setpchg} calls antechamber to set partial charge (am1-bcc) and gaff atom type for a
+molecule. The molecule should have only one residue. The grammer is:
+\begin{lstlisting}
+    setpchg unitname
+\end{lstlisting}
+There is a test case showing how to use setpchg in amber10/test/sleap/fastbld
+
+\paragraph{parmchk} calls parmchk on a molecule to get missing force field parameters and add 
+them to system database. The grammer is:
+\begin{lstlisting}
+    parmchk unitname
+\end{lstlisting}
+
+\subsection{New keywords}
+    The following new keywords have been introduced to sleap:
+
+\paragraph{echo} if set to "on", the input command will be echoed. This is very useful 
+for the construction of test cases.
+
+\paragraph{disulfide} is used to control the behavior of loadpdb on disulfide bonds. 
+if disulfide is set to "off", loadpdb will not create disulfide bonds unless they are
+specified in the CONECT records; if disulfide is set to "auto", loadpdb will create disulfide
+bonds between two sulfur atoms whose distance is less then the value specified by keyword
+"disulfcut" (by default the cutoff is 2.2 angstrom); if disulfide is set to "manu", loadpdb
+will ask the user if they want to create such a disulfide bond when found such pair of 
+sulfur atoms. by default it is set to off.
+
+
+\paragraph{disulfcut} is used as the cutoff of disulfide bond.
+
+
+\paragraph{fastbld} is used to control the behavior of loadpdb upon the unknown residues.
+if fastbld was set to "on" and an unknown residue was encoutered in the pdb file, loadpdb 
+will try to run fixbond, addhydr, setpchg and parmchk on the unknown residue and put all the
+the necessary information together into the molecule. The resulted molecule will then be
+ready for SaveAmberParm.
+
+
+\subsection{The basic idea behind the new commands}
+    As has been mentioned before, quite a few new commands have been introduced to sleap. The
+utilmate goal of these new commands is that users will be able to generate topology file right
+from pdb files without calling any other programs such as antechamber. 
+    The easiest way to prepare topology from pdb file is to use the new keyword fastbld. Ideally
+the script would look like the following:
+
+\begin{lstlisting}
+
+     source leaprc.ff03
+     source leaprc.gaff
+     set default fastbld on
+     xxx = loadpdb xxx.pdb
+     saveamberparm xxx xxx.top xxx.xyz
+     quit
+
+\end{lstlisting}
+
+    However, the real world cases can not always be that simple. There are several issues which
+could interrrupt the procedure. 
+
+    Firstly, the fixbond command could fail on distorted structures. Fixbond uses the geometrical
+evidences to determine the bond orders. It won't work for distorted structures.
+
+    Secondly, the addhydr command might not give the proper answer since it does not consider
+protonate states.
+
+    Thirdly, the setpchg command only assign am1-bcc charge to the residue. Sometimes users might
+want to use the resp charge.
+
+    In all, experienced users might want to customize the procedure. They might use some of the
+new commands but not all of them. That is the reason the separate commands are provided. The script
+in my mind would be something like the following:
+
+\begin{lstlisting}
+
+    source leaprc.ff03
+    source leaprc.gaff
+    res = loadpdb res.pdb
+    fixbond res
+    addhydr res
+    setpchg res
+    parmchk res
+    all = loadpdb all.pdb
+    savemaberparm all all.top all.xyz
+    quit
+
+\end{lstlisting}
+
+   Users may make changes to this script. For instance, one can assign the bond order manually save
+the result in sdf format (or mol2 format), then reload in sleap and do the rest, or he can even add
+hydrogens by himself. In all, it is a highly customizable procedure.
+
+
+
+
+
+
+\end{document}

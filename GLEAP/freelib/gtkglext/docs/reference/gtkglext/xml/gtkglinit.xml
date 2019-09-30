@@ -1,0 +1,136 @@
+<refentry id="gtkglext-gtkglinit">
+<refmeta>
+<refentrytitle>Initialization</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GTKGLEXT Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Initialization</refname><refpurpose>Library initialization functions</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gtk/gtkgl.h&gt;
+
+
+void        <link linkend="gtk-gl-init">gtk_gl_init</link>                     (int *argc,
+                                             char ***argv);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-gl-init-check">gtk_gl_init_check</link>               (int *argc,
+                                             char ***argv);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-gl-parse-args">gtk_gl_parse_args</link>               (int *argc,
+                                             char ***argv);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="gtk-gl-init"/>gtk_gl_init ()</title>
+<programlisting>void        gtk_gl_init                     (int *argc,
+                                             char ***argv);</programlisting>
+<para>
+Call this function before using any other GtkGLExt functions in your 
+applications.  It will initialize everything needed to operate the library
+and parses some standard command line options. <parameter>argc</parameter> and 
+<parameter>argv</parameter> are adjusted accordingly so your own code will 
+never see those standard arguments.
+</para>
+<para>
+<note><para>
+This function will terminate your program if it was unable to initialize 
+the library for some reason. If you want your program to fall back to a 
+textual interface you want to call <link linkend="gtk-gl-init-check">gtk_gl_init_check</link>() instead.
+</para></note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> Address of the <parameter>argc</parameter> parameter of your 
+       <function><link linkend="main">main</link>()</function> function. Changed if any arguments
+       were handled.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> Address of the <parameter>argv</parameter> parameter of 
+       <function><link linkend="main">main</link>()</function>. Any parameters understood by
+       <link linkend="gtk-gl-init">gtk_gl_init</link>() are stripped before return.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-gl-init-check"/>gtk_gl_init_check ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gtk_gl_init_check               (int *argc,
+                                             char ***argv);</programlisting>
+<para>
+This function does the same work as <link linkend="gtk-gl-init">gtk_gl_init</link>() with only 
+a single change: It does not terminate the program if the library can't be 
+initialized. Instead it returns <literal>FALSE</literal> on failure.
+</para>
+<para>
+This way the application can fall back to some other means of communication 
+with the user - for example a curses or command line interface.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> Address of the <parameter>argc</parameter> parameter of your 
+       <function><link linkend="main">main</link>()</function> function. Changed if any arguments
+       were handled.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> Address of the <parameter>argv</parameter> parameter of 
+       <function><link linkend="main">main</link>()</function>. Any parameters understood by
+       <link linkend="gtk-gl-init">gtk_gl_init</link>() are stripped before return.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if the GUI has been successfully initialized, 
+              <literal>FALSE</literal> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-gl-parse-args"/>gtk_gl_parse_args ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gtk_gl_parse_args               (int *argc,
+                                             char ***argv);</programlisting>
+<para>
+Parses command line arguments, and initializes global
+attributes of GtkGLExt.
+</para>
+<para>
+Any arguments used by GtkGLExt are removed from the array and
+<parameter>argc</parameter> and <parameter>argv</parameter> are updated accordingly.
+</para>
+<para>
+You shouldn't call this function explicitely if you are using
+<link linkend="gtk-gl-init">gtk_gl_init</link>(), or <link linkend="gtk-gl-init-check">gtk_gl_init_check</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> the number of command line arguments.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> the array of command line arguments.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if initialization succeeded, otherwise <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

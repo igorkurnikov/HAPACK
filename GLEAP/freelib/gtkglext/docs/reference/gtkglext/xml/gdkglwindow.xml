@@ -1,0 +1,211 @@
+<refentry id="gtkglext-gdkglwindow">
+<refmeta>
+<refentrytitle>OpenGL Window</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GTKGLEXT Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>OpenGL Window</refname><refpurpose>OpenGL window which is located on-screen</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<anchor id="GdkGLWindow"/>
+<synopsis>
+
+#include &lt;gdk/gdkgl.h&gt;
+
+
+struct      <link linkend="GdkGLWindow-struct">GdkGLWindow</link>;
+<link linkend="GdkGLWindow">GdkGLWindow</link>* <link linkend="gdk-gl-window-new">gdk_gl_window_new</link>              (<link linkend="GdkGLConfig">GdkGLConfig</link> *glconfig,
+                                             <link linkend="GdkWindow">GdkWindow</link> *window,
+                                             const int *attrib_list);
+void        <link linkend="gdk-gl-window-destroy">gdk_gl_window_destroy</link>           (<link linkend="GdkGLWindow">GdkGLWindow</link> *glwindow);
+<link linkend="GdkWindow">GdkWindow</link>*  <link linkend="gdk-gl-window-get-window">gdk_gl_window_get_window</link>        (<link linkend="GdkGLWindow">GdkGLWindow</link> *glwindow);
+<link linkend="GdkGLWindow">GdkGLWindow</link>* <link linkend="gdk-window-set-gl-capability">gdk_window_set_gl_capability</link>   (<link linkend="GdkWindow">GdkWindow</link> *window,
+                                             <link linkend="GdkGLConfig">GdkGLConfig</link> *glconfig,
+                                             const int *attrib_list);
+void        <link linkend="gdk-window-unset-gl-capability">gdk_window_unset_gl_capability</link>  (<link linkend="GdkWindow">GdkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="gdk-window-is-gl-capable">gdk_window_is_gl_capable</link>        (<link linkend="GdkWindow">GdkWindow</link> *window);
+<link linkend="GdkGLWindow">GdkGLWindow</link>* <link linkend="gdk-window-get-gl-window">gdk_window_get_gl_window</link>       (<link linkend="GdkWindow">GdkWindow</link> *window);
+#define     <link linkend="gdk-window-get-gl-drawable">gdk_window_get_gl_drawable</link>      (window)
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GdkDrawable">GdkDrawable</link>
+         +----GdkGLWindow
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GdkGLWindow-struct"/>struct GdkGLWindow</title>
+<programlisting>struct GdkGLWindow;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gdk-gl-window-new"/>gdk_gl_window_new ()</title>
+<programlisting><link linkend="GdkGLWindow">GdkGLWindow</link>* gdk_gl_window_new              (<link linkend="GdkGLConfig">GdkGLConfig</link> *glconfig,
+                                             <link linkend="GdkWindow">GdkWindow</link> *window,
+                                             const int *attrib_list);</programlisting>
+<para>
+Creates an on-screen rendering area.
+attrib_list is currently unused. This must be set to NULL or empty
+(first attribute of None). See GLX 1.3 spec.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>glconfig</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkGLConfig">GdkGLConfig</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GdkWindow">GdkWindow</link> to be used as the rendering area.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attrib_list</parameter>&nbsp;:</term>
+<listitem><simpara> this must be set to NULL or empty (first attribute of None).
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GdkGLWindow">GdkGLWindow</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-gl-window-destroy"/>gdk_gl_window_destroy ()</title>
+<programlisting>void        gdk_gl_window_destroy           (<link linkend="GdkGLWindow">GdkGLWindow</link> *glwindow);</programlisting>
+<para>
+Destroys the OpenGL resources associated with <parameter>glwindow</parameter> and
+decrements <parameter>glwindow</parameter>'s reference count.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>glwindow</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkGLWindow">GdkGLWindow</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-gl-window-get-window"/>gdk_gl_window_get_window ()</title>
+<programlisting><link linkend="GdkWindow">GdkWindow</link>*  gdk_gl_window_get_window        (<link linkend="GdkGLWindow">GdkGLWindow</link> *glwindow);</programlisting>
+<para>
+Returns the <link linkend="GdkWindow">GdkWindow</link> associated with <parameter>glwindow</parameter>.
+</para>
+<para>
+Notice that <link linkend="GdkGLWindow">GdkGLWindow</link> is not <link linkend="GdkWindow">GdkWindow</link>, but another
+<link linkend="GdkDrawable">GdkDrawable</link> which have an associated <link linkend="GdkWindow">GdkWindow</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>glwindow</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkGLWindow">GdkGLWindow</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GdkWindow">GdkWindow</link> associated with <parameter>glwindow</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-window-set-gl-capability"/>gdk_window_set_gl_capability ()</title>
+<programlisting><link linkend="GdkGLWindow">GdkGLWindow</link>* gdk_window_set_gl_capability   (<link linkend="GdkWindow">GdkWindow</link> *window,
+                                             <link linkend="GdkGLConfig">GdkGLConfig</link> *glconfig,
+                                             const int *attrib_list);</programlisting>
+<para>
+Set the OpenGL-capability to the <parameter>window</parameter>.
+This function creates a new <link linkend="GdkGLWindow">GdkGLWindow</link> held by the <parameter>window</parameter>.
+attrib_list is currently unused. This must be set to NULL or empty
+(first attribute of None).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GdkWindow">GdkWindow</link> to be used as the rendering area.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>glconfig</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkGLConfig">GdkGLConfig</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attrib_list</parameter>&nbsp;:</term>
+<listitem><simpara> this must be set to NULL or empty (first attribute of None).
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GdkGLWindow">GdkGLWindow</link> used by the <parameter>window</parameter> if it is successful,
+              NULL otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-window-unset-gl-capability"/>gdk_window_unset_gl_capability ()</title>
+<programlisting>void        gdk_window_unset_gl_capability  (<link linkend="GdkWindow">GdkWindow</link> *window);</programlisting>
+<para>
+Unset the OpenGL-capability of the <parameter>window</parameter>.
+This function destroys the <link linkend="GdkGLWindow">GdkGLWindow</link> held by the <parameter>window</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkWindow">GdkWindow</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-window-is-gl-capable"/>gdk_window_is_gl_capable ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gdk_window_is_gl_capable        (<link linkend="GdkWindow">GdkWindow</link> *window);</programlisting>
+<para>
+Returns whether the <parameter>window</parameter> is OpenGL-capable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkWindow">GdkWindow</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the <parameter>window</parameter> is OpenGL-capable, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-window-get-gl-window"/>gdk_window_get_gl_window ()</title>
+<programlisting><link linkend="GdkGLWindow">GdkGLWindow</link>* gdk_window_get_gl_window       (<link linkend="GdkWindow">GdkWindow</link> *window);</programlisting>
+<para>
+Returns the <link linkend="GdkGLWindow">GdkGLWindow</link> held by the <parameter>window</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkWindow">GdkWindow</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GdkGLWindow">GdkGLWindow</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdk-window-get-gl-drawable"/>gdk_window_get_gl_drawable()</title>
+<programlisting>#define     gdk_window_get_gl_drawable(window)</programlisting>
+<para>
+Returns the <link linkend="GdkGLDrawable">GdkGLDrawable</link> held by the <parameter>window</parameter>. In fact, this is macro
+that casts the result of <link linkend="gdk-window-get-gl-window">gdk_window_get_gl_window</link> to <link linkend="GdkGLDrawable">GdkGLDrawable</link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GdkGLWindow">GdkGLWindow</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the <link linkend="GdkGLDrawable">GdkGLDrawable</link>.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

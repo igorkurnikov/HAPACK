@@ -1,0 +1,106 @@
+add.o :  add.cpp   add.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  add.o   add.cpp
+ 
+addmap.o :  addmap.cpp   addmap.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  addmap.o   addmap.cpp
+ 
+addions.o :  addions.cpp   addions.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  addions.o   addions.cpp
+ 
+bond.o :  bond.cpp   bond.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  bond.o   bond.cpp
+ 
+center.o :  center.cpp   center.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  center.o   center.cpp
+ 
+charge.o :  charge.cpp   charge.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  charge.o   charge.cpp
+ 
+copy.o :  copy.cpp   copy.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  copy.o   copy.cpp
+ 
+create.o :  create.cpp   create.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  create.o   create.cpp
+ 
+delete.o :  delete.cpp   delete.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  delete.o   delete.cpp
+ 
+desc.o :  desc.cpp   desc.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  desc.o   desc.cpp
+ 
+energy.o :  energy.cpp   energy.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  energy.o   energy.cpp
+ 
+geom.o :  geom.cpp   	
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  geom.o   geom.cpp
+ 
+help.o :  help.cpp   help.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  help.o   help.cpp
+ 
+impose.o :  impose.cpp   impose.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  impose.o   impose.cpp
+ 
+list.o :  list.cpp   list.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  list.o   list.cpp
+ 
+loadcrd.o :  loadcrd.cpp   loadcrd.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadcrd.o   loadcrd.cpp
+ 
+loadfrc.o :  loadfrc.cpp   loadfrc.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadfrc.o   loadfrc.cpp
+ 
+loadmol2.o :  loadmol2.cpp   loadmol2.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadmol2.o   loadmol2.cpp
+ 
+loadoff.o :  loadoff.cpp   loadoff.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadoff.o   loadoff.cpp
+ 
+loadpdb.o :  loadpdb.cpp   loadpdb.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadpdb.o   loadpdb.cpp
+ 
+loadprep.o :  loadprep.cpp   loadprep.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadprep.o   loadprep.cpp
+ 
+loadsdf.o :  loadsdf.cpp   loadsdf.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  loadsdf.o   loadsdf.cpp
+ 
+measure.o :  measure.cpp   measure.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  measure.o   measure.cpp
+ 
+merge.o :  merge.cpp   merge.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  merge.o   merge.cpp
+ 
+moloper.o :  moloper.cpp   moloper.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  moloper.o   moloper.cpp
+ 
+savemol2.o :  savemol2.cpp   savemol2.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  savemol2.o   savemol2.cpp
+ 
+saveoff.o :  saveoff.cpp   saveoff.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  saveoff.o   saveoff.cpp
+ 
+savepdb.o :  savepdb.cpp   savepdb.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  savepdb.o   savepdb.cpp
+ 
+saveprm.o :  saveprm.cpp   saveprm.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  saveprm.o   saveprm.cpp
+ 
+savesdf.o :  savesdf.cpp   savesdf.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  savesdf.o   savesdf.cpp
+ 
+set.o :  set.cpp   set.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  set.o   set.cpp
+ 
+shell.o :  shell.cpp   shell.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  shell.o   shell.cpp
+ 
+solvate.o :  solvate.cpp   solvate.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  solvate.o   solvate.cpp
+ 
+source.o :  source.cpp   source.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  source.o   source.cpp
+ 
+zmatrix.o :  zmatrix.cpp   impose.hpp \
+			zmatrix.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o  zmatrix.o   zmatrix.cpp
+ 

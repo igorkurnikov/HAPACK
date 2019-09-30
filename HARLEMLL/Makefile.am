@@ -14,7 +14,7 @@ AM_CPPFLAGS = \
  -I$(top_srcdir)/WOLFGANG/generic \
  -I$(top_srcdir)/PNPS/src \
  -I$(top_srcdir)/PNPS/pnpmod \
- -I$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc \
+ -I$(top_srcdir)/GLEAP/mortsrc \
  $(PYTHON_CPPFLAGS) \
  $(MPI_INCLUDE) \
  $(BOOST_INCLUDE) \
@@ -29,8 +29,9 @@ lib_harlem_la_LIBADD = \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
  $(top_builddir)/GEOBALL/.libs/libgeoball.so -lgmp \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
- $(top_srcdir)/../../PROG_SRC/g98/util.a \
- -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
+ $(top_srcdir)/libs/linux/x64/qcutil.a \
+ $(top_srcdir)/libs/linux/x64/libmort.a 
+## -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
 
 if WITH_LIB_PMEMD
 lib_harlem_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a

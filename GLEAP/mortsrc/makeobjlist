@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+
+from os import path
+from sys import exit, stderr
+from string import split, replace, strip
+
+subdirs = ["ambfmt","atmask","capbox","common","enefrc", 
+           "format","guilib","object","objfun","pdbent",
+           "smarts","tripos"]
+
+objects = []
+for dir in subdirs:
+    fmake = open( dir+ "/Makefile", "r" )
+
+    line = fmake.readline()
+    while len(line) > 0 and line.find("OBJECTS    ")==-1:
+        line = fmake.readline()
+    items = split( replace(line, '\\', '') )
+    objects.append( dir+ "/" +items[-1] )
+
+    line = fmake.readline()
+    while len(line) > 0 and line.find("=")==-1:
+        fname = strip( replace(line, '\\', '') )
+	objects.append( dir + '/' + fname )
+        line = fmake.readline()
+
+fout = open( "objlist", "w" )
+fout.write( "OBJECTS = \\\n" )
+for i in xrange( len(objects) ):
+    fout.write( "\t" )
+    fout.write( objects[i] )
+    if i < len(objects)-1:
+        fout.write( " \\" )
+    fout.write( "\n" )
+
+fout = open( "CMakeLists.txt", "w" )
+fout.write( "SUBDIRS(pymort)\n\n" )
+fout.write( "SET(LIB_MORT_SOURCE" )
+for f in objects:
+    s = replace( f, ".o", ".cpp" )
+    fout.write( s + "\n" )
+fout.write( "ADD_LIBRARY(mort SHARED ${LIB_MORT_SOURCE})\n" )
+fout.write( "INSTALL_TARGETS(/lib mort)\n" )
+

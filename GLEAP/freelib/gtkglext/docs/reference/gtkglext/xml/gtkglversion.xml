@@ -1,0 +1,142 @@
+<refentry id="gtkglext-gtkglversion">
+<refmeta>
+<refentrytitle>Version Information</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GTKGLEXT Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Version Information</refname><refpurpose>Variables and macros to check the GtkGLExt version</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gtk/gtkgl.h&gt;
+
+
+#define     <link linkend="GTKGLEXT-MAJOR-VERSION-CAPS">GTKGLEXT_MAJOR_VERSION</link>
+#define     <link linkend="GTKGLEXT-MINOR-VERSION-CAPS">GTKGLEXT_MINOR_VERSION</link>
+#define     <link linkend="GTKGLEXT-MICRO-VERSION-CAPS">GTKGLEXT_MICRO_VERSION</link>
+#define     <link linkend="GTKGLEXT-INTERFACE-AGE-CAPS">GTKGLEXT_INTERFACE_AGE</link>
+#define     <link linkend="GTKGLEXT-BINARY-AGE-CAPS">GTKGLEXT_BINARY_AGE</link>
+#define     <link linkend="GTKGLEXT-CHECK-VERSION-CAPS">GTKGLEXT_CHECK_VERSION</link>          (major, minor, micro)
+extern      const guint <link linkend="gtkglext-major-version">gtkglext_major_version</link>;
+extern      const guint <link linkend="gtkglext-minor-version">gtkglext_minor_version</link>;
+extern      const guint <link linkend="gtkglext-micro-version">gtkglext_micro_version</link>;
+extern      const guint <link linkend="gtkglext-interface-age">gtkglext_interface_age</link>;
+extern      const guint <link linkend="gtkglext-binary-age">gtkglext_binary_age</link>;
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GTKGLEXT-MAJOR-VERSION-CAPS"/>GTKGLEXT_MAJOR_VERSION</title>
+<programlisting>#define GTKGLEXT_MAJOR_VERSION (1)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GTKGLEXT-MINOR-VERSION-CAPS"/>GTKGLEXT_MINOR_VERSION</title>
+<programlisting>#define GTKGLEXT_MINOR_VERSION (0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GTKGLEXT-MICRO-VERSION-CAPS"/>GTKGLEXT_MICRO_VERSION</title>
+<programlisting>#define GTKGLEXT_MICRO_VERSION (6)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GTKGLEXT-INTERFACE-AGE-CAPS"/>GTKGLEXT_INTERFACE_AGE</title>
+<programlisting>#define GTKGLEXT_INTERFACE_AGE (4)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GTKGLEXT-BINARY-AGE-CAPS"/>GTKGLEXT_BINARY_AGE</title>
+<programlisting>#define GTKGLEXT_BINARY_AGE    (6)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GTKGLEXT-CHECK-VERSION-CAPS"/>GTKGLEXT_CHECK_VERSION()</title>
+<programlisting>#define     GTKGLEXT_CHECK_VERSION(major, minor, micro)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>micro</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtkglext-major-version"/>gtkglext_major_version</title>
+<programlisting>extern const guint gtkglext_major_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtkglext-minor-version"/>gtkglext_minor_version</title>
+<programlisting>extern const guint gtkglext_minor_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtkglext-micro-version"/>gtkglext_micro_version</title>
+<programlisting>extern const guint gtkglext_micro_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtkglext-interface-age"/>gtkglext_interface_age</title>
+<programlisting>extern const guint gtkglext_interface_age;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtkglext-binary-age"/>gtkglext_binary_age</title>
+<programlisting>extern const guint gtkglext_binary_age;
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

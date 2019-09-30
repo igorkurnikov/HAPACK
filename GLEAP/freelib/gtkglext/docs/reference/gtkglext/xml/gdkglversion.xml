@@ -1,0 +1,142 @@
+<refentry id="gtkglext-gdkglversion">
+<refmeta>
+<refentrytitle>Version Information</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GTKGLEXT Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Version Information</refname><refpurpose>Variables and macros to check the GdkGLExt version</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gdk/gdkgl.h&gt;
+
+
+#define     <link linkend="GDKGLEXT-MAJOR-VERSION-CAPS">GDKGLEXT_MAJOR_VERSION</link>
+#define     <link linkend="GDKGLEXT-MINOR-VERSION-CAPS">GDKGLEXT_MINOR_VERSION</link>
+#define     <link linkend="GDKGLEXT-MICRO-VERSION-CAPS">GDKGLEXT_MICRO_VERSION</link>
+#define     <link linkend="GDKGLEXT-INTERFACE-AGE-CAPS">GDKGLEXT_INTERFACE_AGE</link>
+#define     <link linkend="GDKGLEXT-BINARY-AGE-CAPS">GDKGLEXT_BINARY_AGE</link>
+#define     <link linkend="GDKGLEXT-CHECK-VERSION-CAPS">GDKGLEXT_CHECK_VERSION</link>          (major, minor, micro)
+extern      const guint <link linkend="gdkglext-major-version">gdkglext_major_version</link>;
+extern      const guint <link linkend="gdkglext-minor-version">gdkglext_minor_version</link>;
+extern      const guint <link linkend="gdkglext-micro-version">gdkglext_micro_version</link>;
+extern      const guint <link linkend="gdkglext-interface-age">gdkglext_interface_age</link>;
+extern      const guint <link linkend="gdkglext-binary-age">gdkglext_binary_age</link>;
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GDKGLEXT-MAJOR-VERSION-CAPS"/>GDKGLEXT_MAJOR_VERSION</title>
+<programlisting>#define GDKGLEXT_MAJOR_VERSION (1)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GDKGLEXT-MINOR-VERSION-CAPS"/>GDKGLEXT_MINOR_VERSION</title>
+<programlisting>#define GDKGLEXT_MINOR_VERSION (0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GDKGLEXT-MICRO-VERSION-CAPS"/>GDKGLEXT_MICRO_VERSION</title>
+<programlisting>#define GDKGLEXT_MICRO_VERSION (6)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GDKGLEXT-INTERFACE-AGE-CAPS"/>GDKGLEXT_INTERFACE_AGE</title>
+<programlisting>#define GDKGLEXT_INTERFACE_AGE (4)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GDKGLEXT-BINARY-AGE-CAPS"/>GDKGLEXT_BINARY_AGE</title>
+<programlisting>#define GDKGLEXT_BINARY_AGE    (6)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GDKGLEXT-CHECK-VERSION-CAPS"/>GDKGLEXT_CHECK_VERSION()</title>
+<programlisting>#define     GDKGLEXT_CHECK_VERSION(major, minor, micro)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>micro</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gdkglext-major-version"/>gdkglext_major_version</title>
+<programlisting>extern const guint gdkglext_major_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gdkglext-minor-version"/>gdkglext_minor_version</title>
+<programlisting>extern const guint gdkglext_minor_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gdkglext-micro-version"/>gdkglext_micro_version</title>
+<programlisting>extern const guint gdkglext_micro_version;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gdkglext-interface-age"/>gdkglext_interface_age</title>
+<programlisting>extern const guint gdkglext_interface_age;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gdkglext-binary-age"/>gdkglext_binary_age</title>
+<programlisting>extern const guint gdkglext_binary_age;
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>
