@@ -909,7 +909,7 @@ void HaMainFrameWX::OnAbout(wxCommandEvent& WXUNUSED(event))
     Mes+="Graphical Interface Based on RASMOL 2.6 of Roger Sayle \n";
 	Mes+="and wxWidgets library \n";
 	Mes+="Quantum Chemical functionality based on IPACK library of Wolfgang Wenzel \n";
-	Mes+="Command line/scripting interface is based on PYTHON 2.7 \n";
+	Mes+="Command line/scripting interface is based on PYTHON 3.7 \n";
 	Mes+="Also linked to VFLIB, TINYXML, LAPACK, BLAS and other libraries \n\n";
 	Mes+="Build date -  ";Mes+=__DATE__;Mes+="\n";        
 //	Mes+=HaSVNRevision();Mes+="\n";             

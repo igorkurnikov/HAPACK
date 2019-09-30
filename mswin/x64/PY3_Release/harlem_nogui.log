@@ -1,0 +1,131 @@
+﻿  Generate Python interface hamolset_wrap.cpp file with SWIG
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(920): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1172): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1233): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1296): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1351): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1391): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1629): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(105): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(106): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(114): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(127): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(128): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(136): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(150): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(151): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(159): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(226): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(45): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(46): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(49): warning 389: operator[] ignored (consider using %extend)
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(50): warning 389: operator[] ignored (consider using %extend)
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(27): warning 320: Explicit template instantiation ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(666): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hasurface.h(204): warning 325: Nested class not currently supported (GEPOLParams ignored)
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(24): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(122): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(62): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(471): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(508): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(107): warning 401: Nothing known about base class 'IntIntMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(141): warning 401: Nothing known about base class 'IntPtrMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(177): warning 401: Nothing known about base class 'PtrIntMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(211): warning 401: Nothing known about base class 'PtrPtrMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(245): warning 401: Nothing known about base class 'PtrDoubleMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(280): warning 401: Nothing known about base class 'set< void *,less< void * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(280): warning 401: Maybe you forgot to instantiate 'set< void *,less< void * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(289): warning 401: Nothing known about base class 'vector< void * >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(289): warning 401: Maybe you forgot to instantiate 'vector< void * >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(90): warning 401: Nothing known about base class 'map< std::string,double,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(90): warning 401: Maybe you forgot to instantiate 'map< std::string,double,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(125): warning 401: Nothing known about base class 'map< std::string,std::string,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(125): warning 401: Maybe you forgot to instantiate 'map< std::string,std::string,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(142): warning 401: Nothing known about base class 'map< std::string,int,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(142): warning 401: Maybe you forgot to instantiate 'map< std::string,int,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(266): warning 401: Nothing known about base class 'std::vector< Vec3D >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(266): warning 401: Maybe you forgot to instantiate 'std::vector< Vec3D >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(371): warning 401: Nothing known about base class 'std::vector< VecPtr >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(371): warning 401: Maybe you forgot to instantiate 'std::vector< VecPtr >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(269): warning 401: Nothing known about base class 'std::map< HaAtom *,double,less< HaAtom * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(269): warning 401: Maybe you forgot to instantiate 'std::map< HaAtom *,double,less< HaAtom * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(285): warning 401: Nothing known about base class 'std::map< HaAtom *,HaAtom *,less< HaAtom * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(285): warning 401: Maybe you forgot to instantiate 'std::map< HaAtom *,HaAtom *,less< HaAtom * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(68): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(99): warning 401: Base class 'harlem::SaveOptions' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(81): warning 401: 'harlem::SaveOptions' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(231): warning 401: Nothing known about base class 'vector< HaAtom * >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(231): warning 401: Maybe you forgot to instantiate 'vector< HaAtom * >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hacompmod.h(46): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(15): warning 401: Base class 'HaEnum1' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(133): warning 401: 'HaEnum1' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\hacoord.h(35): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\hacoord.h(65): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.h(232): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.h(257): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_driver_amber.h(23): warning 401: Base class 'MMDriver' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolmech.h(543): warning 401: 'MMDriver' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.h(166): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(425): warning 503: Can't wrap 'operator >>' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(443): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(446): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(160): warning 509: Overloaded method HaXML::SetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(150): warning 509: as it is shadowed by HaXML::SetElement(TiXmlElement *,char const *,std::vector< int,std::allocator< int > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(150): warning 509: Overloaded method HaXML::SetElement(TiXmlElement *,char const *,std::vector< int,std::allocator< int > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(160): warning 509: as it is shadowed by HaXML::SetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(168): warning 509: Overloaded method HaXML::SetElement(TiXmlElement *,char const *,std::vector< double,std::allocator< double > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(160): warning 509: as it is shadowed by HaXML::SetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(169): warning 509: Overloaded method HaXML::SetElement(TiXmlElement *,char const *,std::vector< std::string,std::allocator< std::string > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(160): warning 509: as it is shadowed by HaXML::SetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(160): warning 509: Overloaded method HaXML::SetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *,char const *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(168): warning 509: as it is shadowed by HaXML::SetElement(TiXmlElement *,char const *,std::vector< double,std::allocator< double > > *,char const *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(221): warning 509: Overloaded method HaXML::GetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(218): warning 509: as it is shadowed by HaXML::GetElement(TiXmlElement *,char const *,std::vector< double,std::allocator< double > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(222): warning 509: Overloaded method HaXML::GetElement(TiXmlElement *,char const *,std::vector< std::string,std::allocator< std::string > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(218): warning 509: as it is shadowed by HaXML::GetElement(TiXmlElement *,char const *,std::vector< double,std::allocator< double > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(218): warning 509: Overloaded method HaXML::GetElement(TiXmlElement *,char const *,std::vector< double,std::allocator< double > > *) effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.h(221): warning 509: as it is shadowed by HaXML::GetElement(TiXmlElement *,char const *,std::vector< float,std::allocator< float > > *).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(43): warning 504: Function HaVec_int_parent::HaVec_int() must have a return type. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(79): warning 509: Overloaded method HaVec_double_parent::r0(size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(77): warning 509: as it is shadowed by HaVec_double_parent::r0(size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(80): warning 509: Overloaded method HaVec_double_parent::r1(size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(78): warning 509: as it is shadowed by HaVec_double_parent::r1(size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(191): warning 509: Overloaded method HaMat_double_parent::r0(size_t,size_t) const effectively ignored,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(220,5): warning MSB4220: Waiting for the currently executing task "CustomBuild" to cancel.
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(189): warning 509: as it is shadowed by HaMat_double_parent::r0(size_t,size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(192): warning 509: Overloaded method HaMat_double_parent::r1(size_t,size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(190): warning 509: as it is shadowed by HaMat_double_parent::r1(size_t,size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(54): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(55): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(56): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(294): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(115): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(116): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(165): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\harlemapp.h(130): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\canvas3d.h(298): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.h(526): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(25): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\haqchem.h(306): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(63): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(95): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(128): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(160): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(194): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(222): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(262): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(299): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(335): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(368): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(402): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(434): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(472): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(509): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\protonredox.h(26): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\protonredox.h(88): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.

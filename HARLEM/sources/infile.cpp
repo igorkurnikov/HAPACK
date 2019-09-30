@@ -1353,6 +1353,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 					PrintLog("Warning in HaMolSet::LoadHINStream()\n");
 					PrintLog("The Number atom bond descriptors do not match the number of bonds\n %s \n - adjusting expected number of bonds \n", line.c_str());
 					nb = (str_arr.size() - 11) / 2;
+					if (nb < 0) nb = 0;
 				}
 				int i;
 				for( i = 0; i < nb; i++)

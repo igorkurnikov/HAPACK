@@ -546,7 +546,7 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 					save_res_as_mol = true;
 					save_res_info = false;
 				}
-				if( save_res_as_mol  && !(pres == pres_fst_ch0) )
+				if( save_res_as_mol  && !(pres == pres_fst_ch0) && pres->IsWater() )
 				{
 					if(!(pres == pres_fst) ) os << "endmol " << imol << std::endl;
 					imol++;

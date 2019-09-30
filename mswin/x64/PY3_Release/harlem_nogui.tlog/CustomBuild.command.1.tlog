@@ -1,0 +1,2 @@
+^C:\MYPROG\HAPACK\HARLEM\SOURCES\HAMOLSET.I
+c:\swig\swig.exe -python -shadow  -c++  -D_MSC_VER -DHA_NOGUI -o x64\PY3_Release\hamolset_wrap.cpp  C:\MYPROG\HAPACK\HARLEM\sources\\hamolset.i

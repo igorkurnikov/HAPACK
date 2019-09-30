@@ -24,25 +24,48 @@ swig
 libboost-dev
 libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 
+gfortran
+
 link / to /export ( required for some 
 links in /home/igor/local/bin ):!
 
+GAUSSIAN util.a: 
+unpack g98.tar in ../PROG_SRC
+
+mortlib.a :
+get AMBER11_IGOR:
+got to gleap:
+cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
+make - it will make mortlib.a   although python bidings will not be finished
 
 ###MPI
 AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
 AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
 
-
 HAPACK compilation commands:
 
 LINUX:
-libtoolize
-autoreconf
+libtoolize                 --- create ltmain.sh  link
+automake --add-missing     --create compile,missing and depcomp links
+autoreconf    
 
-failed to generate depndencies for the library
+failed to generate dependencies for the library
 able to run compilation of the shared library with:
 configure --disable-dependency-tracking
 
+MKL install:
+
+gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
+cd l_mkl_2019.5.281
+./install 
+choose /share/apps/intel   for installation dir
+
+// MPI:
+// Problems with OPENMPI on linux:
+// The easiest way to do this is to configure your Open MPI installation with --disable-dlopen.
+//Open MPI uses a bunch of plugins for its functionality. When you dlopen libmpi in a private namespace (like Python does), and then libmpi tries to dlopen its plugins, the plugins can't find the symbols that they need in the main libmpi library (because they're in a private namespace).
+// The workaround is to build Open MPI with all of its plugins slurped up into the libmpi library itself (i.e., so that Open MPI doesn't have to dlopen its plugins).
+Fixed with explicit dlopen( openmpi.so ) call
 
 
 LINUX NOGUI (IGOR CMU):
@@ -70,7 +93,6 @@ mpicxx --showme:link  :  -pthread -L/opt/openmpi/lib -lmpi_cxx -lmpi -libverbs -
 taken from MMFitter install: 
 c-make-run.sh:MPI_INCLUDE=$(mpicxx --showme:compile)
 c-make-run.sh:MPI_LINK_FLAGS=$(mpicxx --showme:link)
-
 -------------------------------------------------------------------------------
 swig build configure params:
 configure --prefix ${HOME}/local --without-prse 
@@ -92,7 +114,11 @@ plugged
 
 into hamolset.i file and halib.i file   I hope it fixed the issue
 --------------------------------------------------------------------------------------------
-wxWidgets config on linux:
+wxWidgets config on linux - now part of wxPython setup 
+had to comment a couple of asserts in sizer.cpp 
+
+also could do ( but didn't figure out how to do it iin python build.py build_wx )
+./configure --disable-debug_flag
 
 NOGUI:
 
@@ -125,7 +151,6 @@ to compile go to
 ~/MYPROG/AMBER11_IGOR/AmberTools/src/gleap 
 cmake CMakeLists.txt
 make
-
 ---------------------------------------------------------------------------------------------
 
 MKL library needed to be present:
