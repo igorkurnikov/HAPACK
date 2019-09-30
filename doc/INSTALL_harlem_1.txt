@@ -117,6 +117,9 @@ into hamolset.i file and halib.i file   I hope it fixed the issue
 wxWidgets config on linux - now part of wxPython setup 
 had to comment a couple of asserts in sizer.cpp 
 
+also could do ( but didn't figure out how to do it iin python build.py build_wx )
+./configure --disable-debug_flag
+
 NOGUI:
 
 mkdir wxWidgets/build_nogui:
