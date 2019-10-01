@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CD7149EA-ED1A-44C9-A7E7-F9A15EA1470E}</ProjectGuid>
+    <RootNamespace>mortlib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="haprops.props" />
+    <Import Project="paths_win32__vcpkg.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="haprops.props" />
+    <Import Project="paths_x64__vcpkg.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="haprops.props" />
+    <Import Project="paths_win32_debug__vcpkg.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="haprops.props" />
+    <Import Project="paths_x64_debug__vcpkg.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\ambfrc.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\energee.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\energy.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\exclude.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\extent.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\les.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\parm.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\parmset.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\ambfmt\prmtop.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\atom.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\condition.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\dist.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\logic.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\mask.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\paren.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\atmask\resd.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\addions.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\octree.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\region.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\shaper.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\solute.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\solvate.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\capbox\solvent.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\constant.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\crdalgo.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\fortran.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\funstack.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\geometry.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\hashcode.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\matrix.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\numvec.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\pertab.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\common\stralgo.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\enefrc\ctrlparm.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\enefrc.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\enefrc\nonbond-pbc.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\enefrc\nonbond.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format\ext.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format\mdb.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format\mol.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format\top.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\format\xyz.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\command.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\console.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\control.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\drawing.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\fulfill.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\glutils.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\grammar.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\graphic.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\history.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\leaplog.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\mainwin.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\mouse.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\ortho.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\ribbon.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\guilib\txtbuff.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\tripos.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\atomexpr.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\finder.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\parse.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\reader.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\ring.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\status.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\subst.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\smarts\tyrule.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\angl.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\atmv.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\atom.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\bond.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\comp.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\data.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\dihe.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\impr.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\iter.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\mfwd.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\mole.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\morf.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\rang.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\rela.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\resd.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\object\root.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\atomfun.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\bondfun.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\fixbond.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\geomfun.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\hydrfun.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\merge.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\parmfun.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\objfun\wrapper.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\atom.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\bond.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\mdlize.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\namemap.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\resd.hpp" />
+    <ClInclude Include="..\GLEAP\mortsrc\pdbent\second.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\ambfrc-amoeba.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\amboff.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\chain.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\energee.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\exclude.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\extent.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\les.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\parm.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\parmset.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\prep.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\prmtop-amoeba.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\ambfmt\prmtop.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\atom.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\condition.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\dist.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\logic.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\mask.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\paren.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\atmask\resd.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\addions.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\octree.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\region.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\shaper.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\solute.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\solvate.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\capbox\solvent.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\crdalgo.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\fortran.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\funstack.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\geometry.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\hashcode.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\matrix.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\numvec.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\pertab.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\common\stralgo.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\enefrc\bonding.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\enefrc\ctrlparm.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\enefrc\nonbond-egb.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\enefrc\nonbond-lst.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\enefrc\nonbond-pbc.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\ext.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\frc.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\mdb.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\mdlfmt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\format\mol.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\sdf.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\top.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\format\xyz.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\command.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\console.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\control.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\drawing.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\glutils.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\grammar.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\graphic.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\leaplog.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\mainwin.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\mouse.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\ortho.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\ribbon.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\guilib\txtbuff.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\atom.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)tripos_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)tripos_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)tripos_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)tripos_atom.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\bond.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)tripos_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)tripos_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)tripos_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)tripos_bond.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\head.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\mol2.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\resd.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)tripos_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)tripos_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)tripos_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)tripos_resd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\tripos\sect.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\atomexpr.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\finder.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\parse.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\reader.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\ring.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\smarts.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\status.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\subst.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\smarts\tyrule.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\angl.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\atmv.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\atom.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)object_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)object_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)object_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)object_atom.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\object\bond.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)object_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)object_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)object_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)object_bond.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\object\comp.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\data.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\dihe.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\impr.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\mole.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\morf.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\rela.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\object\resd.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)object_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)object_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)object_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)object_resd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\object\root.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\atomfun.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\bondfun.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\fixbond.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\geomfun.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\hydrfun.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\merge.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\parmfun.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\objfun\wrapper.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\atom.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)pdbent_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)pdbent_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)pdbent_atom.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)pdbent_atom.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\bond.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)pdbent_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)pdbent_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)pdbent_bond.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)pdbent_bond.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\mdlize.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\namemap.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\pdbent.cpp" />
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\resd.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)pdbent_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)pdbent_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)pdbent_resd.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)pdbent_resd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\GLEAP\mortsrc\pdbent\second.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\GLEAP\mortsrc\ambfmt\depend" />
+    <None Include="..\GLEAP\mortsrc\ambfmt\Makefile" />
+    <None Include="..\GLEAP\mortsrc\atmask\depend" />
+    <None Include="..\GLEAP\mortsrc\atmask\Makefile" />
+    <None Include="..\GLEAP\mortsrc\capbox\Makefile" />
+    <None Include="..\GLEAP\mortsrc\common\hash.txt" />
+    <None Include="..\GLEAP\mortsrc\common\Makefile" />
+    <None Include="..\GLEAP\mortsrc\enefrc\Makefile" />
+    <None Include="..\GLEAP\mortsrc\format\depend" />
+    <None Include="..\GLEAP\mortsrc\format\Makefile" />
+    <None Include="..\GLEAP\mortsrc\guilib\guilib.pro" />
+    <None Include="..\GLEAP\mortsrc\guilib\Makefile" />
+    <None Include="..\GLEAP\mortsrc\tripos\Makefile" />
+    <None Include="..\GLEAP\mortsrc\smarts\Makefile" />
+    <None Include="..\GLEAP\mortsrc\object\Makefile" />
+    <None Include="..\GLEAP\mortsrc\objfun\depend" />
+    <None Include="..\GLEAP\mortsrc\objfun\Makefile" />
+    <None Include="mort_igor_notes.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

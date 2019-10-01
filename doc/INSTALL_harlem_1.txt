@@ -162,3 +162,59 @@ mkl_avx.dll    - (mkl_core.dll and mkl_sequential.dll depends on it but never co
 may be for additional functions other MKL libraries are needed
 In the currently used MKL version they are in :
 c:\Program Files (x86)\Intel\Composer XE 2013\redist\ia32\mkl  
+-----------------------------------------------------------------------------------------------------------
+wxPython4 - Phoenix install:
+UBUNTU 18.04
+sudo apt install make gcc libgtk-3-dev libwebkitgtk-dev libwebkitgtk-3.0-dev libgstreamer-gl1.0-0 freeglut3 freeglut3-dev python-gst-1.0 python3-gst-1.0 libglib2.0-dev ubuntu-restricted-extras libgstreamer-plugins-base1.0-dev
+sudo pip3 install pathlib2
+sudo pip3 install wxpython
+worked on FRIEND!
+
+may be I should install those first:
+sudo apt-get install libwxgtk3.0-dev
+sudo apt-get install wx3.0-examples
+sudo apt-get install wx3.0-doc
+----------------------------------------------------------------------------------------------------------
+Python3 
+Unzip: Phoenix_09_18_DOX_ETG_SIP.tar
+cd Phoenix
+
+for gcc 7.4 im ubuntu 18.04 and waf-2.0.17
+add additional link file to compile python extentions:
+export LDFLAGS="-fno-lto"
+
+python build.py build --help         -- show options 
+python build.py build --both         -- build both wxwidgets (build_wx ) and  wxPython library (build_py)  both release and debug versions
+--------------------------------------------------------------------------------------------------------
+Windows:
+python -m pip install requests
+
+In C:\Python37_64\Lib\distutils>
+or C:\Python37_32\Lib\distutils>
+
+edit: msvc9compiler.py 
+substitute: 
+productdir = productdir = Reg.get_value(r"%s\Setup\VC" % vsbase, "productdir")
+with: ( path to vcvarsall.bat)
+VISUAL STUDIO 2019   ( path to dthe directory with vcvarsall.bat )
+productdir = os.path.join("C:\\","Program Files (x86)","Microsoft Visual Studio","2019","Professional","VC","Auxiliary","Build")
+
+in Phoenix\wscript    
+        if msvc_version == "14.1" and sys.version_info >= (3,7):
+            ##msvc_version = '15.0'
+
+            # On the other hand, microsoft says that v141 and v140 (Visual
+            # Studio 2015) are binary compatible, so for now let's just drop
+            # it back to "14.0" until I get all the details worked out for
+            # using VS 2017 everywhere for Python 3.7.
+#            msvc_version = '14.0'              --  comment this line
+             msvc_version = '16.2'              --  add this line to compile with Visual Studio 2019 cl compiler (16.2) ....  or 14.22.27905  - not sure on versions
+			                                          
+
+
+Unzip: Phoenix_09_18_DOX_ETG_SIP.tar
+cd Phoenix
+python build.py build --help         -- show options 
+python build.py build --both         -- build both wxwidgets (build_wx ) and  wxPython library (build_py)  both release and debug versions
+------------------------------------------------------------------------------------------------------------------------------------------------
+
