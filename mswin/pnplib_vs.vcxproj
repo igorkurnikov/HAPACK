@@ -380,7 +380,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -411,7 +411,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -442,7 +442,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -474,7 +474,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -506,7 +506,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -536,7 +536,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -566,7 +566,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -600,7 +600,7 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY3_Release|x64'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;C:\MYPROG\AMBER11_IGOR\AmberTools\src\gleap\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
