@@ -4,7 +4,7 @@
 #include <vector>
 #include <common.hpp>
 #include <object.hpp>
-#include "../../../sff/sff.h"
+#include "sff.h"
 #include "parmset.hpp"
 #include "exclude.hpp"
 

@@ -402,7 +402,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplotd.lib;plplotcxxd.lib;plplotwxwidgetsd.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -602,7 +602,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -1009,10 +1009,6 @@ $(SolutionDir)copy_dependencies.bat
     <ResourceCompile Include="..\HARLEM\sources\harlemwin.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AMBER11_IGOR\AmberTools\mswin\mortlib\mortlib.vcxproj">
-      <Project>{cd7149ea-ed1a-44c9-a7e7-f9a15ea1470e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="do_lib.vcxproj">
       <Project>{f8db84c9-f3e0-4ab4-98b4-dffb7e829b3f}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -1036,6 +1032,9 @@ $(SolutionDir)copy_dependencies.bat
     <ProjectReference Include="jumna_lib_c.vcxproj">
       <Project>{5fa1f25a-7f2a-42c5-83b1-a6684b8f342e}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="mortlib.vcxproj">
+      <Project>{cd7149ea-ed1a-44c9-a7e7-f9a15ea1470e}</Project>
     </ProjectReference>
     <ProjectReference Include="pmemd_lib_c.vcxproj">
       <Project>{4e65a9c1-a2bd-42b3-9155-5531fe33009f}</Project>
