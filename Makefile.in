@@ -90,8 +90,12 @@ host_triplet = @host@
 target_triplet = @target@
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/config/wxwin.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/config/libtool.m4 \
+	$(top_srcdir)/config/ltoptions.m4 \
+	$(top_srcdir)/config/ltsugar.m4 \
+	$(top_srcdir)/config/ltversion.m4 \
+	$(top_srcdir)/config/lt~obsolete.m4 \
+	$(top_srcdir)/config/wxwin.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -372,7 +376,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 OPT_DIR = 
-SUBDIRS = MY_VFLIB DELPHI_LIB WOLFGANG GEOBALL JUMNA_LIB  PNPS HARLEM HARLEMLL HARLEM_NOGUI doc $(OPT_DIR) 
+SUBDIRS = MY_VFLIB DELPHI_LIB WOLFGANG GEOBALL JUMNA_LIB PNPS HARLEMLL doc $(OPT_DIR) 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

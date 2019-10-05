@@ -31,7 +31,6 @@ lib_harlem_la_LIBADD = \
  $(top_builddir)/JUMNA_LIB/libjumna.a  \
  $(top_srcdir)/libs/linux/x64/qcutil.a \
  $(top_srcdir)/libs/linux/x64/libmort.a 
-## -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
 
 if WITH_LIB_PMEMD
 lib_harlem_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
