@@ -12,6 +12,10 @@
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,13 +26,27 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="hapygui.py" />
-    <Compile Include="hapygui_init.py" />
-    <Compile Include="harlem_profile.py" />
-    <Compile Include="molset.py" />
-    <Compile Include="start_harlem.py" />
-    <Compile Include="__init__.py" />
-    <Compile Include="__main__.py" />
+    <Folder Include="harlempy\" />
+    <Folder Include="harlempy\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="harlempy\hapygui.py" />
+    <Compile Include="harlempy\hapygui_init.py" />
+    <Compile Include="harlempy\harlem_profile.py" />
+    <Compile Include="harlempy\molset.py" />
+    <Compile Include="harlempy\start_harlem.py" />
+    <Compile Include="harlempy\__init__.py" />
+    <Compile Include="harlempy\__main__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="harlempy\__pycache__\hapygui.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\hapygui_init.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\molset.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\start_harlem.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\__init__.cpython-37.pyc" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.7" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
