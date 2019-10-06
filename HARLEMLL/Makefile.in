@@ -138,7 +138,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgscriptdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 @WITH_CUDA_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
-lib_harlem_la_DEPENDENCIES = $(top_builddir)/DELPHI_LIB/libdelphi.a \
+lib_molset_la_DEPENDENCIES = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/MY_VFLIB/libvf.a \
 	$(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
 	$(top_builddir)/WOLFGANG/IPACK/libipack.a \
@@ -146,7 +146,7 @@ lib_harlem_la_DEPENDENCIES = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/GEOBALL/.libs/libgeoball.so \
 	$(top_builddir)/JUMNA_LIB/libjumna.a \
 	$(top_srcdir)/libs/linux/x64/qcutil.a \
-	$(top_srcdir)/libs/linux/x64/libmort.a $(am__append_1) \
+	$(top_builddir)/MORT_LIB/libmort.a $(am__append_1) \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -178,9 +178,9 @@ am__objects_2 = dialogs_wx_1.lo dialogs_wx_2.lo mm_dialogs_wx.lo \
 	ha_wx_res_wdr.lo ha_wx_res_2_wdr.lo ha_wx_res_mikola_wdr.lo \
 	ha_wx_res_molflex_wdr.lo wxMolED.lo wxMolFlex.lo hachart.lo \
 	hachart_wx.lo wxpymod.lo
-am_lib_harlem_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
+am_lib_molset_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	hamolset_wrap.lo
-lib_harlem_la_OBJECTS = $(am_lib_harlem_la_OBJECTS)
+lib_molset_la_OBJECTS = $(am_lib_molset_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -251,8 +251,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(lib_harlem_la_SOURCES)
-DIST_SOURCES = $(lib_harlem_la_SOURCES)
+SOURCES = $(lib_molset_la_SOURCES)
+DIST_SOURCES = $(lib_molset_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -435,6 +435,7 @@ pkgscriptdir = @pkgscriptdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -447,7 +448,7 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-lib_LTLIBRARIES = lib_harlem.la
+lib_LTLIBRARIES = lib_molset.la
 AM_LDFLAGS = -lz -lutil -shared 
 AM_CPPFLAGS = \
   @HARLEM_MOD_DEFS@ \
@@ -461,14 +462,14 @@ AM_CPPFLAGS = \
  -I$(top_srcdir)/WOLFGANG/generic \
  -I$(top_srcdir)/PNPS/src \
  -I$(top_srcdir)/PNPS/pnpmod \
- -I$(top_srcdir)/GLEAP/mortsrc \
+ -I$(top_srcdir)/MORT_LIB \
  $(PYTHON_CPPFLAGS) \
  $(MPI_INCLUDE) \
  $(BOOST_INCLUDE) \
   $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) \
   -Wno-non-template-friend -Wno-deprecated -fpermissive 
 
-lib_harlem_la_LIBADD = $(top_builddir)/DELPHI_LIB/libdelphi.a \
+lib_molset_la_LIBADD = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/MY_VFLIB/libvf.a \
 	$(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
 	$(top_builddir)/WOLFGANG/IPACK/libipack.a \
@@ -476,7 +477,7 @@ lib_harlem_la_LIBADD = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(top_builddir)/GEOBALL/.libs/libgeoball.so -lgmp \
 	$(top_builddir)/JUMNA_LIB/libjumna.a \
 	$(top_srcdir)/libs/linux/x64/qcutil.a \
-	$(top_srcdir)/libs/linux/x64/libmort.a $(am__append_1) \
+	$(top_builddir)/MORT_LIB/libmort.a $(am__append_1) \
 	$(am__append_2) $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS) \
 	$(WX_LIBS) $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS) \
 	$(RESOURCES_BIN) -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
@@ -600,11 +601,11 @@ harlem_main_files = \
  $(top_srcdir)/HARLEM/sources/math/za02.f \
  $(ADD_SRC)
 
-lib_harlem_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
+lib_molset_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
  hamolset_wrap.cpp 
 
 pkgscript_DATA = molset.py 
-CLEANFILES = hamolset_wrap.cpp molset.py lib_harlem.so 
+CLEANFILES = hamolset_wrap.cpp molset.py lib_molset.so 
 all: all-am
 
 .SUFFIXES:
@@ -674,8 +675,8 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-lib_harlem.la: $(lib_harlem_la_OBJECTS) $(lib_harlem_la_DEPENDENCIES) $(EXTRA_lib_harlem_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(lib_harlem_la_OBJECTS) $(lib_harlem_la_LIBADD) $(LIBS)
+lib_molset.la: $(lib_molset_la_OBJECTS) $(lib_molset_la_DEPENDENCIES) $(EXTRA_lib_molset_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(lib_molset_la_OBJECTS) $(lib_molset_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1808,7 +1809,7 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-pkgscriptDATA
 
 
 #if WITH_LIB_PMEMD
-#lib_harlem_la_SOURCES += $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp
+#_molset_la_SOURCES += $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp
 #endif
 
 hamolset_wrap.cpp:$(top_srcdir)/HARLEM/sources/hamolset.i
