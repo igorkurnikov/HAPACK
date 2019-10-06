@@ -22,20 +22,20 @@ if(script_status == SCRIPT_START):
   prot_mod.SetPH(6.5)
 #  prot_mod.CalcPKaForSelection()
   nalt = prot_mod.alt_chem_states.size()
-  print nalt
+  print(nalt)
   ipt = 0
 #  for i in range(nalt):
 #    print i,prot_mod.alt_chem_states[i].pk
 elif(script_status == SCRIPT_STOP):
   fout.close()
-  print "end of md script"
+  print("end of md script")
 else:
   atmap.SyncAtomCrd2From1()
   prot_mod.CalcPKaForSelection()
-  print >>fout, "%5d " % ipt,
+  print("%5d " % ipt, end=' ', file=fout)
   for ialt in range(nalt):
-    print >>fout, "%7.3f " % prot_mod.alt_chem_states[ialt].pk,
-  print >> fout, "  "
+    print("%7.3f " % prot_mod.alt_chem_states[ialt].pk, end=' ', file=fout)
+  print("  ", file=fout)
   ipt = ipt+1
 
   

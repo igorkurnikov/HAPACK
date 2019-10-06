@@ -11,9 +11,9 @@ mol_editor.RenameAtomsToAmber(mset)
 mol_editor.FixBondsUsingTempl(mset)
 mm_mod = mset.GetMolMechMod(1)
 mm_mod.InitMolMechModel(ARROW_5_14_CT)
-print "Saving ARROW typified file protein_arrow.hin"
+print("Saving ARROW typified file protein_arrow.hin")
 mset.SaveHINFile("protein_arrow.hin")
-print "Done"
+print("Done")
 quit()
 
 

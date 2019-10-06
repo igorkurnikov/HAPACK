@@ -7,7 +7,7 @@ def calc_charge(pmset):
    while(aptr != None):
        ch = ch + aptr.GetCharge()
        aptr = aitr.GetNextAtom()
-   print "MolSet charge = ",ch
+   print("MolSet charge = ",ch)
    return 1
 
 pmset = GetCurMolSet()
@@ -19,11 +19,11 @@ electr_mod = pmset.GetElectrostMod(1)
 rptr = pmset.GetResByRef("$CYTB5_1$HEM201:A")
 rptr.SetStdPK()
 altst= rptr.GetAltResState(0)
-print "std_pk_0 = ",altst.std_pk
+print("std_pk_0 = ",altst.std_pk)
 altst= rptr.GetAltResState(1)
-print "std_pk_1 = ",altst.std_pk
+print("std_pk_1 = ",altst.std_pk)
 altst= rptr.GetAltResState(0)
-print "std_pk_2 = ",altst.std_pk
+print("std_pk_2 = ",altst.std_pk)
 rptr.PrintPK()
 #rptr = pmset.GetResByRef("$MYO_1$HIS24")
 #altst= rptr.GetAltResState(0)

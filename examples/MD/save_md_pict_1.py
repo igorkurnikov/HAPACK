@@ -24,8 +24,8 @@ if(script_status == SCRIPT_START):
 elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
-  print "\nTrajectory Playback Completed\n"
-  print "PICT snapshots saved to file directory"
+  print("\nTrajectory Playback Completed\n")
+  print("PICT snapshots saved to file directory")
 
 
 else: 
@@ -39,5 +39,5 @@ else:
 	  #  Change this value as desired.
 	  	  
 	  fname = "snap" + str(10000+i) + ".pic" #  Sets the actual file name
-	  print "Snapshot saved to ", fname
+	  print("Snapshot saved to ", fname)
 	  pview.WritePICTFile(fname) #  Writes the PICT file

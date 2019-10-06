@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="MG_HOH7" >
+<molecule name="MG_HOH7" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    1    MG  12     -0.011000000     -0.070000000      0.246000000 </atom>
+<res name="HOH"  no="2" /> 
+  <atom>    2     O  8     -0.011000000     -0.070000000      2.351000000 <bonds> 4  3  </bonds></atom>
+  <atom>    3    H1  1      0.760000000     -0.070000000      2.914000000 <bonds> 2  </bonds></atom>
+  <atom>    4    H2  1     -0.776000000      0.004000000      2.916000000 <bonds> 2  </bonds></atom>
+<res name="HOH"  no="3" /> 
+  <atom>    5     O  8     -1.918000000     -0.828000000      0.313000000 <bonds> 6  7  </bonds></atom>
+  <atom>    6    H1  1     -2.732000000     -0.512000000     -0.072000000 <bonds> 5  </bonds></atom>
+  <atom>    7    H2  1     -2.025000000     -1.752000000      0.529000000 <bonds> 5  </bonds></atom>
+<res name="HOH"  no="4" /> 
+  <atom>    8     O  8      0.102000000      1.971000000      0.260000000 <bonds> 9  10  </bonds></atom>
+  <atom>    9    H1  1      0.134000000      2.537000000      1.026000000 <bonds> 8  </bonds></atom>
+  <atom>   10    H2  1      0.130000000      2.526000000     -0.527000000 <bonds> 8  </bonds></atom>
+<res name="HOH"  no="5" /> 
+  <atom>   11     O  8     -0.012000000      0.123000000     -1.831000000 <bonds> 12  13  </bonds></atom>
+  <atom>   12    H1  1     -0.056000000     -0.556000000     -2.497000000 <bonds> 11  </bonds></atom>
+  <atom>   13    H2  1      0.036000000      0.973000000     -2.280000000 <bonds> 11  </bonds></atom>
+<res name="HOH"  no="6" /> 
+  <atom>   14     O  8      1.828000000     -0.981000000      0.311000000 <bonds> 15  16  </bonds></atom>
+  <atom>   15    H1  1      2.666000000     -0.728000000     -0.067000000 <bonds> 14  </bonds></atom>
+  <atom>   16    H2  1      1.855000000     -1.914000000      0.514000000 <bonds> 14  </bonds></atom>
+<res name="HOH"  no="7" /> 
+  <atom>   17     O  8     -0.121000000     -3.019000000      0.788000000 <bonds> 18  19  </bonds></atom>
+  <atom>   18    H1  1     -0.133000000     -3.399000000      1.662000000 <bonds> 17  </bonds></atom>
+  <atom>   19    H2  1     -0.155000000     -3.764000000      0.194000000 <bonds> 17  </bonds></atom>
+<res name="HOH"  no="8" /> 
+  <atom>   20     O  8      0.144000000      2.905000000     -2.405000000 <bonds> 21  22  </bonds></atom>
+  <atom>   21    H1  1      0.925000000      3.298000000     -2.787000000 <bonds> 20  </bonds></atom>
+  <atom>   22    H2  1     -0.592000000      3.383000000     -2.779000000 <bonds> 20  </bonds></atom>
+<ucell>      50.000000000     50.000000000     50.000000000     90.000000000     90.000000000     90.000000000 </ucell>
+<zmat mset_name="MG_HOH7" nat="22" >
+  Mg  
+   O      1         rMO1   
+   H      2        rOH11       1        aMOH1   
+   H      2        rOH12       3        aHOH1       1       dMHOH1   
+   O      1         rMO2       2        aOMO2       3       dOMOH2   
+   H      5        rOH21       1        aMOH2       2       dHOMO2   
+   H      5        rOH22       6        aHOH2       1       dMHOH2   
+   O      1         rMO3       2        aOMO3       3       dOMOH3   
+   H      8        rOH31       1        aMOH3       2       dHOMO3   
+   H      8        rOH32       9        aHOH3       1       dMHOH3   
+   O      1         rMO4       5        aOMO4       6       dOMOH4   
+   H     11        rOH41       1        aMOH4       5       dHOMO4   
+   H     11        rOH42      12        aHOH4       1       dMHOH4   
+   O      1         rMO5       2        aOMO5       3       dOMOH5   
+   H     14        rOH51       1        aMOH5       2       dHOMO5   
+   H     14        rOH52      15        aHOH5       1       dMHOH5   
+   O      1         rMO6       2        aOMO6       3       dOMOH6   
+   H     17        rOH61       1        aMOH6       2       dHOMO6   
+   H     17        rOH62      18        aHOH6       1       dMHOH6   
+   O      1         rMO7       2        aOMO7       3       dOMOH7   
+   H     20        rOH71       1        aMOH7       2       dHOMO7   
+   H     20        rOH72      21        aHOH7       1       dMHOH7   
+   
+       aHOH1   107.359997 
+       aHOH2   108.426621 
+       aHOH3   108.269687 
+       aHOH4   107.805529 
+       aHOH5   108.577107 
+       aHOH6   105.029660 
+       aHOH7   105.555858 
+       aMOH1   126.137685 
+       aMOH2   131.058556 
+       aMOH3   126.896906 
+       aMOH4   129.089242 
+       aMOH5   131.061931 
+       aMOH6   123.915719 
+       aMOH7   127.247850 
+       aOMO2    88.130009 
+       aOMO3    89.607593 
+       aOMO4    93.795994 
+       aOMO5    88.185927 
+       aOMO6    79.592847 
+       aOMO7   131.665420 
+      dHOMO2   124.316470 
+      dHOMO3     0.049799 
+      dHOMO4   -65.178267 
+      dHOMO5  -123.616959 
+      dHOMO6    -0.157395 
+      dHOMO7    89.807694 
+      dMHOH1  -175.337939 
+      dMHOH2  -160.972230 
+      dMHOH3   179.872483 
+      dMHOH4   179.964815 
+      dMHOH5   160.729619 
+      dMHOH6  -179.736695 
+      dMHOH7   179.062642 
+      dOMOH2   158.323022 
+      dOMOH3   -86.831053 
+      dOMOH4   -50.730031 
+      dOMOH5    26.352799 
+      dOMOH6    92.136187 
+      dOMOH7   -87.017538 
+        rMO1     2.105000 
+        rMO2     2.053217 
+        rMO3     2.044174 
+        rMO4     2.085948 
+        rMO5     2.053306 
+        rMO6     3.000411 
+        rMO7     3.987788 
+       rOH11     0.954678 
+       rOH12     0.953900 
+       rOH21     0.954294 
+       rOH22     0.954925 
+       rOH31     0.952962 
+       rOH32     0.963420 
+       rOH41     0.952120 
+       rOH42     0.962499 
+       rOH51     0.953487 
+       rOH52     0.955210 
+       rOH61     0.953111 
+       rOH62     0.953424 
+       rOH71     0.954114 
+       rOH72     0.953969 
+</zmat>
+</molset>
+</HARLEM_DATA>

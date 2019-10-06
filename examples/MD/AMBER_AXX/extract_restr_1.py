@@ -30,19 +30,19 @@ try:
     if( len(restr_val) < 1 ):
       break
     if( screen_print):
-      print "pt ", idx_pt," Num restr read ",len(restr_val)
-      print " needed restr values ",
+      print("pt ", idx_pt," Num restr read ",len(restr_val))
+      print(" needed restr values ", end=' ')
       for idx_c in idx_restr_needed:
-        print restr_val[idx_c],"  ",
-      print " "
-      print >> fout,idx_pt,"  ",
+        print(restr_val[idx_c],"  ", end=' ')
+      print(" ")
+      print(idx_pt,"  ", end=' ', file=fout)
     for idx_c in idx_restr_needed:
-      print >> fout, restr_val[idx_c],"   ",
-    print >> fout, "  "
+      print(restr_val[idx_c],"   ", end=' ', file=fout)
+    print("  ", file=fout)
 finally:
   fin.close()
   fout.close()
-print "End of script"
+print("End of script")
 
     
   

@@ -16,17 +16,17 @@ for snap in mset.GetCrdSnapshots():
   snum   = int(sname[4:])
   if( snum % 10 !=  0):
     continue
-  print "%8d" % snum,
-  print >> outf,"%8d" % snum,
+  print("%8d" % snum, end=' ')
+  print("%8d" % snum, end=' ', file=outf)
   for t in tors:
     aptr1 = mset.GetAtomByRef(t[0])
     aptr2 = mset.GetAtomByRef(t[1])
     aptr3 = mset.GetAtomByRef(t[2])
     aptr4 = mset.GetAtomByRef(t[3])
     tv = Vec3D_CalcTorsion(aptr1,aptr2,aptr3,aptr4)*RAD_TO_DEG
-    print " %12.4f " % tv, 
-    print >>outf, " %12.4f " % tv, 
-  print "  "
-  print >> outf, "  "
+    print(" %12.4f " % tv, end=' ') 
+    print(" %12.4f " % tv, end=' ', file=outf) 
+  print("  ")
+  print("  ", file=outf)
 outf.close()
 

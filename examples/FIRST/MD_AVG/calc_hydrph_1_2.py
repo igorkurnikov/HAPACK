@@ -36,7 +36,7 @@ if(script_status == SCRIPT_START):
   while(atm_tr != None):  
 #  at_num = atm_tr.GetSerNo()
     i = i + 1
-    print i
+    print(i)
 #    if(i > 5000): break
     at_name = atm_tr.GetName()
 #    at_don  = atm_tr.IsHBDonor()
@@ -51,12 +51,12 @@ if(script_status == SCRIPT_START):
        atm_tr = atmitr.GetNextAtom()
        continue     
     don_ref = atm_tr.GetRef()
-    print don_ref
+    print(don_ref)
     a_arr.append(atm_tr)
     res_arr.append(res) 
     atm_tr = atmitr.GetNextAtom()
   na = len(a_arr)
-  print "na =", na
+  print("na =", na)
   atm_tr = atmitr.GetFirstAtom()
   for i in range(na): 
        for j in range(i+1,na):
@@ -79,7 +79,7 @@ if(script_status == SCRIPT_START):
           a_list.append(a_arr[j]) # add acceptor atom of the possible H-bond 
 #          print "TEST"	 
   nn = len(d_list)   # number of possible hydrophobic bonds
-  print "N_HB_possible = ",nn
+  print("N_HB_possible = ",nn)
   dist1_arr = []      # accumulate sum of distances between donor and acceptor 
   dist1_2_arr = []   # accumulate sum of squares of distances between donor and acceptor 
   on_arr = []      # number of MD snapshots this h-bond is ON for normal geometric criteria
@@ -100,19 +100,19 @@ elif(script_status == SCRIPT_STOP):
       p_on = float(n_on)/float(n_md_pt)  # compute fraction of MD snapshots H-bond is on, float convert integer to real
       idx_d  = atnm_map[dref]
       idx_a  = atnm_map[aref]
-      print >> outf, "%20.20s  %20.20s" %  (dref, aref),  
-      print >> outf, "%5d %5d" %  (idx_d, idx_a), 
-      print >> outf, " %5d %6.3f %8.3f %8.3f " %  (n_on, p_on,dist1_av, dist1_rms)
+      print("%20.20s  %20.20s" %  (dref, aref), end=' ', file=outf)  
+      print("%5d %5d" %  (idx_d, idx_a), end=' ', file=outf) 
+      print(" %5d %6.3f %8.3f %8.3f " %  (n_on, p_on,dist1_av, dist1_rms), file=outf)
   outf.close()
 else:
   n_md_pt = n_md_pt + 1
   nn = len(d_list)  # number of possible H-bonds
-  print "point ", n_md_pt
+  print("point ", n_md_pt)
   for i in range(nn):   # cycle over possible H-bonds
     dist1 = Vec3D_CalcDistance(a_list[i],d_list[i])*BOHR_TO_ANG
     dist1_arr[i] = dist1_arr[i] + dist1
     dist1_2_arr[i] = dist1_2_arr[i] + dist1*dist1
     if( dist1 < 4.0):
       on_arr[i] = on_arr[i] + 1   
-  print "end_script"
+  print("end_script")
   

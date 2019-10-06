@@ -7,7 +7,7 @@ if(script_status == SCRIPT_START):
   i = 0
 elif(script_status == SCRIPT_STOP):
   fout.close()
-  print "end md analysis"
+  print("end md analysis")
 else:
   #pmset.CalcMolSurface(HaSurface.SEXCL_SURF)
   pmset.CalcMolSurface(HaSurface.SACCESS_SURF)
@@ -25,6 +25,6 @@ else:
     if(nm_res == "HIS" and nm_at in his_at_names):
       his_area[ires] += aptr.solv_access_area
   i = i + 1
-  print >>fout, i, his_area[23],his_area[51],his_area[57],
-  print >>fout, his_area[122],his_area[123],his_area[172]
-  print "end pt"
+  print(i, his_area[23],his_area[51],his_area[57], end=' ', file=fout)
+  print(his_area[122],his_area[123],his_area[172], file=fout)
+  print("end pt")

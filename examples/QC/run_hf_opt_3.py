@@ -10,6 +10,6 @@ qc_mod.SetEneMinCalc()
 gauss_mod.SetReadInitGeomChkFile()
 gauss_mod.SetReadHFGuessChkFile()
 qc_mod.Run()
-print "ene = ",qc_mod.GetEne()
-print "HF ene = ",qc_mod.GetHFEne()
+print("ene = ",qc_mod.GetEne())
+print("HF ene = ",qc_mod.GetHFEne())
 

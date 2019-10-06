@@ -12,10 +12,10 @@ for snap in mset.GetCrdSnapshots():
   mset.SetCrdFromSnapshot(snap)
   mset.per_bc.SetBox(100.0,100.0,100.0)
   mm_mod.CalcEnergy()
-  print snum, " ", mm_mod.GetEne()
-  print >> outf, snum, " ", mm_mod.GetEne()
+  print(snum, " ", mm_mod.GetEne())
+  print(snum, " ", mm_mod.GetEne(), file=outf)
 outf.close()
-print "End"
+print("End")
 
 
 

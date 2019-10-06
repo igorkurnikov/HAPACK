@@ -12,8 +12,8 @@ for i in range(0,36):
   ang = 10.0*i
   mol_editor.SetTorsion(at1,at2,at3,at4,ang*DEG_TO_RAD)
   mm_mod.CalcEnergy()
-  print ang, mm_info.pot_ene
-  print >> fout, ang, mm_info.pot_ene
+  print(ang, mm_info.pot_ene)
+  print(ang, mm_info.pot_ene, file=fout)
   pmset.RefreshAllViews(RFApply)
 fout.close()
 

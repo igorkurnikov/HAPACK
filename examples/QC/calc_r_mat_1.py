@@ -10,6 +10,6 @@ nr = ovlp_mat.num_rows()
 nc = ovlp_mat.num_cols()
 for i in range(nr):
   for  j in range(nc):
-     print "%8.5f" % (ovlp_mat.GetVal(i+1,j+1)),
-  print " "
+     print("%8.5f" % (ovlp_mat.GetVal(i+1,j+1)), end=' ')
+  print(" ")
 

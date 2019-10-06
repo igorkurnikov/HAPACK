@@ -19,7 +19,7 @@ while( len(str)  > 0 ): #cycle through the whole traj file
   ang = float(words[1])
   istep= istep+1
   if( istep % npr_freq == 0):
-    print istep, "  ",ang
+    print(istep, "  ",ang)
   idx =  int( (ang - fmin)/delt) #calculate  to which bin ang belongs 
   prob[idx] = prob[idx] + 1 #add a count to that bin
   str = finp.readline()
@@ -27,7 +27,7 @@ finp.close()
 fout = open("hist.out","w")
 for i in range(nbin):
   ff = fmin + delt*( i + 0.5) #add 0.5 to plot hist value in the middle of a bin
-  print >>fout, i, ff, prob[i]
+  print(i, ff, prob[i], file=fout)
 fout.close()
   
   

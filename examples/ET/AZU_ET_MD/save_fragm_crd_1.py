@@ -20,7 +20,7 @@ if(script_status == SCRIPT_START):
   ns = 0
 elif(script_status == SCRIPT_STOP):
 #
-  print "Stop MD Analysis"
+  print("Stop MD Analysis")
 else:
   ns = ns + 1
   str_ns = str(ns)

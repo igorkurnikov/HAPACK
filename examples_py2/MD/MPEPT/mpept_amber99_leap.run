@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd_amba -O -i mpept.inp -o mpept_amber99_leap.out -p mpept_amber99_leap.top -c mpept.crd -r mpept.rst -ref mpept.ref -x mpept.mdcrd -v mpept.mdvel -e mpept.mden 

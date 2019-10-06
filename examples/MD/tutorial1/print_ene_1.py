@@ -8,5 +8,5 @@ pmset = GetCurMolSet()
 mm_mod = pmset.GetMolMechMod(1) # Selects the first molecule in the system
 mm_info = mm_mod.p_mm_info
 outf = open("ene_1.dat","a")
-print >>outf,  mm_info.tot_energy  #  Prints the current energy of a step
+print(mm_info.tot_energy, file=outf)  #  Prints the current energy of a step
 outf.close()

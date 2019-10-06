@@ -1,0 +1,138 @@
+     Continuum Electrostatics caclulations using HARLEM.
+
+Files: MYO.pdb     - initial geometry of myoglobin in PDB format
+       CB5.pdb     - initial geometry of cytochrome-b5 in PDB format
+       ru_bpy3.hlm - geometry of Ru(BPY)_3 complex in HLM(HARLEM) format
+
+Setup: Copy directory CONT_ELECTR with files described above 
+       to the working directory
+
+       Prepare protein structures: Remove explicit water and add hydrogens.
+
+1. Start HARLEM and load PDB file of myoglobin (MYO.pdb):
+      
+        File->Open Molecule - open file dialog box.
+        Choose Brookhaven Databank file format to load file
+
+2. Delete explicit water molecules and sulfate ions:
+   
+   1) type in command window and execute command:  select hoh 
+   2) execute: Edit->Add and Delete Atoms->Delete Selected Atoms
+   3) type in command window and execute command:  select soe
+   4) execute: Edit->Add and Delete Atoms->Delete Selected Atoms
+
+3. Add hydrogen atoms. Fix residue atom structure in accordance to 
+   residue templates. 
+
+   1)Select all atoms: Edit->Select All
+
+   2)Open Edit Residue Parameters Dialog ( Edit->Edit Residue Parameters)
+   
+   3)Add hydrogens and other missing atoms of the residues (compared to residue templates):   
+         In Edit Residue Parameters Dialog press menu item Edit->Add All Missing Atoms. 
+         Hydrogen atoms will be attached. 
+         See Console Window for diagnostic messages. 
+   
+   4)Check again if the residues atom names conforms to residue templates:
+         In Edit Residue Parameters Dialog press menu item Edit->Check Res Struct
+         In the Console Window check for diagnostic messages. 
+         No messages should appear.
+
+ 4. Set standard AMBER atomic charges: 
+    
+    1) Open Edit Atom Parameters Dialog:     Edit->Edit Atomic Parameters       
+    2) In Edit Edit Atom Parameters Dialog:  Charges->Set Amber All Atom Charges
+  
+ 5. Save fixed molecule in HLM format to file myo_1.hlm. 
+         Use File->Save Molecule dialog box
+
+ 6. Remove water and add hydrogens and set standard atomic charges 
+      for cytochrome-b5 protein: 
+      Restart HARLEM, Load CB5.pdb file and repeat steps 1-5 for this molecule
+      Save fixed protein molecule to cb5_1.hlm file in HLM format
+
+ 7. Compute electrostatic field in and around the protein using continuum electrostatics
+    calculations: 
+  
+    1) Load saved myo_1.hlm file (or continue if myoglobin structure is already loaded).
+    
+    2) Open Continuum Electrostatics Dialog: MMech->Continuum Electrostatics
+
+    3) in  Continuum Electrostatics Dialog: press "Run Single Calculation"
+
+ 8. Plot Isopotential Surfaces: 
+
+    1) press "Plot Isopotential Surface"
+
+    2) Change Isopotential Surface view to Solid: 
+            Open View Parameter Dialog: Display->Set View Parameters
+            In View Parameter Dialog:   Check "Draw Solid Surfaces"
+            Press Set View Parameter.
+
+    3) Delete Isopotential surfaces: 
+             Open 3D objects Dialog: Display->3D Objects
+             In "3D objects" Dialog: Select isopot_surf_2.0000 and isopot_surf_-2.0000 
+                                     press Delete
+   
+    4) Plot isopotential surfaces at different isolevel value:
+             In Continuum Electrostatics Dialog: Set "Isolevel Value" to 0.5 (kT) 
+             Press "Plot isopotential Surface"
+
+    5) Delete isopotential surfaces using "3D objects" Dialog.
+           Press "Update Object List" to get an updated list of objects
+           select and delete objects named "isopot_surf....."
+  
+    6) Color protein surface by electrostatic potential. 
+           In Continuum Electrostatics Dialog:  press "Color molecule Surface by El.Pot" 
+
+  9. Compute Electrostatic field at different pH values and standard residue pKa:
+      
+       1) Open Protonation and redox Equilibrium dialog:
+          Main Menu:  Applications->Protonation and Redox Equilibrium
+       2) Set residue standard pKa: Protonation->Set Std pKa
+          
+       
+       3) Set Charges for set residue pKa and given pH:
+              Open "Edit Atom Parameters" Dialog
+              Set pH value to 5.0
+              Compute Charges for set pH:  Charges->"Set Charges for current pH" 
+       4) Compute total charge of the molecule: Charges->Calc Charge and Dipole
+                                                see results in the Console Window
+
+       5) Compute electrostatic field using "Continuum Electrostatic Dialog" 
+                                          "Run Single Calculation"
+         
+       6) Replot Electrostatic Potential on the protein surface: 
+                              "Color Molecular Surface by El.Pot"
+
+  10. Compute Electrostatic Interactions between myoglobin and Ru(Bpy)_3 ligand
+      
+      1) Delete protein surface using 3D Objects dialog.
+      2) Load Ru(bpy)_3 molecule from ru_bpy3.hlm file
+      3) Position Ru(bpy)_3 ligand close to myoglobin hem edge using 
+          "Connect Molecule" "Connect All" buttons (Last two button on the toolbox"
+      4) Open Intermolecular Interactions Module" : MMech->"Inter Molecular Interactions"
+                                               
+      5) Choose for electrostatic Model: "Continuum Model for Electrostatics"
+      6) Press "Calculate Electrostatic Interactions" - see results in console
+      7) Change ionic strength to 0.1 in "Continuum Electrostatics" dialog
+         Change grid size to 241 
+         press "Set Module Parameters"   
+
+      8) Recompute Electrostatic Interactions in "Inter Molecular Interactions" Module
+ 
+    Exercise: 
+
+      Compute electrostatic interations between myoglobin and 
+      cytochrome b5 (file CB5.pdb) as a function of pH( in the range 4.0-9.0) 
+      and as a function of ionic strngth (0-1.0 M)
+
+
+  
+
+            
+        
+
+     
+
+        

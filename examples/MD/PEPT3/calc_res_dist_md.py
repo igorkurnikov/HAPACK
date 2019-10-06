@@ -13,7 +13,7 @@ if(script_status == SCRIPT_START):
 
 elif(script_status == SCRIPT_STOP):
   fout.close()
-  print "\nTrajectory Playback Completed\n"
+  print("\nTrajectory Playback Completed\n")
   
 else: 
   idx_t = idx_t + 1
@@ -27,8 +27,8 @@ else:
       dist = Vec3D_CalcDistance(aptr1,aptr2)
       if( dist < dist_min):
         dist_min = dist
-  print idx_t,dist_min
-  print >> fout,"%6d %9.4f " % (idx_t,dist_min)
+  print(idx_t,dist_min)
+  print("%6d %9.4f " % (idx_t,dist_min), file=fout)
 
 
 

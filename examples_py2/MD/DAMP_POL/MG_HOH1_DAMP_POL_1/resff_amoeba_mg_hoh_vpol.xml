@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="04/20/2014">
+<resff rname="HOH" ffname="AMOEBA" >
+  <atomff  name="O" elem="8" pol_type_id="202" ff_type="39" chg="-0.51966" >
+      <frame bisect="1" > O  H1 H2 </frame>
+      <dipole>    0.00000    0.00000    0.14279 </dipole>
+      <qpole> 
+          0.37928 
+          0.00000   -0.41809 
+          0.00000    0.00000    0.03881 
+      </qpole>
+      <polar>    0.83700 </polar> 
+      <damp_polar>  0.0  0.5  0.0  </damp_polar>
+  </atomff>
+  <atomff  name="H1" elem="1" pol_type_id="203" ff_type="40" chg="0.25983" >
+      <frame > H1  O H2 </frame>
+      <dipole>   -0.03859    0.00000   -0.05818 </dipole>
+      <qpole> 
+         -0.03673 
+          0.00000   -0.10739 
+         -0.00203    0.00000    0.14412 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+  <atomff  name="H2" elem="1" pol_type_id="203" ff_type="40" chg="0.25983" >
+      <frame > H2  O H1 </frame>
+      <dipole>   -0.03859    0.00000   -0.05818 </dipole>
+      <qpole> 
+         -0.03673 
+          0.00000   -0.10739 
+         -0.00203    0.00000    0.14412 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+</resff>
+<resff rname="MG" ffname="AMOEBA" >
+  <atomff  name="MG" elem="12" pol_type_id="210" ff_type="47" chg="2" >
+      <polar>    0.08000 </polar>
+      <damp_polar>  1.0  0.0  0.97  </damp_polar>
+      <screen_polar> 0.39 </screen_polar>
+  </atomff>
+</resff>
+</HARLEM_DATA>

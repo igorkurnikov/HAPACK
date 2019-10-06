@@ -1,0 +1,57 @@
+start with gly1.pdb ( C-terminal glycine)
+tleap: 
+source leaprc.ff94
+gly1 = loadPdb gly1.pdb
+saveAmberParm gly1 gly1.top gly1.crd 
+
+gly1.crd  copied to gly1_leap.crd
+gly1.top  copied to gly1_leap.top
+
+HARLEM:
+
+load gly1.pdb 
+In Molecular Mechanics Module:
+   press "Init MM Model"
+   press "Save All AMBER Input Files"
+   
+gly1.crd copied to gly1_harlem.crd
+gly1.top copied to gly1_harlem.top 
+
+gly1.inp copied gly1_md.inp
+
+change Type of Calculations to "MD Simulations"
+press "Save All AMBER Input Files"
+
+gly1.inp copied gly1_md.inp
+
+cp gly1_min.inp  gly1.inp
+cp gly1_leap.crd gly1.crd
+cp gly1_leap.top gly1.top  
+
+execute gly1.bat
+
+out fille gly1.out copied to gly1_min_leap.out
+
+cp gly1_leap.crd gly1.crd
+cp gly1_harlem.top gly1.top  
+
+execute gly1.bat
+
+out fille gly1.out copied to gly1_min_harlem.out
+
+cp gly1_min.inp  gly1.inp
+cp gly1_leap.crd gly1.crd
+cp gly1_leap.top gly1.top  
+
+execute gly1.bat
+
+out fille gly1.out copied to gly1_md_leap.out
+
+cp gly1_leap.crd    gly1.crd
+cp gly1_harlem.top gly1.top  
+
+execute gly1.bat
+
+out fille gly1.out copied to gly1_md_harlem.out
+
+

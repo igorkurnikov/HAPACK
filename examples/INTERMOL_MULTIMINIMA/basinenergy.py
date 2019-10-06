@@ -184,7 +184,7 @@ while( aptr != None):
 
 #gets the number of molecules in pmset1
 nmol = pmset1.GetNMol()
-print "nmol" , nmol
+print("nmol" , nmol)
 
 #initializes the Empirical Potential method 
 empmod = pmset1.GetEmpiricalMod(1)
@@ -323,7 +323,7 @@ while (1):
             pmol1.SetQuaternionTrans(quat, trans)
             str = ifile.readline()
             imol = imol+1 #while loop
-         print >> out_file7, snap, state_vec[0], state_vec[1], state_vec[2], state_vec[3] 
+         print(snap, state_vec[0], state_vec[1], state_vec[2], state_vec[3], file=out_file7) 
          if(snap > 0 and snap%1 == 0):
 
           #creates atl2 Atomgroup that will contains the CA atoms of the current snapshoot
@@ -355,8 +355,8 @@ while (1):
           if (state_vec1==state_vec):  #123
               eps = pmseta1.OverlapMol(atl1, atl_curr)
               #print "state_vec1\n"
-              print >> out_file8, snap, 1
-              print >> out_file1, snap, eps, enep
+              print(snap, 1, file=out_file8)
+              print(snap, eps, enep, file=out_file1)
               temp = min_ene[0]
               zone1,min_ene[0],min_rmsd[0] = tabledat(enep,eps,zone1,min_ene[0],min_rmsd[0])
               if (temp !=min_ene[0]):
@@ -366,8 +366,8 @@ while (1):
           if (state_vec2==state_vec):  #132
               eps = pmseta2.OverlapMol(atl2, atl_curr)
               #print "state_vec2\n"
-              print >> out_file8, snap, 2
-              print >> out_file2, snap, eps, enep
+              print(snap, 2, file=out_file8)
+              print(snap, eps, enep, file=out_file2)
               temp = min_ene[1]
               zone2,min_ene[1],min_rmsd[1] = tabledat(enep,eps,zone2,min_ene[1],min_rmsd[1])
               if (temp !=min_ene[1]):
@@ -377,8 +377,8 @@ while (1):
           if (state_vec3==state_vec):  #213
               eps = pmseta3.OverlapMol(atl3, atl_curr)
               #print "state_vec3\n"
-              print >> out_file8, snap, 3
-              print >> out_file3, snap, eps, enep
+              print(snap, 3, file=out_file8)
+              print(snap, eps, enep, file=out_file3)
               temp = min_ene[2]
               zone3,min_ene[2],min_rmsd[2] = tabledat(enep,eps,zone3,min_ene[2],min_rmsd[2])
               if (temp !=min_ene[2]):
@@ -388,8 +388,8 @@ while (1):
           if (state_vec4==state_vec):  #231
               eps = pmseta4.OverlapMol(atl4, atl_curr)
               #print "state_vec4\n"
-              print >> out_file8, snap, 4
-              print >> out_file4, snap, eps, enep
+              print(snap, 4, file=out_file8)
+              print(snap, eps, enep, file=out_file4)
               temp = min_ene[3]
               zone4,min_ene[3],min_rmsd[3] = tabledat(enep,eps,zone4,min_ene[3],min_rmsd[3])
               if (temp !=min_ene[3]):
@@ -399,8 +399,8 @@ while (1):
           if (state_vec5==state_vec):  #321
               eps = pmseta5.OverlapMol(atl5, atl_curr)
               #print "state_vec5\n",
-              print >> out_file8, snap, 5
-              print >> out_file5, snap, eps, enep
+              print(snap, 5, file=out_file8)
+              print(snap, eps, enep, file=out_file5)
               temp = min_ene[4]
               zone5,min_ene[4],min_rmsd[4] = tabledat(enep,eps,zone5,min_ene[4],min_rmsd[4])
               if (temp !=min_ene[4]):
@@ -410,25 +410,25 @@ while (1):
           if (state_vec6==state_vec):  #312
               eps = pmseta6.OverlapMol(atl6, atl_curr)
               #print "state_vec6\n"
-              print >> out_file8, snap, 6
-              print >> out_file6, snap, eps, enep
+              print(snap, 6, file=out_file8)
+              print(snap, eps, enep, file=out_file6)
               temp = min_ene[5]
               zone6,min_ene[5],min_rmsd[5] = tabledat(enep,eps,zone6,min_ene[5],min_rmsd[5])
               if (temp !=min_ene[5]):
                   pmset1.SaveHarlemFile("minimum6.hlm")
               rate_aux =rate_aux+1
-          print >> ene_aux, snap, enep    
+          print(snap, enep, file=ene_aux)    
           rate=rate+1
          if str == '':
-             print "rate = ", rate
-             print "rate_aux =", rate_aux
-             print >> out_zone1, zone1[0], zone1[1], zone1[2], zone1[3], zone1[4], zone1[5]
-             print >> out_zone2, zone2[0], zone2[1], zone2[2], zone2[3], zone2[4], zone2[5]
-             print >> out_zone3, zone3[0], zone3[1], zone3[2], zone3[3], zone3[4], zone3[5]
-             print >> out_zone4, zone4[0], zone4[1], zone4[2], zone4[3], zone4[4], zone4[5]
-             print >> out_zone5, zone5[0], zone5[1], zone5[2], zone5[3], zone5[4], zone5[5]
-             print >> out_zone6, zone6[0], zone6[1], zone6[2], zone6[3], zone6[4], zone6[5]
-             print "snap = " , snap
+             print("rate = ", rate)
+             print("rate_aux =", rate_aux)
+             print(zone1[0], zone1[1], zone1[2], zone1[3], zone1[4], zone1[5], file=out_zone1)
+             print(zone2[0], zone2[1], zone2[2], zone2[3], zone2[4], zone2[5], file=out_zone2)
+             print(zone3[0], zone3[1], zone3[2], zone3[3], zone3[4], zone3[5], file=out_zone3)
+             print(zone4[0], zone4[1], zone4[2], zone4[3], zone4[4], zone4[5], file=out_zone4)
+             print(zone5[0], zone5[1], zone5[2], zone5[3], zone5[4], zone5[5], file=out_zone5)
+             print(zone6[0], zone6[1], zone6[2], zone6[3], zone6[4], zone6[5], file=out_zone6)
+             print("snap = " , snap)
              break
 
 out_file1.close()
@@ -447,6 +447,6 @@ out_zone5.close()
 out_zone6.close()
 ifile.close()
 ene_aux.close()
-print "Work completed"
+print("Work completed")
 
 

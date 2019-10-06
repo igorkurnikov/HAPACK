@@ -10,6 +10,6 @@ from PyBabel.cycle import RingFinder
 r = RingFinder()
 r.findRings(atoms,bonds)
 r.printRings()
-print "num rings = ",r.ringCount
+print("num rings = ",r.ringCount)
 
 

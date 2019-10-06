@@ -16,4 +16,4 @@ for i in range(100):
   Rot3D_IncrEulerAng( phi, cost, psi, 0,0.00011,0)
   Rot3D_EulerToRotMat(phi.value(), cost.value(), psi.value(), rmat )
   matmult(vm,rmat,tv)
-  print "%9.5f %8.4f %8.4f %8.4f " % (cost.value(),vm.GetVal(1,1), vm.GetVal(2,1), vm.GetVal(3,1))
+  print("%9.5f %8.4f %8.4f %8.4f " % (cost.value(),vm.GetVal(1,1), vm.GetVal(2,1), vm.GetVal(3,1)))

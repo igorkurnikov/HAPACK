@@ -1,0 +1,213 @@
+
+     ***********************************               **************
+     ******  CURVES 5.3 R.L. 1998  *****               *   8 Apr 03 *
+     ***********************************               **************
+
+
+  FILE : testgc.pdb                        LIS  : testgc_cv                       
+  dna  :                                   axin :                                 
+  axout:                                   daf  :                                 
+  PDB  : testgc_cv_out                   
+ 
+  acc  :    0.000  wid  :    0.750
+ 
+  maxn :   500  ior  :     0  ibond:     0  splin:     3  break:    -1
+  nleve:     3  nbac :     7
+ 
+  ends :     F  supp :     T  COMB :     T  dinu :     F  mini :     T
+  rest :     F  line :     F  zaxe :     F  fit  :     F  test :     F
+  GRV  :     F  old  :     T  axonl:     F
+
+  Strand=    2 Nucleo=    4 Atoms =  122 Units =    4
+  
+  Input   1) Xdisp=    0.00 Ydisp=    0.00 Inclin=    0.00 Tip=    0.00
+
+  Combined strands have    2 levels ...
+
+  Strand  1 has   2 bases (5'-3'): GC
+  Strand  2 has   2 bases (3'-5'): CG
+
+  FIRST SUM=    4.648 CPTS:    1.955   0.476   1.646   0.572
+
+  MINIMISATION: ACC =  0.100E-05 MAXN=  500 NVAR=    8
+  
+  STEP    1 SUM=    4.648 DEL=  0.000E+00
+  STEP    2 SUM=    5.248 DEL=  0.600E+00
+  STEP    3 SUM=    4.295 DEL= -0.954E+00
+  STEP    4 SUM=    3.630 DEL= -0.664E+00
+  STEP    5 SUM=    1.457 DEL= -0.217E+01
+  STEP    6 SUM=  601.487 DEL=  0.600E+03
+  STEP    7 SUM=    7.024 DEL= -0.594E+03
+  STEP    8 SUM=    1.462 DEL= -0.556E+01
+  STEP    9 SUM=    1.444 DEL= -0.177E-01
+  STEP   10 SUM=    1.421 DEL= -0.228E-01
+  STEP   11 SUM=    1.394 DEL= -0.277E-01
+  STEP   12 SUM=    1.314 DEL= -0.794E-01
+  STEP   13 SUM=    1.253 DEL= -0.616E-01
+  STEP   14 SUM=    1.262 DEL=  0.932E-02
+  STEP   15 SUM=    1.233 DEL= -0.294E-01
+  STEP   16 SUM=    1.213 DEL= -0.197E-01
+  STEP   17 SUM=    1.213 DEL= -0.465E-03
+  STEP   18 SUM=    1.213 DEL= -0.354E-04
+  STEP   19 SUM=    1.212 DEL= -0.808E-05
+  STEP   20 SUM=    1.212 DEL= -0.336E-06
+  STEP   21 SUM=    1.212 DEL= -0.530E-08
+  STEP   22 SUM=    1.212 DEL= -0.151E-10
+  STEP   23 SUM=    1.212 DEL= -0.164E-13
+  STEP   24 SUM=    1.212 DEL=  0.666E-15
+  STEP   25 SUM=    1.212 DEL= -0.666E-15
+
+  FINAL SUM=    1.212 CPTS:    1.003   0.201   0.001   0.008
+
+  GRA= 0.14E-08-0.51E-09-0.30E-09 0.92E-10-0.20E-08 0.15E-08 0.31E-09-0.85E-10
+
+  ----------------------------
+  |A| Global axis parameters |
+  ----------------------------
+  
+    1) U:    0.057   0.233   0.971  P:    1.433  -0.735   0.351  D:    1.212
+    2) U:    0.051   0.238   0.970  P:    1.614  -0.210   2.482
+
+  ---------------------------------
+  |B| Global Base-Axis Parameters |
+  ---------------------------------
+
+    1st strand      Xdisp    Ydisp   Inclin     Tip    Bc  Tc
+                    (dx)     (dy)    (eta)    (theta)
+
+    1) GA    1       1.44    -0.72    -1.68     6.02   1   0
+    2) CA    2       1.38    -0.97   -13.80     9.37   3   0
+
+    2nd strand      Xdisp    Ydisp   Inclin     Tip    Bc  Tc
+                    (dx)     (dy)    (eta)    (theta)
+
+    1) CB    3       1.27     1.35   -19.62    -8.39   3   0
+    2) GB    4       1.22     1.11    -6.99    -4.64   1   0
+
+  --------------------------------------
+  |C| Global Base pair-Axis Parameters |
+  --------------------------------------
+
+    Strand 1 with strand 2 ...
+
+    Duplex          Xdisp    Ydisp   Inclin     Tip    Bc  Tc
+                    (dx)     (dy)    (eta)    (theta)
+
+    1) G  1-C  3     1.35    -1.04   -10.65     7.21   1   0
+    2) C  2-G  4     1.30    -1.04   -10.39     7.00   3   0
+
+    Average:         1.33    -1.04   -10.52     7.11
+
+  ---------------------------------
+  |D| Global Base-Base Parameters |
+  ---------------------------------
+
+    Strand 1 with strand 2 ...
+
+    Duplex          Shear    Stretch  Stagger  Buckle   Propel  Opening  Bc  Tc
+                    (Sx)      (Sy)     (Sz)    (kappa)  (omega) (sigma)
+
+    1) G  1-C  3     0.16     0.63    -0.54    17.94    -2.37     0.04   1   0
+    2) C  2-G  4     0.16     0.14     0.16    -6.81     4.74     0.89   3   0
+
+    Average:         0.16     0.39    -0.19     5.57     1.18     0.46
+
+  ----------------------------------
+  |E| Global Inter-Base Parameters |
+  ----------------------------------
+
+    1st strand      Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) G  1/C  2    -0.12    -0.24     2.55   -11.71     3.53    42.42   5
+
+    2nd strand      Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) C  3/G  4    -0.11    -0.26     1.85    13.04     3.58    41.57   5
+
+  ---------------------------------------
+  |F| Global Inter-Base pair Parameters |
+  ---------------------------------------
+
+    Strand 1 with strand 2 ...
+
+    Duplex          Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) G  1/C  2    -0.12     0.01     2.20     0.66    -0.03    42.00   5
+
+    Average:        -0.12     0.01     2.20     0.66    -0.03    42.00
+
+  ---------------------------------
+  |G| Local Inter-Base Parameters |
+  ---------------------------------
+
+    1st strand      Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) G  1/C  2     0.26     0.45     2.68   -16.34    -2.28    40.53   5
+
+    2nd strand      Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) C  3/G  4     0.46     0.73     2.14     7.71   -12.67    42.02   5
+
+  --------------------------------------
+  |H| Local Inter-Base pair Parameters |
+  --------------------------------------
+
+    Strand 1 with strand 2 ...
+
+    Duplex          Shift    Slide     Rise     Tilt     Roll    Twist   Dc
+                    (Dx)     (Dy)      (Dz)     (tau)    (rho)  (Omega)
+
+    2) G  1/C  2     0.35     0.58     2.39    -4.40    -7.62    41.21   5
+
+    Average:         0.35     0.58     2.39    -4.40    -7.62    41.21
+
+  ---------------------------
+  |I| Global Axis Curvature |
+  ---------------------------
+
+    Duplex          Ax      Ay     Ainc    Atip    Adis    Angle   Path   Dc
+
+   2) G  1/C  2   -0.06    0.02    0.41    0.18    0.06    0.44    2.20   5
+
+  Overall axis bend ... UU=    0.44 PP=    0.00
+
+
+    Duplex       Offset   L.Dir  ... wrt end-to-end vector
+
+   1) G  1         0.00    0.00
+   2) C  2         0.00    0.00
+
+    Path length=     2.20  End-to-end=     2.20  Shortening=     0.00 %
+
+  -------------------------
+  |J| Backbone Parameters |
+  -------------------------
+
+    1st strand   C1'-C2' C2'-C3'  Phase   Ampli   Pucker    C1'   C2'   C3' 
+
+    1)GA    1     40.16  -31.19  144.54   39.70  C2'-endo  105.3 101.8 102.3
+    2)CA    2     40.65  -37.00  156.92   41.30  C2'-endo  104.6 101.5 101.6
+
+    Torsions       Chi    Gamma   Delta   Epsil   Zeta    Alpha   Beta  
+                  C1'-N  C5'-C4' C4'-C3' C3'-O3'  O3'-P   P-O5'  O5'-C5'
+
+    1)GA    1   -117.67  ......  131.29 -140.84 -169.39  -50.61  107.97
+    2)CA    2   -163.64   55.24  140.12  ......  ......  ......  ......
+  
+
+    2nd strand   C1'-C2' C2'-C3'  Phase   Ampli   Pucker    C1'   C2'   C3' 
+
+    1)CB    3     40.60  -33.30  148.55   40.35  C2'-endo  105.0 101.5 102.2
+    2)GB    4     36.77  -36.52  164.85   38.84  C2'-endo  105.9 101.9 101.8
+
+    Torsions       Chi    Gamma   Delta   Epsil   Zeta    Alpha   Beta  
+                  C1'-N  C5'-C4' C4'-C3' C3'-O3'  O3'-P   P-O5'  O5'-C5'
+
+    1)CB    3   -116.00   59.94  134.24  ......  ......  ......  ......
+    2)GB    4   -170.28  ......  143.16 -159.67 -167.53  -65.62 -177.68
+  

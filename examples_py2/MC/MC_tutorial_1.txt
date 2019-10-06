@@ -1,0 +1,61 @@
+files:
+gly_dimer.hlm      - HARLEM file of the glycine dimer
+scan_ene_gly_1.py  - HARLEM/python script to scan energy vs torsion angle (Gly1.N - Gly1.CA - Gly1.C - Gly2.N)
+mc_rot_gly_1.py    - HARLEM/python script to perform MC simulation for rotation around torsion angle (Gly1.N - Gly1.CA - Gly1.C - Gly2.N)
+build_hist.py      - HARLEM/python script to build a distribution histogram of the torsion angle values 
+
+1. Load  gly_dimer.hlm to HARLEM 
+
+2. Open Molecular Mechanics Module and Initialize MM model for the glycine dimer:
+        
+	Main menu: Basic Models->Molecular Mechanics
+        Choose "Edit MM Model" tab and press "Init MM Model" button
+
+3. Identify the torsion angle (Gly1.N - Gly1.CA - Gly1.C - Gly2.N)  and compute 
+    molecular mechanics energy at certain values of the torsion angle.
+	
+    We will further refer to this torsion angle as PHI = Gly1.N - Gly1.CA - Gly1.C - Gly2.N
+ 
+    Show atom IDs in Molecular View:  
+		Main menu: Display->Labels->Atom IDs
+ 
+    Compute the value of this torsional angle  using "Edit Geometry"  Dialog
+        Main Menu:  Edit->Edit Geometry
+        Pick Gly1.N,Gly1.CA,Gly1.C,Gly2.N  atoms sequentially by clicking mouse left button on the molecular view 
+        Press the "Calc Geom Params" button  to display the torsion angle value 
+	
+        Compute MM energy by pressing "Calculate Single Point Energy" 
+        in the "Molecular Mechanics Module" dialog ("MM Run Parameters" tab)
+        See MM energy in Console window
+        Manually change the torsion angle PHI to 0.0 degrees
+        using the "Edit Molecular geometry" Dialog (set new torsonal angle value and press
+                                                "Set Geom Params")
+        Recompute MM energy.
+        Analyze what components of MM energy changed as a result of the geometry transformation
+
+4. Scan MM energy as a function of the PHI torsion angle values:
+        Load Script scan_ene_gly_1.py using File->Load Script Dialog 
+        Execute Script ("Execute Script" button )
+        See Dependence of energy vs torsional angle in "ene.out" file
+        Load profile of energy vs torsional angle into excel
+        Compute probability of torsional angle for different temperatures (300K, 1000K, 10000K) 
+        using Boltzmann distribution
+
+5. Run a Monte Carlo simulation for rotation of the gly monomers with respect to each other  
+   (via modifying the PHI torsion angle) 
+    using script mc_rot_gly_1.py
+   
+6. Analyze distribution of the torsional angle values along the MC trajectory using the script build_hist.py 
+   The output file of the script is hist.out file that lists how often the torsion angle falls into 
+   a particular interval of values.
+   
+   Repeat 5. and 6. Changing the number of MC steps to 10000 and 100000 
+                    and for T = 300K, 1000K, 10000K ( you will need to change nstep and kt parameters
+                    in mc_rot_gly_1.py script, note kt is in kcal/mol in the script)
+
+7. Compare distributions of torsion anlges obtained in MC simulations at different temperatures
+   with the Bolzmann distribution obtained in 4. 
+  Take into account that in 4. and 6. sizes of the torsion angle intervals were different.
+
+
+     

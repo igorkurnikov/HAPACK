@@ -38,10 +38,10 @@ ires = 1
 nnm = len(par_names)
 for i in range(nnm):
   name = par_names[i]
-  print name, "   ",
-  print >> fene, name, "   ",
-print " "
-print >> fene," "
+  print(name, "   ", end=' ')
+  print(name, "   ", end=' ', file=fene)
+print(" ")
+print(" ", file=fene)
       
 while( ires > 0):
   ires = read_next_pt(flog)
@@ -51,11 +51,11 @@ while( ires > 0):
     for i in range(nnm):
       name = par_names[i]
       val = "99999"
-      if(info.has_key(name)):
+      if(name in info):
         val = info[name]
-      print val, "  ",
-      print >> fene, val, "   ",
-    print " "
-    print >> fene, "   "
+      print(val, "  ", end=' ')
+      print(val, "   ", end=' ', file=fene)
+    print(" ")
+    print("   ", file=fene)
 flog.close()
 fene.close()

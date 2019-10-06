@@ -16,12 +16,12 @@ while( dist < 1.31):
   first = 0
   mm_mod.RunMinEne()
   ene = mm_mod.GetUnConstrEne()
-  print " dist = ", dist, " ene = ", ene
+  print(" dist = ", dist, " ene = ", ene)
   dist_arr.append(dist)
   ene_arr.append(ene)
   dist = dist + 0.05
 n = len(dist_arr)
 for i in range(n):
-  print dist_arr[i]," ",ene_arr[i]
+  print(dist_arr[i]," ",ene_arr[i])
   
 

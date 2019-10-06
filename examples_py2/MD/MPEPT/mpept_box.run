@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd -O -i C:\harlem\examples\MD\MPEPT\mpept_box.inp -o C:\harlem\examples\MD\MPEPT\mpept_box.out -p C:\harlem\examples\MD\MPEPT\mpept_box.top -c C:\harlem\examples\MD\MPEPT\mpept_box.crd -r C:\harlem\examples\MD\MPEPT\mpept_box.rst -ref C:\harlem\examples\MD\MPEPT\mpept_box.ref -x C:\harlem\examples\MD\MPEPT\mpept_box.mdcrd -v C:\harlem\examples\MD\MPEPT\mpept_box.mdvel -e C:\harlem\examples\MD\MPEPT\mpept_box.mden 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="HEM_FRAG1_2" >
+<molecule name="CYT" />
+<chain  id="A" />
+<res name="HEM" name_mod="C"  no="104" /> 
+  <atom ff_s="FE"  chrg="   1.24000" >    1    FE  26      0.000000000      0.000000000     -0.000000000 <bonds> 6  11  16  21  </bonds></atom>
+  <atom ff_s="CD"  chrg="  -0.11000" >    2   CHA  6      1.216076489      1.765126669      2.662697865 <bonds> 25  7  26  </bonds></atom>
+  <atom ff_s="CD"  chrg="  -0.11000" >    3   CHB  6     -3.162066437      0.259339847      1.272223565 <bonds> 12  10  27  </bonds></atom>
+  <atom ff_s="CD"  chrg="  -0.11000" >    4   CHC  6     -1.216076489     -1.765126669     -2.662697865 <bonds> 17  15  28  </bonds></atom>
+  <atom ff_s="CD"  chrg="  -0.11000" >    5   CHD  6      3.162066437     -0.259339847     -1.272223565 <bonds> 20  22  29  </bonds></atom>
+  <atom ff_s="NP"  chrg="  -0.18000" >    6    NA  7     -0.801807304      0.834142048      1.621307832 <bonds> 1  7  10  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >    7   C1A  6     -0.148886290      1.527169120      2.620468312 <bonds> 2  6  8  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >    8   C2A  6     -1.079938554      1.975930706      3.624494390 <bonds> 7  30  9  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >    9   C3A  6     -2.311558425      1.552336273      3.233338640 <bonds> 8  31  10  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   10   C4A  6     -2.131575309      0.845257395      1.990777100 <bonds> 3  6  9  </bonds></atom>
+  <atom ff_s="NO"  chrg="  -0.18000" >   11    NB  7     -1.803928628     -0.620430169     -0.572917887 <bonds> 1  15  12  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   12   C1B  6     -3.005954546     -0.423898061      0.076253014 <bonds> 3  11  13  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   13   C2B  6     -4.088856866     -1.027400205     -0.658200097 <bonds> 12  32  14  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   14   C3B  6     -3.541428440     -1.596904954     -1.765136875 <bonds> 13  33  15  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   15   C4B  6     -2.124692110     -1.340699454     -1.705718392 <bonds> 4  11  14  </bonds></atom>
+  <atom ff_s="NP"  chrg="  -0.18000" >   16    NC  7      0.801807304     -0.834142048     -1.621307832 <bonds> 1  17  20  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   17   C1C  6      0.148886290     -1.527169120     -2.620468312 <bonds> 4  16  18  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   18   C2C  6      1.079938554     -1.975930706     -3.624494390 <bonds> 17  34  19  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   19   C3C  6      2.311558425     -1.552336273     -3.233338640 <bonds> 18  35  20  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   20   C4C  6      2.131575309     -0.845257395     -1.990777100 <bonds> 5  16  19  </bonds></atom>
+  <atom ff_s="NO"  chrg="  -0.18000" >   21    ND  7      1.803928628      0.620430169      0.572917887 <bonds> 1  25  22  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   22   C1D  6      3.005954546      0.423898061     -0.076253014 <bonds> 5  21  23  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   23   C2D  6      4.088856866      1.027400205      0.658200097 <bonds> 22  36  24  </bonds></atom>
+  <atom ff_s="CB"  chrg="   0.02000" >   24   C3D  6      3.541428440      1.596904954      1.765136875 <bonds> 23  37  25  </bonds></atom>
+  <atom ff_s="CC"  chrg="   0.02000" >   25   C4D  6      2.124692110      1.340699454      1.705718392 <bonds> 2  21  24  </bonds></atom>
+  <atom ff_s="HC"  chrg="   0.15000" >   26   HHA  1      1.602394419      2.325864491      3.508572230 <bonds> 2  </bonds></atom>
+  <atom ff_s="HC"  chrg="   0.15000" >   27   HHB  1     -4.166578054      0.341725810      1.676378056 <bonds> 3  </bonds></atom>
+  <atom ff_s="HC"  chrg="   0.15000" >   28   HHC  1     -1.602394419     -2.325864491     -3.508572230 <bonds> 4  </bonds></atom>
+  <atom ff_s="HC"  chrg="   0.15000" >   29   HHD  1      4.166578054     -0.341725810     -1.676378056 <bonds> 5  </bonds></atom>
+<res name="TRM"  no="5003" /> 
+  <atom>   30     H  1     -0.806619908      2.540663575      4.506920956 <bonds> 8  </bonds></atom>
+<res name="TRM"  no="5004" /> 
+  <atom>   31     H  1     -3.264994387      1.695148032      3.726154638 <bonds> 9  </bonds></atom>
+<res name="TRM"  no="5005" /> 
+  <atom>   32     H  1     -5.126563362     -1.006906546     -0.349901252 <bonds> 13  </bonds></atom>
+<res name="TRM"  no="5006" /> 
+  <atom>   33     H  1     -4.033869015     -2.143666332     -2.559402079 <bonds> 14  </bonds></atom>
+<res name="TRM"  no="5007" /> 
+  <atom>   34     H  1      0.806619908     -2.540663575     -4.506920956 <bonds> 18  </bonds></atom>
+<res name="TRM"  no="5008" /> 
+  <atom>   35     H  1      3.264994387     -1.695148032     -3.726154638 <bonds> 19  </bonds></atom>
+<res name="TRM"  no="5009" /> 
+  <atom>   36     H  1      5.126563362      1.006906546      0.349901252 <bonds> 23  </bonds></atom>
+<res name="TRM"  no="5010" /> 
+  <atom>   37     H  1      4.033869015      2.143666332      2.559402079 <bonds> 24  </bonds></atom>
+</molset>
+</HARLEM_DATA>

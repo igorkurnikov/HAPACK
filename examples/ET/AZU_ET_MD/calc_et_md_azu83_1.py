@@ -6,7 +6,7 @@ if(script_status == SCRIPT_START):
   aitr_f = AtomIteratorMolSet(pmset_f)
   outf = open("hda_1.dat","w")
   ns = 0
-  print >>outf, " time   hda"
+  print(" time   hda", file=outf)
   qcmod = pmset_f.GetQCMod(1)
   qcmod.ndo_method = ZINDO_1
   qcmod.SetCharge(2)
@@ -82,11 +82,11 @@ else:
   etmod.CalcHDAfromGF()
   nr = etmod.da_coupl_val.num_rows()
   nc = etmod.da_coupl_val.num_cols()
-  print " HDA from GF: "
+  print(" HDA from GF: ")
   for ir in range(nr):
-    print >>outf, ns,
+    print(ns, end=' ', file=outf)
     for ic in range(nc):
-         print >> outf, "%12.6e" % etmod.da_coupl_val.GetVal(ir+1,ic+1),
-         print etmod.da_coupl_val.GetVal(ir+1,ic+1),
-  print >> outf, " "
+         print("%12.6e" % etmod.da_coupl_val.GetVal(ir+1,ic+1), end=' ', file=outf)
+         print(etmod.da_coupl_val.GetVal(ir+1,ic+1), end=' ')
+  print(" ", file=outf)
 

@@ -11,6 +11,6 @@ aptr2 = pmset.GetAtomByRef("LYS2.NZ")
 
 outf = open("dist1.dat","a")
 dist = Vec3D_CalcDistance(aptr1,aptr2) #Calculates the distance
-print >>outf, dist
+print(dist, file=outf)
 outf.close()
 

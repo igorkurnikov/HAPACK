@@ -1,0 +1,18 @@
+ Amber Input file for the molecule set gly1
+
+ &cntrl   
+ imin=0, timlim=999999, nstlim=1000,  nscm=0,  
+ t=       0.000,  dt=       0.001,  
+ ntpr=10,  ntwr=10,  ntwx=0,  ntwv=0,  ntwe=10,  ioutfm=0,  ntwprt=0,  
+ ntf=2,  ntb=0,  dielc= 1.000,  
+ cut=12.000,  scnb= 2.000,  scee= 1.200,  iwrap=0,  
+ irest= 0,  ntx= 1, 
+igb=2, 
+
+ temp0=300.000,  tempi=300.000,  heat= 0.000,  ntt=1, 
+ dtemp=   0.0000,  tautp=   0.5000,  vlimit= 0.000, 
+ ntp=0,  pres0= 1.000,  comp=44.600,  taup= 1.000, 
+ ntc=2, tol=   0.0005000, 
+ jfastw=0,  
+  nmropt=0, ntrx=1, 
+ &end   

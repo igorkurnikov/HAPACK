@@ -1,0 +1,6 @@
+&inp file=testgc.pdb,comb=.t.,lis=testgc_cv,
+ pdb=testgc_cv_out,grv=.f., &
+2 2 -2 0 0
+ 1  2     
+ 3  4
+0. 0. 0. 0.

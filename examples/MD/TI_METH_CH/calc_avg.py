@@ -13,7 +13,7 @@ for line in finp:
   n = n+1
   sum = sum + float(vals[1])
 finp.close()
-print "n =",n
-print "average =",sum/n
+print("n =",n)
+print("average =",sum/n)
 
   

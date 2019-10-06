@@ -11,17 +11,17 @@ if(script_status == SCRIPT_START):
 
 elif(script_status == SCRIPT_STOP):
   outf.close()
-  print "End dihedrals calculations"
+  print("End dihedrals calculations")
 
 else:
   i = i + 1
-  print >> outf,"%8d" % i,
+  print("%8d" % i, end=' ', file=outf)
   for t in tors:
     aptr1 = pmset.GetAtomByRef(t[0])
     aptr2 = pmset.GetAtomByRef(t[1])
     aptr3 = pmset.GetAtomByRef(t[2])
     aptr4 = pmset.GetAtomByRef(t[3])
     tv = Vec3D_CalcTorsion(aptr1,aptr2,aptr3,aptr4)*RAD_TO_DEG
-    print >>outf, " %12.4f " % tv, 
-  print >> outf, "  "
+    print(" %12.4f " % tv, end=' ', file=outf) 
+  print("  ", file=outf)
 

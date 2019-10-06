@@ -1,7 +1,7 @@
 pmset = GetCurMolSet()
 pmol = pmset.GetMoleculeNum(0)
 aptr = pmset.GetAtomByRef("$GLY2$GLY2.C")
-print "Old Atom Crd:", aptr.GetX(), aptr.GetY(), aptr.GetZ()
+print("Old Atom Crd:", aptr.GetX(), aptr.GetY(), aptr.GetZ())
 phi   = doublep()
 cost = doublep()
 psi    = doublep()
@@ -25,11 +25,11 @@ Rot3D_EulerToRotMat(phi_0, cost_0, psi_0, rmat_0)
 Rot3D_EulerToRotMat(phi_0, cost_0+0.001, psi_0, rmat_1)
 matmult_T2(dmat,rmat_1,rmat_0)
 rmat = rmat_0
-print 0.0, aptr.GetX(), aptr.GetY(), aptr.GetZ(),phi.value(),cost.value(),psi.value()
+print(0.0, aptr.GetX(), aptr.GetY(), aptr.GetZ(),phi.value(),cost.value(),psi.value())
 for i in range(50):
   matmult(tmp,dmat,rmat)
   rmat = tmp
   pmol.SetPosition(rmat,trans)
   Rot3D_RotMatToEuler(rmat,phi,cost,psi)
-  print (i+1)*0.001, aptr.GetX(), aptr.GetY(), aptr.GetZ(), phi.value(), cost.value(), psi.value()
-print "End of Script"
+  print((i+1)*0.001, aptr.GetX(), aptr.GetY(), aptr.GetZ(), phi.value(), cost.value(), psi.value())
+print("End of Script")

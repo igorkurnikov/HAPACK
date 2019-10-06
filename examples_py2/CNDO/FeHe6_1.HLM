@@ -1,0 +1,25 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=FeHe6_1
+#MOLECULE 
+MOLNAME=FEPP
+#ATOMS 
+    1  26 "FE"      0.000000000      0.000000000      0.000000000  "A" "HEM"     201     1.25000 "NO_HYBRID" ""  ""      1.00000 
+    2   2 "HE"      0.000000000      1.500000000      0.000000000  "A" "TRM"    5001     0.00000 "NO_HYBRID" ""  ""      4.00260 
+    3   2 "HE"     -1.500000000      0.000000000      0.000000000  "A" "TRM"    5002     0.00000 "NO_HYBRID" ""  ""      4.00260 
+    4   2 "HE"      0.000000000     -1.500000000      0.000000000  "A" "TRM"    5003     0.00000 "NO_HYBRID" ""  ""      4.00260 
+    5   2 "HE"      1.500000000      0.000000000      0.000000000  "A" "TRM"    5004     0.00000 "NO_HYBRID" ""  ""      4.00260 
+    6   2 "HE"      0.000000000      0.000000000      1.500000000  "A" "TRM"    5005     0.00000 "NO_HYBRID" ""  ""      4.00260 
+    7   2 "HE"      0.000000000      0.000000000     -1.500000000  "A" "TRM"    5006     0.00000 "NO_HYBRID" ""  ""      4.00260 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1     4  SINGLE
+    1     5  SINGLE
+    1     6  SINGLE 
+    1     7  SINGLE
+#END BONDS 
+#END MOLECULE 
+#ATOM LISTS 
+#END ATOM LISTS 
+#END MOL_SET

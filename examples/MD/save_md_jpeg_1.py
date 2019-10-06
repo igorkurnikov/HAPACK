@@ -24,8 +24,8 @@ if(script_status == SCRIPT_START):
 elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
-  print "\nTrajectory Playback Completed\n"
-  print "JPEG snapshots saved to file directory"
+  print("\nTrajectory Playback Completed\n")
+  print("JPEG snapshots saved to file directory")
 
 
 else: 
@@ -40,7 +40,7 @@ else:
 	  	  
 	  pmset.RefreshAllViews(RFApply)
 	  fname = "snap" + str(10000+i) + ".jpg" #  Sets the actual file name
-	  print "Snapshot saved to ", fname
+	  print("Snapshot saved to ", fname)
 	  pview.WriteJPEGFile(fname) #  Writes the JPEG file
 
 

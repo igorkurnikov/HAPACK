@@ -18,13 +18,13 @@ elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
   outf.close()
-  print "\nTrajectory Playback Completed\n"
+  print("\nTrajectory Playback Completed\n")
 
 else: 
 #  Computations on snapshots:
 
     i = i+1 
     tor = Vec3D_CalcTorsion(aptr1,aptr2,aptr3,aptr4)*RAD_TO_DEG #  Calculates the torsional angle
-    print >>outf, "%5d %9.4f" % (i, tor)
+    print("%5d %9.4f" % (i, tor), file=outf)
 
 

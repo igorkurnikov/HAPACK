@@ -17,7 +17,7 @@ atgrp = mset.SetAtomGroupFromSelection("HEAVY_ATOMS")
 mm_mod = mset.GetMolMechMod(1)
 mm_model = mm_mod.GetMolMechModel()
 mm_model.SetRestrainedAtoms("HEAVY_ATOMS")
-print "Saving Arbalest restraints to: ", fn_rules, " and ",fn_list
+print("Saving Arbalest restraints to: ", fn_rules, " and ",fn_list)
 mm_model.SaveAtomRestrArbalestIndForm(fn_rules,fn_list)
-print "Done!"
+print("Done!")
 quit()

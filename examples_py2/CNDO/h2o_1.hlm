@@ -1,0 +1,17 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=H2O_1
+#MOLECULE 
+MOLNAME=H2O_1
+#ATOMS 
+    1   8 "O"      0.000000000      0.00000       0.397815  " " "MOL"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    2   1 "H"      0.000000000      0.763468     -0.198908  " " "MOL"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    3   1 "H1"      0.00000000     -0.763468     -0.198908  " " "MOL"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#END MOL_SET

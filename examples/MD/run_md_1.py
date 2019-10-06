@@ -1,5 +1,5 @@
 mset = GetCurMolSet()
-print mset.GetNAtoms()
+print(mset.GetNAtoms())
 mm_mod = mset.GetMolMechMod(1)
 mm_model = mm_mod.GetMolMechModel()
 mm_mod.Initialize()

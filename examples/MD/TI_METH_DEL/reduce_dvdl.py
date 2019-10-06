@@ -12,7 +12,7 @@ for line in finp:
   sum = sum + float(vals[1])
   if( n % nred == 0):
     sum = sum/nred
-    print >>fout, "%d %16.9f " % (n,sum)
+    print("%d %16.9f " % (n,sum), file=fout)
     sum = 0.0
 finp.close()
 fout.close()

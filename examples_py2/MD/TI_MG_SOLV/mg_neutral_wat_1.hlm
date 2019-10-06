@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="mg_neutral_wat_1" >
+<molecule name="MG" />
+<chain  id=" " />
+<res name="MG" name_mod="NEUTRAL"  no="1" /> 
+  <atom >    1    MG  12      6.524222841      7.793055675      9.065880187 </atom>
+<molecule name="SOLVENT" />
+<chain  id=" " />
+<res name="HOH"  no="1" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >    2     O  8      1.717239157     19.020956328     12.845352738 <bonds> 4  3  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >    3    H1  1      1.757588415     19.515432719     13.681613395 <bonds> 2  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >    4    H2  1      1.107193780     18.300610741     13.074904966 <bonds> 2  </bonds></atom>
+<res name="HOH"  no="2" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >    5     O  8     16.551890091     13.702112668      9.604561080 <bonds> 6  7  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >    6    H1  1     16.127339355     12.842444672      9.439206099 <bonds> 5  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >    7    H2  1     17.146483260     13.829678339      8.845139581 <bonds> 5  </bonds></atom>
+<res name="HOH"  no="3" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >    8     O  8      4.818404620      9.027511303      9.180671393 <bonds> 9  10  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >    9    H1  1      4.829091619      9.754718290      8.530839482 <bonds> 8  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   10    H2  1      4.818005243      9.462757998     10.051154312 <bonds> 8  </bonds></atom>
+<res name="HOH"  no="4" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   11     O  8      4.156540366      3.015010056      5.991757022 <bonds> 12  13  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   12    H1  1      3.470992609      3.133405587      6.664163771 <bonds> 11  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   13    H2  1      4.042501117      2.092100015      5.720869790 <bonds> 11  </bonds></atom>
+<res name="HOH"  no="5" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   14     O  8      2.772951037      7.344950334      7.993003721 <bonds> 15  16  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   15    H1  1      3.313536305      7.919720420      8.555471173 <bonds> 14  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   16    H2  1      2.513238214      6.597947658      8.544823003 <bonds> 14  </bonds></atom>
+<res name="HOH"  no="6" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   17     O  8      1.683830926      1.322165962     10.275309474 <bonds> 18  19  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   18    H1  1      1.730500733      0.953323039     11.176425936 <bonds> 17  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   19    H2  1      0.885219484      1.877513503     10.330583892 <bonds> 17  </bonds></atom>
+<res name="HOH"  no="7" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   20     O  8      2.448910320     13.744581676      9.336147046 <bonds> 21  22  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   21    H1  1      2.193446706     14.263270253      8.556086768 <bonds> 20  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   22    H2  1      1.791696163     13.032875998      9.412735846 <bonds> 20  </bonds></atom>
+<res name="HOH"  no="8" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   23     O  8      7.155209289     17.973215024     11.628886990 <bonds> 24  25  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   24    H1  1      7.581654869     18.184731136     12.466553258 <bonds> 23  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   25    H2  1      7.627631282     17.217209912     11.265208350 <bonds> 23  </bonds></atom>
+<res name="HOH"  no="9" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   26     O  8      8.391579508     18.619129210      7.865280880 <bonds> 27  28  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   27    H1  1      8.027145977     19.264566736      8.496513476 <bonds> 26  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   28    H2  1      8.655224706     17.874593541      8.433183759 <bonds> 26  </bonds></atom>
+<res name="HOH"  no="10" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   29     O  8      0.688918164      1.628171951      5.093161452 <bonds> 30  31  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   30    H1  1      0.025402669      1.461148250      4.403470782 <bonds> 29  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   31    H2  1      1.400958387      0.998367771      4.940775477 <bonds> 29  </bonds></atom>
+<res name="HOH"  no="11" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   32     O  8      3.534237243     18.848407314      6.104664483 <bonds> 33  34  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   33    H1  1      3.212728779     18.585757524      6.982778722 <bonds> 32  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   34    H2  1      3.128732868     18.208189185      5.503137268 <bonds> 32  </bonds></atom>
+<res name="HOH"  no="12" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   35     O  8     14.405149508     15.090585051     10.603494875 <bonds> 36  37  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   36    H1  1     15.230523789     14.885728852     10.140268656 <bonds> 35  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   37    H2  1     14.147576327     15.995179272     10.371158944 <bonds> 35  </bonds></atom>
+<res name="HOH"  no="13" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   38     O  8      2.122520637     14.001192079     13.693681663 <bonds> 39  40  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   39    H1  1      1.240613797     13.808315697     14.030137126 <bonds> 38  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   40    H2  1      2.618706950     13.175636856     13.790430547 <bonds> 38  </bonds></atom>
+<res name="HOH"  no="14" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   41     O  8      7.204692463      9.156797605      7.827927039 <bonds> 42  43  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   42    H1  1      6.612684193      9.866916784      7.531797465 <bonds> 41  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   43    H2  1      7.580632219      8.796300489      7.001674133 <bonds> 41  </bonds></atom>
+<res name="HOH"  no="15" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   44     O  8     18.550387331      1.737165626     17.194979221 <bonds> 45  46  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   45    H1  1     19.054122468      2.346603511     17.758741624 <bonds> 44  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   46    H2  1     17.865079712      2.289704996     16.793063229 <bonds> 44  </bonds></atom>
+<res name="HOH"  no="16" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   47     O  8     13.390032457     17.701115386     10.875317032 <bonds> 48  49  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   48    H1  1     13.478911462     18.388056801     10.195531147 <bonds> 47  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   49    H2  1     14.114181982     17.877371735     11.493781233 <bonds> 47  </bonds></atom>
+<res name="HOH"  no="17" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   50     O  8      6.274525935      0.839346325      6.316172116 <bonds> 51  52  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   51    H1  1      5.393486078      0.435808924      6.253502558 <bonds> 50  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   52    H2  1      6.800924619      0.246515809      6.869742498 <bonds> 50  </bonds></atom>
+<res name="HOH"  no="18" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   53     O  8      1.910875305      0.966945722     15.470286231 <bonds> 54  55  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   54    H1  1      2.656372917      1.398154689     15.919621589 <bonds> 53  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   55    H2  1      1.142263048      1.168632630     16.028313163 <bonds> 53  </bonds></atom>
+<res name="HOH"  no="19" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   56     O  8      1.509725317      3.390365283     -0.030707092 <bonds> 57  58  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   57    H1  1      2.362021712      3.016411201      0.244248121 <bonds> 56  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   58    H2  1      1.261339595      3.976290407      0.700152021 <bonds> 56  </bonds></atom>
+<res name="HOH"  no="20" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   59     O  8     12.510509114      4.239397929     16.701116870 <bonds> 60  61  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   60    H1  1     13.279913559      3.656350880     16.812012238 <bonds> 59  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   61    H2  1     12.178235676      4.040871580     15.818815362 <bonds> 59  </bonds></atom>
+<res name="HOH"  no="21" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   62     O  8     17.459721384      4.027853513      8.131697842 <bonds> 63  64  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   63    H1  1     17.309637973      3.104835801      7.861437307 <bonds> 62  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   64    H2  1     17.982229974      4.374711851      7.390855901 <bonds> 62  </bonds></atom>
+<res name="HOH"  no="22" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   65     O  8      8.416765235     14.465472509      7.179039082 <bonds> 66  67  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   66    H1  1      8.734336960     14.181964520      8.048245233 <bonds> 65  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   67    H2  1      9.049269509     14.104936456      6.536520548 <bonds> 65  </bonds></atom>
+<res name="HOH"  no="23" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   68     O  8     17.222325593     10.736805698     13.252933424 <bonds> 69  70  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   69    H1  1     16.279209215     10.617415071     13.056132840 <bonds> 68  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   70    H2  1     17.451046969     11.564396346     12.803693017 <bonds> 68  </bonds></atom>
+<res name="HOH"  no="24" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   71     O  8     16.148559564      8.871240470      3.042459062 <bonds> 72  73  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   72    H1  1     16.380875424      8.063043346      2.558235004 <bonds> 71  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   73    H2  1     15.829878629      8.574863569      3.910554552 <bonds> 71  </bonds></atom>
+<res name="HOH"  no="25" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   74     O  8     14.284680450      7.581980051     12.035170399 <bonds> 75  76  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   75    H1  1     14.975243523      7.268729747     12.638868149 <bonds> 74  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   76    H2  1     13.467881272      7.185337299     12.370144654 <bonds> 74  </bonds></atom>
+<res name="HOH"  no="26" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   77     O  8      8.249544123      6.769448941      8.602648319 <bonds> 78  79  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   78    H1  1      8.559781943      7.019243579      7.712387020 <bonds> 77  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   79    H2  1      8.259936944      5.799002547      8.612911489 <bonds> 77  </bonds></atom>
+<res name="HOH"  no="27" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   80     O  8     15.297098308      1.270146859      5.490474190 <bonds> 81  82  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   81    H1  1     14.854318829      0.410379624      5.392639228 <bonds> 80  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   82    H2  1     14.600448011      1.946534098      5.438504244 <bonds> 80  </bonds></atom>
+<res name="HOH"  no="28" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   83     O  8     13.519534212      3.397268031      5.320812672 <bonds> 84  85  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   84    H1  1     13.748402063      4.194376990      4.813035142 <bonds> 83  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   85    H2  1     12.614674543      3.195907501      5.061948116 <bonds> 83  </bonds></atom>
+<res name="HOH"  no="29" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   86     O  8     11.986709213      7.779053534      4.562381830 <bonds> 87  88  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   87    H1  1     11.201995085      7.439071855      4.107125886 <bonds> 86  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   88    H2  1     11.986929564      8.728434129      4.356444363 <bonds> 86  </bonds></atom>
+<res name="HOH"  no="30" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   89     O  8     13.021136995     14.055275560      0.475100198 <bonds> 90  91  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   90    H1  1     13.443794587     14.826649686      0.073253017 <bonds> 89  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   91    H2  1     12.228160593     14.382550164      0.928903285 <bonds> 89  </bonds></atom>
+<res name="HOH"  no="31" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   92     O  8      1.552151272      4.846190042     13.701187641 <bonds> 93  94  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   93    H1  1      0.879091907      4.150097529     13.622626808 <bonds> 92  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   94    H2  1      2.027843882      4.621271085     14.519969758 <bonds> 92  </bonds></atom>
+<res name="HOH"  no="32" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   95     O  8      6.784715244     11.022110935      5.026232520 <bonds> 96  97  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   96    H1  1      6.458712846     11.169872267      4.126970122 <bonds> 95  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   97    H2  1      7.752930065     11.066700641      4.920193998 <bonds> 95  </bonds></atom>
+<res name="HOH"  no="33" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >   98     O  8      4.421795539      0.542985475     12.551208401 <bonds> 99  100  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >   99    H1  1      4.957184944     -0.262217727     12.611092177 <bonds> 98  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  100    H2  1      3.503732289      0.238161551     12.635666452 <bonds> 98  </bonds></atom>
+<res name="HOH"  no="34" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  101     O  8     10.354113184     12.136657266     15.112756457 <bonds> 102  103  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  102    H1  1     10.821378637     12.696063106     14.471015644 <bonds> 101  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  103    H2  1     10.961879179     12.068180104     15.870593694 <bonds> 101  </bonds></atom>
+<res name="HOH"  no="35" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  104     O  8      7.541799038      8.580226692     10.830379871 <bonds> 105  106  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  105    H1  1      7.632384410      8.012860139     11.616483338 <bonds> 104  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  106    H2  1      8.168441412      9.302861238     10.964627868 <bonds> 104  </bonds></atom>
+<res name="HOH"  no="36" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  107     O  8     11.050605639      3.985346684     19.123087792 <bonds> 108  109  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  108    H1  1     10.211119556      3.756051228     18.705134254 <bonds> 107  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  109    H2  1     11.637212898      4.120655263     18.365486702 <bonds> 107  </bonds></atom>
+<res name="HOH"  no="37" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  110     O  8      9.265136211      3.614541729     17.016942529 <bonds> 111  112  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  111    H1  1      9.509329993      2.719787601     16.731970435 <bonds> 110  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  112    H2  1      9.716812942      4.204556931     16.396416238 <bonds> 110  </bonds></atom>
+<res name="HOH"  no="38" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  113     O  8      5.780268646      6.556928783     10.521890044 <bonds> 114  115  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  114    H1  1      4.875941959      6.588619564     10.868476180 <bonds> 113  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  115    H2  1      6.330066586      6.383359541     11.305660720 <bonds> 113  </bonds></atom>
+<res name="HOH"  no="39" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  116     O  8      8.041336442     16.836309296      5.615838331 <bonds> 117  118  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  117    H1  1      8.092315718     16.038856374      6.166949541 <bonds> 116  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  118    H2  1      8.260975050     17.551151251      6.228266859 <bonds> 116  </bonds></atom>
+<res name="HOH"  no="40" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  119     O  8     18.712409621     15.110198922      3.971217297 <bonds> 120  121  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  120    H1  1     18.195431952     14.843333540      3.193353373 <bonds> 119  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  121    H2  1     19.108772375     14.267038992      4.254595168 <bonds> 119  </bonds></atom>
+<res name="HOH"  no="41" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  122     O  8     -0.335822006      6.234847664     17.721649827 <bonds> 123  124  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  123    H1  1      0.525011219      6.454444765     18.105134642 <bonds> 122  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  124    H2  1     -0.267528184      6.539863311     16.802831480 <bonds> 122  </bonds></atom>
+<res name="HOH"  no="42" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  125     O  8      2.150552638      7.340852408      0.521226061 <bonds> 126  127  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  126    H1  1      1.953170010      8.173185473      0.982393313 <bonds> 125  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  127    H2  1      2.991329400      7.519306684      0.068853879 <bonds> 125  </bonds></atom>
+<res name="HOH"  no="43" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  128     O  8     17.004088400      3.933405507     16.165054598 <bonds> 129  130  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  129    H1  1     17.464189090      4.621959994     16.668524831 <bonds> 128  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  130    H2  1     17.373442429      3.955096552     15.268340964 <bonds> 128  </bonds></atom>
+<res name="HOH"  no="44" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  131     O  8     19.083708889      8.438648509      6.832510889 <bonds> 132  133  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  132    H1  1     19.915855462      8.111425876      7.186626261 <bonds> 131  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  133    H2  1     18.510796906      8.572942002      7.595401254 <bonds> 131  </bonds></atom>
+<res name="HOH"  no="45" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  134     O  8      2.566082741      4.413584357     16.226499156 <bonds> 135  136  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  135    H1  1      3.390795094      4.714586760     16.631610773 <bonds> 134  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  136    H2  1      2.032933307      4.109059441     16.974768252 <bonds> 134  </bonds></atom>
+<res name="HOH"  no="46" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  137     O  8     12.221929271     10.448326554      3.877400981 <bonds> 138  139  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  138    H1  1     12.771980337     11.043174526      4.411694493 <bonds> 137  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  139    H2  1     12.700287935     10.403319922      3.033571627 <bonds> 137  </bonds></atom>
+<res name="HOH"  no="47" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  140     O  8     12.455941177     13.330373066      9.824444028 <bonds> 141  142  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  141    H1  1     12.145816598     12.726742058     10.505398347 <bonds> 140  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  142    H2  1     13.201794765     13.811898211     10.208145238 <bonds> 140  </bonds></atom>
+<res name="HOH"  no="48" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  143     O  8      4.100505324     15.759955763      5.606470740 <bonds> 144  145  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  144    H1  1      4.628628457     16.417785142      5.123194846 <bonds> 143  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  145    H2  1      4.693303981     15.471714352      6.324386981 <bonds> 143  </bonds></atom>
+<res name="HOH"  no="49" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  146     O  8     13.597489698      7.503831400      9.322138399 <bonds> 147  148  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  147    H1  1     14.009622591      7.009706387      8.597521226 <bonds> 146  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  148    H2  1     14.210554108      7.450081580     10.069533023 <bonds> 146  </bonds></atom>
+<res name="HOH"  no="50" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  149     O  8      7.752276790     13.219266329     15.296510253 <bonds> 150  151  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  150    H1  1      8.673936534     12.921975746     15.192691018 <bonds> 149  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  151    H2  1      7.652019021     13.243728673     16.263410338 <bonds> 149  </bonds></atom>
+<res name="HOH"  no="51" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  152     O  8     12.924798537     17.319625293     14.494200715 <bonds> 153  154  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  153    H1  1     13.549193191     17.803137720     15.054837185 <bonds> 152  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  154    H2  1     12.386596250     16.804209952     15.112157930 <bonds> 152  </bonds></atom>
+<res name="HOH"  no="52" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  155     O  8     18.531139917     11.105590500     15.794611600 <bonds> 156  157  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  156    H1  1     18.165459317     10.549459816     15.089170441 <bonds> 155  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  157    H2  1     18.414873771     12.000559733     15.437787539 <bonds> 155  </bonds></atom>
+<res name="HOH"  no="53" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  158     O  8      1.916621371     14.319917149      1.386318656 <bonds> 159  160  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  159    H1  1      0.964838878     14.280440396      1.552140702 <bonds> 158  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  160    H2  1      2.341211240     14.283002879      2.260494305 <bonds> 158  </bonds></atom>
+<res name="HOH"  no="54" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  161     O  8     12.007641999     11.791597870     17.628731971 <bonds> 162  163  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  162    H1  1     12.296119438     12.637232952     18.012372279 <bonds> 161  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  163    H2  1     12.839010222     11.285779556     17.588090063 <bonds> 161  </bonds></atom>
+<res name="HOH"  no="55" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  164     O  8     14.733930701      0.022754468     16.272010121 <bonds> 165  166  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  165    H1  1     14.565922963      0.881804762     16.691813722 <bonds> 164  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  166    H2  1     15.503447893      0.197588392     15.705470656 <bonds> 164  </bonds></atom>
+<res name="HOH"  no="56" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  167     O  8     12.090543647      2.095989843     13.949994336 <bonds> 168  169  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  168    H1  1     12.843671986      2.701205087     14.018732585 <bonds> 167  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  169    H2  1     12.407234937      1.325579451     13.465131838 <bonds> 167  </bonds></atom>
+<res name="HOH"  no="57" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  170     O  8      9.812693772      1.913320276      3.473219588 <bonds> 171  172  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  171    H1  1     10.094785048      2.791943226      3.775029202 <bonds> 170  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  172    H2  1     10.033476318      1.328167370      4.218287843 <bonds> 170  </bonds></atom>
+<res name="HOH"  no="58" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  173     O  8      9.381790988     16.571432494      9.427461761 <bonds> 174  175  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  174    H1  1     10.126820759     16.254923836      8.889042404 <bonds> 173  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  175    H2  1      8.989890418     15.751369046      9.769969831 <bonds> 173  </bonds></atom>
+<res name="HOH"  no="59" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  176     O  8      5.129006514      5.071775495      4.407406016 <bonds> 177  178  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  177    H1  1      4.815267500      4.306224922      4.919826508 <bonds> 176  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  178    H2  1      6.098417698      5.036885861      4.478221246 <bonds> 176  </bonds></atom>
+<res name="HOH"  no="60" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  179     O  8     11.333034815      5.927076163      2.351765829 <bonds> 180  181  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  180    H1  1     12.192399287      6.283574926      2.094925694 <bonds> 179  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  181    H2  1     11.143675405      5.261145600      1.671732407 <bonds> 179  </bonds></atom>
+<res name="HOH"  no="61" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  182     O  8      6.438104679     11.365488768     13.825775430 <bonds> 183  184  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  183    H1  1      6.767149188     12.075681908     14.410003459 <bonds> 182  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  184    H2  1      7.248411427     10.846074208     13.663474948 <bonds> 182  </bonds></atom>
+<res name="HOH"  no="62" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  185     O  8      9.635516462      5.996719140     10.901601203 <bonds> 186  187  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  186    H1  1      9.301813230      5.260612584     10.370347952 <bonds> 185  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  187    H2  1      9.383319733      6.789839888     10.416012023 <bonds> 185  </bonds></atom>
+<res name="HOH"  no="63" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  188     O  8      4.786880013     17.701147878     17.168113900 <bonds> 189  190  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  189    H1  1      4.295182156     17.358960614     16.404388511 <bonds> 188  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  190    H2  1      4.259126448     17.386541483     17.918411114 <bonds> 188  </bonds></atom>
+<res name="HOH"  no="64" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  191     O  8     12.606830967      1.470414661      2.004253256 <bonds> 192  193  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  192    H1  1     11.734190096      1.839444325      2.187114517 <bonds> 191  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  193    H2  1     13.169150576      2.224964341      1.770031605 <bonds> 191  </bonds></atom>
+<res name="HOH"  no="65" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  194     O  8     17.752631045      9.444341448      9.147410236 <bonds> 195  196  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  195    H1  1     16.908045969      9.918539701      9.169337762 <bonds> 194  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  196    H2  1     17.860766871      9.086097492     10.044633102 <bonds> 194  </bonds></atom>
+<res name="HOH"  no="66" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  197     O  8      5.036946090      5.418364885     17.262337633 <bonds> 198  199  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  198    H1  1      5.687110178      4.969066942     17.818645752 <bonds> 197  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  199    H2  1      4.977444594      6.313682566     17.638833859 <bonds> 197  </bonds></atom>
+<res name="HOH"  no="67" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  200     O  8      3.938642489      4.725967629      9.415026578 <bonds> 201  202  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  201    H1  1      3.259752034      4.310378274      8.859223025 <bonds> 200  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  202    H2  1      4.355431849      3.958700826      9.845688342 <bonds> 200  </bonds></atom>
+<res name="HOH"  no="68" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  203     O  8     18.396950480     16.200528902     11.324467557 <bonds> 204  205  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  204    H1  1     18.042780842     15.407420681     10.910382009 <bonds> 203  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  205    H2  1     19.362511427     16.106921657     11.278315997 <bonds> 203  </bonds></atom>
+<res name="HOH"  no="69" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  206     O  8     10.489394027      1.223581478     16.064134705 <bonds> 207  208  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  207    H1  1     11.121857126      0.888476869     16.707636029 <bonds> 206  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  208    H2  1     11.027856228      1.517700101     15.310342682 <bonds> 206  </bonds></atom>
+<res name="HOH"  no="70" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  209     O  8     16.263693378      0.966258002      9.608468103 <bonds> 210  211  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  210    H1  1     15.346208903      1.060317798      9.297610514 <bonds> 209  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  211    H2  1     16.778242515      0.845898433      8.794974512 <bonds> 209  </bonds></atom>
+<res name="HOH"  no="71" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  212     O  8      7.866116776      5.083927143      5.160242592 <bonds> 213  214  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  213    H1  1      7.663323577      4.434835232      5.851248885 <bonds> 212  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  214    H2  1      8.718628462      4.801348183      4.789240381 <bonds> 212  </bonds></atom>
+<res name="HOH"  no="72" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  215     O  8     15.860692381     13.571845329     16.352198759 <bonds> 216  217  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  216    H1  1     16.082888346     12.935496053     17.046619948 <bonds> 215  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  217    H2  1     14.929795364     13.403819995     16.136348461 <bonds> 215  </bonds></atom>
+<res name="HOH"  no="73" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  218     O  8      6.931829021      6.672799175      1.977209834 <bonds> 219  220  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  219    H1  1      6.041499053      6.296487170      2.007245485 <bonds> 218  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  220    H2  1      7.319845673      6.259372127      1.189149022 <bonds> 218  </bonds></atom>
+<res name="HOH"  no="74" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  221     O  8      2.147378189      3.351603124      7.905950688 <bonds> 222  223  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  222    H1  1      1.713535720      2.579706412      8.290560113 <bonds> 221  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  223    H2  1      1.503176621      3.737540530      7.290786633 <bonds> 221  </bonds></atom>
+<res name="HOH"  no="75" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  224     O  8      4.405993177      2.172901143     10.306547057 <bonds> 225  226  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  225    H1  1      4.567685892      1.712531411     11.146164812 <bonds> 224  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  226    H2  1      3.491511228      1.922614750     10.097278225 <bonds> 224  </bonds></atom>
+<res name="HOH"  no="76" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  227     O  8      3.503969441     11.177916671      4.288433088 <bonds> 228  229  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  228    H1  1      4.244267833     11.128476824      3.662413349 <bonds> 227  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  229    H2  1      3.889320963     11.063297003      5.165849462 <bonds> 227  </bonds></atom>
+<res name="HOH"  no="77" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  230     O  8     14.024099374      5.927130081      7.046527083 <bonds> 232  231  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  231    H1  1     14.503955020      5.102493000      6.903532918 <bonds> 230  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  232    H2  1     13.089859582      5.672525921      6.969111296 <bonds> 230  </bonds></atom>
+<res name="HOH"  no="78" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  233     O  8      7.295963604     15.919296597     14.398056155 <bonds> 234  235  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  234    H1  1      7.334841432     15.016145194     14.750212798 <bonds> 233  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  235    H2  1      6.408665120     16.022808845     14.017814286 <bonds> 233  </bonds></atom>
+<res name="HOH"  no="79" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  236     O  8      9.094298745      4.116689657     13.048736490 <bonds> 237  238  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  237    H1  1      9.820044036      3.749524332     12.523211406 <bonds> 236  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  238    H2  1      8.556842034      3.330571806     13.251437680 <bonds> 236  </bonds></atom>
+<res name="HOH"  no="80" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  239     O  8     14.394987984     16.361708125     17.923236820 <bonds> 240  241  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  240    H1  1     14.501190231     17.181724003     17.410603338 <bonds> 239  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  241    H2  1     15.279593024     15.960329503     17.887641263 <bonds> 239  </bonds></atom>
+<res name="HOH"  no="81" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  242     O  8      5.463247368      6.484694149      7.848225415 <bonds> 243  244  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  243    H1  1      5.020276626      5.846245991      8.439288121 <bonds> 242  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  244    H2  1      4.739950654      6.821013465      7.299686200 <bonds> 242  </bonds></atom>
+<res name="HOH"  no="82" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  245     O  8      9.221066203      7.811236095      3.350484498 <bonds> 246  247  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  246    H1  1      8.458900897      7.280164248      3.076286285 <bonds> 245  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  247    H2  1      9.579054040      8.145018963      2.515137652 <bonds> 245  </bonds></atom>
+<res name="HOH"  no="83" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  248     O  8     15.945150244     18.234083200     11.933213856 <bonds> 249  250  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  249    H1  1     16.149042686     18.725575558     11.121580256 <bonds> 248  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  250    H2  1     16.580140221     17.507310369     11.933424157 <bonds> 248  </bonds></atom>
+<res name="HOH"  no="84" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  251     O  8      7.897205651      5.696377103     18.272220253 <bonds> 252  253  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  252    H1  1      8.287777933      4.859980957     17.973234155 <bonds> 251  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  253    H2  1      7.795444192      6.216447341     17.460420517 <bonds> 251  </bonds></atom>
+<res name="HOH"  no="85" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  254     O  8     10.015403386      5.595658459     15.126708408 <bonds> 255  256  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  255    H1  1      9.618128188      5.084417658     14.404152905 <bonds> 254  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  256    H2  1      9.357991290      6.264341548     15.366341629 <bonds> 254  </bonds></atom>
+<res name="HOH"  no="86" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  257     O  8      9.382719048     15.704660088     17.955374615 <bonds> 258  259  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  258    H1  1      8.756725828     16.439014067     18.069657550 <bonds> 257  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  259    H2  1      8.811097849     14.927045402     17.847585446 <bonds> 257  </bonds></atom>
+<res name="HOH"  no="87" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  260     O  8     11.909389350     15.659403979     16.564136745 <bonds> 261  262  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  261    H1  1     11.088132414     15.713814700     17.077792742 <bonds> 260  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  262    H2  1     12.636885669     15.911749118     17.148676935 <bonds> 260  </bonds></atom>
+<res name="HOH"  no="88" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  263     O  8     17.828337061     10.890965501      1.856178876 <bonds> 264  265  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  264    H1  1     18.692466663     10.454559110      1.912875921 <bonds> 263  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  265    H2  1     17.239676751     10.316353713      2.373593558 <bonds> 263  </bonds></atom>
+<res name="HOH"  no="89" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  266     O  8     14.780192004      8.274623915      5.583646834 <bonds> 267  268  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  267    H1  1     14.734275205      7.427031241      6.057287525 <bonds> 266  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  268    H2  1     13.871759462      8.391196287      5.273519211 <bonds> 266  </bonds></atom>
+<res name="HOH"  no="90" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  269     O  8      8.680157133      3.996211009      8.998608320 <bonds> 270  271  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  270    H1  1      8.831960454      3.215166328      9.553022122 <bonds> 269  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  271    H2  1      7.970687868      3.716149442      8.395909096 <bonds> 269  </bonds></atom>
+<res name="HOH"  no="91" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  272     O  8      7.029587090      2.250676915      4.022053662 <bonds> 273  274  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  273    H1  1      6.913494919      1.701764814      4.810293967 <bonds> 272  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  274    H2  1      7.969618490      2.179712783      3.799455931 <bonds> 272  </bonds></atom>
+<res name="HOH"  no="92" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  275     O  8      8.432852829      7.632110342      5.991216125 <bonds> 276  277  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  276    H1  1      8.922482173      7.990735857      5.230290448 <bonds> 275  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  277    H2  1      8.085510574      6.790415969      5.646494527 <bonds> 275  </bonds></atom>
+<res name="HOH"  no="93" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  278     O  8     14.729387747     10.330984450     12.085261751 <bonds> 279  280  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  279    H1  1     14.520589301      9.381736573     12.046922247 <bonds> 278  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  280    H2  1     13.861078912     10.757715128     12.159904019 <bonds> 278  </bonds></atom>
+<res name="HOH"  no="94" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  281     O  8      5.746310851     15.041274964      7.620475079 <bonds> 282  283  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  282    H1  1      5.487399209     14.332749376      8.225781488 <bonds> 281  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  283    H2  1      6.649479146     14.806553610      7.364756399 <bonds> 281  </bonds></atom>
+<res name="HOH"  no="95" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  284     O  8      4.877093120      9.789123705     11.809692769 <bonds> 285  286  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  285    H1  1      4.899112332      9.002584111     12.378691235 <bonds> 284  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  286    H2  1      5.380934486     10.457838943     12.294538365 <bonds> 284  </bonds></atom>
+<res name="HOH"  no="96" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  287     O  8     14.320630922     10.289402812     17.658403314 <bonds> 288  289  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  288    H1  1     14.416458274      9.710759232     16.885506248 <bonds> 287  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  289    H2  1     15.189895318     10.716392240     17.736773858 <bonds> 287  </bonds></atom>
+<res name="HOH"  no="97" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  290     O  8      8.093075790     18.601102817     15.163286825 <bonds> 291  292  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  291    H1  1      8.950774673     18.770154587     15.576449703 <bonds> 290  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  292    H2  1      7.973679431     17.642837358     15.117665423 <bonds> 290  </bonds></atom>
+<res name="HOH"  no="98" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  293     O  8      2.065198651      8.742551028     14.726998812 <bonds> 294  295  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  294    H1  1      2.858162237      8.356902889     14.336861093 <bonds> 293  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  295    H2  1      2.365531314      9.280993043     15.471587696 <bonds> 293  </bonds></atom>
+<res name="HOH"  no="99" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  296     O  8      2.482390716     10.830170163     16.573813135 <bonds> 297  298  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  297    H1  1      2.690484331     11.167070252     17.458713358 <bonds> 296  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  298    H2  1      1.527312292     10.968085356     16.457855067 <bonds> 296  </bonds></atom>
+<res name="HOH"  no="100" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  299     O  8     13.043069012      6.931504540     17.208885101 <bonds> 300  301  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  300    H1  1     12.281197945      7.529997888     17.197097994 <bonds> 299  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  301    H2  1     12.718886669      6.052099102     16.963578656 <bonds> 299  </bonds></atom>
+<res name="HOH"  no="101" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  302     O  8     16.799211630     11.416827911     17.978161282 <bonds> 304  303  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  303    H1  1     17.478679759     11.164173022     17.334571681 <bonds> 302  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  304    H2  1     17.186076207     11.236791097     18.850540694 <bonds> 302  </bonds></atom>
+<res name="HOH"  no="102" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  305     O  8      6.790779761      9.229649221      1.034517412 <bonds> 306  307  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  306    H1  1      6.840925696      8.400051744      1.537623835 <bonds> 305  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  307    H2  1      7.695695221      9.320662376      0.693806228 <bonds> 305  </bonds></atom>
+<res name="HOH"  no="103" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  308     O  8      7.418211867      6.356845074     12.638630815 <bonds> 309  310  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  309    H1  1      8.142791045      5.710356758     12.553896701 <bonds> 308  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  310    H2  1      6.871318999      6.000225306     13.355313966 <bonds> 308  </bonds></atom>
+<res name="HOH"  no="104" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  311     O  8      0.924745604      5.313057719      2.008167675 <bonds> 312  313  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  312    H1  1      0.814855898      5.700679288      2.892275142 <bonds> 311  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  313    H2  1      1.307653502      6.033379796      1.483979572 <bonds> 311  </bonds></atom>
+<res name="HOH"  no="105" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  314     O  8     13.227476577     13.367940669     15.467671487 <bonds> 315  316  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  315    H1  1     12.693687901     14.052385754     15.895108634 <bonds> 314  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  316    H2  1     13.477184914     13.755653830     14.618638358 <bonds> 314  </bonds></atom>
+<res name="HOH"  no="106" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  317     O  8     10.299897155      0.364776908      5.752624541 <bonds> 318  319  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  318    H1  1      9.674466690      0.433177665      6.488698875 <bonds> 317  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  319    H2  1     11.110592276      0.033652392      6.170765369 <bonds> 317  </bonds></atom>
+<res name="HOH"  no="107" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  320     O  8     14.120414049     10.313102395      1.800139593 <bonds> 321  322  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  321    H1  1     14.083973864     10.116582392      0.851039727 <bonds> 320  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  322    H2  1     14.808072450      9.732575711      2.162120801 <bonds> 320  </bonds></atom>
+<res name="HOH"  no="108" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  323     O  8      6.722637782      3.451548202      7.143823800 <bonds> 324  325  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  324    H1  1      6.535151716      2.538017773      6.867529036 <bonds> 323  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  325    H2  1      5.850762659      3.864651010      7.123653779 <bonds> 323  </bonds></atom>
+<res name="HOH"  no="109" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  326     O  8     11.762282565      2.968528813      9.270539520 <bonds> 327  328  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  327    H1  1     11.038672490      2.631972802      9.821551515 <bonds> 326  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  328    H2  1     12.051947472      3.776339688      9.724211269 <bonds> 326  </bonds></atom>
+<res name="HOH"  no="110" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  329     O  8     11.364371676      4.750160788      7.156513515 <bonds> 330  331  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  330    H1  1     11.552908415      3.937377804      7.653481307 <bonds> 329  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  331    H2  1     10.638345727      5.148666045      7.648541278 <bonds> 329  </bonds></atom>
+<res name="HOH"  no="111" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  332     O  8     11.651049140     15.527913274      8.293407127 <bonds> 333  334  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  333    H1  1     11.874195260     14.971315262      9.055755700 <bonds> 332  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  334    H2  1     11.869923054     14.943141353      7.551273374 <bonds> 332  </bonds></atom>
+<res name="HOH"  no="112" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  335     O  8     10.514406652      4.413303840      4.484729978 <bonds> 336  337  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  336    H1  1     10.917436214      5.024052407      3.842320058 <bonds> 335  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  337    H2  1     10.927239677      4.611852197      5.339980946 <bonds> 335  </bonds></atom>
+<res name="HOH"  no="113" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  338     O  8     14.457024029      8.570037551     15.413958290 <bonds> 339  340  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  339    H1  1     15.183042019      8.264301386     14.847275165 <bonds> 338  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  340    H2  1     14.153065127      7.794427619     15.909525020 <bonds> 338  </bonds></atom>
+<res name="HOH"  no="114" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  341     O  8     13.954845237      5.796023617      4.023062706 <bonds> 342  343  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  342    H1  1     13.294324670      6.470845538      4.247272461 <bonds> 341  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  343    H2  1     14.022812639      5.832698896      3.063010575 <bonds> 341  </bonds></atom>
+<res name="HOH"  no="115" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  344     O  8      4.278869988      1.699012759     16.728186569 <bonds> 345  346  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  345    H1  1      4.558876234      0.791302519     16.935750649 <bonds> 344  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  346    H2  1      4.275858592      2.149912253     17.587529901 <bonds> 344  </bonds></atom>
+<res name="HOH"  no="116" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  347     O  8      4.408016700      5.306524314      1.790789704 <bonds> 348  349  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  348    H1  1      4.525800200      5.149381541      2.740662618 <bonds> 347  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  349    H2  1      3.616516919      5.852156076      1.703891529 <bonds> 347  </bonds></atom>
+<res name="HOH"  no="117" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  350     O  8      2.858349041     16.992491102     15.281252243 <bonds> 351  352  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  351    H1  1      2.456536302     17.878134709     15.295610515 <bonds> 350  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  352    H2  1      2.139542067     16.408878588     15.577738037 <bonds> 350  </bonds></atom>
+<res name="HOH"  no="118" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  353     O  8      6.255846537     13.532325279     11.833944080 <bonds> 354  355  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  354    H1  1      6.323522961     12.826230961     12.492385609 <bonds> 353  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  355    H2  1      5.859344207     14.283674388     12.296252501 <bonds> 353  </bonds></atom>
+<res name="HOH"  no="119" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  356     O  8     15.808258486     10.639226435      6.575452292 <bonds> 357  358  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  357    H1  1     15.584637578     10.749831218      7.507953680 <bonds> 356  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  358    H2  1     15.476000517      9.761152082      6.324047322 <bonds> 356  </bonds></atom>
+<res name="HOH"  no="120" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  359     O  8      5.556296269     13.618363015      0.888624731 <bonds> 360  361  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  360    H1  1      5.707501075     14.484250934      1.304537691 <bonds> 359  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  361    H2  1      4.809125010     13.767354582      0.297440320 <bonds> 359  </bonds></atom>
+<res name="HOH"  no="121" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  362     O  8     12.844758955     10.243990413      9.286787702 <bonds> 363  364  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  363    H1  1     12.438280043     10.393177286     10.151224849 <bonds> 362  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  364    H2  1     12.985552285      9.286691466      9.221160101 <bonds> 362  </bonds></atom>
+<res name="HOH"  no="122" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  365     O  8     11.095380148      9.024637136     16.910390753 <bonds> 366  367  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  366    H1  1     11.321145704      9.901954458     17.249583407 <bonds> 365  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  367    H2  1     11.220360020      9.093844924     15.951073101 <bonds> 365  </bonds></atom>
+<res name="HOH"  no="123" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  368     O  8      9.471840031     11.336903123      4.497610627 <bonds> 369  370  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  369    H1  1     10.274962838     10.895233209      4.185810645 <bonds> 368  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  370    H2  1      9.745647481     12.251417367      4.654479815 <bonds> 368  </bonds></atom>
+<res name="HOH"  no="124" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  371     O  8     15.404870379     11.109425405      9.523532336 <bonds> 372  373  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  372    H1  1     15.421212529     10.887790083     10.471258925 <bonds> 371  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  373    H2  1     14.472940780     10.929047750      9.301413101 <bonds> 371  </bonds></atom>
+<res name="HOH"  no="125" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  374     O  8     18.493287134     17.286036638     13.856522133 <bonds> 375  376  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  375    H1  1     18.327993572     16.669724631     13.127762233 <bonds> 374  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  376    H2  1     18.678967902     16.737535609     14.634609722 <bonds> 374  </bonds></atom>
+<res name="HOH"  no="126" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  377     O  8      8.941480672     10.216759096     13.630695585 <bonds> 378  379  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  378    H1  1      9.275799762      9.339239237     13.842430363 <bonds> 377  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  379    H2  1      9.488238669     10.821138011     14.163822366 <bonds> 377  </bonds></atom>
+<res name="HOH"  no="127" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  380     O  8      4.772521160      8.059544606     18.060948512 <bonds> 381  382  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  381    H1  1      5.424106798      8.479344843     18.648938136 <bonds> 380  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  382    H2  1      4.903187423      8.520142259     17.217804693 <bonds> 380  </bonds></atom>
+<res name="HOH"  no="128" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  383     O  8      7.564116990      1.917040242     13.356375254 <bonds> 384  385  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  384    H1  1      6.704686323      2.236689836     13.670943327 <bonds> 383  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  385    H2  1      7.797355553      1.230826522     14.003585526 <bonds> 383  </bonds></atom>
+<res name="HOH"  no="129" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  386     O  8     17.958900901     13.550509211     14.652454820 <bonds> 387  388  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  387    H1  1     17.098621364     13.609180837     15.111664003 <bonds> 386  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  388    H2  1     17.763586436     13.514192255     13.703323061 <bonds> 386  </bonds></atom>
+<res name="HOH"  no="130" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  389     O  8      4.110359891      2.745566629      0.662004057 <bonds> 390  391  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  390    H1  1      4.307682967      3.626286160      1.021117044 <bonds> 389  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  391    H2  1      4.363533310      2.127096320      1.366158656 <bonds> 389  </bonds></atom>
+<res name="HOH"  no="131" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  392     O  8      3.627556461      7.373395082      4.438945490 <bonds> 393  394  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  393    H1  1      4.243963047      6.628442360      4.499279632 <bonds> 392  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  394    H2  1      4.123146655      8.156874679      4.688114811 <bonds> 392  </bonds></atom>
+<res name="HOH"  no="132" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  395     O  8      5.027893110      2.690420887     14.250097352 <bonds> 396  397  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  396    H1  1      4.672002727      2.002828992     13.664046923 <bonds> 395  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  397    H2  1      4.801598556      2.378179486     15.144122573 <bonds> 395  </bonds></atom>
+<res name="HOH"  no="133" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  398     O  8     10.641038938     18.046805387     11.459402654 <bonds> 399  400  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  399    H1  1     11.592098686     17.873533898     11.362508373 <bonds> 398  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  400    H2  1     10.226359235     17.595800137     10.708193949 <bonds> 398  </bonds></atom>
+<res name="HOH"  no="134" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  401     O  8     14.687990335      2.676201524     17.292252004 <bonds> 402  403  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  402    H1  1     15.503272269      3.087585764     16.967602681 <bonds> 401  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  403    H2  1     14.662041736      2.875354323     18.243542219 <bonds> 401  </bonds></atom>
+<res name="HOH"  no="135" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  404     O  8     14.473058835      3.545442104      1.212477852 <bonds> 405  406  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  405    H1  1     15.367984994      3.641503967      1.576401403 <bonds> 404  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  406    H2  1     14.147262306      4.456876525      1.139702638 <bonds> 404  </bonds></atom>
+<res name="HOH"  no="136" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  407     O  8      3.520249440     14.014670380      3.579011049 <bonds> 408  409  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  408    H1  1      3.536758148     13.102096368      3.892169293 <bonds> 407  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  409    H2  1      3.756047035     14.543731951      4.356445765 <bonds> 407  </bonds></atom>
+<res name="HOH"  no="137" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  410     O  8      8.669657668     13.989310274     10.230976867 <bonds> 412  411  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  411    H1  1      9.407632614     13.834466793     10.832899598 <bonds> 410  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  412    H2  1      7.873956672     13.864293287     10.770210995 <bonds> 410  </bonds></atom>
+<res name="HOH"  no="138" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  413     O  8      7.163229254      1.455486268      9.815551750 <bonds> 414  415  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  414    H1  1      6.257229087      1.779726430      9.711619643 <bonds> 413  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  415    H2  1      7.096483725      0.755070190     10.484223734 <bonds> 413  </bonds></atom>
+<res name="HOH"  no="139" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  416     O  8     14.534346189      4.118013772     11.618397829 <bonds> 417  418  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  417    H1  1     13.694845530      4.489889876     11.309147400 <bonds> 416  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  418    H2  1     15.200396266      4.609036425     11.113848801 <bonds> 416  </bonds></atom>
+<res name="HOH"  no="140" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  419     O  8     12.286630193      5.361278425     10.517404756 <bonds> 420  421  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  420    H1  1     11.430835510      5.655337452     10.864251802 <bonds> 419  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  421    H2  1     12.617500309      6.129477907     10.024956129 <bonds> 419  </bonds></atom>
+<res name="HOH"  no="141" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  422     O  8      7.602112057      7.030943240     15.827267502 <bonds> 423  424  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  423    H1  1      7.023428032      6.399706036     15.382638778 <bonds> 422  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  424    H2  1      7.100494361      7.860632655     15.827531125 <bonds> 422  </bonds></atom>
+<res name="HOH"  no="142" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  425     O  8      5.544130085     11.275510779      2.436877852 <bonds> 426  427  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  426    H1  1      5.735104895     12.112200702      1.985460143 <bonds> 425  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  427    H2  1      6.007558310     10.595373181      1.915974816 <bonds> 425  </bonds></atom>
+<res name="HOH"  no="143" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  428     O  8      9.758371183      2.018060516     11.135977880 <bonds> 429  430  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  429    H1  1     10.123252556      1.133101099     11.312135886 <bonds> 428  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  430    H2  1      8.847735536      1.961797760     11.457666724 <bonds> 428  </bonds></atom>
+<res name="HOH"  no="144" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  431     O  8     16.754774636      0.724046128     14.323851964 <bonds> 432  433  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  432    H1  1     17.428673171      0.027166117     14.291920613 <bonds> 431  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  433    H2  1     16.223984284      0.540416287     13.534188039 <bonds> 431  </bonds></atom>
+<res name="HOH"  no="145" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  434     O  8     12.493643133     17.917466277      7.032906705 <bonds> 435  436  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  435    H1  1     13.151101513     17.603366390      6.389437504 <bonds> 434  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  436    H2  1     12.251660701     17.134256753      7.551959383 <bonds> 434  </bonds></atom>
+<res name="HOH"  no="146" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  437     O  8      4.739314117      1.176924825      2.915338025 <bonds> 438  439  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  438    H1  1      4.999156629      0.302339286      3.249460113 <bonds> 437  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  439    H2  1      5.434841774      1.755836449      3.266732845 <bonds> 437  </bonds></atom>
+<res name="HOH"  no="147" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  440     O  8     12.013918726      9.105673800     14.213093979 <bonds> 441  442  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  441    H1  1     12.896260024      9.251016512     14.593217475 <bonds> 440  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  442    H2  1     12.060276278      8.173256145     13.947493798 <bonds> 440  </bonds></atom>
+<res name="HOH"  no="148" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  443     O  8      2.999715678     11.894670753      0.536303808 <bonds> 444  445  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  444    H1  1      3.844800149     11.896942100      1.003663411 <bonds> 443  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  445    H2  1      2.582852499     12.745568570      0.756247953 <bonds> 443  </bonds></atom>
+<res name="HOH"  no="149" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  446     O  8     10.295148281     13.891849691      5.281724379 <bonds> 447  448  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  447    H1  1     11.108065171     13.697919783      5.771017575 <bonds> 446  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  448    H2  1     10.465840406     14.707943457      4.786782928 <bonds> 446  </bonds></atom>
+<res name="HOH"  no="150" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  449     O  8      1.786333117      9.806790819      1.911563509 <bonds> 450  451  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  450    H1  1      2.186237257     10.517464611      1.387695138 <bonds> 449  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  451    H2  1      2.186955391      9.882203393      2.787307197 <bonds> 449  </bonds></atom>
+<res name="HOH"  no="151" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  452     O  8      5.609918777      9.069059819     15.492072674 <bonds> 453  454  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  453    H1  1      5.105683019      8.666451575     14.772383268 <bonds> 452  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  454    H2  1      5.864284137      9.941278210     15.162192134 <bonds> 452  </bonds></atom>
+<res name="HOH"  no="152" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  455     O  8      5.049683002     12.930750161      9.294216051 <bonds> 456  457  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  456    H1  1      5.450449866     13.075116293     10.164460174 <bonds> 455  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  457    H2  1      4.116988865     13.179823777      9.398970325 <bonds> 455  </bonds></atom>
+<res name="HOH"  no="153" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  458     O  8      2.851493516      6.170851413     11.584425312 <bonds> 459  460  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  459    H1  1      3.104168774      5.550796620     10.884994894 <bonds> 458  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  460    H2  1      2.354067261      5.644638083     12.236825397 <bonds> 458  </bonds></atom>
+<res name="HOH"  no="154" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  461     O  8     13.635496741     17.627241476      2.407140085 <bonds> 462  463  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  462    H1  1     13.245619183     18.508265591      2.267963423 <bonds> 461  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  463    H2  1     13.327886964     17.092508865      1.668293734 <bonds> 461  </bonds></atom>
+<res name="HOH"  no="155" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  464     O  8      0.111526748      6.832749583     15.048821389 <bonds> 465  466  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  465    H1  1      0.577293824      6.143918535     14.545888879 <bonds> 464  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  466    H2  1      0.716510228      7.591206893     14.984525915 <bonds> 464  </bonds></atom>
+<res name="HOH"  no="156" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  467     O  8     13.943992451      6.294967764      1.080851193 <bonds> 468  469  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  468    H1  1     13.636791103      6.594386716      0.208725682 <bonds> 467  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  469    H2  1     14.869691518      6.583458487      1.117651823 <bonds> 467  </bonds></atom>
+<res name="HOH"  no="157" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  470     O  8     16.650946834      6.620544326      1.390485888 <bonds> 471  472  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  471    H1  1     16.774849895      5.763804739      1.825000557 <bonds> 470  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  472    H2  1     17.163769684      6.558452140      0.566115817 <bonds> 470  </bonds></atom>
+<res name="HOH"  no="158" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  473     O  8     18.284167462      8.714199533     11.782202796 <bonds> 474  475  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  474    H1  1     17.973815820      9.477290703     12.297492360 <bonds> 473  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  475    H2  1     19.248311850      8.761174199     11.860443666 <bonds> 473  </bonds></atom>
+<res name="HOH"  no="159" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  476     O  8     12.000268502     11.028402156     12.109853291 <bonds> 477  478  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  477    H1  1     11.623364812     11.860240244     12.438787212 <bonds> 476  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  478    H2  1     11.842416819     10.383706317     12.819182838 <bonds> 476  </bonds></atom>
+<res name="HOH"  no="160" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  479     O  8     16.503436138      7.471011722     13.706189352 <bonds> 480  481  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  480    H1  1     17.174348773      7.123360814     14.314531192 <bonds> 479  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  481    H2  1     17.044042705      7.840825995     12.991483728 <bonds> 479  </bonds></atom>
+<res name="HOH"  no="161" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  482     O  8     17.187078393      1.460673710      3.537576849 <bonds> 484  483  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  483    H1  1     16.496280041      1.470875924      4.220533147 <bonds> 482  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  484    H2  1     16.981656509      0.645026625      3.047925125 <bonds> 482  </bonds></atom>
+<res name="HOH"  no="162" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  485     O  8     17.125845498      3.881262192      2.220483210 <bonds> 486  487  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  486    H1  1     18.034267372      4.147635065      2.026449220 <bonds> 485  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  487    H2  1     17.205040329      3.044834864      2.709312690 <bonds> 485  </bonds></atom>
+<res name="HOH"  no="163" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  488     O  8      0.960162254      6.602277449      4.570971005 <bonds> 489  490  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  489    H1  1      1.878947858      6.923942102      4.585252289 <bonds> 488  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  490    H2  1      0.475553433      7.249072841      5.110022683 <bonds> 488  </bonds></atom>
+<res name="HOH"  no="164" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  491     O  8     14.045906789      4.191921045     14.232249767 <bonds> 492  493  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  492    H1  1     14.395524014      4.151638566     13.324684644 <bonds> 491  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  493    H2  1     14.820477974      4.200943889     14.806753024 <bonds> 491  </bonds></atom>
+<res name="HOH"  no="165" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  494     O  8     -0.292951074     -0.411150729      0.311802924 <bonds> 495  496  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  495    H1  1     -0.327767094      0.265552174     -0.382805101 <bonds> 494  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  496    H2  1      0.450721352     -0.143556600      0.873648904 <bonds> 494  </bonds></atom>
+<res name="HOH"  no="166" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  497     O  8      2.042852762      0.101460401      2.065207265 <bonds> 498  499  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  498    H1  1      2.758312949      0.716812475      2.280325060 <bonds> 497  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  499    H2  1      1.933481646     -0.434627434      2.866274802 <bonds> 497  </bonds></atom>
+<res name="HOH"  no="167" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  500     O  8      0.510328785      4.274789262      5.979329854 <bonds> 501  502  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  501    H1  1      0.587249004      3.480467033      5.425583207 <bonds> 500  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  502    H2  1      0.722563057      5.026927311      5.401438594 <bonds> 500  </bonds></atom>
+<res name="HOH"  no="168" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  503     O  8     12.285179779      6.362791557     13.716936929 <bonds> 504  505  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  504    H1  1     12.933618174      5.692961128     13.987728885 <bonds> 503  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  505    H2  1     11.478426817      6.114618940     14.193872874 <bonds> 503  </bonds></atom>
+<res name="HOH"  no="169" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  506     O  8     18.039850070      2.820380000     10.610622611 <bonds> 507  508  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  507    H1  1     17.978007008      3.483455953      9.906905825 <bonds> 506  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  508    H2  1     17.320285504      2.202527911     10.400399318 <bonds> 506  </bonds></atom>
+<res name="HOH"  no="170" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  509     O  8      5.569989604      5.365362087     14.566168978 <bonds> 510  511  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  510    H1  1      5.368192539      4.448531509     14.294451907 <bonds> 509  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  511    H2  1      5.336766625      5.362539810     15.513293846 <bonds> 509  </bonds></atom>
+<res name="HOH"  no="171" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  512     O  8     17.510466089     13.742824307      1.846006958 <bonds> 513  514  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  513    H1  1     17.813423042     12.820617782      1.912564936 <bonds> 512  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  514    H2  1     16.557516228     13.649615401      2.026642052 <bonds> 512  </bonds></atom>
+<res name="HOH"  no="172" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  515     O  8     17.443376748      1.446236724      7.159972155 <bonds> 516  517  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  516    H1  1     18.203154564      1.389051648      6.559971581 <bonds> 515  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  517    H2  1     16.671077191      1.355135337      6.576858090 <bonds> 515  </bonds></atom>
+<res name="HOH"  no="173" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  518     O  8      2.105065969     10.132159019     11.933264289 <bonds> 520  519  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  519    H1  1      3.047022092     10.023831472     11.743680273 <bonds> 518  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  520    H2  1      2.111201515     10.550969035     12.806210917 <bonds> 518  </bonds></atom>
+<res name="HOH"  no="174" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  521     O  8     17.991655911      3.157929199     13.496710031 <bonds> 522  523  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  522    H1  1     17.663030637      2.296813369     13.801709616 <bonds> 521  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  523    H2  1     17.922097666      3.120764108     12.528640028 <bonds> 521  </bonds></atom>
+<res name="HOH"  no="175" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  524     O  8     13.550426464     14.938892467     13.214007606 <bonds> 525  526  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  525    H1  1     13.994538158     15.002710159     12.356363340 <bonds> 524  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  526    H2  1     13.460586436     15.855347261     13.528536145 <bonds> 524  </bonds></atom>
+<res name="HOH"  no="176" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  527     O  8     17.375988328     15.756346361     -0.383322606 <bonds> 528  529  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  528    H1  1     17.757138194     16.567463677     -0.017293302 <bonds> 527  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  529    H2  1     17.464852008     15.076497718      0.300383456 <bonds> 527  </bonds></atom>
+<res name="HOH"  no="177" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  530     O  8     16.465868311     17.851346534      2.281081304 <bonds> 531  532  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  531    H1  1     15.503899503     17.781120726      2.168969171 <bonds> 530  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  532    H2  1     16.853154384     17.967226141      1.402177169 <bonds> 530  </bonds></atom>
+<res name="HOH"  no="178" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  533     O  8     16.113781824      5.683490156      9.909712242 <bonds> 534  535  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  534    H1  1     16.824524275      6.231455833     10.267747446 <bonds> 533  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  535    H2  1     16.504784489      5.144615531      9.222722889 <bonds> 533  </bonds></atom>
+<res name="HOH"  no="179" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  536     O  8     19.067221109     15.688276932     16.022159494 <bonds> 537  538  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  537    H1  1     18.772219166     14.872849488     15.593102272 <bonds> 536  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  538    H2  1     18.489609990     15.749133499     16.803133839 <bonds> 536  </bonds></atom>
+<res name="HOH"  no="180" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  539     O  8      4.366327394      7.541914636     13.383773590 <bonds> 540  541  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  540    H1  1      4.764431036      6.750291881     13.787937130 <bonds> 539  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  541    H2  1      3.752549840      7.166444829     12.728325873 <bonds> 539  </bonds></atom>
+<res name="HOH"  no="181" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  542     O  8      5.819289594     16.231235045      1.569317452 <bonds> 543  544  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  543    H1  1      4.935823542     16.488523618      1.259377477 <bonds> 542  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  544    H2  1      6.437697259     16.676655830      0.965281666 <bonds> 542  </bonds></atom>
+<res name="HOH"  no="182" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  545     O  8     10.614300848     14.781996153      1.579135961 <bonds> 546  547  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  546    H1  1     10.151203420     15.218551193      0.846848012 <bonds> 545  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  547    H2  1     10.446808226     15.338226061      2.356050800 <bonds> 545  </bonds></atom>
+<res name="HOH"  no="183" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  548     O  8     10.244974171     16.385072327      3.938698147 <bonds> 549  550  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  549    H1  1     10.842588864     17.125610141      4.096944841 <bonds> 548  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  550    H2  1      9.429392047     16.632779913      4.404821124 <bonds> 548  </bonds></atom>
+<res name="HOH"  no="184" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  551     O  8     14.838265296     12.958917650      2.315741542 <bonds> 552  553  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  552    H1  1     14.195865156     13.414567957      1.748569173 <bonds> 551  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  553    H2  1     14.683102363     12.022444069      2.109154367 <bonds> 551  </bonds></atom>
+<res name="HOH"  no="185" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  554     O  8      3.273943570     16.743181834      0.652311098 <bonds> 555  556  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  555    H1  1      2.711090694     15.957401232      0.748773275 <bonds> 554  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  556    H2  1      2.773932586     17.460874674      1.073638212 <bonds> 554  </bonds></atom>
+<res name="HOH"  no="186" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  557     O  8      3.443232480     11.567570585     14.105563691 <bonds> 558  559  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  558    H1  1      3.223828744     11.355166487     15.027006926 <bonds> 557  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  559    H2  1      4.405844360     11.541228120     14.051427319 <bonds> 557  </bonds></atom>
+<res name="HOH"  no="187" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  560     O  8      9.769705539     12.104426304      0.725926175 <bonds> 561  562  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  561    H1  1     10.092916611     12.851821670      1.249555734 <bonds> 560  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  562    H2  1     10.515107983     11.832231564      0.173741679 <bonds> 560  </bonds></atom>
+<res name="HOH"  no="188" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  563     O  8     13.601393877      0.937683610      8.896712433 <bonds> 564  565  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  564    H1  1     13.226090414      0.443660398      8.148833797 <bonds> 563  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  565    H2  1     13.001809706      1.693450953      9.010569735 <bonds> 563  </bonds></atom>
+<res name="HOH"  no="189" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  566     O  8     17.945573529     13.031745338     11.861410982 <bonds> 567  568  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  567    H1  1     18.632274483     12.619907979     11.311009009 <bonds> 566  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  568    H2  1     17.305782845     13.329840263     11.196410998 <bonds> 566  </bonds></atom>
+<res name="HOH"  no="190" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  569     O  8      0.811041999     11.600579694      9.990067926 <bonds> 570  571  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  570    H1  1      0.263262632     10.998504218      9.461812065 <bonds> 569  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  571    H2  1      1.278303106     11.019706317     10.611895826 <bonds> 569  </bonds></atom>
+<res name="HOH"  no="191" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  572     O  8      7.834545215     13.364308461     17.993226957 <bonds> 573  574  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  573    H1  1      7.058396218     13.397436992     18.572136923 <bonds> 572  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  574    H2  1      8.472749314     12.810610781     18.477624407 <bonds> 572  </bonds></atom>
+<res name="HOH"  no="192" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  575     O  8      9.418301021     15.733292543     12.616659760 <bonds> 576  577  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  576    H1  1      8.716133061     15.881348411     13.267501985 <bonds> 575  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  577    H2  1      9.882866983     16.578214287     12.531738856 <bonds> 575  </bonds></atom>
+<res name="HOH"  no="193" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  578     O  8      2.486660496     15.553210801     11.458719402 <bonds> 579  580  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  579    H1  1      2.557317354     14.923421422     10.725979682 <bonds> 578  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  580    H2  1      2.320444452     15.000533343     12.240311434 <bonds> 578  </bonds></atom>
+<res name="HOH"  no="194" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  581     O  8      2.571785667     17.960951864      8.606600198 <bonds> 582  583  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  582    H1  1      3.223822071     17.560080620      9.193560604 <bonds> 581  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  583    H2  1      2.128842144     18.633413319      9.152134671 <bonds> 581  </bonds></atom>
+<res name="HOH"  no="195" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  584     O  8      1.817273095     15.524761798      7.283955304 <bonds> 585  586  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  585    H1  1      2.489310944     15.599998445      6.586459304 <bonds> 584  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  586    H2  1      1.840158787     16.390605133      7.721100697 <bonds> 584  </bonds></atom>
+<res name="HOH"  no="196" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  587     O  8      0.901263832     12.538818462      4.395777606 <bonds> 588  589  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  588    H1  1      1.759043333     12.106330125      4.306678741 <bonds> 587  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  589    H2  1      0.457845860     12.047089490      5.102477682 <bonds> 587  </bonds></atom>
+<res name="HOH"  no="197" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  590     O  8      1.908711442     17.110625315      4.223486666 <bonds> 592  591  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  591    H1  1      1.103450083     16.561329265      4.198580434 <bonds> 590  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  592    H2  1      2.614954279     16.463913274      4.107815951 <bonds> 590  </bonds></atom>
+<res name="HOH"  no="198" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  593     O  8     16.497564629     15.617059996      5.654546685 <bonds> 594  595  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  594    H1  1     16.743293008     15.016513536      6.370301239 <bonds> 593  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  595    H2  1     17.257448949     15.577231372      5.055476633 <bonds> 593  </bonds></atom>
+<res name="HOH"  no="199" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  596     O  8     11.171602528     13.612869950     12.935747211 <bonds> 597  598  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  597    H1  1     12.006946164     14.105007469     13.013663393 <bonds> 596  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  598    H2  1     10.505588547     14.319597648     12.865915460 <bonds> 596  </bonds></atom>
+<res name="HOH"  no="200" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  599     O  8     18.164107904     13.915507253      7.388051753 <bonds> 600  601  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  600    H1  1     18.451327462     13.031971950      7.108552143 <bonds> 599  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  601    H2  1     18.936122445     14.490211060      7.263922900 <bonds> 599  </bonds></atom>
+<res name="HOH"  no="201" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  602     O  8      9.360663690      8.166568524     19.086354490 <bonds> 603  604  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  603    H1  1      9.121957366      7.246307513     18.917813480 <bonds> 602  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  604    H2  1      9.938465247      8.416480809     18.351965057 <bonds> 602  </bonds></atom>
+<res name="HOH"  no="202" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  605     O  8      7.401292848     17.628671988     -0.235404000 <bonds> 606  607  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  606    H1  1      7.654534345     18.462486227      0.196658861 <bonds> 605  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  607    H2  1      6.728682884     17.858817456     -0.894759455 <bonds> 605  </bonds></atom>
+<res name="HOH"  no="203" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  608     O  8      8.028874514      1.191302091      1.309228541 <bonds> 609  610  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  609    H1  1      7.281919011      1.406669166      1.877927041 <bonds> 608  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  610    H2  1      8.807149413      1.345409514      1.865841265 <bonds> 608  </bonds></atom>
+<res name="HOH"  no="204" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  611     O  8     14.153301748     12.230118990      4.974054056 <bonds> 612  613  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  612    H1  1     14.906381345     11.781936954      5.387468256 <bonds> 611  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  613    H2  1     14.500382935     12.663021413      4.176634509 <bonds> 611  </bonds></atom>
+<res name="HOH"  no="205" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  614     O  8     14.374991245     17.347668293      5.142462946 <bonds> 615  616  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  615    H1  1     14.156120542     17.251579253      4.201460002 <bonds> 614  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  616    H2  1     15.104673367     16.720038279      5.300274820 <bonds> 614  </bonds></atom>
+<res name="HOH"  no="206" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  617     O  8      4.674112267     16.273412063     13.241750504 <bonds> 618  619  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  618    H1  1      4.043042088     16.448557815     13.962541219 <bonds> 617  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  619    H2  1      4.100292209     16.089031980     12.483119200 <bonds> 617  </bonds></atom>
+<res name="HOH"  no="207" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  620     O  8      5.719514460     17.374478339      4.059214167 <bonds> 621  622  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  621    H1  1      5.853039825     16.867207186      3.242774849 <bonds> 620  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  622    H2  1      6.557121266     17.285791765      4.542390425 <bonds> 620  </bonds></atom>
+<res name="HOH"  no="208" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  623     O  8      5.262467409     11.048196777      7.241456635 <bonds> 624  625  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  624    H1  1      5.312705766     11.827354648      7.818727399 <bonds> 623  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  625    H2  1      5.806582888     11.252981111      6.457934981 <bonds> 623  </bonds></atom>
+<res name="HOH"  no="209" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  626     O  8     12.488632043     13.351844589      6.836074845 <bonds> 627  628  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  627    H1  1     12.527269653     12.788909859      7.623359689 <bonds> 626  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  628    H2  1     13.160055451     13.002431229      6.227612068 <bonds> 626  </bonds></atom>
+<res name="HOH"  no="210" /> 
+  <atom ff_s="OW"  chrg="  -0.83400" >  629     O  8     18.504883705     11.201830156      6.527374893 <bonds> 630  631  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  630    H1  1     17.558850893     10.990841155      6.457514205 <bonds> 629  </bonds></atom>
+  <atom ff_s="HW"  chrg="   0.41700" >  631    H2  1     18.925940156     10.329516626      6.594017831 <bonds> 629  </bonds></atom>
+<ucell>      18.680243750     18.680243750     18.680243750     90.000000000     90.000000000     90.000000000 </ucell>
+</molset>
+</HARLEM_DATA>

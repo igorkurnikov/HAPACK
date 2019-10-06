@@ -24,7 +24,7 @@ while (rptr != None):
    if(nst > 0):
      for i in range(nst):
        altst = rptr.GetAltChemState(i)
-       print (rptr.GetRef()).c_str(),altst.pk 
+       print((rptr.GetRef()).c_str(),altst.pk) 
    rptr = ritr.GetNextRes()
 
 

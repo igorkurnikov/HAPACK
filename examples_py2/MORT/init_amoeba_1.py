@@ -1,0 +1,1 @@
+MMForceField_InitAmoebaMort()

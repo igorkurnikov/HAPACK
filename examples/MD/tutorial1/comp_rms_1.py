@@ -8,7 +8,7 @@ if(script_status == SCRIPT_START):
 #	Initial part of the script - opens file rms_1.dat and sets up lists of atoms 
 #  with initial coordinates and current coordinates of the first molecule.
 
-  print "Script start"
+  print("Script start")
   pmset = GetCurMolSet()
   pmol = pmset.GetFirstMolecule()
   atl1 = AtomGroup()
@@ -34,13 +34,13 @@ if(script_status == SCRIPT_START):
     aptr = aitr.GetNextAtom()
   outf = open("rms_1.dat","w")
   t = 0.0
-  print >>outf, " time   rms"
+  print(" time   rms", file=outf)
 
 
 elif(script_status == SCRIPT_STOP):
 # When MD trajectory analysis is complete this command closes the output file
   
-  print "\nRMS Deviation Data saved to rms_1.dat"
+  print("\nRMS Deviation Data saved to rms_1.dat")
   outf.close()
   
   
@@ -50,7 +50,7 @@ else:
 
   PointCollection_GetSuperimposeMat( atl1, atl2, rot_mat, trans_vec, p_eps)
   rms = p_eps.value()
-  print >>outf, "%6.3f %9.3f " %  (t, rms)
+  print("%6.3f %9.3f " %  (t, rms), file=outf)
   t = t + 0.01        
 #  The value used with t is the time step used between MD snapshots. This value
 #  should be changed depending on the time step.

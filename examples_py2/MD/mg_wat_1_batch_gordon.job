@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -q normal 
+#PBS -l nodes=1:ppn=16:native
+#PBS -l walltime=00:01:00
+#PBS -N test 
+#PBS -o mg_wat_1_job.out
+#PBS -e mg_wat_1_job.err
+#PBS -A TG-MCB040051N
+# Start of user commands - comments start with a hash sign (#)
+cd /home/kurnikov/temp/examples/MD
+module load binutils/2.22
+module load intel mvapich2_ib
+export AMBERHOME=/home/jfloresc/amber12
+harlem_nogui_mpi_gordon -np 16 mg_wat_1.hlm -script run_md_1.py 

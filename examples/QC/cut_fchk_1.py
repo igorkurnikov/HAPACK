@@ -1,6 +1,6 @@
 import sys
 if( len(sys.argv) != 3 ):
-  print "usage python " + sys.argv[0] + " file.fchk " + " short_file.fchk"
+  print("usage python " + sys.argv[0] + " file.fchk " + " short_file.fchk")
   sys.exit()
 fname_in = sys.argv[1]
 fname_out = sys.argv[2]
@@ -19,10 +19,10 @@ for line in finp:
     continue
   line.rstrip("\n")
   if( nread > 0 ):
-    if( write_line ): print >> fout, line,
+    if( write_line ): print(line, end=' ', file=fout)
     nread = nread - 1
     continue
-  print line,
+  print(line, end=' ')
   name_s = line[:43].strip()
   type = line[43]
   ne_s = line[47:49] 
@@ -37,12 +37,12 @@ for line in finp:
       nread = num/5
       if( num % 5 != 0):
         nread = nread + 1
-  print "nread = ",nread
+  print("nread = ",nread)
   if( name_s not in sections_no ):
     write_line = True
   else:
     write_line = False
-  if( write_line): print >> fout, line,
+  if( write_line): print(line, end=' ', file=fout)
 
   
     

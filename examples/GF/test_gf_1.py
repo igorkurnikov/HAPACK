@@ -9,10 +9,10 @@ a.SetVal(2,2,0.3)
 b.SetVal(1,1,1.0)
 b.SetVal(2,1,1.0)
 ir = HaMat_double_solv_lin_syst_1(a,b)
-print "result = ",ir
-print a.GetVal(1,1)
-print b.GetVal(1,1)
-print b.GetVal(2,1)
+print("result = ",ir)
+print(a.GetVal(1,1))
+print(b.GetVal(1,1))
+print(b.GetVal(2,1))
 # Output: 
 #
 #  result =  1

@@ -14,5 +14,5 @@ qc_mod.SetCharge(0)
 qc_mod.SetEneMinCalc()
 gauss_mod.SetNumSharedMemCores(4)
 qc_mod.Run()
-print "ene = ",qc_mod.GetEne()
+print("ene = ",qc_mod.GetEne())
 

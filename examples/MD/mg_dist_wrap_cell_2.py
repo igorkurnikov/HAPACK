@@ -16,7 +16,7 @@ if(script_status == SCRIPT_START):
   for aptr in mset:
     if( aptr.GetName() == "MG"):
       at_ion = aptr
-      print aptr.GetRef()
+      print(aptr.GetRef())
     if( aptr.GetName() == "O"):
       atoms_ox.append(aptr)
   idx = -1
@@ -30,11 +30,11 @@ if(script_status == SCRIPT_START):
 elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
-  print " N water = ",len(atoms_ox)
-  print " N_lig_last =",len(status)
-  print " N_lig_prev =",len(status_prev)
+  print(" N water = ",len(atoms_ox))
+  print(" N_lig_last =",len(status))
+  print(" N_lig_prev =",len(status_prev))
   flig.close()
-  print "\nTrajectory Playback Completed\n"
+  print("\nTrajectory Playback Completed\n")
   
 else: 
   i = i+1 # Increments label by a value for each file name.
@@ -69,10 +69,10 @@ else:
     if( diff_prev_new == 0 ):
       switch_lig = 0
     
-    print >> flig, "%3d   " % switch_lig,
+    print("%3d   " % switch_lig, end=' ', file=flig)
     for idx in  status:
-      print >> flig, "%5d " % idx,
-    print >> flig, "   "
+      print("%5d " % idx, end=' ', file=flig)
+    print("   ", file=flig)
     status_prev = status
     status      = status_new
 

@@ -40,8 +40,8 @@ for i in range(0,nstep):
     pmset.RefreshAllViews(RFApply)
   else:
     ang = ang_old
-  print >> fout, i,ang,ene
+  print(i,ang,ene, file=fout)
   if( i % npr_freq == 0):
-    print i, "  ", ang, "  ",mm_info.pot_ene
+    print(i, "  ", ang, "  ",mm_info.pot_ene)
 fout.close()
 

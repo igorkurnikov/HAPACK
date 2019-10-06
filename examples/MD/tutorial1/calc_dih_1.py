@@ -13,7 +13,7 @@ aptr4= pmset.GetAtomByRef("TYR3.HH")
 
 outf = open("tor1.dat","a")
 tor = Vec3D_CalcTorsion(aptr1,aptr2,aptr3,aptr4) #  Calculates the angle
-print >>outf, tor
+print(tor, file=outf)
 outf.close()
 
 

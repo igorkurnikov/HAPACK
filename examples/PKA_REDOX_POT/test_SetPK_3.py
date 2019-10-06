@@ -9,13 +9,13 @@ electr_mod.rionst = 0.02
 rptr = ritr.GetFirstRes()
 while (rptr != None):
    nalt = rptr.GetNumAltStates()
-   print rptr.GetRef().c_str()
+   print(rptr.GetRef().c_str())
    electr_mod.CalcResPK(rptr,None)
    rptr = ritr.GetNextRes()
 rptr = ritr.GetFirstRes()
 while (rptr != None):
    if(rptr.GetName() == "HIS" or rptr.GetName() == "HEM"):
-      print rptr.PrintPK()
+      print(rptr.PrintPK())
    rptr = ritr.GetNextRes()
 
 

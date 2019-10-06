@@ -25,4 +25,4 @@ H     20      0.9538636        1     -95.28277733        2    99.61542168
 H     20     0.953690541       21    105.2902395        1    -178.8382717
 """
 zm.LoadFromString(zmat_str)
-print zm.SaveToString()
+print(zm.SaveToString())

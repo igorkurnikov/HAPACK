@@ -8,6 +8,6 @@ qc_mod.InitBasis("3-21G")
 qc_mod.SetMP2()
 qc_mod.SetEneMinCalc()
 qc_mod.Run()
-print "MP2 ene = ",qc_mod.GetEne()
-print "HF ene = ",qc_mod.GetHFEne()
+print("MP2 ene = ",qc_mod.GetEne())
+print("HF ene = ",qc_mod.GetHFEne())
 

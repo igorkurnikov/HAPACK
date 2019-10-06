@@ -1,0 +1,30 @@
+ 
+ bpti_box.hlm
+ 
+ FF=AMOEBA
+ Set with HARLEM:
+ 
+  setup_params_from_mort_flag = FALSE
+ 
+ Single point Energy:
+ ----------------------------------------------------------------------
+ NSTEP =         0 TIME(PS) =       0.000 TEMP(K) =    0.00 PRESS =     0.0
+ Etot   =    -12365.8402  EKtot   =         0.0000 EPtot     =    -12365.8402
+ BOND   =       216.9134  ANGLE   =       668.1355 DIHED     =       -24.1823
+ 1-4 NB =       640.9766  1-4 EEL =         0.0000 VDWAALS   =      5592.5643
+ EELEC =    -15149.8011  EHBOND =         0.0000 RESTRAINT =         0.0000
+ E_POLAR =     -4310.4465
+ -------------------------------------------------------------------------
+ 
+ FF=AMOEBA
+ setup_params_from_mort_flag = TRUE ( checked use MORT to set MM model )
+ Set with HARLEM and MORT Library 
+ 
+-----------------------------------------------------------------------
+NSTEP =         0 TIME(PS) =       0.000 TEMP(K) =    0.00 PRESS =     0.0
+ Etot   =    -12365.5890  EKtot   =         0.0000 EPtot     =    -12365.5890
+ BOND   =       216.9134  ANGLE   =       668.1355 DIHED     =       -24.1823
+ 1-4 NB =       640.9766  1-4 EEL =         0.0000 VDWAALS   =      5592.5643
+ EELEC =    -15150.0926  EHBOND =         0.0000 RESTRAINT =         0.0000
+ E_POLAR =     -4309.9038
+ -------------------------------------------------------------------------

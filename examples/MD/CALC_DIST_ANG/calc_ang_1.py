@@ -17,14 +17,14 @@ elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
   outf.close()
-  print "\nTrajectory Playback Completed\n"
+  print("\nTrajectory Playback Completed\n")
 
 else: 
 #  Computations on snapshots:
 
     i = i+1 # Increments label by a value for each file name.
     ang = Vec3D_CalcAngle(aptr1,aptr2,aptr3)*RAD_TO_DEG #  Calculates the angle
-    print >>outf, "%5d %9.4f" % (i, ang)
+    print("%5d %9.4f" % (i, ang), file=outf)
     
 
 

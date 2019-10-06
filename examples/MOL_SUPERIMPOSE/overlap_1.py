@@ -16,7 +16,7 @@ for i in range(nn):
   pmset.FetchFile(FormatPDB,nm2[i])
   pmol1 = pmset.GetMoleculeNum(0)
   pmol2 = pmset.GetMoleculeNum(1)
-  print pmol1, pmol2
+  print(pmol1, pmol2)
   aitr_m1 = AtomIteratorMolecule(pmol1)
   atl1 = AtomList()
   aptr = aitr_m1.GetFirstAtom()
@@ -24,6 +24,6 @@ for i in range(nn):
     atl1.InsertAtom(aptr)
     aptr = aitr_m1.GetNextAtom()
   eps = pmset.AlignOverlapMol(atl1,pmol2)
-  print " eps = ",eps
-  print >> outf, nm1[i], nm2[i], eps
+  print(" eps = ",eps)
+  print(nm1[i], nm2[i], eps, file=outf)
 outf.close()

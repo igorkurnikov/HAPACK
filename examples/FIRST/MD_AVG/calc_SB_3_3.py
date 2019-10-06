@@ -35,7 +35,7 @@ if(script_status == SCRIPT_START):
   while(atm_tr != None):  
 #  at_num = atm_tr.GetSerNo()
     i = i + 1
-    print i
+    print(i)
 #    if(i > 100): break
     at_name = atm_tr.GetName()
     at_don  = atm_tr.IsHBDonor()
@@ -86,7 +86,7 @@ if(script_status == SCRIPT_START):
        atm_tr_acceptor = AtomIteratorMolSet_GetNextAtom(atmitr_acc)  # end of cycle on acceptor atoms
     atm_tr = atmitr.GetNextAtom()  # end of cycle on donor atoms 
   nn = len(d_list)   # number of possible H-bonds
-  print "N_HB_possible = ",nn
+  print("N_HB_possible = ",nn)
   dist1_arr = []      # accumulate sum of distances between donor and acceptor 
   dist1_2_arr = []   # accumulate sum of squares of distances between donor and acceptor 
   dist2_arr = []
@@ -127,15 +127,15 @@ elif(script_status == SCRIPT_STOP):
       idx_d  = atnm_map[dref]
       idx_h  = atnm_map[href]
       idx_a  = atnm_map[aref]
-      print >> outf, "%20.20s  %20.20s  %20.20s" %  (dref, href, aref), 
-      print >> outf, "%5d %5d %5d" %  (idx_d,idx_h,idx_a), 
-      print >> outf, " %5d %6.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f " %  (n_on, p_on,dist1_av, dist2_av,ang_av,dist1_rms, dist2_rms,ang_rms)
+      print("%20.20s  %20.20s  %20.20s" %  (dref, href, aref), end=' ', file=outf) 
+      print("%5d %5d %5d" %  (idx_d,idx_h,idx_a), end=' ', file=outf) 
+      print(" %5d %6.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f " %  (n_on, p_on,dist1_av, dist2_av,ang_av,dist1_rms, dist2_rms,ang_rms), file=outf)
   outf.close()
 #  outf2.close()
 else:
   n_md_pt = n_md_pt + 1
   nn = len(d_list)  # number of possible H-bonds
-  print "point ", n_md_pt
+  print("point ", n_md_pt)
   for i in range(nn):   # cycle over possible H-bonds
     aptr_d = d_list[i]   # donor atom of a possible H-bond
     aptr_h = h_list[i]   # hydrogen atom of a possible H-bond
@@ -157,5 +157,5 @@ else:
     if( dist1 < 4.6 and dist2 < 3.6 and ang > 1.396 and ang < 3.14):
       on_arr[i] = on_arr[i] + 1   
     #print dref, href,aref  
-  print "end_script"
+  print("end_script")
   

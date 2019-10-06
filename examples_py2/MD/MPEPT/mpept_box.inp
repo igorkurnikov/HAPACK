@@ -1,0 +1,18 @@
+ Amber Input file for the molecule set C:\harlem\examples\MD\MPEPT\mpept_box
+
+ &cntrl   
+ imin=0,  nstlim=10,  nscm=1000,  
+ t=       0.000,  dt=       0.001,  
+ ntpr=10,  ntwr=500,  ntwx=0,  ntwv=0,  ntwe=10,  ioutfm=0,  ntwprt=0,  
+ ntf=1,  ntb=2,  dielc= 1.000,  
+ cut=12.000,  scnb= 2.000,  scee= 1.200,  iwrap=0,  
+ irest= 0,  ntx= 1, 
+igb=0, 
+ibelly=0, ntr=0, 
+ temp0=300.000,  tempi=300.000,  heat= 0.000,  ntt=1, 
+ dtemp=   0.0000,  tautp=   0.5000,  vlimit=20.000, 
+ ntp=1,  pres0= 1.000,  comp=44.600,  taup= 1.000, 
+ ntc=1, tol=   0.0005000, 
+ jfastw=0,  
+  &end   
+

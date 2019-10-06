@@ -4,7 +4,7 @@ for i in range(1,13):
   if( i < 10):
     sn = "0" + sn
   fname = "mg_wat_1_ch_1.6_" + sn + ".mdcrd"
-  print fname
+  print(fname)
   finp = open(fname,"r")
   il = 0
   for line in finp:

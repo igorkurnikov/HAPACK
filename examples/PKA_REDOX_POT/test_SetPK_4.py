@@ -15,5 +15,5 @@ ritr = ResidueIteratorMolSet(pmset)
 rptr = ritr.GetFirstRes()
 while (rptr != None):
    if(rptr.GetName() == "HIS" or rptr.GetName() == "HEM" ):
-      print rptr.PrintPK()
+      print(rptr.PrintPK())
    rptr = ritr.GetNextRes()

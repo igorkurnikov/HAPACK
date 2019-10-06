@@ -17,8 +17,8 @@ for aptr in pmset:
   nm_res = pres.GetName()
   if(nm_res == "HIS" and nm_at in his_at_names):
     his_area[ires] += aptr.solv_access_area
-for ires in his_area.keys():
-  print "his ",ires,"  SA = ",his_area[ires]
-print ""
-print "end script"
+for ires in list(his_area.keys()):
+  print("his ",ires,"  SA = ",his_area[ires])
+print("")
+print("end script")
       

@@ -8,21 +8,21 @@ rot_mat = HaMat_double(3,3)
 trans_vec = HaVec_double(3)
 eps_vec = HaVec_double(1)
 PointContainer_GetSuperimposeMat(grp1,grp2,rot_mat, trans_vec, eps_vec.begin() )
-print "eps = ",eps_vec.GetVal_idx0(0)
+print("eps = ",eps_vec.GetVal_idx0(0))
 grp2.Transform(rot_mat, trans_vec)
 #
 aitr1 = AtomIteratorAtomGroup(grp1)
 aitr2 =  AtomIteratorAtomGroup(grp2)
-print "Write atom deviation info to file  eps_per_atom.dat "
+print("Write atom deviation info to file  eps_per_atom.dat ")
 fout = open("eps_per_atom.dat","w")
 aptr1 = aitr1.GetFirstAtom()
 aptr2 = aitr2.GetFirstAtom()
 while( aptr1 != None):
   eps = Vec3D_CalcDistance(aptr1,aptr2)
-  print >>fout, " %s %12.4f " % (aptr1.GetRef(),eps)
+  print(" %s %12.4f " % (aptr1.GetRef(),eps), file=fout)
   aptr1 = aitr1.GetNextAtom()
   aptr2 = aitr2.GetNextAtom()
 fout.close()
-print " done "
+print(" done ")
 
   

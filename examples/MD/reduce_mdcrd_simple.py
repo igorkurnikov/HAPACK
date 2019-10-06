@@ -1,16 +1,16 @@
 import sys
 if( len(sys.argv) != 6 ):
-  print "usage reduce_mdcrd_simple  in.mdcrd  out.mdcrd  nat has_Pbox reduce_factor " 
+  print("usage reduce_mdcrd_simple  in.mdcrd  out.mdcrd  nat has_Pbox reduce_factor ") 
 fname_inp = sys.argv[1] 
 fname_out = sys.argv[2]
 nat = int( sys.argv[3] )
 has_pbox = int( sys.argv[4] )
 reduce_factor = int( sys.argv[5] )
-print "fname_inp = ",fname_inp
-print "fname_out = ",fname_out
-print "nat =", nat
-print "has_pbox =", has_pbox
-print "reduce_factor =", reduce_factor
+print("fname_inp = ",fname_inp)
+print("fname_out = ",fname_out)
+print("nat =", nat)
+print("has_pbox =", has_pbox)
+print("reduce_factor =", reduce_factor)
 
 finp = open(fname_inp,"r")
 fout = open(fname_out,"w")
@@ -21,8 +21,8 @@ if( ncrd % 10 != 0):
 if( has_pbox ):
   nwrite = nwrite + 1
 nskip = nwrite * ( reduce_factor - 1)
-print "nwrite = ", nwrite
-print "nskip = ",nskip
+print("nwrite = ", nwrite)
+print("nskip = ",nskip)
 itot = 0
 iwrite = 0
 iskip = 0

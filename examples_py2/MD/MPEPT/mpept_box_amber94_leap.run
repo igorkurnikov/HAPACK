@@ -1,0 +1,2 @@
+#!/usr/bin/csh -f 
+pmemd_amba -O -i mpept_box.inp -o mpept_box_amber94_leap.out -p mpept_box_amber94_leap.top -c mpept_box.crd -r mpept_box.rst -ref mpept_box.ref -x mpept_box.mdcrd -v mpept_box.mdvel -e mpept_box.mden 

@@ -12,7 +12,7 @@ rionst=0.0
 exrad=2.0
 radprb=1.4
 
-print "PNPMod"
+print("PNPMod")
 StartPNP=time()
 
 pnpmod=mset.GetPNPMod(1)
@@ -52,7 +52,7 @@ dEPNP=EsolPNP-EvacPNP
 EndPNP=time()
 OperTimePNP=EndPNP-StartPNP
 
-print "ElectostMod"
+print("ElectostMod")
 StartElMod=time()
 elmod=mset.GetElectrostMod(1)
 elmod.nx=GridSize
@@ -80,7 +80,7 @@ dEElMod=EsolElMod-EvacElMod
 EndElMod=time()
 OperTimeElMod=EndElMod-StartElMod
 
-print "APBS"
+print("APBS")
 StartAPBS=time()
 apbsmod=mset.GetAPBSMod(1)
 apbsmod.nx=GridSize
@@ -109,8 +109,8 @@ dEAPBS=EsolAPBS-EvacAPBS
 EndAPBS=time()
 OperTimeAPBS=EndAPBS-StartAPBS
 
-print "Solver       Esol \tEvac \tdE \tTime"
+print("Solver       Esol \tEvac \tdE \tTime")
 #print "Solver       Esol_w_Salt \tEsol \tdE"
-print "PNPMOD       ",EsolPNP,"\t",EvacPNP,"\t",dEPNP,"\t",OperTimePNP
-print "ElectrostMod ",EsolElMod,"\t",EvacElMod,"\t",dEElMod,"\t",OperTimeElMod
-print "APBS         ",EsolAPBS,"\t",EvacAPBS,"\t",dEAPBS,"\t",OperTimeAPBS
+print("PNPMOD       ",EsolPNP,"\t",EvacPNP,"\t",dEPNP,"\t",OperTimePNP)
+print("ElectrostMod ",EsolElMod,"\t",EvacElMod,"\t",dEElMod,"\t",OperTimeElMod)
+print("APBS         ",EsolAPBS,"\t",EvacAPBS,"\t",dEAPBS,"\t",OperTimeAPBS)

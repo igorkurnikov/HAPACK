@@ -10,16 +10,16 @@ while (rptr != None):
    rptr = ritr.GetNextRes()
 rptr = pmset.GetResByRef("$CYTB5_1$HIS15")
 aitr = AtomIteratorAtomSet(rptr)
-print "charges HIS:"
+print("charges HIS:")
 aptr = aitr.GetFirstAtom()
 while (aptr != None):
-    print aptr.GetName(), " ",aptr.GetCharge()
+    print(aptr.GetName(), " ",aptr.GetCharge())
     aptr = aitr.GetNextAtom()
 rptr.InterpolResParams("HIS","HIS#PROTA",0.5)
-print "charges intermediate between HIS and HIS#PROTA"
+print("charges intermediate between HIS and HIS#PROTA")
 aptr = aitr.GetFirstAtom()
 while (aptr != None):
-    print aptr.GetName(), " ",aptr.GetCharge()
+    print(aptr.GetName(), " ",aptr.GetCharge())
     aptr = aitr.GetNextAtom()
 
 

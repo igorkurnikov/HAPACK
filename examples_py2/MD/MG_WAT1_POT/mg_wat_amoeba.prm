@@ -1,0 +1,172 @@
+
+      ##############################
+      ##                          ##
+      ##  Force Field Definition  ##
+      ##                          ##
+      ##############################
+
+
+forcefield              AMOEBA-2009
+
+bond-cubic              -2.55
+bond-quartic            3.793125
+angle-cubic             -0.014
+angle-quartic           0.000056
+angle-pentic            -0.0000007
+angle-sextic            0.000000022
+opbendtype              ALLINGER
+opbend-cubic            -0.014
+opbend-quartic          0.000056
+opbend-pentic           -0.0000007
+opbend-sextic           0.000000022
+torsionunit             0.5
+vdwtype                 BUFFERED-14-7
+radiusrule              CUBIC-MEAN
+radiustype              R-MIN
+radiussize              DIAMETER
+epsilonrule             HHG
+dielectric              1.0
+polarization            MUTUAL
+vdw-13-scale            0.0
+vdw-14-scale            1.0
+vdw-15-scale            1.0
+mpole-12-scale          0.0
+mpole-13-scale          0.0
+mpole-14-scale          0.4
+mpole-15-scale          0.8
+polar-12-scale          0.0
+polar-13-scale          0.0
+polar-14-scale          1.0
+polar-15-scale          1.0
+polar-14-intra          0.5
+direct-11-scale         0.0
+direct-12-scale         1.0
+direct-13-scale         1.0
+direct-14-scale         1.0
+mutual-11-scale         1.0
+mutual-12-scale         1.0
+mutual-13-scale         1.0
+mutual-14-scale         1.0
+
+
+      #############################
+      ##                         ##
+      ##  Literature References  ##
+      ##                         ##
+      #############################
+
+
+P. Ren and J. W. Ponder, "Polarizable Atomic Multipole Intermolecular
+Potentials for Small Organic Molecules", in preparation.
+
+J. W. Ponder and D. A. Case, "Force Fields for Protein Simulation",
+Adv. Prot. Chem., 66, 27-85 (2003)
+
+P. Ren and J. W. Ponder, "Polarizable Atomic Multipole Water Model for
+Molecular Mechanics Simulation", J. Phys. Chem. B, 107, 5933-5947 (2003)
+
+P. Ren and J. W. Ponder, "A Consistent Treatment of Inter- and
+Intramolecular Polarization in Molecular Mechanics Calculations",
+J. Comput. Chem., 23, 1497-1506 (2002)
+
+
+      #############################
+      ##                         ##
+      ##  Atom Type Definitions  ##
+      ##                         ##
+      #############################
+
+
+atom         11   11    Mg+   "Magnesium Ion Mg+2"          12    24.305    0
+atom         36   34    O     "Water O"                      8    15.999    2
+atom         37   35    H     "Water H"                      1     1.008    1
+
+      ################################
+      ##                            ##
+      ##  Van der Waals Parameters  ##
+      ##                            ##
+      ################################
+
+#vdw          11               2.9400     0.3000
+vdw          11               3.2100     0.2800
+vdw          34               3.4050     0.1100
+vdw          35               2.6550     0.0135      0.910
+
+      ##################################
+      ##                              ##
+      ##  Bond Stretching Parameters  ##
+      ##                              ##
+      ##################################
+
+
+bond         34   35          529.60     0.9572
+
+      ################################
+      ##                            ##
+      ##  Angle Bending Parameters  ##
+      ##                            ##
+      ################################
+
+angle        35   34   35      34.05     108.50
+
+      ################################
+      ##                            ##
+      ##   Urey-Bradley Parameters  ##
+      ##                            ##
+      ################################
+
+
+ureybrad     35   34   35      38.25     1.5537
+
+
+      ###################################
+      ##                               ##
+      ##  Atomic Multipole Parameters  ##
+      ##                               ##
+      ###################################
+
+
+multipole    11    0    0               2.00000
+                                        0.00000    0.00000    0.00000
+                                        0.00000
+                                        0.00000    0.00000
+                                        0.00000    0.00000    0.00000
+
+multipole    36  -37  -37              -0.51966
+                                        0.00000    0.00000    0.14279
+                                        0.37928
+                                        0.00000   -0.41809
+                                        0.00000    0.00000    0.03881
+					
+multipole    37   36   37               0.25983
+                                       -0.03859    0.00000   -0.05818
+                                       -0.03673
+                                        0.00000   -0.10739
+                                       -0.00203    0.00000    0.14412
+				       
+#multipole    36  -37  -37              -0.00000
+#                                        0.00000    0.00000    0.00000
+#                                        0.00000
+#                                        0.00000    0.00000
+#                                        0.00000    0.00000    0.00000
+					
+#multipole    37   36   37               0.00000
+#                                        0.00000    0.00000    0.00000
+#                                        0.00000
+#                                        0.00000    0.00000
+#                                        0.00000    0.00000    0.00000
+				       
+
+      ########################################
+      ##                                    ##
+      ##  Dipole Polarizability Parameters  ##
+      ##                                    ##
+      ########################################
+
+#polarize     11          0.0800     0.39
+#polarize     36          0.8370     0.39     37
+#polarize     37          0.4960     0.3900     36
+
+polarize     11          0.0800     0.095     
+polarize     36          0.8370     0.39        37
+polarize     37          0.4960     0.39        36

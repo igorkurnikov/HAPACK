@@ -15,12 +15,12 @@ elif(script_status == SCRIPT_STOP):
 #  Code to end the script after MD trajectory is finished.
   
   outf.close()
-  print "\nTrajectory Playback Completed\n"
+  print("\nTrajectory Playback Completed\n")
 
 else: 
 #  Computations on snapshots:
 
     dist = Vec3D_CalcDistance(aptr1,aptr2) # Calculates atom-atom distance (Ang)
-    print >>outf, "%5d %9.4f" % (idx_curr_pt, dist)
+    print("%5d %9.4f" % (idx_curr_pt, dist), file=outf)
 
 

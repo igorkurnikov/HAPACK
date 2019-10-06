@@ -11,7 +11,7 @@ def calc_charge(pmset):
    while(aptr != None):
        ch = ch + aptr.GetCharge()
        aptr = aitr.GetNextAtom()
-   print "MolSet charge = ",ch
+   print("MolSet charge = ",ch)
    return ch
 
 def read_float_col(fname,ncol):

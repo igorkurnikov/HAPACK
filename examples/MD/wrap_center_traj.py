@@ -23,7 +23,7 @@ if(script_status == SCRIPT_START):
 elif(script_status == SCRIPT_STOP):
 #  Code to end the script after reading of MD trajectory is finished.
   
-  print "\nEnd Trajectory Conversion\n"
+  print("\nEnd Trajectory Conversion\n")
   MMDriverAmber.CloseAmberMDTrajFortran(iunit);
 
 else: 
@@ -32,6 +32,6 @@ else:
   if(i % 1 == 0):  # The value used with the modulus for "i" determines how often to save snapshots
     mset.WrapAndCenter(grp_name,cnt)
     MMDriverAmber.WriteCrdToAmberMDTrajFortran( iunit, mset );
-    print "Snapshot saved to ", mtraj_fname
+    print("Snapshot saved to ", mtraj_fname)
   i= i+1
 	  

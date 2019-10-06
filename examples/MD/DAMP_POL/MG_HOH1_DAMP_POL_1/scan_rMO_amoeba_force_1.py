@@ -15,7 +15,7 @@ b1 = zm.GetCrdByTag("rMO")
 b1.SetFrozen()
 dist = 1.5
 delt = 0.001
-print "  dist     ene       f_z_dir      f_z_ene "
+print("  dist     ene       f_z_dir      f_z_ene ")
 while( dist < 5.01 ):
   b1.SetValue(dist)
   zm.SetAtomCrd()
@@ -30,7 +30,7 @@ while( dist < 5.01 ):
   mm_mod.CalcEnergy()
   ene2 = mm_mod.GetEne()
   f_z_ene = -(ene2 - ene1)/delt
-  print "%6.3f  %12.6f %9.3f  %9.3f " % (dist, ene0, f_z_dir, f_z_ene) 
+  print("%6.3f  %12.6f %9.3f  %9.3f " % (dist, ene0, f_z_dir, f_z_ene)) 
   dist = dist + 0.05
-print "end"
+print("end")
 

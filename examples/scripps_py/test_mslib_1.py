@@ -9,11 +9,11 @@ m = mslib.MSMS(filename="benz2_br2_1.xyzr")
 m.compute()
 m.compute_ses()
 m.compute_ses_area()
-print m.info()
+print(m.info())
 (vfloat, vint, tri) = m.getTriangles()
-print "vfloat size=",len(vfloat)
-print vfloat[0]
-print "vint size=",len(vint)
-print vint[0]
-print "tri size=",len(tri)
-print tri[0]
+print("vfloat size=",len(vfloat))
+print(vfloat[0])
+print("vint size=",len(vint))
+print(vint[0])
+print("tri size=",len(tri))
+print(tri[0])
