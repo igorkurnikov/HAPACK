@@ -1,7 +1,7 @@
 PROJECT(MORTLIB)
 #SUBDIRS(pymort)
 
-AM_CPPFLAGS = -fPIC
+SET(CMAKE_CXX_FLAGS  " -fPIC ")
 
 SET(LIB_MORT_SOURCE
 ambfmt/ambfrc-amoeba.cpp
@@ -101,7 +101,9 @@ tripos/resd.cpp
 tripos/sect.cpp
 tripos/mol2.cpp
 )
+
 INCLUDE_DIRECTORIES( . )
+
 #ADD_LIBRARY(mort SHARED ${LIB_MORT_SOURCE})
 ADD_LIBRARY(mort STATIC ${LIB_MORT_SOURCE})
 INSTALL_TARGETS(/lib mort)
