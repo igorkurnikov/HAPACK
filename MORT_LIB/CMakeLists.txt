@@ -1,6 +1,8 @@
 PROJECT(MORTLIB)
 #SUBDIRS(pymort)
 
+AM_CPPFLAGS = -fPIC
+
 SET(LIB_MORT_SOURCE
 ambfmt/ambfrc-amoeba.cpp
 ambfmt/amboff.cpp
