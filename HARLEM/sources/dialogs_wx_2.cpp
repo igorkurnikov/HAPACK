@@ -58,7 +58,7 @@ wxFrame( parent, -1, "Intermolecular Interactions Module")
 	ptr_im_mod = ptr_im_mod_new;
 	if(ptr_im_mod) 
 	{
-		HaMolSet* pmset = ptr_im_mod->GetMolSet();
+		MolSet* pmset = ptr_im_mod->GetMolSet();
 		ptr_emp_mod = pmset->GetEmpiricalMod(true);
 		p_mc_sim =  ptr_im_mod->p_mc_sim;
 		p_io_ag = p_mc_sim->GetTrajectoryIOAgent();
@@ -204,7 +204,7 @@ InterMolDlgWX::TransferDataToWindow()
 
 	wxTextCtrl* edit_trace_at_ref   = (wxTextCtrl*) FindWindow(IDC_MC_DOCK_TRACE_AT_REF);
 	
-	HaMolSet* pmset = ptr_im_mod->GetMolSet();
+	MolSet* pmset = ptr_im_mod->GetMolSet();
 	TraceMolAgent* tr_ag = p_mc_sim->GetTrajectoryTraceAgent(FALSE);
 	wxString str;
 	if(tr_ag != NULL)
@@ -292,7 +292,7 @@ InterMolDlgWX::TransferDataFromWindow()
 	{
 		wxTextCtrl* edit_trace_at_ref   = (wxTextCtrl*) FindWindow(IDC_MC_DOCK_TRACE_AT_REF);
 
-		HaMolSet* pmset = ptr_im_mod->GetMolSet();
+		MolSet* pmset = ptr_im_mod->GetMolSet();
 		HaAtom* aptr;
 	 
 		wxString str;
@@ -398,7 +398,7 @@ void InterMolDlgWX::OnIntermolSetIntCoord(wxCommandEvent& event)
 
 	wxString str;
 
-	HaMolSet* pmset = ptr_im_mod->GetMolSet();
+	MolSet* pmset = ptr_im_mod->GetMolSet();
 	HaMolecule* pMol1 = pmset->GetMolByIdx(0);
     HaMolecule* pMol2 = pmset->GetMolByIdx(1);
 
@@ -431,7 +431,7 @@ void InterMolDlgWX::OnIntermolCompIntCoord(wxCommandEvent& event)
 
 	wxString str;
 
-	HaMolSet* pmset = ptr_im_mod->GetMolSet();
+	MolSet* pmset = ptr_im_mod->GetMolSet();
 	HaMolecule* pMol1 = pmset->GetMolByIdx(0);
     HaMolecule* pMol2 = pmset->GetMolByIdx(1);
 
@@ -463,7 +463,7 @@ void InterMolDlgWX::OnIntermolCompIntCoord(wxCommandEvent& event)
 
 }
 /////////////////////////////////////////////////////////////////////
-wxFieldPlaneView::wxFieldPlaneView(PlaneViewOfHaField3D* PlView, HaMolSet* _MolSet, wxWindow* parent,wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+wxFieldPlaneView::wxFieldPlaneView(PlaneViewOfHaField3D* PlView, MolSet* _MolSet, wxWindow* parent,wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 	: wxDialog(parent, id, title, pos, size, style, name)
 		, m_MolSet(_MolSet)
 {
@@ -826,7 +826,7 @@ void wxFieldPlaneView::OnHide( wxCommandEvent& event )
 	m_PlaneView->SetDisplayed(!CB->GetValue());
 	m_MolSet->RefreshAllViews(RFRefresh);
 }
-void CreatewxFieldPlaneView(PlaneViewOfHaField3D* PlView, HaMolSet* _MolSet,const char *title,int OwnerOfView)
+void CreatewxFieldPlaneView(PlaneViewOfHaField3D* PlView, MolSet* _MolSet,const char *title,int OwnerOfView)
 {
 	wxString Name(title);
 	wxFieldPlaneView *PV=new wxFieldPlaneView(PlView,_MolSet,(wxWindow*)GetHaMainFrameWX(),-1,Name);

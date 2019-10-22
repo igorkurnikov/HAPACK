@@ -30,7 +30,7 @@
 
 int HaMolecule::SeqFormat=0;
 
-HaMolecule::HaMolecule(HaMolSet* new_phost_mset, std::string new_name):
+HaMolecule::HaMolecule(MolSet* new_phost_mset, std::string new_name):
 Object3D(OBJ3D_MOLECULE)
 {
 	phost_mset = new_phost_mset;
@@ -56,7 +56,7 @@ bool HaMolecule::AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain, AtomAtom
 	std::map<int,HaResidue*, less<int>  >::iterator res_itr;
 
 	HaAtom* faptr;
-	HaMolSet* pmset = GetHostMolSet();
+	MolSet* pmset = GetHostMolSet();
 	vector<HaAtom*>::iterator paitr;
 
 	AtomAtomMap at_map;
@@ -115,7 +115,7 @@ bool HaMolecule::AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain, AtomAtom
 	
 	std::vector<HaBond*>::const_iterator bitr;
 	
-	const HaMolSet* pmset_ref = Mol_ref.GetHostMolSet();
+	const MolSet* pmset_ref = Mol_ref.GetHostMolSet();
 
 
 	for(bitr = pmset_ref->Bonds.begin(); bitr != pmset_ref->Bonds.end(); bitr++ )
@@ -168,8 +168,8 @@ int HaMolecule::AttachFragment(HaAtom* catom_host, HaAtom* catom_frag )
 		return False;
 	}
 
-	HaMolSet* pmset = host_mol->GetHostMolSet();
-	HaMolSet* pmset_frag = frag_mol->GetHostMolSet();
+	MolSet* pmset = host_mol->GetHostMolSet();
+	MolSet* pmset_frag = frag_mol->GetHostMolSet();
 
 	bool create_new_chain = false;
 
@@ -334,8 +334,8 @@ int HaMolecule::CombineMolecules(HaMolecule* frag_mol, HaAtom* catom_host, HaAto
 	if( frag_mol == NULL )
 		return False;
 
-	HaMolSet* host_mset = GetHostMolSet();
-	HaMolSet* frag_mset = frag_mol->GetHostMolSet();
+	MolSet* host_mset = GetHostMolSet();
+	MolSet* frag_mset = frag_mol->GetHostMolSet();
 
 	if( host_mset == frag_mset )
 	{
@@ -556,7 +556,7 @@ int AtomContainer::SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_op
 	}
 
 	HaMolView* pview = NULL;
-	HaMolSet*  pmset = NULL;
+	MolSet*  pmset = NULL;
 	if( na > 0)
 	{
 		aptr = p_aitr->GetFirstAtom();
@@ -654,7 +654,7 @@ bool HaMolecule::SetObjName(const char* new_name)
 		if( !isspace(new_name[i]) ) 
 		name+= toupper(new_name[i]);
 	}
-	HaMolSet* pmset = GetHostMolSet();
+	MolSet* pmset = GetHostMolSet();
 	
 // Set Unique name
 	int nmol = pmset->GetNMol();
@@ -916,18 +916,18 @@ HaMolecule::Print_info(ostream &sout, const int level) const
 	return true;
 }
 
-HaBond* HaMolSet::AddBond(HaAtom* src, HaAtom* dst )
+HaBond* MolSet::AddBond(HaAtom* src, HaAtom* dst )
 {
 	if(src == NULL || dst == NULL)
 	{
-		PrintLog(" Error in HaMolSet::AddBond() \n"); 
+		PrintLog(" Error in MolSet::AddBond() \n"); 
 		PrintLog(" One of the Atom Pointers is NULL \n"); 
 		return NULL;
 	}
 
 	if(src == dst)
 	{
-		PrintLog(" Error in HaMolSet::AddBond() \n"); 
+		PrintLog(" Error in MolSet::AddBond() \n"); 
 		PrintLog(" Two atom pointers are identical \n"); 
 		return NULL;
 	}
@@ -940,7 +940,7 @@ HaBond* HaMolSet::AddBond(HaAtom* src, HaAtom* dst )
 }
 
 
-bool HaMolSet::DeleteBond(HaAtom* src, HaAtom* dst)
+bool MolSet::DeleteBond(HaAtom* src, HaAtom* dst)
 {
 	if(src == NULL || dst == NULL) return false;
 
@@ -967,7 +967,7 @@ bool HaMolSet::DeleteBond(HaAtom* src, HaAtom* dst)
 
 	if( bnd_d == NULL )
 	{
-		PrintLog("Error in HaMolSet::DeleteBond() \n");
+		PrintLog("Error in MolSet::DeleteBond() \n");
 		PrintLog(" Atoms %s  and %s are not bonded \n", src->GetRef().c_str(), dst->GetRef().c_str());
 		return false;
 	}
@@ -1442,7 +1442,7 @@ AtomIterator* HaMolecule::GetAtomIteratorPtr()
 
 int HaMolecule::GetNBonds()  const  
 {
-	const HaMolSet* pmset = GetHostMolSet();
+	const MolSet* pmset = GetHostMolSet();
 	std::vector<HaBond*>::const_iterator bitr;
 	int nb = 0;
 	for( bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )
@@ -1457,7 +1457,7 @@ int HaMolecule::GetNBonds()  const
 
 int HaMolecule::GetNHBonds() const
 {
-	const HaMolSet* pmset = GetHostMolSet();
+	const MolSet* pmset = GetHostMolSet();
 	set<HaHBond, less<HaHBond> >::const_iterator bitr;
 	int nb = 0;
 	for( bitr = pmset->HBonds.begin(); bitr != pmset->HBonds.end(); bitr++ )
@@ -1472,7 +1472,7 @@ int HaMolecule::GetNHBonds() const
 	
 int HaMolecule::GetNSSBonds() const  
 {
-	const HaMolSet* pmset = GetHostMolSet();
+	const MolSet* pmset = GetHostMolSet();
 	std::vector<HaBond*>::const_iterator bitr;
 	int nb = 0;
 	for( bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )

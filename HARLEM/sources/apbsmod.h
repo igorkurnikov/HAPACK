@@ -16,7 +16,7 @@
 #include "hasurface.h"
 
 class HaSurface;
-class HaMolSet;
+class MolSet;
 class AtomGroup;
 class HaResidue;
 class AltChemState;
@@ -25,7 +25,7 @@ class AltChemState;
 class APBSMod : public HaCompMod
 {
 public:
-  APBSMod(HaMolSet* new_phost_mset = NULL);
+  APBSMod(MolSet* new_phost_mset = NULL);
   virtual ~APBSMod();
 
   double E;

@@ -521,7 +521,7 @@ void
 HaMolView::DeleteDotSurfaces()
 {
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
  	list<Object3D*>::iterator oitr;
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end();)
@@ -721,7 +721,7 @@ void HaMolView::CalculateDotSurface( int density )
     int i,count;
     int elem;
  
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(pmset->GetNMol() == 0 )
 		return;
@@ -799,7 +799,7 @@ void
 HaMolView::DisplayObj3D()
 {
  
-  HaMolSet* pmset = GetMolSet();
+  MolSet* pmset = GetMolSet();
 
   int ixadd=  pCanv->XRange()/2 ;
   int iyadd=  pCanv->YRange()/2 ;
@@ -822,7 +822,7 @@ HaMolView::DisplayDotSurfaces()
     register int xi,yi,zi;
     register int i;
  
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	int ixadd=  pCanv->XRange()/2 ;
 	int iyadd=  pCanv->YRange()/2 ;
@@ -1477,7 +1477,7 @@ void HaMolView::DisplayRibbon( HaChain* chain )
 
 void HaMolView::DisplayETBestPath()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if(pmset == NULL) return;
 	ETCouplMod* ptr_et_coupl_mod = pmset->GetETCouplMod(false);
 	if(ptr_et_coupl_mod == NULL) return;
@@ -1553,7 +1553,7 @@ void HaMolView::DisplayETBestPath()
 void
 HaMolView::DisplayContourSurf()
 {
-	HaMolSet* pmset= GetMolSet();
+	MolSet* pmset= GetMolSet();
 	if(pmset == NULL) return;
 
 	list<Object3D*>::iterator oitr;

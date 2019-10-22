@@ -24,7 +24,7 @@
 class StmMod : public HaCompMod
 {
 public:
-	StmMod(HaMolSet* new_phost_mset = NULL);
+	StmMod(MolSet* new_phost_mset = NULL);
 	virtual ~StmMod();
 
 	void SetStdParams();

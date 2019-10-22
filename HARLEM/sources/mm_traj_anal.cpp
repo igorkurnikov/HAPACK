@@ -1410,7 +1410,7 @@ int RMSDAgent::SetRefCrdRMSD(PointContainer& ref_coords_new, int ref_crd_type_ne
 //	return ires;
 //}
 
-int RMSDAgent::SetMolSet(HaMolSet* pmset_new)
+int RMSDAgent::SetMolSet(MolSet* pmset_new)
 {
 	pmset = pmset_new;
 	return TRUE;
@@ -1533,7 +1533,7 @@ int RMSDAgent::SetRefCrdRMSDFromXYZFile( const std::string& ref_crd_file_name_ne
 	return TRUE;
 }
 
-int RMSDAgent::SetRefCrdFitFromAtomGroup( const std::string& at_grp_id, HaMolSet* pmset_ref_new)
+int RMSDAgent::SetRefCrdFitFromAtomGroup( const std::string& at_grp_id, MolSet* pmset_ref_new)
 {
 	if(pmset_ref_new == NULL) 
 	{
@@ -1562,7 +1562,7 @@ int RMSDAgent::SetRefCrdFitFromAtomGroup( const std::string& at_grp_id, HaMolSet
 	return TRUE;
 }
 
-int RMSDAgent::SetRefCrdRMSDFromAtomGroup( const std::string& at_grp_id, HaMolSet* pmset_ref_new)
+int RMSDAgent::SetRefCrdRMSDFromAtomGroup( const std::string& at_grp_id, MolSet* pmset_ref_new)
 {
 	if(pmset_ref_new == NULL) 
 	{
@@ -1591,7 +1591,7 @@ int RMSDAgent::SetRefCrdRMSDFromAtomGroup( const std::string& at_grp_id, HaMolSe
 	return TRUE;
 }
 
-AtomCorrAgent::AtomCorrAgent( HaMolSet* pmset_par )
+AtomCorrAgent::AtomCorrAgent( MolSet* pmset_par )
 {
 	pmset = pmset_par;
 	npt_proc = 0;

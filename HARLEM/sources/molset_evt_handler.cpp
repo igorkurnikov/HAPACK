@@ -1,6 +1,6 @@
 /*! \file molset_evt_handler.cpp
 
-    wxWidgets event handler class for HaMolSet
+    wxWidgets event handler class for MolSet
  
     \author Igor Kurnikov
     \date 2009-
@@ -20,7 +20,7 @@ BEGIN_EVENT_TABLE( MolSetEvtHandler,  wxEvtHandler)
    EVT_COMMAND( wxID_ANY, wxEVT_MOLSET, MolSetEvtHandler::OnTestCommand)
 END_EVENT_TABLE()
 
-MolSetEvtHandler::MolSetEvtHandler(HaMolSet* pmset_new)
+MolSetEvtHandler::MolSetEvtHandler(MolSet* pmset_new)
 {	
 	pmset = pmset_new;
 }

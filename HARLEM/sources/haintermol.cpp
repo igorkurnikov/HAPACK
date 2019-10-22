@@ -55,14 +55,14 @@ static float FMAX( float a, float b)
 
 
 
-HaInterMolMod::HaInterMolMod(HaMolSet* new_phost_mset):
+HaInterMolMod::HaInterMolMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_INTERMOL,new_phost_mset)
 {
 	p_mc_sim        = new InterMolMCSimulator(this);     
 	p_ene_minimizer = new InterMolEnergyMinimizer(this);
 	p_rex_sim       = new InterMolRepExchSimulator(this);
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	p_prot_rdx_mod  = pmset->GetProtonRedoxMod(true);
 
 	SetStdParams();
@@ -106,7 +106,7 @@ int HaInterMolMod::Initialize()
 		}
 	}
 		
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
 
 	if(p_mc_sim->amber_flag)
@@ -162,7 +162,7 @@ int HaInterMolMod::ClearInternalStruct()
 int
 HaInterMolMod::SetInteractGroupsFromMolecules()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int imol;
 	
@@ -205,7 +205,7 @@ HaInterMolMod::AddInteractGroup(AtomContainer* p_at_cont)
 		return FALSE;
 	}
 	
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	AtomIteratorGen aitr(p_at_cont);
 	HaAtom* aptr;
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
@@ -259,7 +259,7 @@ int HaInterMolMod::SetRigidBodyCoord(RigidBodyCoord* pcrd)
 
 double HaInterMolMod::CalculateMMEnergy()
 {
-	HaMolSet* pmset = GetMolSet();		
+	MolSet* pmset = GetMolSet();		
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
 	if(interact_groups.size() < 2)
 	{
@@ -319,7 +319,7 @@ HaInterMolMod::CalcElStaticInter()
 
 	double el_inter_ene = 0.0; 
 
-	HaMolSet* pmset = GetMolSet();		
+	MolSet* pmset = GetMolSet();		
 	ElectrostMod* el_mod = pmset->GetElectrostMod(true);
 
 	if(electr_model == CHARGES_IN_FIELD_ELECTR)
@@ -362,7 +362,7 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 		return 0.0;
 	}
 
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	ElectrostMod* el_mod = pmset->GetElectrostMod(true);
 	ProtonRedoxMod* p_prot_redox_mod = pmset->GetProtonRedoxMod(true);
 	if(el_mod == NULL) return 0.0;
@@ -767,7 +767,7 @@ int HaInterMolMod::InitMolecularFields()
 		return FALSE;
 	}
 		
-	HaMolSet* pmset     = GetMolSet(); 
+	MolSet* pmset     = GetMolSet(); 
 	ElectrostMod* el_mod = pmset->GetElectrostMod(1);
 	bool bres;
 
@@ -1045,7 +1045,7 @@ InterMolMCSimulator::RunMCEmpirical()
 	//if( interact_groups.size() > 1) 
 	//	freeze_first_mol = true;
 	
-	HaMolSet* pmset = p_im_mod->GetMolSet();
+	MolSet* pmset = p_im_mod->GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
     
@@ -1409,7 +1409,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 	//if( interact_groups.size() > 1) 
 	//	freeze_first_mol = true;
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 //	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true); jose
 	//HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	HaMolMembraneMod* mem_mod = pmset->GetMolMembraneMod(true); //jose
@@ -1938,7 +1938,7 @@ int InterMolMCSimulator::RunMCEmpiricalXY()
 	//		if( interact_groups.size() > 1) 
 	//freeze_first_mol = true;
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	if(emp_mod -> module_to_init_flag)
@@ -2317,7 +2317,7 @@ int InterMolMCSimulator::RunMCEmpiricalNMA()
 	//		if( interact_groups.size() > 1) 
 	//freeze_first_mol = true;
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	if(emp_mod -> module_to_init_flag)
@@ -2808,7 +2808,7 @@ bool HaInterMolMod::CalcEffInterEne()
 	cur_intermol_ene = 0.0;
 	double el_inter_ene = 0.0;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(p_mc_sim->amber_flag )
 	{
@@ -2886,7 +2886,7 @@ int
 InterMolMCSimulator::RunQuasiREM() 
 {
 	srand(time(NULL));
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int temp = 0 ; 
 	double betta = 0.0;
 	double temp_ene =0.0;
@@ -3377,7 +3377,7 @@ HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 	{
 		Initialize();
 	}
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 //  HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	//	if (emp_mod ->inertia_axes.GetVal_idx0(0,0) == NULL )	emp_mod -> FindAxes();
@@ -3501,7 +3501,7 @@ HaInterMolMod::Hessian(int energy_type, VecPtr ptmol)
 	check.open("check_theta.dat", ios::out|ios::app);
 
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolecule* pMol;
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	if(module_to_init_flag)
@@ -3973,7 +3973,7 @@ HaInterMolMod::Jacobian(int energy_type, VecPtr ptmol)
 	{
 		Initialize();
 	}
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolecule* pMol;
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	if(emp_mod -> module_to_init_flag)
@@ -4150,7 +4150,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 	fstream stepfile;
 	stepfile.open("step_vector.dat", ios::out|ios::app );
 	
-	HaMolSet* pmset = p_inter_mol->GetMolSet();
+	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	typedef double (HaEmpiricalMod::*EnergyFuncPtn)();
 	EnergyFuncPtn func_ptn; 
@@ -4392,7 +4392,7 @@ InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_double 
 	double alf = 1.0e-4; // Ensures sufficient decrease in function value.
 	double tolx = 1.0e-7; // Convergence criterion on .x.
 	double f;
-	HaMolSet* pmset = p_inter_mol->GetMolSet();
+	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	HaMolecule* pMol; 
 	int nmol = ptmol.size();
@@ -4545,7 +4545,7 @@ InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_double 
 int
 InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
 {
-	HaMolSet* pmset = p_inter_mol->GetMolSet();
+	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	HaMolecule* pMol; 
 	int nmol = pmset->GetNMol();
@@ -4667,7 +4667,7 @@ InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
 double
 InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& force_array, Vec3DValArray& torque_array, double& tol)
 {
-	HaMolSet* pmset = p_inter_mol->GetMolSet();
+	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 	double c1, a, b;
 
@@ -4814,7 +4814,7 @@ int
 InterMolEnergyMinimizer::StepAlongGradient(HaVec_double& xold, double alpha, Vec3DValArray& force_array, Vec3DValArray& torque_array)
 {
 	int move_flag =0;
-	HaMolSet* pmset = p_inter_mol->GetMolSet();
+	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaMolecule* pMol; 
 	int nmol = pmset->GetNMol();
 	Vec3D trans_v;

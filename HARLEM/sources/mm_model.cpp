@@ -157,7 +157,7 @@ void MolMechModel::Bcast(MPI_Comm& comm)
 
 int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt ) const
 {
-	const HaMolSet* pmset_loc = GetMolSet();
+	const MolSet* pmset_loc = GetMolSet();
 	os << "<mm_model mset=\"" << pmset_loc->GetName() << "\">" << std::endl;
 		
 	char buf[256];
@@ -1464,7 +1464,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	VecPtr cnt(2);
 
-	HaMolSet::ResidueIterator ritr(pmset);
+	MolSet::ResidueIterator ritr(pmset);
 	HaResidue* pres;
 
 	for( pres = ritr.GetFirstRes(); pres != NULL; pres = ritr.GetNextRes() )
@@ -2744,7 +2744,7 @@ int MolMechModel::SetHarmConstraint(HaAtom* aptr1,HaAtom* aptr2, double eq_dist,
 
 int MolMechModel::SetHarmConstraint(const std::string& at_ref1, const::std::string& at_ref2, double eq_dist, double force_const)
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	
 	HaAtom* aptr1 = pmset->GetAtomByRef(at_ref1.c_str());
 	HaAtom* aptr2 = pmset->GetAtomByRef(at_ref2.c_str());
@@ -3268,7 +3268,7 @@ int MolMechModel::GetMultipolesFromFort()
 
 void MolMechModel::PrintIndDipoles()
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 3*na != ind_dip_p.size() )
@@ -3308,7 +3308,7 @@ void MolMechModel::PrintIndDipoles()
 
 void MolMechModel::PrintMultipoles()
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 10*na != global_multipole.size() )
@@ -3360,7 +3360,7 @@ void MolMechModel::PrintTotMultipoles(const Vec3D* pt_orig )
 	HaVec_double ind_dipole(3); ind_dipole = 0.0;
 	HaVec_double qpole(6);  qpole  = 0.0;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 10*na != global_multipole.size() )
@@ -3446,7 +3446,7 @@ Vec3D MolMechModel::GetTotIndDipole1(const Vec3D* pt_orig )
 
 	Vec3D ind_dipole; ind_dipole = 0.0;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 3*na != ind_dip_d.size() )
@@ -3489,7 +3489,7 @@ Vec3D MolMechModel::GetTotIndDipole2(const Vec3D* pt_orig )
 
 	Vec3D ind_dipole; ind_dipole = 0.0;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 3*na != ind_dip_p.size() )
@@ -3533,7 +3533,7 @@ Vec3D MolMechModel::GetTotDipole(const Vec3D* pt_orig )
 
 	Vec3D dipole; dipole = 0.0;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 10*na != global_multipole.size() )
@@ -3590,7 +3590,7 @@ HaVec_double MolMechModel::GetTotQpole(const Vec3D* pt_orig )
 
 	HaVec_double qpole(6);  qpole  = 0.0;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int na = pmset->GetNAtoms();
 
 	if( 10*na != global_multipole.size() )

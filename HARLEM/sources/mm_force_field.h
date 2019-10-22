@@ -64,7 +64,7 @@ public:
 	int InitMortFF();          //!< Init MORT database of residues and Force Field parameters  
 	MortForceField* p_mort_ff; //!< MORT library objects that define force field 
 
-	int SaveResFFTemplatesFromMort(const char* fname, HaMolSet* pmset_res); //!< Save force field of residues of pmset_res (set using Mort library) into XML file 
+	int SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_res); //!< Save force field of residues of pmset_res (set using Mort library) into XML file 
 	int LoadResFFTemplateXMLFile(const char* fname); //!< Load XML file of Residue Force Field Templates 
 
 	static void switch_amoeba_type( mort::molecule_t& mol, const mort::molecule_t& poleff );

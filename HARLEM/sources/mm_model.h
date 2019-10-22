@@ -44,8 +44,8 @@ public:
 
 	virtual int SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt = NULL ) const; //!< Save model data to stream in XML format   
 	
-	HaMolSet* GetMolSet() { return pmset; }
-	const HaMolSet* GetMolSet() const { return pmset; }
+	MolSet* GetMolSet() { return pmset; }
+	const MolSet* GetMolSet() const { return pmset; }
 
 	ForceFieldType ff_type;  //!< Force Field Type (AMBER94, CHARMM22 etc..) 
 	int to_init_mm_model;    //!< Flag to intialize MM Model 
@@ -277,7 +277,7 @@ public:
 
 	AmberMMModel* p_amber_model; //!< MolMechModel in AMBER representation
 	HaMolMechMod* p_mm_mod;
-	HaMolSet*     pmset;         //!< HaMolSet for which molecular model is built - can contain extra atoms(force centers) or miss some atoms etc...
+	MolSet*     pmset;         //!< MolSet for which molecular model is built - can contain extra atoms(force centers) or miss some atoms etc...
 	mort::molecule_t* p_mort_model; //!< Molecular Mechanics model in the MORT library format
 	
 	int UpdateDataFromFort();

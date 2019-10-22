@@ -49,9 +49,9 @@ HaBond::~HaBond()
 
 }
 
-HaHBond* HaMolSet::AddHBond(HaAtom* src, HaAtom* dst)
+HaHBond* MolSet::AddHBond(HaAtom* src, HaAtom* dst)
 {
-	   HaMolSet* pmset = src->GetHostMolSet();
+	   MolSet* pmset = src->GetHostMolSet();
 
 	   if(pmset != this || dst->GetHostMolSet() != this ) return NULL;
  
@@ -77,14 +77,14 @@ HaHBond* HaMolSet::AddHBond(HaAtom* src, HaAtom* dst)
 	   return(NULL);
 }
 
-void HaMolSet::CreateHydrogenBond(HaAtom* src, HaAtom* dst, int energy, int offset )
+void MolSet::CreateHydrogenBond(HaAtom* src, HaAtom* dst, int energy, int offset )
 {
     HaHBond* ptr;
     int flag;
 	
 	if(src == NULL || dst == NULL)
 	{
-		PrintLog(" Error In HaMolSet::CreateHydrogenBond() \n");
+		PrintLog(" Error In MolSet::CreateHydrogenBond() \n");
 		PrintLog(" NULL Atom Pointers \n");
 		return;
 	}

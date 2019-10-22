@@ -163,7 +163,7 @@ void HaMolView::ResetView()
 	to_stop_animation = TRUE;
 }
 
-HaMolSet* HaMolView::GetMolSet()
+MolSet* HaMolView::GetMolSet()
 {
 	return host_mol_set;
 }
@@ -319,7 +319,7 @@ void HaMolView::BuildHashTable()
 	
     HashTable.SetDimensions(21,21,21);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	
 	pmset->GetMinMaxCrd( xmin, ymin, zmin, xmax, ymax, zmax);
 	
@@ -640,7 +640,7 @@ void HaMolView::DisplayBackbone()
     HaAtom   *d;
     int sc,dc;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 	int nb = pmset->BackboneBonds.size();
@@ -682,7 +682,7 @@ void HaMolView::DisplayBackbone()
 
 void HaMolView::DisplayHBonds()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	
 	set<HaHBond, less<HaHBond> >::iterator  bitr;
 	HaAtom  *s;
@@ -729,7 +729,7 @@ void HaMolView::DisplayHBonds()
 
 void HaMolView::DisplaySSBonds()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 		
 	HaAtom  *s;
 	HaAtom  *d;
@@ -786,7 +786,7 @@ HaMolView::DisplayBoxes()
     int x, y, z;
 	int i;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(pmset->HostMolecules.empty()) return;
 
@@ -977,7 +977,7 @@ HaMolView::DisplayBoxes()
 void
 HaMolView::DisplayPickedAtoms()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomIteratorAtomGroup aitr(&pmset->picked_atoms);
 	HaAtom* aptr;
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
@@ -996,7 +996,7 @@ void HaMolView::DisplayOnScreenInfo()
 	int z = pCanv->m_ZOffset;
 
 	int i;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nstr = pmset->info_str.size();
 
 	for (i = 0; i < nstr; i++)
@@ -1011,7 +1011,7 @@ void HaMolView::RenderFrame()
 //! Enter plotting of new elements here 
 {
 //	std::cerr << std::endl << " HaMolView::RenderFrame() pt 1 " << std::endl;
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
     HaChain *chain;
 	
 	MoleculesType::iterator mol_itr;
@@ -1197,7 +1197,7 @@ void HaMolView::IdentifyAtom( int xpos, int ypos )
 
 	MoleculesType::iterator mol_itr;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
     BondIteratorMolSet bitr(pmset);
     
@@ -1673,7 +1673,7 @@ static void CentreZoneExpr(AtomExpr* expr)
     register int count;
 	HaAtom* aptr;
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 
     if( !pmset) return;
 
@@ -1712,7 +1712,7 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 	int done;
 	int RVal, GVal, BVal;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	cmd_pr.ResetCursorPosition();
 	
@@ -2067,7 +2067,7 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 				if( cmd_pr.CurToken == StringTok)
 				{
 					str2 = cmd_pr.TokenIdent;
-					HaMolSet* pmset = GetMolSet();
+					MolSet* pmset = GetMolSet();
 					HaAtom* aptr1 = pmset->GetAtomByRef(str1.c_str());
 					HaAtom* aptr2 = pmset->GetAtomByRef(str2.c_str());
 					if(aptr1 != NULL && aptr2 != NULL)
@@ -2181,7 +2181,7 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 				if( done ) cmd_pr.TokenValueFloat = -cmd_pr.TokenValueFloat;
 
 				WrapShiftVal(option,cmd_pr.TokenValueFloat/180.0);
-				HaMolSet* pmset = GetMolSet();
+				MolSet* pmset = GetMolSet();
 				pmset->RefreshAllViews(redraw_flag);	
 			} 
 			else 
@@ -3324,7 +3324,7 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 {
 	char buf[256];
 	HaVec_double ref_crd;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	try
 	{
 		std::auto_ptr<AtomIterator> paitr(p_at_coll->GetAtomIteratorPtr());

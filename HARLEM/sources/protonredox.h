@@ -112,7 +112,7 @@ class ProtonRedoxMod: public HaCompMod
 //!  Class to compute properties of chemical tranformation in the system such as protonation and redox changes
 {
 public:
-	ProtonRedoxMod(HaMolSet* new_phost_mset);
+	ProtonRedoxMod(MolSet* new_phost_mset);
 	virtual ~ProtonRedoxMod();
  
 	std::vector<AltChemState*> alt_chem_states; //!< Alternative chemical states of the system 

@@ -856,7 +856,7 @@ bool ZMatSaveOptions::ToSaveTags() const
 	return save_tags;
 }
 
-ZMatCrd::ZMatCrd(HaMolSet* pmset_new )
+ZMatCrd::ZMatCrd(MolSet* pmset_new )
 {
 	Clear();
 	pmset = pmset_new;

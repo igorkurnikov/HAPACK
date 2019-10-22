@@ -129,7 +129,7 @@ GUI of HARLEM is build on the basis of MFC(Microsoft Foundation Classes) which i
 standard library for the development of applications for WINDOWS operating system, X-
 WINDOWS MOTIF library (a standard for UNIX environment) and RASMOL a powerful
 and portable freeware program for molecular visualization. HARLEM adopts a so called
-Document/View architecture, which is supported by MFC classes. HaMolSet class which
+Document/View architecture, which is supported by MFC classes. MolSet class which
 as we described in the previous section the core class of the program specing the geometry
 molecular system under study is derived from the CDocument class of the MFC library,
 while 3D representation of the molecular system is given by HaMolView class which has
@@ -180,7 +180,7 @@ the Canvas3D class by the class which maintain the same member function call int
 but using different libraries of 3D primitives for example OpenGL library, provide a path
 120
 to modify molecular 3D display in HARLEM without great changes in the program text.
-HaMolView class maintain a pointer to an instance HaMolSet class which contains a list
+HaMolView class maintain a pointer to an instance MolSet class which contains a list
 of pointers to 3D objects being displayed. An C++ abstruction for the 3D object is
 Object3D class. Every 3D object can be rotated and translated independently of each
 other in screen coordinates (only tranformation matricies of the objects are chanaged) or
@@ -214,7 +214,7 @@ RASMOL mechanism of text command processing was modified in HARLEM to better
 fit the object-oriented design of the program. Classes of the program which need handle
 text commands are derived from HaTextCmdTarget class. A command entered through
 dialog interface a by other means (for example form the processing of the script or remote
-command) First handled by currently active instance of HaMolSet class which then redirect
+command) First handled by currently active instance of MolSet class which then redirect
 it if neccessary to be processed in other class derived from HaTextCmdTarget for example
 some computational module. Such code organization permits developers working on a
 particular module introduce text commands specific for their modules without changing
@@ -262,15 +262,15 @@ analagous C or C++ function. Typically basic mathematical data transformations s
 as matrix multiplication or diagonalization is done within the program by FORTRAN
 functions, encapsulated into a C++ member function of an appropriate class (for example
 matrix class).
-The central class in HARLEM is the HaMolSet class (see Figure ?? which is an abstraction
-of a set of molecules. There can be several instances of HaMolSet classes in a running
+The central class in HARLEM is the MolSet class (see Figure ?? which is an abstraction
+of a set of molecules. There can be several instances of MolSet classes in a running
 instantance of the program (HarlemApp class) (for example a molecular system under study
 and its fragments or several unrelated molecular systems). Molecular sets (instances of
-HaMolSet class) can be dynamically created and destroyed (for example when one performs
-a subdivision of the molecular system under study into molecular fragments). HaMolSet
-class maintains as a list of pointers to fragments, which are also the instances of HaMolSet
+MolSet class) can be dynamically created and destroyed (for example when one performs
+a subdivision of the molecular system under study into molecular fragments). MolSet
+class maintains as a list of pointers to fragments, which are also the instances of MolSet
 class.
-Molecular set (HaMolSet class) contain several molecules (vector of pointers to instances
+Molecular set (MolSet class) contain several molecules (vector of pointers to instances
 of HaMolecule class). Molecules can be independently created (for example being loaded
 from the molecular coordinate file) or manipulated (for example rotated and translated in
 3D space).
@@ -287,17 +287,17 @@ map or others. Cycles through the collections of the objects such as a set of at
 molecule is done through the standard incrementation of the iterators of the corresponding
 STL containers or with the help of simple utility member functions such as GetFirstAtom()
 and GetNextAtom() which manipulate these iterators.
-HaMolSet class has member functions which read and write atom coordinates, list of bonds
+MolSet class has member functions which read and write atom coordinates, list of bonds
 and other molecular info in the internal format of HARLEM (denoted by the extention
 117
 "*.hlm") or in some standard molecular description formats such as PDB (Protein Data
 Bank) format.
-HaMolSet provides a basic description of the molecular system under study and is assumed
+MolSet provides a basic description of the molecular system under study and is assumed
 to be "conservative" so changes in the interface of the class as provided by access member
-functions will change only infrequently, so other program modules which use the HaMolSet
+functions will change only infrequently, so other program modules which use the MolSet
 will not need to be updated accordingly too often.
 Useful simulation work in HARLEM is done in computational modules which are realized
-as classes inherited from HaCompMod base class. HaMolSet class maintains a list of
+as classes inherited from HaCompMod base class. MolSet class maintains a list of
 pointers of instances of HaCompMod class associated with a given molecular set. There
 are currently 5 types of the computational modules in HARLEM: 
 
@@ -318,11 +318,11 @@ chemical program.
 10. NuclAcidMod   - Nucleic Acid modeling module 
 
 The computational modules are created and desroyed dynamically whenever they needed.
-Every Computational Module recieves a pointer to the parent instance of HaMolSet class.
+Every Computational Module recieves a pointer to the parent instance of MolSet class.
 Thus molecular geometry and structural informations became immidiately available for a
 created computational module. Computational modules can easily create other modules
 and access information in them through the member function GetCompModule() of the
-HaMolSet class. For example when a user initially load a geometry of an electron transfer
+MolSet class. For example when a user initially load a geometry of an electron transfer
 system no computational modules exist. When the user start to define donor and acceptor
 and perform PATHWAYS calculations, an instance of ETCouplMod class (donor/acceptor cou-
 pling module) is created. When the user start to setup Devide-and-Conquer calculation the

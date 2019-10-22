@@ -27,7 +27,7 @@ class HaMolecule;
 class NuclAcidMod : public HaCompMod
 {
 public:
-	 NuclAcidMod(HaMolSet* new_pmset=NULL);
+	 NuclAcidMod(MolSet* new_pmset=NULL);
 	~NuclAcidMod();
 
 	int SetStdParams();	

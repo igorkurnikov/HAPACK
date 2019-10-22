@@ -29,7 +29,7 @@ class NodeIndexing;
 #include "pnpstructs.h"
 
 #ifdef HARLEM_MOD
-class HaMolSet;
+class MolSet;
 #endif
 
 #include <string>
@@ -215,7 +215,7 @@ class GOAtoms:public GenericGeometricalObject
 		int LoadPAN(const char *filename);
 		int LoadAtomicParam(const char *filename);
 #ifdef HARLEM_MOD
-		int LoadHaMolSet(HaMolSet *molset);
+		int LoadHaMolSet(MolSet *molset);
 #endif
 
 		int IAVMethod;//!0-HWR0(FF+IonSize), 1-HWR, 2 - LJ, 3 - AN
@@ -568,9 +568,9 @@ class BuildWorldNI:public PnpsObject
 			Input Parameters:
 				DielConst=float, default=2.0
 					dielectric constant
-				MolSet=HaMolSet, default None
+				MolSet=MolSet, default None
 					Load coordinates, charges and radii from Harlem MolSet
-					Note that if HaMolSet.p_save_opt_default.save_selected is set to 1
+					Note that if MolSet.p_save_opt_default.save_selected is set to 1
 					only selected atoms will be loaded
 				PQR=string, default None
 					Load coordinates, charges and radii from PQR file

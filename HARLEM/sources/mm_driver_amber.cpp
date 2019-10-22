@@ -372,7 +372,7 @@ int MMDriverAmber::WriteCrdToAmberMDTrajFortran( int iunit, PointContainer* pt_c
 	char form_1[20]="(10F8.3)";
 	char form_2[20]="(3F8.3)";
 
-	HaMolSet* pmset = dynamic_cast<HaMolSet*>(pt_cont);
+	MolSet* pmset = dynamic_cast<MolSet*>(pt_cont);
 
 	int npt = pt_cont->GetNumPt();
 	int ncrd = 3*npt;
@@ -6717,7 +6717,7 @@ int AmberMMModel::UpdateAmberData()
 {
 	int ires = TRUE;
 
-	HaMolSet* pmset = p_mm_model->GetMolSet();
+	MolSet* pmset = p_mm_model->GetMolSet();
 
 	p_amber_driver->title = " Amber topology and parameter file for the molecule set ";
 	p_amber_driver->title += pmset->GetName();

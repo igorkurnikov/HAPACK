@@ -18,7 +18,7 @@
 	#define SEEK_SET	0	/* Seek from beginning of file. from stdio */
 #endif
 
-HaEmpiricalMod::HaEmpiricalMod(HaMolSet* new_phost_mset):
+HaEmpiricalMod::HaEmpiricalMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_EMPIRICAL,new_phost_mset)
 {
 	SetStdParams();
@@ -300,7 +300,7 @@ HaEmpiricalMod::PenaltyConstraints()
 	double cur_low_bound = 0.0;
 	double cur_up_bound = 0.0;
 
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	int i;
  	for(i =0; i< npt_dist; i++)
 	{
@@ -330,7 +330,7 @@ HaEmpiricalMod::PenaltyPackDistance()
 //	fstream component_file;
 //	component_file.open("energy_components.dat",ios::out | ios::app);
 //  char buf[256];
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	double packdistance_ene = 0.0;
 	int ichain = 0;
 	int ichain_old =0;
@@ -367,7 +367,7 @@ HaEmpiricalMod::PenaltyPackAngle()
 //	fstream component_file;
 //	component_file.open("energy_components.dat",ios::out | ios::ate);
 //	char buf[256];
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int ichain = 0;
 	int ichain_old =0;
 	int nmol = pmset->GetNMol();
@@ -424,7 +424,7 @@ HaEmpiricalMod::CalcPackAngleForceTorque(Vec3DValArray& torque_array)
 //	fstream component_file;
 //	component_file.open("energy_components.dat",ios::out | ios::ate);
 //	char buf[256];
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int ichain = 0;
 	int ichain_old =0;
 	int nmol = pmset->GetNMol();
@@ -535,7 +535,7 @@ HaEmpiricalMod::CalcPackAngleForceTorque(Vec3DValArray& torque_array)
 double
 HaEmpiricalMod::PenaltyContact()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int n_contact ;
 	double cur_contact_ene =0.0;
@@ -585,7 +585,7 @@ HaEmpiricalMod::PenaltyBured()
 	char buf[256];
 
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -750,7 +750,7 @@ if (output_yes){
 double
 HaEmpiricalMod::PenaltyPairwise()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -933,7 +933,7 @@ double depth = 20/(double) nmol;
 double
 HaEmpiricalMod::PenaltyPairwise()
 {
-	HaMolSet* pmset = GetMolSet();  // assign the Van der Waals radius of each CA and SC residue on HaMolMech
+	MolSet* pmset = GetMolSet();  // assign the Van der Waals radius of each CA and SC residue on HaMolMech
 	wxString name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -1187,7 +1187,7 @@ HaEmpiricalMod::PenaltyPairwise()
 double
 HaEmpiricalMod::PenaltyVDW_Bured()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -1302,7 +1302,7 @@ double HaEmpiricalMod::PenaltyDensity()
 	pack_dens_calculated = 0.0;
 	int surf_type = 1;
 	double solv_rad = 1.4;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
     int natom = pmset -> GetNAtoms();
 
 	HaMat_float coord1(3,natom);
@@ -1368,7 +1368,7 @@ HaEmpiricalMod::PenaltySymmetry()
 		CenterOfMass();
 		FindAxes();
 	}
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	Vec3D mol_center ;
 	Vec3D* pmolcenter ;
@@ -1632,7 +1632,7 @@ HaEmpiricalMod::LoadEmpConstrains()
 	HaAtom* aptr1;
 	HaAtom* aptr2;
 	
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	int nmol = pmset -> GetNMol();
 	std::string fname = "restrains.dat";
 	FILE* finfo = fopen(fname.c_str(),"r");
@@ -1803,7 +1803,7 @@ HaEmpiricalMod::LoadSolventAccessibleAtoms()
 	int j;
 	HaMolecule* pMol; 
 	HaResidue* res_ptr;
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	int nmol = pmset -> GetNMol();
 	int nres = pmset -> GetNRes();
 	int natom = nres*nmol;
@@ -1915,7 +1915,7 @@ HaEmpiricalMod::EstablishChains()
 {
 	// This function assigns a number for each different chain
 	int ichain = 0;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaChain*    phost_chain = NULL ;
 	HaMolecule* pMol;
 	HaAtom* aptr;
@@ -2000,7 +2000,7 @@ HaEmpiricalMod::FindAxes()
 
 	
 	Vec3D point;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	
 	axis_arr.resize(nmol);
@@ -2139,7 +2139,7 @@ HaEmpiricalMod::FindAxes()
 	double com_x, com_y, com_z;
 	Vec3D point;
 	int imol, i;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	axis_arr.resize(nmol);
 
@@ -2211,7 +2211,7 @@ HaEmpiricalMod::FindAxes()
 Vec3DValArray
 HaEmpiricalMod::CenterOfMass()
 { 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolecule* pMol;
 	HaAtom* aptr;
 	int nmol = pmset->GetNMol();
@@ -2284,7 +2284,7 @@ HaEmpiricalMod::CenterOfMass()
 
 int HaEmpiricalMod::LoadEmpParam()
 {
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	std::string fname = "empir_param.dat";
 	char buf[256];
 
@@ -2554,7 +2554,7 @@ int HaEmpiricalMod::LoadEmpParam()
 
 int HaEmpiricalMod::CbettaSetUp()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	char buf[256];
 	std::string mol_name;
 	std::string res_name;
@@ -2585,7 +2585,7 @@ int HaEmpiricalMod::CbettaSetUp()
 	int ncont_res = residue_unres_arr.GetCount();
 
 	
-	HaMolSet::ResidueIterator ritr(pmset);
+	MolSet::ResidueIterator ritr(pmset);
 	for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 	{
 		
@@ -2718,7 +2718,7 @@ double HaEmpiricalMod::PenaltySolventAccessible()
 
 	HaAtom* aptr ;
 //	HaAtom* aptr1 ;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolecule* pMol ;
 	HaMolecule* pMol1 ;
 	HaResidue* res_ptr;
@@ -2862,7 +2862,7 @@ HaEmpiricalMod::FindCentralAxis()
 		FindAxes();
 	}
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	Vec3D vec1 ;
 
@@ -2889,7 +2889,7 @@ int
 HaEmpiricalMod::Neighborhood()
 {
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -3039,7 +3039,7 @@ HaEmpiricalMod::ResidueTypeList()
 		residue_unres_arr.Add("VAL");
 	}
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset -> GetNMol();
 	int imol;
 	int i;
@@ -3084,7 +3084,7 @@ if(finfo != NULL) fclose(finfo);
 int
 HaEmpiricalMod::LineSegments()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name ;
 	HaAtom* aptr;
 	HaMolecule* pMol;
@@ -3136,7 +3136,7 @@ HaEmpiricalMod::PenaltyVDW()
 //	fstream dist_file;
 //	dist_file.open("dist_vdw.dat",ios::out | ios::app);
 	char buf[256];
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaAtom* aptr;
 	int nmol = pmset->GetNMol();
 	Vec3DValArray end1_arr;
@@ -3922,7 +3922,7 @@ HaEmpiricalMod::Parabola_Ex ( double x1, double y1, double x2, double y2, double
 }
 double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaMolecule* pMol;
 	HaMolecule* pMol1;
@@ -3986,7 +3986,7 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 }
 double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted soon
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaMolecule* pMol;
 	HaMolecule* pMol1;
@@ -4174,7 +4174,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 double
 HaEmpiricalMod::HarmonicEnergy()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
    	int nmol = pmset->GetNMol();
 	HaMolecule* pMol;
 	HaAtom* aptr ;
@@ -4255,7 +4255,7 @@ HaEmpiricalMod::HarmonicEnergy()
 double
 HaEmpiricalMod::PenaltyCentralAttract()
 {
-	HaMolSet*  pmset =  GetMolSet();
+	MolSet*  pmset =  GetMolSet();
 	int nmol = pmset->GetNMol();
 	int i;
 	int imol;
@@ -4290,7 +4290,7 @@ double
 HaEmpiricalMod::PenaltyHelicePack() // added by jose
 {
 	// pack helices
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int a = GetGeomCenter();
 	double ene_pack = 0.0;
@@ -4317,7 +4317,7 @@ HaEmpiricalMod::PenaltyHelicePack() // added by jose
 int
 HaEmpiricalMod::CalcForceCentralAttract(Vec3DValArray& force_cntl_array)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int i;
 	int imol;
@@ -4362,7 +4362,7 @@ HaEmpiricalMod::CalcForceCentralAttract(Vec3DValArray& force_cntl_array)
 void 
 HaEmpiricalMod::CalculateCoarseGrainedBackbone()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset -> GetNMol();
 	HaAtom* aptr;
 	HaMolecule* pMol; 
@@ -4472,7 +4472,7 @@ HaEmpiricalMod::PenaltyRepulsion()
 	HaMolecule* pMol1;
 	int i = 0;
 	int j = 0;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 
 	
@@ -4534,7 +4534,7 @@ HaEmpiricalMod::CalcRepulForceTorque(Vec3DValArray& force_array, Vec3DValArray& 
 	HaMolecule* pMol1;
 	int i = 0;
 	int j = 0;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	force_array.resize(nmol);
 	torque_array.resize(nmol);
@@ -4789,7 +4789,7 @@ int HaEmpiricalMod::GetGeomCenterToy()  // added by jose
 {
 	// calculates the center of mass of each cylinder 
 	//then the center of mass of the molecule
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	//PrintLog("Number of molecules: %d\n", nmol);
 	HaAtom* aptr = NULL;
@@ -4817,7 +4817,7 @@ int HaEmpiricalMod::GetGeomCenterToy()  // added by jose
 	geom_center_t.SetY(y_temp);
 	geom_center_t.SetZ(z_temp);
 
-	//HaMolSet::ResidueIterator ritr(pmset);
+	//MolSet::ResidueIterator ritr(pmset);
 	//for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 	//{
 	//	AtomIteratorResidue aitr(res_ptr);
@@ -4831,7 +4831,7 @@ int HaEmpiricalMod::GetGeomCenterToy()  // added by jose
 int HaEmpiricalMod::GetGeomCenter()  //added by jose 05-22-08
 {
 	// Find geometric center of all helices
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int imol;
 	if (com_flag)
@@ -4862,7 +4862,7 @@ int HaEmpiricalMod::GetGeomCenter()  //added by jose 05-22-08
 int HaEmpiricalMod::GetMaxDimension()
 {
 	//  units are in Angstroms
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int imol;
 	HaMolecule* pMol;
@@ -4906,7 +4906,7 @@ int HaEmpiricalMod::QuantSampling() // added by jose
 {	// This function evaluates the rate of exchange of positions of rigid helices on the plane XY
 	// the array state_new gives you the current positions of the rigid helices with respect to the first molecule
 	// the angle most negative corresponds to the position 1
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	int imol=0;
 	Vec3D vec1;
@@ -5059,7 +5059,7 @@ double HaEmpiricalMod::LJ_eneCylinder() //added by jose
 {
 	// Calculates Lennard Jones interactions between sticky points of cylinders
 	// there are two sticky points located at the extremes of the cylinders
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	double e=4.0;   // well parameter
 	double r0=sqrt(89.0);  // 3 (angstroms) distance at the minimum
@@ -5213,7 +5213,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 { // This function evaluates the Lennard Jones potential energy of a bundle of N helical rigid bodies
   // with respect to the first molecule. There will at least (N-1)! basins of energy.
   // The interacting residues are located at the extremes of the helices
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaMolecule* pMol;
 	HaMolecule* pMol1;
@@ -5293,7 +5293,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 
 double HaEmpiricalMod::BuriedEnergyCyl() // added by jose for cylinders 
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -5320,7 +5320,7 @@ double HaEmpiricalMod::BuriedEnergy()  //added by jose
 {
 	// It gives a harmonic energy potential if the resiudes located at the exterior of the membrane are buried
 	// the width of the membrane is 30 A and the helices length is 50 A
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaAtom* aptr;
 	HaAtom* aptr1;
@@ -5362,7 +5362,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 { // This function evaluates the Lennard Jones potential energy of a bundle of N helical rigid bodies
   // with respect to the first molecule. There will at least (N-1)! basins of energy.
   // The interacting residues are located at the extremes of the helices
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaMolecule* pMol;
 	HaMolecule* pMol1;
@@ -5470,7 +5470,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 int HaEmpiricalMod::InitCylinders()  //added by jose
 {
 	// function the initialize the radius values of dummy atoms on Cylinders
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	HaAtom* aptr=NULL;
 	double radius_vw = 4.0; 
@@ -5493,7 +5493,7 @@ int HaEmpiricalMod::InitCylinders()  //added by jose
 double
 HaEmpiricalMod::PenaltyRepulsionCyl() //added by jose
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaAtom* aptr = NULL;
 	HaAtom* aptr1 = NULL;
 	double ene = 0.0;
@@ -5531,14 +5531,14 @@ HaEmpiricalMod::PenaltyRepulsionCyl() //added by jose
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-HaMolMembraneMod::HaMolMembraneMod(HaMolSet* new_phost_mset):
+HaMolMembraneMod::HaMolMembraneMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_MEMBRANE,new_phost_mset)
 {
 	MolMechModule = new HaMolMechMod(new_phost_mset);
 	SetStdParams();
 }
 
-//HaMolMembraneMod::HaMolMembraneMod(HaMolSet* new_phost_mset)//: MolMechModule(new HaMolMechMod(new_phost_mset))
+//HaMolMembraneMod::HaMolMembraneMod(MolSet* new_phost_mset)//: MolMechModule(new HaMolMechMod(new_phost_mset))
 //{
 //	MolMechModule = new HaMolMechMod(new_phost_mset); // prefer composition over inheritance 
 //	MolMechModule = new_phost_mset->GetMolMechMod(true);
@@ -5770,7 +5770,7 @@ int HaMolMembraneMod::SetCoarseGrainedDFireCoreParams() // jose October 22, 2008
 	HaResidue* res_ptr;
 	HaAtom* aptr;
 
-	HaMolSet::ResidueIterator ritr(phost_mset); //phost_mset
+	MolSet::ResidueIterator ritr(phost_mset); //phost_mset
 	for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 	{
 		std::string res_name = res_ptr->GetName();
@@ -7003,7 +7003,7 @@ HaMolMembraneMod::FindAxes()
 	double com_x, com_y, com_z;
 	Vec3D point;
 	int imol, i;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	axis_arr.resize(nmol);
 
@@ -7071,7 +7071,7 @@ HaMolMembraneMod::FindAxes()
 int
 HaMolMembraneMod::LineSegments()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	wxString name ;
 	HaAtom* aptr;
 	HaMolecule* pMol;
@@ -7120,7 +7120,7 @@ HaMolMembraneMod::LineSegments()
 int 
 HaMolMembraneMod::CbettaSetUp()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	char buf[256];
 	std::string mol_name;
 	std::string res_name;
@@ -7151,7 +7151,7 @@ HaMolMembraneMod::CbettaSetUp()
 	int ncont_res = residue_unres_arr.GetCount();
 
 	
-	HaMolSet::ResidueIterator ritr(pmset);
+	MolSet::ResidueIterator ritr(pmset);
 	for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 	{
 		

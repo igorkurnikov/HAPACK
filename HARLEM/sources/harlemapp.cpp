@@ -136,7 +136,7 @@ HarlemApp::~HarlemApp()
 	  int i;
 	  for( i = 0; i < nm; i++)
 	  {
-		 HaMolSet* pmset = (HaMolSet*) molset_vec_axx[i];
+		 MolSet* pmset = (MolSet*) molset_vec_axx[i];
 		 this->DeleteMolSet(pmset);
 	  }
    }
@@ -242,7 +242,7 @@ int HarlemApp::InitFirst()
 
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
 	{
-		HaMolSet* pmset = new HaMolSet();
+		MolSet* pmset = new MolSet();
 		wxString fname_str = finp_name.c_str();
 		PrintLog(" input file name %s \n", fname_str.ToStdString().c_str());
 		wxFileName fname_obj(fname_str);
@@ -1311,7 +1311,7 @@ long HarlemApp::RunExternalProgram(RunMode rmode, const std::string& prog_name, 
 	return pid;
 }
 
-HaMolSet* HarlemApp::GetMolSetByName(const char* name)
+MolSet* HarlemApp::GetMolSetByName(const char* name)
 {
 	std::string ref_name = name;
 	boost::trim(ref_name);
@@ -1322,7 +1322,7 @@ HaMolSet* HarlemApp::GetMolSetByName(const char* name)
 
 	for(i = 0; i < nm; i++)
 	{
-		HaMolSet* pmset = (HaMolSet*) molset_vec[i];
+		MolSet* pmset = (MolSet*) molset_vec[i];
 		std::string name2 = pmset->GetName();
 		boost::trim(name2);
 		boost::to_upper(name2);
@@ -1331,7 +1331,7 @@ HaMolSet* HarlemApp::GetMolSetByName(const char* name)
 	return NULL;
 }	
 
-void HarlemApp::AddMolSet(HaMolSet* pmset)
+void HarlemApp::AddMolSet(MolSet* pmset)
 {
 	if(pmset != NULL)
 	{
@@ -1340,7 +1340,7 @@ void HarlemApp::AddMolSet(HaMolSet* pmset)
 	}
 }
 
-void HarlemApp::DeleteMolSet(HaMolSet* pmset)
+void HarlemApp::DeleteMolSet(MolSet* pmset)
 {
 	if(pmset != NULL)
 	{
@@ -1370,7 +1370,7 @@ HaAtom* HarlemApp::GetAtomByRef(const char* at_ref)
 		    if( at_ref[i] == '!') break;
 		    mset_name += at_ref[i];
 		 }
-		 HaMolSet* pmset = GetMolSetByName(mset_name.c_str());
+		 MolSet* pmset = GetMolSetByName(mset_name.c_str());
 		 if( pmset == NULL) return NULL;
 		 if( i == len) return NULL;
 		 aptr = pmset->GetAtomByRef(&at_ref[i+1]);

@@ -11,7 +11,7 @@
 
 #include "hamolset.h"
 
-class HaResDB : public HaMolSet
+class HaResDB : public MolSet
 //! Class to define Residue Database 
 {
 public:

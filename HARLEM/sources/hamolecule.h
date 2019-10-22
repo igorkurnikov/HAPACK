@@ -57,12 +57,12 @@ class ResidueIteratorMolecule;
 class HaMolecule: public Object3D, public AtomContainer
 {
 public:
-	HaMolecule(HaMolSet* new_phost_mset, std::string new_name="MOL");
+	HaMolecule(MolSet* new_phost_mset, std::string new_name="MOL");
 	HaMolecule(const HaMolecule& Mol_ref);
     virtual ~HaMolecule();
 
-	HaMolSet* GetHostMolSet() { return phost_mset; }
-	const HaMolSet* GetHostMolSet() const { return phost_mset; }
+	MolSet* GetHostMolSet() { return phost_mset; }
+	const MolSet* GetHostMolSet() const { return phost_mset; }
 
 	bool AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain = true, AtomAtomMap* ptr_atom_map = NULL);
 
@@ -70,7 +70,7 @@ public:
 	int CombineMolecules(HaMolecule* frag_mol, HaAtom* catom_host, HaAtom* catom_frag );
 
 protected:
-	HaMolSet* phost_mset;
+	MolSet* phost_mset;
 
 	std::string mol_name;
 	int mol_idx; 
@@ -190,7 +190,7 @@ public:
 	friend class AtomIteratorMolSet;
 	friend class ResidueIteratorMolSet;
 	friend class ResidueIteratorMolSet_const;
-	friend class HaMolSet;
+	friend class MolSet;
 
 	//	typedef AtomIteratorMolecule AtomIterator; //!<  Atom iterator type for the molecule
 	typedef ResidueIteratorMolecule ResidueIterator; //!<  Residue iterator type for the molecule

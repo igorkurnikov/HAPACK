@@ -75,7 +75,7 @@ int HaMPI::Listen()
     int ires;
 	int flag;
 
-	HaMolSet* pmset = new HaMolSet();
+	MolSet* pmset = new MolSet();
 	std::string mset_name = "MOLSET_MIRROR_" + harlem::ToString(myrank);
 	pmset->SetName(mset_name.c_str());
 	HaMolMechMod* p_mm_mod = pmset->GetMolMechMod(true);

@@ -15,7 +15,7 @@
 #include "hastring.h"
 #include "hatypes.h"
 
-class HaMolSet;
+class MolSet;
 class AtomContainer;
 
 const int COMP_MOD_ELECTROST   = 0x0001; //!< mtype for the continuum electrostatics module
@@ -87,14 +87,14 @@ class HaCompMod
 //! Parent class for computational modules in HARLEM
 {
 public:
-	HaCompMod(const int new_mtype, HaMolSet* new_phost_mset = NULL); //!< Constructor - supply type in new_mtype
+	HaCompMod(const int new_mtype, MolSet* new_phost_mset = NULL); //!< Constructor - supply type in new_mtype
 	virtual ~HaCompMod();
 
-	static HaCompMod* CreateCompMod( const int mtype, HaMolSet* new_phost_mset = NULL); //!< Create computational module of the given type
+	static HaCompMod* CreateCompMod( const int mtype, MolSet* new_phost_mset = NULL); //!< Create computational module of the given type
 
-	bool SetMolHost(HaMolSet* new_phost_mset) { phost_mset = new_phost_mset; return true; }
-	HaMolSet* GetMolSet() { return phost_mset; }             //!< Get Molecular Set associated with the module
-	const HaMolSet* GetMolSet() const { return phost_mset; } //!< Get Molecular Set associated with the module
+	bool SetMolHost(MolSet* new_phost_mset) { phost_mset = new_phost_mset; return true; }
+	MolSet* GetMolSet() { return phost_mset; }             //!< Get Molecular Set associated with the module
+	const MolSet* GetMolSet() const { return phost_mset; } //!< Get Molecular Set associated with the module
 
 	int GetType() { return mtype; } //!< return type of the computational module
 
@@ -106,7 +106,7 @@ public:
 	int debug_level;
 	
 protected:
-	HaMolSet* phost_mset; //!< pointer to the Molecular Set associated with the module
+	MolSet* phost_mset; //!< pointer to the Molecular Set associated with the module
 	const int mtype;      //!< the type of the computational module 
 	
 };

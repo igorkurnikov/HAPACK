@@ -97,7 +97,7 @@ bool HarlemAppWX::ProcessEvent(wxEvent& event)
 {
 	if( wxApp::ProcessEvent(event)) return true;
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 
 	if(pmset != NULL) if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
 
@@ -105,7 +105,7 @@ bool HarlemAppWX::ProcessEvent(wxEvent& event)
 	int i;
 	for( i = 0; i < nm; i++)
 	{
-		pmset = (HaMolSet*) molset_vec[i];
+		pmset = (MolSet*) molset_vec[i];
 		if( pmset == GetCurMolSet() ) continue;
 		if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
 	}
@@ -117,9 +117,9 @@ void HarlemAppWX::OnIdle(wxIdleEvent& event)
 {
 //	int ret = PyRun_InteractiveOne(stdin, "<stdin>");  //Igor Python incorporation...
   
-	//fprintf(stdout,"HaMolSet::OnIdle >\n");
+	//fprintf(stdout,"MolSet::OnIdle >\n");
   //PyRun_InteractiveOne(stdin,"none");
-  //fprintf(stdout,"HaMolSet::OnIdle <\n");
+  //fprintf(stdout,"MolSet::OnIdle <\n");
       
   /*
   unsigned char uc[1024];
@@ -133,12 +133,12 @@ void HarlemAppWX::OnIdle(wxIdleEvent& event)
       PyCmd[inxPyCmd+i]=uc[i];
     inxPyCmd=inxPyCmd+l;
     PyCmd[inxPyCmd]='\0';
-    fprintf(stdout,"HaMolSet::OnIdle [%s]\n",PyCmd);
+    fprintf(stdout,"MolSet::OnIdle [%s]\n",PyCmd);
     
   }
   else
   {
-    fprintf(stdout,"HaMolSet::OnIdle No input\n");
+    fprintf(stdout,"MolSet::OnIdle No input\n");
     clearerr(stdin);
   }*/
 }
@@ -216,7 +216,7 @@ bool HarlemAppWX::OnInit(void)
 //	    printf("  HarlemApp::OnInit() test printf() \n");
 //		PrintLog(" HarlemApp::OnInit() test PrintLog() \n");
 
-		HaMolSet* pmset = GetCurMolSet();
+		MolSet* pmset = GetCurMolSet();
 		if( pmset != NULL)
 		{
 			pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);

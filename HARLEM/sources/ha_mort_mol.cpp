@@ -64,14 +64,14 @@ void MMForceField::switch_amoeba_type( mort::molecule_t& mol, const mort::molecu
 	mol.set_i("amoeba-switched", 1);
 }
 
-int HaMolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_type )
+int MolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_type )
 {
 	MMForceField* p_ff = MMForceField::GetMMForceField(ff_type,TRUE);
 	if(p_ff == NULL) return FALSE;
 
 	if( !p_ff->IsMortFFInitiated() ) 
 	{
-		PrintLog(" Error in HaMolSet::SetMortMol() \n");
+		PrintLog(" Error in MolSet::SetMortMol() \n");
 		PrintLog(" MORT Force field structure of the force field %s are not initiated \n",ff_type.label());
 		return FALSE;
 	}
@@ -187,7 +187,7 @@ int HaMolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_ty
 
 //		if( !p_mdb->has("_namemap") )
 //		{
-//			PrintLog("Warning in HaMolSet::SetMortMol() \n");
+//			PrintLog("Warning in MolSet::SetMortMol() \n");
 //			PrintLog("cnamemap does not exist when modelize resd \n");
 //		}
 
@@ -228,7 +228,7 @@ int HaMolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_ty
 	}
 	catch(std::exception& ex) 
 	{
-		PrintLog(" Error in HaMolSet::SetMortMol() \n");
+		PrintLog(" Error in MolSet::SetMortMol() \n");
 		PrintLog(" %s \n",ex.what());
 		return FALSE;
 	}
@@ -236,7 +236,7 @@ int HaMolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_ty
 	return TRUE;
 }
 
-int HaMolSet::SavePDBMort(const char* fname)
+int MolSet::SavePDBMort(const char* fname)
 {
 	mort::molecule_t mol;
 	int ires = SetMortMol(mol,ForceFieldType::AMOEBA);
@@ -247,7 +247,7 @@ int HaMolSet::SavePDBMort(const char* fname)
 	return TRUE;
 }
 
-int HaMolSet::SaveSDFMort(const char* fname)
+int MolSet::SaveSDFMort(const char* fname)
 {
 	mort::molecule_t mol;
 	int ires = SetMortMol(mol,ForceFieldType::AMOEBA);

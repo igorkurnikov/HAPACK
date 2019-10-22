@@ -1,4 +1,4 @@
-mset = HaMolSet()
+mset = MolSet()
 mset.LoadHarlemFile("MG_HOH1_1.hlm")
 #zmat = mset.GetZMat()
 #zmat.InitAllXYZ()

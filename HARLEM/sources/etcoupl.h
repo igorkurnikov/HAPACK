@@ -17,7 +17,7 @@
 
 class HaQCMod;
 class HaMolecule;
-class HaMolSet;
+class MolSet;
 class HaAtom;
 class HaMat_double;
 class LinCombOrb3D;
@@ -85,7 +85,7 @@ class ETCouplMod: public HaCompMod
 {
 public:
 
-	ETCouplMod(HaMolSet* new_phost_mset = NULL);
+	ETCouplMod(MolSet* new_phost_mset = NULL);
 	~ETCouplMod();
 
 	HaQCMod* GetQCMod() { return ptr_qc_mod; }  //!< Get Quantum Chemical module associated with this module
@@ -167,7 +167,7 @@ public:
 	
 	bool CalcHDAEneSplit(); //!< Find Donor/Acceptor couplings between donor and acceptor localized eigenvectors using minimal energy splitting algorithm
     int AddRedoxOrbFromEigVec(const HaVec_int& mo_idx); //!< Add truncated Eigen Vectors (specified indexes of MO) to the the list donor/acceptor orbitals
-	int GetRedoxOrbsFromFrag( HaMolSet* pfrag ); //!< Get Redox Orbitals from the fragment donor/acceptor orbitals
+	int GetRedoxOrbsFromFrag( MolSet* pfrag ); //!< Get Redox Orbitals from the fragment donor/acceptor orbitals
 	bool FindRedoxOrbsOvlpEigVecs( StrIntMap& lbl_idx_map, StrDoubleMap& ovlp_val_map,  REDOX_ORB_TYPE redox_orb_type = REDOX_ORB_DONOR ); //!< Find indexes of eigen vectors that donor/acceptor orbitals overlap most
 	bool FindRedoxOrbSpaceOvlpEigVecs( StrIntMap& lbl_idx_map, StrDoubleMap& ovlp_val_map, HaVec_double& eigv_space_max_ovlp_val, REDOX_ORB_TYPE redox_orb_type = REDOX_ORB_DONOR ); //!< Find indexes of eigen vectors overlapping most with the space of donor/acceptor orbitals
     HaVec_int FindDonAccEigVecs(int idx_don, int idx_acc); //!< find indexes (0-based) of eigenvectors maximally overlaped with donor/acceptor orbitals idx_don and idx_acc 

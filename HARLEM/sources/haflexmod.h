@@ -22,7 +22,7 @@ class HaHydrophobicTether;
 class HaFlexMod: public HaCompMod 
 {
 public:
-	HaFlexMod(HaMolSet* new_pmset=NULL);
+	HaFlexMod(MolSet* new_pmset=NULL);
 	~HaFlexMod();
 
 	void Init();

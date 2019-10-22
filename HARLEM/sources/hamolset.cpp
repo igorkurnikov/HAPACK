@@ -66,19 +66,19 @@
 
 
 
-AtomLoadOptions* HaMolSet::p_load_opt_default = new AtomLoadOptions();
-AtomSaveOptions* HaMolSet::p_save_opt_default = new AtomSaveOptions();
+AtomLoadOptions* MolSet::p_load_opt_default = new AtomLoadOptions();
+AtomSaveOptions* MolSet::p_save_opt_default = new AtomSaveOptions();
 
-HaMolSet* HaMolSet::CurMolSet = NULL;
+MolSet* MolSet::CurMolSet = NULL;
 
-void SetCurMolSet(HaMolSet* pmset) 
+void SetCurMolSet(MolSet* pmset) 
 { 
 	if( pmset == NULL)
 	{
-		HaMolSet::CurMolSet  = NULL;
+		MolSet::CurMolSet  = NULL;
 		CurMolView = NULL;
 	}
-	HaMolSet::CurMolSet = pmset;
+	MolSet::CurMolSet = pmset;
 #if !defined(HARLEM_PYTHON_NO)
 	PyGILState_STATE gstate;
 	gstate = PyGILState_Ensure();
@@ -104,7 +104,7 @@ void SetCurMolSet(HaMolSet* pmset)
 #endif
 }
 
-HaMolSet::HaMolSet()
+MolSet::MolSet()
 {	
 	CurMolSet=this;
 	
@@ -128,7 +128,7 @@ HaMolSet::HaMolSet()
 	this->SetName("MOLSET");
 }
 
-HaMolSet::~HaMolSet()
+MolSet::~MolSet()
 {
 	if(CurMolSet == this) CurMolSet = NULL;
 	DeleteAll();
@@ -141,7 +141,7 @@ HaMolSet::~HaMolSet()
 }
 
 
-void HaMolSet::DeleteAll()
+void MolSet::DeleteAll()
 {	
 	ReleaseAllFragments();
 
@@ -181,7 +181,7 @@ void HaMolSet::DeleteAll()
 
 
 
-int HaMolSet::SavePDBFile(const char* filename)
+int MolSet::SavePDBFile(const char* filename)
 {
 	double x, y, z;
     
@@ -284,7 +284,7 @@ int HaMolSet::SavePDBFile(const char* filename)
 	return( True );
 }
 
-int HaMolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
+int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
 {
 	double x, y, z;
 	HaChain  *chain;
@@ -385,7 +385,7 @@ int HaMolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
     return( True );
 }
 
-int HaMolSet::SavePQRFreeFile(const char* filename)
+int MolSet::SavePQRFreeFile(const char* filename)
 {
 	double x, y, z;
 	HaChain  *chain;
@@ -482,7 +482,7 @@ int HaMolSet::SavePQRFreeFile(const char* filename)
 	return( True );
 }
 
-int HaMolSet::SaveHINToStream(std::ostream& os ) const
+int MolSet::SaveHINToStream(std::ostream& os ) const
 {      
 	if( os.fail() ) return FALSE;
 	char buf[128];
@@ -653,7 +653,7 @@ int HaMolSet::SaveHINToStream(std::ostream& os ) const
 	return TRUE;
 }
 
-int HaMolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) const
+int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) const
 {
 	if( os.fail() ) return FALSE;
 
@@ -948,7 +948,7 @@ int HaMolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg 
 
 
 
-int HaMolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par ) const
+int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par ) const
 {
 	std::auto_ptr<harlem::HashMap> popt_auto( (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
 	harlem::HashMap* popt = popt_auto.get();
@@ -1026,7 +1026,7 @@ int HaMolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par
 	return TRUE;
 }
 
-int HaMolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* popt_par ) const
+int MolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* popt_par ) const
 {
 	std::auto_ptr<harlem::HashMap> popt_auto( (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
 	harlem::HashMap* popt = popt_auto.get();
@@ -1041,7 +1041,7 @@ int HaMolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* 
 	std::ofstream os(fname.c_str() );
 	if( os.fail() )
 	{
-		PrintLog(" Error in HaMolSet::SaveCrdSnapshots() \n");
+		PrintLog(" Error in MolSet::SaveCrdSnapshots() \n");
 		PrintLog(" Error to open file %s\n", fname.c_str());
 		return FALSE;
 	}
@@ -1049,13 +1049,13 @@ int HaMolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* 
 	return ires;
 }
 
-int  HaMolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt )
+int  MolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt )
 {
 	using namespace rapidxml;
 	std::ifstream is(fname.c_str(), ios::binary);
 	if(is.fail()) 
 	{
-		PrintLog(" Error in HaMolSet::LoadCrdSnapshots \n");
+		PrintLog(" Error in MolSet::LoadCrdSnapshots \n");
 		PrintLog(" Error to open file %s\n",fname.c_str());
 		return FALSE;
 	}
@@ -1066,18 +1066,18 @@ int  HaMolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap*
 }
 
 
-int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions* popt_arg )
 {
 	using namespace rapidxml;
 
-//	PrintLog( "HaMolSet::LoadXMLNode() pt 1 \n");
+//	PrintLog( "MolSet::LoadXMLNode() pt 1 \n");
 
 	std::auto_ptr<AtomLoadOptions> popt_auto( popt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) popt_arg->clone() );
 	AtomLoadOptions* popt = popt_auto.get();
  
 	try
 	{
-//		PrintLog( "HaMolSet::LoadXMLNode() pt 2 \n");
+//		PrintLog( "MolSet::LoadXMLNode() pt 2 \n");
 
 		char buf[256];
 		char attr_buf[256];
@@ -1085,7 +1085,7 @@ int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOption
 		std::string tag = node_mset->name();
 		if( !boost::iequals(tag, "molset") ) throw std::runtime_error(" Name of the node is not molset ");
 
-//		PrintLog( "HaMolSet::LoadXMLNode() pt 3 \n");
+//		PrintLog( "MolSet::LoadXMLNode() pt 3 \n");
 
 		xml_attribute<>* attr;
 		for( attr = node_mset->first_attribute(); attr; attr = attr->next_attribute() )
@@ -1097,7 +1097,7 @@ int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOption
 			}
 		}
 
-//		PrintLog( "HaMolSet::LoadXMLNode() pt 4 \n");
+//		PrintLog( "MolSet::LoadXMLNode() pt 4 \n");
 
 		HaMolecule* pmol   = NULL;
 		HaChain*    pchain = NULL;
@@ -1112,7 +1112,7 @@ int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOption
 		{
 			tag = node1->name();
 			boost::to_lower(tag);
-//			PrintLog( "HaMolSet::LoadXMLNode() pt 5   name = %s \n", tag.c_str());
+//			PrintLog( "MolSet::LoadXMLNode() pt 5   name = %s \n", tag.c_str());
 			
 			if( boost::equals(tag, "atom")  )
 			{
@@ -1271,7 +1271,7 @@ int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOption
 				std::string at_ref_str = aptr->GetRef();
 				if( id_at_map.count(at_ref_str) != 0 )
 				{
-					PrintLog("Warning in HaMolSet::LoadXML() : Atom Reference %s is not unique \n", at_ref_str.c_str());
+					PrintLog("Warning in MolSet::LoadXML() : Atom Reference %s is not unique \n", at_ref_str.c_str());
 				}
 				else
 				{
@@ -1503,19 +1503,19 @@ int HaMolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOption
 	}
 	catch( const std::exception& ex)
 	{
-		PrintLog(" Error in HaMolSet::LoadXMLNode() \n");
+		PrintLog(" Error in MolSet::LoadXMLNode() \n");
 		PrintLog("%s\n",ex.what());
 		return FALSE;
 	}
 	return TRUE;
 }
 
-ZMatCrd* HaMolSet::GetZMat( const harlem::HashMap* popt )
+ZMatCrd* MolSet::GetZMat( const harlem::HashMap* popt )
 {
 	return p_zmat;
 }
 
-int HaMolSet::SaveOldHarlemStream(std::ostream& os)
+int MolSet::SaveOldHarlemStream(std::ostream& os)
 {
 	if( os.fail() ) return FALSE;
 
@@ -1865,7 +1865,7 @@ int HaMolSet::SaveOldHarlemStream(std::ostream& os)
 	return TRUE;
 }
 
-int HaMolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_arg )
+int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_arg )
 {
 	std::auto_ptr<AtomSaveOptions> popt_auto( popt_arg == NULL ? (AtomSaveOptions*) p_save_opt_default->clone() : (AtomSaveOptions*) popt_arg->clone() );
 	AtomSaveOptions* popt = popt_auto.get();
@@ -1873,7 +1873,7 @@ int HaMolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_a
 	ofstream fout(filename);
 	if( fout.fail())
 	{
-		PrintLog(" Error in HaMolSet::SaveHarlemFile()  opening file %s\n",filename);
+		PrintLog(" Error in MolSet::SaveHarlemFile()  opening file %s\n",filename);
 		return FALSE;
 	}	
 	popt->SetSaveHeader(true);
@@ -1885,12 +1885,12 @@ int HaMolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_a
 }
 
 
-int HaMolSet::SaveHINFile(const char* filename )
+int MolSet::SaveHINFile(const char* filename )
 {
 	ofstream fout(filename);
 	if( fout.fail())
 	{
-		PrintLog(" Error in HaMolSet::SaveHINFile()  opening file %s\n",filename);
+		PrintLog(" Error in MolSet::SaveHINFile()  opening file %s\n",filename);
 		return FALSE;
 	}	
 	
@@ -1898,24 +1898,24 @@ int HaMolSet::SaveHINFile(const char* filename )
 	return ires;
 }
 
-int HaMolSet::SaveOldHarlemFile(const char* filename )
+int MolSet::SaveOldHarlemFile(const char* filename )
 {
 	ofstream fout(filename);
 	if( fout.fail())
 	{
-		PrintLog(" Error in HaMolSet::SaveOldHarlemFile()   opening file %s\n",filename);
+		PrintLog(" Error in MolSet::SaveOldHarlemFile()   opening file %s\n",filename);
 		return FALSE;
 	}
 	int ires = SaveOldHarlemStream(fout);
 	return ires;
 }
 
-bool HaMolSet::DeleteMol(HaMolecule* pMol)
+bool MolSet::DeleteMol(HaMolecule* pMol)
 {
 	return( DeleteAtoms(*pMol) );
 }
 
-double HaMolSet::FindClosestContact(HaAtom* atc1,HaAtom* atc2)
+double MolSet::FindClosestContact(HaAtom* atc1,HaAtom* atc2)
 {
 	double dist_min = 999999.0;
 	atc1 = NULL;
@@ -1950,7 +1950,7 @@ double HaMolSet::FindClosestContact(HaAtom* atc1,HaAtom* atc2)
 	return dist_min;
 }
 
-int HaMolSet::ExecuteCommand(CmdParser& cmd_pr)
+int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 {
 	char buf[256];
 	int option;
@@ -2163,7 +2163,7 @@ int HaMolSet::ExecuteCommand(CmdParser& cmd_pr)
 	return True;
 }
 
-int HaMolSet::ExecuteShowCommand(CmdParser& cmd_pr)
+int MolSet::ExecuteShowCommand(CmdParser& cmd_pr)
 {
     double temp;
 	
@@ -2213,7 +2213,7 @@ int HaMolSet::ExecuteShowCommand(CmdParser& cmd_pr)
 	return True;
 }
 
-bool HaMolSet::DeleteAtomWithRef(const char* atref)
+bool MolSet::DeleteAtomWithRef(const char* atref)
 {
 	HaAtom* aptr = GetAtomByRef(atref);
 	if(aptr == NULL) return false;
@@ -2222,7 +2222,7 @@ bool HaMolSet::DeleteAtomWithRef(const char* atref)
 
 }
 
-bool HaMolSet::DeleteAtoms(AtomContainer& atcoll)
+bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 {
 	int nmol;
 
@@ -2415,7 +2415,7 @@ bool HaMolSet::DeleteAtoms(AtomContainer& atcoll)
 }
 
 
-bool HaMolSet::DeleteAtom(HaAtom* aptr)
+bool MolSet::DeleteAtom(HaAtom* aptr)
 {
 	if(aptr == NULL) return false;
 	if( aptr->GetHostMolSet() != this)
@@ -2427,46 +2427,46 @@ bool HaMolSet::DeleteAtom(HaAtom* aptr)
 	return bres;
 }
 
-void HaMolSet::OnAtomSeqChange()
+void MolSet::OnAtomSeqChange()
 {
 	at_seq_num_map.clear();
 	at_array.clear();
 }
 
-void HaMolSet::OnChangePeriodicity()
+void MolSet::OnChangePeriodicity()
 {
 	HaMolMechMod* p_mm_mod = GetMolMechMod();
 	if( p_mm_mod ) p_mm_mod->OnChangePeriodicity();
 }
 
-PointIterator* HaMolSet::GetPointIteratorPtr()
+PointIterator* MolSet::GetPointIteratorPtr()
 {
 	return GetAtomIteratorPtr();
 }
 
-PointIterator_const* HaMolSet::GetPointIteratorPtr() const
+PointIterator_const* MolSet::GetPointIteratorPtr() const
 {
 	return GetAtomIteratorPtr();
 }
 
-int HaMolSet::GetNumPt() const
+int MolSet::GetNumPt() const
 {
 	return GetNAtoms();
 }
 
-AtomIterator* HaMolSet::GetAtomIteratorPtr()
+AtomIterator* MolSet::GetAtomIteratorPtr()
 {
 	AtomIteratorMolSet* p_aitr = new AtomIteratorMolSet(this);
 	return p_aitr;
 }
 
-AtomIterator_const* HaMolSet::GetAtomIteratorPtr() const
+AtomIterator_const* MolSet::GetAtomIteratorPtr() const
 {
 	AtomIteratorMolSet_const* p_aitr = new AtomIteratorMolSet_const(this);
 	return p_aitr;
 }
 
-int HaMolSet::IsMember(const HaAtom* aptr) const 
+int MolSet::IsMember(const HaAtom* aptr) const 
 {
 	AtomIteratorMolSet_const aitr(this);
 	const HaAtom* aptr1 = aitr.GetFirstAtom();
@@ -2477,13 +2477,13 @@ int HaMolSet::IsMember(const HaAtom* aptr) const
 	return FALSE;
 }
 
-int HaMolSet::GetNMol() const
+int MolSet::GetNMol() const
 {
 	return(HostMolecules.size());
 }
 
 
-int HaMolSet::GetNAtoms() const
+int MolSet::GetNAtoms() const
 {
 	int nat=0;
 	for(int i=0; i < HostMolecules.size(); i++)
@@ -2493,7 +2493,7 @@ int HaMolSet::GetNAtoms() const
 	return(nat);
 }
 
-int HaMolSet::GetNDumAtoms() const
+int MolSet::GetNDumAtoms() const
 {
     AtomIteratorMolSet_const aitr(this);
 	const HaAtom* aptr;
@@ -2505,17 +2505,17 @@ int HaMolSet::GetNDumAtoms() const
 	return n_dummy_atoms;
 }
 
-int HaMolSet::GetNBonds() const
+int MolSet::GetNBonds() const
 {
     return(Bonds.size());
 }
 
-int HaMolSet::GetNHBonds() const
+int MolSet::GetNHBonds() const
 {
     return(HBonds.size());
 }
 
-int HaMolSet::GetNSSBonds() const
+int MolSet::GetNSSBonds() const
 {
 	int nss = 0;
 
@@ -2531,12 +2531,12 @@ int HaMolSet::GetNSSBonds() const
     return( nss );
 }
 
-int HaMolSet::GetNBackbBonds() const
+int MolSet::GetNBackbBonds() const
 {
     return(BackboneBonds.size());
 }
 
-int HaMolSet::GetNRes() const
+int MolSet::GetNRes() const
 {
 	int nres=0;
 	for(int i=0; i < HostMolecules.size(); i++)
@@ -2547,7 +2547,7 @@ int HaMolSet::GetNRes() const
 }
 
 int
-HaMolSet::GetNChains() const
+MolSet::GetNChains() const
 {
 	int nchains=0;
 	for(int i=0; i < HostMolecules.size(); i++)
@@ -2558,18 +2558,18 @@ HaMolSet::GetNChains() const
 }
 
 
-HaMolView* HaMolSet::GetActiveMolView()
+HaMolView* MolSet::GetActiveMolView()
 {
 	return mset_pview;
 }
 
-const HaMolView* HaMolSet::GetActiveMolView() const
+const HaMolView* MolSet::GetActiveMolView() const
 {
 	return mset_pview;
 }
 
 
-void HaMolSet::SelectAtomsAll()
+void MolSet::SelectAtomsAll()
 {  
 	AtomIteratorMolSet aitr(this);
 	HaAtom* aptr;
@@ -2580,7 +2580,7 @@ void HaMolSet::SelectAtomsAll()
 	}
 }
 
-void HaMolSet::SelectAtoms(AtomContainer* pat_cont)
+void MolSet::SelectAtoms(AtomContainer* pat_cont)
 {
 	if(pat_cont == NULL) 
 		return;
@@ -2599,7 +2599,7 @@ void HaMolSet::SelectAtoms(AtomContainer* pat_cont)
 }
 
 
-void HaMolSet::UnSelectAtomsAll()
+void MolSet::UnSelectAtomsAll()
 {
 	AtomIteratorMolSet aitr(this);
 	HaAtom* aptr;
@@ -2610,7 +2610,7 @@ void HaMolSet::UnSelectAtomsAll()
 	}
 }
 
-void HaMolSet::RevertAtomSelection()
+void MolSet::RevertAtomSelection()
 {
 	AtomIteratorMolSet aitr(this);
 	HaAtom* aptr;
@@ -2628,7 +2628,7 @@ void HaMolSet::RevertAtomSelection()
 	}
 }
 
-int HaMolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
+int MolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
 {
 	HaHBond hbond(src,dst);
 	
@@ -2642,7 +2642,7 @@ int HaMolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
 	return FALSE;
 }
 
-HaResidue* HaMolSet::GetResByRef(const char* res_ref)
+HaResidue* MolSet::GetResByRef(const char* res_ref)
 {
 	if(HostMolecules.empty())
 		return NULL;
@@ -2668,7 +2668,7 @@ HaResidue* HaMolSet::GetResByRef(const char* res_ref)
 	return NULL;	
 }
 
-HaAtom* HaMolSet::GetAtomByRef(const std::string& at_ref_str)
+HaAtom* MolSet::GetAtomByRef(const std::string& at_ref_str)
 {
 	if(HostMolecules.empty()) return NULL;
 
@@ -2692,7 +2692,7 @@ HaAtom* HaMolSet::GetAtomByRef(const std::string& at_ref_str)
 }
 	
 
-AtomIntMap HaMolSet::GetAtomSeqNumMap()
+AtomIntMap MolSet::GetAtomSeqNumMap()
 {
 	at_seq_num_map.clear();
 
@@ -2709,7 +2709,7 @@ AtomIntMap HaMolSet::GetAtomSeqNumMap()
 	return at_seq_num_map;
 }
 
-CAtomIntMap HaMolSet::GetAtomSeqNumMap() const
+CAtomIntMap MolSet::GetAtomSeqNumMap() const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -2726,7 +2726,7 @@ CAtomIntMap HaMolSet::GetAtomSeqNumMap() const
 }
 
 
-bool HaMolSet::GetAtomsByRef(const char* at_ref, AtomGroup& at_set)
+bool MolSet::GetAtomsByRef(const char* at_ref, AtomGroup& at_set)
 {
 	at_set.clear();
 	if(HostMolecules.empty())
@@ -2805,13 +2805,13 @@ bool HaMolSet::GetAtomsByRef(const char* at_ref, AtomGroup& at_set)
 	return false;
 }
 
-HaAtom* HaMolSet::GetAtomBySeqNum(int seq_num)
+HaAtom* MolSet::GetAtomBySeqNum(int seq_num)
 {
 	if( at_array.empty() ) InitAtomIdx();
 	return at_array[seq_num];
 }
 
-int HaMolSet::GetSeqNumForAtom( HaAtom* aptr)
+int MolSet::GetSeqNumForAtom( HaAtom* aptr)
 {
 	if( at_seq_num_map.empty() ) InitAtomIdx();
 	AtomIntMap::const_iterator mitr = at_seq_num_map.find(aptr);
@@ -2819,7 +2819,7 @@ int HaMolSet::GetSeqNumForAtom( HaAtom* aptr)
 	return (*mitr).second;
 }
 
-void HaMolSet::InitAtomIdx()
+void MolSet::InitAtomIdx()
 {
 	at_seq_num_map.clear();
 	at_array.clear();
@@ -2834,7 +2834,7 @@ void HaMolSet::InitAtomIdx()
 	}
 }
 
-HaMolecule* HaMolSet::GetMolByName(const char* mol_name)
+HaMolecule* MolSet::GetMolByName(const char* mol_name)
 {
 	MoleculesType::iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
@@ -2847,7 +2847,7 @@ HaMolecule* HaMolSet::GetMolByName(const char* mol_name)
 	return NULL;
 }
 
-const HaMolecule* HaMolSet::GetMolByName(const char* mol_name) const
+const HaMolecule* MolSet::GetMolByName(const char* mol_name) const
 {
 	MoleculesType::const_iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
@@ -2860,13 +2860,13 @@ const HaMolecule* HaMolSet::GetMolByName(const char* mol_name) const
 	return NULL;
 }
 
-const char* HaMolSet::GetName() const
+const char* MolSet::GetName() const
 {
 	return name_mset.c_str();
 }
 
 
-ChemGroupIterator::ChemGroupIterator(HaMolSet* new_pmset)
+ChemGroupIterator::ChemGroupIterator(MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	if(pmset == NULL) return;
@@ -2894,7 +2894,7 @@ ChemGroup* ChemGroupIterator::GetNext()
 	return( &(*CurGroupItr) );
 }
 
-AtomGroupIteratorMolSet::AtomGroupIteratorMolSet(HaMolSet* new_pmset)
+AtomGroupIteratorMolSet::AtomGroupIteratorMolSet(MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	if(pmset == NULL) return;
@@ -2922,7 +2922,7 @@ AtomGroup* AtomGroupIteratorMolSet::GetNext()
 	return( &(*CurListItr) );
 }
 
-AtomGroupIteratorMolSet_const::AtomGroupIteratorMolSet_const(const HaMolSet* new_pmset)
+AtomGroupIteratorMolSet_const::AtomGroupIteratorMolSet_const(const MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	if(pmset == NULL) return;
@@ -2951,7 +2951,7 @@ const AtomGroup* AtomGroupIteratorMolSet_const::GetNext()
 }
 
 
-int HaMolSet::WrapAndCenter(const std::string& grp_name, const Vec3D& cnt_crd )  
+int MolSet::WrapAndCenter(const std::string& grp_name, const Vec3D& cnt_crd )  
 {
 	try
 	{
@@ -2968,33 +2968,33 @@ int HaMolSet::WrapAndCenter(const std::string& grp_name, const Vec3D& cnt_crd )
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog("Error in HaMolSet::WrapAndCenter() \n");
+		PrintLog("Error in MolSet::WrapAndCenter() \n");
 		PrintLog("%s\n",ex.what());
 		return FALSE;
 	}
 	return TRUE;
 }
 
-int HaMolSet::WrapToUnitCell()
+int MolSet::WrapToUnitCell()
 {
 	if( !per_bc->IsSet() ) return FALSE; 
 	MolEditor* p_mol_ed = GetMolEditor(true);
 	return p_mol_ed->WrapToUnitCell(this,per_bc);
 }
 
-ResidueIteratorMolSet HaMolSet::GetResidueIterator()
+ResidueIteratorMolSet MolSet::GetResidueIterator()
 {
 	ResidueIteratorMolSet ritr(this);
 	return ritr;
 }
 
-int HaMolSet::GetNChemGroups() const
+int MolSet::GetNChemGroups() const
 {
 	return(ChemGroups.size());
 }
 	
 
-ChemGroup* HaMolSet::AddBlankChemGroup(const std::string& gid )
+ChemGroup* MolSet::AddBlankChemGroup(const std::string& gid )
 {
 	std::string gid_loc=gid;
 	if(gid_loc == "BUF")  // For Buffer region Atomic Groups
@@ -3010,7 +3010,7 @@ ChemGroup* HaMolSet::AddBlankChemGroup(const std::string& gid )
 	return &(ChemGroups.back());
 }
 
-bool HaMolSet::DeleteChemGroup(const std::string& gid )
+bool MolSet::DeleteChemGroup(const std::string& gid )
 {
 	ChemGroupsType::iterator gitr;
 	for(gitr=ChemGroups.begin(); gitr != ChemGroups.end(); gitr++)
@@ -3025,7 +3025,7 @@ bool HaMolSet::DeleteChemGroup(const std::string& gid )
 	return false;
 }
 
-bool HaMolSet::DeleteChemGroupPtr( ChemGroup* grp_ptr  )
+bool MolSet::DeleteChemGroupPtr( ChemGroup* grp_ptr  )
 {
 	if( grp_ptr == NULL) return false;
 	ChemGroupsType::iterator gitr;
@@ -3041,7 +3041,7 @@ bool HaMolSet::DeleteChemGroupPtr( ChemGroup* grp_ptr  )
 	return false;
 }
 
-bool HaMolSet::DeleteAtomGroup(const char* id )
+bool MolSet::DeleteAtomGroup(const char* id )
 {
 	NamedAtomGroupsType::iterator gitr;
 	std::string gid = id;
@@ -3056,7 +3056,7 @@ bool HaMolSet::DeleteAtomGroup(const char* id )
 	return false;
 }
 
-bool HaMolSet::DeleteAtomGroupPtr( AtomGroup* alist_ptr  )
+bool MolSet::DeleteAtomGroupPtr( AtomGroup* alist_ptr  )
 {
 	if( alist_ptr == NULL) return false;
 	NamedAtomGroupsType::iterator gitr;
@@ -3071,12 +3071,12 @@ bool HaMolSet::DeleteAtomGroupPtr( AtomGroup* alist_ptr  )
 	return false;
 }
 
-int HaMolSet::CreateAxxMol(const char* mol_name, const char* id)
+int MolSet::CreateAxxMol(const char* mol_name, const char* id)
 {
 	AtomGroup* pgrp = GetAtomGroupByID(id);
 	if(pgrp == NULL)
 	{
-		PrintLog("Error in HaMolSet::CreateAxxMol() \n");
+		PrintLog("Error in MolSet::CreateAxxMol() \n");
 	    PrintLog("No atom group with the name %s \n",id);
 		return FALSE;
 	}
@@ -3133,12 +3133,12 @@ int HaMolSet::CreateAxxMol(const char* mol_name, const char* id)
 }
 
 
-bool HaMolSet::SetChemGrpSelected(const std::string& gid)
+bool MolSet::SetChemGrpSelected(const std::string& gid)
 {
 	ChemGroup* gptr=GetChemGroupByID(gid);
 	if(!gptr)
 	{
-		PrintLog(" Error in HaMolSet::SetChemGrpSelected \n");
+		PrintLog(" Error in MolSet::SetChemGrpSelected \n");
 		PrintLog(" there is no group %s in the molecular set \n", gptr->GetID());
 		return false;
 	}
@@ -3156,7 +3156,7 @@ bool HaMolSet::SetChemGrpSelected(const std::string& gid)
 	return true;
 }
 
-bool HaMolSet::SetStdChemGroups()
+bool MolSet::SetStdChemGroups()
 {
 	ChemGroups.clear();
 	HaResidue* group;
@@ -4026,7 +4026,7 @@ bool HaMolSet::SetStdChemGroups()
 
 }
 
-bool HaMolSet::CheckUniqChemGrpID(const std::string& gid)
+bool MolSet::CheckUniqChemGrpID(const std::string& gid)
 {
 	ChemGroupsType::iterator itr;
 	for(itr=ChemGroups.begin(); itr != ChemGroups.end(); itr++)
@@ -4041,7 +4041,7 @@ static const int MAX_MAIN_GRP_ID=99999;
 static const int MIN_BUF_GRP_ID=100000;
 static const int MAX_BUF_GRP_ID=200000;
 
-std::string HaMolSet::GetUniqChemGrpID(int buf_reg_flag)
+std::string MolSet::GetUniqChemGrpID(int buf_reg_flag)
 // but_reg_flag - TRUE if ChemGroup belongs to buffer Region
 {
 	int low=MIN_MAIN_GRP_ID;
@@ -4062,7 +4062,7 @@ std::string HaMolSet::GetUniqChemGrpID(int buf_reg_flag)
 	gidmax++;
 	if(gidmax > high)
 	{
-		PrintLog(" Error in HaMolSet::GetUniqChemGroupID() \n");
+		PrintLog(" Error in MolSet::GetUniqChemGroupID() \n");
         PrintLog(" gidmax > high \n");
 	}
 	char buf[256];
@@ -4070,7 +4070,7 @@ std::string HaMolSet::GetUniqChemGrpID(int buf_reg_flag)
 	return buf;
 }
 
-ChemGroup& HaMolSet::GetChemGroupByIdx(const int index)
+ChemGroup& MolSet::GetChemGroupByIdx(const int index)
 {
 	if(chemg_idx.size() == 0 )
 	{
@@ -4088,13 +4088,13 @@ ChemGroup& HaMolSet::GetChemGroupByIdx(const int index)
 }
 
 //const ChemGroup&
-//HaMolSet::GetChemGroupByIdx(const int index) const
+//MolSet::GetChemGroupByIdx(const int index) const
 //{
 //	return(ChemGroups[index-1]);	
 //}
 
 
-ChemGroup* HaMolSet::GetChemGroupByID(const std::string& gid)
+ChemGroup* MolSet::GetChemGroupByID(const std::string& gid)
 {
 	ChemGroupsType::iterator gitr;
 	
@@ -4109,7 +4109,7 @@ ChemGroup* HaMolSet::GetChemGroupByID(const std::string& gid)
 }
 
 ChemGroup*
-HaMolSet::GetChemGroupByAtom(const HaAtom* aptr)
+MolSet::GetChemGroupByAtom(const HaAtom* aptr)
 {
 	ChemGroupsType::iterator gitr;
 	
@@ -4123,7 +4123,7 @@ HaMolSet::GetChemGroupByAtom(const HaAtom* aptr)
 	return NULL;
 }
 
-AtomGroup* HaMolSet::SetAtomGroupFromSelection( const char* id)
+AtomGroup* MolSet::SetAtomGroupFromSelection( const char* id)
 {
 	AtomGroup* atlist = GetAtomGroupByID(id);
 	if( atlist == NULL) 
@@ -4139,7 +4139,7 @@ AtomGroup* HaMolSet::SetAtomGroupFromSelection( const char* id)
 	return atlist;
 }
 
-int HaMolSet::AssociateFragment(HaMolSet* frag)
+int MolSet::AssociateFragment(MolSet* frag)
 {
 	if(frag == NULL) return FALSE;
 
@@ -4160,7 +4160,7 @@ int HaMolSet::AssociateFragment(HaMolSet* frag)
 	return TRUE;
 }
 
-int HaMolSet::ReleaseFragment(HaMolSet* frag)
+int MolSet::ReleaseFragment(MolSet* frag)
 {
 	if(frag == NULL) return FALSE;
 
@@ -4171,7 +4171,7 @@ int HaMolSet::ReleaseFragment(HaMolSet* frag)
 		frag_atom_maps.erase(frag);
 	}
 	
-	vector<HaMolSet*>::iterator fitr;
+	vector<MolSet*>::iterator fitr;
 
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); fitr++)
 	{
@@ -4185,7 +4185,7 @@ int HaMolSet::ReleaseFragment(HaMolSet* frag)
 	return FALSE;
 }
 
-int HaMolSet::DeleteFragment(HaMolSet* frag)
+int MolSet::DeleteFragment(MolSet* frag)
 {
 	int ires = ReleaseFragment(frag);
 
@@ -4195,7 +4195,7 @@ int HaMolSet::DeleteFragment(HaMolSet* frag)
 	return TRUE;
 }
 
-int HaMolSet::ReleaseAllFragments()
+int MolSet::ReleaseAllFragments()
 {
 	PtrPtrMap_itr mitr = frag_atom_maps.begin();
 
@@ -4206,7 +4206,7 @@ int HaMolSet::ReleaseAllFragments()
     }
 	frag_atom_maps.clear();
 
-	vector<HaMolSet*>::iterator fitr;
+	vector<MolSet*>::iterator fitr;
 
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); )
 	{
@@ -4216,7 +4216,7 @@ int HaMolSet::ReleaseAllFragments()
 	return TRUE;	
 }
 
-int HaMolSet::DeleteAllFragments()
+int MolSet::DeleteAllFragments()
 {
 	PtrPtrMap::iterator mitr = frag_atom_maps.begin();
 	PtrPtrMap::iterator mitr_end = frag_atom_maps.end();
@@ -4228,10 +4228,10 @@ int HaMolSet::DeleteAllFragments()
     }
 	frag_atom_maps.clear();
 	
-	vector<HaMolSet*>::iterator fitr;
+	vector<MolSet*>::iterator fitr;
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); )
 	{
-		HaMolSet* frag = (HaMolSet*)(*fitr);
+		MolSet* frag = (MolSet*)(*fitr);
 		delete frag;
 		fitr = Fragments.erase(fitr);
 	}
@@ -4240,7 +4240,7 @@ int HaMolSet::DeleteAllFragments()
 }
 
 
-int HaMolSet::BuildFragmentAtomMap(HaMolSet* frag, AtomAtomMap& frag_atom_map)
+int MolSet::BuildFragmentAtomMap(MolSet* frag, AtomAtomMap& frag_atom_map)
 {
 	bool debug = false;
 	frag_atom_map.clear();
@@ -4256,13 +4256,13 @@ int HaMolSet::BuildFragmentAtomMap(HaMolSet* frag, AtomAtomMap& frag_atom_map)
 		aptr = this->GetAtomByRef( at_ref_f );
 		if( aptr != NULL )
 		{
-			if( debug ) PrintLog(" HaMolSet::BuildFragmentAtomMap for atom %s match is found ", at_ref_f.c_str() ); 
+			if( debug ) PrintLog(" MolSet::BuildFragmentAtomMap for atom %s match is found ", at_ref_f.c_str() ); 
 			frag_atom_map[aptr] = aptr_f;
 			frag_atom_map[aptr_f] = aptr;
 		}
 		else
 		{
-			if( debug ) PrintLog(" HaMolSet::BuildFragmentAtomMap for atom %s match is not found ", at_ref_f.c_str() ); 
+			if( debug ) PrintLog(" MolSet::BuildFragmentAtomMap for atom %s match is not found ", at_ref_f.c_str() ); 
 		}
 	}
 
@@ -4294,11 +4294,11 @@ int HaMolSet::BuildFragmentAtomMap(HaMolSet* frag, AtomAtomMap& frag_atom_map)
 				{
 					if( frag_atom_map.count(aptr) > 0 &&  frag_atom_map[aptr] != aptr_f ) 
 					{
-						PrintLog(" Warning in HaMolSet::BuildFragmentAtomMap() atom %s is already mapped to different atom remapping by distance " );
+						PrintLog(" Warning in MolSet::BuildFragmentAtomMap() atom %s is already mapped to different atom remapping by distance " );
 					}
 					if( frag_atom_map.count(aptr_f) > 0 &&  frag_atom_map[aptr_f] != aptr ) 
 					{
-						PrintLog(" Warning in HaMolSet::BuildFragmentAtomMap() atom %s is already mapped to different atom remapping by distance " );
+						PrintLog(" Warning in MolSet::BuildFragmentAtomMap() atom %s is already mapped to different atom remapping by distance " );
 					}
 					frag_atom_map[aptr] = aptr_f;
 					frag_atom_map[aptr_f] = aptr;
@@ -4309,7 +4309,7 @@ int HaMolSet::BuildFragmentAtomMap(HaMolSet* frag, AtomAtomMap& frag_atom_map)
 	return TRUE;
 }
 
-int HaMolSet::SelectAtomsMatchingFragment(HaMolSet* frag)
+int MolSet::SelectAtomsMatchingFragment(MolSet* frag)
 {
 	int nf = frag_atom_maps.size();
 
@@ -4327,7 +4327,7 @@ int HaMolSet::SelectAtomsMatchingFragment(HaMolSet* frag)
 }
 
 
-int HaMolSet::IsFragment(const HaMolSet* pmset)
+int MolSet::IsFragment(const MolSet* pmset)
 {
 	if(pmset == NULL) return FALSE;
 	int nf = Fragments.size();
@@ -4339,7 +4339,7 @@ int HaMolSet::IsFragment(const HaMolSet* pmset)
 	return FALSE;
 }
 
-int HaMolSet::FragmentIdx(const HaMolSet* pmset)
+int MolSet::FragmentIdx(const MolSet* pmset)
 {
 	if(pmset == NULL) return -1;
 	int nf = Fragments.size();
@@ -4356,7 +4356,7 @@ int HaMolSet::FragmentIdx(const HaMolSet* pmset)
 }
 	
 
-HaMolSet* HaMolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params )
+MolSet* MolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params )
 {
 	HaAtom *aptr, *faptr;
 	HaMolecule* pMol;
@@ -4370,7 +4370,7 @@ HaMolSet* HaMolSet::CreateFragmentFromSelection(const char* frag_name, FragmentC
 
 	if( this->GetNChemGroups() == 0) this->SetStdChemGroups();
 
-	HaMolSet* pfrag= new HaMolSet;
+	MolSet* pfrag= new MolSet;
 	pfrag->SetName( frag_name );
 	
 	int cur_serno=0;
@@ -4492,7 +4492,7 @@ HaMolSet* HaMolSet::CreateFragmentFromSelection(const char* frag_name, FragmentC
 			pfMol= pfrag->GetMolByName(mol_name.c_str());
 			if( pMol == NULL || pfMol == NULL) 
 			{
-				PrintLog("HaMolSet::CreateFragementFromSelection() pMol == NULL || pfMol == NULL \n");
+				PrintLog("MolSet::CreateFragementFromSelection() pMol == NULL || pfMol == NULL \n");
 				continue;
 			}
 			mitr = frag_at_map.find(aptr);
@@ -4515,7 +4515,7 @@ HaMolSet* HaMolSet::CreateFragmentFromSelection(const char* frag_name, FragmentC
 			pfMol = pfrag->GetMolByName(pMol->GetObjName());
 			if( pfMol == NULL ) 
 			{
-				PrintLog("Error in HaMolSet::CreateFragmenFromSelection() \n");
+				PrintLog("Error in MolSet::CreateFragmenFromSelection() \n");
 				continue;
 			}
 			
@@ -4599,17 +4599,17 @@ HaMolSet* HaMolSet::CreateFragmentFromSelection(const char* frag_name, FragmentC
 	return pfrag;
 }
 
-int HaMolSet::SyncFragmentCoord(HaMolSet* frag)
+int MolSet::SyncFragmentCoord(MolSet* frag)
 {
 	if(!this->IsFragment(frag) )
 	{
-		PrintLog("Error in HaMolSet::SyncFragmentCoord() \n");
+		PrintLog("Error in MolSet::SyncFragmentCoord() \n");
         PrintLog("Argument is not a fragment of the current Molecular Set \n");
 		return FALSE;
 	}
 	if( frag_atom_maps.count(frag) == 0 )
 	{
-		PrintLog("Error in HaMolSet::SyncFragmentCoord() \n");
+		PrintLog("Error in MolSet::SyncFragmentCoord() \n");
 		PrintLog("AtomMapping is not set for the fragment \n");
 		return FALSE;
 	}
@@ -4620,7 +4620,7 @@ int HaMolSet::SyncFragmentCoord(HaMolSet* frag)
 	return ires;
 }
 
-bool HaMolSet::CalcDipole()
+bool MolSet::CalcDipole()
 {
 	int na=GetNAtoms();
 	
@@ -4660,7 +4660,7 @@ bool HaMolSet::CalcDipole()
 	return true;
 }
 
-bool HaMolSet::SetVdwRadii()
+bool MolSet::SetVdwRadii()
 {
 	HaAtom* aptr;
 
@@ -4674,7 +4674,7 @@ bool HaMolSet::SetVdwRadii()
 	return true;
 }
 
-bool HaMolSet::SetParseRadii()
+bool MolSet::SetParseRadii()
 {
 	HaAtom* aptr;
 
@@ -4709,7 +4709,7 @@ bool HaMolSet::SetParseRadii()
 	return true;
 }
 
-bool HaMolSet::SetHPPRadii()
+bool MolSet::SetHPPRadii()
 {
 	HaAtom* aptr;
 
@@ -4744,7 +4744,7 @@ bool HaMolSet::SetHPPRadii()
 	return true;
 }
 
-double HaMolSet::CalculatePotential( double x, double y, double z )
+double MolSet::CalculatePotential( double x, double y, double z )
 {
     HaAtom  *aptr;
     double dx,dy,dz;
@@ -4779,7 +4779,7 @@ double HaMolSet::CalculatePotential( double x, double y, double z )
     return( result );
 }
 
-AtomDoubleMap* HaMolSet::GetChargeMapByName(const char* map_name)
+AtomDoubleMap* MolSet::GetChargeMapByName(const char* map_name)
 {
 	int nn= ChargeMaps.size();
 	int i;
@@ -4793,7 +4793,7 @@ AtomDoubleMap* HaMolSet::GetChargeMapByName(const char* map_name)
 	return (AtomDoubleMap*) NULL;
 }
 
-AtomDoubleMap* HaMolSet::CreateChargeMap(const char* map_name)
+AtomDoubleMap* MolSet::CreateChargeMap(const char* map_name)
 {
 	ChargeMaps.push_back(AtomDoubleMap(map_name));
 	return &ChargeMaps.back();
@@ -4801,7 +4801,7 @@ AtomDoubleMap* HaMolSet::CreateChargeMap(const char* map_name)
 }
 
 int 
-HaMolSet::SetChargeMapByCurrentCharges(const char* map_name)
+MolSet::SetChargeMapByCurrentCharges(const char* map_name)
 {
 	AtomDoubleMap* charge_map = GetChargeMapByName(map_name);
     if(charge_map == NULL )
@@ -4820,7 +4820,7 @@ HaMolSet::SetChargeMapByCurrentCharges(const char* map_name)
 }
 
 int 
-HaMolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
+MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 {
 	if(charge_map == NULL) 
 		return False;
@@ -4837,7 +4837,7 @@ HaMolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 }
 
 bool
-HaMolSet::Print_info(ostream &sout, const int level)
+MolSet::Print_info(ostream &sout, const int level)
 {
 	MoleculesType::iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
@@ -4851,7 +4851,7 @@ HaMolSet::Print_info(ostream &sout, const int level)
 	return true;
 }
 
-HaCompMod* HaMolSet::GetCompModule(int mtype, bool create_module )
+HaCompMod* MolSet::GetCompModule(int mtype, bool create_module )
 {
 	vector<HaCompMod*>::iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
@@ -4869,7 +4869,7 @@ HaCompMod* HaMolSet::GetCompModule(int mtype, bool create_module )
 	return pmod;
 }
 
-const HaCompMod* HaMolSet::GetCompModule( int mtype ) const  
+const HaCompMod* MolSet::GetCompModule( int mtype ) const  
 {
 	vector<HaCompMod*>::const_iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
@@ -4880,34 +4880,34 @@ const HaCompMod* HaMolSet::GetCompModule( int mtype ) const
 	return NULL;
 }
 
-ETCouplMod* HaMolSet::GetETCouplMod( const bool create_module )
+ETCouplMod* MolSet::GetETCouplMod( const bool create_module )
 {
 	return( (ETCouplMod*) GetCompModule( COMP_MOD_ET_COUPL ,create_module) );
 }
 
-HaQCMod* HaMolSet::GetQCMod( const bool create_module )
+HaQCMod* MolSet::GetQCMod( const bool create_module )
 {
 	return( (HaQCMod*) GetCompModule( COMP_MOD_QCHEM ,create_module) );
 }
 
-const HaQCMod* HaMolSet::GetQCMod() const
+const HaQCMod* MolSet::GetQCMod() const
 {
 	return( (const HaQCMod*) GetCompModule( COMP_MOD_QCHEM ) );
 }
 
 
 
-HaGaussMod* HaMolSet::GetGaussMod( const bool create_module )
+HaGaussMod* MolSet::GetGaussMod( const bool create_module )
 {
 	return( (HaGaussMod*) GetCompModule( COMP_MOD_GAUSSIAN ,create_module) );
 }
 
-HaDaltonMod* HaMolSet::GetDaltonMod( const bool create_module )
+HaDaltonMod* MolSet::GetDaltonMod( const bool create_module )
 {
 	return( (HaDaltonMod*) GetCompModule( COMP_MOD_DALTON ,create_module) );
 }
 
-ElectrostMod* HaMolSet::GetElectrostMod( const bool create_module )
+ElectrostMod* MolSet::GetElectrostMod( const bool create_module )
 {
 	if( ElectrostMod::ActiveElectrMod == COMP_MOD_ELECTROST)
 	{
@@ -4920,12 +4920,12 @@ ElectrostMod* HaMolSet::GetElectrostMod( const bool create_module )
 	}
 }
 #ifdef ELMOD_COMPILE
-ElMod* HaMolSet::GetElMod( const bool create_module )
+ElMod* MolSet::GetElMod( const bool create_module )
 {
 	return( (ElMod*) GetCompModule( COMP_MOD_EL ,create_module) );
 }
 #endif
-pKaCalcMod* HaMolSet::GetpKaCalcMod( const bool create_module )
+pKaCalcMod* MolSet::GetpKaCalcMod( const bool create_module )
 {
 	pKaCalcMod* m_pKaCalcMod=(pKaCalcMod*) GetCompModule( COMP_MOD_PKA_CALC ,create_module);
 	if(m_pKaCalcMod==NULL)
@@ -4933,85 +4933,85 @@ pKaCalcMod* HaMolSet::GetpKaCalcMod( const bool create_module )
 	return m_pKaCalcMod;
 }
 
-PNPMod* HaMolSet::GetPNPMod( const bool create_module )
+PNPMod* MolSet::GetPNPMod( const bool create_module )
 {
 	return( (PNPMod*) GetCompModule( COMP_MOD_PNP ,create_module) );
 }
-APBSMod* HaMolSet::GetAPBSMod( const bool create_module )
+APBSMod* MolSet::GetAPBSMod( const bool create_module )
 {
   return( (APBSMod*) GetCompModule( COMP_MOD_APBS ,create_module) );
 }
-HaInterMolMod* HaMolSet::GetInterMolMod( const bool create_module )
+HaInterMolMod* MolSet::GetInterMolMod( const bool create_module )
 {
 	return( (HaInterMolMod*) GetCompModule( COMP_MOD_INTERMOL ,create_module) );
 }
 
-HaMolMechMod* HaMolSet::GetMolMechMod( const bool create_module )
+HaMolMechMod* MolSet::GetMolMechMod( const bool create_module )
 {
 	return( (HaMolMechMod*) GetCompModule( COMP_MOD_MOLMECH ,create_module) );
 }
 
-const HaMolMechMod* HaMolSet::GetMolMechMod() const 
+const HaMolMechMod* MolSet::GetMolMechMod() const 
 {
 	return( (const HaMolMechMod*) GetCompModule( COMP_MOD_MOLMECH ) );
 }
 
-MDTrajAnalMod*  HaMolSet::GetTrajAnalMod( bool create_module)
+MDTrajAnalMod*  MolSet::GetTrajAnalMod( bool create_module)
 {
 	HaMolMechMod* p_mm_mod = this->GetMolMechMod( create_module );
 	if( p_mm_mod == NULL ) return NULL;
 	return p_mm_mod->GetTrajAnalMod();
 }
 
-HaScatterMod* HaMolSet::GetScatterMod( const bool create_module )
+HaScatterMod* MolSet::GetScatterMod( const bool create_module )
 {
 	HaScatterMod* pMod = (HaScatterMod*) GetCompModule( COMP_MOD_SCATTER ,create_module );
 	return( pMod);
 }
 
-StmMod* HaMolSet::GetSTMMod( const bool create_module )
+StmMod* MolSet::GetSTMMod( const bool create_module )
 {
 	StmMod* pMod = (StmMod*) GetCompModule( COMP_MOD_STM ,create_module );
 	return( pMod);
 }
 
-NuclAcidMod* HaMolSet::GetNuclAcidMod( const bool create_module )
+NuclAcidMod* MolSet::GetNuclAcidMod( const bool create_module )
 {
 	NuclAcidMod* pMod = (NuclAcidMod*) GetCompModule( COMP_MOD_NUCL_ACID ,create_module );
 	return( pMod);
 }
 
-HaZindoMod* HaMolSet::GetZindoMod( const bool create_module )
+HaZindoMod* MolSet::GetZindoMod( const bool create_module )
 {
 	return( (HaZindoMod*) GetCompModule( COMP_MOD_ZINDO ,create_module) );
 }
 
-ProtonRedoxMod* HaMolSet::GetProtonRedoxMod( const bool create_module )
+ProtonRedoxMod* MolSet::GetProtonRedoxMod( const bool create_module )
 {
 	return( (ProtonRedoxMod*) GetCompModule( COMP_MOD_PROTON_REDOX ,create_module) );
 }
 
-HaEmpiricalMod* HaMolSet::GetEmpiricalMod( const bool create_module )
+HaEmpiricalMod* MolSet::GetEmpiricalMod( const bool create_module )
 {
 	return( (HaEmpiricalMod*) GetCompModule( COMP_MOD_EMPIRICAL ,create_module) );
 }
 
-HaMolMembraneMod* HaMolSet::GetMolMembraneMod(const bool create_module) // jose
+HaMolMembraneMod* MolSet::GetMolMembraneMod(const bool create_module) // jose
 {
 	return( (HaMolMembraneMod*) GetCompModule( COMP_MOD_MEMBRANE , create_module) ); 
 }
 
-HaFlexMod* HaMolSet::GetFlexMod(const bool create_module) 
+HaFlexMod* MolSet::GetFlexMod(const bool create_module) 
 {
 	return( (HaFlexMod*) GetCompModule( COMP_MOD_FLEX , create_module) ); 
 }
 
-CollectCrdAnalMod*  HaMolSet::GetCollectCrdAnalMod(const bool create_module )
+CollectCrdAnalMod*  MolSet::GetCollectCrdAnalMod(const bool create_module )
 {
-	return( (CollectCrdAnalMod*) HaMolSet::GetCompModule( COMP_MOD_CLUSTER_ANAL , create_module) ); 
+	return( (CollectCrdAnalMod*) MolSet::GetCompModule( COMP_MOD_CLUSTER_ANAL , create_module) ); 
 }
 
-MolEditor* HaMolSet::GetMolEditor(const bool create_module) 
+MolEditor* MolSet::GetMolEditor(const bool create_module) 
 {
 	if( p_mol_editor != NULL) return p_mol_editor;
 	if( !create_module ) return NULL;
@@ -5020,9 +5020,9 @@ MolEditor* HaMolSet::GetMolEditor(const bool create_module)
 }
 
 
-void HaMolSet::RenumberGrp()
+void MolSet::RenumberGrp()
 {
-	PrintLog(" HaMolSet::OnRenumberGrp() \n"); 
+	PrintLog(" MolSet::OnRenumberGrp() \n"); 
 	ChemGroup* gptr;
 	ChemGroupIterator gitr(this);
 	int igid=10;
@@ -5037,7 +5037,7 @@ void HaMolSet::RenumberGrp()
 
 
 
-bool HaMolSet::AddObject3D(Object3D* new_view_object)
+bool MolSet::AddObject3D(Object3D* new_view_object)
 {
 	if(new_view_object == NULL)
 		return false;
@@ -5046,7 +5046,7 @@ bool HaMolSet::AddObject3D(Object3D* new_view_object)
 }
 
 
-bool HaMolSet::DeleteObject3D(Object3D* pobj)
+bool MolSet::DeleteObject3D(Object3D* pobj)
 {
 	if(pobj != NULL)
 		return( DeleteObject3D(pobj->GetObjName()) );
@@ -5055,7 +5055,7 @@ bool HaMolSet::DeleteObject3D(Object3D* pobj)
 }
 
 
-bool HaMolSet::DeleteObject3D(const std::string& obj_name)
+bool MolSet::DeleteObject3D(const std::string& obj_name)
 {
 	list<Object3D*>::iterator oitr;
 	for(oitr = ViewObjects.begin(); oitr != ViewObjects.end(); oitr++)
@@ -5086,7 +5086,7 @@ bool HaMolSet::DeleteObject3D(const std::string& obj_name)
 	return false;
 }
 
-AtomGroup* HaMolSet::AddAtomGroup(const char* id)
+AtomGroup* MolSet::AddAtomGroup(const char* id)
 {
 	NamedAtomGroups.push_back(AtomGroup());
 	AtomGroup& at_arr= NamedAtomGroups.back();
@@ -5094,7 +5094,7 @@ AtomGroup* HaMolSet::AddAtomGroup(const char* id)
 	return &at_arr;
 }
 
-AtomGroup* HaMolSet::GetAtomGroupByID( const char* id)
+AtomGroup* MolSet::GetAtomGroupByID( const char* id)
 {
 	NamedAtomGroupsType::iterator gitr;
 	for( gitr = NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
@@ -5104,7 +5104,7 @@ AtomGroup* HaMolSet::GetAtomGroupByID( const char* id)
 	return NULL;
 }
 
-HaDisplayedSurface* HaMolSet::CalcMolSurfDens()
+HaDisplayedSurface* MolSet::CalcMolSurfDens()
 {
 	HaField3D mol_dens;
 
@@ -5194,7 +5194,7 @@ HaDisplayedSurface* HaMolSet::CalcMolSurfDens()
 	return sptr;
 }
 
-HaDisplayedSurface* HaMolSet::GetMolSurface(int create_flag)
+HaDisplayedSurface* MolSet::GetMolSurface(int create_flag)
 {
 	HaDisplayedSurface* sptr = NULL;
 	list<Object3D*>::iterator oitr;
@@ -5217,7 +5217,7 @@ HaDisplayedSurface* HaMolSet::GetMolSurface(int create_flag)
 	return sptr;
 }
 
-HaDisplayedSurface* HaMolSet::CalcMolSurface(int surf_type)
+HaDisplayedSurface* MolSet::CalcMolSurface(int surf_type)
 {
 	HaDisplayedSurface* sptr = GetMolSurface(TRUE);
 	if(sptr == NULL) return sptr;
@@ -5239,7 +5239,7 @@ HaDisplayedSurface* HaMolSet::CalcMolSurface(int surf_type)
 	return sptr;
 }
 
-int HaMolSet::CalcSolventAccessArea()
+int MolSet::CalcSolventAccessArea()
 {
 	AtomGroup at_arr;
 	HaAtom* aptr;
@@ -5278,7 +5278,7 @@ int HaMolSet::CalcSolventAccessArea()
 	return TRUE;
 }
 
-int HaMolSet::SaveCrdExclVolArb()
+int MolSet::SaveCrdExclVolArb()
 {
 	HaMolecule* pmol = this->GetMolByName("EXCLUDED_VOLUME");
 	if( pmol == NULL )
@@ -5317,7 +5317,7 @@ int HaMolSet::SaveCrdExclVolArb()
 }
 
 
-int HaMolSet::CreateExcludedVolumeMol()
+int MolSet::CreateExcludedVolumeMol()
 {
 	char buf[128];
 	HaAtom* aptr;
@@ -5554,7 +5554,7 @@ int HaMolSet::CreateExcludedVolumeMol()
 	return TRUE;
 }
 
-std::string HaMolSet::GetUniqueMolName(const std::string& suggest_name)
+std::string MolSet::GetUniqueMolName(const std::string& suggest_name)
 {
 	vector<HaMolecule*>::iterator mol_itr;
 	std::string trial_name= suggest_name;
@@ -5591,35 +5591,35 @@ std::string HaMolSet::GetUniqueMolName(const std::string& suggest_name)
 }
 
 
-HaMolecule* HaMolSet::GetFirstMolecule()
+HaMolecule* MolSet::GetFirstMolecule()
 {
 	if(HostMolecules.empty())
 		return NULL;
 	return HostMolecules[0];
 }
 
-HaMolecule* HaMolSet::GetMolByIdx(int imol)
+HaMolecule* MolSet::GetMolByIdx(int imol)
 {
 	if(HostMolecules.empty() || imol >= HostMolecules.size())
 		return NULL;
 	return HostMolecules[imol];
 }
 
-HaMolecule* HaMolSet::GetMolByIdx0(int imol)
+HaMolecule* MolSet::GetMolByIdx0(int imol)
 {
 	if (HostMolecules.empty() || imol >= HostMolecules.size())
 		return NULL;
 	return HostMolecules[imol];
 }
 
-HaMolecule* HaMolSet::GetMolByIdx1(int imol)
+HaMolecule* MolSet::GetMolByIdx1(int imol)
 {
 	if (HostMolecules.empty() || imol > HostMolecules.size())
 		return NULL;
 	return HostMolecules[imol-1];
 }
 
-double HaMolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
+double MolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
 {
 //! Superimpose the two structures such that chosen set of atoms
 //! \param firstatset atom group of the first molecule
@@ -5629,7 +5629,7 @@ double HaMolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
 
 // check that two sets have the same number of atoms and are not empty
 
-//	PrintLog(" HaMolSet::OverlapMol() pt 1 \n");
+//	PrintLog(" MolSet::OverlapMol() pt 1 \n");
 	int nat;
     nat = firstatset.size();
 	if (nat == 0)
@@ -5816,7 +5816,7 @@ bool visit_f1(int n, node_id ni1[], node_id ni2[], void *usr_data)
 
 
 double
-HaMolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
+MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
 //! Input Parameters:
 //! atset1 - list of atoms of the molecule1 that will be superimposed by the corresponding 
 //!          atoms of the molecule 2 
@@ -6024,7 +6024,7 @@ HaMolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, 
 
 	if(!ires)
 	{
-		ErrorInMod(" HaMolSet::AlignOverlapMol()","Failed to superimpose atom sets");
+		ErrorInMod(" MolSet::AlignOverlapMol()","Failed to superimpose atom sets");
 		return -1.0;
 	}
 	if(p_rot != NULL) (*p_rot) = rot_mat;
@@ -6074,12 +6074,12 @@ HaMolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, 
 
 
 
-HaMolecule* HaMolSet::CreateMolecule()
+HaMolecule* MolSet::CreateMolecule()
 { 
 	HaMolecule* pMol = new HaMolecule(this);
 	if( !pMol ) 
 	{
-		ErrorInMod("HaMolSet::CreateMolecule()","Failed to allocate new molecule");
+		ErrorInMod("MolSet::CreateMolecule()","Failed to allocate new molecule");
 		return NULL;
 	}
 	HostMolecules.push_back(pMol);
@@ -6087,7 +6087,7 @@ HaMolecule* HaMolSet::CreateMolecule()
 }
 
 
-AtomIteratorMolSet::AtomIteratorMolSet(HaMolSet* pmset_new)
+AtomIteratorMolSet::AtomIteratorMolSet(MolSet* pmset_new)
 {
 	pritr = new ResidueIteratorMolSet(pmset_new);	
 	GetFirstAtom();
@@ -6166,7 +6166,7 @@ HaAtom* AtomIteratorMolSet::next()
 	return aptr;
 }
 
-AtomIteratorMolSet_const::AtomIteratorMolSet_const(const HaMolSet* pmset_new )
+AtomIteratorMolSet_const::AtomIteratorMolSet_const(const MolSet* pmset_new )
 {
 	pritr = new ResidueIteratorMolSet_const(pmset_new);   
 	GetFirstAtom();
@@ -6218,7 +6218,7 @@ const HaAtom* AtomIteratorMolSet_const::GetNextAtom()
 	return NULL;
 }
 
-ResidueIteratorMolSet::ResidueIteratorMolSet(HaMolSet* pmset)
+ResidueIteratorMolSet::ResidueIteratorMolSet(MolSet* pmset)
 {
 	mol_itr_begin = pmset->HostMolecules.begin();
 	mol_itr_end   = pmset->HostMolecules.end();
@@ -6363,7 +6363,7 @@ HaResidue* ResidueIteratorMolSet::__next__()
 }
 
 
-ResidueIteratorMolSet_const::ResidueIteratorMolSet_const(const HaMolSet* pmset)
+ResidueIteratorMolSet_const::ResidueIteratorMolSet_const(const MolSet* pmset)
 {
 	mol_itr_begin = pmset->HostMolecules.begin();
 	mol_itr_end   = pmset->HostMolecules.end();
@@ -6461,7 +6461,7 @@ const HaResidue* ResidueIteratorMolSet_const::GetNextRes()
   return NULL;
 }
 
-ChainIteratorMolSet::ChainIteratorMolSet(HaMolSet* new_pmset)
+ChainIteratorMolSet::ChainIteratorMolSet(MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	if(pmset == NULL) { return; }
@@ -6530,7 +6530,7 @@ HaChain* ChainIteratorMolSet::GetNextChain()
 }
 
 
-BondIteratorMolSet::BondIteratorMolSet(HaMolSet* new_pmset)
+BondIteratorMolSet::BondIteratorMolSet(MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	if(pmset == NULL) { return; }
@@ -6565,7 +6565,7 @@ HaBond* BondIteratorMolSet::GetNextBond()
   return NULL;
 }
 
-HBondIteratorMolSet::HBondIteratorMolSet(HaMolSet* new_pmset)
+HBondIteratorMolSet::HBondIteratorMolSet(MolSet* new_pmset)
 {
 	pmset = new_pmset;
 	bitrm = pmset->HBonds.begin(); 
@@ -6597,13 +6597,13 @@ HaHBond* HBondIteratorMolSet::GetNextBond()
 }
 
 void 
-HaMolSet::ClearPickedAtoms()
+MolSet::ClearPickedAtoms()
 {
 	picked_atoms.clear();
 }
 
 void 
-HaMolSet::DisplaySelectCount()
+MolSet::DisplaySelectCount()
 {
     char buffer[40];
 	
@@ -6631,7 +6631,7 @@ HaMolSet::DisplaySelectCount()
 		PrintMessage("1 atom selected!");
 }
 
-void HaMolSet::SelectAtomsInBoundaryBox()
+void MolSet::SelectAtomsInBoundaryBox()
 {
 	if(!per_bc->IsSet()) return;
 
@@ -6681,7 +6681,7 @@ void HaMolSet::SelectAtomsInBoundaryBox()
 	}
 }
 
-void HaMolSet::SelectAtomsMask( int mask )
+void MolSet::SelectAtomsMask( int mask )
 {
     HaBond  *bptr;
     HaAtom  *aptr;
@@ -6725,7 +6725,7 @@ void HaMolSet::SelectAtomsMask( int mask )
 	}
 }
 
-void HaMolSet::ClearBackbone()
+void MolSet::ClearBackbone()
 {
 	int nb = BackboneBonds.size();
 	int i;
@@ -6737,7 +6737,7 @@ void HaMolSet::ClearBackbone()
 }
 
 
-void HaMolSet::SelectAtomsExprObj( AtomExpr* expr )
+void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 {
     HaBond* bptr;
 	HaAtom* aptr;
@@ -6783,7 +6783,7 @@ void HaMolSet::SelectAtomsExprObj( AtomExpr* expr )
 	}
 }
 
-void HaMolSet::SelectAtomsExpr( const char* expr_str)
+void MolSet::SelectAtomsExpr( const char* expr_str)
 {
 	CmdParser cmd_pr;
 	cmd_pr.SetCmdLine(expr_str);
@@ -6802,7 +6802,7 @@ void HaMolSet::SelectAtomsExpr( const char* expr_str)
 	}
 }
 
-int HaMolSet::DescribeSecStruct()
+int MolSet::DescribeSecStruct()
 {
 	int nmol = GetNMol();
 	int i;
@@ -6850,7 +6850,7 @@ int HaMolSet::DescribeSecStruct()
 	return TRUE;
 }
 
-int HaMolSet::PrintHBonds()
+int MolSet::PrintHBonds()
 {
 	int nmol = GetNMol();
 
@@ -6882,7 +6882,7 @@ int HaMolSet::PrintHBonds()
 	return TRUE;
 }
 
-int HaMolSet::RenumberSelectedRes(int start_num)
+int MolSet::RenumberSelectedRes(int start_num)
 {
 	HaChain* p_chain = NULL;
 	HaResidue* pres;
@@ -6897,7 +6897,7 @@ int HaMolSet::RenumberSelectedRes(int start_num)
 		if( p_chain == NULL ) p_chain = pres->GetHostChain();
 		if( pres->GetHostChain() != p_chain)
 		{
-			PrintLog(" Error in HaMolSet::RenumberSelectedRes() \n");
+			PrintLog(" Error in MolSet::RenumberSelectedRes() \n");
 			PrintLog(" Selected Residues do not belong to the same chain \n"); 
 			return FALSE;
 		}
@@ -6908,7 +6908,7 @@ int HaMolSet::RenumberSelectedRes(int start_num)
 	int nr = sel_res.size();
 	if( nr == 0) 
 	{
-		PrintLog(" HaMolSet::RenumberSelectedRes() \n");
+		PrintLog(" MolSet::RenumberSelectedRes() \n");
 		PrintLog(" No Residues Selected \n");
 		return FALSE;
 	}
@@ -6929,7 +6929,7 @@ int HaMolSet::RenumberSelectedRes(int start_num)
 		int ser_num_new = start_num + ir;
 		if( used_res_num.count(ser_num_new) > 0  )
 		{
-			PrintLog(" Error in HaMolSet::RenumberSelectedRes() \n"); 
+			PrintLog(" Error in MolSet::RenumberSelectedRes() \n"); 
 			PrintLog(" New residue number %d  will conflict with an exisitng residue in the same chain \n", ser_num_new);
 			PrintLog(" Residue Renumbering will not be performed \n");
 			return FALSE;
@@ -6964,13 +6964,13 @@ int HaMolSet::RenumberSelectedRes(int start_num)
 	return TRUE;
 }
 
-int HaMolSet::AnnounceGeomChange()
+int MolSet::AnnounceGeomChange()
 {
 	RefreshAllViews(RFApply | RFRefresh);
 	return TRUE;
 }
 
-TiXmlElement* HaMolSet::AddXml(TiXmlElement* parent_element, const char* name, int option) const
+TiXmlElement* MolSet::AddXml(TiXmlElement* parent_element, const char* name, int option) const
 {
 	AtomIteratorMolSet_const aitr(this);
 	const HaAtom* aptr;
@@ -6986,7 +6986,7 @@ TiXmlElement* HaMolSet::AddXml(TiXmlElement* parent_element, const char* name, i
 	return molset_element;
 }
 
-int HaMolSet::SaveXML(FILE* file_out, int option) const
+int MolSet::SaveXML(FILE* file_out, int option) const
 {
 	TiXmlDocument doc;
 	TiXmlDeclaration * decl = new TiXmlDeclaration( "1.0", "", "" );
@@ -7010,13 +7010,13 @@ FragmentCreatePars::FragmentCreatePars()
 	add_hydr = 1;
 }
 
-CrdSnapshotIterator HaMolSet::GetCrdSnapshots()
+CrdSnapshotIterator MolSet::GetCrdSnapshots()
 {
 	CrdSnapshotIterator sitr(this);
 	return sitr;
 }
 
-void HaMolSet::DeleteCrdSnapshots()
+void MolSet::DeleteCrdSnapshots()
 {
 	if( !crd_snapshots.empty() )
 	{
@@ -7030,7 +7030,7 @@ void HaMolSet::DeleteCrdSnapshots()
 	crd_snapshots.clear();
 }
 
-CrdSnapshot* HaMolSet::AddCrdSnapshot(const std::string& snap_name_new )
+CrdSnapshot* MolSet::AddCrdSnapshot(const std::string& snap_name_new )
 {
 	std::string snap_name = "SNAPSHOT";
 	if( !snap_name_new.empty() ) snap_name = snap_name_new;
@@ -7039,12 +7039,12 @@ CrdSnapshot* HaMolSet::AddCrdSnapshot(const std::string& snap_name_new )
 	return p_snap;
 }
 
-CrdSnapshot* HaMolSet::AddCrdSnapshotForGroup(const std::string& grp_name, const std::string& snap_name_new )
+CrdSnapshot* MolSet::AddCrdSnapshotForGroup(const std::string& grp_name, const std::string& snap_name_new )
 {
 	AtomGroup* p_at_grp = this->GetAtomGroupByID( grp_name.c_str() );
 	if( p_at_grp == NULL )
 	{
-		PrintLog(" Error in HaMolSet::AddCrdSnapshotForGroup() \n");
+		PrintLog(" Error in MolSet::AddCrdSnapshotForGroup() \n");
 		PrintLog(" No atom group %s \n", grp_name.c_str() );
 		return NULL;
 	}
@@ -7055,7 +7055,7 @@ CrdSnapshot* HaMolSet::AddCrdSnapshotForGroup(const std::string& grp_name, const
 	return p_snap;
 }
 
-CrdSnapshot* HaMolSet::GetCrdSnapshotByName(const char* snp_name, bool create )
+CrdSnapshot* MolSet::GetCrdSnapshotByName(const char* snp_name, bool create )
 {
 	int i;
 	for(i = 0; i < crd_snapshots.size(); i++)
@@ -7066,7 +7066,7 @@ CrdSnapshot* HaMolSet::GetCrdSnapshotByName(const char* snp_name, bool create )
 	return NULL;
 }
 
-int HaMolSet::DeleteCrdSnapshot( CrdSnapshot* psnap )
+int MolSet::DeleteCrdSnapshot( CrdSnapshot* psnap )
 {
 	vector<CrdSnapshot*>::iterator itr;
 	for( itr = crd_snapshots.begin(); itr != crd_snapshots.end(); )
@@ -7082,7 +7082,7 @@ int HaMolSet::DeleteCrdSnapshot( CrdSnapshot* psnap )
 	return FALSE;
 }
 
-int HaMolSet::SetCrdFromSnapshot( CrdSnapshot* psnap )
+int MolSet::SetCrdFromSnapshot( CrdSnapshot* psnap )
 {
 	int ires;
 	try
@@ -7092,19 +7092,19 @@ int HaMolSet::SetCrdFromSnapshot( CrdSnapshot* psnap )
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog("HaMolSet::SetCrdFromSnapshot() \n");
+		PrintLog("MolSet::SetCrdFromSnapshot() \n");
 		PrintLog("%s\n",ex.what());
 		return FALSE;
 	}
 	return ires;
 }
 
-int HaMolSet::SetCrdFromSnapshot( const std::string& snap_name )
+int MolSet::SetCrdFromSnapshot( const std::string& snap_name )
 {
 	CrdSnapshot* psnap = GetCrdSnapshotByName( snap_name.c_str() );
 	if( psnap == NULL ) 
 	{
-		PrintLog("Error in HaMolSet::SetCrdFromSnapshot() \n");
+		PrintLog("Error in MolSet::SetCrdFromSnapshot() \n");
 		PrintLog("No CrdSnapshot with name %s \n",snap_name.c_str());
 		return FALSE;
 	}
@@ -7113,7 +7113,7 @@ int HaMolSet::SetCrdFromSnapshot( const std::string& snap_name )
 
 
 ///////////////////////////////////////////////////////////////////////////////
-PyAccMolSetProp::PyAccMolSetProp(HaMolSet* new_pmset)
+PyAccMolSetProp::PyAccMolSetProp(MolSet* new_pmset)
 {
 	this->pmset=new_pmset;
 }
@@ -7337,11 +7337,11 @@ void PyAccMolSetProp::WriteAtomParamFileForPNP(const char *filename,\
 ///////////////////////////////////////////////////////////////////////////////
 
 #if defined(HA_NOGUI)
-void HaMolSet::RefreshAllViews(long lHint)
+void MolSet::RefreshAllViews(long lHint)
 {
 
 }
-void HaMolSet::SetName(const char* new_name)
+void MolSet::SetName(const char* new_name)
 {
     name_mset = new_name;
 }

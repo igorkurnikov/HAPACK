@@ -20,7 +20,7 @@
 class HaResidue;
 class HaChain;
 class HaMolecule;
-class HaMolSet;
+class MolSet;
 class ChemGroup;
 class AtomGroup;
 class HaBond;
@@ -115,8 +115,8 @@ public:
   ChemGroup* GetHostChemGroup();
   HaMolecule* GetHostMol();
   const HaMolecule* GetHostMol() const;
-  HaMolSet* GetHostMolSet();
-  const HaMolSet* GetHostMolSet() const;
+  MolSet* GetHostMolSet();
+  const MolSet* GetHostMolSet() const;
 
   void SetHostRes(HaResidue* new_phost_res);
 
@@ -252,7 +252,7 @@ public:
 
 //@}
 
- friend class HaMolSet;
+ friend class MolSet;
 
 protected:
   HaResidue* phost_res;   //!< the residue atom belongs to

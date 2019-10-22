@@ -24,7 +24,7 @@ class ETCouplMod;
 class HaQCMod;
 class HaMolView;
 class Object3D;
-class HaMolSet;
+class MolSet;
 class MolEditor;
 class HaMolMechMod;
 class ElectrostMod;
@@ -120,12 +120,12 @@ class SaveMolFileDlg: public HaFileDlg1
 {
 public:
     // constructors and destructors
-    SaveMolFileDlg( HaMolSet* pmset, wxWindow *parent, wxWindowID id, const wxString &title,
+    SaveMolFileDlg( MolSet* pmset, wxWindow *parent, wxWindowID id, const wxString &title,
         const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize,
         long style = wxDEFAULT_DIALOG_STYLE );
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 
     // WDR: method declarations for SaveMolFileDlg
 	virtual bool TransferDataToWindow();
@@ -245,7 +245,7 @@ class SolvateDlgWX : public wxDialog
 {
 // Construction
 public:
-	SolvateDlgWX(HaMolSet* new_pmset, wxWindow* parent );   // standard constructor
+	SolvateDlgWX(MolSet* new_pmset, wxWindow* parent );   // standard constructor
     virtual ~SolvateDlgWX();
 
 	static int dlg_open;
@@ -255,7 +255,7 @@ public:
 
 // WDR: member variable declarations for SolvateDlgWX	
 	double	m_solv_buf;
-	HaMolSet* pmset;
+	MolSet* pmset;
 	MolEditor* p_mol_editor;
 
 	void OnInitDialog(wxInitDialogEvent& event);
@@ -499,7 +499,7 @@ private:
 class EditFragmDlgWX : public wxFrame
 {
 public:
-	EditFragmDlgWX(HaMolSet* new_pmset, wxWindow* parent); 
+	EditFragmDlgWX(MolSet* new_pmset, wxWindow* parent); 
         virtual ~EditFragmDlgWX();
 
 	static int dlg_open;
@@ -510,7 +510,7 @@ public:
 	virtual bool TransferDataFromWindow();
 
 // WDR: member variable declarations for EditFragmDlgWX    
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 // WDR: handler declarations for EditFragmDlgWX 	
 	void OnSaveFragm(wxCommandEvent& event);
@@ -528,7 +528,7 @@ class BuildFilmDlgWX : public wxFrame
 // Dialog Class to build a 2-D layer of absorbed molecules
 // moldecules 
 public:
-	BuildFilmDlgWX(HaMolSet* new_pmset, wxWindow* parent); 
+	BuildFilmDlgWX(MolSet* new_pmset, wxWindow* parent); 
     virtual ~BuildFilmDlgWX();
 
     static int dlg_open;
@@ -552,7 +552,7 @@ public:
 	bool add_atom_top_flag;
 	bool add_atom_below_flag;
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	void OnInitDialog();
 
@@ -570,7 +570,7 @@ class CrdSnapshotDlg : public wxFrame
 {
 //! Dialog Class to manipulate Coordinate Snaphots 
 public:
-	CrdSnapshotDlg(HaMolSet* new_pmset, wxWindow* parent); 
+	CrdSnapshotDlg(MolSet* new_pmset, wxWindow* parent); 
     virtual ~CrdSnapshotDlg();
 
 	virtual bool TransferDataFromWindow();
@@ -578,7 +578,7 @@ public:
 
     static int dlg_open;
 	
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	wxListBox*  snap_list;
 	wxTextCtrl* sel_snap_id;
@@ -615,7 +615,7 @@ private:
 class AtomParamsDlgWX : public wxFrame
 {
 public:
-	AtomParamsDlgWX(HaMolSet* new_pmset, wxWindow* parent); 
+	AtomParamsDlgWX(MolSet* new_pmset, wxWindow* parent); 
     virtual ~AtomParamsDlgWX();
 
 	virtual bool TransferDataFromWindow();
@@ -659,7 +659,7 @@ public:
 
 	void OnInitDialog();
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 	MolEditor* p_mol_editor;
 	ProtonRedoxMod* p_prot_rdx_mod;
 	wxGrid* m_atom_lctrl;
@@ -712,7 +712,7 @@ private:
 class ResidueParamsDlgWX : public wxFrame
 {
 public:
-	ResidueParamsDlgWX(HaMolSet* new_pmset, wxWindow* parent); 
+	ResidueParamsDlgWX(MolSet* new_pmset, wxWindow* parent); 
     virtual ~ResidueParamsDlgWX();
 
 	static int dlg_open;
@@ -736,7 +736,7 @@ public:
 	void OnInitDialog();
 
 protected:
-	HaMolSet* pmset;
+	MolSet* pmset;
 	wxGrid* m_residue_lctrl;
 	VecPtr  res_ptrs;
 	MolEditor* p_mol_editor;
@@ -767,7 +767,7 @@ private:
 class EditGeomDlgWX : public wxFrame
 {
 public:
-	EditGeomDlgWX(HaMolSet* new_pmset, wxWindow* parent);
+	EditGeomDlgWX(MolSet* new_pmset, wxWindow* parent);
     virtual ~EditGeomDlgWX();
 
     static int dlg_open;
@@ -777,7 +777,7 @@ public:
 protected:
 // WDR: member variable declarations for EditGeomDlgWX
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 	MolEditor* p_mol_editor;
 
 	HaAtom* aptr1;
@@ -815,7 +815,7 @@ private:
 class EditGroupsDlg : public wxFrame
 {
 public:
-	EditGroupsDlg(HaMolSet* new_pmset, int itype, wxWindow* parent);  
+	EditGroupsDlg(MolSet* new_pmset, int itype, wxWindow* parent);  
     virtual ~EditGroupsDlg();
 
     static int dlg_open;
@@ -827,7 +827,7 @@ public:
 	
 	int ShowModal(); //!< Run in modal mode to select atom group
 protected:
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 //	AtomGroup* sel_at_list; //!< Selected Atom List
 
@@ -952,7 +952,7 @@ private:
 class MolSetParDlg : public wxFrame
 {
 public:
-	MolSetParDlg(HaMolSet* new_pmset, wxWindow* parent);   // standard constructor
+	MolSetParDlg(MolSet* new_pmset, wxWindow* parent);   // standard constructor
     virtual ~MolSetParDlg();
 
     static int dlg_open;
@@ -963,7 +963,7 @@ public:
 	void OnInitDialog();
 protected:
 // WDR: member variable declarations for MolSetParDlg
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 // WDR: handler declarations for MolSetParDlg
 	void OnClose(wxCloseEvent& event);
@@ -992,7 +992,7 @@ public:
 protected:
 
 	HaMolView* pview;
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	DValColorMap color_map;
 	void OnClose(wxCloseEvent& event);
@@ -1051,7 +1051,7 @@ protected:
 	enum DISPLAY_MODE { JUMNA_HLX_CRD = 1, BASE_BASE_CRD, GLOB_INTER_BASE_CRD, GLOB_INTER_BP_CRD,
 		LOC_INTER_BASE_CRD, LOC_INTER_BP_CRD} display_mode;
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 	NuclAcidMod* nucl_acid_mod;
 	wxGrid* m_Grid;
 

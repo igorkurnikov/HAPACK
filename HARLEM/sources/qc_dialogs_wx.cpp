@@ -178,7 +178,7 @@ void LoadQCDatDlgWX::OnInitDialog(wxInitDialogEvent& event)
 
 	if(qcmod != NULL)
 	{
-		HaMolSet* pmset = qcmod->GetMolSet();
+		MolSet* pmset = qcmod->GetMolSet();
 		if(pmset != NULL)
 		{
 			wxTextCtrl* dat_fname= (wxTextCtrl*) FindWindow(IDC_QCDAT_DAT_FNAME);

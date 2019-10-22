@@ -231,7 +231,7 @@ void HaMolView::EnableBackbone( int mask, double rad )
 		
     irad = (int)(Scale*rad);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 	
 	int nb = pmset->BackboneBonds.size();
@@ -260,7 +260,7 @@ void HaMolView::DisableBackbone()
     HaChain  *chain;
     HaBond  *bptr;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 
 	int nb = pmset->BackboneBonds.size();
@@ -295,7 +295,7 @@ void HaMolView::SetHBondStatus( int enable, double rad )
     int flag, irad;
     HaHBond* phb;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
 	if(enable)
@@ -340,7 +340,7 @@ void HaMolView::SetSSBondStatus( int enable, double rad )
     HaAtom  *dst;
     int flag, irad;
     
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
 	if( enable && (!pmset->SSBonds_found) ) p_mol_editor->FindDisulphideBridges(pmset);
@@ -382,7 +382,7 @@ void HaMolView::SetRibbonStatus( int enable, int flag, double width )
     HaAtom  *ptr;
 	vector<HaAtom*>::iterator aitr;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
     /* Ribbons already disabled! */
@@ -474,7 +474,7 @@ HaMolView::SetRibbonCartoons()
 	vector<HaAtom*>::iterator aitr;
 
 	MoleculesType::iterator mol_itr;
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
 	ForEachMol_VIEW
@@ -538,7 +538,7 @@ void HaMolView::SetTraceTemperature()
     double min,max;
     double coeff;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	
     flag = 0;
@@ -633,7 +633,7 @@ void HaMolView::RestrictSelected()
     DrawBonds = False;   
     DrawLabels = False;
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 	
 	AtomIteratorMolSet aitr(pmset);
@@ -801,7 +801,7 @@ int HaMolView::ColorAtomsByProp( const std::string& str_prop_par, DValColorMap* 
 	std::string str_prop = boost::trim_copy(str_prop_par);
 	boost::to_upper(str_prop);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;
 
@@ -864,7 +864,7 @@ void HaMolView::ColourBackNone()
     HaBond  *bptr;
     int flag;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 
 	int nb = pmset->BackboneBonds.size();
@@ -898,7 +898,7 @@ void HaMolView::ColourBackAttrib( int r, int g, int b )
 	ColourBackNone();
 	HaColor bcolor(r,g,b);
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 
 	int nb = pmset->BackboneBonds.size();
@@ -924,7 +924,7 @@ HaMolView::ColourHBondNone()
     HaAtom  *dst;
     HaHBond* phb;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(!pmset->HBonds_found) return;
 	list_ptr = &(pmset->HBonds);
@@ -973,7 +973,7 @@ HaMolView::ColourSSBondNone()
     HaAtom  *src;
     HaAtom  *dst;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(!pmset->SSBonds_found) return;
 
@@ -1028,7 +1028,7 @@ void HaMolView::ColourHBondType()
 
 	ColourHBondNone();
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	p_mol_editor->CalcHBonds(pmset);
 
@@ -1070,7 +1070,7 @@ void HaMolView::ColourHBondAttrib( int r, int g, int b )
 {
 	ColourHBondNone();
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	
 	p_mol_editor->CalcHBonds(pmset);
@@ -1093,7 +1093,7 @@ HaMolView::ColourSSBondAttrib( int r, int g, int b )
 {
 	ColourSSBondNone();
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
 	if( !pmset->SSBonds_found )
@@ -1159,7 +1159,7 @@ HaMolView::ColourRibbonAttrib( int flag, int r, int g, int b )
 	ColourRibbonNone( flag );
 
 	MoleculesType::iterator mol_itr;
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
 	ForEachMol_VIEW
@@ -1241,7 +1241,7 @@ HaMolView::ColourDotsAttrib( int r, int g, int b )
     int i;
 		
 	HaColor color(r,g,b);
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
  	list<Object3D*>::iterator oitr;
 
@@ -1332,7 +1332,7 @@ void HaMolView::ColourDotsPotential()
 
 	PotColorMap	pot_color_map;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
  	list<Object3D*>::iterator oitr;
 
@@ -1836,7 +1836,7 @@ void HaMolView::StructColourAttrib()
     HaAtom  *aptr;
 
 	MoleculesType::iterator mol_itr;
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor();
 
 	ForEachMol_VIEW
@@ -1893,7 +1893,7 @@ void HaMolView::DefaultRepresentation()
 {
 	ReDrawFlag |= RFRefresh | RFColour;
 
-	HaMolSet* pmset= this->GetMolSet();
+	MolSet* pmset= this->GetMolSet();
 
 	int nb = pmset->GetNBonds();
 	
@@ -1912,7 +1912,7 @@ void HaMolView::DefaultRepresentation()
 void
 HaMolView::CenterSelected()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if(pmset == NULL) 
 		return;
 
@@ -2026,7 +2026,7 @@ HaMolView::InitialTransform()
 	double MinX_v, MinY_v, MinZ_v;
 	double MaxX_v, MaxY_v, MaxZ_v;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if(pmset == NULL) 
 		return;
 
@@ -2155,7 +2155,7 @@ void HaMolView::PrepareTransform()
 	double sint;
 	double x,y,z;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	list<Object3D*>::iterator oitr;
 
@@ -2374,7 +2374,7 @@ void HaMolView::ApplyTransform()
 		PrepareTransform();
     }
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	MoleculesType::iterator mol_itr;
 

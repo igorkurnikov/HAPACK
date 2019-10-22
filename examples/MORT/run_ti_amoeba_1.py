@@ -2,9 +2,9 @@
 # This example script to run thermodynamic Integration 
 #
 
-mset_1 = HaMolSet()
+mset_1 = MolSet()
 mset_1.SetName("agl_solv_3_ti")
-mset_2 = HaMolSet()
+mset_2 = MolSet()
 mset_1.LoadHarlemFile("agl_solv_3.hlm")
 mset_2.LoadHarlemFile("agl_solv_3.hlm")
 mm_mod_1 = mset_1.GetMolMechMod(1)

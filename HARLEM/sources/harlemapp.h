@@ -13,7 +13,7 @@
 #include "command.h"
 
 class HaMolView;
-class HaMolSet;
+class MolSet;
 class HaAtom;
 class HaMPI;
 
@@ -76,9 +76,9 @@ public:
 	void StartWait(); //!< Display Wait cursor to indicator the program is busy
 	void EndWait();   //!< End Wait, restore  normal cursor 
 
-	HaMolSet* GetMolSetByName(const char* name); //!< Retrieve Molecular Set by name
-	void AddMolSet(HaMolSet* pmset); //!< Add Molecular Set to the list of Molecular Sets
-	void DeleteMolSet(HaMolSet* pmset); //!< Delete Molecular Set from the list of Molecular Sets
+	MolSet* GetMolSetByName(const char* name); //!< Retrieve Molecular Set by name
+	void AddMolSet(MolSet* pmset); //!< Add Molecular Set to the list of Molecular Sets
+	void DeleteMolSet(MolSet* pmset); //!< Delete Molecular Set from the list of Molecular Sets
 	HaAtom* GetAtomByRef(const char* at_ref); //!< Get Atom By Full Reference (including MolSet Name) 
 
 	int gui_mode;        //!< flag for GUI mode of the application to be activated

@@ -15,7 +15,7 @@ class HaZindoMod: public HaCompMod
 //!  Class to control semiempirical quantum chemical calculations with ZINDO program   
 {
 public:
-	HaZindoMod(HaMolSet* new_phost_mset);
+	HaZindoMod(MolSet* new_phost_mset);
 	virtual ~HaZindoMod();
 
 	int SaveParamFile(const char* fname); //!< Save Zindo Input Parameter File

@@ -77,7 +77,7 @@ int CollectCrdAnalType::SetWithLabel(const char* label_set)
 }
 
 
-CollectCrdAnalMod::CollectCrdAnalMod(HaMolSet* new_phost_mset):
+CollectCrdAnalMod::CollectCrdAnalMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_CLUSTER_ANAL, new_phost_mset)
 {
 	p_md_traj = new MDTrajectory(new_phost_mset);
@@ -113,7 +113,7 @@ std::string CollectCrdAnalMod::GetActiveAtomGroupName()
 
 AtomGroup* CollectCrdAnalMod::GetActiveAtomGroup()
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	return pmset->GetAtomGroupByID(active_atgrp.c_str());
 }
 
@@ -193,7 +193,7 @@ int CollectCrdAnalMod::LoadPlatoOutputFile()
 		if(!bres) throw std::runtime_error( "XML file " + plato_output_fname + " is invalid ");
 
 		int ires;
-		HaMolSet* pmset = GetMolSet();
+		MolSet* pmset = GetMolSet();
 		const TiXmlElement* root_element;
 		const TiXmlElement* output_element;
 

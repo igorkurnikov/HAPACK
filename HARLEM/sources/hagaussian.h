@@ -21,7 +21,7 @@ class HaGaussMod: public HaCompMod
 {
 public:
 
-	HaGaussMod(HaMolSet* new_phost_mset);
+	HaGaussMod(MolSet* new_phost_mset);
 	virtual ~HaGaussMod();
 
 	friend class QChemParDlgWX;

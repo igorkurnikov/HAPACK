@@ -140,7 +140,7 @@ void MMSysInfo::clear()
 }
 
 
-HaMolMechMod::HaMolMechMod(HaMolSet* new_phost_mset):
+HaMolMechMod::HaMolMechMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 {
 	p_mm_model      = new MolMechModel(this);
@@ -190,7 +190,7 @@ HaMolMechMod::~HaMolMechMod()
 
 int HaMolMechMod::SetStdParams()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset != NULL ) SetPrefix( pmset->GetName() );
 
 	to_init_simulations = TRUE;
@@ -546,7 +546,7 @@ int HaMolMechMod::UpdateMolInfo()
 int HaMolMechMod::UpdateMolView()
 {
 	char buf[256];
-	HaMolSet* pmset= GetMolSet();
+	MolSet* pmset= GetMolSet();
 	pmset->info_str.clear();
 	if( run_type == MMRunType::MD_RUN )
 	{
@@ -803,7 +803,7 @@ int HaMolMechMod::RunInternal()
 void HaMolMechMod::RunInternal_node()
 {
 //	PrintLog(" HaMolMechMod::RunInternal_node() pt 1 \n");
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	p_amber_driver->p_tm->InitTimers();
 
 	if(pApp->mpi_driver->nprocs > 1 ) run_type.Bcast(single_job_comm);
@@ -1631,7 +1631,7 @@ void HaMolMechMod::OnChangePeriodicity()
 
 void HaMolMechMod::TestSaveAmoebaTopFile1()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	HaMolMechMod* p_mm_mod = pmset->GetMolMechMod(1);
 	p_mm_mod->InitMolMechModel(ForceFieldType::AMOEBA);
 	p_mm_mod->p_amber_driver->SaveAmberTopFile();
@@ -1640,7 +1640,7 @@ void HaMolMechMod::TestSaveAmoebaTopFile1()
 void HaMolMechMod::TestSaveAmoebaTopFile2()
 {
 	PrintLog(" HaMolMechMod::TestSaveAmoebaTopFile2()  Empty function \n");
-//	HaMolSet* pmset = GetCurMolSet();
+//	MolSet* pmset = GetCurMolSet();
 //	HaMolMechMod* p_mm_mod = pmset->GetMolMechMod(1);
 //	p_mm_mod->InitMolMechModel(ForceFieldType::AMOEBA);
 	
@@ -2355,7 +2355,7 @@ std::string TISimMod::GetCurFilePrefix()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-MDTrajectory::MDTrajectory(HaMolSet* new_pmset)
+MDTrajectory::MDTrajectory(MolSet* new_pmset)
 {
 	CrdFileName="";
 	VelFileName="";

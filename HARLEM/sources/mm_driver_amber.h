@@ -606,7 +606,7 @@ public:
 
 	MMDriverAmber* p_amber_driver; //!< AMBER Mol Mech Driver class 
 private:
-	HaMolSet*     pmset;
+	MolSet*     pmset;
 	MolMechModel* p_mm_model;      //!< MolMechModel corresponding to the class
 	HaMolMechMod* p_mm_mod;        //!< HaMolMech Module associted with the model
 };

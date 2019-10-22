@@ -378,7 +378,7 @@ const HaMolecule* HaAtom::GetHostMol() const
 	return phost_ch->GetHostMol();
 }
 
-HaMolSet* HaAtom::GetHostMolSet()
+MolSet* HaAtom::GetHostMolSet()
 {
 	HaMolecule* phost_mol=GetHostMol();
 	assert(phost_mol != NULL);
@@ -387,7 +387,7 @@ HaMolSet* HaAtom::GetHostMolSet()
 
 int HaAtom::GetSerNo() const
 {
-    const HaMolSet* pmset = GetHostMolSet();
+    const MolSet* pmset = GetHostMolSet();
 	const HaAtom* aptr; 
 	int ser_no = 0;
     AtomIteratorMolSet_const aitr(pmset);
@@ -399,7 +399,7 @@ int HaAtom::GetSerNo() const
 	return 0;
 }
 
-const HaMolSet* HaAtom::GetHostMolSet() const
+const MolSet* HaAtom::GetHostMolSet() const
 {
 	const HaMolecule* phost_mol=GetHostMol();
 	assert(phost_mol != NULL);
@@ -409,7 +409,7 @@ const HaMolSet* HaAtom::GetHostMolSet() const
 
 ChemGroup* HaAtom::GetHostChemGroup()
 {
-	HaMolSet* pmset=GetHostMolSet();
+	MolSet* pmset=GetHostMolSet();
 
 	ChemGroup* gptr;
 	ChemGroupIterator gitr(pmset);
@@ -428,7 +428,7 @@ void HaAtom::SetHostRes(HaResidue* new_phost_res)
 
 int HaAtom::CreateBond(HaAtom* aptr1, HaAtom* aptr2)
 {
-	HaMolSet* pmset = aptr1->GetHostMolSet();
+	MolSet* pmset = aptr1->GetHostMolSet();
 	if( aptr2->GetHostMolSet() != pmset ) return FALSE;
 
 	HaBond* bptr= pmset->AddBond(aptr1,aptr2 );
@@ -439,7 +439,7 @@ int HaAtom::CreateBond(HaAtom* aptr1, HaAtom* aptr2)
 
 int HaAtom::DeleteBond(HaAtom* aptr1, HaAtom* aptr2)
 {
-	HaMolSet* pmset = aptr1->GetHostMolSet();
+	MolSet* pmset = aptr1->GetHostMolSet();
 	pmset->DeleteBond(aptr1,aptr2);
 	return TRUE;
 }
@@ -478,7 +478,7 @@ int HaAtom::GetHBondAcc(AtomGroup& bonded_atoms_out)
 {
 	bonded_atoms_out.clear();
 	
-	HaMolSet* pmset = this->GetHostMolSet();
+	MolSet* pmset = this->GetHostMolSet();
 
 	HaHBond hbond_start(this, (HaAtom*)1);
 
@@ -635,7 +635,7 @@ bool HaAtom::FillRef(char* buf, int ref_type) const
 
 	const HaChain*    phost_chain=GetHostChain();
 	const HaMolecule* phost_mol= GetHostMol();
-	const HaMolSet*   pmset = GetHostMolSet();
+	const MolSet*   pmset = GetHostMolSet();
 
 	const char* res_name = phost_res->GetName();
 	

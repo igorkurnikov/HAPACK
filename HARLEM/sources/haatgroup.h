@@ -234,7 +234,7 @@ class AtomGroup : public vector<HaAtom*>, public AtomContainer
 public:
 	AtomGroup() {}
 	AtomGroup(const AtomGroup& ref_atset);
-	AtomGroup(AtomExpr* expr, HaMolSet* pmset);
+	AtomGroup(AtomExpr* expr, MolSet* pmset);
 	virtual ~AtomGroup();
 
 // Overidables of AtomContainer:
@@ -259,14 +259,14 @@ public:
 
 // Manipulation of Atom Group using Atom expressions:
 
-	void SetFromExpr(AtomExpr* expr, HaMolSet* pmset );       //!< Build Atom Group from expression 
-	void SetFromExprStr(const char* expr_str, HaMolSet* pmset ); //!< Build Atom Group using expression string
-	void AddFromExpr(AtomExpr* expr, HaMolSet* pmset );          //!< Add to the Atom Group atoms that satisfy expression 
-	void AddFromExprStr(const char* expr_str, HaMolSet* pmset ); //!< Add to the Atom Group atoms that satisfy expression given by the string
-	void DeleteAtomsExpr(AtomExpr* expr, HaMolSet* pmset );     //!< Delete Atoms from the Atom Group atoms that satisfy expression 
-	void DeleteAtomsExprStr(const char* expr_str, HaMolSet* pmset ); //!< Delete Atoms from the Atom Group using expression string
-	void KeepOnlyAtomsExpr(AtomExpr* expr, HaMolSet* pmset );     //!< Keep only Atoms from the Atom Group that satisfy expression 
-	void KeepOnlyAtomsExprStr(const char* expr_str, HaMolSet* pmset ); //!< Keep only Atoms from the Atom Group that satisfy expression given by string
+	void SetFromExpr(AtomExpr* expr, MolSet* pmset );       //!< Build Atom Group from expression 
+	void SetFromExprStr(const char* expr_str, MolSet* pmset ); //!< Build Atom Group using expression string
+	void AddFromExpr(AtomExpr* expr, MolSet* pmset );          //!< Add to the Atom Group atoms that satisfy expression 
+	void AddFromExprStr(const char* expr_str, MolSet* pmset ); //!< Add to the Atom Group atoms that satisfy expression given by the string
+	void DeleteAtomsExpr(AtomExpr* expr, MolSet* pmset );     //!< Delete Atoms from the Atom Group atoms that satisfy expression 
+	void DeleteAtomsExprStr(const char* expr_str, MolSet* pmset ); //!< Delete Atoms from the Atom Group using expression string
+	void KeepOnlyAtomsExpr(AtomExpr* expr, MolSet* pmset );     //!< Keep only Atoms from the Atom Group that satisfy expression 
+	void KeepOnlyAtomsExprStr(const char* expr_str, MolSet* pmset ); //!< Keep only Atoms from the Atom Group that satisfy expression given by string
 
     const char* GetID() const;           //!< Return Group ID
 	void SetID(const std::string& new_id);  //!< Set ID of the Atom Set
@@ -275,7 +275,7 @@ protected:
 	std::string id;	
 };
 
-class HaMolSet;
+class MolSet;
 
 // Beware AddAtom is defined in winbase.h (WIN32)!!
 
@@ -284,7 +284,7 @@ class ChemGroup : public AtomGroup
 {
 public:
   ChemGroup();
-  ChemGroup(HaMolSet* new_phost_mset, const char* new_id= "" );
+  ChemGroup(MolSet* new_phost_mset, const char* new_id= "" );
   virtual ~ChemGroup();
           
   bool FillRef(char* buf) const; //!< Fill Text Reference of the group 
@@ -292,7 +292,7 @@ public:
   double GetProtect() const;    //!< return screening factor 
   bool SetProtect(const double new_protect);
   
-  friend class HaMolSet;
+  friend class MolSet;
  
   static std::string GetIDFromRef(const std::string& buf);
 
@@ -300,7 +300,7 @@ public:
 
 protected:
 
-   HaMolSet* phost_mset;
+   MolSet* phost_mset;
 
    double protect; // screening factor of the group in the fragment
                   // from 0 to 1;  1.0 - non-perturbed group  
@@ -349,8 +349,8 @@ public:
 	HaMolecule* GetHostMol();  //!< Get the molecule the residue belongs to
 	const HaMolecule* GetHostMol() const;  //!< Get const pointer to the molecule the residue belongs to
 
-	HaMolSet* GetHostMolSet();                //!< Get the molecule set the residue belongs to
-	const HaMolSet* GetHostMolSet() const;  //!< Get const pointer to the molecular set the residue belongs to
+	MolSet* GetHostMolSet();                //!< Get the molecule set the residue belongs to
+	const MolSet* GetHostMolSet() const;  //!< Get const pointer to the molecular set the residue belongs to
 
 	HaResidue* GetNextResInChain();        //!< Get Next Residue in Chain
 	HaResidue* GetNextResInChain() const;  //!< Get Next Residue in Chain
@@ -659,7 +659,7 @@ class CrdSnapshotIterator
 //!< Iterator on CrdSnapshot objects associated with Molecular Set
 {
 public:
-	CrdSnapshotIterator( HaMolSet* pmset );
+	CrdSnapshotIterator( MolSet* pmset );
 	CrdSnapshotIterator(const CrdSnapshotIterator& ref);
 	virtual ~CrdSnapshotIterator();
 

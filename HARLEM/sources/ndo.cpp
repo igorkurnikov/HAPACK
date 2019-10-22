@@ -1626,7 +1626,7 @@ int HaQCMod::RunCNDOThread()
 {
 	stop_calc_flag = FALSE;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	InitBasis("MINB6G");
 	InitLocOrb("FULL_ATOMIC_BASIS");
 	wave_fun_type = harlem::qc::NDO;

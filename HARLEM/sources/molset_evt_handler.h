@@ -13,14 +13,14 @@
 class MolSetEvtHandler: public wxEvtHandler
 {
 public:
-	MolSetEvtHandler(HaMolSet* pmset);
+	MolSetEvtHandler(MolSet* pmset);
 	virtual ~MolSetEvtHandler();
 
 	virtual bool TryParent(wxEvent& event); //!< Override wxEvtHandler to not calling wxApp::ProcessEvent()
 
 	void OnTestCommand(wxCommandEvent& event); 
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 private:
 	DECLARE_EVENT_TABLE();
 };

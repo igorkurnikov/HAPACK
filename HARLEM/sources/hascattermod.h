@@ -19,7 +19,7 @@ class HaNonLocField3D;
 class HaScatterMod : public HaCompMod
 {
 public:
-	HaScatterMod(HaMolSet* new_phost_mset = NULL);
+	HaScatterMod(MolSet* new_phost_mset = NULL);
 	virtual ~HaScatterMod();
 
 	void SetStdParams();

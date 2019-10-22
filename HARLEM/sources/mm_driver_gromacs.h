@@ -35,7 +35,7 @@ public:
 
 protected:
 
-	HaMolSet*     pmset;
+	MolSet*     pmset;
 	MolMechModel* p_mm_model;      //!< MolMechModel corresponding to the class
 	HaMolMechMod* p_mm_mod;        //!< HaMolMech Module associated with the model
 };

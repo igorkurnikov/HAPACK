@@ -211,7 +211,7 @@ int MultiSitePopulationMethod::SetWithLabel(const char* label_set)
 }
 
 
-ProtonRedoxMod::ProtonRedoxMod(HaMolSet* new_phost_mset):
+ProtonRedoxMod::ProtonRedoxMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_PROTON_REDOX, new_phost_mset)
 {
 	set_std_redox_pot = FALSE;
@@ -459,7 +459,7 @@ int ProtonRedoxMod::SetStdResPKa_G1(HaResidue* pres, int set_redox_pot)
 	        grp_name += "_HIS";
 			HaMolecule* pmol = pres->GetHostMol();
 			grp_name = ((std::string)pmol->GetObjName()) + "_" + grp_name; 
-            HaMolSet* pmset = pmol->GetHostMolSet();
+            MolSet* pmset = pmol->GetHostMolSet();
 			AtomGroup* atgrp = pmset->GetAtomGroupByID( grp_name.c_str() );
 			HaAtom* aptr;
 
@@ -645,7 +645,7 @@ int ProtonRedoxMod:: SetStdResPKa(HaResidue* pres, int set_redox_pot)
 
 void ProtonRedoxMod::SetStdPKa()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaResidue* rptr;
     ResidueIteratorMolSet ritr(pmset);
     for(rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes() )
@@ -656,7 +656,7 @@ void ProtonRedoxMod::SetStdPKa()
 
 void ProtonRedoxMod::SetStdPKa_G1()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaResidue* rptr;
     ResidueIteratorMolSet ritr(pmset);
     for(rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes() )
@@ -676,7 +676,7 @@ bool ProtonRedoxMod::SetStdPKforAtName(HaResidue* pres, const char* at_name,doub
 
 void ProtonRedoxMod::SetAltStatesActive(int set_flag)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaResidue* rptr;
     ResidueIteratorMolSet ritr(pmset);
     for(rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes() )
@@ -740,7 +740,7 @@ void ProtonRedoxMod::CalcPKaForSelection()
 void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 {
 	int i;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup sel_atoms;
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;
@@ -769,7 +769,7 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 	TiXmlDeclaration Decl("1.0","UTF-8","yes");
 	Doc.InsertEndChild(Decl);
   
-	TiXmlElement RootElt("HaMolSet::CalcPKs");
+	TiXmlElement RootElt("MolSet::CalcPKs");
 	
 	vector<string> AltNames;
 //>mikola's adding
@@ -899,7 +899,7 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 
 			if(!bres)
 			{
-				PrintLog("Error in HaMolSet::CalcPKaForSelection() \n");
+				PrintLog("Error in MolSet::CalcPKaForSelection() \n");
 				PrintLog("Failed Continuum electrostatics calculations \n");
 			}
 
@@ -1505,7 +1505,7 @@ int ProtonRedoxMod::TestCalcPopFun()
 
 bool ProtonRedoxMod::SetChargesForPH(double pH_val)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	p_mol_editor->SetStdAtomicParams(pmset,AMBER_ALL_ATOM_CHRGS);
 	HaResidue* rptr;

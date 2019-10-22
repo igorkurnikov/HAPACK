@@ -34,7 +34,7 @@
 
 int ElectrostMod::ActiveElectrMod = COMP_MOD_ELECTROST;
 
-ElectrostMod::ElectrostMod(HaMolSet* new_phost_mset,const int new_mtype) :
+ElectrostMod::ElectrostMod(MolSet* new_phost_mset,const int new_mtype) :
 HaCompMod(new_mtype,new_phost_mset)
 {
 	SetStdParam();
@@ -416,7 +416,7 @@ bool ElectrostMod::BuildPotIsoSurface()
 		return false;
 	}
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset == NULL)
 		return false ;
 
@@ -712,7 +712,7 @@ ElectrostMod::PlotIndCharge()
 		return false;
 	}
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset == NULL)
 		return false ;
 
@@ -761,7 +761,7 @@ bool ElectrostMod::ColorMolSurfElPot()
 		return false;
 	}
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset == NULL)
 		return false;
 
@@ -853,7 +853,7 @@ bool ElectrostMod::ColorDotStruct(DotStruct* dotstruct)
     return false;
   }
 	
-  HaMolSet* pmset = GetMolSet();
+  MolSet* pmset = GetMolSet();
   if( pmset == NULL)
     return false;
 
@@ -942,7 +942,7 @@ bool ElectrostMod::BuildPotVdwDots()
 		return false;
 	}
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset == NULL)
 		return false ;
 
@@ -1597,7 +1597,7 @@ bool ElectrostMod::RunDelphi(RunMode rmode)
     StrVec prog_output;
 
 #if defined(INT_DELPHI)
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int_4 mgrid = nx;
 	int_4 na = pmset->GetNAtoms();
 
@@ -1715,7 +1715,7 @@ void rdprm2_(logical* iautocon,
 				 logical* iconc, logical* imem, 
 				 int_4* icon1, int_4* icon2)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	ElectrostMod* elmod = pmset->GetElectrostMod();
 	if(elmod == NULL) return;
     
@@ -1751,7 +1751,7 @@ void rdprm2_(logical* iautocon,
 void setatq_(freal* xn2, freal* rad3, freal* chrgv4, int_4* natom, freal* gr_cent, freal* pscale)
 {
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	ElectrostMod* elmod = pmset->GetElectrostMod();
 	if(elmod == NULL) return;
@@ -1889,7 +1889,7 @@ void getpotm_(int_4* p_ngrid, freal* potmap,
 			 freal* pxmin,  freal* pymin, freal* pzmin, 
              freal* pxmax,  freal* pymax, freal* pzmax)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	ElectrostMod* elmod = pmset->GetElectrostMod();
 	if(elmod == NULL) return;
@@ -1915,7 +1915,7 @@ void getpotm_(int_4* p_ngrid, freal* potmap,
 
 void geteneq_(freal* ptot_ene)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	ElectrostMod* elmod = pmset->GetElectrostMod();
 	if(elmod == NULL) return;

@@ -20,7 +20,7 @@
 #include "haqchem.h"
 #include "hazindo.h"
 
-HaZindoMod::HaZindoMod(HaMolSet* new_phost_mset):
+HaZindoMod::HaZindoMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_ZINDO, new_phost_mset)
 {
 	if(new_phost_mset != NULL) p_qc_mod = new_phost_mset->GetQCMod(true); 

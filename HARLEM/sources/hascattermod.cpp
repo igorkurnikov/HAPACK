@@ -35,7 +35,7 @@
 #endif 
 
 
-HaScatterMod::HaScatterMod(HaMolSet* new_phost_mset):
+HaScatterMod::HaScatterMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_SCATTER,new_phost_mset)
 {
 	pot_grid = new HaNonLocField3D;
@@ -52,7 +52,7 @@ HaScatterMod::SetStdParams()
 {
 	if(pot_grid) pot_grid->SetDimensions(10,10,10);
 
-	HaMolSet* pmset= GetMolSet();
+	MolSet* pmset= GetMolSet();
 	if(pmset == NULL)
 		return;
 
@@ -87,7 +87,7 @@ HaScatterMod::CalcPseudoPotGrid()
 	if( ires == FALSE)
 		return FALSE;
 
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(false);
 	
 	if(pot_grid == NULL)
@@ -219,7 +219,7 @@ HaScatterMod::CalcPseudoPotGrid()
 int
 HaScatterMod::CalcPseudoPotAO()
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(false);
 
 	if(ptr_qc_mod == NULL)
@@ -302,7 +302,7 @@ double
 HaScatterMod::GetPsP_xyz(double x1, double y1, double z1,
 						 double x2, double y2, double z2)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(false);
 
 	if(ptr_qc_mod == NULL)
@@ -397,7 +397,7 @@ HaScatterMod::GetPsP_Gauss_xyz(double x1, double y1, double z1,
 	                           double x2, double y2, double z2)
 {
 #ifdef USE_IPACK	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(false);
 
 	if(ptr_qc_mod == NULL)
@@ -607,7 +607,7 @@ HaScatterMod::FindGridHamEigVec(int num_vec)
 int 
 HaScatterMod::SetCoreHamOnGrid()
 {
-	HaMolSet* pmset = GetMolSet();	
+	MolSet* pmset = GetMolSet();	
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(true);
 
 	int cntr_num = ptr_qc_mod->GetNumCnt();

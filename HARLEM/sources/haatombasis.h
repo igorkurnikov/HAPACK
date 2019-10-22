@@ -238,7 +238,7 @@ public:
     virtual TiXmlElement* AddXml(TiXmlElement* parent_element, const char* name = "", int option = 0) const; //!< Add XML description of the orbitals as a child element of parent_element 
     virtual int LoadXml(const TiXmlElement* xml_element, int option=0 );
 	
-	int InitForMolSet(const char* bname, HaMolSet* pmset); //!< Init Basis for all atoms of the Molecular Set
+	int InitForMolSet(const char* bname, MolSet* pmset); //!< Init Basis for all atoms of the Molecular Set
     int InitForAtoms(const char* bname, AtomContainer* at_coll); //!< Init Basis for all atoms of the Atom Collection
 	GauAtomBasis* AddBasisToAtom(const char* bas_name, HaAtom* aptr); //!< Add BasisSet To Atom
 

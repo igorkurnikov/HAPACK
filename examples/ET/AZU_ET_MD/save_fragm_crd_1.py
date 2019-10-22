@@ -1,7 +1,7 @@
 if(script_status == SCRIPT_START):
   pmset = GetCurMolSet()
   mm_mod = pmset.GetMolMechMod(1)
-  pmset_f = HaMolSet()
+  pmset_f = MolSet()
   pmset_f.LoadHarlemFile("azu83_120P30.hlm")
   molm_f   = pmset_f.GetMolByName("AZU_83_1_ORIG")
   molext_f = pmset_f.GetMolByName("EXTERNAL_CHARGES")

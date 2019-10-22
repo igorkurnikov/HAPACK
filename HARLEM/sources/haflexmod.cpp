@@ -27,7 +27,7 @@
 #include "hamolview.h"
 
 
-HaFlexMod::HaFlexMod(HaMolSet* new_phost_mset):
+HaFlexMod::HaFlexMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_FLEX,new_phost_mset)
 {
 	p_mol_editor = new MolEditor();
@@ -77,7 +77,7 @@ void HaFlexMod::Init()
 
 void HaFlexMod::AddAllAtomGroup()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* atgrp = pmset->GetAtomGroupByID("ALLATOMLIST");
 	if( atgrp == NULL) 
 	{
@@ -113,7 +113,7 @@ void HaFlexMod::createAtomRefMap()
 
 int HaFlexMod::FindHydrogenBonds()
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	
 	AtomContainer* p_active_atoms = pmset;
 	AtomGroup* p_act_at_array = pmset->GetAtomGroupByID(active_at_array_id.c_str());
@@ -445,7 +445,7 @@ int HaFlexMod::DeleteSelectedHPTethers()
 int HaFlexMod::ComputeBondsDutyCycleAlongMD()
 {
 //	PrintLog(" HaFlexMod::ComputeBondsDutyCycleAlongMD() pt 1 \n");
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	int ires;
 	MDTrajectory trj(pmset);
 	trj.CrdFileName = md_traj_file_name.c_str();

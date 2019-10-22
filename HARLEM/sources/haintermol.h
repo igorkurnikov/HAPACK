@@ -42,7 +42,7 @@ class UpdateMolViewNotifyAgent;
 class HaInterMolMod : public HaCompMod
 {
 public:
-	HaInterMolMod(HaMolSet* new_phost_mset);
+	HaInterMolMod(MolSet* new_phost_mset);
 	virtual ~HaInterMolMod();
 
 	void SetStdParams(); //!< Set Standard Module parameters

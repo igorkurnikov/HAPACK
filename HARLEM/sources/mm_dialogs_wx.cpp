@@ -594,7 +594,7 @@ void MolMechDlgWX::ChooseMovingAtoms(wxCommandEvent& event)
 	MolMechModel* p_mm_model = ptr_mm_mod->p_mm_model;
 	if(!p_mm_model) return;
 
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 2, NULL );
 	edit_grp_dlg->ShowModal();
 	AtomGroup* p_at_arr = edit_grp_dlg->GetSelGroup();
@@ -611,7 +611,7 @@ void MolMechDlgWX::ChooseRestrainedAtoms(wxCommandEvent& event)
 	MolMechModel* p_mm_model = ptr_mm_mod->p_mm_model;
 	if(!p_mm_model) return;
 
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 2, NULL );
 	edit_grp_dlg->ShowModal();
 	AtomGroup* p_at_arr = edit_grp_dlg->GetSelGroup();
@@ -627,7 +627,7 @@ void MolMechDlgWX::ChooseFitAtoms(wxCommandEvent& event)
 {
 	if(!p_si_ag) return;
 
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 2, NULL );
 	edit_grp_dlg->ShowModal();
 	AtomGroup* p_at_arr = edit_grp_dlg->GetSelGroup();
@@ -645,7 +645,7 @@ void MolMechDlgWX::ChooseRMSDAtoms(wxCommandEvent& event)
 {
 	if(!p_si_ag) return;
 
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 2, NULL );
 	edit_grp_dlg->ShowModal();
 	AtomGroup* p_at_arr = edit_grp_dlg->GetSelGroup();
@@ -1039,7 +1039,7 @@ void MolMechDlgWX::OnAmberLoadRestart(wxCommandEvent& event)
 	if(!rst_file_name.empty())
 	{
 		ptr_mm_mod->p_amber_driver->LoadAmberRestartFile(rst_file_name.mb_str());	
-		HaMolSet* pmset= ptr_mm_mod->GetMolSet();
+		MolSet* pmset= ptr_mm_mod->GetMolSet();
 		pmset->AnnounceGeomChange();
 	}
 }
@@ -1058,7 +1058,7 @@ void MolMechDlgWX::OnShowMMInfo(wxCommandEvent& event)
 
 void MolMechDlgWX::OnEditPeriodicBox(wxCommandEvent& event)
 {
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	
 	//AtomParamsDlgWX::ResetEditFlags();
 	
@@ -1432,7 +1432,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 
 void MolMechDlgWX::OnChangeSelElem(wxCommandEvent& event)
 {
-	  HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	  MolSet* pmset = ptr_mm_mod->GetMolSet();
 	  pmset->ClearPickedAtoms();
 
 	  cur_bond = NULL;
@@ -1736,7 +1736,7 @@ void MolMechDlgWX::OnSaveResffFromMort(wxCommandEvent& event)
 	TransferDataFromWindow();
 
 	std::string fname = "resff_test.xml";
-	HaMolSet* pmset = ptr_mm_mod->GetMolSet();
+	MolSet* pmset = ptr_mm_mod->GetMolSet();
 	ForceFieldType ff_type = MMForceField::ff_type_default;
 
 	MMForceField* p_ff = MMForceField::GetMMForceField( ff_type, TRUE );

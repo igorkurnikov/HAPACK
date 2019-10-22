@@ -20,7 +20,7 @@ public:
 	void OnInitDialog();
 
 protected:
-	HaMolSet* pmset;
+	MolSet* pmset;
 	wxGrid* p_alt_st_grid;
 	MolEditor* p_mol_editor;
 	ProtonRedoxMod* p_prot_rdx_mod;

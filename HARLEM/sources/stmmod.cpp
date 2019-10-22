@@ -18,7 +18,7 @@
 #include "hamultipole.h"
 #include "math.h"
 
-StmMod::StmMod(HaMolSet* new_phost_mset):
+StmMod::StmMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_STM,new_phost_mset)
 {
 	SetStdParams();
@@ -42,7 +42,7 @@ StmMod::SetStdParams()
 int
 StmMod::CalcTMatr1()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 	if(ptr_qc_mod == NULL)

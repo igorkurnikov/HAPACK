@@ -47,7 +47,7 @@ class HaDaltonMod :  public HaCompMod
 {
 public:
 
-	HaDaltonMod(HaMolSet* new_phost_mset);
+	HaDaltonMod(MolSet* new_phost_mset);
 	virtual ~HaDaltonMod();
 
 	void SetStdFileNames();

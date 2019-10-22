@@ -73,8 +73,8 @@ nm1.append("bundle50A.hlm") # HLM file
 
 # load HLM file on pmset1 object
 ifile = open(trj_file, "r")
-pmset1 = HaMolSet()
-pmsetx = HaMolSet()
+pmset1 = MolSet()
+pmsetx = MolSet()
 pmset1.FetchFile(FormatHarlem,nm1[0])
 pmsetx.FetchFile(FormatHarlem,nm1[0])
 # change the identification number of residues
@@ -93,17 +93,17 @@ while( aptr != None):
 pmsetx.SavePDBFile("temp.pdb")
 
 #creates two HaMolset objects from the PDB file
-pmset = HaMolSet()
-pmset2 =HaMolSet()
+pmset = MolSet()
+pmset2 =MolSet()
 pmset.FetchFile(FormatPDB,"temp.pdb")   # initial snapshoot for the RMS calculation
 pmset2.FetchFile(FormatPDB,"temp.pdb")  # (current snapshoot)for the RMS calculation
 
-pmseta1 = HaMolSet()
-pmseta2 = HaMolSet()
-pmseta3 = HaMolSet()
-pmseta4 = HaMolSet()
-pmseta5 = HaMolSet()
-pmseta6 = HaMolSet()
+pmseta1 = MolSet()
+pmseta2 = MolSet()
+pmseta3 = MolSet()
+pmseta4 = MolSet()
+pmseta5 = MolSet()
+pmseta6 = MolSet()
 pmseta1.FetchFile(FormatPDB,"min1.pdb")
 pmseta2.FetchFile(FormatPDB,"min2.pdb")
 pmseta3.FetchFile(FormatPDB,"min3.pdb")

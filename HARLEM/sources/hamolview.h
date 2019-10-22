@@ -74,7 +74,7 @@ public:
 	virtual ~HaMolView();
 
 public:
-	HaMolSet* GetMolSet(); //!< Get Molecular Set that the view displays
+	MolSet* GetMolSet(); //!< Get Molecular Set that the view displays
 	
 	int debug_level;
 
@@ -106,7 +106,7 @@ public:
 	
   int DrawObj3D;//draw *Obj3D (BoxObj3D,etc) //mikola 30july06
 public:
-	HaMolSet* host_mol_set;
+	MolSet* host_mol_set;
 
 public:
 	BoxPartition HashTable;

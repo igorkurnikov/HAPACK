@@ -99,7 +99,7 @@ const int PredSurface   =  58;
 
 #include "haatom.h"
 
-class HaMolSet;
+class MolSet;
 
 class AtomExpr;
 class AtomContainer;
@@ -132,11 +132,11 @@ public:
    long EvaluateExprFor(HaAtom* aptr);  //!< evaluate the expression for the current atom
    long EvaluateProperty(long prop );   //!< Evaluate given Property for a Current Atom
 
-   static AtomExpr* LookUpAtGroupExpr( const char* grp_name, HaMolSet* pmset); //!< Create expression of atom group name
+   static AtomExpr* LookUpAtGroupExpr( const char* grp_name, MolSet* pmset); //!< Create expression of atom group name
    static AtomExpr* LookUpElement( const char* );    //!< create expression of element name       
-   static AtomExpr* ParsePrimitiveExpr( HaMolSet* pmset, const char* expr_str, size_t& cr_pos); //!< Build Logical expression corresponding to a text of atom specifications (possibly wild-carded)
+   static AtomExpr* ParsePrimitiveExpr( MolSet* pmset, const char* expr_str, size_t& cr_pos); //!< Build Logical expression corresponding to a text of atom specifications (possibly wild-carded)
 
-   static AtomExpr* ParseExpression(const std::string& expr_str, HaMolSet* pmset); //!< Build Atom expression from expression string for Molecular set pmset
+   static AtomExpr* ParseExpression(const std::string& expr_str, MolSet* pmset); //!< Build Atom expression from expression string for Molecular set pmset
 
    static AtomExpr* CreateTrueExpr(); //!< Create TRUE expression
    static AtomExpr* CreateFalseExpr();  //!< Create FALSE Expression

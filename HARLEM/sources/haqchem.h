@@ -52,7 +52,7 @@ class HaQCMod: public HaCompMod
 
 public:
 
-	HaQCMod(HaMolSet* new_phost_mset);
+	HaQCMod(MolSet* new_phost_mset);
 	virtual ~HaQCMod();
 
 	void SetStdParams();

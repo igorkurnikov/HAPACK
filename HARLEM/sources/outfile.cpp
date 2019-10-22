@@ -1169,7 +1169,7 @@ HaMolView::WriteVectDots()
     }
     temp = SlabValue() - ZOffset();
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	list<Object3D*>::iterator oitr;
 
 	int ixadd=  pCanv->XRange()/2;
@@ -1317,7 +1317,7 @@ HaMolView::CountPSItems()
     result = 0;
 
 	MoleculesType::iterator mol_itr;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
     if( DrawAtoms )
 	{
@@ -1385,7 +1385,7 @@ HaMolView::FetchPSItems(PSItemPtr* data, char* type )
 
 	MoleculesType::iterator mol_itr;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
     if( DrawAtoms )
 	{

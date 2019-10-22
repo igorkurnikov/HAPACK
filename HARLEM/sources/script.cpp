@@ -215,7 +215,7 @@ HaMolView::WriteMolScriptFile( const char* name )
     int flag,len;
     char *ptr;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
     OutFile = fopen(name,"w");
@@ -431,7 +431,7 @@ HaMolView::WriteScriptAtoms()
     same = True;
     init = False;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	AtomIteratorMolSet aitr(pmset);
     for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
@@ -620,7 +620,7 @@ void HaMolView::WriteScriptBackbone()
     ResetFreqTable();
 
 	int i;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	pmset->GetMolEditor()->UpdateBackBone(pmset);
 	int nb = pmset->BackboneBonds.size();
 	int ib;
@@ -755,7 +755,7 @@ HaMolView::WriteScriptHBonds( char* obj )
     int datum;
     int col;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HBondIteratorMolSet hbitr(pmset);
 
 	HaHBond* ptr;
@@ -909,7 +909,7 @@ HaMolView::WriteScriptFile( const char* name )
     fputs("zap\n",OutFile);
     fprintf(OutFile,"background [%d,%d,%d]\n", BackColor.r,BackColor.g,BackColor.b);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
     if( !pmset )
     {   /* No Molecule! */
@@ -1244,7 +1244,7 @@ HaMolView::WritePOVRayFile( const char* name )
 	}
 	
 	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	if(pmset == NULL) return False;
 	ETCouplMod* ptr_et_coupl_mod = pmset->GetETCouplMod(false);
@@ -1651,7 +1651,7 @@ HaMolView::WriteVRMLDots()
 		int col_idx = ColourDepth*i;
 		
 		count = 0;
-		HaMolSet* pmset = GetMolSet();
+		MolSet* pmset = GetMolSet();
 		
 		list<Object3D*>::iterator oitr;
 		
@@ -1724,7 +1724,7 @@ HaMolView::WriteVRMLFile( const char* name )
         return(False);
     }
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
     fputs("#VRML V1.0 ascii\n",OutFile);
     fputs("#Created by HARLEM v0.2\n\n",OutFile);

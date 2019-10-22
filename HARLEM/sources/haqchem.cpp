@@ -111,7 +111,7 @@ QCIntEngineType HaQCMod::int_engine = QCIntEngineType::INT_ENGINE_GAUSS;
 int HaQCMod::max_gauss_mem = 12000000;
 
 
-HaQCMod::HaQCMod(HaMolSet* new_phost_mset):
+HaQCMod::HaQCMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_QCHEM,new_phost_mset)
 {
 	SetStdParams();
@@ -1133,7 +1133,7 @@ bool HaQCMod::CreateMOcontour(const int imo, const double mo_isolvl, const int n
 
 VecPtr HaQCMod::CreateOrbContour(const HaVec_double& orb_coef, ArrayOrb3D& bas_set, const double mo_isolvl, const int ngrid)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	double xmin, xmax, ymin, ymax, zmin, zmax;
 	pmset->GetMinMaxCrd( xmin, ymin, zmin, xmax, ymax, zmax);
 	HaField3D mo_field;
@@ -1593,7 +1593,7 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 	int na;
 	sscanf(buf+44,"%d",&na);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nat_real = pmset->GetNAtoms() - pmset->GetNDumAtoms();
 
 	if( na != nat_real )
@@ -1786,7 +1786,7 @@ int HaQCMod::Run(const RunOptions* popt_par )
 	const RunOptions* popt = popt_par;
 	if( popt == NULL ) popt = &run_opt_default;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaGaussMod* p_gauss = pmset->GetGaussMod(true);
 	p_gauss->SaveInpFile();
 	p_gauss->Run();
@@ -1944,7 +1944,7 @@ int HaQCMod::TestIPack2()
 	ARRAY<Mat> nuc_attr_arr;
 	Molecule ipack_mol;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;

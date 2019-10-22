@@ -47,7 +47,7 @@ extern void writdx_(int *lu, int *lrdx, int *i__,
 }
 
 
-HaDaltonMod::HaDaltonMod(HaMolSet* new_phost_mset): 
+HaDaltonMod::HaDaltonMod(MolSet* new_phost_mset): 
 HaCompMod(COMP_MOD_DALTON, new_phost_mset)
 {
 	if(new_phost_mset != NULL) 
@@ -149,7 +149,7 @@ HaDaltonMod::Save_mol_file()
 	int na=      p_qc_mod->GetNumCnt();
 	int charge=  p_qc_mod->GetCharge();
 
-	HaMolSet* phmol_set= p_qc_mod->GetMolSet();
+	MolSet* phmol_set= p_qc_mod->GetMolSet();
 	assert(phmol_set != NULL);
 	int nsym_gen= 0;
 	char kasym[3][3];

@@ -374,7 +374,7 @@ void HaAtomsParmDB::PrintSideToSideFFs(const char* cName,const char* cNameRef)
 		}
 	}
 }
-void HaAtomsParmDB::SetAtomsParam(HaMolSet* pmset, const char *FFName)
+void HaAtomsParmDB::SetAtomsParam(MolSet* pmset, const char *FFName)
 {
 	HaAtomsParmFF* ff=GetFF(FFName);
 	if(ff==NULL)
@@ -453,7 +453,7 @@ void DeleteQRDB()
 	}
 }
 #ifdef ELMOD_COMPILE
-ElMod::ElMod(HaMolSet* new_phost_mset)
+ElMod::ElMod(MolSet* new_phost_mset)
 	:ElectrostMod(new_phost_mset,COMP_MOD_EL)
 {
 	m_ContWorld=NULL;
@@ -563,7 +563,7 @@ bool ElMod::run(RunMode rmode)
 	printf("ElMod::run\n");
 	DefClock0;
 	StartClock0;
-	PNP_EXIT_FAIL_NULL(phost_mset,"ElMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"ElMod does not assign to any MolSet\n");
 	
 	if(InitContWorld()==EXIT_FAILURE)
 	{
@@ -1621,7 +1621,7 @@ int ElMod::SolvePoissonBoltzmannSoftRepultion()
 }
 int ElMod::SetNinaBelowRouxRadii(bool only_selected_atoms)
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"ElMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"ElMod does not assign to any MolSet\n");
 	
 	PrintLog("Setting the atomic radii as described at:\n");
 	PrintLog("\tM. Nina, D. Beglov and B. Roux ,\n");
@@ -2127,7 +2127,7 @@ int ElMod::CalcRAroundZero()
 }
 #endif
 ////////////////////////////////////////////////////////////////////////////
-pKaCalcMod::pKaCalcMod(HaMolSet* new_phost_mset)
+pKaCalcMod::pKaCalcMod(MolSet* new_phost_mset)
 	:HaCompMod(COMP_MOD_PKA_CALC,new_phost_mset)
 {
 	pHmin=1.0;
@@ -2142,7 +2142,7 @@ pKaCalcMod::pKaCalcMod(HaMolSet* new_phost_mset)
 	SaveIntermediatePotNNI=false;
 	SaveIntermediateResults=false;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	p_prot_rdx_mod = pmset->GetProtonRedoxMod(true);
 }
 
@@ -2152,7 +2152,7 @@ pKaCalcMod::~pKaCalcMod()
 }
 int pKaCalcMod::PrintResWithAltProtState()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintResWithAltProtState\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = FALSE;
@@ -2173,7 +2173,7 @@ int pKaCalcMod::PrintResWithAltProtState()
 }
 int pKaCalcMod::PrintPopulation()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintPopulation\n");
 	
 	
@@ -2202,7 +2202,7 @@ int pKaCalcMod::PrintPopulation()
 }
 int pKaCalcMod::PrintPop4Homooligamer(bool PrintOnlyIfAltPopMoreThenSmth,float Smth)
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintPop4Homooligamer\n");
 	int NChains=phost_mset->GetNChains();
 	int AltResInChain=NumberOfAltStates/NChains;
@@ -2280,7 +2280,7 @@ int pKaCalcMod::PrintPop4Homooligamer(bool PrintOnlyIfAltPopMoreThenSmth,float S
 }
 int pKaCalcMod::PrintResults()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintResults\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected=FALSE;
@@ -2394,7 +2394,7 @@ int pKaCalcMod::ReadCalculatedEnergies(const char *filename)
 }
 int pKaCalcMod::MakeAltStList()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = TRUE;
 	
@@ -2497,7 +2497,7 @@ int pKaCalcMod::MakeAltStList()
 }
 int pKaCalcMod::RunCalcUsingElectrostMod()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = TRUE;
 	
@@ -2654,7 +2654,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 		  
 		if(!bres)
 		{
-			PrintLog("Error in HaMolSet::CalcPKaForSelection()\n");
+			PrintLog("Error in MolSet::CalcPKaForSelection()\n");
 			PrintLog("Failed Continuum electrostatics calculations");
 		}
 		
@@ -2724,7 +2724,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 int pKaCalcMod::RunCalcUsingElMod()
 {
 #ifdef ELMOD_COMPILE
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = TRUE;
 	
@@ -2990,7 +2990,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 			
 			if(!bres)
 			{
-				PrintLog("Error in HaMolSet::CalcPKaForSelection()\n");
+				PrintLog("Error in MolSet::CalcPKaForSelection()\n");
 				PrintLog("Failed Continuum electrostatics calculations");
 			}
 			
@@ -3072,7 +3072,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 }
 int pKaCalcMod::CalcIntrpKa()
 {
-	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any HaMolSet\n");
+	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
 	phost_mset->p_save_opt_default->save_selected = TRUE;
 	
@@ -3498,7 +3498,7 @@ int pKaCalcMod::SetAltSt4ResInHomoolgmr(int ResNum)
 	return EXIT_SUCCESS;
 }
 ////////////////////////////////////////////////////////////////////////////
-PNPMod::PNPMod(HaMolSet* new_phost_mset)
+PNPMod::PNPMod(MolSet* new_phost_mset)
 	:HaCompMod(COMP_MOD_PNP,new_phost_mset)
 {
 #ifdef PNP_DEPRECATED
@@ -5165,7 +5165,7 @@ int PNPMod::RunPNPSFromString(const char* string)
 }
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef ELMOD_COMPILE
-ElModRadDist::ElModRadDist(HaMolSet* new_phost_mset)
+ElModRadDist::ElModRadDist(MolSet* new_phost_mset)
 {
 	pmset=new_phost_mset;
 	elmod=pmset->GetElMod(FALSE);

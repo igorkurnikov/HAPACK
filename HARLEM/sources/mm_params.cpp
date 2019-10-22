@@ -282,7 +282,7 @@ int PerBoundaryCondType::SetWithLabel(const char* label_set)
 std::vector<std::string> PerBoundaryCondType::GetActiveLabels()
 {
 	if( p_mm_mod == NULL ) return GetAllLabels();
-	HaMolSet* pmset = p_mm_mod->GetMolSet();
+	MolSet* pmset = p_mm_mod->GetMolSet();
 	IntStrMap& lbl_map = GetLabelsMap();
 	std::vector<std::string> labels;
 	IntStrMap::iterator itr;
@@ -307,7 +307,7 @@ std::vector<std::string> PerBoundaryCondType::GetActiveLabels()
 void PerBoundaryCondType::SetCompatValue()
 {
 	if( p_mm_mod == NULL ) return;
-	HaMolSet* pmset = p_mm_mod->GetMolSet();
+	MolSet* pmset = p_mm_mod->GetMolSet();
 	if( pmset->per_bc->IsSet() )
 	{
 		if( v_ == NO_PERIODICITY ) 
@@ -434,7 +434,7 @@ int MMElectrMethod::SetWithLabel(const char* label_set)
 std::vector<std::string> MMElectrMethod::GetActiveLabels()
 {
 	if( p_mm_model == NULL ) return GetAllLabels();
-	HaMolSet* pmset = p_mm_model->GetMolSet();
+	MolSet* pmset = p_mm_model->GetMolSet();
 	IntStrMap& lbl_map = GetLabelsMap();
 	std::vector<std::string> labels;
 	IntStrMap::iterator itr;
@@ -458,7 +458,7 @@ std::vector<std::string> MMElectrMethod::GetActiveLabels()
 void MMElectrMethod::SetCompatValue()
 {
 	if( p_mm_model == NULL ) return;
-	HaMolSet* pmset = p_mm_model->GetMolSet();
+	MolSet* pmset = p_mm_model->GetMolSet();
 	if( pmset->per_bc->IsSet() )
 	{
 		if( v_ == GEN_BORN ) v_ = PME_METHOD;

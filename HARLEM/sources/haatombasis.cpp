@@ -1639,7 +1639,7 @@ std::string GauBasisSet::GetLabel(int idx)
 
 static StrVec lbls_minb[10];
 
-int GauBasisSet::InitForMolSet(const char* bname_str, HaMolSet* pmset)
+int GauBasisSet::InitForMolSet(const char* bname_str, MolSet* pmset)
 {
 //	PrintLog(" GauBasisSet::InitForMolSet() pt 1 \n");
 	at_bas_vec.clear();

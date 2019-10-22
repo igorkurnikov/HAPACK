@@ -291,7 +291,7 @@ protected:
 class ZMatCrd 
 {
 public:
-	ZMatCrd(HaMolSet* pmset_new);
+	ZMatCrd(MolSet* pmset_new);
 	virtual ~ZMatCrd();
 
 	void Clear(); //!< Clear content
@@ -359,7 +359,7 @@ public:
 	HaAtom* AddDummyAtom(const std::string& at_name = "X"); //!< Add Dummy Atom to the Z-matrix 
 
 protected:
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	std::vector< ElemCrd* >   elem_crds; 
 	std::vector< SingleAtomCrdRule* > rules;

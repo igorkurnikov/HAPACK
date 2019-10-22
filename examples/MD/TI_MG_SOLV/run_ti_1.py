@@ -2,8 +2,8 @@
 # This example script to run thermodynamic Integration 
 #
 
-mset_1 = HaMolSet()
-mset_2 = HaMolSet()
+mset_1 = MolSet()
+mset_2 = MolSet()
 mset_1.LoadHarlemFile("mg_neutral_wat_1.hlm")
 mset_2.LoadHarlemFile("mg_wat_1.hlm")
 mset_1.SetName("mg_wat_1_ti")

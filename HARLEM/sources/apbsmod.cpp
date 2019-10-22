@@ -31,7 +31,7 @@
 
 double APBSMod::d = 0.0;
 
-APBSMod::APBSMod(HaMolSet* new_phost_mset) :
+APBSMod::APBSMod(MolSet* new_phost_mset) :
 HaCompMod(COMP_MOD_ELECTROST,new_phost_mset)
 {
   epsi=2.0f;

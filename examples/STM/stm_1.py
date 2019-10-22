@@ -1,6 +1,6 @@
 file_res = open("res.out","w") 
 for i in range(100,105):
-   pmset = HaMolSet()
+   pmset = MolSet()
    fname = "pu-10.0-" + str(i) + "-l.mol" 
    pmset.FetchFile(FormatMDL,0,fname)
    print(i," Na = ",pmset.GetNAtoms())

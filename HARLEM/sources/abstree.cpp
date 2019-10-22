@@ -345,7 +345,7 @@ long AtomExpr::EvaluateExpr()
     return( True );
 }
 
-AtomExpr* AtomExpr::LookUpAtGroupExpr(const char* grp_name, HaMolSet* pmset )
+AtomExpr* AtomExpr::LookUpAtGroupExpr(const char* grp_name, MolSet* pmset )
 {
     AtomGroup* atl;
 	atl = pmset->GetAtomGroupByID(grp_name);
@@ -468,7 +468,7 @@ static int MatchWildName(const char* src, const char* dst, int size, int len )
 }
 
 
-AtomExpr* AtomExpr::ParsePrimitiveExpr(HaMolSet* pmset, const char* expr_str, size_t& cr_pos )
+AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size_t& cr_pos )
 //! 
 //! Generate a logical expression of subset of atoms of pmset corresponding to a string token 
 //! \param pmset    - Molecular Set atom expression is formed on
@@ -811,7 +811,7 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(HaMolSet* pmset, const char* expr_str, si
 	return NULL;
 } 
 
-AtomExpr* AtomExpr::ParseExpression(const std::string& expr_str, HaMolSet* pmset)
+AtomExpr* AtomExpr::ParseExpression(const std::string& expr_str, MolSet* pmset)
 {
 	CmdParser cmd_parser;
 	cmd_parser.SetCmdLine(expr_str);

@@ -48,7 +48,7 @@ public:
 private:
   DECLARE_EVENT_TABLE();
 
-  HaMolSet* pmset;
+  MolSet* pmset;
   HaFlexMod* myHaFlexMod;
 
 };

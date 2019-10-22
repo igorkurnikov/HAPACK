@@ -1,4 +1,4 @@
-mset = HaMolSet()
+mset = MolSet()
 mset.LoadHarlemFile("MG_HOH1_1.hlm")
 mm_mod = mset.GetMolMechMod(1)
 mm_mod.SetMaxNumMinimSteps(5000)

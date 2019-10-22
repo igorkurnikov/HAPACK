@@ -331,7 +331,7 @@ void wxMolED::OnNextButtonClick(wxCommandEvent& event)
 
 	if( pmset == NULL || pmset->canvas_wx == NULL)
     {
-        pmset = new HaMolSet();
+        pmset = new MolSet();
         pmset->canvas_wx = frame_main->CreateMolView(pmset);        
     }
 	pmset->FetchFile(FormatPDB, fullPathName.c_str()); 

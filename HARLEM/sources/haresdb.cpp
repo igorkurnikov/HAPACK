@@ -126,7 +126,7 @@ int HaResDB::Init()
 
 HaResDB* HaResDB::GetDefaultResDB()
 {
-	HaMolSet* pmset_save = GetCurMolSet();
+	MolSet* pmset_save = GetCurMolSet();
 	if( res_db == NULL ) res_db = new HaResDB;
 	if( pmset_save) CurMolSet = pmset_save;
 	return res_db;

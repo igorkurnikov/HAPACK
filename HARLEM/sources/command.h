@@ -43,7 +43,7 @@ const int FormatHIN      = 21;
 const int FormatGUESS    = 0;
 
 class AtomExpr;
-class HaMolSet;
+class MolSet;
 
 class CmdParser
 //! Class to process RASMOL-like text commands
@@ -80,7 +80,7 @@ public:
 	int NextIf(int token, const char* error );
 	int ParseColour(int& RVal, int& GVal, int& BVal); //!< Set RGB value corresponging to the colour
 	AtomExpr* ParseRange(int neg );
-	AtomExpr* ParseExpression(int level, HaMolSet* pmset); //!< Parse str_parse and form a logical expression in QParse
+	AtomExpr* ParseExpression(int level, MolSet* pmset); //!< Parse str_parse and form a logical expression in QParse
 
 protected:
 	std::string CurLine;    //!< Line with the command to process

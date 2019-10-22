@@ -277,7 +277,7 @@ bool PathStep::operator < (const PathStep & rhs) const
 	return( coupling < rhs.coupling);
 }
 
-ETCouplMod::ETCouplMod(HaMolSet* new_phost_mset):
+ETCouplMod::ETCouplMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_ET_COUPL,new_phost_mset)
 {
 	if(new_phost_mset == NULL) 
@@ -497,7 +497,7 @@ bool ETCouplMod::path_coupl_calc()
 
 	int i;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -687,7 +687,7 @@ bool ETCouplMod::select_important(double thresh)
 	if(thresh <= 1.0e-20) thresh= 1.0e-20;
 	thresh=log(thresh);
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 	
@@ -775,7 +775,7 @@ double ETCouplMod::CalcAtomContactCoupling(HaAtom* aptr1, HaAtom* aptr2)
 {
 //!  Set up coupling between nodes in PATHWAYS model 
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -824,7 +824,7 @@ double ETCouplMod::CalcAtomContactCoupling(HaAtom* aptr1, HaAtom* aptr2)
 
 int ETCouplMod::ColorMolSurfETCoupl()
 {	
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	if( pmset == NULL)
 		return FALSE;
 
@@ -931,7 +931,7 @@ int ETCouplMod::ColorMolSurfETCoupl()
 
 bool ETCouplMod::DuttonModelCalc()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -1175,7 +1175,7 @@ bool ETCouplMod::CalcGFDonAccOrb()
 
 bool ETCouplMod::SetDAdipoleMat()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -1779,7 +1779,7 @@ bool ETCouplMod::CalcHDAEneSplit()
 
 int ETCouplMod::AddRedoxOrbFromEigVec(const HaVec_int& mo_idx)
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
     AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
@@ -2004,9 +2004,9 @@ int ETCouplMod::AddRedoxOrbFromEigVec(const HaVec_int& mo_idx)
 	return TRUE;	
 }
 
-int ETCouplMod::GetRedoxOrbsFromFrag( HaMolSet* pfrag )
+int ETCouplMod::GetRedoxOrbsFromFrag( MolSet* pfrag )
 {
-	HaMolSet* pmset = this->GetMolSet();
+	MolSet* pmset = this->GetMolSet();
 	
 	try
 	{
@@ -2374,7 +2374,7 @@ double ETCouplMod::calc_edge_dist()
 	double dist_min=1000.0;
 	double dist;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -2527,7 +2527,7 @@ bool ETCouplMod::PutSubMatToDB()
 		return false;
 	}
 	
-	HaMolSet* phmol_set= ptr_qc_mod->GetMolSet();
+	MolSet* phmol_set= ptr_qc_mod->GetMolSet();
 
 	int nab=ptr_qc_mod->GetNActiveOrb();
 	if(nab <= 0)
@@ -2570,7 +2570,7 @@ bool ETCouplMod::GetSubMatFromDB()
 	HaMatDB db_file(db_file_name.c_str(),"a");
 	if(ptr_qc_mod == NULL)return false;
 
-	HaMolSet* phmol_set= ptr_qc_mod->GetMolSet();
+	MolSet* phmol_set= ptr_qc_mod->GetMolSet();
 
 	int ngrp= phmol_set->GetNChemGroups(); 
 	
@@ -3149,7 +3149,7 @@ bool ETCouplMod::CalcHDAPert(double &hda_coupl)
 	if(ptr_qc_mod == NULL)
 		return false;
 
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
@@ -3312,7 +3312,7 @@ bool ETCouplMod::CalcHDAPert(double &hda_coupl)
 
 bool ETCouplMod::PrintProtectMat() const
 {
-	HaMolSet* phmol_set= ptr_qc_mod->GetMolSet();
+	MolSet* phmol_set= ptr_qc_mod->GetMolSet();
 	if(phmol_set == NULL)
 	{
 		ErrorInMod(" ETCouplMod::PrintProtectMat()",
@@ -3372,7 +3372,7 @@ bool ETCouplMod::PrintProtectMat() const
 
 bool ETCouplMod::calc_intermol_path_coupl()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	AtomGroup* pdon = pmset->GetAtomGroupByID("DONOR");
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 

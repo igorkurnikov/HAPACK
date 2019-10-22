@@ -224,7 +224,7 @@ StrVec     HaResidue::ResNames;
 StrStrMap  HaResidue::ResSynonym;
 StrIntMap  HaResidue::res_name_refno_map;
 
-AtomGroup::AtomGroup(AtomExpr* expr, HaMolSet* pmset)
+AtomGroup::AtomGroup(AtomExpr* expr, MolSet* pmset)
 { 
 	SetFromExpr(expr, pmset);	
 }
@@ -338,7 +338,7 @@ int AtomGroup::IsMember(const HaAtom* aptr) const
     return( False );
 }
 
-void AtomGroup::SetFromExpr(AtomExpr* expr, HaMolSet* pmset)
+void AtomGroup::SetFromExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	clear();
 	HaAtom* aptr;
@@ -353,7 +353,7 @@ void AtomGroup::SetFromExpr(AtomExpr* expr, HaMolSet* pmset)
 	}
 }
 
-void AtomGroup::SetFromExprStr(const char* expr_str, HaMolSet* pmset )
+void AtomGroup::SetFromExprStr(const char* expr_str, MolSet* pmset )
 {
 	clear();
 	AtomExpr* p_expr;
@@ -364,7 +364,7 @@ void AtomGroup::SetFromExprStr(const char* expr_str, HaMolSet* pmset )
 	}
 }
 
-void AtomGroup::AddFromExpr(AtomExpr* expr, HaMolSet* pmset)
+void AtomGroup::AddFromExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
@@ -384,7 +384,7 @@ void AtomGroup::AddFromExpr(AtomExpr* expr, HaMolSet* pmset)
 	}
 }
 
-void AtomGroup::AddFromExprStr(const char* expr_str, HaMolSet* pmset )
+void AtomGroup::AddFromExprStr(const char* expr_str, MolSet* pmset )
 {
 	AtomExpr* p_expr;
 	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
@@ -394,7 +394,7 @@ void AtomGroup::AddFromExprStr(const char* expr_str, HaMolSet* pmset )
 	}
 }
 
-void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, HaMolSet* pmset)
+void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
@@ -415,7 +415,7 @@ void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, HaMolSet* pmset)
 	}
 }
 
-void AtomGroup::DeleteAtomsExprStr(const char* expr_str, HaMolSet* pmset )
+void AtomGroup::DeleteAtomsExprStr(const char* expr_str, MolSet* pmset )
 {
 	AtomExpr* p_expr;
 	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
@@ -425,7 +425,7 @@ void AtomGroup::DeleteAtomsExprStr(const char* expr_str, HaMolSet* pmset )
 	}
 }
 
-void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, HaMolSet* pmset)
+void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
@@ -446,7 +446,7 @@ void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, HaMolSet* pmset)
 	}
 }
 
-void AtomGroup::KeepOnlyAtomsExprStr(const char* expr_str, HaMolSet* pmset )
+void AtomGroup::KeepOnlyAtomsExprStr(const char* expr_str, MolSet* pmset )
 {
 	AtomExpr* p_expr;
 	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
@@ -500,7 +500,7 @@ ChemGroup::ChemGroup()
 }
 
 
-ChemGroup::ChemGroup(HaMolSet* new_phost_mset, const char* new_id)
+ChemGroup::ChemGroup(MolSet* new_phost_mset, const char* new_id)
 {
 	phost_mset= new_phost_mset;
 	id=new_id;
@@ -629,12 +629,12 @@ const HaMolecule* HaResidue::GetHostMol() const
 	return phost_ch->GetHostMol();
 }
 
-HaMolSet* HaResidue::GetHostMolSet()
+MolSet* HaResidue::GetHostMolSet()
 {
 	return (phost_ch->GetHostMol())->GetHostMolSet();
 }
 
-const HaMolSet* HaResidue::GetHostMolSet() const
+const MolSet* HaResidue::GetHostMolSet() const
 {
 	return (phost_ch->GetHostMol())->GetHostMolSet();
 }
@@ -727,7 +727,7 @@ int HaResidue::HasBackBHBond(HaResidue* res2)
 		return FALSE;
 	}
 	
-	HaMolSet* pmset = this->GetHostMolSet();
+	MolSet* pmset = this->GetHostMolSet();
 	if(pmset->AreHBonded(pn1,po2) ) return TRUE;
 	if(pmset->AreHBonded(pn2,po1) ) return TRUE;
 
@@ -2222,7 +2222,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 
 int HaResidue::AddWaterHydrogens()
 {
-	HaMolSet* pmset = GetHostMolSet();
+	MolSet* pmset = GetHostMolSet();
 	HaAtom* aptr_o = this->GetAtomByName("O");
 	if(aptr_o == NULL)
 	{
@@ -2271,7 +2271,7 @@ int HaResidue::AddWaterHydrogens()
 	
 int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 {
-	HaMolSet* pmset = GetHostMolSet();
+	MolSet* pmset = GetHostMolSet();
 	HaAtom* atempl;
 
     int i;
@@ -2400,7 +2400,7 @@ HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4,
 		else
 			dih_angle= 0.0;
 
-		HaMolSet* pmset = aptr2->GetHostMolSet();
+		MolSet* pmset = aptr2->GetHostMolSet();
 
 		if(aptr3->GetHostMolSet() != pmset || aptr4->GetHostMolSet() != pmset) 
 		{
@@ -3220,7 +3220,7 @@ int CrdSnapshot::SaveCurrentAtomCrd()
 		crd[j] = aptr->GetZ(); j++;
 	}
 
-	HaMolSet* pmset = dynamic_cast<HaMolSet*>( p_at_cont );
+	MolSet* pmset = dynamic_cast<MolSet*>( p_at_cont );
 	if( pmset != NULL && pmset->per_bc->IsSet() ) 
 	{
 		pbox.resize(6);
@@ -3258,7 +3258,7 @@ int CrdSnapshot::SetAtomCrd()
 	}
 
 	bool set_box = false; 
-	HaMolSet* pmset = dynamic_cast<HaMolSet*>( p_at_cont );
+	MolSet* pmset = dynamic_cast<MolSet*>( p_at_cont );
 	if( pmset != NULL && pmset->per_bc->IsSet() ) set_box = true;
 
 	if( pbox.size() == 0 ) set_box = false;
@@ -3321,14 +3321,14 @@ int CrdSnapshot::LoadXMLNode( rapidxml::xml_node<>* node, const harlem::HashMap*
 	std::auto_ptr<harlem::HashMap> popt_auto(  (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
 	harlem::HashMap* popt = popt_auto.get();
 
-	HaMolSet* pmset = NULL;
+	MolSet* pmset = NULL;
 	AtomGroup* p_at_grp = NULL;
 
 	try
 	{
 		if( popt->has_a("MSET_PTR") ) 
 		{
-			pmset = boost::any_cast<HaMolSet*> (popt->get_a("MSET_PTR"));
+			pmset = boost::any_cast<MolSet*> (popt->get_a("MSET_PTR"));
 		}
 		if( popt->has_a("ATGRP_PTR") ) 
 		{
@@ -3471,7 +3471,7 @@ int CrdSnapshot::OnDelAtoms( AtomContainer& at_del_par )
 	return TRUE;
 }
 
-CrdSnapshotIterator::CrdSnapshotIterator( HaMolSet* pmset )
+CrdSnapshotIterator::CrdSnapshotIterator( MolSet* pmset )
 {
 	first_call = true;
 	itr_curr = pmset->crd_snapshots.begin();

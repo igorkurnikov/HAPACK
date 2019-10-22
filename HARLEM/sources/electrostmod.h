@@ -16,7 +16,7 @@
 #include "hasurface.h"
 
 class HaSurface;
-class HaMolSet;
+class MolSet;
 class AtomGroup;
 class HaResidue;
 class AltChemState;
@@ -36,7 +36,7 @@ enum ELPOT_FILE_FORMAT { HLM_F3D_BIN = 0, HLM_F3D_FORM = 1, ELPOT_DELPHI_BIN = 2
 class ElectrostMod : public HaCompMod
 {
 public:
-	ElectrostMod(HaMolSet* new_phost_mset = NULL,const int new_mtype=COMP_MOD_ELECTROST);
+	ElectrostMod(MolSet* new_phost_mset = NULL,const int new_mtype=COMP_MOD_ELECTROST);
 	virtual ~ElectrostMod();
 
 	virtual void clear();    //!< Clear data and set default parameters of the module 

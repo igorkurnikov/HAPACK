@@ -50,7 +50,7 @@ public:
 
 //! \name MM model description and initialization  
 //@{
-	HaMolMechMod(HaMolSet* new_pmset);
+	HaMolMechMod(MolSet* new_pmset);
 	virtual ~HaMolMechMod();
 
 	int SetStdParams();
@@ -548,7 +548,7 @@ public:
 	
 	HaMolMechMod* p_mm_mod;
 	MolMechModel* p_mm_model;
-	HaMolSet*     pmset;
+	MolSet*     pmset;
 
 	int to_save_input_files; //!< Flag to indicate that input files are needed to be saved before running external program
 };

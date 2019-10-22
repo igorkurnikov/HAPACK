@@ -100,7 +100,7 @@ private:
 class TraceMolAgent : public TrajAnalAgent
 {
 public:
-	TraceMolAgent(HaMolSet* pmset_new);
+	TraceMolAgent(MolSet* pmset_new);
 	virtual ~TraceMolAgent();
 
 	virtual std::string GetClassName() const { return "TraceMolAgent"; }
@@ -111,7 +111,7 @@ public:
 	virtual int AnalyzePt(TrajPointInfo* ppt_info);
 	virtual int Finalize();
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 	AtomGroup traced_atoms;     //!< Atoms traced during Trajectory replay or simulations
 
 	HaMolecule* trace_mol;
@@ -126,7 +126,7 @@ protected:
 class UpdateMolViewNotifyAgent : public TrajAnalAgent
 {
 public:
-	UpdateMolViewNotifyAgent(HaMolSet* pmset_new);
+	UpdateMolViewNotifyAgent(MolSet* pmset_new);
 	virtual ~UpdateMolViewNotifyAgent();
 
 	virtual std::string GetClassName() const { return "UpdateMolViewNotifyAgent"; }
@@ -137,7 +137,7 @@ public:
 	virtual int AnalyzePt(TrajPointInfo* ppt_info);
 	virtual int Finalize();
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 	int is_moved;
 	double update_interval; //!< Minimal interval in seconds to notify molecular views to update molecular image
 	unsigned long next_update_time;

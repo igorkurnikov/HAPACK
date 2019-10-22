@@ -1,7 +1,7 @@
 #script_status = SCRIPT_START
 if(script_status == SCRIPT_START):
   pmset_md = GetCurMolSet()
-  pmset_pka = HaMolSet()
+  pmset_pka = MolSet()
   pmset_pka.LoadHarlemFile("dtox_tdom_hid_prot_his.hlm")
   atmap = AtomMapping(pmset_md,pmset_pka)
   atmap.Map2to1ByAtomRef()

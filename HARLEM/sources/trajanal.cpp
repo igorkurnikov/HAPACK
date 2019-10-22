@@ -118,7 +118,7 @@ int TrajIOAgent::AnalyzePt(TrajPointInfo* ppt_info)
 {
 	char buf[256];
 	
-	HaMolSet* pmset = p_sim->GetMolSet();
+	MolSet* pmset = p_sim->GetMolSet();
 	if( pmset) pmset->info_str.clear();
 
 	if( IsReadCoord() )
@@ -301,7 +301,7 @@ int TrajIOAgent::IsWriteEnergy() const
 	return (traj_io_mode & ENERGY_WRITE);
 }
 
-TraceMolAgent::TraceMolAgent(HaMolSet* pmset_new)
+TraceMolAgent::TraceMolAgent(MolSet* pmset_new)
 {
 	pmset = pmset_new;
 
@@ -380,7 +380,7 @@ int TraceMolAgent::Finalize()
 	return TRUE;
 }
 
-UpdateMolViewNotifyAgent::UpdateMolViewNotifyAgent(HaMolSet* pmset_new)
+UpdateMolViewNotifyAgent::UpdateMolViewNotifyAgent(MolSet* pmset_new)
 {
 	pmset = pmset_new;
 	is_moved = FALSE;

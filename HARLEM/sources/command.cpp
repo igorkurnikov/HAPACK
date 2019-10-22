@@ -457,7 +457,7 @@ void CmdParser::CommandError(const char* error )
     CurToken = 0;
 }
 
-int HaMolSet::FetchFile(int format, const char* file_name )
+int MolSet::FetchFile(int format, const char* file_name )
 {
     int done;
 	std::string fname = file_name;
@@ -792,7 +792,7 @@ AtomExpr* CmdParser::ParseRange(int neg )
 }
 
 
-AtomExpr* CmdParser::ParseExpression(int level, HaMolSet* pmset )
+AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 {
     AtomExpr *tmp1,*tmp2;
     int done, pred;

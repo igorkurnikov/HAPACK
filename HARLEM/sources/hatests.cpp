@@ -52,7 +52,7 @@
 void HaTests::calc_polar_gcontr()
 // Calculate Group-Group contributions to polarizability
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 
@@ -193,7 +193,7 @@ void HaTests::save_grp_oper_mat()
 {
 //  Save to the database file Group-Group matricies of one-electron
 //  operators for the active molecule
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 	if( ptr_qc_mod == NULL) return;
@@ -279,7 +279,7 @@ void HaTests::calc_polar_contr_f()
 // Calculate Group-Group contributions to polarizability
 // using Operator active orbital matricies saved in the file
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 
@@ -440,7 +440,7 @@ HaTests::calc_polar_contr_2idx()
 {
 // Calculate Group-Group contributions to polarizability
 // using Operator active orbital matricies saved in the file
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 	if( ptr_qc_mod == NULL) return;
@@ -561,7 +561,7 @@ void HaTests::calc_beta_contr_2idx()
 // Calculate Group-Group contributions to polarizability
 // using Operator active orbital matricies saved in the file
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 	if(ptr_qc_mod == NULL) return; 
@@ -720,7 +720,7 @@ void HaTests::read_polar_contr()
 {
   ofstream flog("harlem.log");
 
-  HaMolSet* pmset = GetCurMolSet();
+  MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
   HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
   if( ptr_qc_mod == NULL) return;
@@ -821,7 +821,7 @@ void HaTests::read_polar_contr_2idx()
 {
   ofstream flog("harlem.log");
 
-  HaMolSet* pmset = GetCurMolSet();
+  MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
   HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
   if( ptr_qc_mod == NULL) return;
@@ -888,7 +888,7 @@ void HaTests::read_beta_contr_2idx()
 {
   ofstream flog("harlem.log");
 
-  HaMolSet* pmset = GetCurMolSet();
+  MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
   HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
   if( ptr_qc_mod == NULL) return;
@@ -958,7 +958,7 @@ void HaTests::read_beta_contr_2idx()
 void HaTests::test_oper_1()
 // function to check Analytical calculation of one-electron operators:
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(!pmset) return ;
 
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
@@ -1095,7 +1095,7 @@ void HaTests::test_oper_1()
 
 void HaTests::test_oper_2()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 
@@ -1200,7 +1200,7 @@ void HaTests::test_oper_2()
 
 void HaTests::test_qcmod_1()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(true);
 	const HaPseudoPot* pot_ptr;
@@ -1245,7 +1245,7 @@ void HaTests::test_qcmod_1()
 
 void HaTests::dump_mol_info()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	pmset->Print_info(cout,1);
 }
@@ -1257,7 +1257,7 @@ void HaTests::dump_gauss_bcommon()
 
 void HaTests::dump_overlap()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	HaQCMod* ptr_qc_mod= pmset->GetQCMod(true);
 
@@ -1281,7 +1281,7 @@ void HaTests::dump_overlap2()
 	HaMat_double ss;
 	GauBasisSet bas1,bas2;
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 
 //	HaQCMod::int_engine = QCIntEngineType::INT_ENGINE_GAUSS;

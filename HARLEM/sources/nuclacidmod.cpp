@@ -21,7 +21,7 @@
 #include "harlemapp.h"
 #include "math.h"
 
-NuclAcidMod::NuclAcidMod(HaMolSet* new_phost_mset):
+NuclAcidMod::NuclAcidMod(MolSet* new_phost_mset):
 HaCompMod(COMP_MOD_NUCL_ACID,new_phost_mset)
 {
 	SetStdParams();
@@ -641,7 +641,7 @@ int NuclAcidMod::SetCoordsFromJumna()
 #if defined(INT_JUMNA)
 
     int na = mrc_.kam;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	HaMolecule* pMol= pmset->GetMolByName("DNA");
 	if(pMol == NULL)
 	{
@@ -2158,7 +2158,7 @@ int NuclAcidMod::CalcAxis()
 HaMolecule*
 NuclAcidMod::FindDNAMol()
 {
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	int nmol = pmset->GetNMol();
 	if(nmol == 0) return NULL;
 	
@@ -2645,7 +2645,7 @@ int NuclAcidMod::CreateMolFromJumna()
 	int na = mrc_.kam;
 	PrintLog(" na = %5d \n",na);
 	int i,j;
-	HaMolSet* pmset = GetMolSet();
+	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	HaMolecule* pMol= pmset->CreateMolecule();
 	if(pMol == NULL) return FALSE;

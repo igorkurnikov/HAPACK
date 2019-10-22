@@ -1265,7 +1265,7 @@ int AmberMMModel::InitAmberModelAmoeba()
 	return TRUE;
 }
 
-int MMForceField::SaveResFFTemplatesFromMort(const char* fname, HaMolSet* pmset_res )
+int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_res )
 {
 	ofstream os(fname);
 	if(!os.good()) return FALSE;

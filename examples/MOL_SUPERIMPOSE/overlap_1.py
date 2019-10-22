@@ -11,7 +11,7 @@ nm2.append("pept_2.pdb")
 nm2.append("tyr_2.pdb")
 nn = len(nm1)
 for i in range(nn):
-  pmset = HaMolSet()
+  pmset = MolSet()
   pmset.FetchFile(FormatPDB,nm1[i])
   pmset.FetchFile(FormatPDB,nm2[i])
   pmol1 = pmset.GetMoleculeNum(0)

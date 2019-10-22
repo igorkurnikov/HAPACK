@@ -1027,7 +1027,7 @@ int GOAtoms::LoadIER(const char *filename)
 	return EXIT_SUCCESS;
 }
 #ifdef HARLEM_MOD
-int GOAtoms::LoadHaMolSet(HaMolSet *molset)
+int GOAtoms::LoadHaMolSet(MolSet *molset)
 {
 	HaAtom* aptr;
 	AtomIteratorMolSet aitr(molset);

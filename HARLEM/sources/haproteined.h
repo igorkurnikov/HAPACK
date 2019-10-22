@@ -53,7 +53,7 @@ class CollectCrdAnalMod: public HaCompMod
 //!  Class to perform Collective Coordinates Analysis of MD trajectory
 {
 public:
-	CollectCrdAnalMod(HaMolSet* new_phost_mset);
+	CollectCrdAnalMod(MolSet* new_phost_mset);
 	virtual ~CollectCrdAnalMod();
 	
 	void SetActiveAtomGroup(const std::string& atgrp_name); //!< Set the name of the active atom group

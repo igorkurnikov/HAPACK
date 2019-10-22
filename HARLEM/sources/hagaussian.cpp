@@ -37,7 +37,7 @@
 
 harlem::RunOptions HaGaussMod::run_opt_default;
 
-HaGaussMod::HaGaussMod(HaMolSet* pmset_new): HaCompMod(COMP_MOD_GAUSSIAN, pmset_new )
+HaGaussMod::HaGaussMod(MolSet* pmset_new): HaCompMod(COMP_MOD_GAUSSIAN, pmset_new )
 {
 	if( pmset_new != NULL) p_qc_mod = pmset_new->GetQCMod(true); 
 	SetStdFileNames();
@@ -115,7 +115,7 @@ std::string HaGaussMod::GetOutFileName() const
 
 bool HaGaussMod::SaveInpFile()
 {
-    HaMolSet* pmset = this->GetMolSet();
+    MolSet* pmset = this->GetMolSet();
 	std::string str;
 
 	std::ofstream inp_file_stream( GetInpFileName().c_str() );
@@ -227,7 +227,7 @@ int HaGaussMod::LoadOutFromStream( std::istream& is )
 		enum { SEARCH_MODE = 0, READ_OPT_GEOM = 1, READ_SUMMARY = 2 } read_mode0;
 		read_mode0 = SEARCH_MODE;
 
-		HaMolSet* pmset = this->GetMolSet();
+		MolSet* pmset = this->GetMolSet();
 		int na = pmset->GetNAtoms();
 
 		if( p_qc_mod->IsEneMinCalc() ) p_qc_mod->ene_history.clear(); 
@@ -545,7 +545,7 @@ void HaGaussMod::FillSectionJob(std::ostream& os) const
 {
 	if(p_qc_mod == NULL ) throw std::runtime_error("QChem Module is not set up");
 	
-	const HaMolSet* pmset = this->GetMolSet();	
+	const MolSet* pmset = this->GetMolSet();	
 	os << "#p ";
 
 	std::string bas_name = p_qc_mod->GetBasName();
@@ -703,7 +703,7 @@ void HaGaussMod::FillSectionJob(std::ostream& os) const
 void HaGaussMod::FillSectionCoord(std::ostream& os) const
 {
 	char buf[120];
-	HaMolSet* phmol_set= p_qc_mod->GetMolSet();
+	MolSet* phmol_set= p_qc_mod->GetMolSet();
 
 	sprintf(buf,"  %d %d ",p_qc_mod->GetCharge(),p_qc_mod->GetMult());
 	os << buf << std::endl;
@@ -779,7 +779,7 @@ void HaGaussMod::FillSectionBasis(std::ostream& os) const
 void HaGaussMod::FillSectionExtCharges(std::ostream& os) const
 {
 	char buf[120];
-	HaMolSet* pmset = p_qc_mod->GetMolSet();
+	MolSet* pmset = p_qc_mod->GetMolSet();
 	const HaMolecule* pmol_ext_ch = pmset->GetMolByName("EXTERNAL_CHARGES");
 
 	if( pmol_ext_ch == NULL && p_qc_mod->ext_chrg.empty() ) return;

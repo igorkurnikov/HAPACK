@@ -29,7 +29,7 @@ END_EVENT_TABLE()
 MolMechEvtHandler::MolMechEvtHandler(HaMolMechMod* p_mm_mod_new)
 {
 	p_mm_mod = p_mm_mod_new;
-	HaMolSet* pmset = p_mm_mod->GetMolSet();
+	MolSet* pmset = p_mm_mod->GetMolSet();
 
 	wxEvtHandler* evt_h = (wxEvtHandler*) pmset->p_evt_h;
 	wxEvtHandler* evt_h_last = evt_h;
@@ -62,7 +62,7 @@ bool MolMechEvtHandler::TryParent(wxEvent& event)
 
 void MolMechEvtHandler::OnTestCommand(wxCommandEvent& event)
 {
-	HaMolSet* pmset = p_mm_mod->GetMolSet();
+	MolSet* pmset = p_mm_mod->GetMolSet();
 	PrintLog(" In: MolMechEvtHandler::OnTestCommand() \n");
 	PrintLog(" MolSet Name=%s \n",pmset->GetName() );
 	event.Skip();
@@ -71,7 +71,7 @@ void MolMechEvtHandler::OnTestCommand(wxCommandEvent& event)
 void MolMechEvtHandler::OnTestMolMechEvent(wxCommandEvent& event)
 {
 	int id = event.GetId();
-	HaMolSet* pmset = p_mm_mod->GetMolSet();
+	MolSet* pmset = p_mm_mod->GetMolSet();
 //	PrintLog(" In: MolMechEvtHandler::OnTestMolMechEvent() \n");
 //	PrintLog(" MolSet Name=%s \n",pmset->GetName() );
 //	PrintLog(" wxCommandEvent ID =%d \n",id);

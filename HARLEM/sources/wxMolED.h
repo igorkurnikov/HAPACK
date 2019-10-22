@@ -56,7 +56,7 @@ protected:
 	wxString ppjFileDir;
 	wxWindow* parent;
 	
-	HaMolSet* pmset;
+	MolSet* pmset;
 	CollectCrdAnalMod* p_ccrd_mod;
 	HaMolView* p_anim_view; //!< Molecular view to run eigenvector animation 
 

@@ -87,7 +87,7 @@ void StartHaMainFrameWX()
 
 	wxTheApp->SetTopWindow(m_mainFrame);
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if (pmset != NULL)
 	{
 		pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);
@@ -109,7 +109,7 @@ BEGIN_EVENT_TABLE(MolViewWX, wxWindow)
     EVT_CLOSE(MolViewWX::OnClose)
 END_EVENT_TABLE()
 
-MolViewWX::MolViewWX(HaMolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos, const wxSize& size, long style):
+MolViewWX::MolViewWX(MolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos, const wxSize& size, long style):
  wxWindow(frame, -1, pos, size, style)
 {
   mol_frame = frame;
@@ -512,7 +512,7 @@ void MolViewWX::OnEraseBackground(wxEraseEvent& event)
 
 void MolViewWX::OnClose(wxCloseEvent& event)
 {
-    HaMolSet* pmset = this->mol_view->GetMolSet();
+    MolSet* pmset = this->mol_view->GetMolSet();
     wxString name = pmset->GetName();
     wxString msg = "Delete Molecular Set ";
     msg += pmset->GetName();
@@ -612,14 +612,14 @@ void MolViewFrame::OnActivate(wxActivateEvent& event)
 {
 	CurMolView = mol_view_wx->mol_view;
 
-	HaMolSet* pmset = mol_view_wx->mol_view->GetMolSet();
+	MolSet* pmset = mol_view_wx->mol_view->GetMolSet();
 //	PrintLog(" MolViewFrame::OnActivate()  set CurMolSet to: %s \n", pmset->GetName() ); 
 	SetCurMolSet(pmset);
 	
 	event.Skip();
 }
 
-MolViewWX* HaMainFrameWX::CreateMolView(HaMolSet* pmset)
+MolViewWX* HaMainFrameWX::CreateMolView(MolSet* pmset)
 {
     MolViewFrame* subframe;
     wxString mset_name= "EMPTY MOLSET";
@@ -928,7 +928,7 @@ void HaMainFrameWX::OnSize(wxSizeEvent& event)
 	wxLayoutAlgorithm().LayoutMDIFrame(this);
 }
 
-void HaMolSet::SetName(const char* new_name)
+void MolSet::SetName(const char* new_name)
 {
     name_mset = new_name;
     if(canvas_wx != NULL) canvas_wx->mol_frame->SetTitle(new_name);
@@ -938,14 +938,14 @@ void HaMolView::UpdateThisView( int lHint)
 {
     lHint |= RFRefresh;
     ReDrawFlag |= lHint;
-    HaMolSet* pmset = GetMolSet();
+    MolSet* pmset = GetMolSet();
     if(pmset->canvas_wx) pmset->canvas_wx->Refresh();
 }
 
 // File Menu
 void HaMainFrameWX::OnFileNew(wxCommandEvent &event)
 {
-	HaMolSet* pmset = new HaMolSet();
+	MolSet* pmset = new MolSet();
 	if(pmset)
 	{
 		pmset->canvas_wx = CreateMolView(pmset);
@@ -963,17 +963,17 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
     load_dlg.sizer_main_v->Add( center_chk, 0, wxALL, 5 );
 
     wxCheckBox* calc_bonds_chk = new wxCheckBox( &load_dlg, -1, wxT("Build bonds from atom-atom distance criteria"), wxDefaultPosition, wxDefaultSize, 0 );
-//	calc_bonds_chk->SetValidator(wxGenericValidator(&(HaMolSet::p_load_opt_default->calc_bonds)));
+//	calc_bonds_chk->SetValidator(wxGenericValidator(&(MolSet::p_load_opt_default->calc_bonds)));
     load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALL, 5 );
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
 	::wxSetWorkingDirectory(load_dlg.dir_name);
      
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
     if( pmset == NULL || pmset->canvas_wx == NULL)
     {
-        pmset = new HaMolSet();
+        pmset = new MolSet();
         pmset->canvas_wx = CreateMolView(pmset);        
     }
 
@@ -990,7 +990,7 @@ void HaMainFrameWX::OnMolSave(wxCommandEvent &event)
 
 void HaMainFrameWX::OnMolSaveAs(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	SaveMolFileDlg* save_dlg = new SaveMolFileDlg(pmset, NULL, -1, wxString("Save Molecular File"));
     save_dlg->Show(TRUE);	
@@ -1165,7 +1165,7 @@ void HaMainFrameWX::OnPyMod(wxCommandEvent &event)
 // Edit Menu
 void HaMainFrameWX::OnSelectAll(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	HaMolView* pview = pmset->GetActiveMolView();
 	if( pview == NULL) return;
@@ -1180,7 +1180,7 @@ void
 HaMainFrameWX::DoAtomParamsDialog(wxCommandEvent &event)
 {
 	if(AtomParamsDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	AtomParamsDlgWX* ptr_atom_params_dlg = new AtomParamsDlgWX( pmset, this );
 	ptr_atom_params_dlg->Show(TRUE);	
@@ -1189,7 +1189,7 @@ HaMainFrameWX::DoAtomParamsDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoResidueParamsDialog(wxCommandEvent &event)
 {
 	if(ResidueParamsDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	ResidueParamsDlgWX* ptr_res_params_dlg = new ResidueParamsDlgWX( pmset, this );
 	ptr_res_params_dlg->Show(TRUE);
@@ -1198,7 +1198,7 @@ void HaMainFrameWX::DoResidueParamsDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoMolSetParamDialog(wxCommandEvent &event)
 {
 	if(MolSetParDlg::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	MolSetParDlg* ptr_mset_par_dlg = new MolSetParDlg( pmset, this );
 	ptr_mset_par_dlg->Show(TRUE);
@@ -1207,7 +1207,7 @@ void HaMainFrameWX::DoMolSetParamDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoAtomPropColorDialog(wxCommandEvent &event)
 {
 	if(AtomPropColorDlg::dlg_open) return;
-	HaMolSet* pmset =  GetCurMolSet(); 
+	MolSet* pmset =  GetCurMolSet(); 
 	if( pmset == NULL) return;
 	HaMolView* pview = pmset->GetActiveMolView();
 
@@ -1218,7 +1218,7 @@ void HaMainFrameWX::DoAtomPropColorDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoEditGroupsDialog(wxCommandEvent &event)
 {
     if(EditGroupsDlg::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 2, this );
 	edit_grp_dlg->Show(TRUE);
@@ -1227,7 +1227,7 @@ void HaMainFrameWX::DoEditGroupsDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoCrdSnapshotDialog(wxCommandEvent &event)
 {
 	if(CrdSnapshotDlg::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	CrdSnapshotDlg* crd_snap_dlg = new CrdSnapshotDlg( pmset, this );
 	crd_snap_dlg->Show(TRUE);
@@ -1236,7 +1236,7 @@ void HaMainFrameWX::DoCrdSnapshotDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoEditGeomDialog(wxCommandEvent &event)
 {
 	if(EditGeomDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( pmset == NULL) return;
 	EditGeomDlgWX* edit_geom_dlg = new EditGeomDlgWX( pmset, this );
 	edit_geom_dlg->Show(TRUE);
@@ -1244,7 +1244,7 @@ void HaMainFrameWX::DoEditGeomDialog(wxCommandEvent &event)
 
 void HaMainFrameWX::OnFindHbonds(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset != NULL) 
 	{
 		MolEditor* p_mol_editor = pmset->GetMolEditor(true);
@@ -1255,7 +1255,7 @@ void HaMainFrameWX::OnFindHbonds(wxCommandEvent &event)
 void HaMainFrameWX::DoSolvateDialog(wxCommandEvent &event)
 {
 	if(SolvateDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if( pmset == NULL) return;
 	SolvateDlgWX* ptr_solvate_dlg = new SolvateDlgWX( pmset, this );
     ptr_solvate_dlg->Show(TRUE);
@@ -1263,7 +1263,7 @@ void HaMainFrameWX::DoSolvateDialog(wxCommandEvent &event)
 
 void HaMainFrameWX::OnWrapIntoUnitCell(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	MolEditor* p_mol_editor = pmset->GetMolEditor();
 	int ires = p_mol_editor->WrapToUnitCell(pmset,pmset->per_bc);
@@ -1275,7 +1275,7 @@ void HaMainFrameWX::OnWrapIntoUnitCell(wxCommandEvent &event)
 
 void HaMainFrameWX::OnCenterSolute(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	MolEditor* p_mol_editor = pmset->GetMolEditor();
 	int ires = p_mol_editor->CenterSoluteInSolvent(pmset);
@@ -1283,7 +1283,7 @@ void HaMainFrameWX::OnCenterSolute(wxCommandEvent &event)
 
 void HaMainFrameWX::OnCenterMolInPBox(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
 	MolEditor* p_mol_editor = pmset->GetMolEditor();
 	int ires = p_mol_editor->CenterMolInPBox(pmset);
@@ -1291,7 +1291,7 @@ void HaMainFrameWX::OnCenterMolInPBox(wxCommandEvent &event)
 
 void HaMainFrameWX::OnAddMissingAtoms(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	MolEditor mol_editor;
 	if(pmset != NULL) mol_editor.AddMissingAtoms(pmset);
 	
@@ -1299,7 +1299,7 @@ void HaMainFrameWX::OnAddMissingAtoms(wxCommandEvent &event)
 
 void HaMainFrameWX::OnAddPolarHydrogens(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	MolEditor mol_editor;
 	if(pmset != NULL) mol_editor.AddPolarHydrogens(pmset);
 	
@@ -1308,7 +1308,7 @@ void HaMainFrameWX::OnAddPolarHydrogens(wxCommandEvent &event)
 void
 HaMainFrameWX::OnAddHHybrid(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	MolEditor mol_editor;
 	if(pmset != NULL) mol_editor.AddHydrogensHybrid(pmset);
 	
@@ -1316,14 +1316,14 @@ HaMainFrameWX::OnAddHHybrid(wxCommandEvent &event)
 
 void HaMainFrameWX::OnAddHydrogens(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	MolEditor mol_editor;
 	if(pmset != NULL) mol_editor.AddHydrogens(pmset);
 }
 
 void HaMainFrameWX::OnDelSelAtoms(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;
@@ -1338,7 +1338,7 @@ void HaMainFrameWX::OnDelSelAtoms(wxCommandEvent &event)
 
 void HaMainFrameWX::OnDelOvlpMols(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;
@@ -1356,7 +1356,7 @@ void
 HaMainFrameWX::DoBuildFilmDialog(wxCommandEvent &event)
 {
 	if(BuildFilmDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	BuildFilmDlgWX* ptr_build_film_dlg = new BuildFilmDlgWX( pmset, this );
 	ptr_build_film_dlg->Show(TRUE);
@@ -1367,7 +1367,7 @@ HaMainFrameWX::DoEditFragmDialog(wxCommandEvent &event)
 {
 	if(EditFragmDlgWX::dlg_open) return;
 
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 
 	EditFragmDlgWX* ptr_edit_fragm_dlg = new EditFragmDlgWX( pmset, this );
@@ -1376,7 +1376,7 @@ HaMainFrameWX::DoEditFragmDialog(wxCommandEvent &event)
 
 void HaMainFrameWX::OnClearPicked(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->ClearPickedAtoms();
 	pmset->RefreshAllViews(RFRefresh);
@@ -1384,14 +1384,14 @@ void HaMainFrameWX::OnClearPicked(wxCommandEvent &event)
 
 void HaMainFrameWX::OnSelAtomsInBoundBox ( wxCommandEvent &event )
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->SelectAtomsInBoundaryBox();
 }
 
 void HaMainFrameWX::OnRevertAtomSelection ( wxCommandEvent &event )
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->RevertAtomSelection();
 }
@@ -1399,7 +1399,7 @@ void HaMainFrameWX::OnRevertAtomSelection ( wxCommandEvent &event )
 void
 HaMainFrameWX::OnDescribeSecStruct(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->DescribeSecStruct();
 }
@@ -1407,7 +1407,7 @@ HaMainFrameWX::OnDescribeSecStruct(wxCommandEvent &event)
 void
 HaMainFrameWX::OnPrintHBonds(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->PrintHBonds();
 }
@@ -1415,7 +1415,7 @@ HaMainFrameWX::OnPrintHBonds(wxCommandEvent &event)
 void
 HaMainFrameWX::OnSetAlphaHelix(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	p_mol_editor->SetAlphaHelix(pmset);
@@ -1425,7 +1425,7 @@ HaMainFrameWX::OnSetAlphaHelix(wxCommandEvent &event)
 void
 HaMainFrameWX::DoNuclAcidDialog(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	if( NuclAcidDlgWX::dlg_open) return;
 	if(pmset == NULL) return;
 	NuclAcidMod* ptr_nucl_acid_mod = pmset->GetNuclAcidMod(true);
@@ -1443,7 +1443,7 @@ HaMainFrameWX::DoNuclAcidDialog(wxCommandEvent &event)
 //  Display->Display Mode menu
 void HaMainFrameWX::OnWireFrame(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1458,7 +1458,7 @@ void HaMainFrameWX::OnWireFrame(wxCommandEvent &event)
 
 void HaMainFrameWX::OnBackBone(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1472,7 +1472,7 @@ void HaMainFrameWX::OnBackBone(wxCommandEvent &event)
 }
 void HaMainFrameWX::OnSticks(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1493,7 +1493,7 @@ void HaMainFrameWX::OnSticks(wxCommandEvent &event)
 void
 HaMainFrameWX::OnSpheres(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1508,7 +1508,7 @@ HaMainFrameWX::OnSpheres(wxCommandEvent &event)
 
 void HaMainFrameWX::OnBallStick(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1523,7 +1523,7 @@ void HaMainFrameWX::OnBallStick(wxCommandEvent &event)
 
 void HaMainFrameWX::OnRibbons(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1538,7 +1538,7 @@ void HaMainFrameWX::OnRibbons(wxCommandEvent &event)
 
 void HaMainFrameWX::OnStrands(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1553,7 +1553,7 @@ void HaMainFrameWX::OnStrands(wxCommandEvent &event)
 void
 HaMainFrameWX::OnCartoons(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1569,7 +1569,7 @@ HaMainFrameWX::OnCartoons(wxCommandEvent &event)
 void
 HaMainFrameWX::OnMono(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1581,7 +1581,7 @@ HaMainFrameWX::OnMono(wxCommandEvent &event)
 void
 HaMainFrameWX::OnCPK(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1593,7 +1593,7 @@ HaMainFrameWX::OnCPK(wxCommandEvent &event)
 void
 HaMainFrameWX::OnShapely(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1606,7 +1606,7 @@ HaMainFrameWX::OnShapely(wxCommandEvent &event)
 void
 HaMainFrameWX::OnColGroups(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1619,7 +1619,7 @@ HaMainFrameWX::OnColGroups(wxCommandEvent &event)
 void
 HaMainFrameWX::OnColResidues(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1632,7 +1632,7 @@ HaMainFrameWX::OnColResidues(wxCommandEvent &event)
 void
 HaMainFrameWX::OnColChain(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1645,7 +1645,7 @@ void
 
 HaMainFrameWX::OnColTemper(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1658,7 +1658,7 @@ HaMainFrameWX::OnColTemper(wxCommandEvent &event)
 void
 HaMainFrameWX::OnStruct(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1672,7 +1672,7 @@ HaMainFrameWX::OnStruct(wxCommandEvent &event)
 void
 HaMainFrameWX::OnSlab(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1685,7 +1685,7 @@ HaMainFrameWX::OnSlab(wxCommandEvent &event)
 void
 HaMainFrameWX::OnHydrogen(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1713,7 +1713,7 @@ HaMainFrameWX::OnHydrogen(wxCommandEvent &event)
 void
 HaMainFrameWX::OnHetero(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1739,7 +1739,7 @@ HaMainFrameWX::OnHetero(wxCommandEvent &event)
 void
 HaMainFrameWX::OnSpecular(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1752,7 +1752,7 @@ HaMainFrameWX::OnSpecular(wxCommandEvent &event)
 void
 HaMainFrameWX::OnStereo(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1772,7 +1772,7 @@ HaMainFrameWX::OnStereo(wxCommandEvent &event)
 void
 HaMainFrameWX::OnLabels(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1785,7 +1785,7 @@ HaMainFrameWX::OnLabels(wxCommandEvent &event)
 
 void HaMainFrameWX::OnDisplayPBox(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1799,7 +1799,7 @@ void
 HaMainFrameWX::DoViewParamDlg(wxCommandEvent &event)
 {
 	if(MolViewParDlg::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1813,7 +1813,7 @@ void
 HaMainFrameWX::DoObject3DDialog(wxCommandEvent &event)
 {
 	if(Object3DDlgWX::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1827,7 +1827,7 @@ HaMainFrameWX::DoObject3DDialog(wxCommandEvent &event)
 void
 HaMainFrameWX::OnLabelsAtomId(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1850,7 +1850,7 @@ HaMainFrameWX::OnLabelsAtomId(wxCommandEvent &event)
 
 void HaMainFrameWX::OnLabelsAtomNames(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1862,7 +1862,7 @@ void HaMainFrameWX::OnLabelsAtomNames(wxCommandEvent &event)
 
 void HaMainFrameWX::OnLabelsAtomSeqNum(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1874,7 +1874,7 @@ void HaMainFrameWX::OnLabelsAtomSeqNum(wxCommandEvent &event)
 
 void HaMainFrameWX::OnLabelsAtomFFSymb(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1886,7 +1886,7 @@ void HaMainFrameWX::OnLabelsAtomFFSymb(wxCommandEvent &event)
 
 void HaMainFrameWX::OnLabelsOff(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1911,7 +1911,7 @@ HaMainFrameWX::OnWindowsTileVert(wxCommandEvent &event)
 void
 HaMainFrameWX::OnCenterViewSel(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet(); 
+	MolSet* pmset = GetCurMolSet(); 
 	HaMolView* pview = NULL;
 	if(pmset != NULL) pview = pmset->GetActiveMolView();
 	if(pview)
@@ -1954,7 +1954,7 @@ void HaMainFrameWX::OnMeasureDihed(wxCommandEvent &event)
 void HaMainFrameWX::OnEditRedox( wxCommandEvent &event )
 {
     if(EditGroupsDlg::dlg_open) return;
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   EditGroupsDlg* edit_grp_dlg = new EditGroupsDlg( pmset, 1, this );
@@ -1967,7 +1967,7 @@ void HaMainFrameWX::DoPathwaysDialog( wxCommandEvent &event)
 {
 	if(PathwaysDlgWX::dlg_open) return;
 
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	  ETCouplMod* et_coupl_mod = pmset->GetETCouplMod(true);
@@ -1983,7 +1983,7 @@ void HaMainFrameWX::DoETEffHamDialog( wxCommandEvent &event)
 {
 	if(ETEffHamDlgWX::dlg_open) return;
 
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   ETCouplMod* ptr_et_coupl_mod = pmset->GetETCouplMod(true);
@@ -1998,7 +1998,7 @@ void HaMainFrameWX::DoETEffHamDialog( wxCommandEvent &event)
 
 void HaMainFrameWX::OnResetETModule(wxCommandEvent &event)
 {
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 		ETCouplMod* ptr_et_coupl_mod= pmset->GetETCouplMod(false);
@@ -2011,7 +2011,7 @@ void HaMainFrameWX::DoScatterDialog(wxCommandEvent &event)
 {
     if( ScatterDlg::dlg_open) return;
 	
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   HaScatterMod* ptr_sc_mod = pmset->GetScatterMod(true);
@@ -2029,7 +2029,7 @@ void HaMainFrameWX::DoQChemParamDialog(wxCommandEvent &event)
 {
 	if(QChemParDlgWX::dlg_open) return;
 
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   HaQCMod* ptr_qc_mod = pmset->GetQCMod(true);
@@ -2045,7 +2045,7 @@ void HaMainFrameWX::DoQChemParamDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoLoadQCDatDialog(wxCommandEvent &event)
 {
 	if(LoadQCDatDlgWX::dlg_open) return;
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	  HaQCMod* qcmod = pmset->GetQCMod(true);
@@ -2058,7 +2058,7 @@ void HaMainFrameWX::DoWaveFunAnalDialog(wxCommandEvent &event)
 {
 	if(WaveFunAnalDlgWX::dlg_open) return;
 
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   HaQCMod* ptr_qc_mod = pmset->GetQCMod(true);
@@ -2111,7 +2111,7 @@ void HaMainFrameWX::DoMolMechDialog(wxCommandEvent &event)
 {
     if( MolMechDlgWX::dlg_open) return;
 	
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   HaMolMechMod* ptr_mm_mod = pmset->GetMolMechMod(true);
@@ -2127,7 +2127,7 @@ void HaMainFrameWX::DoInterMolDialog(wxCommandEvent &event)
 {
     if( InterMolDlgWX::dlg_open) return;
 	
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	  HaInterMolMod* ptr_im_mod = pmset->GetInterMolMod(true);
@@ -2143,7 +2143,7 @@ void HaMainFrameWX::DoProtRedoxDialog(wxCommandEvent &event)
 {
 	if( ProtonRedoxDlg::dlg_open) return;
 
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 		ProtonRedoxMod* p_prot_rdx_mod = pmset->GetProtonRedoxMod(true);
@@ -2159,7 +2159,7 @@ void HaMainFrameWX::DoContElectrDialog(wxCommandEvent &event)
 {
 	if(ElectrostDlgWX::dlg_open) return;
 
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   ElectrostMod* electrost_mod = pmset->GetElectrostMod(true);
@@ -2182,7 +2182,7 @@ void HaMainFrameWX::DoEDDialog(wxCommandEvent &event)
 {
 	if(wxMolED::dlg_open) return;
 	
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
 	if(pmset != NULL)
 	{
 	   CollectCrdAnalMod* p_ccrd_mod = pmset->GetCollectCrdAnalMod(true);
@@ -2196,7 +2196,7 @@ void HaMainFrameWX::DoEDDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoPNPDialog(wxCommandEvent &event)
 {
   //if(wxPNPFrame::dlg_open) return;
-  HaMolSet* pmset = GetCurMolSet();
+  MolSet* pmset = GetCurMolSet();
   
 	if(pmset != NULL)
 	{
@@ -2210,7 +2210,7 @@ void HaMainFrameWX::DoPNPDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoRFDialog(wxCommandEvent &event)
 {
 //   if(wxRFSmlPnl::dlg_open) return;
-//   HaMolSet* pmset = GetCurMolSet();
+//   MolSet* pmset = GetCurMolSet();
 //   
 //   if(pmset != NULL)
 //   {
@@ -2252,7 +2252,7 @@ HaMainFrameWX::OnOpenVectorFieldInHaMolView(wxCommandEvent& event)
 			PlaneViewOfHaField3D* PlaneV=new PlaneViewOfHaField3D(field,Name.c_str());
 			PlaneV->SetHideZeroValues(true);
 			
-			HaMolSet* pmset = GetCurMolSet();
+			MolSet* pmset = GetCurMolSet();
 			pmset->AddObject3D(PlaneV);
 			HaMolView* pView= pmset->GetActiveMolView();
 			if(pView)
@@ -2299,7 +2299,7 @@ HaMainFrameWX::OnOpenDielConstFromNindexInHaMolView(wxCommandEvent& event)
 			PlaneViewOfHaField3D* PlaneV=new PlaneViewOfHaField3D(field,Name.c_str());
 			PlaneV->SetHideZeroValues(true);
 			
-			HaMolSet* pmset = GetCurMolSet();
+			MolSet* pmset = GetCurMolSet();
 			pmset->AddObject3D(PlaneV);
 			HaMolView* pView= pmset->GetActiveMolView();
 			if(pView)
@@ -2347,7 +2347,7 @@ HaMainFrameWX::OnOpenDiffConstFromNindexInHaMolView(wxCommandEvent& event)
 			PlaneViewOfHaField3D* PlaneV=new PlaneViewOfHaField3D(field,Name.c_str());
 			PlaneV->SetHideZeroValues(true);
 			
-			HaMolSet* pmset = GetCurMolSet();
+			MolSet* pmset = GetCurMolSet();
 			pmset->AddObject3D(PlaneV);
 			HaMolView* pView= pmset->GetActiveMolView();
 			if(pView)
@@ -2392,7 +2392,7 @@ HaMainFrameWX::OnOpenQstFromNindexInHaMolView(wxCommandEvent& event)
 		PlaneViewOfHaField3D* PlaneV=new PlaneViewOfHaField3D(field,Name.c_str());
 		PlaneV->SetHideZeroValues(true);
 		
-		HaMolSet* pmset = GetCurMolSet();
+		MolSet* pmset = GetCurMolSet();
 		pmset->AddObject3D(PlaneV);
 		HaMolView* pView= pmset->GetActiveMolView();
 		if(pView)
@@ -2412,7 +2412,7 @@ void
 HaMainFrameWX::DoSmlPNPDialog(wxCommandEvent &event)
 {
 //   if(wxPNPSmlPnl::dlg_open) return;
-//   HaMolSet* pmset = GetCurMolSet();
+//   MolSet* pmset = GetCurMolSet();
 //   
 //   if(pmset != NULL)
 //   {
@@ -2427,7 +2427,7 @@ HaMainFrameWX::DoSmlPNPDialog(wxCommandEvent &event)
 void HaMainFrameWX::DoContElectrPNPDialog( wxCommandEvent &event )
 {
 //   if(wxContElectSmlPnl::dlg_open) return;
-//   HaMolSet* pmset = GetCurMolSet();
+//   MolSet* pmset = GetCurMolSet();
 //   
 //   if(pmset != NULL)
 //   {
@@ -2455,7 +2455,7 @@ void HaMainFrameWX::OnMolConnect(wxCommandEvent &event)
 
 void HaMainFrameWX::OnWorldConnect(wxCommandEvent &event)
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	if(!pmset) return;
  	MoleculesType::iterator mol_itr;
 	for(mol_itr= pmset->HostMolecules.begin(); mol_itr != pmset->HostMolecules.end(); mol_itr++ )
@@ -2467,7 +2467,7 @@ void HaMainFrameWX::OnWorldConnect(wxCommandEvent &event)
 	PrintMessage(" Transform Dials Connected to the World ");
 }
 
-void HaMolSet::RefreshAllViews( long lHint  )
+void MolSet::RefreshAllViews( long lHint  )
 {
 	lHint |= RFRefresh;
     if( canvas_wx != NULL)
@@ -2560,7 +2560,7 @@ void HaMainFrameWX::OnTestMap( wxCommandEvent &event )
 
 void HaMainFrameWX::OnCalcTMatr1( wxCommandEvent &event )
 {
-    HaMolSet* pmset = GetCurMolSet();
+    MolSet* pmset = GetCurMolSet();
     if(pmset == NULL) return;
     StmMod* stm_mod = pmset->GetSTMMod(true);
     pApp->StartWait();

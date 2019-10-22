@@ -28,7 +28,7 @@ class wxThread;
 class HaEmpiricalMod : public HaCompMod
 {
 public:
-	HaEmpiricalMod(HaMolSet* new_phost_mset);
+	HaEmpiricalMod(MolSet* new_phost_mset);
 	~HaEmpiricalMod(); 
 	int SetStdParams();
 	int Initialize();
@@ -201,7 +201,7 @@ private:
 //protected:
 //	HaMolMembraneMod* r;
 public:
-	HaMolMembraneMod(HaMolSet* new_phost_mset = NULL);
+	HaMolMembraneMod(MolSet* new_phost_mset = NULL);
 	~HaMolMembraneMod();
 
 	int SetStdParams();

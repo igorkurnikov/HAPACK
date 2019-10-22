@@ -1,7 +1,7 @@
 #
 # This script to compute G(r)  between Mg2+ and H2O along MD trajectory
 #
-mset = HaMolSet()
+mset = MolSet()
 mset.LoadHarlemFile("mg_wat_1.hlm")
 traj_anal = mset.GetTrajAnalMod(1)
 traj_anal.SetAmberMDCrdTraj("mg_wat_1.mdcrd")

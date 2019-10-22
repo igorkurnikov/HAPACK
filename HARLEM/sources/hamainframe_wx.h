@@ -10,7 +10,7 @@
 
 class MolViewWX;
 class HaMolView;
-class HaMolSet;
+class MolSet;
 class HaDialogBar;
 class mVueFrame;//mikola 09/19/2006
 
@@ -178,7 +178,7 @@ class HaMainFrameWX : public wxMDIParentFrame
 		void OnOpenQstFromNindexInHaMolView(wxCommandEvent& event);
     //AddOn options
 
-    MolViewWX* CreateMolView(HaMolSet* pmset);
+    MolViewWX* CreateMolView(MolSet* pmset);
 
 	wxSashLayoutWindow* sash_win;
 
@@ -211,7 +211,7 @@ private:
 class MolViewWX: public wxWindow
 {
 public:    
-    MolViewWX( HaMolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos, 
+    MolViewWX( MolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos, 
                const wxSize& size, long style);
 	virtual ~MolViewWX();
     virtual void OnDraw(wxDC& dc);
@@ -224,7 +224,7 @@ public:
 
     MolViewFrame* mol_frame;
     HaMolView* mol_view;
-    HaMolSet*  pmset;
+    MolSet*  pmset;
 
     int PointX; //!< X screen coordinate of the point of mouse click or release
     int PointY; //!< Y screen coordinate of the point of mouse click or release 

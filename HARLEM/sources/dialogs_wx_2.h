@@ -52,13 +52,13 @@ protected:
 };
 
 class PlaneViewOfHaField3D;
-class HaMolSet;
+class MolSet;
 //wxFieldPlaneView
 
 class wxFieldPlaneView : public wxDialog
 {
 	public:
-		wxFieldPlaneView(PlaneViewOfHaField3D* PlView, HaMolSet* _MolSet, wxWindow* parent,wxWindowID id = -1, const wxString& title = "wxOGLPlaneViewerDlg", const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = "wxFieldPlaneView");
+		wxFieldPlaneView(PlaneViewOfHaField3D* PlView, MolSet* _MolSet, wxWindow* parent,wxWindowID id = -1, const wxString& title = "wxOGLPlaneViewerDlg", const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = "wxFieldPlaneView");
 		~wxFieldPlaneView();
 
 		bool TransferDataToWindow();
@@ -77,13 +77,13 @@ class wxFieldPlaneView : public wxDialog
 		void OnClose(wxCloseEvent& event );
 		
 	private:
-		HaMolSet* m_MolSet;
+		MolSet* m_MolSet;
 		PlaneViewOfHaField3D *m_PlaneView;
 	protected:
 		DECLARE_EVENT_TABLE()
 };
 #endif
-void CreatewxFieldPlaneView(PlaneViewOfHaField3D* PlView, HaMolSet* _MolSet,const char *title,int OwnerOfView);
+void CreatewxFieldPlaneView(PlaneViewOfHaField3D* PlView, MolSet* _MolSet,const char *title,int OwnerOfView);
 
 
 #endif  // end !defined(DIALOGS_WX_2_H)

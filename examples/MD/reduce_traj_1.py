@@ -6,7 +6,7 @@
 # The trajectory coordinates are saved to the file "red_traj.mdcrd" in your
 #  file directory.
 #
-mset = HaMolSet()
+mset = MolSet()
 mset.LoadHarlemFile("methane_wat_1.hlm")
 mol = mset.GetMoleculeNum(0) #  Selects the first molecule in the system
 traj_anal = mset.GetTrajAnalMod(1)

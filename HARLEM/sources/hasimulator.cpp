@@ -359,7 +359,7 @@ UpdateMolViewNotifyAgent*  MCSimulator::GetMolViewNotifyAgent(int create_agent)
 }
 
 
-HaMolSet* MCSimulator::GetMolSet()
+MolSet* MCSimulator::GetMolSet()
 {
 	return pmset;
 }

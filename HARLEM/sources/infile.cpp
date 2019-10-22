@@ -126,7 +126,7 @@ void HaMolecule::ProcessFeatures()
 
 static int res_ser_no_old = 0;
 
-void HaMolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_map, 
+void MolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_map, 
 							  HaMolecule* pMol, HaChain* &pch_cur, HaResidue* &pres_cur)
 {
 	HaBond  *bptr;
@@ -264,7 +264,7 @@ void HaMolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_a
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog(" Warning in HaMolSet::ProcessPDBAtom()  Reading line: \n" );
+		PrintLog(" Warning in MolSet::ProcessPDBAtom()  Reading line: \n" );
 		PrintLog("%s \n",line.c_str());
 		PrintLog("%s\n",ex.what());
 	}
@@ -392,7 +392,7 @@ int HaMolecule::SetCysBridgeNames()
 	return TRUE;
 }
 
-int HaMolSet::LoadPDBFile(const char* fname , int flag )
+int MolSet::LoadPDBFile(const char* fname , int flag )
 {
 	using boost::lexical_cast;
 	using boost::trim_copy;
@@ -563,7 +563,7 @@ int HaMolSet::LoadPDBFile(const char* fname , int flag )
 		}
 		catch( const std::exception& ex )
 		{
-			PrintLog(" Warning in HaMolSet::LoadPDBFile() \n");
+			PrintLog(" Warning in MolSet::LoadPDBFile() \n");
 			PrintLog(" Reading Line %s\n",line.c_str());
 			PrintLog("%s\n",ex.what());
 		}
@@ -633,7 +633,7 @@ bool HaMolecule::FixChainsIdent()
 }
 
 
-int HaMolSet::LoadMDLFile(const char* fname )
+int MolSet::LoadMDLFile(const char* fname )
 {
 	using boost::trim_copy;
 	using boost::lexical_cast;
@@ -726,7 +726,7 @@ int HaMolSet::LoadMDLFile(const char* fname )
 		}
 		catch( const std::exception& ex )
 		{
-			PrintLog(" Error in HaMolSet::LoadMDLFile()   line:\n");
+			PrintLog(" Error in MolSet::LoadMDLFile()   line:\n");
 			PrintLog(" %s\n", line.c_str());
 			PrintLog(" %s\b", ex.what());
 		}
@@ -750,7 +750,7 @@ int HaMolSet::LoadMDLFile(const char* fname )
 		}
 		catch( const std::exception& ex )
 		{
-			PrintLog(" Error in HaMolSet::LoadMDLFile()   line:\n");
+			PrintLog(" Error in MolSet::LoadMDLFile()   line:\n");
 			PrintLog(" %s\n", line.c_str());
 			PrintLog(" %s\b", ex.what());
 		}
@@ -769,9 +769,9 @@ int HaMolSet::LoadMDLFile(const char* fname )
 	return( True );
 }
 
-int HaMolSet::SetCoordFromFile(const char* fname, int iform)
+int MolSet::SetCoordFromFile(const char* fname, int iform)
 {
-	HaMolSet axx_mset;
+	MolSet axx_mset;
 	int ires;
 	if(iform == FormatGUESS || iform == FormatPDB)
 	{
@@ -807,7 +807,7 @@ int HaMolSet::SetCoordFromFile(const char* fname, int iform)
 
 	if( na1 != na2)
 	{
-		PrintLog("WARNING: HaMolSet::SetCoordFromFile() \n");
+		PrintLog("WARNING: MolSet::SetCoordFromFile() \n");
 		PrintLog("Number of atoms in the molecule read %d \n",na2);
 		PrintLog("Is not equal to the number of atoms in current mol set %d\n",na1);
 	}
@@ -824,12 +824,12 @@ int HaMolSet::SetCoordFromFile(const char* fname, int iform)
 	return TRUE;
 }
 
-int HaMolSet::SetCrdFromArray( const HaVec_double& crd_arr )
+int MolSet::SetCrdFromArray( const HaVec_double& crd_arr )
 {
 	int na = GetNAtoms();
 	if( crd_arr.size() != 3*na )
 	{
-		PrintLog(" Error in HaMolSet::SetCrdFromArray() \n");
+		PrintLog(" Error in MolSet::SetCrdFromArray() \n");
 		PrintLog(" size of coordinate array = %d  not equal to 3* natoms = %d \n", crd_arr.size(), 3*na );
 		return FALSE;
 	}
@@ -845,12 +845,12 @@ int HaMolSet::SetCrdFromArray( const HaVec_double& crd_arr )
 	return TRUE;
 }
 
-int HaMolSet::LoadXYZFile(const char* fname, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions* popt_arg )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
 	{
-		PrintLog(" Error in HaMolSet::LoadXYZFile() \n");
+		PrintLog(" Error in MolSet::LoadXYZFile() \n");
 		PrintLog(" Error to open file %s for reading \n",fname);
 		return FALSE;
 	}
@@ -866,12 +866,12 @@ int HaMolSet::LoadXYZFile(const char* fname, const AtomLoadOptions* popt_arg )
 	return ires;
 }
 
-int HaMolSet::LoadHINFile(const char* fname, const AtomLoadOptions* popt_arg )
+int MolSet::LoadHINFile(const char* fname, const AtomLoadOptions* popt_arg )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
 	{
-		PrintLog(" Error in HaMolSet::LoadHINFile() \n");
+		PrintLog(" Error in MolSet::LoadHINFile() \n");
 		PrintLog(" Error to open file %s for reading \n",fname);
 		return FALSE;
 	}
@@ -887,7 +887,7 @@ int HaMolSet::LoadHINFile(const char* fname, const AtomLoadOptions* popt_arg )
 	return ires;
 }
 
-int HaMolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
+int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
 {
 	std::auto_ptr<AtomLoadOptions> p_opt_auto( p_opt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) p_opt_arg->clone() );
 	AtomLoadOptions* p_opt = p_opt_auto.get();
@@ -896,7 +896,7 @@ int HaMolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
  
 	if( !is_arg.good() )
 	{   
-        PrintLog("Error in HaMolSet::LoadXYZStream() \n");
+        PrintLog("Error in MolSet::LoadXYZStream() \n");
         PrintLog("Can not read from input stream \n");
         return( FALSE );
 	}
@@ -1103,7 +1103,7 @@ int HaMolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 	}
 	catch( std::exception ex )
 	{
-		PrintLog(" Error in HaMolSet::LoadXYZFile() \n");
+		PrintLog(" Error in MolSet::LoadXYZFile() \n");
 		PrintLog( ex.what() );
 	}
 
@@ -1137,7 +1137,7 @@ int HaMolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 	return( TRUE );
 }
 
-int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
+int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
 {
 	std::auto_ptr<AtomLoadOptions> p_opt_auto( p_opt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) p_opt_arg->clone() );
 	AtomLoadOptions* p_opt = p_opt_auto.get();
@@ -1146,7 +1146,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
  
 	if( !is_arg.good() )
 	{   
-        PrintLog("Error in HaMolSet::LoadXYZStream() \n");
+        PrintLog("Error in MolSet::LoadXYZStream() \n");
         PrintLog("Can not read from input stream \n");
         return( FALSE );
 	}
@@ -1348,7 +1348,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 
 				if (!harlem::IsInt(str_arr[10]))
 				{
-					PrintLog("Warning in HaMolSet::LoadHINStream() in line \n%s\n", line.c_str());
+					PrintLog("Warning in MolSet::LoadHINStream() in line \n%s\n", line.c_str());
 					PrintLog("Number of bonds field in atom record is not integer");
 					continue;
 				}
@@ -1356,7 +1356,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				int nb = boost::lexical_cast<int>(str_arr[10]);
 				if ( str_arr.size() < (11 + 2 * nb))
 				{
-					PrintLog("Warning in HaMolSet::LoadHINStream()\n");
+					PrintLog("Warning in MolSet::LoadHINStream()\n");
 					PrintLog("The Number atom bond descriptors do not match the number of bonds\n %s \n - adjusting expected number of bonds \n", line.c_str());
 					nb = (str_arr.size() - 11) / 2;
 					if (nb < 0) nb = 0;
@@ -1399,7 +1399,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog(" Error in HaMolSet::LoadHINStream()  Reading line: \n" );
+		PrintLog(" Error in MolSet::LoadHINStream()  Reading line: \n" );
 		PrintLog("%s \n",line.c_str());
 		PrintLog("%s\n",ex.what());
 		return FALSE;
@@ -1417,7 +1417,7 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 }
 
 
-int HaMolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 { 
 	using namespace rapidxml;
 
@@ -1432,12 +1432,12 @@ int HaMolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 		std::streampos length;
 		is.seekg (0, std::ios::end);
 		length = is.tellg();
-//		PrintLog("HaMolSet::LoadXMLStream() length = %d \n", (int)length);
+//		PrintLog("MolSet::LoadXMLStream() length = %d \n", (int)length);
 		is.seekg (0, std::ios::beg);
 		buffer = new char[(size_t)length+1];
 		is.read(buffer,length);
 //		std::streampos nread = is.gcount();
-//		PrintLog("HaMolSet::LoadXMLStream() nread = %d \n", (int) nread);
+//		PrintLog("MolSet::LoadXMLStream() nread = %d \n", (int) nread);
 		buffer[(size_t)length] = 0;
 		  
 //		clock_t time_1 = clock();
@@ -1485,7 +1485,7 @@ int HaMolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog("Error in HaMolSet::LoadXMLStream() \n" );
+		PrintLog("Error in MolSet::LoadXMLStream() \n" );
 		PrintLog("%s\n",ex.what());
 		if( buffer) delete buffer;
 		return FALSE;
@@ -1495,7 +1495,7 @@ int HaMolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 }
  
  
-int HaMolSet::LoadMol2File(const char* fname )
+int MolSet::LoadMol2File(const char* fname )
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     std::ifstream is(fname);
@@ -1606,7 +1606,7 @@ int HaMolSet::LoadMol2File(const char* fname )
 		}
 		catch( const std::exception& ex )
 		{
-			PrintLog(" Error in HaMolSet::LoadMol2File()  line:\n");
+			PrintLog(" Error in MolSet::LoadMol2File()  line:\n");
 			PrintLog(" %s\n", line.c_str());
 			PrintLog(" %s\n", ex.what());
 		}
@@ -1629,7 +1629,7 @@ int HaMolSet::LoadMol2File(const char* fname )
 /* Molecule File Format Generation */
 /*=================================*/
  
-int HaMolSet::SaveXYZRadFile(const char* filename )
+int MolSet::SaveXYZRadFile(const char* filename )
 {
 	FILE* fout = fopen(filename,"w");
 	if(fout == NULL) return FALSE;
@@ -1649,16 +1649,16 @@ int HaMolSet::SaveXYZRadFile(const char* filename )
 
 static int set_string_from_istream(std::string& str, istream& is);
 
-int HaMolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
+int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
 {
-//	PrintLog(" HaMolSet::LoadHarlemFile() pt 1 \n");
+//	PrintLog(" MolSet::LoadHarlemFile() pt 1 \n");
 
 //	clock_t init_time = clock();
 
 	std::ifstream is(fname);
 	if(is.fail()) 
 	{
-		PrintLog(" Error in HaMolSet::LoadHarlemFile() \n");
+		PrintLog(" Error in MolSet::LoadHarlemFile() \n");
 		PrintLog(" Error to open file %s\n",fname);
 		return FALSE;
 	}
@@ -1669,7 +1669,7 @@ int HaMolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
 	std::getline(is,line);
 	if( line.find("<?xml") == std::string::npos ) 
 	{
-//		PrintLog(" HaMolSet::LoadHarlemFile():  Attempt to open as OLD HARLEM file \n");
+//		PrintLog(" MolSet::LoadHarlemFile():  Attempt to open as OLD HARLEM file \n");
 		is.close();
 		FILE* fp = fopen(fname,"r");
 		if( fp == NULL ) return FALSE;
@@ -1679,17 +1679,17 @@ int HaMolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
 	{
 		is.close();
 		is.open(fname,ios::binary);
-//	    PrintLog(" HaMolSet::LoadHarlemFile() load file in new XML format \n");
+//	    PrintLog(" MolSet::LoadHarlemFile() load file in new XML format \n");
 		ires = LoadXMLStream (is, p_opt );
 	}
 	
 //	clock_t fin_time = clock();
-//	PrintLog(" HaMolSet::LoadHarlemFile time = %12.6f sec \n", (fin_time - init_time)/((double)CLOCKS_PER_SEC));
+//	PrintLog(" MolSet::LoadHarlemFile time = %12.6f sec \n", (fin_time - init_time)/((double)CLOCKS_PER_SEC));
 
 	return ires;
 }
 
-int HaMolSet::LoadOldHarlemFile(FILE* fp )
+int MolSet::LoadOldHarlemFile(FILE* fp )
 {
 	HaMolecule* pMol     = NULL; 
 	HaChain*    pch_cur  = NULL;
@@ -1804,11 +1804,11 @@ int HaMolSet::LoadOldHarlemFile(FILE* fp )
 					if(token)
 					{
 						pMol->SetObjName(token);
-//						PrintLog("HaMolSet::LoadHarlemFile()  Molecule Name : %s \n", token);
+//						PrintLog("MolSet::LoadHarlemFile()  Molecule Name : %s \n", token);
 					}
 					else
 					{
-						PrintLog("HaMolSet::LoadHarlemFile() : \n");
+						PrintLog("MolSet::LoadHarlemFile() : \n");
 						PrintLog("Error Reading Molecule Name \n");
 					}
 					break;
@@ -2116,7 +2116,7 @@ int HaMolSet::LoadOldHarlemFile(FILE* fp )
 					//	}
 					//	else
 					//	{
-					//		cout << "HaMolSet::LoadHarlemFile() : " << endl;
+					//		cout << "MolSet::LoadHarlemFile() : " << endl;
 					//		cout << " Error Reading Basis Name " << endl;
 					//	}
 					//	break;
@@ -2130,7 +2130,7 @@ int HaMolSet::LoadOldHarlemFile(FILE* fp )
 					//	}
 					//	else
 					//	{
-					//		cout << "HaMolSet::LoadHarlemFile() : " << endl;
+					//		cout << "MolSet::LoadHarlemFile() : " << endl;
 					//		cout << " Error Reading Basis Name " << endl;
 					//	}
 					//	break;
@@ -2353,7 +2353,7 @@ int HaMolSet::LoadOldHarlemFile(FILE* fp )
 }
 
 int
-HaMolSet::LoadAmberPrepFile(const char* fname)
+MolSet::LoadAmberPrepFile(const char* fname)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     FILE* fp = fopen(fname,"r");
@@ -2497,7 +2497,7 @@ HaMolSet::LoadAmberPrepFile(const char* fname)
 					num_aptr_map.find(iat3) == num_aptr_map.end() ||
 					num_aptr_map.find(iat4) == num_aptr_map.end() )
 				{
-					ErrorInMod( "HaMolSet::LoadAmberPrepFile()",
+					ErrorInMod( "MolSet::LoadAmberPrepFile()",
 						"Can't find reference points In the map");
 					aptr->SetX(0.0); aptr->SetY(0.0); aptr->SetZ(0.0);
 				}
@@ -2651,7 +2651,7 @@ HaMolSet::LoadAmberPrepFile(const char* fname)
 	return TRUE;
 }
 
-int HaMolSet::LoadAmberTopFile(const char* fname)
+int MolSet::LoadAmberTopFile(const char* fname)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     FILE* fp = fopen(fname,"r");
@@ -2796,7 +2796,7 @@ int HaMolSet::LoadAmberTopFile(const char* fname)
 					num_aptr_map.find(iat3) == num_aptr_map.end() ||
 					num_aptr_map.find(iat4) == num_aptr_map.end() )
 				{
-					ErrorInMod( "HaMolSet::LoadAmberTopFile()",
+					ErrorInMod( "MolSet::LoadAmberTopFile()",
 						"Can't find reference points In the map");
 					aptr->SetX(0.0); aptr->SetY(0.0); aptr->SetZ(0.0);
 				}
@@ -2982,7 +2982,7 @@ static int set_string_from_istream(std::string& str, istream& is)
 	}
 }
 
-int HaMolSet::LoadRWFMolecule(const char* fname)
+int MolSet::LoadRWFMolecule(const char* fname)
 {
 	PrintLog(" This is LoadRWFMolecule \n ");
 

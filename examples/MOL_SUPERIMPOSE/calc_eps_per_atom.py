@@ -1,5 +1,5 @@
-mset1 = HaMolSet()
-mset2 = HaMolSet()
+mset1 = MolSet()
+mset2 = MolSet()
 mset1.LoadHarlemFile("example.hlm")
 mset2.LoadHarlemFile("ET12_0005_bad_no_diff_6to15_no_wat.hlm")
 grp1 = mset1.GetAtomGroupByID("GROUP1")

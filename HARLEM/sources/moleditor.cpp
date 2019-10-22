@@ -182,7 +182,7 @@ int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, vector<HaHBond
 	return TRUE;
 }
 
-bool MolEditor::CalcHBonds(HaMolSet* pmset, bool recalc)
+bool MolEditor::CalcHBonds(MolSet* pmset, bool recalc)
 {
 	bool do_calc = false;
 
@@ -302,7 +302,7 @@ bool MolEditor::CalcHBonds(HaMolSet* pmset, bool recalc)
 	return true;
 }
 
-int MolEditor::FindBackbone( HaMolSet* pmset )
+int MolEditor::FindBackbone( MolSet* pmset )
 {
 	pmset->ClearBackbone();
 	ChainIteratorMolSet chitr(pmset);
@@ -342,7 +342,7 @@ int MolEditor::FindBackbone( HaMolSet* pmset )
 	return TRUE;
 }
 
-int MolEditor::UpdateBackBone(HaMolSet* pmset)
+int MolEditor::UpdateBackBone(MolSet* pmset)
 {
 	if( !pmset->to_find_backb ) return TRUE;
 	return FindBackbone(pmset);
@@ -384,7 +384,7 @@ int MolEditor::IsValidHBond(HaHBond* p_hb)
 	return FALSE;
 }
 
-void MolEditor::CalcHydrogenBonds(HaMolSet* pmset)
+void MolEditor::CalcHydrogenBonds(MolSet* pmset)
 {
     HaChain  *chn1;
 
@@ -515,7 +515,7 @@ static int TestDisulphideBridge(HaResidue*  group1, HaResidue* group2, HaAtom* c
     dy = cys1->GetY() - cys2->GetY();   if( (dist+= dy*dy) > max ) return FALSE;
     dz = cys1->GetZ() - cys2->GetZ();   if( (dist+= dz*dz) > max ) return FALSE;
 
-	HaMolSet* pmset = cys1->GetHostMolSet();
+	MolSet* pmset = cys1->GetHostMolSet();
 
     ptr = pmset->AddBond(cys1,cys2);
     if( !ptr ) 
@@ -538,7 +538,7 @@ static int TestDisulphideBridge(HaResidue*  group1, HaResidue* group2, HaAtom* c
 
 
 void 
-MolEditor::FindDisulphideBridges(HaMolSet* pmset)
+MolEditor::FindDisulphideBridges(MolSet* pmset)
 {
     HaResidue  *group1;
     HaResidue  *group2;
@@ -671,7 +671,7 @@ int MolEditor::CalcNucleicHBonds(HaChain* chn1 )
 	if( chn1 == NULL) return FALSE;
 	HaMolecule* pmol = chn1->GetHostMol();
 	if( pmol == NULL) return FALSE;
-	HaMolSet* pmset  = pmol->GetHostMolSet();
+	MolSet* pmset  = pmol->GetHostMolSet();
 	if( pmset == NULL) return FALSE;
 	
 	ResidueIteratorMolSet ritr1(pmset);
@@ -768,7 +768,7 @@ int MolEditor::CalcProteinHBonds(HaChain* chn1 )
 	if( chn1 == NULL) return FALSE;
 	HaMolecule* pmol = chn1->GetHostMol();
 	if( pmol == NULL) return FALSE;
-	HaMolSet* pmset  = pmol->GetHostMolSet();
+	MolSet* pmset  = pmol->GetHostMolSet();
 	if( pmset == NULL) return FALSE;
 
 	ResidueIteratorChain ritr_ch_1(chn1);
@@ -1005,7 +1005,7 @@ int MolEditor::SetBondDist(HaAtom* aptr1, HaAtom* aptr2, double new_dist)
 {
 	if(aptr1 == NULL || aptr2 == NULL) 
 	{
-		PrintLog(" Error in HaMolSet::SetBondDist() \n");
+		PrintLog(" Error in MolSet::SetBondDist() \n");
 		PrintLog(" atom pointer is zero \n");
 		return FALSE;
 	}
@@ -1023,7 +1023,7 @@ int MolEditor::SetBondDist(HaAtom* aptr1, HaAtom* aptr2, double new_dist)
 	double len = dn.length();
 	if(len < DBL_EPSILON) 
 	{
-		PrintLog(" Error in HaMolSet::SetBondDist() \n");
+		PrintLog(" Error in MolSet::SetBondDist() \n");
 		PrintLog(" coordinates of atoms of the bond to change coincide \n");
 		return FALSE;
 	}
@@ -1039,7 +1039,7 @@ int MolEditor::SetBondDist(HaAtom* aptr1, HaAtom* aptr2, double new_dist)
 
 	if(loop) 
 	{
-		PrintLog(" Error in HaMolSet::SetBondDist() \n");
+		PrintLog(" Error in MolSet::SetBondDist() \n");
 		PrintLog(" atoms are not moved because of the loop \n");
 		return FALSE;
 	}
@@ -1063,7 +1063,7 @@ int MolEditor::SetAngle(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, double ang_
 {
 	if(aptr1 == NULL || aptr2 == NULL || aptr3 == NULL) 
 	{
-		PrintLog(" Error in HaMolSet::SetAng() \n");
+		PrintLog(" Error in MolSet::SetAng() \n");
 		PrintLog(" One of atom pointers is NULL \n");
 		return FALSE;
 	}
@@ -1087,7 +1087,7 @@ int MolEditor::SetAngle(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, double ang_
 
 	if(dn1.length2() < DBL_EPSILON || dn2.length2() < DBL_EPSILON ) 
 	{
-		PrintLog(" Error in HaMolSet::SetAng() \n");
+		PrintLog(" Error in MolSet::SetAng() \n");
 		PrintLog(" Coordinates of atoms of the angle to change coincide \n");
 		return FALSE;
 	}
@@ -1121,7 +1121,7 @@ int MolEditor::SetAngle(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, double ang_
 
 	if(loop) 
 	{
-		PrintLog(" Error in HaMolSet::SetAng() \n");
+		PrintLog(" Error in MolSet::SetAng() \n");
 		PrintLog(" atoms are not moved because of the loop \n");
 		return FALSE;
 	}
@@ -1144,7 +1144,7 @@ int MolEditor::SetTorsion(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, HaAtom* a
 {
 	if(aptr1 == NULL || aptr2 == NULL || aptr3 == NULL || aptr4 == NULL) 
 	{
-		PrintLog(" Error in HaMolSet::SetTorsion() \n");
+		PrintLog(" Error in MolSet::SetTorsion() \n");
 		PrintLog(" One of atom pointers is NULL \n");
 		return FALSE;
 	}
@@ -1164,7 +1164,7 @@ int MolEditor::SetTorsion(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, HaAtom* a
 
 	if(dn.length2() < DBL_EPSILON  ) 
 	{
-		PrintLog(" Error in HaMolSet::SetAng() \n");
+		PrintLog(" Error in MolSet::SetAng() \n");
 		PrintLog(" Coordinates of atoms of the torsion to change coincide \n");
 		return FALSE;
 	}
@@ -1182,7 +1182,7 @@ int MolEditor::SetTorsion(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, HaAtom* a
 
 	if(loop) 
 	{
-		PrintLog(" Error in HaMolSet::SetTorsion() \n");
+		PrintLog(" Error in MolSet::SetTorsion() \n");
 		PrintLog(" atoms are not moved because of the loop \n");
 		return FALSE;
 	}
@@ -1200,7 +1200,7 @@ int MolEditor::SetTorsion(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, HaAtom* a
 }
 
 
-int MolEditor::DeleteExtraAtoms( HaMolSet* pmset)
+int MolEditor::DeleteExtraAtoms( MolSet* pmset)
 {
 	AtomGroup extra_atoms;
 	ResidueIteratorMolSet ritr(pmset);
@@ -1244,7 +1244,7 @@ int MolEditor::DeleteExtraAtoms( HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::AddMissingAtoms(HaMolSet* pmset ) 
+int MolEditor::AddMissingAtoms(MolSet* pmset ) 
 {
 	ResidueIteratorMolSet ritr(pmset);
 	HaResidue* pres;
@@ -1260,7 +1260,7 @@ int MolEditor::AddMissingAtoms(HaMolSet* pmset )
 	return TRUE;
 }
 
-int MolEditor::FixBondsUsingTempl(HaMolSet* pmset)
+int MolEditor::FixBondsUsingTempl(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	
 	ResidueIteratorMolSet ritr(pmset);
@@ -1402,7 +1402,7 @@ int MolEditor::FixBondsUsingTempl(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::OrderAtomsInRes(HaMolSet* pmset)
+int MolEditor::OrderAtomsInRes(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	
 	ResidueIteratorMolSet ritr(pmset);
@@ -1456,7 +1456,7 @@ int MolEditor::OrderAtomsInRes(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::RenameAtomsToAmber(HaMolSet* pmset)
+int MolEditor::RenameAtomsToAmber(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	
 	ResidueIteratorMolSet ritr(pmset);
@@ -1615,7 +1615,7 @@ int MolEditor::RenameAtomsToAmber(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::RenameAtomsToGromacs(HaMolSet* pmset)
+int MolEditor::RenameAtomsToGromacs(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	
 	ResidueIteratorMolSet ritr(pmset);
@@ -1774,7 +1774,7 @@ int MolEditor::RenameAtomsToGromacs(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::ConvertWaterArrowVB(HaMolSet* pmset)
+int MolEditor::ConvertWaterArrowVB(MolSet* pmset)
 {
 	ResidueIteratorMolSet ritr(pmset);
 	
@@ -1857,7 +1857,7 @@ int MolEditor::ConvertWaterArrowVB(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::AddHydrogens(HaMolSet* pmset)
+int MolEditor::AddHydrogens(MolSet* pmset)
 {
 	ResidueIteratorMolSet ritr(pmset);
 	HaResidue* pres;
@@ -1874,7 +1874,7 @@ int MolEditor::AddHydrogens(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::AddPolarHydrogens(HaMolSet* pmset) 
+int MolEditor::AddPolarHydrogens(MolSet* pmset) 
 {
 	if( pmset == NULL) return FALSE;
 	SetStdAtomicParams(pmset,ATOM_HBOND_DA_STATUS);
@@ -1893,7 +1893,7 @@ int MolEditor::AddPolarHydrogens(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::AddHydrogensHybrid(HaMolSet* pmset)
+int MolEditor::AddHydrogensHybrid(MolSet* pmset)
 {
     AtomGroup selected_nonh_atoms;
 
@@ -2130,7 +2130,7 @@ int MolEditor::SetHBondDonAccStatus(AtomContainer* p_at_coll)
 	return TRUE;
 }
 
-int MolEditor::SetFormalAtChrgFromTempl(HaMolSet* pmset)
+int MolEditor::SetFormalAtChrgFromTempl(MolSet* pmset)
 {
 	HaResidue* pres;
 	HaAtom* aptr;
@@ -2218,7 +2218,7 @@ int MolEditor::SetFormalAtChrgFromTempl(HaMolSet* pmset)
 }
 
 
-int MolEditor::SetStdAtomicParams(HaMolSet* pmset, int at_params_type)
+int MolEditor::SetStdAtomicParams(MolSet* pmset, int at_params_type)
 {
 	HaResidue* group;
 	HaChain*   chain;
@@ -2362,7 +2362,7 @@ int MolEditor::SetStdAtomicParams(HaMolSet* pmset, int at_params_type)
 	return TRUE;
 }
 
-int MolEditor::ClearAtomFFParams(HaMolSet* pmset)
+int MolEditor::ClearAtomFFParams(MolSet* pmset)
 {
 	PrintLog(" MolEditor::ClearAtomFFParams() pt 1 \n");
 	AtomIteratorMolSet aitr(pmset);
@@ -2383,7 +2383,7 @@ int MolEditor::BondIfClose(HaAtom* sptr, HaAtom* dptr)
 	
 	if( sptr == NULL || dptr == NULL) return FALSE;
 
-	HaMolSet* pmset = sptr->GetHostMolSet();
+	MolSet* pmset = sptr->GetHostMolSet();
 
 	if( pmset == NULL) return FALSE;
 	if( pmset != dptr->GetHostMolSet()) return FALSE;
@@ -2442,7 +2442,7 @@ int MolEditor::CreateCovBonds(AtomContainer* pat_cont)
 		AtomIteratorAtomGroup aitr(&close_atoms);
 
 		HaAtom* aptr2;
-		HaMolSet* pmset = aptr->GetHostMolSet(); 
+		MolSet* pmset = aptr->GetHostMolSet(); 
 		for(aptr2 = aitr.GetFirstAtom(); aptr2; aptr2 = aitr.GetNextAtom())
 		{			
 			if( aptr2 > aptr && aptr2->GetHostMolSet() == pmset )
@@ -2604,7 +2604,7 @@ int MolEditor::FindBetaSheets(HaMolecule* pmol)
 	ResidueIteratorMolecule ritr(pmol);
 	ResidueIteratorMolecule ritr_next(pmol);
 
-	HaMolSet* pmset = pmol->GetHostMolSet();
+	MolSet* pmset = pmol->GetHostMolSet();
 
 	HaChain* chain_i = NULL;
 
@@ -2976,7 +2976,7 @@ MolEditor::DetermineSecStructure(HaMolecule* pmol, int flag )
     HaChain  *chain;
     HaResidue  *group;
 	
-	HaMolSet*  pmset = pmol->GetHostMolSet();
+	MolSet*  pmset = pmol->GetHostMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 
     if( !pmset->HBonds_found ) p_mol_editor->CalcHBonds(pmset);
@@ -3018,7 +3018,7 @@ MolEditor::DetermineSecStructure(HaMolecule* pmol, int flag )
 	return TRUE;
 }
 
-void MolEditor::SetAlphaHelix(HaMolSet* pmset)
+void MolEditor::SetAlphaHelix(MolSet* pmset)
 {
 	ResidueIteratorMolSet ritr(pmset);
 	
@@ -3136,7 +3136,7 @@ MolEditor::CenterAtOriginWithRad(AtomContainer* pat_cont)
 	return TRUE;
 }
 
-int MolEditor::Solvate(HaMolSet* pmset)
+int MolEditor::Solvate(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
 	std::string solv_fname = pApp->res_db_dir + solv_name + ".hlm";
@@ -3158,7 +3158,7 @@ int MolEditor::Solvate(HaMolSet* pmset)
 	ymax += solv_buffer_dist;
 	zmax += solv_buffer_dist;
 
-	HaMolSet* solvent = new HaMolSet();
+	MolSet* solvent = new MolSet();
 	solvent->LoadHarlemFile(solv_fname.c_str());
 
     if( !solvent->per_bc->IsSet() )
@@ -3293,7 +3293,7 @@ int MolEditor::Solvate(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::ReplicatePeriodBox(HaMolSet* pmset, int nx, int ny, int nz)
+int MolEditor::ReplicatePeriodBox(MolSet* pmset, int nx, int ny, int nz)
 {
 	 if( pmset == NULL) return FALSE;
 	 if( nx <= 0 || ny <= 0 || nz <= 0)
@@ -3493,7 +3493,7 @@ int MolEditor::WrapToUnitCell(AtomContainer* pat_coll, PeriodicUnitInfo* per_inf
 	return TRUE;
 }
 
-int MolEditor::DeleteOverlapMols(HaMolSet* pmset, AtomGroup& at_coll)
+int MolEditor::DeleteOverlapMols(MolSet* pmset, AtomGroup& at_coll)
 {
 	AtomIteratorMolSet aitr(pmset);
 	HaAtom* aptr;
@@ -3655,7 +3655,7 @@ int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mol
 	return TRUE;
 }
 
-int MolEditor::CenterSoluteInSolvent(HaMolSet* pmset)
+int MolEditor::CenterSoluteInSolvent(MolSet* pmset)
 {
 	if(!pmset->per_bc->IsSet())
 	{
@@ -3731,7 +3731,7 @@ int MolEditor::CenterSoluteInSolvent(HaMolSet* pmset)
 	return TRUE;
 }
 
-int MolEditor::CenterMolInPBox(HaMolSet* pmset)
+int MolEditor::CenterMolInPBox(MolSet* pmset)
 {
 	if(!pmset->per_bc->IsSet())
 	{
@@ -3789,7 +3789,7 @@ int MolEditor::MergeMolecules(HaMolecule* pMol1, HaMolecule* pMol2)
 		return FALSE;
 	}
 
-	HaMolSet* pmset = pMol1->GetHostMolSet();
+	MolSet* pmset = pMol1->GetHostMolSet();
 	
 	pMol1->AddMolCopy(*pMol2,false,NULL);
 	if(pMol2->GetHostMolSet() == pmset )
@@ -3799,7 +3799,7 @@ int MolEditor::MergeMolecules(HaMolecule* pMol1, HaMolecule* pMol2)
 	return TRUE;
 }
 
-HaMolecule* MolEditor::CreateTransAlk(HaMolSet* pmset, const int nunit, const std::string& name)
+HaMolecule* MolEditor::CreateTransAlk(MolSet* pmset, const int nunit, const std::string& name)
 {
 	HaMolecule* pMol= pmset->CreateMolecule();
 	if(pMol == NULL) return NULL;
@@ -3918,7 +3918,7 @@ HaMolecule* MolEditor::CreateTransAlk(HaMolSet* pmset, const int nunit, const st
 	return pMol;
 }
 
-bool MolEditor::Create2DMolArray( HaMolSet* pmset, HaMolecule* pMol_ref,
+bool MolEditor::Create2DMolArray( MolSet* pmset, HaMolecule* pMol_ref,
 	        					 const double deltx, const double delty, const int nx, const int ny,
 						         const double alpha, const double tilt)
 // Create 2D Array of Molecular Chains
@@ -3993,7 +3993,7 @@ bool MolEditor::Create2DMolArray( HaMolSet* pmset, HaMolecule* pMol_ref,
 }
 
 
-bool MolEditor::AddElectrSurf( HaMolSet* pmset,int add_surf_below_flag, int add_surf_top_flag, int add_atom_top_flag,
+bool MolEditor::AddElectrSurf( MolSet* pmset,int add_surf_below_flag, int add_surf_top_flag, int add_atom_top_flag,
 					    	 int add_atom_below_flag)
 {
 	double MinX, MinY, MinZ;
@@ -4129,7 +4129,7 @@ bool MolEditor::AddElectrSurf( HaMolSet* pmset,int add_surf_below_flag, int add_
 	return true;
 }
 
-HaMolecule* MolEditor::CreateSurf(HaMolSet* pmset, const int num_layers, const std::string& name)
+HaMolecule* MolEditor::CreateSurf(MolSet* pmset, const int num_layers, const std::string& name)
 {
 	if( pmset == NULL) return NULL;
 	HaMolecule* pMol= pmset->CreateMolecule();

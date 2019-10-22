@@ -82,8 +82,8 @@ public:
 
 	HaEnergyFunc* p_ene_func;
 
-	virtual HaMolSet* GetMolSet(); //!< Get Associated Molecular Set
-	HaMolSet* pmset;
+	virtual MolSet* GetMolSet(); //!< Get Associated Molecular Set
+	MolSet* pmset;
 
 protected: 
 	double kT_MC;           //!< Temperature for MC calculations in (kcal/mol) 

@@ -32,7 +32,7 @@
 #include "haflexmod.h"
 #include "haproteined.h"
 
-HaCompMod::HaCompMod( const int new_mtype, HaMolSet* new_phost_mset):
+HaCompMod::HaCompMod( const int new_mtype, MolSet* new_phost_mset):
 mtype(new_mtype)
 {
 	phost_mset = new_phost_mset;
@@ -47,7 +47,7 @@ HaCompMod::~HaCompMod()
 }
 
 
-HaCompMod* HaCompMod::CreateCompMod( const int mtype, HaMolSet* new_phost_mset )
+HaCompMod* HaCompMod::CreateCompMod( const int mtype, MolSet* new_phost_mset )
 {
 	HaCompMod* pmod=NULL;
 

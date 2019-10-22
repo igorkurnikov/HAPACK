@@ -69,15 +69,15 @@ namespace mort { class molecule_t; }
 
 //! \brief Class to describe a collection of molecules - Central Class of HARLEM
 //! \nosubgrouping
-class HaMolSet : public AtomContainer
+class MolSet : public AtomContainer
 {
 	friend class MolSetParDlg;
 	
 public:
 //! \name Constructors and Destructors:
 //@{
-	HaMolSet();
-	virtual ~HaMolSet();
+	MolSet();
+	virtual ~MolSet();
 //@}
 //! \name Debug Control 
 //@{
@@ -101,7 +101,7 @@ public:
 //@}
 //! \name wxWidgets command processor:
 //@{
-	MolSetEvtHandler* p_evt_h; //!< Handler for wxWidgets events in HaMolSet  
+	MolSetEvtHandler* p_evt_h; //!< Handler for wxWidgets events in MolSet  
 //@}
 
 //! \name Superimpose molecules functions:
@@ -129,7 +129,7 @@ public:
 	int LoadXYZStream( std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load coordinates from stream
 	int LoadHINStream( std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load Molecules from the stream in Arbalest HIN format 
 	int LoadXMLStream (std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load from file in HARLEM XML format
-	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions* popt = NULL ); //!< Load HaMolSet data from RAPID XML node
+	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions* popt = NULL ); //!< Load MolSet data from RAPID XML node
 	
 	int LoadOldHarlemFile(FILE* fp ); //!< Load file in OLD Harlem format
 
@@ -147,9 +147,9 @@ public:
 	
 	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0) const; //!< Add Minimal Molecular Set Descripion to XML element
 	int SaveXML(FILE* file_out, int option=0) const;              //!< Save Molecular Set Description to a file
-	int SaveOldHarlemStream(std::ostream& os); //!< Save HaMolSet in Old Harlem Format to stream
-	int SaveHINToStream(std::ostream& os) const; //!< Save HaMolSet in Abalest HIN Format to stream
-	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt = NULL ) const;  //!< Write HaMolSet data in XML format to stream
+	int SaveOldHarlemStream(std::ostream& os); //!< Save MolSet in Old Harlem Format to stream
+	int SaveHINToStream(std::ostream& os) const; //!< Save MolSet in Abalest HIN Format to stream
+	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt = NULL ) const;  //!< Write MolSet data in XML format to stream
 	  
 	ZMatCrd* GetZMat( const harlem::HashMap* popt = NULL); //!< Get Z-Matrix for the molecular set   
 
@@ -162,7 +162,7 @@ protected:
 //@{
 public:
 
-	static HaMolSet* CurMolSet;                    //!< Currently active Molecular Set
+	static MolSet* CurMolSet;                    //!< Currently active Molecular Set
 	vector<HaMolecule*> HostMolecules;             //!< Molecules in the molecular set  
 
 	HaMolecule* CreateMolecule();                   //!< function to create a new molecule in the set
@@ -376,22 +376,22 @@ public:
 //@}
 //! \name Fragmentation:
 //@{	
-	HaMolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is a fragment)
-	HaMolSet* CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params = NULL);
+	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is a fragment)
+	MolSet* CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params = NULL);
 	
-	vector<HaMolSet*> Fragments;   //!< Vector of fragments
+	vector<MolSet*> Fragments;   //!< Vector of fragments
 	PtrPtrMap frag_atom_maps;      //!< map of fragments to mappings of atoms of fragments to atoms of the molecular set
 	
-	int AssociateFragment(HaMolSet* frag);     //!< Add an existing molecular set as a fragment
-	int ReleaseFragment(HaMolSet* frag);  //!< Detach the fragment from the molecular set without deleting it 
-	int DeleteFragment(HaMolSet* frag);   //!< Delete fragment 
+	int AssociateFragment(MolSet* frag);     //!< Add an existing molecular set as a fragment
+	int ReleaseFragment(MolSet* frag);  //!< Detach the fragment from the molecular set without deleting it 
+	int DeleteFragment(MolSet* frag);   //!< Delete fragment 
 	int ReleaseAllFragments();            //!< Detach all fragment from the molecular set without deleting them
 	int DeleteAllFragments();             //!< Delete all fragments of the molecular set
-	int BuildFragmentAtomMap(HaMolSet* frag, AtomAtomMap& frag_atom_map); //<! build the map of correspondence between the atoms of the fragment and those of the parent molecule
-    int SelectAtomsMatchingFragment(HaMolSet* frag); //!< Select Atoms matching atoms of the fragment
-	int IsFragment(const HaMolSet* pmset); //!< Check if the Molecular Set is the fragment of the given Molecular Set
-	int FragmentIdx(const HaMolSet* pmset); //!< Return index of the fragment in Fragments & frag_atom_map arrays, (-1) if pmset is not a fragment of this Molecular Set
-	int SyncFragmentCoord(HaMolSet* frag);  //!< Synchronize Cooordinates of the fragment with current coordinates of the Molecular Set 
+	int BuildFragmentAtomMap(MolSet* frag, AtomAtomMap& frag_atom_map); //<! build the map of correspondence between the atoms of the fragment and those of the parent molecule
+    int SelectAtomsMatchingFragment(MolSet* frag); //!< Select Atoms matching atoms of the fragment
+	int IsFragment(const MolSet* pmset); //!< Check if the Molecular Set is the fragment of the given Molecular Set
+	int FragmentIdx(const MolSet* pmset); //!< Return index of the fragment in Fragments & frag_atom_map arrays, (-1) if pmset is not a fragment of this Molecular Set
+	int SyncFragmentCoord(MolSet* frag);  //!< Synchronize Cooordinates of the fragment with current coordinates of the Molecular Set 
 //@}
 //! \name Computational Modules:
 //@{
@@ -468,7 +468,7 @@ class AtomIteratorMolSet: public AtomIterator
 //! Atom iterator class to browse atoms of the molecular set
 {
 public:
-	AtomIteratorMolSet(HaMolSet* new_pmset);
+	AtomIteratorMolSet(MolSet* new_pmset);
 	AtomIteratorMolSet(const AtomIteratorMolSet& ref);
 	virtual ~AtomIteratorMolSet();
 	
@@ -508,7 +508,7 @@ class AtomIteratorMolSet_const : public AtomIterator_const
 //! Const Atom iterator class to browse atoms of the molecular set
 {
 public:
-	AtomIteratorMolSet_const(const HaMolSet* new_pmset);
+	AtomIteratorMolSet_const(const MolSet* new_pmset);
 	AtomIteratorMolSet_const(const AtomIteratorMolSet_const& ref);
 	virtual ~AtomIteratorMolSet_const();
 
@@ -527,7 +527,7 @@ class ResidueIteratorMolSet
 //! Residue iterator class to browse residues of the molecular set
 {
 public:
-	ResidueIteratorMolSet(HaMolSet* new_pmset);
+	ResidueIteratorMolSet(MolSet* new_pmset);
 	ResidueIteratorMolSet(const ResidueIteratorMolSet& ritr_ref);
 	virtual ~ResidueIteratorMolSet();
 	
@@ -569,7 +569,7 @@ class ResidueIteratorMolSet_const
 //! Const Residue iterator class to browse residues of the molecular set
 {
 public:
-	ResidueIteratorMolSet_const(const HaMolSet* new_pmset);
+	ResidueIteratorMolSet_const(const MolSet* new_pmset);
 	virtual ~ResidueIteratorMolSet_const();
 	
 	const HaResidue* GetFirstRes(); //!< Return the first residue of the Molecular Set (=NULL if no atoms) 
@@ -588,7 +588,7 @@ class ChainIteratorMolSet
 //! Chain iterator class to browse chains of the molecular set
 {
 public:
-	ChainIteratorMolSet(HaMolSet* new_pmset);
+	ChainIteratorMolSet(MolSet* new_pmset);
 	virtual ~ChainIteratorMolSet();
 	
 	HaChain* GetFirstChain(); //!< Return the first chain of the molecular Set (=NULL if no atoms) 
@@ -598,14 +598,14 @@ protected:
 	list<HaChain>::iterator ch_itr;
 	MoleculesType::iterator mol_itr;
 	
-	HaMolSet* pmset;
+	MolSet* pmset;
 };
 
 class ChemGroupIterator
 //! Iterator class to browse Chemical Groups of the molecular set
 {
 public:
-	ChemGroupIterator(HaMolSet* new_pmset);
+	ChemGroupIterator(MolSet* new_pmset);
 	virtual ~ChemGroupIterator();
 	
 	ChemGroup* GetFirst(); //!< Return the first Chemical Group of the Molecular Set (=NULL if no Chemical Groups) 
@@ -613,14 +613,14 @@ public:
 
 protected:
     list<ChemGroup>::iterator CurGroupItr;	
-	HaMolSet* pmset;
+	MolSet* pmset;
 };
 
 class AtomGroupIteratorMolSet
 //! Iterator class to browse Named Atom Groups of the molecular set
 {
 public:
-	AtomGroupIteratorMolSet(HaMolSet* new_pmset);
+	AtomGroupIteratorMolSet(MolSet* new_pmset);
 	virtual ~AtomGroupIteratorMolSet();
 	
 	AtomGroup* GetFirst(); //!< Return the first named Atom Group of the Molecular Set (=NULL if no named Atom Groups) 
@@ -628,14 +628,14 @@ public:
 	
 protected:
 	list<AtomGroup>::iterator CurListItr;	
-	HaMolSet* pmset;
+	MolSet* pmset;
 };
 
 class AtomGroupIteratorMolSet_const
 //! Iterator class to browse Named Atom Groups of the molecular set (const version)
  {
 public:
-	AtomGroupIteratorMolSet_const(const HaMolSet* new_pmset);
+	AtomGroupIteratorMolSet_const(const MolSet* new_pmset);
 	virtual ~AtomGroupIteratorMolSet_const();
 	
 	const AtomGroup* GetFirst(); //!< Return the first named Atom Group of the Molecular Set (=NULL if no named Atom Groups) 
@@ -643,7 +643,7 @@ public:
 	
 protected:
 	list<AtomGroup>::const_iterator CurListItr;	
-	const HaMolSet* pmset;
+	const MolSet* pmset;
 };
 
 
@@ -651,7 +651,7 @@ class BondIteratorMolSet
 //! Bond iterator class to browse bonds of the molecular set
 {
 public:
-	BondIteratorMolSet(HaMolSet* new_pmset);
+	BondIteratorMolSet(MolSet* new_pmset);
 	virtual ~BondIteratorMolSet();
 	
 	HaBond* GetFirstBond(); //!< Return the first bond of the Molecular Set (=NULL if no bonds) 
@@ -661,14 +661,14 @@ protected:
 	vector<HaBond*>::iterator bitrm;
 	MoleculesType::iterator mol_itr;
 	
-	HaMolSet* pmset;
+	MolSet* pmset;
 };
 
 class HBondIteratorMolSet
 //! Bond iterator class to browse Hydrogen Bonds of the molecular set
 {
 public:
-	HBondIteratorMolSet(HaMolSet* new_pmset);
+	HBondIteratorMolSet(MolSet* new_pmset);
 	virtual ~HBondIteratorMolSet();
 	
 	HaHBond* GetFirstBond(); //!< Return the first Hydrogen bond or SS bond of the Molecular Set (=NULL if no H-bonds(SS bonds)) 
@@ -678,7 +678,7 @@ protected:
 	set< HaHBond,less<HaHBond> >::iterator bitrm;
 	MoleculesType::iterator mol_itr;
 		
-	HaMolSet* pmset;
+	MolSet* pmset;
 };
 
 
@@ -694,10 +694,10 @@ class PyAccMolSetProp
 //! class for python accellerated access to molset properties
 {
 public:
-	PyAccMolSetProp(HaMolSet* new_pmset);
+	PyAccMolSetProp(MolSet* new_pmset);
 	~PyAccMolSetProp();
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	std::vector<int>* GetAtomsSerNoAsVec();
 	std::vector<int>* GetResidueSerNoAsVec();
@@ -719,11 +719,11 @@ public:
 
 extern "C" {
 #if defined(HAMOLSET_CPP)
-	HaMolSet* GetCurMolSet() { return HaMolSet::CurMolSet; }
-	void SetCurMolSet(HaMolSet* pmset);
+	MolSet* GetCurMolSet() { return MolSet::CurMolSet; }
+	void SetCurMolSet(MolSet* pmset);
 #else
-	extern HaMolSet* GetCurMolSet();
-	extern void SetCurMolSet(HaMolSet* pmset);
+	extern MolSet* GetCurMolSet();
+	extern void SetCurMolSet(MolSet* pmset);
 #endif
 }
 

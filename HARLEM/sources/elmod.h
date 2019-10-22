@@ -89,7 +89,7 @@ class HaAtomsParmDB
 		int NumFF();
 		HaAtomsParmFF* GetFFbyNum(int i);
 
-		void SetAtomsParam(HaMolSet* pmset, const char *FFName);
+		void SetAtomsParam(MolSet* pmset, const char *FFName);
 		
 		//! compare atom names for residues in cName with that in cNameRef
 		void CompareAtomNamesInFFs(const char* cName,const char* cNameRef);
@@ -113,7 +113,7 @@ Electrostatic Module, replacement of ElectrostMod, mimic its behaviour
 class ElMod : public ElectrostMod
 {
 	public:
-		ElMod(HaMolSet* new_phost_mset = NULL);
+		ElMod(MolSet* new_phost_mset = NULL);
 		
 		~ElMod();
 		
@@ -230,7 +230,7 @@ class ElMod : public ElectrostMod
 class pKaCalcMod : public  HaCompMod
 {
 	public:
-		pKaCalcMod(HaMolSet* new_phost_mset = NULL);
+		pKaCalcMod(MolSet* new_phost_mset = NULL);
 		virtual ~pKaCalcMod();
 		
 		int PrintResWithAltProtState();
@@ -303,7 +303,7 @@ class pKaCalcMod : public  HaCompMod
 class PNPMod : public  HaCompMod
 {
 	public:
-		PNPMod(HaMolSet* new_phost_mset = NULL);
+		PNPMod(MolSet* new_phost_mset = NULL);
 		~PNPMod();
 	protected:
 		int NIonsTypes;
@@ -398,9 +398,9 @@ class PNPMod : public  HaCompMod
 class ElModRadDist
 {
 	public:
-		ElModRadDist(HaMolSet* new_phost_mset);
+		ElModRadDist(MolSet* new_phost_mset);
 		~ElModRadDist();
-		HaMolSet *pmset;
+		MolSet *pmset;
 		ElMod *elmod;
 		int atom;
 		

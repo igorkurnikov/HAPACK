@@ -18,7 +18,7 @@ class XTCTraj;
 class MDTrajectory
 {
 	public:
-		MDTrajectory(HaMolSet* new_pmset);
+		MDTrajectory(MolSet* new_pmset);
 		virtual ~MDTrajectory();
 		
 		enum {FormatUnk=0,AMBER_CRD=1,GMX_XTC=2};
@@ -44,7 +44,7 @@ class MDTrajectory
 		FILE* EneFile;     //!< File pointer for AMBER MD velocities trajectory file
 
 	protected:
-		HaMolSet* pmset;
+		MolSet* pmset;
 		vector<HaAtom*>    Atoms;          //!<  Atoms and other force and mass centers
 
 		HaVec_double cur_crd;
@@ -185,7 +185,7 @@ protected:
 	HaMolMechMod* p_mm_mod;
 	MolMechModel* p_mm_model;
 	MMDriverAmber* p_amber_driver;
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 	int npt_begin;  //!< The number of trajectory points to skip in the beginning of the trajectory
 	int npt_end;    //!< Index ot the last MD trajectory point to analyze    
@@ -265,13 +265,13 @@ public:
 
 	int SetRefCrdFit(PointContainer& ref_coords, int ref_crd_type = REFC_SPECIAL );  //!< Set reference coordinates for fit
 	int SetRefCrdFitFromXYZFile( const std::string& ref_crd_file_name );   //!< Set Reference Coordinates to fit From XYZ File
-	int SetRefCrdFitFromAtomGroup( const std::string& at_grp_id, HaMolSet* pmset_ref); //!< Set Reference Coordinates to fit from Atom Group Name with ID at_grp_id of molecular set pmset_ref_new 
+	int SetRefCrdFitFromAtomGroup( const std::string& at_grp_id, MolSet* pmset_ref); //!< Set Reference Coordinates to fit from Atom Group Name with ID at_grp_id of molecular set pmset_ref_new 
 
 	int SetRefCrdRMSD(PointContainer& ref_coords, int ref_crd_type = REFC_SPECIAL );  //!< Set reference coordinates to compute RMSD
 	int SetRefCrdRMSDFromXYZFile( const std::string& ref_crd_file_name );             //!< Set Reference Coordinates to compute RMSD From XYZ File
-	int SetRefCrdRMSDFromAtomGroup( const std::string& at_grp_id, HaMolSet* pmset_ref); //!< Set Reference Coordinates to compute RMSD from Atom Group Name with ID at_grp_id of molecular set pmset_ref_new 
+	int SetRefCrdRMSDFromAtomGroup( const std::string& at_grp_id, MolSet* pmset_ref); //!< Set Reference Coordinates to compute RMSD from Atom Group Name with ID at_grp_id of molecular set pmset_ref_new 
 
-	int SetMolSet(HaMolSet* pmset); //!< Set Molecular Set for atoms to use in fitting coordinates and RMSD calculations 
+	int SetMolSet(MolSet* pmset); //!< Set Molecular Set for atoms to use in fitting coordinates and RMSD calculations 
 
 	std::string fname_rmsd_out;      //!< File to output RMSD of active_atoms coordinates from reference coordinates 
 	std::string fname_rmsd_atom_out; //!< File to output averaged indvidual atom RMSD of active_atoms coordinates from reference coordinates
@@ -299,8 +299,8 @@ protected:
 	Vec3DValArray ref_coords_fit;   //!< reference coordinates to fit atoms
 	Vec3DValArray ref_coords_rmsd;  //!< reference coordinates to compute RMSD
 
-	HaMolSet* pmset;      //!< Molecular Set for atoms to fit and atoms to compute RMSD
-	HaMolSet* pmset_ref;  //!< Molecular Set of reference atoms (optional) 
+	MolSet* pmset;      //!< Molecular Set for atoms to fit and atoms to compute RMSD
+	MolSet* pmset_ref;  //!< Molecular Set of reference atoms (optional) 
 
 	int active_flag; //!< Active Status flag (TRUE or FALSE)
 
@@ -315,7 +315,7 @@ class AtomCorrAgent : public TrajAnalAgent
 //!< Class to compute pairwise corrleation functions between atoms along MD trajectory 
 {
 public:
-	AtomCorrAgent( HaMolSet* pmset);
+	AtomCorrAgent( MolSet* pmset);
 	virtual ~AtomCorrAgent();
 
 //! \name  Overide virtuals from TrajAnalAgent
@@ -361,7 +361,7 @@ protected:
 
 	std::string fname_out; //!< name of the output results file
 
-	HaMolSet* pmset;
+	MolSet* pmset;
 
 //@}
 

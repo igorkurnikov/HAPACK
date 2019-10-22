@@ -248,7 +248,7 @@ void wxMolFlex::OnClose(wxCloseEvent& event)
 
 void wxMolFlex::GetAllAtomGroups()
 {
-	HaMolSet* pmset = GetCurMolSet();
+	MolSet* pmset = GetCurMolSet();
 	// Have to ask  igor about methods that access the groups
 	wxControlWithItems* atomsi = (wxControlWithItems *) FindWindow(ID_ATMGRP1_SELECT);
 	wxControlWithItems* atomsj = (wxControlWithItems *) FindWindow(ID_ATMGRP2_SELECT);
@@ -279,7 +279,7 @@ void wxMolFlex::OpenMolMechDlg(wxCommandEvent& event)
 
 void wxMolFlex::OnSelectAtomGroup(wxCommandEvent& event)
 {
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 	wxControlWithItems* atmGrpComboBox = (wxControlWithItems*) FindWindow(ID_ATMGRP1_SELECT);
 
  	wxString mySelection = atmGrpComboBox->GetStringSelection();
@@ -311,7 +311,7 @@ void wxMolFlex::FindHBondsPH(wxCommandEvent& event)
 
 //void wxMolFlex::OnUpdateChart(wxCommandEvent& event)
 //{
-//	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+//	MolSet* pmset = myHaFlexMod->GetMolSet();
 //	wxControlWithItems* atmGrpComboBox = (wxControlWithItems*) FindWindow(ID_ATMGRP1_SELECT);
 
 // 	wxString mySelection = atmGrpComboBox->GetStringSelection();
@@ -349,7 +349,7 @@ void wxMolFlex::OnSaveFirstInputFiles(wxCommandEvent& event)
 
 void wxMolFlex::OnRunFirst(wxCommandEvent& event)
 {
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 
 	std::string cmdLine = "C:\\HARLEM\\FIRST.exe";
     cmdLine += " -non ";
@@ -368,7 +368,7 @@ void wxMolFlex::OnRunFirst(wxCommandEvent& event)
 
 void wxMolFlex::OnChangeSelectedHB(wxListEvent& event)
 {
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 	long idx = -1;
 	wxListCtrl* hbGrid = (wxListCtrl*) FindWindow(ID_HB_LIST);
 	PrintLog("Selected HB indexes: \n)");
@@ -388,7 +388,7 @@ void wxMolFlex::OnChangeSelectedHB(wxListEvent& event)
 void
 wxMolFlex::OnChangeSelectedPH(wxListEvent& event)
 {
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 	long idx = -1;
 	wxListCtrl* phGrid = (wxListCtrl*) FindWindow(ID_PH_LIST);
 	PrintLog("Selected HPT indexes: \n)");
@@ -409,7 +409,7 @@ void wxMolFlex::OnDeleteSelectedHB(wxCommandEvent& event)
 {
 	myHaFlexMod->DeleteSelectedHBonds();
 	
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 	pmset->RefreshAllViews();
 	TransferDataToWindow();
 }
@@ -418,7 +418,7 @@ void wxMolFlex::OnDeleteSelectedPH(wxCommandEvent& event)
 {
 	myHaFlexMod->DeleteSelectedHPTethers();
 	
-	HaMolSet* pmset = myHaFlexMod->GetMolSet();
+	MolSet* pmset = myHaFlexMod->GetMolSet();
 	pmset->RefreshAllViews();
 	TransferDataToWindow();
 }
