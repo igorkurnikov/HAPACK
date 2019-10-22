@@ -6724,7 +6724,7 @@ ResDBDlg::UpdateTemplList()
 	int idx = -1;
 	for(it = 0 ; it < nt; it++)
 	{
-		HaMolecule* ptempl = p_res_db->GetMoleculeNum(it);
+		HaMolecule* ptempl = p_res_db->GetMolByIdx(it);
 		idx++;
 		templ_list->Append(ptempl->GetObjName());
 		templ_list->SetClientData(idx,(void*)ptempl);

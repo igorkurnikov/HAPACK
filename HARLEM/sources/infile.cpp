@@ -688,7 +688,7 @@ int HaMolSet::LoadMDLFile(const char* fname )
 		return( False );
 	}
 	
-    pres_cur = pMol->CreateMolResidue();
+    pres_cur = pMol->AddChainAndResidue();
     for( i=1; i<=atoms; i++ )
     {   
 		std::getline(is,line);
@@ -922,7 +922,7 @@ int HaMolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 
 	try
 	{
-		pres_cur = pMol->CreateMolResidue();
+		pres_cur = pMol->AddChainAndResidue();
 		pch_cur  = pres_cur->GetHostChain();
 		int nat_res = 0;
 		int res_idx = 1;
@@ -1289,7 +1289,9 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				if (pres_cur == NULL)
 				{
 					pres_cur = pch_cur->AddResidue(1);
-					pres_cur->SetName(mol_name);
+					std::string res_name = mol_name;
+					if (harlem::IsInt(mol_name)) res_name = "RES";
+					pres_cur->SetName(res_name);
 				}
 				
 				if( !harlem::IsInt(str_arr[1])) throw std::runtime_error( "atom index is not integer");
@@ -1305,6 +1307,11 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 				atom_idx_map[pat] = idx_at;
 				idx_atom_map[idx_at] = pat;
 
+				if (str_arr[3] != "-")
+				{
+					pat->SetElemNo(HaAtom::GetElemNoFromName(str_arr[3], pres_cur));
+				}
+
 				std::string at_name = str_arr[2];
 
 				if( isdigit(at_name[0]) ) 
@@ -1312,13 +1319,12 @@ int HaMolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_
 					at_name.erase(0,1);
 					at_name.push_back( str_arr[2][0]);
 				}
+				if (at_name == "-")
+				{
+					at_name = pat->GetStdSymbol() + harlem::ToString(idx_at);
+				}
 				pat->SetName( at_name );
 				
-				if( str_arr[3] != "-")
-				{
-					pat->SetElemNo( HaAtom::GetElemNoFromName( str_arr[3], pres_cur  ) );
-				}
-
 				if( str_arr[4] != "-")
 				{
 					pat->SetFFSymbol( str_arr[4] );
@@ -1555,7 +1561,7 @@ int HaMolSet::LoadMol2File(const char* fname )
 			{   
 				if( !atoms ) continue;
 
-				pMol->CreateMolResidue();
+				pMol->AddChainAndResidue();
 				for( i=0; i<atoms; i++ )
 				{    
 					std::getline(is,line);

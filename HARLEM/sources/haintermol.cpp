@@ -2973,7 +2973,7 @@ InterMolMCSimulator::RunQuasiREM()
 		j=0;
 		for(imol=0 ; imol < nmol; imol++)
 		{
-			HaMolecule* pMol = pmset->GetMoleculeNum(imol);
+			HaMolecule* pMol = pmset->GetMolByIdx(imol);
 			pMol->GetQuaternionTrans(vec_quat_cur[imol],trans_vec);
 			position_mat.SetVal_idx0(ireplica,j++, trans_vec[0]);
 			position_mat.SetVal_idx0(ireplica,j++, trans_vec[1]);
@@ -3152,7 +3152,7 @@ InterMolMCSimulator::RunQuasiREM()
 			MC_temp = temperature_arr[ireplica];
 			for( imol= 0; imol < nmol; imol++)
 			{
-				HaMolecule* pMol = pmset->GetMoleculeNum(imol);
+				HaMolecule* pMol = pmset->GetMolByIdx(imol);
 				trans_vec[0] = position_mat.GetVal_idx0(exchange_arr[ireplica], j++);
 				trans_vec[1] = position_mat.GetVal_idx0(exchange_arr[ireplica], j++);
 				trans_vec[2] = position_mat.GetVal_idx0(exchange_arr[ireplica], j++);
@@ -4618,7 +4618,7 @@ InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
 		ind = 0;
 		for(  imol= 0; imol < nmol; imol++)
 		{
-			pMol = pmset->GetMoleculeNum(imol);
+			pMol = pmset->GetMolByIdx(imol);
 			pMol->GetQuaternionTrans(quat,trans_v);
 			quat.GetQuaternion(qang, qx, qy,qz);
 			xold[ind] = qang;
@@ -4695,7 +4695,7 @@ InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& 
 	ind =0;
 	for(  imol= 0; imol < nmol; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		qang = xold[ind];
 		ind++;
 		qx = xold[ind]; 
@@ -4720,7 +4720,7 @@ InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& 
 	ind =0;
 	for(  imol= 0; imol < nmol; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		qang = xold[ind];
 		ind++;
 		qx = xold[ind]; 
@@ -4755,7 +4755,7 @@ InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& 
 			ind =0;
 			for(  imol= 0; imol < nmol; imol++)
 			{
-				pMol = pmset->GetMoleculeNum(imol);
+				pMol = pmset->GetMolByIdx(imol);
 				qang = xold[ind];
 				ind++;
 				qx = xold[ind]; 
@@ -4785,7 +4785,7 @@ InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& 
 			ind =0;
 			for(  imol= 0; imol < nmol; imol++)
 			{
-				pMol = pmset->GetMoleculeNum(imol);
+				pMol = pmset->GetMolByIdx(imol);
 				qang = xold[ind];
 				ind++;
 				qx = xold[ind]; 
@@ -4834,7 +4834,7 @@ InterMolEnergyMinimizer::StepAlongGradient(HaVec_double& xold, double alpha, Vec
 	{
 		quat_vec = torque_array[imol];
 		trans_vec = force_array[imol];
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		len = quat_vec.length();
 		qang = len*alpha;
 		len = 1.0/len;

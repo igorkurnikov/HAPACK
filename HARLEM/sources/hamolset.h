@@ -162,12 +162,14 @@ protected:
 //@{
 public:
 
-	static HaMolSet* CurMolSet;             //!< Currently active Molecular Set
-	vector<HaMolecule*> HostMolecules;      //!< Molecules in the molecular set 
+	static HaMolSet* CurMolSet;                    //!< Currently active Molecular Set
+	vector<HaMolecule*> HostMolecules;             //!< Molecules in the molecular set  
 
-	HaMolecule* CreateMolecule();                    //!< function to create a new molecule in the set
-	HaMolecule* GetFirstMolecule();                  //!< Get First Molecule in the set
-	HaMolecule* GetMoleculeNum(int imol);            //!< Get Molecule number imol (0-based)
+	HaMolecule* CreateMolecule();                   //!< function to create a new molecule in the set
+	HaMolecule* GetFirstMolecule();                 //!< Get First Molecule in the set
+	HaMolecule* GetMolByIdx(int imol);              //!< Get Molecule  by index (0-based)
+	HaMolecule* GetMolByIdx0(int imol);              //!< Get Molecule by index (0-based)
+	HaMolecule* GetMolByIdx1(int imol);              //!< Get Molecule by index (1-based)
 	HaMolecule* GetMolByName(const char* mol_name);  //!< Get a molecule by its name
 	const HaMolecule* GetMolByName(const char* mol_name) const;  //!< Get a molecule by its name
 

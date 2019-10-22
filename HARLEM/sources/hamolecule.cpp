@@ -737,7 +737,7 @@ bool HaMolecule::InitAtoms(GauFile& gfile)
 
 	int old_serno;
 
-	HaResidue* pres    = CreateMolResidue();
+	HaResidue* pres    = AddChainAndResidue();
 	HaChain*   pch_cur = pres->GetHostChain();
 
 	for(int i=0; i < gmol.natoms; i++)
@@ -1550,11 +1550,11 @@ void HaMolecule::DescribeMolecule()
     }
 }
 
-HaResidue* HaMolecule::CreateMolResidue()
+HaResidue* HaMolecule::AddChainAndResidue()
 {
 	HaChain* pch = AddChain(' ');
     HaResidue* pres = pch->AddResidue(1);
-	pres->SetName( "MOL" );
+	pres->SetName( "RES" );
 	return pres;        
 }
 

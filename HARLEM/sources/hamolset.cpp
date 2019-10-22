@@ -5598,11 +5598,25 @@ HaMolecule* HaMolSet::GetFirstMolecule()
 	return HostMolecules[0];
 }
 
-HaMolecule* HaMolSet::GetMoleculeNum(int imol)
+HaMolecule* HaMolSet::GetMolByIdx(int imol)
 {
 	if(HostMolecules.empty() || imol >= HostMolecules.size())
 		return NULL;
 	return HostMolecules[imol];
+}
+
+HaMolecule* HaMolSet::GetMolByIdx0(int imol)
+{
+	if (HostMolecules.empty() || imol >= HostMolecules.size())
+		return NULL;
+	return HostMolecules[imol];
+}
+
+HaMolecule* HaMolSet::GetMolByIdx1(int imol)
+{
+	if (HostMolecules.empty() || imol > HostMolecules.size())
+		return NULL;
+	return HostMolecules[imol-1];
 }
 
 double HaMolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)

@@ -399,8 +399,8 @@ void InterMolDlgWX::OnIntermolSetIntCoord(wxCommandEvent& event)
 	wxString str;
 
 	HaMolSet* pmset = ptr_im_mod->GetMolSet();
-	HaMolecule* pMol1 = pmset->GetMoleculeNum(0);
-    HaMolecule* pMol2 = pmset->GetMoleculeNum(1);
+	HaMolecule* pMol1 = pmset->GetMolByIdx(0);
+    HaMolecule* pMol2 = pmset->GetMolByIdx(1);
 
 	if(pMol1 == NULL)
 	{
@@ -432,8 +432,8 @@ void InterMolDlgWX::OnIntermolCompIntCoord(wxCommandEvent& event)
 	wxString str;
 
 	HaMolSet* pmset = ptr_im_mod->GetMolSet();
-	HaMolecule* pMol1 = pmset->GetMoleculeNum(0);
-    HaMolecule* pMol2 = pmset->GetMoleculeNum(1);
+	HaMolecule* pMol1 = pmset->GetMolByIdx(0);
+    HaMolecule* pMol2 = pmset->GetMolByIdx(1);
 
 	if(pMol1 == NULL)
 	{

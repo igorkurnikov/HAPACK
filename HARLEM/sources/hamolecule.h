@@ -57,7 +57,7 @@ class ResidueIteratorMolecule;
 class HaMolecule: public Object3D, public AtomContainer
 {
 public:
-	HaMolecule(HaMolSet* new_phost_mset, std::string new_name="HARLEMMOL");
+	HaMolecule(HaMolSet* new_phost_mset, std::string new_name="MOL");
 	HaMolecule(const HaMolecule& Mol_ref);
     virtual ~HaMolecule();
 
@@ -71,6 +71,9 @@ public:
 
 protected:
 	HaMolSet* phost_mset;
+
+	std::string mol_name;
+	int mol_idx; 
 
 public:
 
@@ -128,7 +131,7 @@ public:
 
 // Residues Related Functions:
 
-	HaResidue* CreateMolResidue(); //!< Create first chain and first 'MOL' residue
+	HaResidue* AddChainAndResidue(); //!< Create first chain and first 'RES' residue
 	int GetNRes() const;     //!< get the number of residues in the molecule
 
 	HaResidue* GetResByRef(const std::string& res_str); //!< Get a residue of the molecule by its text reference

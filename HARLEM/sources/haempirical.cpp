@@ -273,7 +273,7 @@ HaEmpiricalMod::PenaltyLoop()   // Function added by Jose
 	
 	for (imol=0; imol < nmol; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		num_res = pMol -> GetNRes();
 		ires = 0;
 		HaMolecule::ResidueIterator ritr(pMol);
@@ -512,7 +512,7 @@ HaEmpiricalMod::CalcPackAngleForceTorque(Vec3DValArray& torque_array)
 
 	for(imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		pMol->GetQuaternionTrans(quat1,trans_v);
 
 		Quaternion::QuaternionToRotMat(quat1, rot_mat);
@@ -619,7 +619,7 @@ HaEmpiricalMod::PenaltyBured()
 	{
 		for( imol =0; imol < nmol ; imol++)
 		{
-			pMol = pmset->GetMoleculeNum(imol);
+			pMol = pmset->GetMolByIdx(imol);
 			num_res = pMol -> GetNRes();
 			std::string mol_name = pMol -> GetRef();
 			ires = 0;
@@ -647,7 +647,7 @@ HaEmpiricalMod::PenaltyBured()
 					if (imol != jmol && CheckNeighbor(imol, jmol) == 1.0 )
 					{
 						int number_one = first_res_mol[jmol] ;
-						pMol1 = pmset->GetMoleculeNum(jmol);
+						pMol1 = pmset->GetMolByIdx(jmol);
 						std::string mol_name1 = pMol1 -> GetRef();
 						HaMolecule::ResidueIterator ritr1(pMol1);
 						for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -793,7 +793,7 @@ double depth = 20/(double) nmol;
 	{
 		for( int imol =0; imol < nmol ; imol++)
 		{
-			pMol = pmset->GetMoleculeNum(imol);
+			pMol = pmset->GetMolByIdx(imol);
 			num_res = pMol -> GetNRes();
 			std::string mol_name = pMol -> GetRef();
 			ires = 0;
@@ -824,7 +824,7 @@ double depth = 20/(double) nmol;
 					{
 
 						int number_one = first_res_mol[jmol] ;
-						pMol1 = pmset -> GetMoleculeNum(jmol);
+						pMol1 = pmset -> GetMolByIdx(jmol);
 						std::string mol_name1 = pMol1 -> GetRef();
 						HaMolecule::ResidueIterator ritr1(pMol1);
 						for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -986,7 +986,7 @@ HaEmpiricalMod::PenaltyPairwise()
 	int icount;
 	for( imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		num_res = pMol -> GetNRes();
 		std::string mol_name = pMol -> GetRef();
 		ires = 0;
@@ -1039,7 +1039,7 @@ HaEmpiricalMod::PenaltyPairwise()
 				{
 					
 					int number_shift = first_res_mol[jmol] ;
-					pMol1 = pmset -> GetMoleculeNum(jmol);
+					pMol1 = pmset -> GetMolByIdx(jmol);
 					std::string mol_name1 = pMol1 -> GetRef();
 					HaMolecule::ResidueIterator ritr1(pMol1);
 					for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -1215,7 +1215,7 @@ HaEmpiricalMod::PenaltyVDW_Bured()
 
 	for( int imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		AtomIteratorMolecule aitr(pMol);
 		for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
@@ -1246,7 +1246,7 @@ HaEmpiricalMod::PenaltyVDW_Bured()
 					if (imol != jmol && CheckNeighbor(imol, jmol) == 1.0 )
 					{
 						int number_one = first_res_mol[jmol] ;
-						pMol1 = pmset->GetMoleculeNum(jmol);
+						pMol1 = pmset->GetMolByIdx(jmol);
 						AtomIteratorMolecule aitr1(pMol1);
 						for(aptr1 = aitr1.GetFirstAtom(); aptr1; aptr1 = aitr1.GetNextAtom())
 						{
@@ -1767,7 +1767,7 @@ HaEmpiricalMod::LoadEmpConstrains()
 				
 				for( imol =0; imol < nmol ; imol++)
 				{
-					pmol = pmset -> GetMoleculeNum(imol);
+					pmol = pmset -> GetMolByIdx(imol);
 					mol_name1 = (pmol ->GetRef()).c_str();
 					mol_name1.Append("$") ;
 					mol_name1.Prepend("$") ;
@@ -1825,7 +1825,7 @@ HaEmpiricalMod::LoadSolventAccessibleAtoms()
 
 		for( imol =0; imol < nmol ; imol++)
 		{
-			pMol = pmset->GetMoleculeNum(imol);
+			pMol = pmset->GetMolByIdx(imol);
 			HaMolecule::ResidueIterator ritr(pMol);
 			for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 			{
@@ -1926,7 +1926,7 @@ HaEmpiricalMod::EstablishChains()
 	chain_arr.newsize(nmol);
 	for( int imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		AtomIteratorMolecule aitr(pMol);
 		for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
@@ -2011,7 +2011,7 @@ HaEmpiricalMod::FindAxes()
 
 	for( imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		double c11 =0.0;
 		double c12 =0.0;
 		double c13 =0.0;
@@ -2778,7 +2778,7 @@ double HaEmpiricalMod::PenaltySolventAccessible()
 		
 		for(int imol=0 ; imol < nmol; imol++)
 		{
-			pMol1 = pmset->GetMoleculeNum(imol);
+			pMol1 = pmset->GetMolByIdx(imol);
 			mol_name1 = pMol1 -> GetRef();
 			if(mol_name == mol_name1)
 			{
@@ -2913,7 +2913,7 @@ HaEmpiricalMod::Neighborhood()
 	for( int imol =0; imol < nmol ; imol++)
 	{
 		i=0;
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		HaMolecule::ResidueIterator ritr(pMol);
 		for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 		{	
@@ -2926,7 +2926,7 @@ HaEmpiricalMod::Neighborhood()
 				if (imol != jmol)
 				{
 					j=0;
-					pMol1 = pmset->GetMoleculeNum(jmol);
+					pMol1 = pmset->GetMolByIdx(jmol);
 					HaMolecule::ResidueIterator ritr1(pMol1);
 					for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
 					{	
@@ -3057,7 +3057,7 @@ HaEmpiricalMod::ResidueTypeList()
 	for( imol =0; imol < nmol ; imol++)
 	{
 		first_res_mol[imol] = j; 
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		HaMolecule::ResidueIterator ritr(pMol);
 		for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 		{	
@@ -3099,7 +3099,7 @@ HaEmpiricalMod::LineSegments()
 	
 	for( int imol = 0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		AtomIteratorMolecule aitr(pMol);
 		int if_flag = TRUE;
 		i=0;
@@ -3953,7 +3953,7 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 
  	for (imol= 0; imol < nmol; imol++)
 	{
-		pMol = pmset -> GetMoleculeNum(imol);
+		pMol = pmset -> GetMolByIdx(imol);
 		HaMolecule::ResidueIterator ritr(pMol);
 		for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 		{
@@ -3962,7 +3962,7 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 			for (jmol= imol+1; jmol < nmol;jmol++)
 			{
 				int number_shift = first_res_mol[jmol];
-				pMol1 = pmset -> GetMoleculeNum(jmol);
+				pMol1 = pmset -> GetMolByIdx(jmol);
 				HaMolecule::ResidueIterator ritr1(pMol1);
 				j = 0;
 				for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -4113,7 +4113,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
  	for (imol= 0; imol < nmol; imol++)
 	{
 		i=0;
-		pMol = pmset -> GetMoleculeNum(imol);
+		pMol = pmset -> GetMolByIdx(imol);
 		HaMolecule::ResidueIterator ritr(pMol);
 		for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 		{
@@ -4126,7 +4126,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 			for (jmol= imol+1; jmol < nmol;jmol++)
 			{
 				int number_shift = first_res_mol[jmol];
-				pMol1 = pmset -> GetMoleculeNum(jmol);
+				pMol1 = pmset -> GetMolByIdx(jmol);
 				HaMolecule::ResidueIterator ritr1(pMol1);
 				j = 0;
 				for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -4198,7 +4198,7 @@ HaEmpiricalMod::HarmonicEnergy()
 		double y_aver = 0;
 		double z_aver = 0;
 		int count= 0;
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		AtomIteratorMolecule aitr(pMol);
 		for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 		{
@@ -4385,7 +4385,7 @@ HaEmpiricalMod::CalculateCoarseGrainedBackbone()
 	{
 		for( imol =0; imol < nmol ; imol++)
 		{
-			pMol = pmset->GetMoleculeNum(imol);
+			pMol = pmset->GetMolByIdx(imol);
 			nres = pMol -> GetNRes();
 			nres_tmp = (int) floor(nres* 0.25);
 			nres_delta = nres - nres_tmp*4;
@@ -4397,7 +4397,7 @@ HaEmpiricalMod::CalculateCoarseGrainedBackbone()
 	
 	for( imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		nres = pMol -> GetNRes();
 		nres_tmp = (int) floor(nres* 0.25);
 		nres_delta = nres - nres_tmp*4;
@@ -4482,7 +4482,7 @@ HaEmpiricalMod::PenaltyRepulsion()
 
 	for( imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		HaMolecule::ResidueIterator ritr(pMol);
 		for(res_ptr = ritr.GetFirstRes(); res_ptr; res_ptr = ritr.GetNextRes())
 		{	
@@ -4497,7 +4497,7 @@ HaEmpiricalMod::PenaltyRepulsion()
 				if (imol != jmol )
 				{
 					int number_shift = first_res_mol[jmol] ;
-					pMol1 = pmset -> GetMoleculeNum(jmol);
+					pMol1 = pmset -> GetMolByIdx(jmol);
 					HaMolecule::ResidueIterator ritr1(pMol1);
 					for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
 					{	
@@ -4577,7 +4577,7 @@ HaEmpiricalMod::CalcRepulForceTorque(Vec3DValArray& force_array, Vec3DValArray& 
 	{
 		force_array[imol].SetCoordFrom(force_vec1);
 		torque_array[imol].SetCoordFrom(force_vec1);
-		pMol = pmset -> GetMoleculeNum(imol);
+		pMol = pmset -> GetMolByIdx(imol);
 		pMol->GetAverageCoord(cx, cy, cz);
 		trans[0] = cx;
 		trans[1] = cy;
@@ -4589,7 +4589,7 @@ HaEmpiricalMod::CalcRepulForceTorque(Vec3DValArray& force_array, Vec3DValArray& 
 	{
 		force_vec1= force_array[imol];
 		torque_vec1 = torque_array[imol];
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		trans = com_array[imol];
 		cx = trans[0];
 		cy = trans[1];
@@ -4622,7 +4622,7 @@ HaEmpiricalMod::CalcRepulForceTorque(Vec3DValArray& force_array, Vec3DValArray& 
 				cz1 = trans[2];
 
 				int number_shift = first_res_mol[jmol] ;
-				pMol1 = pmset -> GetMoleculeNum(jmol);
+				pMol1 = pmset -> GetMolByIdx(jmol);
 				
 				HaMolecule::ResidueIterator ritr1(pMol1);
 				for(res_ptr1 = ritr1.GetFirstRes(); res_ptr1; res_ptr1 = ritr1.GetNextRes())
@@ -4882,7 +4882,7 @@ int HaEmpiricalMod::GetMaxDimension()
 	}
 	for( imol =0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		pMol->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
 		v1[0]= xmin;
 		v1[1]= ymin;
@@ -5239,7 +5239,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 	//double energy_total = 0.0, dist;
     for (imol= 0; imol < nmol; imol++)
 	{
-		pMol = pmset -> GetMoleculeNum(imol);
+		pMol = pmset -> GetMolByIdx(imol);
 		nMol = pMol ->GetNRes();
 		HaMolecule::ResidueIterator ritr(pMol);
 		s = state_new(imol+1);
@@ -5255,7 +5255,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 				for (jmol= imol+1; jmol < nmol;jmol++)
 				{
 					int number_shift = first_res_mol[jmol];
-					pMol1 = pmset -> GetMoleculeNum(jmol);
+					pMol1 = pmset -> GetMolByIdx(jmol);
 					nMol1 = pMol1->GetNRes();
 					s1 = state_new(jmol+1);
 					HaMolecule::ResidueIterator ritr1(pMol1);
@@ -5393,7 +5393,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 	double energy_total = 0.0, dist;
     for (imol= 0; imol < nmol-1; imol++)
 	{
-		pMol = pmset -> GetMoleculeNum(state[curr_state-1][imol]);
+		pMol = pmset -> GetMolByIdx(state[curr_state-1][imol]);
 		nMol = pMol ->GetNRes();
 		HaMolecule::ResidueIterator ritr(pMol);
 		h1 = 0;
@@ -5406,7 +5406,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 			{
 					jmol= state[curr_state-1][imol+1];
 					int number_shift = first_res_mol[jmol];
-					pMol1 = pmset -> GetMoleculeNum(jmol);
+					pMol1 = pmset -> GetMolByIdx(jmol);
 					nMol1 = pMol1->GetNRes();
 					HaMolecule::ResidueIterator ritr1(pMol1);
 					h2 = 0;
@@ -5429,7 +5429,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 			h1++;
 		} 
 	}
-	pMol = pmset -> GetMoleculeNum(state[curr_state-1][nmol-1]);
+	pMol = pmset -> GetMolByIdx(state[curr_state-1][nmol-1]);
 	nMol = pMol ->GetNRes();
 	HaMolecule::ResidueIterator ritr(pMol);
 	h1 = 0;
@@ -5442,7 +5442,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 		{
 				jmol= 0;
 				int number_shift = first_res_mol[jmol];
-				pMol1 = pmset -> GetMoleculeNum(jmol);
+				pMol1 = pmset -> GetMolByIdx(jmol);
 				nMol1 = pMol1->GetNRes();
 				HaMolecule::ResidueIterator ritr1(pMol1);
 				h2 = 0;
@@ -7086,7 +7086,7 @@ HaMolMembraneMod::LineSegments()
 	
 	for( int imol = 0; imol < nmol ; imol++)
 	{
-		pMol = pmset->GetMoleculeNum(imol);
+		pMol = pmset->GetMolByIdx(imol);
 		AtomIteratorMolecule aitr(pMol);
 		int if_flag = TRUE;
 		i=0;

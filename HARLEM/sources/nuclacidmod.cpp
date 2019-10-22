@@ -2165,7 +2165,7 @@ NuclAcidMod::FindDNAMol()
 	int i;
 	for(i = 0; i < nmol; i++)
 	{
-		HaMolecule* pmol = pmset->GetMoleculeNum(i);
+		HaMolecule* pmol = pmset->GetMolByIdx(i);
 		HaMolecule::ResidueIterator ritr(pmol);
 		HaResidue* pres = ritr.GetFirstRes();
 		if(pres == NULL) continue;
