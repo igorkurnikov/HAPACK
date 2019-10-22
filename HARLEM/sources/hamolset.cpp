@@ -1116,7 +1116,7 @@ int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions*
 			
 			if( boost::equals(tag, "atom")  )
 			{
-				if( pmol == NULL     ) pmol = CreateMolecule();
+				if( pmol == NULL     ) pmol = AddNewMolecule();
 				if( pchain == NULL  ) 
 				{
 					pchain = pmol->AddChain(' ');
@@ -1282,7 +1282,7 @@ int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions*
 
 			if( boost::equals(tag, "res")  )
 			{
-				if( pmol == NULL ) pmol = CreateMolecule();
+				if( pmol == NULL ) pmol = AddNewMolecule();
 				if( pchain == NULL ) pchain = pmol->AddChain(' ');
 
 				res_ser_no++;
@@ -1308,7 +1308,7 @@ int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions*
 
 			if( boost::equals(tag, "chain")  )
 			{
-				if( pmol == NULL ) pmol = CreateMolecule();
+				if( pmol == NULL ) pmol = AddNewMolecule();
 				char id_chain = ' ';
 				for( attr = node1->first_attribute(); attr; attr = attr->next_attribute() )
 				{		
@@ -1326,7 +1326,7 @@ int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions*
 
 			if( boost::equals(tag, "molecule")  )
 			{
-				pmol = CreateMolecule();
+				pmol = AddNewMolecule();
 				for( attr = node1->first_attribute(); attr; attr = attr->next_attribute() )
 				{		
 					std::string tag_attr = attr->name();
@@ -2731,6 +2731,7 @@ bool MolSet::GetAtomsByRef(const char* at_ref, AtomGroup& at_set)
 	at_set.clear();
 	if(HostMolecules.empty())
 		return false;
+
 	HaMolecule* pMol= HostMolecules[0];
 
 	std::string at_ref_str(at_ref);
@@ -2740,12 +2741,12 @@ bool MolSet::GetAtomsByRef(const char* at_ref, AtomGroup& at_set)
 	int ibeg_at_ref_in_mol=0;
 	if(at_ref_str[0] == '$')
 	{
-		int iend_mol_name = at_ref_str.find('$',1);
-		if( iend_mol_name != -1)
+		int iend_mol_ref = at_ref_str.find('$',1);
+		if( iend_mol_ref != -1)
 		{
-			std::string mol_name= at_ref_str.substr(1,iend_mol_name-1);
-			pMol= GetMolByName(mol_name.c_str());
-			ibeg_at_ref_in_mol = iend_mol_name+1;
+			std::string mol_ref= at_ref_str.substr(1,iend_mol_ref-1);
+			pMol= GetMolByRef(mol_ref.c_str());
+			ibeg_at_ref_in_mol = iend_mol_ref+1;
 		}
 	}
 	else if(at_ref_str.length() > 8 && at_ref_str.substr(0,8) == "chemgrp=")
@@ -2859,6 +2860,35 @@ const HaMolecule* MolSet::GetMolByName(const char* mol_name) const
 	}
 	return NULL;
 }
+
+HaMolecule* MolSet::GetMolByRef(const char* mol_ref)
+{
+	MoleculesType::iterator mol_itr;
+	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	{
+		if (!strcmp((*mol_itr)->GetObjName(), mol_name))
+		{
+			return (*mol_itr);
+		}
+	}
+	return NULL;
+}
+
+const HaMolecule* MolSet::GetMolByRef(const char* mol_ref) const
+{
+	if( )
+	MoleculesType::const_iterator mol_itr;
+	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	{
+		if (!strcmp((*mol_itr)->GetObjName(), mol_name))
+		{
+			return (*mol_itr);
+		}
+	}
+	return NULL;
+}
+}
+
 
 const char* MolSet::GetName() const
 {
@@ -3087,7 +3117,7 @@ int MolSet::CreateAxxMol(const char* mol_name, const char* id)
 		DeleteMol(pmol);
 	}
 	
-	pmol = CreateMolecule();
+	pmol = AddNewMolecule();
 	pmol->SetObjName(mol_name);
 
 	AtomIteratorAtomGroup aitr(pgrp);
@@ -4444,7 +4474,7 @@ MolSet* MolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreat
 					{
 						if(mol_new)
 						{
-							pfMol=pfrag->CreateMolecule();
+							pfMol=pfrag->AddNewMolecule();
 							pfMol->SetObjName((*mol_itr)->GetObjName());
 							mol_new = 0;
 						}
@@ -5468,7 +5498,7 @@ int MolSet::CreateExcludedVolumeMol()
 	HaMolecule* pmol = this->GetMolByName("EXCLUDED_VOLUME");
 	if( pmol != NULL) this->DeleteMol(pmol);
 
-	pmol = this->CreateMolecule();
+	pmol = this->AddNewMolecule();
 	pmol->SetObjName("EXCLUDED_VOLUME");
 
 	HaChain* pch= pmol->AddChain('A');
@@ -5589,6 +5619,33 @@ std::string MolSet::GetUniqueMolName(const std::string& suggest_name)
 	}
 	return trial_name;
 }
+
+HaMolecule* MolSet::AddNewMolecule( int mol_ser_no )
+{
+	if (mol_ser_no < 0)
+	{
+		if( )
+	}
+
+
+	if (mol_serno_map.count(mol_ser_no) > 0)
+	{
+		PrintLog(" Warning in __FUNCTION__  \n");
+		PrintLog(" Molecule Number %d is not unique \n", res_ser_no);
+	}
+	HaMolecule* pmol = new HaMolecule(this);
+	HostMolecules.push_back(pmol);
+
+	pmol->serno = res_ser_no;
+	std::pair<int, HaResidue*> ir_pair(res_ser_no, pres);
+
+
+
+	mol_serno_map.insert(ir_pair);
+	mol_names_map.
+	return(pres);
+}
+
 
 
 HaMolecule* MolSet::GetFirstMolecule()
@@ -6074,12 +6131,12 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 
 
 
-HaMolecule* MolSet::CreateMolecule()
+HaMolecule* MolSet::AddNewMolecule()
 { 
 	HaMolecule* pMol = new HaMolecule(this);
 	if( !pMol ) 
 	{
-		ErrorInMod("MolSet::CreateMolecule()","Failed to allocate new molecule");
+		ErrorInMod("MolSet::AddNewMolecule()","Failed to allocate new molecule");
 		return NULL;
 	}
 	HostMolecules.push_back(pMol);

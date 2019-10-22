@@ -334,7 +334,7 @@ int TraceMolAgent::Init(TrajPointInfo* ppt_info)
 	{
 		pmset->DeleteMol(trace_mol);
 	}
-	trace_mol = pmset->CreateMolecule();
+	trace_mol = pmset->AddNewMolecule();
 	trace_mol->SetObjName("TRACE_MOL");
 	trace_chain = trace_mol->AddChain(' ');
 	trace_res   = NULL;

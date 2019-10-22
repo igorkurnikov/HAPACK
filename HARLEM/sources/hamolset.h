@@ -164,14 +164,17 @@ public:
 
 	static MolSet* CurMolSet;                    //!< Currently active Molecular Set
 	vector<HaMolecule*> HostMolecules;             //!< Molecules in the molecular set  
-
-	HaMolecule* CreateMolecule();                   //!< function to create a new molecule in the set
-	HaMolecule* GetFirstMolecule();                 //!< Get First Molecule in the set
-	HaMolecule* GetMolByIdx(int imol);              //!< Get Molecule  by index (0-based)
+	 
+	HaMolecule* AddNewMolecule( int mol_ser_no = -1 );  //!< function to add a new molecule to the set 
+	HaMolecule* GetFirstMolecule();                  //!< Get First Molecule in the set
+	HaMolecule* GetMolByIdx(int imol);               //!< Get Molecule  by index (0-based)
 	HaMolecule* GetMolByIdx0(int imol);              //!< Get Molecule by index (0-based)
 	HaMolecule* GetMolByIdx1(int imol);              //!< Get Molecule by index (1-based)
-	HaMolecule* GetMolByName(const char* mol_name);  //!< Get a molecule by its name
-	const HaMolecule* GetMolByName(const char* mol_name) const;  //!< Get a molecule by its name
+
+	HaMolecule* GetMolByName(const char* mol_name);  //!< Get first molecule with a given name
+	const HaMolecule* GetMolByName(const char* mol_name) const;  //!< Get first molecule with a given name
+	HaMolecule* GetMolByRef(const char* mol_ref);  //!< Get molecule by reference ( NAME + IDX(1-based) or IDX )
+	const HaMolecule* GetMolByRef(const char* mol_ref) const;  //!< Get molecule by reference ( NAME + IDX(1-based) or IDX )
 
 	void DeleteAll();                    //!< Delete all the contents of the molecular set 
 	bool DeleteMol(HaMolecule* pMol);    //!< Delete molecule

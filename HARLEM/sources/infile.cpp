@@ -411,7 +411,7 @@ int MolSet::LoadPDBFile(const char* fname , int flag )
     int i,ignore;
 	std::string str,line;
 
-	HaMolecule* pMol = CreateMolecule();
+	HaMolecule* pMol = AddNewMolecule();
 	HaChain*    pch_cur  = NULL;
 	HaResidue*  pres_cur = NULL;
 
@@ -656,7 +656,7 @@ int MolSet::LoadMDLFile(const char* fname )
     char *cptr;
 	std::string str,line;
 	
-	HaMolecule* pMol=CreateMolecule();
+	HaMolecule* pMol=AddNewMolecule();
 	HaChain*    pch_cur  = NULL;
 	HaResidue*  pres_cur = NULL;
 
@@ -911,7 +911,7 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
     int i;
 	std::string line;
 
-	HaMolecule* pMol = CreateMolecule();
+	HaMolecule* pMol = AddNewMolecule();
 	pMol->SetObjName(p_opt->GetDefaultMolName().c_str() );
 	HaChain*   pch_cur  = NULL;
 	HaResidue* pres_cur = NULL; 
@@ -1207,7 +1207,7 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 
 			if( str_arr[0] == "mol"  ) 
 			{
-				pMol = CreateMolecule();
+				pMol = AddNewMolecule();
 				
 				if( str_arr.size() > 2 )  mol_name = str_arr[2];
 				else if( str_arr.size() > 1) mol_name = str_arr[1];
@@ -1512,7 +1512,7 @@ int MolSet::LoadMol2File(const char* fname )
     long srcatm, dstatm;
 	std::string str,line;
  
-	HaMolecule* pMol    = CreateMolecule();
+	HaMolecule* pMol    = AddNewMolecule();
 	HaChain*    pch_cur  = NULL;
 	HaResidue*  pres_cur = NULL; 
 
@@ -1737,7 +1737,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp )
 			
 			if(!strncmp(buf,"#MOLECULE",9))
 			{
-				pMol=CreateMolecule();
+				pMol=AddNewMolecule();
 				read_mode= READ_MOL_PAR;
 				chain_id_old='$'; // To reset old chain name
 				id_atom_map.clear();
@@ -2394,7 +2394,7 @@ MolSet::LoadAmberPrepFile(const char* fname)
 		istrstream is(buf);
 		std::string mol_name;
 		is >> mol_name;
-		pMol=CreateMolecule();
+		pMol=AddNewMolecule();
 		pch_cur =pMol->AddChain(' ');
 		pMol->SetObjName(mol_name.c_str());
 
@@ -2693,7 +2693,7 @@ int MolSet::LoadAmberTopFile(const char* fname)
 		istrstream is(buf);
 		std::string mol_name;
 		is >> mol_name;
-		pMol=CreateMolecule();
+		pMol=AddNewMolecule();
 		pch_cur =pMol->AddChain(' ');
 		pMol->SetObjName(mol_name.c_str());
 
@@ -2986,7 +2986,7 @@ int MolSet::LoadRWFMolecule(const char* fname)
 {
 	PrintLog(" This is LoadRWFMolecule \n ");
 
-	HaMolecule* pMol=CreateMolecule();	
+	HaMolecule* pMol=AddNewMolecule();	
 
 	GauFile  gfile;
 	gfile.set_file_name(fname);

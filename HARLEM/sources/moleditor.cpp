@@ -1846,7 +1846,7 @@ int MolEditor::ConvertWaterArrowVB(MolSet* pmset)
 	//	HaMolecule* old_mol = pres->GetHostMol();
 	//	int nr_mol = old_mol->GetNRes();
 	//	if (nr_mol == 1) continue;
-	//	HaMolecule* pmol = pmset->CreateMolecule();
+	//	HaMolecule* pmol = pmset->AddNewMolecule();
 	//	pmol->SetObjName("HOH");
 	//	HaChain* pchain = pmol->AddChain(' ');
 	//	HaResidue* pres2 = pchain->AddResidue(1);
@@ -3207,7 +3207,7 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	AtomIteratorAtomGroup aitr_old_atoms(&old_atoms);
 
-	HaMolecule* pMol = pmset->CreateMolecule();
+	HaMolecule* pMol = pmset->AddNewMolecule();
 	pMol->SetObjName("Solvent");
 	MoleculesType::iterator mol_itr;
 	HaChain* chain;
@@ -3801,7 +3801,7 @@ int MolEditor::MergeMolecules(HaMolecule* pMol1, HaMolecule* pMol2)
 
 HaMolecule* MolEditor::CreateTransAlk(MolSet* pmset, const int nunit, const std::string& name)
 {
-	HaMolecule* pMol= pmset->CreateMolecule();
+	HaMolecule* pMol= pmset->AddNewMolecule();
 	if(pMol == NULL) return NULL;
 	
 	pMol->SetObjName(name.c_str());
@@ -3975,7 +3975,7 @@ bool MolEditor::Create2DMolArray( MolSet* pmset, HaMolecule* pMol_ref,
 			if(i == 0 && j == 0)
 				continue;
 			std::string mol_name= pmset->GetUniqueMolName(pMol_ref->GetObjName());
-			HaMolecule* pMol= pmset->CreateMolecule();
+			HaMolecule* pMol= pmset->AddNewMolecule();
 			pMol->AddMolCopy(*pMol_ref);
 			pMol->SetObjName(mol_name.c_str());
 
@@ -4028,7 +4028,7 @@ bool MolEditor::AddElectrSurf( MolSet* pmset,int add_surf_below_flag, int add_su
 
 	while(add_surf_below_flag || add_surf_top_flag )
 	{
-		pMol= pmset->CreateMolecule();
+		pMol= pmset->AddNewMolecule();
 		if(pMol == NULL) return false;
 
 		if(add_surf_below_flag)
@@ -4079,7 +4079,7 @@ bool MolEditor::AddElectrSurf( MolSet* pmset,int add_surf_below_flag, int add_su
 
 	if( add_atom_top_flag )
 	{
-		pMol= pmset->CreateMolecule();
+		pMol= pmset->AddNewMolecule();
 		if(pMol == NULL) return false;
 
 		pMol->SetObjName("ATOM_TOP");
@@ -4104,7 +4104,7 @@ bool MolEditor::AddElectrSurf( MolSet* pmset,int add_surf_below_flag, int add_su
 
 	if( add_atom_below_flag )
 	{
-		pMol= pmset->CreateMolecule();
+		pMol= pmset->AddNewMolecule();
 		if(pMol == NULL) return false;
 
 		pMol->SetObjName("ATOM_BOTTOM");
@@ -4132,7 +4132,7 @@ bool MolEditor::AddElectrSurf( MolSet* pmset,int add_surf_below_flag, int add_su
 HaMolecule* MolEditor::CreateSurf(MolSet* pmset, const int num_layers, const std::string& name)
 {
 	if( pmset == NULL) return NULL;
-	HaMolecule* pMol= pmset->CreateMolecule();
+	HaMolecule* pMol= pmset->AddNewMolecule();
 	
 	
 	if(pMol == NULL) return NULL;

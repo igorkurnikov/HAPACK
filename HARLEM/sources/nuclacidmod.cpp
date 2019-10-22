@@ -2647,7 +2647,7 @@ int NuclAcidMod::CreateMolFromJumna()
 	int i,j;
 	MolSet* pmset = GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
-	HaMolecule* pMol= pmset->CreateMolecule();
+	HaMolecule* pMol= pmset->AddNewMolecule();
 	if(pMol == NULL) return FALSE;
 
 	p_dna_mol = pMol;
