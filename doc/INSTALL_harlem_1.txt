@@ -185,6 +185,14 @@ export LDFLAGS="-fno-lto"
 
 python build.py build --help         -- show options 
 python build.py build --both         -- build both wxwidgets (build_wx ) and  wxPython library (build_py)  both release and debug versions
+
+Anaconda additional pacakges to make wheel:
+conda install -c conda-forge python-magic
+
+make wheel file:
+python3 build.py bdist_wheel  
+
+
 --------------------------------------------------------------------------------------------------------
 Windows:
 python -m pip install requests
