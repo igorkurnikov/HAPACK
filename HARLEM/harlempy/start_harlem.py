@@ -7,10 +7,10 @@ def start_harlem():
     Start Harlem
     """
     import wx
-    import harlempy.molset
+    import molset
     app = wx.App()
-    harlempy.molset.StartHarlemApp()
-    harlempy.molset.StartHaMainFrameWX()
+    molset.StartHarlemApp()
+    molset.StartHaMainFrameWX()
     
     import harlempy.hapygui_init
     app.MainLoop()
