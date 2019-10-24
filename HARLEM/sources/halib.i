@@ -1,4 +1,4 @@
-%module(package="harlemll") halib
+%module(package="molsetll") halib
 
 %begin %{
 #include <cstddef>  

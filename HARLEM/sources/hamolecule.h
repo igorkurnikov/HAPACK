@@ -79,7 +79,7 @@ protected:
 public:
 
 	std::string GetName() const; //!< Get Molecule Name
-	std::string GetSerNo() const; //!< Get Molecule Setial Number
+	int GetSerNo() const;    //!< Get Molecule Serial Number in the Molset
 	std::string GetRef() const;  //!<  get a text reference for a molecule 
 	bool FillRef(char* buf,int mode = 0) const; //!< Fill string with a molecule text reference
 

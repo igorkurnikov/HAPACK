@@ -43,10 +43,10 @@ echo "Is it debug: %IS_DEBUG%"
 
 REM ###########################################################################
 REM Make directories if not exists
-if not exist "%OutputDir%\harlemll\NUL" (
-    mkdir "%OutputDir%\harlemll"
+if not exist "%OutputDir%\molsetll\NUL" (
+    mkdir "%OutputDir%\molsetll"
 ) else (
-    echo "%OutputDir%\harlemll already exists"
+    echo "%OutputDir%\molsetll already exists"
 )
 if not exist "%OutputDir%\pnpsll\NUL" (
     mkdir "%OutputDir%\pnpsll"
@@ -111,7 +111,7 @@ boost_fiber       boost_math_tr1f  boost_signals           boost_wave ^
 boost_filesystem  boost_math_tr1l  boost_stacktrace_noop   boost_wserialization
 
 FOR %%G IN (%BOOST_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\harlemll
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\molsetll
 )
 
 REM WXWIDGETS
@@ -121,8 +121,8 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set WXVER=u
 )
-xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\harlemll
-xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\harlemll
+xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molsetll
+xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molsetll
 
 if "%IS_DEBUG%" == "Y" (
     if exist %WX_DLLS_PATH%\plplotd.dll (
@@ -134,7 +134,7 @@ if "%IS_DEBUG%" == "Y" (
     set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
 )
 FOR %%G IN (%PLPLOT_LIB%) DO (
-    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%\harlemll
+    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%\molsetll
 )
 
 REM OTHERS
@@ -145,7 +145,7 @@ if "%IS_DEBUG%" == "Y" (
 )
 
 FOR %%G IN (%OTHER_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\harlemll
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molsetll
 )
 
 REM OTHERS of PNPS
@@ -164,7 +164,7 @@ REM Copy MKL
 set MKL_LIBS=mkl_sequential.dll mkl_core.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
-    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\harlemll
+    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molsetll
 )
 REM ###########################################################################
 REM Copy MPI

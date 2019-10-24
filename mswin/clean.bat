@@ -15,8 +15,8 @@ FOR %%D IN (PY3_Debug_Win32 PY3_Release_Win32 PY3_Debug_x64 PY3_Release_x64 Rele
         if exist "%%D\scripts" (
             rmdir  /Q /S "%%D\scripts"
         )
-        if exist "%%D\harlemll" (
-            rmdir  /Q /S "%%D\harlemll
+        if exist "%%D\molsetll" (
+            rmdir  /Q /S "%%D\molsetll
         )
         if exist "%%D\harlempy" (
             rmdir  /Q /S "%%D\harlempy

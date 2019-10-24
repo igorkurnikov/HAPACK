@@ -55,6 +55,11 @@ std::string HaMolecule::GetName() const
 	return mol_name; 
 }
 
+int HaMolecule::GetSerNo() const
+{
+	return serno;
+}
+
 std::string HaMolecule::GetRef() const
 {
 	std::string mol_ref = mol_name;
