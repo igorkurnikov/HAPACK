@@ -69,14 +69,17 @@ public:
 	static int AttachFragment( HaAtom* catom_host, HaAtom* catom_frag );
 	int CombineMolecules(HaMolecule* frag_mol, HaAtom* catom_host, HaAtom* catom_frag );
 
+
 protected:
 	MolSet* phost_mset;
 
 	std::string mol_name;
-	int mol_idx; 
+	int serno; 
 
 public:
 
+	std::string GetName() const; //!< Get Molecule Name
+	std::string GetSerNo() const; //!< Get Molecule Setial Number
 	std::string GetRef() const;  //!<  get a text reference for a molecule 
 	bool FillRef(char* buf,int mode = 0) const; //!< Fill string with a molecule text reference
 

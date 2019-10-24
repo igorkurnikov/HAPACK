@@ -38,6 +38,7 @@ Object3D(OBJ3D_MOLECULE)
 	if( phost_mset != NULL ) phost_mset->AddObject3D(this);
 
 	sec_struct_found= false;
+	serno = 0;
 	
 	structsource=SourceNone;
 
@@ -47,6 +48,22 @@ HaMolecule::HaMolecule(const HaMolecule &Mol_ref):
 Object3D(Mol_ref)
 {
 	AddMolCopy((HaMolecule&)Mol_ref);
+}
+
+std::string HaMolecule::GetName() const 
+{ 
+	return mol_name; 
+}
+
+std::string HaMolecule::GetRef() const
+{
+	std::string mol_ref = mol_name;
+	const MolSet* pmset = this->GetHostMolSet();
+	if (pmset->name_mol_map.count(mol_name) > 2)
+	{
+		mol_ref += "[" + std::to_string(serno) + "]";
+	}
+	return mol_ref;
 }
 
 
@@ -116,7 +133,6 @@ bool HaMolecule::AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain, AtomAtom
 	std::vector<HaBond*>::const_iterator bitr;
 	
 	const MolSet* pmset_ref = Mol_ref.GetHostMolSet();
-
 
 	for(bitr = pmset_ref->Bonds.begin(); bitr != pmset_ref->Bonds.end(); bitr++ )
 	{
@@ -711,14 +727,10 @@ bool HaMolecule::SetObjName(const char* new_name)
 	return true;
 }
 
-std::string HaMolecule::GetRef() const
-{
-	return (this->GetObjName());
-}
-
 bool HaMolecule::FillRef(char* buf,int mode) const
 {
-	sprintf(buf,"$%s$*", this->GetObjName());
+	std::string mol_ref = this->GetRef();
+	sprintf(buf,"$%s$*", mol_ref.c_str() );
 	return TRUE;
 }
 

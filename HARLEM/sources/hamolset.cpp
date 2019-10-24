@@ -2861,32 +2861,68 @@ const HaMolecule* MolSet::GetMolByName(const char* mol_name) const
 	return NULL;
 }
 
-HaMolecule* MolSet::GetMolByRef(const char* mol_ref)
+const HaMolecule* MolSet::GetMolByRef(const char* mol_ref_par ) const
 {
-	MoleculesType::iterator mol_itr;
-	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	std::string mol_ref = mol_ref_par;
+	bool has_serno = false;
+	int ser_no = -1;
+	size_t br_beg = mol_ref.find('[');
+	size_t br_end = mol_ref.find(']');
+	if (br_beg != std::string::npos && br_end != std::string::npos && br_beg < br_end)
 	{
-		if (!strcmp((*mol_itr)->GetObjName(), mol_name))
+		std::string serno_str = mol_ref.substr(br_beg + 1, br_end - br_beg - 1);
+		if (harlem::IsInt(serno_str))
 		{
-			return (*mol_itr);
+			has_serno = true;
+			ser_no = std::stoi(serno_str);
 		}
 	}
-	return NULL;
+	std::string mol_name = mol_ref;
+	if (br_beg != std::string::npos) mol_name = mol_ref.substr(br_beg);
+
+	if (!has_serno)
+	{
+		if (harlem::IsInt(mol_name))
+		{
+			ser_no = std::stoi(mol_name);
+			mol_name = "";
+		}
+	}
+	const HaMolecule* pMol = NULL;
+	if (has_serno)
+	{
+		if (serno_mol_map.count(ser_no) > 0)
+		{
+			bool name_match = false;
+			for (auto itr = serno_mol_map.find(ser_no); itr != serno_mol_map.end(); itr++)
+			{
+				pMol = itr->second;
+				if (mol_name.empty() || mol_name == pMol->GetName())
+				{
+					name_match = true;
+					break;
+				}
+				if (!name_match)
+				{
+					PrintLog("Warning in __FUNCTION__ :\n");
+					PrintLog("Molecule name is not matched  in molecule Reference %s \n", mol_ref_par );
+				}
+			}
+		}
+	}
+	else
+	{
+		if (name_mol_map.count(mol_name) > 0)
+		{
+			pMol = name_mol_map.find(mol_name)->second;
+		}
+	}
+	return pMol;
 }
 
-const HaMolecule* MolSet::GetMolByRef(const char* mol_ref) const
-{
-	if( )
-	MoleculesType::const_iterator mol_itr;
-	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
-	{
-		if (!strcmp((*mol_itr)->GetObjName(), mol_name))
-		{
-			return (*mol_itr);
-		}
-	}
-	return NULL;
-}
+HaMolecule* MolSet::GetMolByRef(const char* mol_ref) 
+{ 
+	return (HaMolecule*) ((const MolSet*)(this))->GetMolByRef( mol_ref);
 }
 
 
@@ -5622,31 +5658,35 @@ std::string MolSet::GetUniqueMolName(const std::string& suggest_name)
 
 HaMolecule* MolSet::AddNewMolecule( int mol_ser_no )
 {
+	int last_id = 0;
+	if (!serno_mol_map.empty()) last_id = serno_mol_map.rbegin()->first;
 	if (mol_ser_no < 0)
 	{
-		if( )
+		if (HostMolecules.empty())
+			mol_ser_no = 1;
+		else
+			mol_ser_no = last_id + 1;
 	}
 
-
-	if (mol_serno_map.count(mol_ser_no) > 0)
+	if ( serno_mol_map.count(mol_ser_no) > 0)
 	{
 		PrintLog(" Warning in __FUNCTION__  \n");
-		PrintLog(" Molecule Number %d is not unique \n", res_ser_no);
+		PrintLog(" Molecule Number %d is not unique \n", mol_ser_no);
 	}
+
 	HaMolecule* pmol = new HaMolecule(this);
 	HostMolecules.push_back(pmol);
 
-	pmol->serno = res_ser_no;
-	std::pair<int, HaResidue*> ir_pair(res_ser_no, pres);
+	pmol->serno = mol_ser_no;
 
+	std::pair<int, HaMolecule*> im_pair(mol_ser_no, pmol);
+	serno_mol_map.insert(im_pair);
 
-
-	mol_serno_map.insert(ir_pair);
-	mol_names_map.
-	return(pres);
-}
-
-
+	std::pair<std::string, HaMolecule*> nm_pair(pmol->GetName(), pmol);
+	name_mol_map.insert(nm_pair);
+	
+	return(pmol);
+} 
 
 HaMolecule* MolSet::GetFirstMolecule()
 {
@@ -6126,21 +6166,6 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 	 PrintLog(" RMS_3 = %12.6f \n", rms ); 
 
 	 return eps_set;		
-}
-
-
-
-
-HaMolecule* MolSet::AddNewMolecule()
-{ 
-	HaMolecule* pMol = new HaMolecule(this);
-	if( !pMol ) 
-	{
-		ErrorInMod("MolSet::AddNewMolecule()","Failed to allocate new molecule");
-		return NULL;
-	}
-	HostMolecules.push_back(pMol);
-	return(pMol);
 }
 
 
