@@ -17,16 +17,16 @@ int start_harlemappwx(int argc, char **argv)
 	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molsetll\\_molset_d.pyd"));
 #else
 	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("molsetll\\_llpnps.pyd"));
-	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molsetll\\_molset.pyd"));
+	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molset\\_molset.pyd"));
 #endif
 	/*if (!hLLPNPSDLL) {
-		std::cout << "Cannot load harlempy\\_llpnps.pyd" << std::endl;
+		std::cout << "Cannot load molset\\_llpnps.pyd" << std::endl;
 		std::cout << "Last Error: " << GetLastError() << std::endl;
 		Sleep(3000000);
 		return EXIT_FAILURE;
 	}*/
 	if (!hMolSetDLL) {
-		std::cout << "Cannot load molsetll\\_molset.pyd" << std::endl;
+		std::cout << "Cannot load molset\\_molset.pyd" << std::endl;
 		std::cout << "Last Error: " << GetLastError() << std::endl;
 		Sleep(3000000);
 		return EXIT_FAILURE;

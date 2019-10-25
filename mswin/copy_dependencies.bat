@@ -1,4 +1,4 @@
-REM Copy DLLs and other files nessesary to run HARLEM
+REM Copy DLLs and other files necessary to run HARLEM
 SET script_path=%~dp0
 
 echo "Copying HARLEM dependencies ..."
@@ -27,6 +27,11 @@ if not defined WX_DLLS_PATH (
     echo "This script should run as post-build event in VS"
     exit 1
 )
+if not defined PLPLOT_DLLS_PATH (
+    echo "Variable PLPLOT_DLLS_PATH is not defined"
+    echo "This script should run as post-build event in VS"
+    exit 1
+)
 
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
@@ -43,10 +48,10 @@ echo "Is it debug: %IS_DEBUG%"
 
 REM ###########################################################################
 REM Make directories if not exists
-if not exist "%OutputDir%\molsetll\NUL" (
-    mkdir "%OutputDir%\molsetll"
+if not exist "%OutputDir%\molset\NUL" (
+    mkdir "%OutputDir%\molset"
 ) else (
-    echo "%OutputDir%\molsetll already exists"
+    echo "%OutputDir%\molset already exists"
 )
 if not exist "%OutputDir%\pnpsll\NUL" (
     mkdir "%OutputDir%\pnpsll"
@@ -56,6 +61,7 @@ if not exist "%OutputDir%\pnpsll\NUL" (
 
 REM ###########################################################################
 REM Copy python
+echo "Copying PYTHON"
 if not exist "%OutputDir%\DLLs\NUL" (
     mkdir "%OutputDir%\DLLs"
 ) else (
@@ -94,24 +100,25 @@ REM ###########################################################################
 REM Copy Things from VCPKG
 
 REM BOOST
+echo "Copying BOOST Dlls"
 if "%IS_DEBUG%" == "Y" (
-    set BOOST_SUFFIX=-vc141-mt-gd-x*-1_68.dll
+    set BOOST_SUFFIX=-vc142-mt-gd-x*-1_70.dll
 ) else (
-    set BOOST_SUFFIX=-vc141-mt-x*-1_68.dll
+    set BOOST_SUFFIX=-vc142-mt-x*-1_70.dll
 )
 set BOOST_LIBS=^
 boost_atomic      boost_graph      boost_math_tr1          boost_stacktrace_windbg_cached ^
 boost_chrono      boost_locale     boost_prg_exec_monitor  boost_stacktrace_windbg ^
 boost_container   boost_log_setup  boost_program_options   boost_system ^
-boost_context     boost_log        boost_python36          boost_thread ^
+boost_context     boost_log        boost_python37          boost_thread ^
 boost_contract    boost_math_c99f  boost_random            boost_timer ^
 boost_coroutine   boost_math_c99l  boost_regex             boost_type_erasure ^
 boost_date_time   boost_math_c99   boost_serialization     boost_unit_test_framework ^
-boost_fiber       boost_math_tr1f  boost_signals           boost_wave ^
-boost_filesystem  boost_math_tr1l  boost_stacktrace_noop   boost_wserialization
+boost_fiber       boost_math_tr1f  boost_wserialization    boost_wave ^
+boost_filesystem  boost_math_tr1l  boost_stacktrace_noop 
 
 FOR %%G IN (%BOOST_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\molsetll
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\molset
 )
 
 REM WXWIDGETS
@@ -121,21 +128,25 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set WXVER=u
 )
-xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molsetll
-xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molsetll
+xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molset
+xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molset
 
+REM ###########################################################################
+REM Copy PLPLOT 
+echo "Copying PLPLOT Dlls"
 if "%IS_DEBUG%" == "Y" (
-    if exist %WX_DLLS_PATH%\plplotd.dll (
-        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll
+    if exist %PLPLOT_DLLS_PATH%\plplotd.dll (
+        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll 
     ) else (
-        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
+        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
     )
 ) else (
-    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll
+    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
 )
 FOR %%G IN (%PLPLOT_LIB%) DO (
-    xcopy /y /d %WX_DLLS_PATH%\%%G %OutputDir%\molsetll
+    xcopy /y /d %PLPLOT_DLLS_PATH%\%%G %OutputDir%\molset
 )
+xcopy /y /d %PLPLOT_DLLS_PATH%\wx*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
@@ -145,7 +156,7 @@ if "%IS_DEBUG%" == "Y" (
 )
 
 FOR %%G IN (%OTHER_LIBS%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molsetll
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
 )
 
 REM OTHERS of PNPS
@@ -161,10 +172,11 @@ FOR %%G IN (%OTHER_LIBS%) DO (
 
 REM ###########################################################################
 REM Copy MKL
+echo "Copying MKL Dlls"
 set MKL_LIBS=mkl_sequential.dll mkl_core.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
-    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molsetll
+    xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molset
 )
 REM ###########################################################################
 REM Copy MPI
@@ -181,6 +193,7 @@ xcopy /s /e /h /d %script_path%\..\residues_db %OutputDir%\residues_db
 
 REM ###########################################################################
 REM Copy harlempy
+echo "Copying HARLEMPY"
 if not exist "%OutputDir%\harlempy\NUL" (
     mkdir "%OutputDir%\harlempy"
 ) else (
@@ -188,6 +201,17 @@ if not exist "%OutputDir%\harlempy\NUL" (
 )
 
 xcopy /y /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
+REM ###########################################################################
+REM Copy molset(harlemll) module axxiliary python files
+echo "Copying molset module axxiliary python files"
+if not exist "%OutputDir%\molset\NUL" (
+    mkdir "%OutputDir%\molset"
+) else (
+    echo "%OutputDir%\molset already exists"
+)
+
+xcopy /y /d %script_path%\..\HARLEMLL\*.py %OutputDir%\molset\
+
 
 REM ###########################################################################
 REM Copy wxextra
