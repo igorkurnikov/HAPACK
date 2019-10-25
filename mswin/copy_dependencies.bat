@@ -27,11 +27,6 @@ if not defined WX_DLLS_PATH (
     echo "This script should run as post-build event in VS"
     exit 1
 )
-if not defined PLPLOT_DLLS_PATH (
-    echo "Variable PLPLOT_DLLS_PATH is not defined"
-    echo "This script should run as post-build event in VS"
-    exit 1
-)
 
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
@@ -135,7 +130,7 @@ REM ###########################################################################
 REM Copy PLPLOT 
 echo "Copying PLPLOT Dlls"
 if "%IS_DEBUG%" == "Y" (
-    if exist %PLPLOT_DLLS_PATH%\plplotd.dll (
+    if exist %VCPKG_DLL_PATH%\plplotd.dll (
         set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll 
     ) else (
         set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
@@ -144,9 +139,10 @@ if "%IS_DEBUG%" == "Y" (
     set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
 )
 FOR %%G IN (%PLPLOT_LIB%) DO (
-    xcopy /y /d %PLPLOT_DLLS_PATH%\%%G %OutputDir%\molset
+    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
 )
-xcopy /y /d %PLPLOT_DLLS_PATH%\wx*.dll  %OutputDir%\molset
+xcopy /y /d %VCPKG_DLL_PATH%\wxbase*.dll  %OutputDir%\molset
+xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (

@@ -192,7 +192,6 @@ conda install -c conda-forge python-magic
 make wheel file:
 python3 build.py bdist_wheel  
 
-
 --------------------------------------------------------------------------------------------------------
 Windows:
 python -m pip install requests
@@ -226,26 +225,14 @@ python build.py build --help         -- show options
 python build.py build --both         -- build both wxwidgets (build_wx ) and  wxPython library (build_py)  both release and debug versions
 ------------------------------------------------------------------------------------------------------------------------------------------------
 WINDOWS :
-plplot:
 
 vcpkg install:
-c:\PROG_SRC\vcpkg\vcpkg install plplot:x86-windows[wxwidgets] --recurse   ( rebuild wxWidgets if needed )
-c:\PROG_SRC\vcpkg\vcpkg install plplot:x64-windows[wxwidgets] --recurse   ( rebuild wxWidgets if needed )
-
-last version of wxWidgets in vcpkg is v3.1.2  - may be enough for wxPython
-
-CMake Error at scripts/cmake/vcpkg_execute_build_process.cmake:136 (message):
-    Command failed: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" --build . --config Release --target install -- -v
-    Working Directory: C:/PROG_SRC/vcpkg/buildtrees/plplot/x86-windows-rel
-    See logs for more information:
-    C:\PROG_SRC\vcpkg\buildtrees\plplot\install-x86-windows-rel-out.log
-------------------------------------------------------------------------------------------------------
-
-
-
----------------------- not on CMAKE integration:--------------------------
-The package plplot:x64-windows provides CMake targets:
-    find_package(plplot CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE plplot csirocsa qsastime plplotcxx)
------------------------------------------------------------------------------
+plplot:
+c:\MYPROG\vcpkg\vcpkg install plplot[wxwidgets]:x86-windows --recurse   ( rebuild wxWidgets if needed )
+c:\MYPROG\vcpkg\vcpkg install plplot[wxwidgets]:x64-windows --recurse   ( rebuild wxWidgets if needed )
+boost:
+c:\MYPROG\vcpkg\vcpkg install boost:x64-windows --recurse
+mpir: 
+c:\MYPROG\vcpkg\vcpkg install mpir:x64-windows --recurse
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
