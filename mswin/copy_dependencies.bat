@@ -125,8 +125,10 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set WXVER=u
 )
-xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molset
-xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molset
+REM xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molset
+REM xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molset
+xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
+xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*core*.dll  %OutputDir%\molset
 
 REM ###########################################################################
 REM Copy PLPLOT 
@@ -144,8 +146,7 @@ FOR %%G IN (%PLPLOT_LIB%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
 )
 
-xcopy /y /d %VCPKG_DLL_PATH%\wxbase*u_vc*.dll  %OutputDir%\molset
-xcopy /y /d %VCPKG_DLL_PATH%\wxbase*ud_vc*.dll  %OutputDir%\molset
+xcopy /y /d %VCPKG_DLL_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
 xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
 
 REM OTHERS

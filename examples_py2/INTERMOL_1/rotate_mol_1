@@ -1,3 +1,0 @@
-pmset = GetCurMolSet()
-pmol = pmset.GetMoleculeNum(0)
-print pmol.GetNAtoms()

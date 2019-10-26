@@ -1,1 +1,0 @@
-pmset = GetCurMolSet()immod = pmset.GetInterMolMod(1)immod.CalculateMMEnergy()print pmset.GetNAtoms()

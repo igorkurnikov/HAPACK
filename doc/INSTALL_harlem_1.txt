@@ -225,14 +225,16 @@ python build.py build --help         -- show options
 python build.py build --both         -- build both wxwidgets (build_wx ) and  wxPython library (build_py)  both release and debug versions
 ------------------------------------------------------------------------------------------------------------------------------------------------
 WINDOWS :
+Install VCPKG to:
+c:\MYPROG\vcpkg
 
-vcpkg install:
-plplot:
-c:\MYPROG\vcpkg\vcpkg install plplot[wxwidgets]:x86-windows --recurse   ( rebuild wxWidgets if needed )
-c:\MYPROG\vcpkg\vcpkg install plplot[wxwidgets]:x64-windows --recurse   ( rebuild wxWidgets if needed )
-boost:
-c:\MYPROG\vcpkg\vcpkg install boost:x64-windows --recurse
-mpir: 
-c:\MYPROG\vcpkg\vcpkg install mpir:x64-windows --recurse
+in c:\MYPROG\vcpkg install packages:
+.\vcpkg install plplot[wxwidgets]:x64-windows   (plplot + wxWidgets)
+.\vcpkg install boost:x64-windows               (boost libraries)
+.\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
+.\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
+
+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
