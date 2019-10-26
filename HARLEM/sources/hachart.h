@@ -9,9 +9,17 @@
 #if !defined(HACHART_H)
 #define HACHART_H
 
+
+#define WITH_PLPLOT 1 
+#if(_DEBUG)
+#define WITH_PLPLOT 0
+#endif
+
 #include "halinalg.h"
 
+#if WITH_PLPLOT
 class plstream;
+#endif
 
 class HaChart
 //! Base Class for Chart classes 
@@ -21,7 +29,10 @@ public:
 	virtual ~HaChart();
 
 	const char* GetTitle(); //!< Get Title of the Chart
+
+#if WITH_PLPLOT
 	virtual int ToPLpStream( plstream *pls ) = 0;  //!< Plot to PLplot stream
+#endif
 
 	virtual void Clear();     //!< Clear All Data and labeling info
 	virtual void ClearData(); //!< Clear Data Arrays
@@ -74,7 +85,9 @@ public:
 	virtual void Clear();     //!< Clear All Data and labeling info
 	virtual void ClearData(); //!< Clear Data Arrays
 
+#if WITH_PLPLOT
 	virtual int ToPLpStream( plstream *pls );  //!< Plot to PLplot stream
+#endif
 
 	int AddXYData(const HaVec_double& x,const HaVec_double& y); //!< Add X-Y Data Series to the chart
 	int AddYData(const HaVec_double& y); //!< Add an array of Y values (X is set to 0-based index)
@@ -120,7 +133,9 @@ public:
 	void Clear();     //!< Clear All Data and labeling info
 	void ClearData(); //!< Clear Data Arrays
 
+#if WITH_PLPLOT
 	virtual int ToPLpStream( plstream *pls );  //!< Plot to PLplot stream
+#endif
 
 	int AddXYZData(const HaVec_double& x,const HaVec_double& y, const HaVec_double& z); //!< Add X-Y-Z Data Series to the chart
 
@@ -189,7 +204,9 @@ public:
 	HaChartPanel();
 	virtual ~HaChartPanel();
 
+#if WITH_PLPLOT
 	int ToPLpStream( plstream *pls );  //!< Plot to PLplot stream
+#endif
 	
 	HaChart2D* AddChart2D();    //!< Add new 2D chart to the panel
 	HaChart3D* AddChart3D();    //!< Add new 3D chart to the panel

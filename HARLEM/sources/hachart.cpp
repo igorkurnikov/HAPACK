@@ -11,13 +11,15 @@
 
 
 // common includes
-#include "plplot/plstream.h"
-#include "plplot/plevent.h"
-#include "plplot/wxPLplotstream.h"
 
 #include "halinalg.h"
 #include "hachart.h"
 
+#if WITH_PLPLOT
+#include "plplot/plstream.h"
+#include "plplot/plevent.h"
+#include "plplot/wxPLplotstream.h"
+#endif
 
 HaChart::HaChart()
 {
@@ -113,6 +115,7 @@ void HaChart2D::ClearData()
 	yc.clear();
 }
 
+#if WITH_PLPLOT
 int HaChart2D::ToPLpStream( plstream *pls )
 {
 	double xmin,xmax,ymin,ymax;
@@ -227,6 +230,7 @@ int HaChart2D::ToPLpStream( plstream *pls )
 	}
 	return TRUE;
 }
+#endif
 	
 int HaChart2D::AddXYData(const HaVec_double& x,const HaVec_double& y)
 {
@@ -438,6 +442,7 @@ void HaChart3D::ClearData()
 	zc.clear();
 }
 
+#if WITH_PLPLOT
 int HaChart3D::ToPLpStream( plstream *pls )
 {
 	double xmin,xmax,ymin,ymax,zmin,zmax;
@@ -490,6 +495,7 @@ int HaChart3D::ToPLpStream( plstream *pls )
 	}
 	return TRUE;
 }
+#endif
 	
 int HaChart3D::AddXYZData(const HaVec_double& x,const HaVec_double& y, const HaVec_double& z)
 {
@@ -708,6 +714,7 @@ HaChart* HaChartPanel::GetChart(int idx)
 	return chart_arr[idx];
 }
 
+#if WITH_PLPLOT
 int HaChartPanel::ToPLpStream( plstream *pls )
 {
 	int np = chart_arr.size();
@@ -718,4 +725,5 @@ int HaChartPanel::ToPLpStream( plstream *pls )
 	}
 	return TRUE;
 }
+#endif 
 

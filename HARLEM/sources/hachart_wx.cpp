@@ -67,10 +67,14 @@ END_EVENT_TABLE()
 
 
 HaChartWindow::HaChartWindow( wxFrame* frame, wxWindow* parent, wxWindowID id, const wxPoint& pos,
-                            const wxSize& size, long style, bool useGraphicsContext) :
-	wxPLplotwindow<wxWindow>(useGraphicsContext, size)
+                            const wxSize& size, long style, bool useGraphicsContext) 
+#if WITH_PLPLOT
+	:wxPLplotwindow<wxWindow>(useGraphicsContext, size)
+#endif
 {
+#if WITH_PLPLOT
 	Create(parent, id, pos, size, style);
+#endif
     mframe = frame;
 }
 
@@ -136,9 +140,11 @@ HaChartFrame::HaChartFrame( const wxString& title ) : wxFrame( NULL, wxID_ANY, t
 
 void HaChartFrame::Plot()
 {
+#if WITH_PLPOT
 	wxPLplotstream* pls = plotwindow->GetStream();
 	plt.ToPLpStream(pls);
 	plotwindow->RenewPlot();
+#endif
 }
 
 HaChartPanel* HaChartFrame::GetPlot()
@@ -148,6 +154,7 @@ HaChartPanel* HaChartFrame::GetPlot()
 
 void HaChartFrame::PlotTest()
 {
+#if WITH_PLPLOT
 	wxPLplotstream* pls = plotwindow->GetStream();
 
     const size_t  np = 500;
@@ -188,6 +195,7 @@ void HaChartFrame::PlotTest()
     pls->line( np, x, y );
 
     plotwindow->RenewPlot();
+#endif
 }
 
 

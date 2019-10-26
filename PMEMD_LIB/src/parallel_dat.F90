@@ -10,6 +10,10 @@
 
 module parallel_dat_mod
 
+#ifdef _MSC_VER
+#define INCLUDE_MPIF 1
+#endif
+
 #ifdef INCLUDE_MPIF
   implicit none
 # include <mpif.h>  

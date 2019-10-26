@@ -12,14 +12,20 @@
 #include <wx/window.h>
 #include <wx/dcmemory.h>
 
+#include "hachart.h"
+
+#if WITH_PLPLOT
 #include "plplot/wxPLplotstream.h"
 #include "plplot/wxPLplotwindow.h"
 
 #include "plplot/plstream.h"
+#endif
 
-#include "hachart.h"
-
+#if WITH_PLPLOT
 class HaChartWindow : public wxPLplotwindow<wxWindow>
+#else
+class HaChartWindow : public wxFrame
+#endif
 {
 public:
     HaChartWindow( wxFrame* frame, wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition,

@@ -101,16 +101,18 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set BOOST_SUFFIX=-vc142-mt-x*-1_70.dll
 )
-set BOOST_LIBS=^
-boost_atomic      boost_graph      boost_math_tr1          boost_stacktrace_windbg_cached ^
-boost_chrono      boost_locale     boost_prg_exec_monitor  boost_stacktrace_windbg ^
-boost_container   boost_log_setup  boost_program_options   boost_system ^
-boost_context     boost_log        boost_python37          boost_thread ^
-boost_contract    boost_math_c99f  boost_random            boost_timer ^
-boost_coroutine   boost_math_c99l  boost_regex             boost_type_erasure ^
-boost_date_time   boost_math_c99   boost_serialization     boost_unit_test_framework ^
-boost_fiber       boost_math_tr1f  boost_wserialization    boost_wave ^
-boost_filesystem  boost_math_tr1l  boost_stacktrace_noop 
+
+REM set BOOST_LIBS=^
+REM boost_atomic      boost_graph      boost_math_tr1          boost_stacktrace_windbg_cached ^
+REM boost_chrono      boost_locale     boost_prg_exec_monitor  boost_stacktrace_windbg ^
+REM boost_container   boost_log_setup  boost_program_options   boost_system ^
+REM boost_context     boost_log        boost_python37          boost_thread ^
+REM boost_contract    boost_math_c99f  boost_random            boost_timer ^
+REM boost_coroutine   boost_math_c99l  boost_regex             boost_type_erasure ^
+REM boost_date_time   boost_math_c99   boost_serialization     boost_unit_test_framework ^
+REM boost_fiber       boost_math_tr1f  boost_wserialization    boost_wave ^
+REM boost_filesystem  boost_math_tr1l  boost_stacktrace_noop 
+set BOOST_LIBS=boost_filesystem boost_system
 
 FOR %%G IN (%BOOST_LIBS%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\molset
@@ -141,8 +143,10 @@ if "%IS_DEBUG%" == "Y" (
 FOR %%G IN (%PLPLOT_LIB%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
 )
-xcopy /y /d %VCPKG_DLL_PATH%\wxbase*.dll  %OutputDir%\molset
-xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*.dll  %OutputDir%\molset
+
+xcopy /y /d %VCPKG_DLL_PATH%\wxbase*u_vc*.dll  %OutputDir%\molset
+xcopy /y /d %VCPKG_DLL_PATH%\wxbase*ud_vc*.dll  %OutputDir%\molset
+xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
