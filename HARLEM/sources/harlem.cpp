@@ -13,8 +13,8 @@ typedef int(__stdcall *f_start_harlemappwx)(int argc, char **argv);
 int start_harlemappwx(int argc, char **argv)
 {
 #ifdef _DEBUG
-	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("molsetll\\_llpnps_d.pyd"));
-	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molsetll\\_molset_d.pyd"));
+	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("molset\\_llpnps_d.pyd"));
+	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molset\\_molset_d.pyd"));
 #else
 	//HINSTANCE hLLPNPSDLL = LoadLibrary(TEXT("molsetll\\_llpnps.pyd"));
 	HINSTANCE hMolSetDLL = LoadLibrary(TEXT("molset\\_molset.pyd"));
