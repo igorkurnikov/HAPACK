@@ -75,9 +75,13 @@ if "%IS_DEBUG%" == "Y" (
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
     
     xcopy /y /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
+REM	runas /user:administrator mklink /D %OutputDir%\Lib %PYTHON_HOME_PATH%\Lib
     
     xcopy /y /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
+REM	runas /user:administrator mklink %OutputDir%\python%PYTHON_MAJOR_VERSION%?_d.dll %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll
+REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\python_d.exe
+	
 ) else (
     echo "Copying Release Version of Python"
     xcopy /y /d %PYTHON_DLLS_PATH%\*.pyd %OutputDir%\DLLs
