@@ -75,15 +75,15 @@ END
 // Bitmap
 //
 
-WXBITMAP_STD_COLOURS    BITMAP  MOVEABLE PURE   "c:/PROG_SRC/Python37/x64/include/wx/msw/colours.bmp"
+WXBITMAP_STD_COLOURS    BITMAP  MOVEABLE PURE   "c:/MYPROG/Python37/x64/include/wx/msw/colours.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
-WXCURSOR_CROSS          CURSOR  DISCARDABLE     "c:/PROG_SRC/Python37/x64/include/wx/msw/cross.cur"
-WXCURSOR_HAND           CURSOR  DISCARDABLE     "c:/PROG_SRC/Python37/x64/include/wx/msw/hand.cur"
+WXCURSOR_CROSS          CURSOR  DISCARDABLE     "c:/MYPROG/Python37/x64/include/wx/msw/cross.cur"
+WXCURSOR_HAND           CURSOR  DISCARDABLE     "c:/MYPROG/Python37/x64/include/wx/msw/hand.cur"
 
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
