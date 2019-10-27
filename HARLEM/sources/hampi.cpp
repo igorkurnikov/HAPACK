@@ -39,7 +39,7 @@ HaMPI::HaMPI()
 
 	msg_buffer.resize(10000);
 
-	int ires;
+	int ires = -1;
 
 #if !defined(_MSC_VER)
 	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
