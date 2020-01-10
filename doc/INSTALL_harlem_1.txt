@@ -2,21 +2,17 @@ LINUX:
 
 LINUX distribution name and ID:  
 
-UBUNTU(12.04) packages:
-
-subversion
-zlib1g-dev  
-python-dev
-mpich2
-libgmp-dev
-
 UBUNTU(18.04) packages:
+
 sudo apt-get install libboost-all-dev
 libgmp-dev
 python3-dev
 zlib1g-dev 
-libmpich-dev   - may be this is better
+libmpich-dev   - may be this is better  - not needed ??
 libopenmpi2    - problems with fortran
+libopenmpi-dev
+openmpi-bin
+openmpi-common
 subversion
 libplplotwxwidgets1
 libplplot-dev
@@ -32,9 +28,6 @@ links in /home/igor/local/bin ):!
 GAUSSIAN util.a: 
 unpack g98.tar in ../PROG_SRC
 
-mortlib.a :
-get AMBER11_IGOR:
-got to gleap:
 cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
 make - it will make mortlib.a   although python bidings will not be finished
 
