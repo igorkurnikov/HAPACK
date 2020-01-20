@@ -45,7 +45,7 @@ lib_molset_la_LIBADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS)  \
  $(RESOURCES_BIN) \
  -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
- -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgets -lplplotcxx 
+  $(PLPLOT_LIBS) $(PLPLOTCPP_LIBS) $(PLPLOTWX_LIBS)  
  
 
 harlem_wx_files = \

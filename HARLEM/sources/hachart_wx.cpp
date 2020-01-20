@@ -69,7 +69,11 @@ END_EVENT_TABLE()
 HaChartWindow::HaChartWindow( wxFrame* frame, wxWindow* parent, wxWindowID id, const wxPoint& pos,
                             const wxSize& size, long style, bool useGraphicsContext) 
 #if WITH_PLPLOT
+#if defined(PLPLOT_VERSION_MAJOR) and (PLPLOT_VERSION_MINOR > 12) 
 	:wxPLplotwindow<wxWindow>(useGraphicsContext, size)
+#else
+        :wxPLplotwindow(frame, id, pos, size, style )
+#endif
 #endif
 {
 #if WITH_PLPLOT

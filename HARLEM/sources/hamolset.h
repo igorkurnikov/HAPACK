@@ -164,8 +164,8 @@ public:
 
 	static MolSet* CurMolSet;                            //!< Currently active Molecular Set
 	std::vector<HaMolecule*> HostMolecules;                   //!< Molecules in the molecular set  
-	std::multimap<int, HaMolecule*, less<int>> serno_mol_map; //!< map of serial numbers of molecules to molecular pointers
-	std::multimap<std::string, HaMolecule*, less<std::string>> name_mol_map; //!< map of names of molecules to molecular pointers
+	std::multimap<int, HaMolecule*, less<int> > serno_mol_map; //!< map of serial numbers of molecules to molecular pointers
+	std::multimap<std::string, HaMolecule*, less<std::string> > name_mol_map; //!< map of names of molecules to molecular pointers
 	 
 	HaMolecule* AddNewMolecule( int mol_ser_no = -1 );  //!< function to add a new molecule to the set 
 	HaMolecule* GetFirstMolecule();                  //!< Get First Molecule in the set
