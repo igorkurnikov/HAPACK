@@ -22,7 +22,11 @@
 #endif
 
 #if WITH_PLPLOT
+#if defined(PLPLOT_VERSION_MAJOR) and (PLPLOT_VERSION_MINOR > 12)
 class HaChartWindow : public wxPLplotwindow<wxWindow>
+#else
+class HaChartWindow : public wxPLplotwindow
+#endif
 #else
 class HaChartWindow : public wxFrame
 #endif

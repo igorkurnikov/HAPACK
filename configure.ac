@@ -117,6 +117,15 @@ AC_ARG_WITH([boostinc],
 ##AC_SUBST(BOOST_INCLUDE,"-I../../local/include")
 AC_SUBST(BOOST_LIBS," -lboost_filesystem -lboost_system ")
 
+#PLPLOT
+AC_SUBST(PLPLOT_LIBS,`pkg-config plplot --libs`)
+AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplot-c++ --libs`)
+AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplot-wxwidgets --libs`)
+AS_IF( test "x$PLPLOT_LIBS" = "x",
+AC_SUBST(PLPLOT_LIBS,`pkg-config plplotd --libs`)
+AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplotd-c++ --libs`)
+AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplotd-wxwidgets --libs`) 
+)
 ###SWIG
 #AC_PROG_SWIG
 #SWIG_ENABLE_CXX
@@ -157,33 +166,6 @@ if test $wxWin != 1; then
 fi
 
 ##############mkl
-AC_ARG_WITH([mkl],
-	AS_HELP_STRING([--with-mkl=DIR],[build with intel math kernel library, if DIR is specified will use this directory as Root Directory of mkl package]),
-	[
-		AS_IF([test "$with_mkl" != yes],
-			[
-				AC_MSG_NOTICE([Path to intel math kernel library: $with_mkl])
-				MKL_FLAG=
-				MKL_INCLUDE=
-				MKL_LIBS="[$with_mkl]/lib/32"
-#				BLAS_LIBS="${MKL_LIBS} -lmkl -lmkl_vml_p4"
-				BLAS_LIBS="-i-static -L${MKL_LIBS} ${MKL_LIBS}/libmkl_intel.a ${MKL_LIBS}/libmkl_core.a "
-#				LAPACK_LIBS="-lmkl_lapack -lmkl_ia32 -lguide"
-				LAPACK_LIBS=" ${MKL_LIBS}/libmkl_lapack.a ${MKL_LIBS}/libmkl_ia32.a ${MKL_LIBS}/libguide.a "
-				
-				AC_SUBST(MKL_FLAG)
-				AC_SUBST(MKL_INCLUDE)
-				AC_SUBST(MKL_LIBS)
-				AC_SUBST(BLAS_LIBS)
-				AC_SUBST(LAPACK_LIBS)
-			],
-			[
-				AC_MSG_ERROR([Path to mkl is not specified])
-			]
-		)
-	]
-	)
-	
 AC_ARG_WITH([mkl64],
 	AS_HELP_STRING([--with-mkl64=DIR],[build with 64-bit intel math kernel library, if DIR is specified will use this directory as Root Directory of mkl package]),
 	[
@@ -192,15 +174,10 @@ AC_ARG_WITH([mkl64],
 				AC_MSG_NOTICE([Path to intel math kernel library: $with_mkl64])
 				MKL_FLAG= 
 				MKL_INCLUDE=
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64"
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
 				MKL_LIBS=" "
 				BLAS_LIBS=" "
-#				LAPACK_LIBS=" -mkl "
-#				LAPACK_LIBS="[$with_mkl64]/lib/intel64/libmkl_lapack95_ilp64.a [$with_mkl64]/lib/intel64/libmkl_blas95_ilp64.a"
 				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
-				
+
 				AC_SUBST(MKL_FLAG)
 				AC_SUBST(MKL_INCLUDE)
 				AC_SUBST(MKL_LIBS)
@@ -290,6 +267,10 @@ AC_MSG_RESULT(AS_HELP_STRING([MPI_LIBS],$MPI_LIBS))
 
 AC_MSG_RESULT(AS_HELP_STRING([BOOST_INCLUDE],$BOOST_INCLUDE))
 AC_MSG_RESULT(AS_HELP_STRING([BOOST_LIBS],$BOOST_LIBS))
+
+AC_MSG_RESULT(AS_HELP_STRING([PLPLOT_LIBS],$PLPLOT_LIBS))
+AC_MSG_RESULT(AS_HELP_STRING([PLPLOTCPP_LIBS],$PLPLOTCPP_LIBS))
+AC_MSG_RESULT(AS_HELP_STRING([PLPLOTWX_LIBS],$PLPLOTWX_LIBS))
 
 #AC_MSG_RESULT([BLAS and LAPACK flags:])
 AC_MSG_RESULT(AS_HELP_STRING([BLAS_LIBS],$BLAS_LIBS))

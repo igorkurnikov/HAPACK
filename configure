@@ -661,6 +661,9 @@ PYTHON_LDFLAGS
 PYTHON_CPPFLAGS
 PYTHON_PREFIX
 SWIG
+PLPLOTWX_LIBS
+PLPLOTCPP_LIBS
+PLPLOT_LIBS
 BOOST_INCLUDE
 BOOST_LIBS
 ZLIB_CPPFLAGS
@@ -788,6 +791,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -828,7 +832,6 @@ with_wxdir
 with_wx_config
 with_wx_prefix
 with_wx_exec_prefix
-with_mkl
 with_mkl64
 with_cuda
 '
@@ -888,6 +891,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -1140,6 +1144,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1277,7 +1290,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1430,6 +1443,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1501,9 +1515,6 @@ Optional Packages:
   --with-wx-prefix=PREFIX Prefix where wxWidgets is installed (optional)
   --with-wx-exec-prefix=PREFIX
                           Exec prefix where wxWidgets is installed (optional)
-  --with-mkl=DIR          build with intel math kernel library, if DIR is
-                          specified will use this directory as Root Directory
-                          of mkl package
   --with-mkl64=DIR        build with 64-bit intel math kernel library, if DIR
                           is specified will use this directory as Root
                           Directory of mkl package
@@ -8586,6 +8597,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -23829,6 +23844,22 @@ fi
 BOOST_LIBS=" -lboost_filesystem -lboost_system "
 
 
+#PLPLOT
+PLPLOT_LIBS=`pkg-config plplot --libs`
+
+PLPLOTCPP_LIBS=`pkg-config plplot-c++ --libs`
+
+PLPLOTWX_LIBS=`pkg-config plplot-wxwidgets --libs`
+
+if test "x$PLPLOT_LIBS" = "x"; then :
+  PLPLOT_LIBS=`pkg-config plplotd --libs`
+
+PLPLOTCPP_LIBS=`pkg-config plplotd-c++ --libs`
+
+PLPLOTWX_LIBS=`pkg-config plplotd-wxwidgets --libs`
+
+
+fi
 ###SWIG
 #AC_PROG_SWIG
 #SWIG_ENABLE_CXX
@@ -24145,39 +24176,6 @@ fi
 
 ##############mkl
 
-# Check whether --with-mkl was given.
-if test "${with_mkl+set}" = set; then :
-  withval=$with_mkl;
-		if test "$with_mkl" != yes; then :
-
-				{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to intel math kernel library: $with_mkl" >&5
-$as_echo "$as_me: Path to intel math kernel library: $with_mkl" >&6;}
-				MKL_FLAG=
-				MKL_INCLUDE=
-				MKL_LIBS="$with_mkl/lib/32"
-#				BLAS_LIBS="${MKL_LIBS} -lmkl -lmkl_vml_p4"
-				BLAS_LIBS="-i-static -L${MKL_LIBS} ${MKL_LIBS}/libmkl_intel.a ${MKL_LIBS}/libmkl_core.a "
-#				LAPACK_LIBS="-lmkl_lapack -lmkl_ia32 -lguide"
-				LAPACK_LIBS=" ${MKL_LIBS}/libmkl_lapack.a ${MKL_LIBS}/libmkl_ia32.a ${MKL_LIBS}/libguide.a "
-
-
-
-
-
-
-
-else
-
-				as_fn_error $? "Path to mkl is not specified" "$LINENO" 5
-
-
-fi
-
-
-fi
-
-
-
 # Check whether --with-mkl64 was given.
 if test "${with_mkl64+set}" = set; then :
   withval=$with_mkl64;
@@ -24187,13 +24185,8 @@ if test "${with_mkl64+set}" = set; then :
 $as_echo "$as_me: Path to intel math kernel library: $with_mkl64" >&6;}
 				MKL_FLAG=
 				MKL_INCLUDE=
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64"
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
-#				MKL_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
 				MKL_LIBS=" "
 				BLAS_LIBS=" "
-#				LAPACK_LIBS=" -mkl "
-#				LAPACK_LIBS="[$with_mkl64]/lib/intel64/libmkl_lapack95_ilp64.a [$with_mkl64]/lib/intel64/libmkl_blas95_ilp64.a"
 				LAPACK_LIBS="-L$with_mkl64/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
 
 
@@ -27398,6 +27391,13 @@ $as_echo "  MPI_LIBS                $MPI_LIBS" >&6; }
 $as_echo "  BOOST_INCLUDE           $BOOST_INCLUDE" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   BOOST_LIBS              $BOOST_LIBS" >&5
 $as_echo "  BOOST_LIBS              $BOOST_LIBS" >&6; }
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PLPLOT_LIBS             $PLPLOT_LIBS" >&5
+$as_echo "  PLPLOT_LIBS             $PLPLOT_LIBS" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PLPLOTCPP_LIBS          $PLPLOTCPP_LIBS" >&5
+$as_echo "  PLPLOTCPP_LIBS          $PLPLOTCPP_LIBS" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   PLPLOTWX_LIBS           $PLPLOTWX_LIBS" >&5
+$as_echo "  PLPLOTWX_LIBS           $PLPLOTWX_LIBS" >&6; }
 
 #AC_MSG_RESULT([BLAS and LAPACK flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   BLAS_LIBS               $BLAS_LIBS" >&5

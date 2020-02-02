@@ -34,8 +34,7 @@ harlembin_LDADD = \
  $(top_builddir)/WOLFGANG/IPACK/libipack.a \
  $(top_builddir)/PNPS/libpnp/libpnp.a \
  $(top_builddir)/GEOBALL/libgeoball.a -lgmp \
- $(top_builddir)/JUMNA_LIB/libjumna.a  \
- -L$(top_srcdir)/../AMBER11_IGOR/AmberTools/src/gleap/mortsrc -lmort
+ $(top_builddir)/JUMNA_LIB/libjumna.a  
 
 # $(top_srcdir)/../PROG_SRC/g98/util.a 
 
@@ -56,7 +55,7 @@ harlembin_LDADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS)  \
  $(RESOURCES_BIN) \
  -L$(PYTHON_PREFIX)/lib $(PYTHON_LDFLAGS) \
- -lplplotwxwidgets -lplplot -lplplotcxx -lplplotwxwidgets -lplplotcxx 
+ $(PLPLOT_LIBS) $(PLPLOTCPP_LIBS) $(PLPLOTWX_LIBS)   
  
 _molset_so_CXXFLAGS = -fPIC 
 _molset_so_LDADD = $(harlembin_LDADD) 
