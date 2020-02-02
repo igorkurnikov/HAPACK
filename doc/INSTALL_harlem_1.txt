@@ -2,38 +2,53 @@ LINUX:
 
 LINUX distribution name and ID:  
 
-UBUNTU(18.04) packages:
+UBUNTU(16.04/18.04) packages:
 
-sudo apt-get install libboost-all-dev
+For WXPYTHON compile:
+sudo apt install gcc g++ python3-pip
+sudo apt install libgtk-3-dev  libwebkitgtk-dev libwebkitgtk-3.0-dev freeglut3 freeglut3-dev
+
+sudo apt install gfortran
+sudo apt automake
+sudo apt-get install libboost-dev libboost-all-dev
+# libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 libgmp-dev
 python3-dev
 zlib1g-dev 
-libmpich-dev   - may be this is better  - not needed ??
-libopenmpi2    - problems with fortran
+# libmpich-dev   - may be this is better  - not needed ??
+# libopenmpi2    - problems with fortran
 libopenmpi-dev
 openmpi-bin
 openmpi-common
-subversion
-libplplotwxwidgets1
 libplplot-dev
+libplplotwxwidgets1       ( UBUNTU 18.04 and later )
+plplot12-driver-wxwidgets ( UBUNTU 16.04 -installed with libplplot-dev ?? )
+sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver )
+sudo apt install libshp-dev         ( for libplot shapelib connection )
 swig 
-libboost-dev
-libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
+-------------------------------------------------------------------------------------------
+install INTEL MKL 64-bit library  
+get  l_mkl_2019.5.281.tgz from /share/apps/HARLEM/HARLEM_UBUNTU_18.04
+gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
+cd l_mkl_2019.5.281
+./install 
+choose /share/apps/intel   for installation dir
+------------------------------------------------------------------------------------------
+#if defined(PLPLOT_VERSION_MAJOR) and (PLPLOT_VERSION_MINOR > 12)
 
-gfortran
-
-link / to /export ( required for some 
-links in /home/igor/local/bin ):!
+#gfortran
+#link / to /export ( required for some 
+#links in /home/igor/local/bin ):!
 
 GAUSSIAN util.a: 
 unpack g98.tar in ../PROG_SRC
-
-cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
-make - it will make mortlib.a   although python bidings will not be finished
+----------------------------------------------------------------------------------------------
+#cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
+#make - it will make mortlib.a   although python bidings will not be finished
 
 ###MPI
-AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
-AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
+#AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
+#AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
 
 HAPACK compilation commands:
 
@@ -46,20 +61,36 @@ failed to generate dependencies for the library
 able to run compilation of the shared library with:
 configure --disable-dependency-tracking
 
-MKL install:
+for UBUNTU 16.04 ( This is really ugly - need to change):
+in HAPACK/HARLEM/Makefile.am 
+change:
+ -lplplotwxwidgets -lplplot -lplplotcxx
+ to:
+ -lplplotwxwidgetsd -lplplotd -lplplotcxxd
 
-gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
-cd l_mkl_2019.5.281
-./install 
-choose /share/apps/intel   for installation dir
-
+Configure HAPACK:
+mkdir BUILD_HARLEM
+cd    BUILD HARLEM
+CPPFLAGS=-std=c++11 ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config --with-mkl64=/share/apps/intel/mkl
+Libraries are still not compiled automatically ( TODO ):
+mkdir MORT_LIB
+cd MORT_LIB
+cmake ../../HAPACK/MORT_LIB/
+make
+cd .. ( BUILD_HARLEM dir )
+cd PMEMD_LIB
+make
+cd ..
+---------------------------------------------------------------------------------------------------------------
+PLPLOT compilation ( if versions coming with LINUX are not working: )
+cmake -DCMAKE_INSTALL_PREFIX=/home/kurnikov/local_GCC_7_4/ -DTEST_DYNDRIVERS=OFF ..
+---------------------------------------------------------------------------------------------------------------------------------------------------
 // MPI:
 // Problems with OPENMPI on linux:
 // The easiest way to do this is to configure your Open MPI installation with --disable-dlopen.
 //Open MPI uses a bunch of plugins for its functionality. When you dlopen libmpi in a private namespace (like Python does), and then libmpi tries to dlopen its plugins, the plugins can't find the symbols that they need in the main libmpi library (because they're in a private namespace).
 // The workaround is to build Open MPI with all of its plugins slurped up into the libmpi library itself (i.e., so that Open MPI doesn't have to dlopen its plugins).
 Fixed with explicit dlopen( openmpi.so ) call
-
 
 LINUX NOGUI (IGOR CMU):
 
@@ -136,16 +167,7 @@ Intel® Parallel Studio XE for Linux*
 Your product serial number is: N433-2DHW3DJL
 Get new product updates and releases through: March 29, 2014
 
---------------------------------------------------------------------------------------------
-mortlib in
-
-~/MYPROG/AMBER11_IGOR/AmberTools/src/gleap/mortsrc
-to compile go to 
-~/MYPROG/AMBER11_IGOR/AmberTools/src/gleap 
-cmake CMakeLists.txt
-make
 ---------------------------------------------------------------------------------------------
-
 MKL library needed to be present:
 
 mkl_sequential.dll
@@ -185,6 +207,12 @@ conda install -c conda-forge python-magic
 make wheel file:
 python3 build.py bdist_wheel  
 
+
+----------------------------------------------------------------------------------------------------------
+Get Autotools ( and other progs: )
+curl -L -O http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+or
+wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
 --------------------------------------------------------------------------------------------------------
 Windows:
 python -m pip install requests
@@ -226,8 +254,6 @@ in c:\MYPROG\vcpkg install packages:
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
 .\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
-
-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 

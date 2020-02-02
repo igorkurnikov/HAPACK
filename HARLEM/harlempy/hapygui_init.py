@@ -20,7 +20,9 @@ try:
     import pnpsgui
     pnpsgui.init()
 except Exception as e:
-    print("Can not load pnpgui")
-    print(str(e))
-    import traceback
-    traceback.print_exc()
+     print(" ")
+#    print("Warning: no pnpgui loaded:")
+#    print("Can not load pnpgui")
+#    print(str(e))
+#    import traceback
+#    traceback.print_exc()
