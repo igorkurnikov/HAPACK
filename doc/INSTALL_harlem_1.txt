@@ -8,7 +8,7 @@ For WXPYTHON compile:
 sudo apt install gcc g++ python3-pip
 sudo apt install libgtk-3-dev  libwebkitgtk-dev libwebkitgtk-3.0-dev freeglut3 freeglut3-dev
 
-sudo apt install gfortran
+sudo apt install gfortran gfortran-7
 sudo apt automake
 sudo apt-get install libboost-dev libboost-all-dev
 # libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
@@ -53,8 +53,8 @@ unpack g98.tar in ../PROG_SRC
 HAPACK compilation commands:
 
 LINUX:
-libtoolize                 --- create ltmain.sh  link
-automake --add-missing     --create compile,missing and depcomp links
+libtoolize                 --- create ltmain.sh  link   (need to delete ltmain.sh  if existed)  check! 
+automake --add-missing     --create compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
 
 failed to generate dependencies for the library
@@ -71,6 +71,7 @@ change:
 Configure HAPACK:
 mkdir BUILD_HARLEM
 cd    BUILD HARLEM
+
 CPPFLAGS=-std=c++11 ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config --with-mkl64=/share/apps/intel/mkl
 Libraries are still not compiled automatically ( TODO ):
 mkdir MORT_LIB
@@ -81,6 +82,11 @@ cd .. ( BUILD_HARLEM dir )
 cd PMEMD_LIB
 make
 cd ..
+-------------------------------------------------------------------------------------------------------------------
+UBUNTU 18.04:
+
+LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config --with-mkl64=/share/apps/intel/mkl
+
 ---------------------------------------------------------------------------------------------------------------
 PLPLOT compilation ( if versions coming with LINUX are not working: )
 cmake -DCMAKE_INSTALL_PREFIX=/home/kurnikov/local_GCC_7_4/ -DTEST_DYNDRIVERS=OFF ..
