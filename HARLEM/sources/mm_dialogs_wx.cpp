@@ -345,6 +345,9 @@ void  MolMechDlgWX::OnInitDialog()
 	p_si_ag = ptr_mm_mod->p_traj_anal_mod->GetRMSDAgent(FALSE);
 
 	TransferDataToWindow();
+	wxNotebook* noteb = (wxNotebook*)FindWindow(ID_MM_DLG);
+	wxWindow* cur_page = noteb->GetCurrentPage();
+	cur_page->Fit();
 }
 
 void MolMechDlgWX::OnChangingPage(wxNotebookEvent& event)
@@ -382,6 +385,9 @@ void MolMechDlgWX::OnChangePage(wxNotebookEvent& event)
 //	PrintLog(" Selected Page Number = %d \n", np);
 	wxString page_title = noteb->GetPageText(np);
 //	PrintLog(" Selected Page Title = %s \n", page_title.c_str());
+
+	wxWindow* cur_page = noteb->GetCurrentPage();
+	cur_page->Fit();
 
 	if( page_title == "Edit MM Model")
 	{

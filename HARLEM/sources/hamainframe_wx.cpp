@@ -2094,8 +2094,7 @@ HaMainFrameWX::OnReadPolarContr(wxCommandEvent &event)
 	HaTests::read_polar_contr();
 }
 
-void
-HaMainFrameWX::OnCalcBetaContr2idx(wxCommandEvent &event)
+void HaMainFrameWX::OnCalcBetaContr2idx(wxCommandEvent &event)
 {
 	HaTests::calc_beta_contr_2idx();
 }

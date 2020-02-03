@@ -841,8 +841,8 @@ wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
     item50->Add( item51, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxString *strs52 = (wxString*) NULL;
-    wxComboBox *item52 = new wxComboBox( parent, IDC_MM_SHAKE_METHOD, wxT(""), wxDefaultPosition, wxSize(100,-1), 0, strs52, wxCB_DROPDOWN );
-    item50->Add( item52, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxComboBox *item52 = new wxComboBox( parent, IDC_MM_SHAKE_METHOD, wxT(""), wxDefaultPosition, wxDefaultSize, 0, strs52, wxCB_DROPDOWN );
+    item50->Add( item52, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item25->Add( item50, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
@@ -874,7 +874,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     item3->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxString *strs5 = (wxString*) NULL;
-    wxChoice *item5 = new wxChoice( parent, IDC_MM_RUN_TYPE, wxDefaultPosition, wxSize(140,-1), 0, strs5, 0 );
+    wxChoice *item5 = new wxChoice( parent, IDC_MM_RUN_TYPE, wxDefaultPosition, wxDefaultSize, 0, strs5, 0 );
     item3->Add( item5, 1, wxALIGN_CENTER|wxALL, 0 );
 
     item2->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
@@ -1009,13 +1009,13 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item44 = new wxStaticText( parent, ID_TEXT_INIT_TEMP, wxT("Initial Temp (K):"), wxDefaultPosition, wxDefaultSize, 0 );
     item43->Add( item44, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item45 = new wxTextCtrl( parent, IDC_MM_INIT_TEMP, wxT(""), wxDefaultPosition, wxSize(60,-1), 0 );
+    wxTextCtrl *item45 = new wxTextCtrl( parent, IDC_MM_INIT_TEMP, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item43->Add( item45, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item46 = new wxStaticText( parent, ID_TEXT_REF_TEMP, wxT("Reference Temp (K):"), wxDefaultPosition, wxDefaultSize, 0 );
     item43->Add( item46, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_REF_TEMP, wxT(""), wxDefaultPosition, wxSize(60,-1), 0 );
+    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_REF_TEMP, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item43->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item48 = new wxStaticText( parent, ID_TEXT_LANG_DUMP_CONST, wxT("Langevin Damping  (ps-1)"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -1032,14 +1032,14 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     item50->Add( item51, 0, wxALIGN_CENTER|wxALL, 10 );
 
     wxString *strs52 = (wxString*) NULL;
-    wxChoice *item52 = new wxChoice( parent, IDC_MM_INIT_READ_COORD, wxDefaultPosition, wxSize(160,-1), 0, strs52, 0 );
+    wxChoice *item52 = new wxChoice( parent, IDC_MM_INIT_READ_COORD, wxDefaultPosition, wxDefaultSize, 0, strs52, 0 );
     item50->Add( item52, 1, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item53 = new wxStaticText( parent, ID_TEXT_START_VEL_METH, wxT("Start velocity method:"), wxDefaultPosition, wxDefaultSize, 0 );
     item50->Add( item53, 0, wxALIGN_CENTER|wxALL, 10 );
 
     wxString *strs54 = (wxString*) NULL;
-    wxChoice *item54 = new wxChoice( parent, IDC_MM_START_VEL_METHOD, wxDefaultPosition, wxSize(180,-1), 0, strs54, 0 );
+    wxChoice *item54 = new wxChoice( parent, IDC_MM_START_VEL_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs54, 0 );
     item50->Add( item54, 0, wxALIGN_CENTER|wxALL, 0 );
 
     item18->Add( item50, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
