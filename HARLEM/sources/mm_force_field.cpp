@@ -173,8 +173,8 @@ int MMForceField::Init()
 			if( !ires ) throw std::runtime_error(" Error loading Residue FF file " + file_name );
 		}
 
-		ires = InitMortFF();
-		if( !ires ) throw std::runtime_error( (std::string)" Error to initialize MORT structures for force field " + ff_type.label() );
+//		ires = InitMortFF();
+//		if( !ires ) throw std::runtime_error( (std::string)" Error to initialize MORT structures for force field " + ff_type.label() );
 	}
 	catch( std::exception& ex )
 	{
