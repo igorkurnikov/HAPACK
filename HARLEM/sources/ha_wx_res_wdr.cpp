@@ -81,7 +81,6 @@ wxSizer *bot_bar_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item4 = new wxBoxSizer( wxHORIZONTAL );
 
     wxStaticText *item5 = new wxStaticText( parent, ID_TEXT, wxT("Log:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item5->SetFont( wxFont( 16, wxROMAN, wxNORMAL, wxNORMAL ) );
     item4->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item6 = new wxTextCtrl( parent, IDC_LOG_WIN, wxT(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY );
@@ -139,10 +138,10 @@ wxSizer *save_mol_file_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     item10->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxString *strs12 = (wxString*) NULL;
-    wxChoice *item12 = new wxChoice( parent, IDC_FILE_TYPE, wxDefaultPosition, wxSize(250,-1), 0, strs12, 0 );
+    wxChoice *item12 = new wxChoice( parent, IDC_FILE_TYPE, wxDefaultPosition, wxDefaultSize, 0, strs12, 0 );
     item10->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item10, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxBoxSizer *item13 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -4823,8 +4822,6 @@ wxMenuBar *MainMenu()
     item1->AppendSeparator();
     item1->Append( IDM_PRINT_WX, wxT("Print"), wxT("") );
     item1->Append( IDM_SETUP_WX, wxT("Print Setup..."), wxT("") );
-    item1->AppendSeparator();
-    item1->Append( IDM_PYMOD_WX, wxT("Python Interactive"), wxT("") );
     item1->AppendSeparator();
     item1->Append( IDM_EXIT_WX, wxT("Exit"), wxT("") );
     item0->Append( item1, wxT("File") );

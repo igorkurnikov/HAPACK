@@ -685,7 +685,7 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
     EVT_MENU( IDM_PRINT_WX,           HaMainFrameWX::OnPrint )
     EVT_MENU( IDM_SETUP_WX,           HaMainFrameWX::OnSetup )
     EVT_MENU( IDM_EXIT_WX,            HaMainFrameWX::OnExit )
-    EVT_MENU( IDM_PYMOD_WX,            HaMainFrameWX::OnPyMod )//<mikola Jul 19, 2006
+//    EVT_MENU( IDM_PYMOD_WX,            HaMainFrameWX::OnPyMod )//<mikola Jul 19, 2006
 // Edit Menu
     EVT_MENU( IDM_SELECT_WX,              HaMainFrameWX::OnSelectAll )
     EVT_MENU( IDM_EDIT_ATOM_PARAM_WX,     HaMainFrameWX::DoAtomParamsDialog )
@@ -1159,7 +1159,7 @@ void HaMainFrameWX::OnPyMod(wxCommandEvent &event)
 // 
 //   wxPyMod* py_mod_dlg = new wxPyMod( this );
 //   py_mod_dlg->Show(TRUE);
-	 pApp->CreateCommandWindow();
+//	 pApp->CreateCommandWindow();
 }
 //<mikola Jul 19, 2006
 // Edit Menu

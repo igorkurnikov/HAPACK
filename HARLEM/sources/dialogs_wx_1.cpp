@@ -369,7 +369,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
      wxStaticText *item11 = new wxStaticText( this, ID_TEXT, wxT("File Type"), wxDefaultPosition, wxDefaultSize, 0 );
      item10->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
 
-     file_types_ch = new wxChoice( this, IDC_FILE_TYPE, wxDefaultPosition, wxSize(250,-1), 0, NULL, 0 );
+     file_types_ch = new wxChoice( this, IDC_FILE_TYPE, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
      item10->Add( file_types_ch, 0, wxGROW|wxALL, 5 );
 
      sizer_main_v->Add( item10, 0, wxALL, 5 );
