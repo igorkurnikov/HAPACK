@@ -2332,6 +2332,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		
 		for( chain_itr = pMol->Chains.begin(); chain_itr != pMol->Chains.end(); )
 		{
+			std::set<HaResidue*> del_res;
             for( res_itr = (*chain_itr).res_map.begin(); res_itr != (*chain_itr).res_map.end();)
 			{
                 HaResidue* pres = (*res_itr).second;
@@ -2340,12 +2341,26 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 				{
                     res_itr2 = res_itr;
                     res_itr++;
+					del_res.insert(pres);
 					delete pres;
 					(*chain_itr).res_map.erase(res_itr2);
 				}
 				else
 				{
 					res_itr++;
+				}
+			}
+			auto ritr_arr = (*chain_itr).res_arr.begin();
+			for(; ritr_arr != (*chain_itr).res_arr.end();)
+			{
+				HaResidue* pres = *ritr_arr;
+				if (del_res.count(*ritr_arr) > 0)
+				{
+					ritr_arr = (*chain_itr).res_arr.erase(ritr_arr);
+				}
+				else
+				{
+					ritr_arr++;
 				}
 			}
 			if( (*chain_itr).GetNRes() == 0 )

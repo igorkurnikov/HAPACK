@@ -210,7 +210,7 @@
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</PostBuildEventUseInBuild>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</PostBuildEventUseInBuild>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PostBuildEventUseInBuild>
-    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">
     <TargetName>_molset_d</TargetName>
@@ -231,6 +231,7 @@
     <TargetName>_molset_d</TargetName>
     <TargetExt>.pyd</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>_molset</TargetName>
@@ -429,6 +430,12 @@ set CONF="$(Configuration)_$(PlatformName)"
 $(SolutionDir)copy_dependencies.bat
 </Command>
     </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>echo "Pre-link event"</Command>
+    </PreLinkEvent>
+    <PreBuildEvent>
+      <Command>echo "Pre build event"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">
     <ClCompile>

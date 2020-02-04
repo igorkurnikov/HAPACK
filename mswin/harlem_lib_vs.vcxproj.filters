@@ -94,10 +94,6 @@
     <ClCompile Include="..\HARLEM\sources\command.cpp" />
     <ClCompile Include="..\HARLEM\sources\script.cpp" />
     <ClCompile Include="obj\Debug_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_x64\harlem_lib_vs\hamolset_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="obj\Release_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="..\HARLEM\sources\hampi.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
@@ -116,6 +112,12 @@
     <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
     <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
     <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
+    <ClCompile Include="obj\PY2_Debug_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Debug_x64\harlem_lib_vs\hamolset_wrap.cpp" />
+    <ClCompile Include="obj\Debug_x64\harlem_lib_vs\hamolset_wrap.cpp" />
+    <ClCompile Include="obj\Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Release_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />

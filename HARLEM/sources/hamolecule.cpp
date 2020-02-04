@@ -1291,7 +1291,7 @@ const HaAtom* AtomIteratorMolecule_const::GetFirstAtom()
 	for( ch_itr = pMol->Chains.begin(); ch_itr != pMol->Chains.end(); ch_itr++)
 	{
 		chain = &(*ch_itr);
-		aitr. SetForChain(chain); 
+		aitr.SetForChain(chain); 
 		aptr = aitr.GetFirstAtom();
 		if( aptr != NULL) break;
 	}
@@ -1312,7 +1312,7 @@ const HaAtom* AtomIteratorMolecule_const::GetNextAtom()
 	for(; ch_itr != pMol->Chains.end(); ch_itr++)
 	{
 		chain = &(*ch_itr);
-		aitr. SetForChain(chain); 
+		aitr.SetForChain(chain); 
 		aptr = aitr.GetFirstAtom();
 		if( aptr != NULL) break;
 	}
