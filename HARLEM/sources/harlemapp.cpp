@@ -838,15 +838,14 @@ int HarlemApp::ProcessOptions()
 //! -script or script_fname  - load script file  (set script_name string)
 //
 {
-	PrintLog("HarlemApp::ProcessOptions() pt 1");
+//	PrintLog("HarlemApp::ProcessOptions() pt 1");
 	PyObject* molset_mod = PyImport_ImportModule("from molset import *");
-	PrintLog("HarlemApp::ProcessOptions() pt 2");
 	PyObject* sys_mod = PyImport_ImportModule("sys");
 	PyObject* argv_obj = PyObject_GetAttrString(sys_mod, "argv" );
 	int check_list = PyList_Check(argv_obj);
 	Py_ssize_t argv_size = PyList_Size(argv_obj);
 
-	PrintLog(" Number of command arguments: %d ", argv_size);
+//	PrintLog(" Number of command arguments: %d ", argv_size);
 	
 	Py_ssize_t i;
 		

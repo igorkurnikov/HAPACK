@@ -48,7 +48,7 @@ else:
 #  	Main part of the script: 
 #  This is where RMS deviation values in the points of MD trajectory are computed
 
-  PointCollection_GetSuperimposeMat( atl1, atl2, rot_mat, trans_vec, p_eps)
+  PointContainer_GetSuperimposeMat( atl1, atl2, rot_mat, trans_vec, p_eps)
   rms = p_eps.value()
   print("%6.3f %9.3f " %  (t, rms), file=outf)
   t = t + 0.01        
