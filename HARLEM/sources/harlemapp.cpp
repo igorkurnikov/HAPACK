@@ -205,7 +205,7 @@ int HarlemApp::InitFirst()
 	}
 	else
 	{
-		harlem_home_dir = "/usr/local/lib/harlem/";
+		harlem_home_dir = "/usr/local/HARLEM/";
 	}
 	res_db_dir = harlem_home_dir + "residues_db/";
 	word_editor = "scite";
@@ -838,10 +838,15 @@ int HarlemApp::ProcessOptions()
 //! -script or script_fname  - load script file  (set script_name string)
 //
 {
+	PrintLog("HarlemApp::ProcessOptions() pt 1");
+	PyObject* molset_mod = PyImport_ImportModule("from molset import *");
+	PrintLog("HarlemApp::ProcessOptions() pt 2");
 	PyObject* sys_mod = PyImport_ImportModule("sys");
 	PyObject* argv_obj = PyObject_GetAttrString(sys_mod, "argv" );
 	int check_list = PyList_Check(argv_obj);
 	Py_ssize_t argv_size = PyList_Size(argv_obj);
+
+	PrintLog(" Number of command arguments: %d ", argv_size);
 	
 	Py_ssize_t i;
 		
@@ -851,6 +856,7 @@ int HarlemApp::ProcessOptions()
 		const char *arg_str = PyUnicode_AsUTF8(arg_obj);
 		std::string option = arg_str;
 		boost::trim(option);
+		PrintLog(" Arg %d = %s", i, option.c_str());
 		std::string option_next = "";
 		if ( option.empty() ) continue;
 		if ((i + 1) < argv_size)
@@ -1390,7 +1396,8 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 		strcpy(fname_var,script_fname);
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
-		int ires = PyRun_SimpleFile(finp,fname_var);
+		int ires = PyRun_SimpleString("from molset import *");
+		ires = PyRun_SimpleFile(finp,fname_var);
 		PyGILState_Release(gstate);
 		fclose(finp);
 		if( ires == 0 )
@@ -1401,7 +1408,6 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 		PrintLog("Can't find script file %s \n", script_fname);
 	}
 #endif
-	
 	return TRUE;
 }
 

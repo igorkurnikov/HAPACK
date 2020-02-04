@@ -175,14 +175,12 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 
 		if(!traj_script.empty())
 		{
+			pApp->ExecuteScriptInString("script_status = 3");
+			pApp->ExecuteScriptFromFile(traj_script.c_str());
 			pApp->ExecuteScriptInString("script_status = SCRIPT_START");
 			pApp->ExecuteScriptFromFile(traj_script.c_str());
 		}
-
 		clock_t update_time = clock();
-
-		
-
 
 		ipt_curr = 1;
 		if( npt_begin > 1 ) 

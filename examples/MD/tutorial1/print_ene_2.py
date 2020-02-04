@@ -9,7 +9,7 @@
 
 if(script_status == SCRIPT_START): #  Script initialization
   pmset = GetCurMolSet()
-  mm_mod = pmset.GetMolMechMod(1) #  Selects first molecule of the system
+  mm_mod = pmset.GetMolMechMod() #  Selects first molecule of the system
   mm_info = mm_mod.p_mm_info
   outf = open("ene_2.dat","w")
   t = 0.0 # Time variable. Starts at 0.
