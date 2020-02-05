@@ -34,8 +34,6 @@ public:
 	HarlemApp();
 	virtual ~HarlemApp();
 
-	int Python_AppInit();  //!< PYTHON initialization
-
 	int ProcessOptions();
 	int InitFirst();
 	int InitLast();

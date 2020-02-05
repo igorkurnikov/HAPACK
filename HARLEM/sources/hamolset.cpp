@@ -84,10 +84,10 @@ void SetCurMolSet(MolSet* pmset)
 	gstate = PyGILState_Ensure();
 	int ires = PyRun_SimpleString(
 		"if 'harlempy' not in dir():\n"
-		"    import harlempy.molset\n"
+		"    import molset\n"
 		"if 'molset' not in dir(harlempy):\n"
-		"    import harlempy.molset\n"
-		"mset_c = harlempy.molset.GetCurMolSet()\n"
+		"    import molset\n"
+		"mset_c = molset.GetCurMolSet()\n"
 	);
 	PyGILState_Release(gstate);
 	if(!ires) return;
