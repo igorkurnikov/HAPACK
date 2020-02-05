@@ -8,6 +8,7 @@ def start_harlem():
     """
     import wx
     import molset
+
     app = wx.App()
     molset.StartHarlemApp()
     molset.StartHaMainFrameWX()
