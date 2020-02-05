@@ -112,7 +112,6 @@
     <ClCompile Include="..\HARLEM\sources\haobject.cpp" />
     <ClCompile Include="obj\Debug_x64\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="obj\Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
-    <ClCompile Include="obj\PY2_Release_Win32\harlem_lib_vs\hamolset_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />
