@@ -6,7 +6,7 @@
     <ProjectHome>.</ProjectHome>
     <StartupFile>
     </StartupFile>
-    <SearchPath>Release_x64\molset;..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM</SearchPath>
+    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Debug_x64\molset</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
