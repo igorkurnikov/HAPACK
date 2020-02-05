@@ -670,7 +670,6 @@ int HarlemApp::ProcessOptions()
 //
 {
 //	PrintLog("HarlemApp::ProcessOptions() pt 1");
-	PyObject* molset_mod = PyImport_ImportModule("from molset import *");
 	PyObject* sys_mod = PyImport_ImportModule("sys");
 	PyObject* argv_obj = PyObject_GetAttrString(sys_mod, "argv" );
 	int check_list = PyList_Check(argv_obj);
