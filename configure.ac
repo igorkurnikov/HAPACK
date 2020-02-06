@@ -176,7 +176,7 @@ AC_ARG_WITH([mkl64],
 				MKL_INCLUDE=
 				MKL_LIBS=" "
 				BLAS_LIBS=" "
-				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl"
+				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx2  -lpthread -lm -ldl"
 
 				AC_SUBST(MKL_FLAG)
 				AC_SUBST(MKL_INCLUDE)
