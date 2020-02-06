@@ -4,10 +4,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
-    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Debug_x64\molset</SearchPath>
-    <WorkingDirectory>.</WorkingDirectory>
+    <StartupFile>..\HARLEM\harlempy\__main__.py</StartupFile>
+    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Release_x64</SearchPath>
+    <WorkingDirectory>..\examples\MD\BPTI</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
@@ -15,6 +14,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <CommandLineArguments>6PTI.pdb</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
