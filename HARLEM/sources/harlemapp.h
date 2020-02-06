@@ -40,7 +40,7 @@ public:
 	int InitParallel();   //!< Init Parallel (MPI) Environment
 	int InitXML();        //!< Init XML Processing
 	int InitRemoteComp();
-	void InitCommand();   //!< Init RASMOL and PYTHON command Processing 
+	void InitCommand();   //!< Init RASMOL command Processing 
 
 	int FinalizeXML();   //!< Finalize XML Processing
 

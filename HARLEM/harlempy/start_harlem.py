@@ -13,7 +13,6 @@ def start_harlem():
     molset.StartHarlemApp()
     molset.StartHaMainFrameWX()
     
-    import harlempy.hapygui_init
     app.MainLoop()
 
 """
