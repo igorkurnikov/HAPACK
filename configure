@@ -639,10 +639,6 @@ NVCCLIBS
 NVCCFLAGS
 NVCC
 LAPACK_LIBS
-BLAS_LIBS
-MKL_LIBS
-MKL_INCLUDE
-MKL_FLAG
 WX_RESCOMP
 WX_VERSION
 WX_LIBS_STATIC
@@ -24174,6 +24170,8 @@ if test $wxWin != 1; then
 		wxWidgets version is 3.0.1 or above" "$LINENO" 5
 fi
 
+# BLAS and LAPACK libraries
+LAPACK_LIBS="-lblas -llapack"
 ##############mkl
 
 # Check whether --with-mkl64 was given.
@@ -24183,16 +24181,9 @@ if test "${with_mkl64+set}" = set; then :
 
 				{ $as_echo "$as_me:${as_lineno-$LINENO}: Path to intel math kernel library: $with_mkl64" >&5
 $as_echo "$as_me: Path to intel math kernel library: $with_mkl64" >&6;}
-				MKL_FLAG=
-				MKL_INCLUDE=
-				MKL_LIBS=" "
-				BLAS_LIBS=" "
-				LAPACK_LIBS="-L$with_mkl64/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx2  -lpthread -lm -ldl"
-
-
-
-
-
+#				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx -lmkl_avx2  -lpthread -lm -ldl"
+#				LAPACK_LIBS=`pkg-config mkl-static-lp64-seq --libs`
+				LAPACK_LIBS=`pkg-config mkl-dynamic-lp64-seq --libs`
 
 
 else
@@ -27400,22 +27391,14 @@ $as_echo "  PLPLOTCPP_LIBS          $PLPLOTCPP_LIBS" >&6; }
 $as_echo "  PLPLOTWX_LIBS           $PLPLOTWX_LIBS" >&6; }
 
 #AC_MSG_RESULT([BLAS and LAPACK flags:])
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:   BLAS_LIBS               $BLAS_LIBS" >&5
-$as_echo "  BLAS_LIBS               $BLAS_LIBS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   LAPACK_LIBS             $LAPACK_LIBS" >&5
 $as_echo "  LAPACK_LIBS             $LAPACK_LIBS" >&6; }
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_FLAG],$MKL_FLAG))
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_INCLUDE],$MKL_INCLUDE))
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_LIBS],$MKL_LIBS))
 
 #AC_MSG_RESULT([PYTHON flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_CPPFLAGS         $PYTHON_CPPFLAGS" >&5
 $as_echo "  PYTHON_CPPFLAGS         $PYTHON_CPPFLAGS" >&6; }
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   PYTHON_LDFLAGS          $PYTHON_LDFLAGS" >&5
 $as_echo "  PYTHON_LDFLAGS          $PYTHON_LDFLAGS" >&6; }
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_SITE_PKG],$PYTHON_SITE_PKG))
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LIBS],$PYTHON_EXTRA_LIBS))
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LDFLAGS],$PYTHON_EXTRA_LDFLAGS))
 
 #AC_MSG_RESULT([wxWidgets flags:])
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:   WX_CPPFLAGS             $WX_CPPFLAGS" >&5

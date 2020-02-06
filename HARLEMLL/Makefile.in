@@ -151,8 +151,7 @@ lib_molset_la_DEPENDENCIES = $(top_builddir)/DELPHI_LIB/libdelphi.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__objects_1 = haxml.lo haobject.lo haconsts.lo tinyxmlparser.lo \
 	tinyxmlerror.lo tinyxml.lo apbsmod.lo abstree.lo \
 	atom_mapping.lo canvas3d.lo command.lo electrostmod.lo \
@@ -291,7 +290,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-BLAS_LIBS = @BLAS_LIBS@
 BOOST_INCLUDE = @BOOST_INCLUDE@
 BOOST_LIBS = @BOOST_LIBS@
 CC = @CC@
@@ -341,9 +339,6 @@ LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
-MKL_FLAG = @MKL_FLAG@
-MKL_INCLUDE = @MKL_INCLUDE@
-MKL_LIBS = @MKL_LIBS@
 MPI_INCLUDE = @MPI_INCLUDE@
 MPI_LIBS = @MPI_LIBS@
 NM = @NM@

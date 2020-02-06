@@ -165,6 +165,8 @@ if test $wxWin != 1; then
 		wxWidgets version is 3.0.1 or above])
 fi
 
+# BLAS and LAPACK libraries
+LAPACK_LIBS="-lblas -llapack"
 ##############mkl
 AC_ARG_WITH([mkl64],
 	AS_HELP_STRING([--with-mkl64=DIR],[build with 64-bit intel math kernel library, if DIR is specified will use this directory as Root Directory of mkl package]),
@@ -172,17 +174,10 @@ AC_ARG_WITH([mkl64],
 		AS_IF([test "$with_mkl" != yes],
 			[
 				AC_MSG_NOTICE([Path to intel math kernel library: $with_mkl64])
-				MKL_FLAG= 
-				MKL_INCLUDE=
-				MKL_LIBS=" "
-				BLAS_LIBS=" "
-				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_ilp64 -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx2  -lpthread -lm -ldl"
-
-				AC_SUBST(MKL_FLAG)
-				AC_SUBST(MKL_INCLUDE)
-				AC_SUBST(MKL_LIBS)
-				AC_SUBST(BLAS_LIBS)
-				AC_SUBST(LAPACK_LIBS)
+#				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx -lmkl_avx2  -lpthread -lm -ldl"
+#				LAPACK_LIBS=`pkg-config mkl-static-lp64-seq --libs`
+				LAPACK_LIBS=`pkg-config mkl-dynamic-lp64-seq --libs`
+				
 			],
 			[
 				AC_MSG_ERROR([Path to mkl64 is not specified])
@@ -190,7 +185,7 @@ AC_ARG_WITH([mkl64],
 		)
 	]
 	)
-	
+AC_SUBST(LAPACK_LIBS)
 
 ##############CUDA
 AC_ARG_WITH([cuda],
@@ -273,18 +268,11 @@ AC_MSG_RESULT(AS_HELP_STRING([PLPLOTCPP_LIBS],$PLPLOTCPP_LIBS))
 AC_MSG_RESULT(AS_HELP_STRING([PLPLOTWX_LIBS],$PLPLOTWX_LIBS))
 
 #AC_MSG_RESULT([BLAS and LAPACK flags:])
-AC_MSG_RESULT(AS_HELP_STRING([BLAS_LIBS],$BLAS_LIBS))
 AC_MSG_RESULT(AS_HELP_STRING([LAPACK_LIBS],$LAPACK_LIBS))
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_FLAG],$MKL_FLAG))
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_INCLUDE],$MKL_INCLUDE))
-#AC_MSG_RESULT(AS_HELP_STRING([MKL_LIBS],$MKL_LIBS))
 
 #AC_MSG_RESULT([PYTHON flags:])
 AC_MSG_RESULT(AS_HELP_STRING([PYTHON_CPPFLAGS],$PYTHON_CPPFLAGS))
 AC_MSG_RESULT(AS_HELP_STRING([PYTHON_LDFLAGS],$PYTHON_LDFLAGS))
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_SITE_PKG],$PYTHON_SITE_PKG))
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LIBS],$PYTHON_EXTRA_LIBS))
-#AC_MSG_RESULT(AS_HELP_STRING([PYTHON_EXTRA_LDFLAGS],$PYTHON_EXTRA_LDFLAGS))
 
 #AC_MSG_RESULT([wxWidgets flags:])
 AC_MSG_RESULT(AS_HELP_STRING([WX_CPPFLAGS],$WX_CPPFLAGS))
