@@ -9,8 +9,8 @@ sudo apt install gcc g++ python3-pip
 sudo apt install libgtk-3-dev  libwebkitgtk-dev libwebkitgtk-3.0-dev freeglut3 freeglut3-dev
 
 sudo apt install gfortran gfortran-7
-sudo apt automake
-sudo apt-get install libboost-dev libboost-all-dev
+sudo apt install automake
+sudo apt install libboost-dev libboost-all-dev
 # libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 libgmp-dev
 python3-dev
@@ -27,13 +27,6 @@ sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver )
 sudo apt install libshp-dev         ( for libplot shapelib connection )
 swig 
 -------------------------------------------------------------------------------------------
-install INTEL MKL 64-bit library  
-get  l_mkl_2019.5.281.tgz from /share/apps/HARLEM/HARLEM_UBUNTU_18.04
-gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
-cd l_mkl_2019.5.281
-./install 
-choose /share/apps/intel   for installation dir
-------------------------------------------------------------------------------------------
 #if defined(PLPLOT_VERSION_MAJOR) and (PLPLOT_VERSION_MINOR > 12)
 
 #gfortran
@@ -46,10 +39,6 @@ unpack g98.tar in ../PROG_SRC
 #cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
 #make - it will make mortlib.a   although python bidings will not be finished
 
-###MPI
-#AC_SUBST(MPI_INCLUDE,`mpicxx -showme:compile`)
-#AC_SUBST(MPI_LIBS,`mpicxx -showme:link`)
-
 HAPACK compilation commands:
 
 LINUX:
@@ -57,6 +46,17 @@ libtoolize                 --- create ltmain.sh  link   (need to delete ltmain.s
 automake --add-missing     --create compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
 
+--------------------------------------------------------------------------------------------------------------------
+NO NEED NOW as we are using standard blas and lapack on UBUNTU :
+   install INTEL MKL 64-bit library  
+   get  l_mkl_2019.5.281.tgz from /share/apps/HARLEM/HARLEM_UBUNTU_18.04
+   gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
+   cd l_mkl_2019.5.281
+   ./install 
+   choose /share/apps/intel   for installation dir
+------------------------------------------------------------------------------------------
+
+if we have the error: 
 failed to generate dependencies for the library
 able to run compilation of the shared library with:
 configure --disable-dependency-tracking
