@@ -73,14 +73,8 @@ AC_CHECK_PROGS(STRIP, strip, :)
 AC_CHECK_PROGS(WINDRES, windres, :)	
 AC_F77_LIBRARY_LDFLAGS
 
-##############Library Check
-#zlib check
-AC_CHECK_HEADERS(zlib.h,,
-	AC_MSG_ERROR([Cannot find zlib.h]))
-AC_CHECK_LIB(z, zlibVersion,,
-	AC_MSG_ERROR([Cannot find zlib]))
+#### ZLIB
 AC_SUBST(ZLIB_LIBS,['-lz -lm'])
-AC_SUBST(ZLIB_CPPFLAGS,"")
 
 ###BOOST
 AC_ARG_WITH([boostlibs],
@@ -127,9 +121,6 @@ AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplotd-c++ --libs`)
 AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplotd-wxwidgets --libs`) 
 )
 ###SWIG
-#AC_PROG_SWIG
-#SWIG_ENABLE_CXX
-#SWIG_MULTI_MODULE_SUPPORT
 AC_SUBST(SWIG,"swig")
 
 ###PYTHON
@@ -166,7 +157,8 @@ if test $wxWin != 1; then
 fi
 
 # BLAS and LAPACK libraries
-LAPACK_LIBS="-lblas -llapack"
+#LAPACK_LIBS="-lblas -llapack"
+LAPACK_LIBS="/usr/lib/x86_64-linux-gnu/liblapack.a 	/usr/lib/x86_64-linux-gnu/libblas.a"
 ##############mkl
 AC_ARG_WITH([mkl64],
 	AS_HELP_STRING([--with-mkl64=DIR],[build with 64-bit intel math kernel library, if DIR is specified will use this directory as Root Directory of mkl package]),

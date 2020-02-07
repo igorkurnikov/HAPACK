@@ -282,7 +282,6 @@ WX_LIBS_GL = @WX_LIBS_GL@
 WX_LIBS_STATIC = @WX_LIBS_STATIC@
 WX_RESCOMP = @WX_RESCOMP@
 WX_VERSION = @WX_VERSION@
-ZLIB_CPPFLAGS = @ZLIB_CPPFLAGS@
 ZLIB_LIBS = @ZLIB_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
