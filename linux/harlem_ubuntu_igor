@@ -1,4 +1,0 @@
-#!/bin/sh
-export HARLEM_HOME="/share/apps/HARLEM"
-export PYTHONPATH="/share/apps/InterX_Simulations/Python3.7:$PYTHONPATH"
-python3 -m harlempy.start_harlem 

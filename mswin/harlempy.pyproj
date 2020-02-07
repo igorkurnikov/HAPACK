@@ -26,6 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="..\HARLEM\harlempy\" />
+    <Folder Include="linux\" />
     <Folder Include="M\" />
     <Folder Include="M\harlempy\" />
   </ItemGroup>
@@ -39,6 +40,10 @@
     <Compile Include="..\HARLEM\harlempy\start_harlem.py" />
     <Compile Include="..\HARLEM\harlempy\__init__.py" />
     <Compile Include="..\HARLEM\harlempy\__main__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="linux\harlem_ubuntu.sh" />
+    <Content Include="linux\harlem_ubuntu_igor.sh" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

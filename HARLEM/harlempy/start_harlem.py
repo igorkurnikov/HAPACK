@@ -1,6 +1,7 @@
 """
 Here we define start_harlem() function that starts Harlem.
 """
+import sys
 
 def start_harlem():
     """
@@ -16,7 +17,7 @@ def start_harlem():
     app.MainLoop()
 
 """
-Launch as module, i.e. python3 -m harlempy.start_harlem
+Launch as module, i.e. python3 -m harlempy
 """
 if __name__ == "__main__":
     start_harlem()
