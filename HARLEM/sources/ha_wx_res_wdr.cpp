@@ -4195,8 +4195,13 @@ wxSizer *mm_md_anal_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item54 = new wxStaticText( parent, IDC_MM_REF_CRD_FIT_FILE_LBL, wxT("Ref Crd (Fit):"), wxDefaultPosition, wxDefaultSize, 0 );
     item53->Add( item54, 0, wxALIGN_CENTER|wxALL, 10 );
 
-    wxString *strs55 = (wxString*) NULL;
-    wxComboBox *item55 = new wxComboBox( parent, IDC_MM_REF_CRD_FIT_TYPE, wxT(""), wxDefaultPosition, wxSize(100,-1), 0, strs55, wxCB_DROPDOWN );
+    wxString strs55[] = 
+    {
+        wxT("Current Coordinates"), 
+        wxT("First Trajectory Point"), 
+        wxT("XYZ Coordinates File")
+    };
+    wxComboBox *item55 = new wxComboBox( parent, IDC_MM_REF_CRD_FIT_TYPE, wxT(""), wxDefaultPosition, wxDefaultSize, 3, strs55, wxCB_DROPDOWN );
     item53->Add( item55, 1, wxALIGN_CENTER|wxALL, 5 );
 
     item36->Add( item53, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );

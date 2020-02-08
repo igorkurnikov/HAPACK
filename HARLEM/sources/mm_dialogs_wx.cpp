@@ -324,18 +324,20 @@ void  MolMechDlgWX::OnInitDialog()
 	btn_choose_avg_coord_file     = (wxButton*) FindWindow( IDC_MM_CHOOSE_AVG_COORD_FILE ); atom_superimpose_controls.push_back(btn_choose_avg_coord_file);
 
 	combo_ref_crd_fit_type = (wxComboBox*) FindWindow( IDC_MM_REF_CRD_FIT_TYPE ); atom_superimpose_controls.push_back(combo_ref_crd_fit_type);
-	combo_ref_crd_fit_type->Append("Current Coordinates");
-	combo_ref_crd_fit_type->Append("First Trajectory Point");
-	combo_ref_crd_fit_type->Append("XYZ Coordinates File");
+//	combo_ref_crd_fit_type->Append("Current Coordinates");
+//	combo_ref_crd_fit_type->Append("First Trajectory Point");
+//	combo_ref_crd_fit_type->Append("XYZ Coordinates File");
 //	combo_ref_crd_fit_type->Append("Named Atom Group");
 	combo_ref_crd_fit_type->SetSelection(0);
+//	combo_ref_crd_fit_type->SetStringSelection("Current Coordinates");
 
 	combo_ref_crd_rmsd_type = (wxComboBox*) FindWindow( IDC_MM_REF_CRD_RMSD_TYPE ); atom_superimpose_controls.push_back(combo_ref_crd_rmsd_type);
 	combo_ref_crd_rmsd_type->Append("Current Coordinates");
 	combo_ref_crd_rmsd_type->Append("First Trajectory Point");
 	combo_ref_crd_rmsd_type->Append("XYZ Coordinates File");
 //	combo_ref_crd_rmsd_type->Append("Named Atom Group");
-	combo_ref_crd_rmsd_type->SetSelection(0);
+//	combo_ref_crd_rmsd_type->SetSelection(0);
+	combo_ref_crd_rmsd_type->SetStringSelection("Current Coordinates");
 
 	combo_restr_ref_crd_type = (wxComboBox*) FindWindow( IDC_MM_RESTR_REF_CRD_TYPE ); 
 	combo_restr_ref_crd_type->Append("Current Coordinates");
