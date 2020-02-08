@@ -178,7 +178,7 @@ FOR %%G IN (%OTHER_LIBS%) DO (
 REM ###########################################################################
 REM Copy MKL
 echo "Copying MKL Dlls"
-set MKL_LIBS=mkl_sequential.dll mkl_core.dll mkl_avk2.dll
+set MKL_LIBS=mkl_sequential.dll mkl_core.dll mkl_avx2.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
     xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molset

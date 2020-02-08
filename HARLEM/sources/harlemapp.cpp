@@ -73,11 +73,13 @@ int PrintMessage(const char* str)
 
 #endif
 
+HarlemApp* HarlemApp::m_HarlemApp = NULL;
+
 void StartHarlemApp()
 {
-	HarlemApp *m_HarlemApp = new HarlemApp();
-	m_HarlemApp->InitFirst();
-	m_HarlemApp->InitLast();
+	HarlemApp::m_HarlemApp = new HarlemApp();
+	HarlemApp::m_HarlemApp->InitFirst();
+	HarlemApp::m_HarlemApp->InitLast();
 }
 
 
@@ -122,7 +124,6 @@ HarlemApp::HarlemApp()
 	HaResidue::InitResSynonym();
 
 	mpi_driver    = NULL;
-	python_thread = NULL;
 	file_log            = NULL;
 }
 
@@ -244,14 +245,14 @@ int HarlemApp::InitFirst()
 	{
 		MolSet* pmset = new MolSet();
 		wxString fname_str = finp_name.c_str();
-		PrintLog(" input file name %s \n", fname_str.ToStdString().c_str());
+//		PrintLog(" input file name %s \n", fname_str.ToStdString().c_str());
 		wxFileName fname_obj(fname_str);
 		wxString path = fname_obj.GetPath();
-		PrintLog(" path of the input file %s \n", path.ToStdString().c_str());
+//		PrintLog(" path of the input file %s \n", path.ToStdString().c_str());
 		path = path.Strip(wxString::both);
 			 
 		wxString cur_dir = ::wxGetCwd();
-		PrintLog(" Current Working Directory %s \n",cur_dir.ToStdString().c_str());
+//		PrintLog(" Current Working Directory %s \n",cur_dir.ToStdString().c_str());
 		if(!path.IsEmpty())
 		{
 			wxFileName::SetCwd(path);
@@ -669,23 +670,19 @@ int HarlemApp::ProcessOptions()
 //! -script or script_fname  - load script file  (set script_name string)
 //
 {
-	PrintLog("HarlemApp::ProcessOptions() pt 1\n");
 	PyObject* sys_mod = PyImport_ImportModule("sys");
 	PyObject* argv_obj = PyObject_GetAttrString(sys_mod, "argv" );
 	int check_list = PyList_Check(argv_obj);
 	Py_ssize_t argv_size = PyList_Size(argv_obj);
-
-	PrintLog(" Number of command arguments: %d \n", argv_size);
 	
-	Py_ssize_t i;
-		
+	Py_ssize_t i;		
 	for(i=1; i < argv_size; i++)
 	{
 		PyObject* arg_obj = PyList_GetItem(argv_obj, i);
 		const char *arg_str = PyUnicode_AsUTF8(arg_obj);
 		std::string option = arg_str;
 		boost::trim(option);
-		PrintLog(" Arg %d = %s", i, option.c_str());
+//		PrintLog(" Arg %d = %s\n", i, option.c_str());
 		std::string option_next = "";
 		if ( option.empty() ) continue;
 		if ((i + 1) < argv_size)

@@ -868,23 +868,18 @@ void HaMainFrameWX::OnExecuteCommand( wxCommandEvent &event )
 
 void HaMainFrameWX::OnClose(wxCloseEvent& event)
 {
-	PrintLog("HaMainFrameWX::OnClose() \n");
 	if( pApp->mpi_driver->nprocs > 1 )
 	{
 		std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_HARLEM_APP, HARLEM_APP_EXIT_ID);
 	    pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
 	}
-
-	this->DestroyChildren();
+//	this->DestroyChildren();
 	this->Destroy();
-	
-
-//	if(pApp->python_thread != NULL)
-//	{
-//		((wxThread*)pApp->python_thread)->Kill();
-//		pApp->python_thread = NULL;
-//	}
-//	PrintLog("HaMainFrameWX::OnClose() pt 2 \n");
+	if (HarlemApp::m_HarlemApp)
+	{
+		delete HarlemApp::m_HarlemApp;
+		HarlemApp::m_HarlemApp = NULL;
+	}
 }
 
 // WDR: handler implementations for HaMainFrameWX
@@ -1045,28 +1040,24 @@ void HaMainFrameWX::OnSaveImageClipboard(wxCommandEvent &event)
 	}
 }
 
-void
-HaMainFrameWX::DoCompAccountsDialog(wxCommandEvent &event)
+void HaMainFrameWX::DoCompAccountsDialog(wxCommandEvent &event)
 {
 	if(CompAccountsDlg::dlg_open) return; 
 	CompAccountsDlg* ptr_comp_accounts_dlg = new CompAccountsDlg(this);
 	ptr_comp_accounts_dlg->Show(TRUE);
 }
 
-void
-HaMainFrameWX::OnInfo(wxCommandEvent &event)
+void HaMainFrameWX::OnInfo(wxCommandEvent &event)
 {
 
 }
 
-void
-HaMainFrameWX::OnFileClose(wxCommandEvent &event)
+void HaMainFrameWX::OnFileClose(wxCommandEvent &event)
 {
 	
 }
 
-void
-HaMainFrameWX::OnPrint(wxCommandEvent &event)
+void HaMainFrameWX::OnPrint(wxCommandEvent &event)
 {
 	HaMolView* pview = CurMolView;
 	if(pview == NULL) return;
@@ -1176,8 +1167,7 @@ void HaMainFrameWX::OnSelectAll(wxCommandEvent &event)
 }
 
 
-void
-HaMainFrameWX::DoAtomParamsDialog(wxCommandEvent &event)
+void HaMainFrameWX::DoAtomParamsDialog(wxCommandEvent &event)
 {
 	if(AtomParamsDlgWX::dlg_open) return;
 	MolSet* pmset = GetCurMolSet(); 

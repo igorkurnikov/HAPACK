@@ -26,7 +26,6 @@ public:
 	std::string interm_acc_ID;     //!< ID of the intermediate account
 };
 
-
 //! Class for the HARLEM application
 class HarlemApp 
 {
@@ -106,11 +105,12 @@ public:
 	std::string html_browser;      //!< Browser name
 
 	HaMPI* mpi_driver; 
-	void* python_thread;  //!< Thread for Python execution
+//	void* python_thread;  //!< Thread for Python execution
 	
 	FILE* file_log; //!< Log file 
 
 	VecPtr molset_vec;  //!< Vector of pointers to Molecular Sets in the application
+	static HarlemApp* m_HarlemApp;
 };
 
 //! HarlemApp starter for python runs
