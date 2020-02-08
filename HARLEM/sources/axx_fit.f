@@ -67,12 +67,12 @@ C
           write(*,*)' Error in fitstr: some atoms are coincide'
           write(*,*)' atom sets :'
           do i=1,nat
-            write(*,'("  ", 4I10,3x,3(F8.3,2x))')
-     &           i,x1(3*i-2),x1(3*i-1),x1(3*i)
+            write(*,'("  ", I10,3x,3(F8.3,2x))')
+     &    i,x1(3*i-2),x1(3*i-1),x1(3*i)
           enddo
              write(*,*)"  "
           do i=1,nat
-            write(*,'("  ", 4I10,3x,3(F8.3,2x))')
+            write(*,'("  ", I10,3x,3(F8.3,2x))')
      &           i,x2(3*i-2),x2(3*i-1),x2(3*i)
           enddo
           

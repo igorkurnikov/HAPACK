@@ -15,8 +15,6 @@ sudo apt install libboost-dev libboost-all-dev
 libgmp-dev
 python3-dev
 zlib1g-dev 
-# libmpich-dev   - may be this is better  - not needed ??
-# libopenmpi2    - problems with fortran
 libopenmpi-dev
 openmpi-bin
 openmpi-common

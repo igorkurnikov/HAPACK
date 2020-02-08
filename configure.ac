@@ -158,8 +158,9 @@ fi
 
 # BLAS and LAPACK libraries
 #LAPACK_LIBS="-lblas -llapack"
-AC_SUBST(LAPACK_LIBS,`pkg-config lapack-netlib --libs --static`) 
-#LAPACK_LIBS="/usr/lib/x86_64-linux-gnu/liblapack.a 	/usr/lib/x86_64-linux-gnu/libblas.a"
+#AC_SUBST(LAPACK_LIBS,`pkg-config lapack-netlib --libs --static`) 
+AC_SUBST(LAPACK_LIBS,`pkg-config lapack --libs --static`) 
+#AC_SUBST(LAPACK_LIBS,"/usr/lib/x86_64-linux-gnu/liblapack.a  /usr/lib/x86_64-linux-gnu/libblas.a")
 ##############mkl
 AC_ARG_WITH([mkl64],
 	AS_HELP_STRING([--with-mkl64=DIR],[build with 64-bit intel math kernel library, if DIR is specified will use this directory as Root Directory of mkl package]),
