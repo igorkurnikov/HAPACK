@@ -1,17 +1,13 @@
 LINUX:
 
-LINUX distribution name and ID:  
-
 UBUNTU(16.04/18.04) packages:
 
-For WXPYTHON compile:
 sudo apt install gcc g++ python3-pip
 sudo apt install libgtk-3-dev  libwebkitgtk-dev libwebkitgtk-3.0-dev freeglut3 freeglut3-dev
 
 sudo apt install gfortran gfortran-7
 sudo apt install automake
 sudo apt install libboost-dev libboost-all-dev
-# libboost-all-dev   compiled libraries installed in  /usr/lib/x86_64-linux-gnu
 libgmp-dev
 python3-dev
 zlib1g-dev 
@@ -25,25 +21,15 @@ sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver )
 sudo apt install libshp-dev         ( for libplot shapelib connection )
 swig 
 -------------------------------------------------------------------------------------------
-#if defined(PLPLOT_VERSION_MAJOR) and (PLPLOT_VERSION_MINOR > 12)
-
-#gfortran
-#link / to /export ( required for some 
-#links in /home/igor/local/bin ):!
-
 GAUSSIAN util.a: 
 unpack g98.tar in ../PROG_SRC
 ----------------------------------------------------------------------------------------------
 #cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
 #make - it will make mortlib.a   although python bidings will not be finished
 
-HAPACK compilation commands:
-
-LINUX:
 libtoolize                 --- create ltmain.sh  link   (need to delete ltmain.sh  if existed)  check! 
 automake --add-missing     --create compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
-
 --------------------------------------------------------------------------------------------------------------------
 NO NEED NOW as we are using standard blas and lapack on UBUNTU :
    install INTEL MKL 64-bit library  
