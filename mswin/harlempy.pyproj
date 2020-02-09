@@ -5,7 +5,7 @@
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>..\HARLEM\harlempy\__main__.py</StartupFile>
-    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Release_x64</SearchPath>
+    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Debug_x64</SearchPath>
     <WorkingDirectory>..\examples\MD\BPTI</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
