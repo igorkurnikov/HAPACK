@@ -1,5 +1,5 @@
 """
-Here we define start_harlem() function that starts Harlem.
+Here we define start_harlem() function that starts Harlem GUI.
 """
 import sys
 
