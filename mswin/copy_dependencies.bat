@@ -208,15 +208,9 @@ if not exist "%OutputDir%\harlempy\NUL" (
 xcopy /y /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\harlempy\
 REM ###########################################################################
 REM Copy molset(harlemll) module axxiliary python files
-echo "Copying molset module axxiliary python files"
-if not exist "%OutputDir%\molset\NUL" (
-    mkdir "%OutputDir%\molset"
-) else (
-    echo "%OutputDir%\molset already exists"
-)
+echo "Copying molset module python files"
 
 xcopy /y /d %script_path%\..\HARLEMLL\*.py %OutputDir%\molset\
-
 
 REM ###########################################################################
 REM Copy wxextra
