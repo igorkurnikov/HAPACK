@@ -27,37 +27,23 @@ unpack g98.tar in ../PROG_SRC
 #cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
 #make - it will make mortlib.a   although python bidings will not be finished
 
-libtoolize                 --- create ltmain.sh  link   (need to delete ltmain.sh  if existed)  check! 
-automake --add-missing     --create compile,missing and depcomp links  ( need to delete missing if existed ) - check!
+libtoolize                         --- creates ltmain.sh  link   ( need to delete ltmain.sh  if existed)  check! 
+automake --add-missing             --- creates compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
---------------------------------------------------------------------------------------------------------------------
-NO NEED NOW as we are using standard blas and lapack on UBUNTU :
-   install INTEL MKL 64-bit library  
-   get  l_mkl_2019.5.281.tgz from /share/apps/HARLEM/HARLEM_UBUNTU_18.04
-   gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
-   cd l_mkl_2019.5.281
-   ./install 
-   choose /share/apps/intel   for installation dir
-------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------
 if we have the error: 
 failed to generate dependencies for the library
 able to run compilation of the shared library with:
 configure --disable-dependency-tracking
 
-for UBUNTU 16.04 ( This is really ugly - need to change):
-in HAPACK/HARLEM/Makefile.am 
-change:
- -lplplotwxwidgets -lplplot -lplplotcxx
- to:
- -lplplotwxwidgetsd -lplplotd -lplplotcxxd
-
 Configure HAPACK:
 mkdir BUILD_HARLEM
 cd    BUILD HARLEM
 
-CPPFLAGS=-std=c++11 ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config --with-mkl64=/share/apps/intel/mkl
-Libraries are still not compiled automatically ( TODO ):
+../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+
+Some Libraries are not still compiled automatically ( TODO ):
 mkdir MORT_LIB
 cd MORT_LIB
 cmake ../../HAPACK/MORT_LIB/
@@ -66,10 +52,28 @@ cd .. ( BUILD_HARLEM dir )
 cd PMEMD_LIB
 make
 cd ..
--------------------------------------------------------------------------------------------------------------------
-UBUNTU 18.04:
+--------------------------------------------------------------------------------------------------------------------
+MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:
+currently we are using standard blas and lapack on UBUNTU :
 
-LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config --with-mkl64=/share/apps/intel/mkl
+   install INTEL MKL 64-bit library  
+   get  l_mkl_2019.5.281.tgz from /share/apps/HARLEM/HARLEM_UBUNTU_18.04
+   gzip -dc l_mkl_2019.5.281.tgz | tar -xvf -
+   cd l_mkl_2019.5.281
+   ./install 
+   choose /share/apps/intel   for installation dir
+
+additional flags to configure:
+--with-mkl64=/share/apps/intel/mkl
+
+-------------------------------------------------------------------------------------------------------------------
+UBUNTU 16.04 ( gcc 5.4.0 )
+
+CPPFLAGS=-std=c++11  ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+
+UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
+
+LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
 
 ---------------------------------------------------------------------------------------------------------------
 PLPLOT compilation ( if versions coming with LINUX are not working: )
@@ -111,23 +115,6 @@ c-make-run.sh:MPI_LINK_FLAGS=$(mpicxx --showme:link)
 swig build configure params:
 configure --prefix ${HOME}/local --without-prse 
 ----------------------------------------------------------------------------------
-wxWidgets 2.8.10 flags:
-
-make install --ignore  ( pass some errors during install)
-
-with intel c++ 13 and python 2.7 needed to 
-#include <cstddef>  to pnpmod_wrap.cpp,  hamolset_wrap.cpp and 
-to resolve ptrdiff_t type
-
-plugged 
- 
-%begin %{
-#include <mpi.h>  
-#include <cstddef>  
-%}
-
-into hamolset.i file and halib.i file   I hope it fixed the issue
---------------------------------------------------------------------------------------------
 wxWidgets config on linux - now part of wxPython setup 
 had to comment a couple of asserts in sizer.cpp 
 
@@ -197,7 +184,6 @@ conda install -c conda-forge python-magic
 make wheel file:
 python3 build.py bdist_wheel  
 
-
 ----------------------------------------------------------------------------------------------------------
 Get Autotools ( and other progs: )
 curl -L -O http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
@@ -228,7 +214,6 @@ in Phoenix\wscript
 #            msvc_version = '14.0'              --  comment this line
              msvc_version = '16.2'              --  add this line to compile with Visual Studio 2019 cl compiler (16.2) ....  or 14.22.27905  - not sure on versions
 			                                          
-
 
 Unzip: Phoenix_09_18_DOX_ETG_SIP.tar
 cd Phoenix
