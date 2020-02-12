@@ -169,8 +169,9 @@ AC_ARG_WITH([mkl64],
 			[
 				AC_MSG_NOTICE([Path to intel math kernel library: $with_mkl64])
 #				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_sequential -lmkl_core -lmkl_def -lmkl_avx -lmkl_avx2  -lpthread -lm -ldl"
+				LAPACK_LIBS="-L[$with_mkl64]/lib/intel64 -Wl,--no-as-needed -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_sequential -lgomp -lmkl_core   -lpthread -lm -ldl"
 #				LAPACK_LIBS=`pkg-config mkl-static-lp64-seq --libs`
-				LAPACK_LIBS=`pkg-config mkl-dynamic-lp64-seq --libs`
+#				LAPACK_LIBS=`pkg-config mkl-dynamic-lp64-seq --libs`
 				
 			],
 			[
