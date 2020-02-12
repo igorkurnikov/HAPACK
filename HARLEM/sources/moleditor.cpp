@@ -3161,6 +3161,7 @@ int MolEditor::Solvate(MolSet* pmset)
 	MolSet* solvent = new MolSet();
 	solvent->LoadHarlemFile(solv_fname.c_str());
 
+
     if( !solvent->per_bc->IsSet() )
 	{
 		PrintLog("MolEditor::Solvate() \n");
@@ -3279,8 +3280,7 @@ int MolEditor::Solvate(MolSet* pmset)
 
 	pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
 
-    delete solvent;
-	fclose(solv_file);
+        delete solvent;
 
 	HaMolView* pview = pmset->GetActiveMolView();
 	if(pview)
