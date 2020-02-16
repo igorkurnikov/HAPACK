@@ -3138,6 +3138,8 @@ MolEditor::CenterAtOriginWithRad(AtomContainer* pat_cont)
 
 int MolEditor::Solvate(MolSet* pmset)
 {
+	MolSet* cur_mol_set = GetCurMolSet();
+
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
 	std::string solv_fname = pApp->res_db_dir + solv_name + ".hlm";
 	FILE* solv_file = fopen(solv_fname.c_str(),"r");
@@ -3279,8 +3281,7 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 
 	pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
-
-        delete solvent;
+    delete solvent;
 
 	HaMolView* pview = pmset->GetActiveMolView();
 	if(pview)
@@ -3289,6 +3290,8 @@ int MolEditor::Solvate(MolSet* pmset)
 	    pview->DefaultRepresentation();
 	}
 	pmset->RefreshAllViews( RFRefresh | RFColour | RFApply );	
+
+	SetCurMolSet(cur_mol_set);
 
 	return TRUE;
 }

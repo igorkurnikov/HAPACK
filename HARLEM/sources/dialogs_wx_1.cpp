@@ -1053,8 +1053,7 @@ void SolvateDlgWX::OnInitDialog(wxInitDialogEvent& event)
 	event.Skip();
 }
 
-bool
-SolvateDlgWX::TransferDataToWindow()
+bool SolvateDlgWX::TransferDataToWindow()
 {	
 	return wxDialog::TransferDataToWindow();
 }

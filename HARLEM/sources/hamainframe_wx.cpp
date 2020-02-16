@@ -2078,8 +2078,7 @@ HaMainFrameWX::OnCalcPolarContrF(wxCommandEvent &event)
 	HaTests::calc_polar_contr_f();
 }
 
-void
-HaMainFrameWX::OnReadPolarContr(wxCommandEvent &event)
+void HaMainFrameWX::OnReadPolarContr(wxCommandEvent &event)
 {
 	HaTests::read_polar_contr();
 }
@@ -2101,6 +2100,7 @@ void HaMainFrameWX::DoMolMechDialog(wxCommandEvent &event)
     if( MolMechDlgWX::dlg_open) return;
 	
     MolSet* pmset = GetCurMolSet();
+
 	if(pmset != NULL)
 	{
 	   HaMolMechMod* ptr_mm_mod = pmset->GetMolMechMod(true);

@@ -540,7 +540,7 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item30 = new wxStaticText( parent, ID_TEXT, wxT("force constant:"), wxDefaultPosition, wxDefaultSize, 0 );
     item29->Add( item30, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item31 = new wxTextCtrl( parent, IDC_MM_FCONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    wxTextCtrl *item31 = new wxTextCtrl( parent, IDC_MM_FCONST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item29->Add( item31, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item32 = new wxStaticText( parent, IDC_FF_UNIT_LABEL, wxT("(kcal/A^2)"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -553,7 +553,7 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item34 = new wxStaticText( parent, ID_TEXT, wxT("Eq dist (angle)"), wxDefaultPosition, wxDefaultSize, 0 );
     item33->Add( item34, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item35 = new wxTextCtrl( parent, IDC_MM_EQ_DIST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    wxTextCtrl *item35 = new wxTextCtrl( parent, IDC_MM_EQ_DIST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item33->Add( item35, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item36 = new wxStaticText( parent, ID_TEXT, wxT("Ang"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -566,7 +566,7 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item38 = new wxStaticText( parent, ID_TEXT, wxT("Curr Dist(Angle):"), wxDefaultPosition, wxDefaultSize, 0 );
     item37->Add( item38, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_MM_CUR_DIST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_MM_CUR_DIST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item37->Add( item39, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item40 = new wxStaticText( parent, ID_TEXT, wxT("Ang"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -587,7 +587,7 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
         wxT("FROM RES TEMPL"), 
         wxT("SPECIAL VALUE")
     };
-    wxComboBox *item43 = new wxComboBox( parent, IDC_MM_SET_TYPE, wxT(""), wxDefaultPosition, wxSize(120,-1), 5, strs43, wxCB_DROPDOWN );
+    wxComboBox *item43 = new wxComboBox( parent, IDC_MM_SET_TYPE, wxT(""), wxDefaultPosition, wxDefaultSize, 5, strs43, wxCB_DROPDOWN );
     item41->Add( item43, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item27->Add( item41, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
@@ -602,16 +602,16 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
         wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
     item44->Add( item45, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item46 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_1, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item46 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_1, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item44->Add( item46, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_2, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_2, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item44->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item48 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_3, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item48 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_3, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item44->Add( item48, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item49 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_4, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item49 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_4, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item44->Add( item49, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item12->Add( item44, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL|wxSHAPED, 5 );
