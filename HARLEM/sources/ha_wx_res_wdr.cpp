@@ -837,11 +837,11 @@ wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item50 = new wxBoxSizer( wxHORIZONTAL );
 
     wxStaticText *item51 = new wxStaticText( parent, ID_TEXT, wxT("SHAKE Bond Constraints:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item50->Add( item51, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item50->Add( item51, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxString *strs52 = (wxString*) NULL;
     wxComboBox *item52 = new wxComboBox( parent, IDC_MM_SHAKE_METHOD, wxT(""), wxDefaultPosition, wxDefaultSize, 0, strs52, wxCB_DROPDOWN );
-    item50->Add( item52, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item50->Add( item52, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item25->Add( item50, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
@@ -929,10 +929,10 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item20 = new wxBoxSizer( wxHORIZONTAL );
 
     wxStaticText *item21 = new wxStaticText( parent, ID_TEXT_MIN_TYPE, wxT("Minimization Type:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item20->Add( item21, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item20->Add( item21, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxString *strs22 = (wxString*) NULL;
-    wxChoice *item22 = new wxChoice( parent, IDC_MM_MIN_TYPE, wxDefaultPosition, wxSize(180,-1), 0, strs22, 0 );
+    wxChoice *item22 = new wxChoice( parent, IDC_MM_MIN_TYPE, wxDefaultPosition, wxDefaultSize, 0, strs22, 0 );
     item20->Add( item22, 0, wxALIGN_CENTER|wxALL, 0 );
 
     item18->Add( item20, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -1094,9 +1094,9 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     item18->Add( item65, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    item1->Add( item18, 0, wxALIGN_CENTER|wxALL, 5 );
+    item1->Add( item18, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item1, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxBoxSizer *item67 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -1139,7 +1139,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxButton *item79 = new wxButton( parent, IDC_MM_LOAD_LOG_FILE, wxT("Log File"), wxDefaultPosition, wxDefaultSize, 0 );
     item75->Add( item79, 1, wxALIGN_CENTER|wxALL, 0 );
 
-    wxTextCtrl *item80 = new wxTextCtrl( parent, IDC_MM_PRINT_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item80 = new wxTextCtrl( parent, IDC_MM_PRINT_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item75->Add( item80, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item68->Add( item75, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -1158,7 +1158,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxButton *item85 = new wxButton( parent, IDC_MM_CHOOSE_MDCRD_FILE, wxT("Coordinates"), wxDefaultPosition, wxDefaultSize, 0 );
     item81->Add( item85, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item86 = new wxTextCtrl( parent, IDC_MM_WRT_COORD_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item86 = new wxTextCtrl( parent, IDC_MM_WRT_COORD_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item81->Add( item86, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item68->Add( item81, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -1177,7 +1177,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxButton *item91 = new wxButton( parent, IDC_MM_CHOOSE_MDVEL_FILE, wxT("Velocities"), wxDefaultPosition, wxDefaultSize, 0 );
     item87->Add( item91, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item92 = new wxTextCtrl( parent, IDC_MM_WRT_VEL_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item92 = new wxTextCtrl( parent, IDC_MM_WRT_VEL_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item87->Add( item92, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item68->Add( item87, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -1196,7 +1196,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxButton *item97 = new wxButton( parent, IDC_MM_CHOOSE_MDENE_FILE, wxT("Energy"), wxDefaultPosition, wxDefaultSize, 0 );
     item93->Add( item97, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item98 = new wxTextCtrl( parent, IDC_MM_WRT_ENER_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item98 = new wxTextCtrl( parent, IDC_MM_WRT_ENER_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item93->Add( item98, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item68->Add( item93, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -1215,7 +1215,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxButton *item103 = new wxButton( parent, IDC_MM_EDIT_AMBER_RST, wxT("Restart File"), wxDefaultPosition, wxDefaultSize, 0 );
     item99->Add( item103, 1, wxALIGN_CENTER|wxALL, 0 );
 
-    wxTextCtrl *item104 = new wxTextCtrl( parent, IDC_MM_WRT_RSTRT_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    wxTextCtrl *item104 = new wxTextCtrl( parent, IDC_MM_WRT_RSTRT_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
     item99->Add( item104, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item68->Add( item99, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );

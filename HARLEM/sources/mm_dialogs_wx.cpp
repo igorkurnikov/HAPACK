@@ -788,6 +788,8 @@ void MolMechDlgWX::TransferRunTypeDataToWindow()
 		{
 	//		ene_min_controls[ic]->Enable();
 			ene_min_controls[ic]->Show(true);
+			HaEnumValidator* pval = dynamic_cast<HaEnumValidator*>(ene_min_controls[ic]->GetValidator());
+			if (pval) pval->UpdateItems();
 		}
 	}
 	else if( ptr_mm_mod->run_type == ptr_mm_mod->run_type.ENER_RUN )
@@ -897,8 +899,8 @@ void MolMechDlgWX::TransferAtomSuperimposeDataToWindow()
 		txt_fit_atoms->SetValue("");
 		txt_rmsd_atoms->SetValue("");
 		txt_rmsd_file_name->SetValue("");
-		combo_ref_crd_fit_type->SetValue("");
-		combo_ref_crd_rmsd_type->SetValue("");
+		combo_ref_crd_fit_type->SetSelection(0);
+		combo_ref_crd_rmsd_type->SetSelection(0);
 		txt_rmsd_per_atom_file->SetValue("");
 		txt_rmsf_per_atom_file->SetValue("");
 		txt_ref_crd_fit_fname->SetValue("");
