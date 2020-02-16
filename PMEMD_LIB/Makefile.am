@@ -1,17 +1,17 @@
 noinst_LIBRARIES = libpmemd.a
+
 if WITH_GFORTRAN
-AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -I/opt/mpich/include/f90base  -fPIC
+#AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -I/opt/mpich/include/f90base  -fPIC
+AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -fPIC
 else
-AM_FCFLAGS = -fpe0  -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE)   -fPIC
+AM_FCFLAGS = -fpe0  -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE)  -fPIC
 endif
 
-AM_CPPFLAGS = -fPIC \
-              -I$(top_srcdir)/PMEMD_LIB/src -I/opt/intel/mkl/10.0.1.014/include 
+AM_CPPFLAGS = -fPIC -I$(top_srcdir)/PMEMD_LIB/src 
 
 VPATH = $(top_srcdir)/PMEMD_LIB/src
 
 CLEANFILES = *.i *.mod
-
 
 libpmemd_a_SOURCES =   alltasks_setup.F90 amoeba_adjust.F90 amoeba_bonds.F90 \
         amoeba_direct.F90 amoeba_flags.F90 amoeba_force.F90 amoeba_induced.F90 \

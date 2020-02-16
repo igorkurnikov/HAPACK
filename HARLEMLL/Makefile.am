@@ -32,9 +32,9 @@ lib_molset_la_LIBADD = \
  $(top_srcdir)/libs/linux/x64/qcutil.a \
  $(top_builddir)/MORT_LIB/libmort.a 
 
-if WITH_LIB_PMEMD
+#if WITH_LIB_PMEMD
 lib_molset_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
-endif
+#endif
 
 if WITH_CUDA
 lib_molset_la_LIBADD += $(NVCCLIBS)
