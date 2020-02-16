@@ -88,7 +88,7 @@ BEGIN_EVENT_TABLE(MolMechDlgWX,wxFrame)
 	EVT_BUTTON(IDC_MM_CHOOSE_RESTRAINED_ATOMS, MolMechDlgWX::ChooseRestrainedAtoms)
 	EVT_BUTTON(IDC_MM_CHOOSE_MOVING_ATOMS,     MolMechDlgWX::ChooseMovingAtoms)
 	EVT_BUTTON(IDC_MM_CHOOSE_RESTR_REF_CRD,  MolMechDlgWX::ChooseRestrRefCrd)
-	EVT_BUTTON(IDC_MM_LOAD_HARM_CONSTR_FILE,  MolMechDlgWX::LoadAtomAtomConstrFile)
+	EVT_BUTTON(IDC_MM_LOAD_HARM_CONSTR_FILE,  MolMechDlgWX::LoadAtomAtomRestrFile)
 	EVT_BUTTON(IDC_SAVE_EXT_PROG_INP, MolMechDlgWX::OnSaveExtProgInp)
 	EVT_BUTTON(IDC_MM_RUN_CALC, MolMechDlgWX::OnRunMMCalc)
 	EVT_BUTTON(IDC_AMBER_LOAD_RESTART, MolMechDlgWX::OnAmberLoadRestart)
@@ -595,6 +595,10 @@ void MolMechDlgWX::OnChoiceRunType(wxCommandEvent& event)
 	wxString str = choice_ctrl_run_type->GetStringSelection();
 	ptr_mm_mod->run_type.SetWithLabel(str.c_str());
 	TransferRunTypeDataToWindow();
+	TransferDataToWindow();
+	wxNotebook* noteb = (wxNotebook*)FindWindow(ID_MM_DLG);
+	wxWindow* cur_page = noteb->GetCurrentPage();
+	cur_page->Fit();
 }
 
 void MolMechDlgWX::ChooseMovingAtoms(wxCommandEvent& event)
@@ -720,14 +724,14 @@ void MolMechDlgWX::ChooseRestrRefCrd(wxCommandEvent& event)
 	this->Raise();
 }
 
-void MolMechDlgWX::LoadAtomAtomConstrFile(wxCommandEvent& event)
+void MolMechDlgWX::LoadAtomAtomRestrFile(wxCommandEvent& event)
 {
-	PrintLog(" MolMechDlgWX::LoadAtomAtomConstrFile() \n");
+	PrintLog(" MolMechDlgWX::LoadAtomAtomRestraintFile() \n");
 	MolMechModel* p_mm_model = ptr_mm_mod->p_mm_model;
 	if(!p_mm_model) return;
 
-	wxString fname_inp = ::wxFileSelector("Select Atom-Atom Distance Constraints File",
-		                 ::wxGetCwd(),txt_ref_crd_fit_fname->GetValue(),"Atom-Atom Distance Constraints File","*.dat");
+	wxString fname_inp = ::wxFileSelector("Select Atom-Atom Distance Restraint File",
+		                 ::wxGetCwd(),txt_ref_crd_fit_fname->GetValue(),"Atom-Atom Distance Restraint File","*.dat");
 	
 	p_mm_model->SetDistConstrFromFile(fname_inp.c_str());
 	TransferDataToWindow();

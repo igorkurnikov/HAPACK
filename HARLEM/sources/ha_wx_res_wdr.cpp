@@ -806,10 +806,10 @@ wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxBoxSizer *item41 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxButton *item42 = new wxButton( parent, IDC_MM_LOAD_HARM_CONSTR_FILE, wxT("Load Distance Constraints File"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item42 = new wxButton( parent, IDC_MM_LOAD_HARM_CONSTR_FILE, wxT("Load Distance Restraints File"), wxDefaultPosition, wxDefaultSize, 0 );
     item41->Add( item42, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxStaticText *item43 = new wxStaticText( parent, ID_TEXT, wxT("Num Constraints:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item43 = new wxStaticText( parent, ID_TEXT, wxT("Num Restriants:"), wxDefaultPosition, wxDefaultSize, 0 );
     item41->Add( item43, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item44 = new wxTextCtrl( parent, IDC_MM_NUM_HARM_CONSTR, wxT(""), wxDefaultPosition, wxSize(80,-1), wxTE_READONLY );
@@ -817,12 +817,12 @@ wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     item25->Add( item41, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item45 = new wxButton( parent, IDC_CONSTRAIN_SETHBOND, wxT("Set H-Bonds of Selected Atoms as Constraints"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item45 = new wxButton( parent, IDC_CONSTRAIN_SETHBOND, wxT("Set H-Bonds of Selected Atoms as Restriants"), wxDefaultPosition, wxDefaultSize, 0 );
     item25->Add( item45, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxBoxSizer *item46 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item47 = new wxStaticText( parent, ID_TEXT, wxT("Constraints Force Constant:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item47 = new wxStaticText( parent, ID_TEXT, wxT("Restraints Force Constant:"), wxDefaultPosition, wxDefaultSize, 0 );
     item46->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item48 = new wxTextCtrl( parent, IDC_CONSTRAIN_FRCCONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
@@ -1032,7 +1032,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxString *strs52 = (wxString*) NULL;
     wxChoice *item52 = new wxChoice( parent, IDC_MM_INIT_READ_COORD, wxDefaultPosition, wxDefaultSize, 0, strs52, 0 );
-    item50->Add( item52, 1, wxALIGN_CENTER|wxALL, 5 );
+    item50->Add( item52, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item53 = new wxStaticText( parent, ID_TEXT_START_VEL_METH, wxT("Start velocity method:"), wxDefaultPosition, wxDefaultSize, 0 );
     item50->Add( item53, 0, wxALIGN_CENTER|wxALL, 10 );
@@ -1041,7 +1041,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxChoice *item54 = new wxChoice( parent, IDC_MM_START_VEL_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs54, 0 );
     item50->Add( item54, 0, wxALIGN_CENTER|wxALL, 0 );
 
-    item18->Add( item50, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    item18->Add( item50, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     wxBoxSizer *item55 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -1082,8 +1082,8 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
         wxT("Synchronous Scaling X,Z Independent Y"), 
         wxT("Synchronous Scaling =Y,Z Independent X")
     };
-    wxChoice *item64 = new wxChoice( parent, IDC_MM_PRESSURE_REG_METHOD, wxDefaultPosition, wxSize(150,-1), 7, strs64, 0 );
-    item60->Add( item64, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxChoice *item64 = new wxChoice( parent, IDC_MM_PRESSURE_REG_METHOD, wxDefaultPosition, wxDefaultSize, 7, strs64, 0 );
+    item60->Add( item64, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item18->Add( item60, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
@@ -1184,7 +1184,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxBoxSizer *item93 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item94 = new wxStaticText( parent, ID_TEXT, wxT("Constr file:      "), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item94 = new wxStaticText( parent, ID_TEXT, wxT("Restraints file:      "), wxDefaultPosition, wxDefaultSize, 0 );
     item93->Add( item94, 1, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item95 = new wxTextCtrl( parent, IDC_MM_CONSTR_CRD_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );

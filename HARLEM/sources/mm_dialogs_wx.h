@@ -66,7 +66,7 @@ protected:
 	void OnChooseConstrTrajFile(wxCommandEvent& event);
 	void OnMMStop(wxCommandEvent& event);
 	void ChooseRestrRefCrd(wxCommandEvent& event);
-	void LoadAtomAtomConstrFile(wxCommandEvent& event);
+	void LoadAtomAtomRestrFile(wxCommandEvent& event);
 	void OnPlaybackTrj(wxCommandEvent& event);
 	void OnIndexTrj(wxCommandEvent& event);
 	void OnSetCurrPt(wxCommandEvent& event);
