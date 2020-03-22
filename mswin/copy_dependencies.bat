@@ -77,7 +77,8 @@ if "%IS_DEBUG%" == "Y" (
     xcopy /y /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
 REM	runas /user:administrator mklink /D %OutputDir%\Lib %PYTHON_HOME_PATH%\Lib
     
-    xcopy /y /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python3_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python37_d.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
 REM	runas /user:administrator mklink %OutputDir%\python%PYTHON_MAJOR_VERSION%?_d.dll %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll
 REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\python_d.exe
@@ -89,7 +90,8 @@ REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\
     
     xcopy /y  /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
     
-    xcopy /y  /d %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python3.dll %OutputDir%
+	xcopy /y /d %PYTHON_BIN_PATH%\python37.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
 )
 xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
@@ -210,7 +212,7 @@ REM ###########################################################################
 REM Copy molset(harlemll) module axxiliary python files
 echo "Copying molset module python files"
 
-xcopy /y /d %script_path%\..\HARLEMLL\*.py %OutputDir%\molset\
+xcopy /y /d %script_path%\..\HARLEM\molset\*.py %OutputDir%\molset\
 
 REM ###########################################################################
 REM Copy wxextra

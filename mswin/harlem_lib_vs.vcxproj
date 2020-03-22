@@ -970,6 +970,8 @@ copy $(IntDir)molset.py $(OutputPath)
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <None Include="clean.bat" />
+    <None Include="copy_dependencies.bat" />
     <None Include="Debug\HARLEM\molset.py" />
     <None Include="Release\HARLEM\molset.py" />
     <None Include="..\doc\DEVELOP_NOTES\amoeba_func.txt" />

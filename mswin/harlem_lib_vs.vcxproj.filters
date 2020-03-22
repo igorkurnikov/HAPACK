@@ -282,6 +282,8 @@
     <None Include="..\HARLEM\harlempy\molset.py">
       <Filter>python</Filter>
     </None>
+    <None Include="clean.bat" />
+    <None Include="copy_dependencies.bat" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="python">

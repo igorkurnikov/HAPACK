@@ -10,7 +10,7 @@
    Version 2.6
 
    \author Igor Kurnikov
-   \date 1997-2002
+   \date 1997-2002  
 
 */
 #include "haconst.h"
