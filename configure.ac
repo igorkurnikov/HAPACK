@@ -156,7 +156,8 @@ fi
 # BLAS and LAPACK libraries
 #LAPACK_LIBS="-lblas -llapack"
 #AC_SUBST(LAPACK_LIBS,`pkg-config lapack-netlib --libs --static`) 
-AC_SUBST(LAPACK_LIBS,`pkg-config lapack --libs --static`) 
+#AC_SUBST(LAPACK_LIBS,`pkg-config lapack --libs --static`) 
+AC_SUBST(LAPACK_LIBS,`pkg-config openblas --libs --static`) 
 #AC_SUBST(LAPACK_LIBS,"/usr/lib/x86_64-linux-gnu/liblapack.a  /usr/lib/x86_64-linux-gnu/libblas.a")
 ##############mkl
 AC_ARG_WITH([mkl64],

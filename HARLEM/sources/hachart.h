@@ -10,7 +10,8 @@
 #define HACHART_H
 
 
-#define WITH_PLPLOT 1 
+//#define WITH_PLPLOT 1 
+#define WITH_PLPLOT 0 
 #if(_DEBUG)
 #define WITH_PLPLOT 0
 #endif
