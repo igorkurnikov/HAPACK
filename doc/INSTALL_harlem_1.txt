@@ -27,7 +27,7 @@ unpack g98.tar in ../PROG_SRC
 #cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
 #make - it will make mortlib.a   although python bidings will not be finished
 
-libtoolize                         --- creates ltmain.sh  link   ( need to delete ltmain.sh  if existed)  check! 
+libtoolize --force                 --- creates ltmain.sh link and files in ./config    need to delete ltmain.sh  if existed)  check! 
 automake --add-missing             --- creates compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
 
@@ -74,7 +74,6 @@ CPPFLAGS=-std=c++11  ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-c
 UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
 
 LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
-
 ---------------------------------------------------------------------------------------------------------------
 PLPLOT compilation ( if versions coming with LINUX are not working: )
 cmake -DCMAKE_INSTALL_PREFIX=/home/kurnikov/local_GCC_7_4/ -DTEST_DYNDRIVERS=OFF ..
@@ -90,8 +89,13 @@ LINUX NOGUI (IGOR CMU):
 
 ../HAPACK/configure --prefix /home/igor/HARLEM --with-wx-config=/home/igor/local/bin/wx-config --with-mpich=/usr/lib/mpich2 --with-mkl64=/opt/intel/mkl
 
-LINUX NOGUI (INTERX cluster):
-../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/share/apps/local/bin/wx-config --with-mpich=/opt/openmpi/ --with-mkl64=/share/apps/MOLPROLIBS/mkl
+LINUX INTERX cluster02 GCC 4.8.5 - 05/22/2020:
+Install OpenBLAS:
+cd /home/kurnikov/PROG_SRC/OpenBLAS
+make
+make PREFIX=/home/kurnikov/local install
+
+CXXFLAGS=-std=c++11 ../HAPACK/configure --with-wx-config=/home/kurnikov/PROG_SRC/wxPython-4.1.0_GCC_4.8/build/wxbld/gtk3/wx-config
 
 wxWidgets libraries on INTERX cluster:
 
@@ -194,7 +198,6 @@ Windows:
 python -m pip install requests
 
 In C:\Python37_64\Lib\distutils>
-or C:\Python37_32\Lib\distutils>
 
 edit: msvc9compiler.py 
 substitute: 

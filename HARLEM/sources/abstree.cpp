@@ -2,16 +2,16 @@
 
    classes for logical expression evaluation
  
-   derived from: 
- 
-   abstree.c
-   RasMol2 Molecular Graphics
-   Roger Sayle, August 1995
-   Version 2.6
+   derived from:    
+   
+   abstree.c    
+   RasMol2 Molecular Graphics   
+   Roger Sayle, August 1995  
+   Version 2.6   
 
    \author Igor Kurnikov
    \date 1997-2002  
-
+    
 */
 #include "haconst.h"
 

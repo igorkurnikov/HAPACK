@@ -392,14 +392,24 @@ void HaMolView::DisplayWireframe()
 				{   
 					sc = s->col;  dc = d->col;
 				} 
-				else 
+				else
+				{
 					sc = dc = bptr->col;
+				}
 
 //				PrintLog("Draw bond with color idx %d-%d \n",sc, dc);
 				
 				if( bptr->flag&WireFlag )
 				{   
 					pCanv->ClipTwinVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
+					if (bptr->IsDouble())
+					{
+						pCanv->ClipTwinVector(s->x + 3, s->y + 3 , s->z +3 , d->x + 3, d->y + 3, d->z + 3, sc, dc);
+					}
+					else if ( bptr->IsAromatic() )
+					{
+						pCanv->ClipDashVector(s->x + 3, s->y + 3, s->z + 3, d->x + 3, d->y + 3, d->z + 3, sc, dc);
+					}
 				} 
 				else if( bptr->flag&CylinderFlag )
 				{   
@@ -413,7 +423,9 @@ void HaMolView::DisplayWireframe()
 						sc,dc);
 				} 
 				else /* bptr->flag & DashFlag */
-					pCanv->ClipDashVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
+				{
+					pCanv->ClipDashVector(s->x, s->y, s->z, d->x, d->y, d->z, sc, dc);
+				}
 			}
 		}
 

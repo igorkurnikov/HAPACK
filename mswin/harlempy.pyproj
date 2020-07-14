@@ -27,6 +27,8 @@
   <ItemGroup>
     <Folder Include="..\HARLEM\harlempy\" />
     <Folder Include="linux\" />
+    <Folder Include="M\" />
+    <Folder Include="M\harlempy\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />

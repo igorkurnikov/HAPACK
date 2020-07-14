@@ -455,13 +455,13 @@ subroutine pme_force(atm_cnt, crd, saved_crd, box, saved_box, vel, frc, mass, im
   
 !  write(36,*) " Hello I am in pme_force  pt 2"
                      
-  write(iunit_debug,*) "pme_force: "
-  write(iunit_debug,*) "pot_ene%elec_dir = ", pot_ene%elec_dir
-  write(iunit_debug,*) "pot_ene%elec_recip = ", pot_ene%elec_recip
-  write(iunit_debug,*) "pot_ene%elec_nb_adjust = ", pot_ene%elec_nb_adjust
-  write(iunit_debug,*) "pot_ene%elec_self = ", pot_ene%elec_self
-  write(iunit_debug,*) "pot_ene%elec_tot = ", pot_ene%elec_tot
-  write(iunit_debug,*) "  "
+!  write(iunit_debug,*) "pme_force: "
+!  write(iunit_debug,*) "pot_ene%elec_dir = ", pot_ene%elec_dir
+!  write(iunit_debug,*) "pot_ene%elec_recip = ", pot_ene%elec_recip
+!  write(iunit_debug,*) "pot_ene%elec_nb_adjust = ", pot_ene%elec_nb_adjust
+!  write(iunit_debug,*) "pot_ene%elec_self = ", pot_ene%elec_self
+!  write(iunit_debug,*) "pot_ene%elec_tot = ", pot_ene%elec_tot
+!  write(iunit_debug,*) "  "
 
   call get_atm_rel_crd(my_mol_cnt, gbl_mol_atms, gbl_mol_com, crd, &
                          atm_rel_crd, gbl_my_mol_lst)

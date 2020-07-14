@@ -68,7 +68,6 @@ if not exist "%OutputDir%\Lib\NUL" (
     echo "%OutputDir%\Lib already exists"
 )
 
-
 if "%IS_DEBUG%" == "Y" (
     echo "Copying Debug Version of Python"
     xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
@@ -96,6 +95,11 @@ REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\
 )
 xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
 xcopy /y /d %PYTHON_DLLS_PATH%\*.ico %OutputDir%\DLLs
+
+REM echo "Linking PYTHON Directories"
+REM I did not figured out how to link Python libraries not to copy
+REM powershell -Command '& {new-item -itemtype symboliclink -path %OutputDir% -name DLLs2 -value C:\MYPROG\Python37\x64\DLLs ; }'
+REM powershell -Command "new-item -itemtype symboliclink -path %OutputDir% -name DLLs2 -value C:\MYPROG\Python37\x64\DLLs"
 
 REM ###########################################################################
 REM Copy Things from VCPKG
@@ -223,4 +227,5 @@ if not exist "%OutputDir%\wxextra\NUL" (
 )
 
 xcopy /y /d %script_path%\..\PNPS\wxextra\* %OutputDir%\wxextra\
+
 

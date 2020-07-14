@@ -637,6 +637,8 @@ set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 set CONF="$(Configuration)_$(PlatformName)"
 
 $(SolutionDir)copy_dependencies.bat
+$(SolutionDir)link_python_libs.bat
+
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
