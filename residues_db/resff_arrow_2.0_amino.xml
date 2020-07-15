@@ -442,7 +442,7 @@
 </improper_dihedrals>
 </resff>
 <resff rname="PRO" ffname="ARROW_2.0" >
-  <atomff  name="N" ff_type="NDAM" chg="0.0" >  </atomff>
+  <atomff  name="N" ff_type="NDMA" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
@@ -483,7 +483,7 @@
 </improper_dihedrals>
 </resff>
 <resff rname="PRO#CT" ffname="ARROW_2.0" >
-  <atomff  name="N" ff_type="NDAM" chg="0.0" >  </atomff>
+  <atomff  name="N" ff_type="NDMA" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
@@ -506,7 +506,6 @@
 <resff rname="TRP" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  
   <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
