@@ -1088,6 +1088,12 @@ void MMForceField::SetDefaultParamFiles()
 	else if( ff_type == ForceFieldType::ARROW_5_14_CT )
 	{	
 		resff_files.push_back( res_dir +  "resff_arrow_5.14_ct_amino.xml");
+		resff_files.push_back(res_dir + "resff_arrow_solvents.xml");
+	}
+	else if (ff_type == ForceFieldType::ARROW_2_0)
+	{
+		resff_files.push_back(res_dir + "resff_arrow_2.0_amino.xml");
+		resff_files.push_back(res_dir + "resff_arrow_solvents.xml");
 	}
 
 }

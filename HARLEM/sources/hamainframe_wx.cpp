@@ -900,7 +900,7 @@ void HaMainFrameWX::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString Mes="HARLEM: HAmiltonians to Research LargE Molecules \n\n";      
 	Mes+="Igor Kurnikov, Nikolay Simakov, Kirill Speransky, \n"; 
-	Mes+="Maria Kurnikova 1997 - 2018 \n\n"; 
+	Mes+="Maria Kurnikova 1997 - 2020 \n\n"; 
     Mes+="Graphical Interface Based on RASMOL 2.6 of Roger Sayle \n";
 	Mes+="and wxWidgets library \n";
 	Mes+="Quantum Chemical functionality based on IPACK library of Wolfgang Wenzel \n";

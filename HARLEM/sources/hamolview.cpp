@@ -401,14 +401,19 @@ void HaMolView::DisplayWireframe()
 				
 				if( bptr->flag&WireFlag )
 				{   
-					pCanv->ClipTwinVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
 					if (bptr->IsDouble())
 					{
-						pCanv->ClipTwinVector(s->x + 3, s->y + 3 , s->z +3 , d->x + 3, d->y + 3, d->z + 3, sc, dc);
+						pCanv->ClipTwinVector(s->x - 2, s->y - 2,  s->z - 2, d->x - 2, d->y - 2 , d->z - 2, sc, dc);
+						pCanv->ClipTwinVector(s->x + 2, s->y + 2 , s->z + 2, d->x + 2, d->y + 2,  d->z + 2, sc, dc);
 					}
 					else if ( bptr->IsAromatic() )
 					{
-						pCanv->ClipDashVector(s->x + 3, s->y + 3, s->z + 3, d->x + 3, d->y + 3, d->z + 3, sc, dc);
+						pCanv->ClipTwinVector(s->x - 2, s->y - 2, s->z - 2, d->x - 2, d->y - 2, d->z - 2, sc, dc);
+						pCanv->ClipDashVector(s->x + 2, s->y + 2, s->z + 2, d->x + 2, d->y + 2, d->z + 2, sc, dc);
+					}
+					else
+					{
+						pCanv->ClipTwinVector(s->x, s->y, s->z, d->x, d->y, d->z, sc, dc);
 					}
 				} 
 				else if( bptr->flag&CylinderFlag )

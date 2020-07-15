@@ -417,8 +417,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			}
 		}
 	}
-
-	if( ff_type == ForceFieldType::ARROW_5_14_CT ) 
+	if( ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0 )
 	{
 		to_init_mm_model = FALSE;
 		return TRUE;

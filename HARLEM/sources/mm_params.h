@@ -466,7 +466,7 @@ public:
 	virtual ~ForceFieldType();
 
 	enum Value { AMBER_94 = 0, AMBER_99_SB = 1, AMBER_99_BSC0 = 2, AMBER_03 = 3, AMBER_10 = 4, 
-		         AMOEBA = 5, ARROW_5_14_CT=6, UNKNOWN_FF = 7};
+		         AMOEBA = 5, ARROW_5_14_CT=6, ARROW_2_0 = 7, UNKNOWN_FF = 8};
     
 	ForceFieldType& operator=( int value) { SetWithValue(value); return (*this); }
 	operator int() const { return v_; }
@@ -493,6 +493,7 @@ namespace swig {
 	const ForceFieldType AMBER_10   = ForceFieldType::AMBER_10;
 	const ForceFieldType AMOEBA     = ForceFieldType::AMOEBA;
 	const ForceFieldType ARROW_5_14_CT = ForceFieldType::ARROW_5_14_CT;
+	const ForceFieldType ARROW_2_0     = ForceFieldType::ARROW_2_0;
 	const ForceFieldType UNKNOWN_FF = ForceFieldType::UNKNOWN_FF;
 }
 

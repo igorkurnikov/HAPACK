@@ -655,6 +655,7 @@ IntStrMap SetForceFieldTypeLbls()
 	lmap[ForceFieldType::AMBER_10]   = "AMBER_10";
 	lmap[ForceFieldType::AMOEBA]     = "AMOEBA";
 	lmap[ForceFieldType::ARROW_5_14_CT]     = "ARROW_5.14_CT";
+	lmap[ForceFieldType::ARROW_2_0] = "ARROW_2.0";
 	lmap[ForceFieldType::UNKNOWN_FF] = "UNKNOWN_FF";
 	
 	return lmap;
