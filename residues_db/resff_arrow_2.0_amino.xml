@@ -968,7 +968,7 @@
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
-  <atomff  name="HG" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="HG" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD11" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HD12" ff_type="HC3" chg="0.0" >  </atomff>
