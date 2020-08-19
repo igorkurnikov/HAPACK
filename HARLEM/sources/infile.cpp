@@ -1336,13 +1336,17 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 					pat->SetCharge( at_ch );
 				}
 
-				if( !harlem::IsFloat(str_arr[7]) ) throw std::runtime_error( "atom X coordinate is invalid");
-				if( !harlem::IsFloat(str_arr[8]) ) throw std::runtime_error( "atom Y coordinate is invalid");
-				if( !harlem::IsFloat(str_arr[9]) ) throw std::runtime_error( "atom Z coordinate is invalid");
+				double x = std::stod(str_arr[7]);
+				double y = std::stod(str_arr[8]);
+				double z = std::stod(str_arr[9]);
 
-				pat->SetX_Ang( boost::lexical_cast<double>(str_arr[7]) );
-				pat->SetY_Ang( boost::lexical_cast<double>(str_arr[8]) );
-				pat->SetZ_Ang( boost::lexical_cast<double>(str_arr[9]) );
+//				if( !harlem::IsFloat(str_arr[7]) ) throw std::runtime_error( "atom X coordinate is invalid");
+//				if( !harlem::IsFloat(str_arr[8]) ) throw std::runtime_error( "atom Y coordinate is invalid");
+//				if( !harlem::IsFloat(str_arr[9]) ) throw std::runtime_error( "atom Z coordinate is invalid");
+
+				pat->SetX_Ang( x );
+				pat->SetY_Ang( y );
+				pat->SetZ_Ang( z );
 
 				if (str_arr.size() < 11) continue;
 

@@ -14,6 +14,7 @@ zlib1g-dev
 libopenmpi-dev
 openmpi-bin
 openmpi-common
+libopenblas-dev
 libplplot-dev
 libplplotwxwidgets1       ( UBUNTU 18.04 and later )
 plplot12-driver-wxwidgets ( UBUNTU 16.04 -installed with libplplot-dev ?? )
