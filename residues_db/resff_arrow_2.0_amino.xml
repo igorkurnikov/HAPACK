@@ -3,7 +3,7 @@
 <resff rname="ALA" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HB1" ff_type="HC3" chg="0.0" >  </atomff>
@@ -21,7 +21,7 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HB1" ff_type="HC3" chg="0.0" >  </atomff>
@@ -36,7 +36,7 @@
 <resff rname="ALA#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HB1" ff_type="HC3" chg="0.0" >  </atomff>
@@ -53,15 +53,15 @@
 <resff rname="ARG" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NE" ff_type="NGUA" chg="0.333333" >  </atomff>
@@ -89,15 +89,15 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NE" ff_type="NGUA" chg="0.333333" >  </atomff>
@@ -122,15 +122,15 @@
 <resff rname="ARG#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NE" ff_type="NGUA" chg="0.333333" >  </atomff>
@@ -157,9 +157,9 @@
 <resff rname="ASN" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -181,9 +181,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -202,9 +202,9 @@
 <resff rname="ASN#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -225,12 +225,12 @@
 <resff rname="GLN" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -252,12 +252,12 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -276,12 +276,12 @@
 <resff rname="GLN#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -302,9 +302,9 @@
 <resff rname="ASP" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="COO" chg="0.0" >  </atomff>
@@ -323,9 +323,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="COO" chg="0.0" >  </atomff>
@@ -341,9 +341,9 @@
 <resff rname="ASP#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="COO" chg="0.0" >  </atomff>
@@ -361,9 +361,9 @@
 <resff rname="HIS#EPSILON" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CI5B" chg="0.0" >  </atomff>
@@ -390,9 +390,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CI5B" chg="0.0" >  </atomff>
@@ -416,9 +416,9 @@
 <resff rname="HIS#EPSILON_CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>  
   <atomff  name="CG" ff_type="CI5B" chg="0.0" >  </atomff>
@@ -443,16 +443,16 @@
 </resff>
 <resff rname="PRO" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NDMA" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
   <atomff  name="O" ff_type="OAM=" chg="0.0" >  </atomff>
@@ -465,16 +465,16 @@
   <atomff  name="N" ff_type="N+" chg="1.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
   <atomff  name="O" ff_type="OAM=" chg="0.0" >  </atomff>
@@ -484,16 +484,16 @@
 </resff>
 <resff rname="PRO#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NDMA" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="COO" chg="0.0" >  </atomff>
   <atomff  name="O" ff_type="OOC-" chg="-0.5" >  </atomff>
@@ -506,9 +506,9 @@
 <resff rname="TRP" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CP5B" chg="0.0" >  </atomff>
@@ -545,9 +545,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CP5B" chg="0.0" >  </atomff>
@@ -581,9 +581,9 @@
 <resff rname="TRP#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CP5B" chg="0.0" >  </atomff>
@@ -619,9 +619,9 @@
 <resff rname="CYS" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SH" chg="0.0" >  </atomff>
@@ -638,9 +638,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SH" chg="0.0" >  </atomff>
@@ -654,9 +654,9 @@
 <resff rname="CYS#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SH" chg="0.0" >  </atomff>
@@ -672,7 +672,7 @@
 <resff rname="GLY" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HA3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -687,7 +687,7 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HA3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
@@ -699,7 +699,7 @@
 <resff rname="GLY#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HA3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="COO" chg="0.0" >  </atomff>
@@ -713,9 +713,9 @@
 <resff rname="HIS" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CI5A" chg="0.0" >  </atomff>
@@ -742,9 +742,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CI5A" chg="0.0" >  </atomff>
@@ -768,9 +768,9 @@
 <resff rname="HIS#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff> 
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CI5A" chg="0.0" >  </atomff>
@@ -796,9 +796,9 @@
 <resff rname="HIS#PROT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA5A" chg="0.0" >  </atomff>
@@ -827,9 +827,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA5A" chg="0.0" >  </atomff>
@@ -855,9 +855,9 @@
 <resff rname="HIS#PROT_CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA5A" chg="0.0" >  </atomff>
@@ -885,15 +885,15 @@
 <resff rname="ILE" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG22" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG23" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="CG1" ff_type="C3" chg="-0.0" >  </atomff>
+  <atomff  name="CG1" ff_type="C2" chg="-0.0" >  </atomff>
   <atomff  name="HG12" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG13" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
@@ -912,15 +912,15 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG22" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG23" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="CG1" ff_type="C3" chg="-0.0" >  </atomff>
+  <atomff  name="CG1" ff_type="C2" chg="-0.0" >  </atomff>
   <atomff  name="HG12" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG13" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
@@ -936,15 +936,15 @@
 <resff rname="ILE#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG22" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HG23" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="CG1" ff_type="C3" chg="-0.0" >  </atomff>
+  <atomff  name="CG1" ff_type="C2" chg="-0.0" >  </atomff>
   <atomff  name="HG12" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG13" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
@@ -962,12 +962,12 @@
 <resff rname="LEU" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -989,12 +989,12 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1013,12 +1013,12 @@
 <resff rname="LEU#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HD11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1039,18 +1039,18 @@
 <resff rname="LYS" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CE" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HE2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HE3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NZ" ff_type="N+" chg="1.0" >  </atomff>
@@ -1069,18 +1069,18 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CE" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HE2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HE3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NZ" ff_type="N+" chg="1.0" >  </atomff>
@@ -1096,18 +1096,18 @@
 <resff rname="LYS#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CD" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CD" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HD3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CE" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HE2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HE3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="NZ" ff_type="N+" chg="1.0" >  </atomff>
@@ -1125,12 +1125,12 @@
 <resff rname="MET" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
@@ -1150,12 +1150,12 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
@@ -1172,12 +1172,12 @@
 <resff rname="MET#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
@@ -1196,9 +1196,9 @@
 <resff rname="PHE" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1230,9 +1230,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1261,9 +1261,9 @@
 <resff rname="PHE#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1294,9 +1294,9 @@
 <resff rname="SER" ffname="ARROW_2.0" >
  <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="OG" ff_type="O1" chg="0.0" >  </atomff>
@@ -1313,9 +1313,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="OG" ff_type="O1" chg="0.0" >  </atomff>
@@ -1329,9 +1329,9 @@
 <resff rname="SER#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="OG" ff_type="O1" chg="0.0" >  </atomff>
@@ -1347,9 +1347,9 @@
 <resff rname="TYR" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1382,10 +1382,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1400,7 +1399,6 @@
   <atomff  name="HE2" ff_type="HCA" chg="0.0" >  </atomff>
   <atomff  name="CD2" ff_type="CA" chg="0.0" >  </atomff>
   <atomff  name="HD2" ff_type="HCA" chg="0.0" >  </atomff>
-  
   <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
   <atomff  name="O" ff_type="OAM=" chg="0.0" >  </atomff>
 <improper_dihedrals>
@@ -1416,9 +1414,9 @@
 <resff rname="TYR#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG" ff_type="CA" chg="0.0" >  </atomff>
@@ -1450,9 +1448,9 @@
 <resff rname="VAL" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff> 
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1474,9 +1472,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1495,9 +1493,9 @@
 <resff rname="VAL#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG1" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG11" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1518,9 +1516,9 @@
 <resff rname="THR" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1540,9 +1538,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1559,9 +1557,9 @@
 <resff rname="THR#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CG2" ff_type="C3" chg="0.0" >  </atomff>
   <atomff  name="HG21" ff_type="HC3" chg="0.0" >  </atomff>
@@ -1580,9 +1578,9 @@
 <resff rname="CYS#UNPROT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SS" chg="0.0" >  </atomff>
@@ -1598,9 +1596,9 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SS" chg="0.0" >  </atomff>
@@ -1613,9 +1611,9 @@
 <resff rname="CYS#UNPROT_CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="SG" ff_type="SS" chg="0.0" >  </atomff>
@@ -1630,12 +1628,12 @@
 <resff rname="GLU" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="COO" chg="0.0" >  </atomff>
@@ -1654,12 +1652,12 @@
   <atomff  name="H1" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H2" ff_type="HN+" chg="0.0" >  </atomff>
   <atomff  name="H3" ff_type="HN+" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="COO" chg="0.0" >  </atomff>
@@ -1675,12 +1673,12 @@
 <resff rname="GLU#CT" ffname="ARROW_2.0" >
   <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
   <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="CD" ff_type="COO" chg="0.0" >  </atomff>
