@@ -1497,8 +1497,7 @@ void MolMechDlgWX::OnChangeSelElem(wxCommandEvent& event)
 	  if(sel_type_str.IsEmpty()) return;
 
 	  void* ptr_item = elem_list->GetClientData(idx_sel);
-	  if( (int) ptr_item == -1 || ptr_item == NULL)
-		  return;
+	  if( ptr_item == NULL) return;
 
 	  char buf[256];
 

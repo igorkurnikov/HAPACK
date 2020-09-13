@@ -114,7 +114,9 @@
 
 #endif
 
-
+#include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 CmdTextCtrl::CmdTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value,
 		const wxPoint& pos,const wxSize& size, long style, const wxValidator& validator,
@@ -179,16 +181,21 @@ void HaFileDlg1::OnChangeFileType( wxCommandEvent &event )
 
 void HaFileDlg1::OnSelectFile( wxListEvent &event )
 {
-	int idx = event.GetIndex();
-    wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
-    wxString fname = event.GetText();
-	if( idx < nsubdir)
+	wxListCtrl* file_list = (wxListCtrl*)FindWindow(IDC_FILE_LIST); 
+	wxTextCtrl* file_name_edt = (wxTextCtrl*)FindWindow(IDC_FILE_NAME);
+	file_name_edt->SetValue("");
+	long idx= -1;
+	while ((idx = file_list->GetNextItem(idx, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED)) != wxNOT_FOUND) 
 	{
-		file_name_edt->SetValue("");
-	}
-	else
-	{
+		if (idx < nsubdir) continue;
+		wxString fname = file_list->GetItemText(idx);
+		wxString fname_old = file_name_edt->GetValue();
+		if (!fname_old.empty())
+		{
+			fname = fname_old + ";" + fname;
+		}
 		file_name_edt->SetValue(fname);
+		PrintLog("%s\n",file_list->GetItemText(idx).ToStdString().c_str());
 	}
 }
 
@@ -431,13 +438,8 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 {
 //	PrintLog(" ChooseMolFileDlg::OnLoadFile() pt 1 \n");
     
-	file_name = file_name_txt->GetValue();
-    dir_name = dir_name_txt->GetValue();
-
-    wxFileName fname_full;
-    fname_full.Assign(dir_name,file_name);
-
-    file_name_full = fname_full.GetFullPath();
+	file_name = file_name_txt->GetValue().ToStdString();
+    dir_name = dir_name_txt->GetValue().ToStdString();
    
     int isel = file_types_ch->GetSelection();
 
@@ -3563,58 +3565,63 @@ void  CrdSnapshotDlg::OnLoadSnapshotFromMolFile(wxCommandEvent& event)
 
 	int na = pmset->GetNAtoms();
 
-    if( !load_dlg.file_name.IsEmpty() )
+	CrdSnapshot* psnap = NULL;
+    if( !load_dlg.file_name.empty() )
     {
-		wxFileName fname_obj(load_dlg.file_name_full);
 		MolSet* p_cur_mset_old = GetCurMolSet();
-		std::auto_ptr<MolSet> pmset_load_auto( new MolSet() );
-                MolSet* pmset_load = pmset_load_auto.get(); 
+		std::vector<std::string> tokens;
+		boost::split(tokens, load_dlg.file_name, boost::is_any_of(";"));
+		for (std::string fname : tokens)
+		{
+			boost::trim(fname);
+			boost::filesystem::path dir_path(load_dlg.dir_name);
+			boost::filesystem::path file_local_path(fname);
+			boost::filesystem::path file_full_path = dir_path / file_local_path;
 
-		pmset_load->FetchFile( load_dlg.file_format, fname_obj.GetFullPath().c_str() );
-		int na_load = pmset_load->GetNAtoms();
-		if( na_load != na )
-		{
-			PrintLog(" Error in CrdSnapshotDlg::OnLoadSnapshotFromMolFile() \n");
-			PrintLog(" Number of atoms in the loaded file = %d  not equal to number of atoms in the current molset = %d \n", na_load, na);
-			return;
-		}
-		HaVec_double crd(3*na);
-		AtomIteratorMolSet aitr(pmset_load);
-		int i = 0;
-		HaAtom* aptr;
-		for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom() )
-		{
-			crd[3*i]   = aptr->GetX();
-			crd[3*i+1] = aptr->GetY();
-			crd[3*i+2] = aptr->GetZ();
-			i++;
-		}
+			std::shared_ptr<MolSet> pmset_load(new MolSet());
+			
+			pmset_load->FetchFile(load_dlg.file_format, file_full_path.string().c_str() );
+			int na_load = pmset_load->GetNAtoms();
+			if (na_load != na)
+			{
+				PrintLog(" Error in CrdSnapshotDlg::OnLoadSnapshotFromMolFile() \n");
+				PrintLog(" Number of atoms in the loaded file = %d  not equal to number of atoms in the current molset = %d \n", na_load, na);
+				return;
+			}
+			HaVec_double crd(3 * na);
+			AtomIteratorMolSet aitr(pmset_load.get());
+			int i = 0;
+			HaAtom* aptr;
+			for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+			{
+				crd[3 * i] = aptr->GetX();
+				crd[3 * i + 1] = aptr->GetY();
+				crd[3 * i + 2] = aptr->GetZ();
+				i++;
+			}
 
-		CrdSnapshot* psnap = pmset->AddCrdSnapshot( fname_obj.GetName().ToStdString() );
-		if( psnap != NULL )
-		{
-			int idx = snap_list->Append( psnap->GetName(), psnap );
-			snap_list->SetSelection(idx);
-			OnChangeSelSnapshot(event);
+			std::string snap_name = fname;
+			size_t lastindex = fname.find_last_of(".");
+			if (lastindex > 0) snap_name = fname.substr(0, lastindex);
+			psnap = pmset->AddCrdSnapshot(snap_name);
+
+			PrintLog(" Coordinate Snapshot %s is set from molecular file %s \n", psnap->GetName().c_str(), fname.c_str());
+
+			psnap->SaveCrd(crd);
+			if (pmset_load->per_bc->IsSet())
+			{
+				HaVec_double pbox(6);
+				pbox[0] = pmset_load->per_bc->GetA();
+				pbox[1] = pmset_load->per_bc->GetB();
+				pbox[2] = pmset_load->per_bc->GetC();
+				pbox[3] = pmset_load->per_bc->GetAlpha();
+				pbox[4] = pmset_load->per_bc->GetBeta();
+				pbox[5] = pmset_load->per_bc->GetGamma();
+				psnap->SavePBox(pbox);
+			}
 		}
-		
-		PrintLog(" Coordinate Snapshot %s is set from molecular file %s \n", 
-			       psnap->GetName().c_str(), load_dlg.file_name.ToStdString().c_str());
-	
-		psnap->SaveCrd(crd);
-		if( pmset_load->per_bc->IsSet() )
-		{
-			HaVec_double pbox(6);
-			pbox[0] = pmset_load->per_bc->GetA();
-			pbox[1] = pmset_load->per_bc->GetB();
-			pbox[2] = pmset_load->per_bc->GetC();
-			pbox[3] = pmset_load->per_bc->GetAlpha();
-			pbox[4] = pmset_load->per_bc->GetBeta();
-			pbox[5] = pmset_load->per_bc->GetGamma();
-			psnap->SavePBox( pbox );
-		}
-		OnChangeSelSnapshot(event);
 		SetCurMolSet(p_cur_mset_old);
+		TransferDataToWindow();
     }
 }
 
@@ -3627,10 +3634,10 @@ void CrdSnapshotDlg::OnLoadSnapshotsFromXMLFile(wxCommandEvent& event)
 	load_dlg.file_types_ch->SetSelection(0);
 	load_dlg.choose_file_btn->SetLabel("Load File");
 	load_dlg.ShowModal();
-	if( !load_dlg.file_name.IsEmpty() )
+	if( !load_dlg.file_name.empty() )
     {
-		PrintLog("Loading Coordinate Snapshots from file %s \n",load_dlg.file_name.ToStdString().c_str());
-		pmset->LoadCrdSnapshots( load_dlg.file_name_full.ToStdString() );
+		PrintLog("Loading Coordinate Snapshots from file %s \n",load_dlg.file_name.c_str());
+		pmset->LoadCrdSnapshots( load_dlg.file_name );
 		TransferDataToWindow();
 	}
 }
@@ -3645,9 +3652,9 @@ void CrdSnapshotDlg::OnSaveSnapshotsToXMLFile(wxCommandEvent& event)
 	save_dlg.choose_file_btn->SetLabel("Save to File");
 	save_dlg.ShowModal();
 	
-	if( !save_dlg.file_name.IsEmpty() )
+	if( !save_dlg.file_name.empty() )
     {
-		pmset->SaveCrdSnapshots( save_dlg.file_name.ToStdString() );
+		pmset->SaveCrdSnapshots( save_dlg.file_name );
 	}
 }
 
@@ -6731,8 +6738,7 @@ ResDBDlg::UpdateTemplList()
 }
 
 
-void
-ResDBDlg::OnChangeSelTempl(wxCommandEvent& event)
+void ResDBDlg::OnChangeSelTempl(wxCommandEvent& event)
 {
 	wxListBox* templ_list = (wxListBox*) FindWindow( IDC_TEMPL_LIST );
 	wxTextCtrl* sel_templ_edit = (wxTextCtrl*) FindWindow(IDC_SELECTED_TEMPL);  
@@ -6744,7 +6750,7 @@ ResDBDlg::OnChangeSelTempl(wxCommandEvent& event)
 	if(icur_sel < 0)
 		return;
 	void* ptr = templ_list->GetClientData(icur_sel);
-	if((long) ptr == -1) return;
+	if( ptr == NULL ) return;
 	sel_templ = (HaMolecule*) ptr;
 
 	sel_templ_edit->SetValue(sel_templ->GetObjName());
@@ -8282,7 +8288,7 @@ int HaMolView::BroadcastCurrAtom()
 	{
 	    wxCommandEvent at_event(wxEVT_COMMAND_BUTTON_CLICKED,IDU_ATOM_PICK);
 		at_event.SetEventObject( EditGeomDlgWX::active_dlg_ptr );
-//		EditGeomDlgWX::active_dlg_ptr->ProcessEvent(at_event);
+//		EditGeomDlgWX::active_dlg_ptr->ProcessEvent(at_event);:
 		EditGeomDlgWX::active_dlg_ptr->ProcessWindowEvent( at_event );
 	}
 	

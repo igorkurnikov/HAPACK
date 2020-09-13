@@ -93,9 +93,8 @@ public:
 	wxTextCtrl* file_name_txt; //!< Text Control for file name
 	wxTextCtrl* dir_name_txt;  //!< Text Control for Directory name
 
-	wxString file_name;
-	wxString dir_name;
-	wxString file_name_full;
+	std::string file_name;
+	std::string dir_name;
 
 	wxButton* choose_file_btn;
 

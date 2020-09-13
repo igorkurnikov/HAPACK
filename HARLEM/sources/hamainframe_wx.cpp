@@ -66,6 +66,10 @@
 #include <windows.h>
 #endif
 
+#include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/split.hpp>
+
 #define IsClose(u,v) (((u)>=(v)-1) && ((u)<=(v)+1))
 
 
@@ -903,7 +907,7 @@ void HaMainFrameWX::OnAbout(wxCommandEvent& WXUNUSED(event))
 	Mes+="Maria Kurnikova 1997 - 2020 \n\n"; 
     Mes+="Graphical Interface Based on RASMOL 2.6 of Roger Sayle \n";
 	Mes+="and wxWidgets library \n";
-	Mes+="Quantum Chemical functionality based on IPACK library of Wolfgang Wenzel \n";
+	Mes+="Quantum Chemistry functionality based on IPACK library of Wolfgang Wenzel \n";
 	Mes+="Command line/scripting interface is based on PYTHON 3.7 \n";
 	Mes+="Also linked to VFLIB, TINYXML, LAPACK, BLAS and other libraries \n\n";
 	Mes+="Build date -  ";Mes+=__DATE__;Mes+="\n";        
@@ -963,16 +967,24 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
-	::wxSetWorkingDirectory(load_dlg.dir_name);
+	boost::filesystem::current_path(load_dlg.dir_name); 
+//	::wxSetWorkingDirectory(load_dlg.dir_name);
      
     MolSet* pmset = GetCurMolSet();
     if( pmset == NULL || pmset->canvas_wx == NULL)
-    {
+	{
         pmset = new MolSet();
         pmset->canvas_wx = CreateMolView(pmset);        
     }
 
-	pmset->FetchFile(load_dlg.file_format,load_dlg.file_name_full.c_str());
+	std::vector<std::string> tokens;
+	boost::split( tokens, load_dlg.file_name, boost::is_any_of(";") );
+	for (std::string fname : tokens)
+	{
+		boost::trim( fname );
+		pmset->FetchFile(load_dlg.file_format, fname.c_str() );
+		// pmset->FetchFile(load_dlg.file_format, load_dlg.file_name_full.c_str());
+	}
 	pmset->canvas_wx->mol_view->InitialTransform();
     pmset->canvas_wx->mol_view->DefaultRepresentation();
     pmset->RefreshAllViews(RFRefresh | RFColour | RFApply);
