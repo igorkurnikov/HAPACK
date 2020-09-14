@@ -3463,18 +3463,161 @@ CrdSnapshotDlg::~CrdSnapshotDlg()
 void CrdSnapshotDlg::OnInitDialog()
 {
 	dlg_open = TRUE;
-	snap_list = (wxListBox*) FindWindow( IDC_LIST_SNAP );
+	snap_list = (wxGrid*) FindWindow( IDC_LIST_SNAP );
+
+	wxCheckBox* check_ctrl;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_EN_QM);
+	prop_show_flags["EN_QM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["EN_QM"]));
+	prop_col_num["EN_QM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_EN_MM);
+	prop_show_flags["EN_MM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["EN_MM"]));
+	prop_col_num["EN_MM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_ES_QM);
+	prop_show_flags["ES_QM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["ES_QM"]));
+	prop_col_num["ES_QM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_ES_MM);
+	prop_show_flags["ES_MM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["ES_MM"]));
+	prop_col_num["ES_MM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_DS_QM);
+	prop_show_flags["DS_QM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["DS_QM"]));
+	prop_col_num["DS_QM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_DS_MM);
+	prop_show_flags["DS_MM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["DS_MM"]));
+	prop_col_num["DS_MM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_IN_QM);
+	prop_show_flags["IN_QM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["IN_QM"]));
+	prop_col_num["IN_QM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_IN_MM);
+	prop_show_flags["IN_MM"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["IN_MM"]));
+	prop_col_num["IN_MM"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_EN_MM_QM_DIFF);
+	prop_show_flags["EN_MM_QM_DIFF"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["EN_MM_QM_DIFF"]));
+	prop_col_num["EN_MM_QM_DIFF"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_ES_MM_QM_DIFF);
+	prop_show_flags["ES_MM_QM_DIFF"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["EN_MM_QM_DIFF"]));
+	prop_col_num["ES_MM_QM_DIFF"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_DS_MM_QM_DIFF);
+	prop_show_flags["DS_MM_QM_DIFF"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["DS_MM_QM_DIFF"]));
+	prop_col_num["DS_MM_QM_DIFF"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_EX_MM_QM_DIFF);
+	prop_show_flags["EX_MM_QM_DIFF"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["EX_MM_QM_DIFF"]));
+	prop_col_num["EX_MM_QM_DIFF"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_IN_MM_QM_DIFF);
+	prop_show_flags["IN_MM_QM_DIFF"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["IN_MM_QM_DIFF"]));
+	prop_col_num["IN_MM_QM_DIFF"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_BOND_ENE);
+	prop_show_flags["BOND_ENE"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["BOND_ENE"]));
+	prop_col_num["BOND_ENE"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_ANG_ENE);
+	prop_show_flags["ANG_ENE"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["ANG_ENE"]));
+	prop_col_num["ANG_ENE"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_TORS_ENE);
+	prop_show_flags["TORS_ENE"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["TORS_ENE"]));
+	prop_col_num["TORS_ENE"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_CNT_DIST);
+	prop_show_flags["CNT_DIST"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["CNT_DIST"]));
+	prop_col_num["CNT_DIST"] = -1;
+
+	check_ctrl = (wxCheckBox*)FindWindow(IDC_SNAP_TEMP);
+	prop_show_flags["TEMP"] = false;
+	check_ctrl->SetValidator(wxGenericValidator(&prop_show_flags["TEMP"]));
+	prop_col_num["TEMP"] = -1;
+
 	sel_snap_id = (wxTextCtrl*) FindWindow( IDC_SEL_SNAP_ID );
-	sel_snap_desc = (wxTextCtrl*) FindWindow( IDC_SEL_SNAP_DESC );
-	avg_crd_txt = (wxTextCtrl*) FindWindow( IDC_SNAP_AVG_CRD ); 
+
 	wxTextCtrl* text_ctrl;
 	text_ctrl = (wxTextCtrl*) FindWindow( IDC_SNAP_MSET_NAME );
 	text_ctrl->SetValue( pmset->GetName());
 
-	move_snap_btn = (wxSpinButton*) FindWindow( IDC_SNAP_MOVE_BTN );
+//	move_snap_btn = (wxSpinButton*) FindWindow( IDC_SNAP_MOVE_BTN );
 
+	SetColumns();
 	TransferDataToWindow();
 }
+
+void CrdSnapshotDlg::OnChangeProp(wxCommandEvent& event)
+{
+	TransferDataFromWindow();
+	SetColumns();
+	// FillAtomGroup();
+}
+
+
+void CrdSnapshotDlg::SetColumns()
+{
+	for ( auto& pn : prop_col_num)
+	{
+		pn.second = -1;
+	}
+	int num_cols = 1;
+
+	for (auto& pf : prop_show_flags)
+	{
+		if (pf.second) num_cols++;
+	}
+	int tot_width = 550;
+	int height = 400;
+	snap_list->GetClientSize(&tot_width, &height);
+	int col_width = (tot_width * 2 / 3) / num_cols;
+	
+	snap_list->AutoSizeColumns();
+	snap_list->SetColLabelSize(21);
+
+	int ncol_act = snap_list->GetNumberCols();
+	if (ncol_act != num_cols)
+	{
+		snap_list->DeleteCols(0, ncol_act);
+		snap_list->InsertCols(0, num_cols);
+	}
+
+	int icol = -1;
+	for (auto& pf : prop_show_flags)
+	{
+		if (pf.second)
+		{
+			icol++;
+			std::string prop_lbl = pf.first;
+			snap_list->SetColLabelValue(icol, prop_lbl);
+			snap_list->SetColMinimalWidth(icol, col_width);
+			prop_col_num[prop_lbl] = icol;
+		}
+	}
+}
+
 
 BEGIN_EVENT_TABLE(CrdSnapshotDlg, wxFrame)
 	EVT_BUTTON (IDC_ADD_SNAPSHOT,   CrdSnapshotDlg::OnAddSnapshot)
@@ -3485,11 +3628,30 @@ BEGIN_EVENT_TABLE(CrdSnapshotDlg, wxFrame)
 	EVT_BUTTON (IDC_LOAD_SNAP_FROM_MOL_FILE,   CrdSnapshotDlg::OnLoadSnapshotFromMolFile )
 	EVT_BUTTON (IDC_LOAD_SNAPS_FROM_XML_FILE, CrdSnapshotDlg::OnLoadSnapshotsFromXMLFile )
 	EVT_BUTTON (IDC_SAVE_SNAPS_TO_XML_FILE,   CrdSnapshotDlg::OnSaveSnapshotsToXMLFile )
-	EVT_SPIN_UP( IDC_SNAP_MOVE_BTN, CrdSnapshotDlg::OnSnapMoveBtnUp )
-	EVT_SPIN_DOWN( IDC_SNAP_MOVE_BTN, CrdSnapshotDlg::OnSnapMoveBtnDown )
-	EVT_TEXT( IDC_SEL_SNAP_DESC, CrdSnapshotDlg::OnEditDescription )
+	EVT_CHECKBOX(IDC_SNAP_EN_QM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_EN_MM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_ES_QM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_ES_MM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_DS_QM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_DS_MM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_IN_QM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_IN_MM, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_CNT_DIST, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_TEMP, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_EN_MM_QM_DIFF, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_ES_MM_QM_DIFF, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_DS_MM_QM_DIFF, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_EX_MM_QM_DIFF, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_IN_MM_QM_DIFF, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_BOND_ENE, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_ANG_ENE, CrdSnapshotDlg::OnChangeProp)
+	EVT_CHECKBOX(IDC_SNAP_TORS_ENE, CrdSnapshotDlg::OnChangeProp)
+
+//	EVT_SPIN_UP( IDC_SNAP_MOVE_BTN, CrdSnapshotDlg::OnSnapMoveBtnUp )
+//	EVT_SPIN_DOWN( IDC_SNAP_MOVE_BTN, CrdSnapshotDlg::OnSnapMoveBtnDown )
+//	EVT_TEXT( IDC_SEL_SNAP_DESC, CrdSnapshotDlg::OnEditDescription )
 	EVT_TEXT( IDC_SEL_SNAP_ID,   CrdSnapshotDlg::OnEditSnapID )
-	EVT_LISTBOX(IDC_LIST_SNAP, CrdSnapshotDlg::OnChangeSelSnapshot )
+//	EVT_LISTBOX(IDC_LIST_SNAP, CrdSnapshotDlg::OnChangeSelSnapshot )
 	EVT_CLOSE  ( CrdSnapshotDlg::OnClose )
 END_EVENT_TABLE()
 
@@ -3498,14 +3660,17 @@ void CrdSnapshotDlg::OnAddSnapshot(wxCommandEvent& event)
 {
 	wxString snap_id = sel_snap_id->GetValue();
 	CrdSnapshot* psnap = pmset->AddCrdSnapshot( snap_id.ToStdString() );
-	if( psnap != NULL )
-	{
-		int idx = snap_list->Append( psnap->GetName(), psnap );
-		snap_list->SetSelection(idx);
-		OnChangeSelSnapshot(event);
-	}
-}
+//	int ns = snap_list->GetItemCount();
+//	if( psnap != NULL )
+	//{
+	//	long idx = snap_list->InsertItem( ns + 1, (wxString) psnap->GetName() );
+	//	snap_list->SetItemPtrData(idx, (wxUIntPtr) psnap);
 
+	//	snap_list->SetItemState(idx, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
+	//	OnChangeSelSnapshot(event);
+	//}
+}
+  
 void CrdSnapshotDlg::OnDelSnapshot(wxCommandEvent& event)
 {
 	CrdSnapshot* psnap = GetSelSnapshot();
@@ -3517,16 +3682,17 @@ void CrdSnapshotDlg::OnDelSnapshot(wxCommandEvent& event)
 	int ires = pmset->DeleteCrdSnapshot(psnap);
 	if( ires )
 	{
-		int idx = snap_list->GetSelection();
-		snap_list->Delete(idx);
-		int n = snap_list->GetCount(); 
+		wxArrayInt sel_idx_arr = snap_list->GetSelectedRows();
+		int idx = sel_idx_arr[0];
+		snap_list->DeleteRows(idx);
+		int n = snap_list->GetNumberRows(); 
 		if( idx < n )
 		{
-			snap_list->SetSelection( idx );
+			snap_list->SelectRow( idx );
 		}
 		else if( n > 0 )
 		{
-			snap_list->SetSelection( idx - 1 );
+			snap_list->SelectRow( idx - 1 );
 		}
 		OnChangeSelSnapshot( event );
 	}
@@ -3660,7 +3826,7 @@ void CrdSnapshotDlg::OnSaveSnapshotsToXMLFile(wxCommandEvent& event)
 
 void  CrdSnapshotDlg::OnSnapMoveBtnUp( wxSpinEvent& event )
 {
-	int ig_cur = snap_list->GetSelection();
+	/*int ig_cur = snap_list->GetSelection();
 	if( ig_cur < 1 ) return;
 	if( ig_cur >= pmset->crd_snapshots.size() ) return;
 	CrdSnapshot* snap1 = pmset->crd_snapshots[ig_cur-1];
@@ -3672,12 +3838,12 @@ void  CrdSnapshotDlg::OnSnapMoveBtnUp( wxSpinEvent& event )
 	TransferDataToWindow();
 	snap_list->SetSelection( ig_cur-1 );
 	wxCommandEvent event2;
-	OnChangeSelSnapshot(event2);
+	OnChangeSelSnapshot(event2);*/
 }
 
 void  CrdSnapshotDlg::OnSnapMoveBtnDown( wxSpinEvent& event )
 {
-	int ig_cur = snap_list->GetSelection();
+	/*int ig_cur = snap_list->GetSelection();
 	if( ig_cur < 0 ) return;
 	if( ig_cur >= (snap_list->GetCount() - 1)) return;
 	if( ig_cur >= pmset->crd_snapshots.size() ) return;
@@ -3691,7 +3857,7 @@ void  CrdSnapshotDlg::OnSnapMoveBtnDown( wxSpinEvent& event )
 	TransferDataToWindow();
 	snap_list->SetSelection( ig_cur+1 );
 	wxCommandEvent event2;
-	OnChangeSelSnapshot(event2);
+	OnChangeSelSnapshot(event2);*/
 }
 
 void CrdSnapshotDlg::OnChangeNumSnapshots()
@@ -3710,54 +3876,51 @@ void CrdSnapshotDlg::OnChangeNumSnapshots()
 void CrdSnapshotDlg::OnChangeSelSnapshot(wxCommandEvent& event)
 {
 	char buf[80];
-	int ig_cur = snap_list->GetSelection();
-	move_snap_btn->SetValue(ig_cur);
-	CrdSnapshot* psnap = GetSelSnapshot();
-	if( psnap != NULL )
-	{
-		sel_snap_id->ChangeValue( psnap->GetName() );
-		sel_snap_desc->ChangeValue( psnap->GetDesc() );
+	long item = -1;
+	//long last_sel_idx = snap_list->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+	//for (;;)
+	//{
+	//	long idx = snap_list->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+	//	if (idx == -1) break;
+	//	last_sel_idx = idx;
+	//}
+	//move_snap_btn->SetValue(last_sel_idx);
+	//CrdSnapshot* psnap = GetSelSnapshot();
+	//if( psnap != NULL )
+	//{
+	//	sel_snap_id->ChangeValue( psnap->GetName() );
+	//	sel_snap_desc->ChangeValue( psnap->GetDesc() );
 
-		HaVec_double crd = psnap->GetCrd();
-		HaVec_double avg_crd(3);
-		int n = crd.size()/3;
-		if( n > 0 )
-		{
-			int i;
-			for( i = 0; i < n; i++ )
-			{
-				avg_crd[0] += crd[3*i];
-				avg_crd[1] += crd[3*i+2];
-				avg_crd[2] += crd[3*i+2];
-			}
-			avg_crd[0] = avg_crd[0]/n;
-			avg_crd[1] = avg_crd[1]/n;
-			avg_crd[2] = avg_crd[2]/n;
+	//	HaVec_double crd = psnap->GetCrd();
+	//	HaVec_double avg_crd(3);
+	//	int n = crd.size()/3;
+	//	if( n > 0 )
+	//	{
+	//		int i;
+	//		for( i = 0; i < n; i++ )
+	//		{
+	//			avg_crd[0] += crd[3*i];
+	//			avg_crd[1] += crd[3*i+2];
+	//			avg_crd[2] += crd[3*i+2];
+	//		}
+	//		avg_crd[0] = avg_crd[0]/n;
+	//		avg_crd[1] = avg_crd[1]/n;
+	//		avg_crd[2] = avg_crd[2]/n;
 
-			sprintf(buf," %16.9f  %16.9f  %16.9f ", avg_crd[0], avg_crd[1], avg_crd[2] ); 
-			avg_crd_txt->SetValue( buf );
-		}
-		else
-		{
-			avg_crd_txt->SetValue(" Invalid avg crd: nat = 0 ");
-		}
-	}
-	else
-	{
-		sel_snap_id->ChangeValue( "" );
-		sel_snap_desc->ChangeValue( "" );
-		avg_crd_txt->SetValue("");
-	}
-}
-
-void CrdSnapshotDlg::OnEditDescription( wxCommandEvent& event)
-{
-	CrdSnapshot* psnap = GetSelSnapshot();
-	if( psnap != NULL )
-	{
-		std::string desc = sel_snap_desc->GetValue().ToStdString();
-		psnap->SetDesc( desc );
-	}
+	//		sprintf(buf," %16.9f  %16.9f  %16.9f ", avg_crd[0], avg_crd[1], avg_crd[2] ); 
+	//		avg_crd_txt->SetValue( buf );
+	//	}
+	//	else
+	//	{
+	//		avg_crd_txt->SetValue(" Invalid avg crd: nat = 0 ");
+	//	}
+	//}
+	//else
+	//{
+	//	sel_snap_id->ChangeValue( "" );
+	//	sel_snap_desc->ChangeValue( "" );
+	//	avg_crd_txt->SetValue("");
+	//}
 }
 
 void CrdSnapshotDlg::OnEditSnapID( wxCommandEvent& event )
@@ -3765,20 +3928,22 @@ void CrdSnapshotDlg::OnEditSnapID( wxCommandEvent& event )
 	CrdSnapshot* psnap = GetSelSnapshot();
 	if( psnap != NULL )
 	{
-		int ig_cur = snap_list->GetSelection();
+		wxArrayInt sel_idx_arr = snap_list->GetSelectedRows();
+		int ig_cur = sel_idx_arr[0];
 		std::string id = sel_snap_id->GetValue().ToStdString();
 		psnap->SetName( id );
-		snap_list->SetString( ig_cur, id );
+		snap_list->SetRowLabelValue(ig_cur, id );
 	}
 }
 
 CrdSnapshot*  CrdSnapshotDlg::GetSelSnapshot()
 {
 	if(pmset == NULL) return NULL;
-	int ig_cur = snap_list->GetSelection();
-	if(ig_cur < 0) return NULL;
-	
-	CrdSnapshot* psnap = (CrdSnapshot*) snap_list->GetClientData(ig_cur);
+	wxArrayInt sel_idx_arr = snap_list->GetSelectedRows();
+	if (sel_idx_arr.GetCount() < 1) return NULL;
+
+	int sel_idx = sel_idx_arr[0];
+	CrdSnapshot* psnap = pmset->crd_snapshots[sel_idx];
 	return psnap;
 }
 
@@ -3795,14 +3960,25 @@ bool CrdSnapshotDlg::TransferDataFromWindow()
 
 bool CrdSnapshotDlg::TransferDataToWindow()
 {
-	snap_list->Clear();
+	//snap_list->ClearGrid();
 	int i;
 	int ns = pmset->crd_snapshots.size();
+	int ncol = snap_list->GetNumberCols();
+	int nrow = snap_list->GetNumberRows();
+
+	if (nrow != ns )
+	{
+		if (nrow > 0) snap_list->DeleteRows(0, nrow);
+		snap_list->AppendRows(ns);
+	}
+
 	for( i = 0; i < ns; i++ )
 	{
 		CrdSnapshot* psnap = pmset->crd_snapshots[i];
-		snap_list->Append( psnap->GetName(), psnap );
+		snap_list->SetRowLabelValue(i, (wxString)psnap->GetName());
 	}
+	snap_list->AutoSize();
+//	snap_list->SetColLabelSize(30);
 	return wxFrame::TransferDataToWindow();
 }
 
@@ -4863,8 +5039,7 @@ AtomParamsDlgWX::OnCloseBtn(wxCommandEvent& event)
 	Close();
 }
 
-void
-AtomParamsDlgWX::OnChangeProp(wxCommandEvent& event)
+void AtomParamsDlgWX::OnChangeProp(wxCommandEvent& event)
 {
 	TransferDataFromWindow();
 	SetColumns();

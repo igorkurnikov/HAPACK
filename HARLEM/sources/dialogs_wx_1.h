@@ -576,16 +576,24 @@ public:
 	virtual bool TransferDataToWindow();
 
     static int dlg_open;
-	
-	MolSet* pmset;
 
-	wxListBox*  snap_list;
+	std::map<std::string, bool> prop_show_flags; //!< Show flags of Snapshot  Properties
+	std::map<std::string, bool> prop_col_num;    //!< Column numbers of Snapshot  Properties
+
+	MolSet* pmset;
+	
+	std::map <CrdSnapshot*, std::map<std::string,double> > snap_data ;
+	std::map<std::string, CrdSnapshot*> snap_id_ptr_map;
+
+	wxGrid*  snap_list;
 	wxTextCtrl* sel_snap_id;
 	wxTextCtrl* sel_snap_desc;
-	wxTextCtrl* avg_crd_txt;
 	wxSpinButton* move_snap_btn;
 
 	void OnInitDialog();
+
+	void SetColumns();
+	void OnChangeProp(wxCommandEvent& event);
 
 	void OnAddSnapshot(wxCommandEvent& event);
 	void OnDelSnapshot(wxCommandEvent& event);
@@ -598,7 +606,6 @@ public:
 	void OnSnapMoveBtnUp( wxSpinEvent& event );
 	void OnSnapMoveBtnDown( wxSpinEvent& event );
 	void OnChangeSelSnapshot(wxCommandEvent& event);
-    void OnEditDescription( wxCommandEvent& event);
 	void OnEditSnapID( wxCommandEvent& event );
 	void OnClose(wxCloseEvent& event);
 

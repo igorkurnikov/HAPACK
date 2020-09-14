@@ -4570,7 +4570,8 @@ wxSizer *crd_snapshot_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 {
     wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
 
-    wxStaticText *item1 = new wxStaticText( parent, ID_TEXT, wxT("Coordinate Snapshots:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item1 = new wxStaticText( parent, ID_TEXT, wxT("Snapshots:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item1->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
     item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
@@ -4585,94 +4586,125 @@ wxSizer *crd_snapshot_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxBoxSizer *item5 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxString strs6[] = 
-    {
-        wxT("ListItem")
-    };
-    wxListBox *item6 = new wxListBox( parent, IDC_LIST_SNAP, wxDefaultPosition, wxSize(240,150), 1, strs6, wxLB_SINGLE );
-    item5->Add( item6, 10, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-
-    wxBoxSizer *item7 = new wxBoxSizer( wxVERTICAL );
-
-    wxSpinButton *item8 = new wxSpinButton( parent, IDC_SNAP_MOVE_BTN, wxDefaultPosition, wxSize(-1,40), 0 );
-    item8->SetRange( 0, 100 );
-    item8->SetValue( 0 );
-    item7->Add( item8, 0, wxALIGN_CENTER|wxALL, 0 );
-
-    item5->Add( item7, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    wxGrid *item6 = new wxGrid( parent, IDC_LIST_SNAP, wxDefaultPosition, wxSize(200,160), wxWANTS_CHARS );
+    item6->CreateGrid( 10, 10, wxGrid::wxGridSelectRows );
+    item5->Add( item6, 1, wxALIGN_CENTER|wxALL, 5 );
 
     item0->Add( item5, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxBoxSizer *item9 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item7 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item10 = new wxStaticText( parent, ID_TEXT, wxT("Snapshot ID:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item9->Add( item10, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxGridSizer *item8 = new wxGridSizer( 4, 0, 0 );
 
-    wxTextCtrl *item11 = new wxTextCtrl( parent, IDC_SEL_SNAP_ID, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
-    item9->Add( item11, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item9 = new wxCheckBox( parent, IDC_SNAP_EN_QM, wxT("EN_QM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item9, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item9, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    wxCheckBox *item10 = new wxCheckBox( parent, IDC_SNAP_EN_MM, wxT("EN_MM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item10, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item12 = new wxBoxSizer( wxHORIZONTAL );
+    wxCheckBox *item11 = new wxCheckBox( parent, IDC_SNAP_ES_QM, wxT("ES_QM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item13 = new wxStaticText( parent, ID_TEXT, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item12->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item12 = new wxCheckBox( parent, IDC_SNAP_ES_MM, wxT("ES_MM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item14 = new wxTextCtrl( parent, IDC_SEL_SNAP_DESC, wxT(""), wxDefaultPosition, wxSize(80,40), wxTE_MULTILINE );
-    item14->SetFont( wxFont( 10, wxROMAN, wxNORMAL, wxNORMAL ) );
-    item12->Add( item14, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item13 = new wxCheckBox( parent, IDC_SNAP_DS_QM, wxT("DS_QM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item12, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    wxCheckBox *item14 = new wxCheckBox( parent, IDC_SNAP_DS_MM, wxT("DS_MM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item14, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item15 = new wxBoxSizer( wxHORIZONTAL );
+    wxCheckBox *item15 = new wxCheckBox( parent, IDC_SNAP_EX_QM, wxT("EX_QM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item15, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item16 = new wxStaticText( parent, ID_TEXT, wxT("Avg Crd:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item15->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item16 = new wxCheckBox( parent, IDC_SNAP_EX_MM, wxT("EX_MM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item17 = new wxTextCtrl( parent, IDC_SNAP_AVG_CRD, wxT(""), wxDefaultPosition, wxSize(80,-1), wxTE_READONLY );
-    item15->Add( item17, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item17 = new wxCheckBox( parent, IDC_SNAP_IN_QM, wxT("IN_QM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item17, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item15, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    wxCheckBox *item18 = new wxCheckBox( parent, IDC_SNAP_IN_MM, wxT("IN_MM"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item18, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item18 = new wxBoxSizer( wxHORIZONTAL );
+    wxCheckBox *item19 = new wxCheckBox( parent, IDC_SNAP_CNT_DIST, wxT("CNT_DIST"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item19 = new wxButton( parent, IDC_ADD_SNAPSHOT, wxT("Add Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
-    item18->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item20 = new wxCheckBox( parent, IDC_SNAP_TEMP, wxT("TEMP"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item20, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item20 = new wxButton( parent, IDC_DEL_SNAPSHOT, wxT("Delete Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
-    item18->Add( item20, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item21 = new wxCheckBox( parent, IDC_SNAP_EN_MM_QM_DIFF, wxT("EN_MM_QM_DIFF"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item21, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item21 = new wxButton( parent, IDC_DEL_ALL_SNAPSHOTS, wxT("Delete All Snapshots"), wxDefaultPosition, wxDefaultSize, 0 );
-    item18->Add( item21, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item22 = new wxCheckBox( parent, IDC_SNAP_ES_MM_QM_DIFF, wxT("ES_MM_QM_DIFF"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item22, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item18, 0, wxALIGN_CENTER|wxALL, 0 );
+    wxCheckBox *item23 = new wxCheckBox( parent, IDC_SNAP_DS_MM_QM_DIFF, wxT("DS_MM_QM_DIFF"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item23, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item22 = new wxBoxSizer( wxHORIZONTAL );
+    wxCheckBox *item24 = new wxCheckBox( parent, IDC_SNAP_EX_MM_QM_DIFF, wxT("EX_MM_QM_DIFF"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item24, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item23 = new wxButton( parent, IDC_SET_CRD_FROM_SNAPSHOT, wxT("Set Current Crd From Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
-    item22->Add( item23, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item25 = new wxCheckBox( parent, IDC_SNAP_IN_MM_QM_DIFF, wxT("IN_MM_QM_DIFF"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item25, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item24 = new wxButton( parent, IDC_SAVE_CRD_TO_SNAPSHOT, wxT("Save Current Crd To Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
-    item22->Add( item24, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxCheckBox *item26 = new wxCheckBox( parent, IDC_SNAP_BOND_ENE, wxT("BOND_ENE"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item26, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item22, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    wxCheckBox *item27 = new wxCheckBox( parent, IDC_SNAP_ANG_ENE, wxT("ANG_ENE"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item27, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item25 = new wxBoxSizer( wxHORIZONTAL );
+    wxCheckBox *item28 = new wxCheckBox( parent, IDC_SNAP_TORS_ENE, wxT("TORS_ENE"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item28, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item26 = new wxButton( parent, IDC_LOAD_SNAP_FROM_MOL_FILE, wxT("Load Snapshot From Mol File"), wxDefaultPosition, wxDefaultSize, 0 );
-    item25->Add( item26, 0, wxALIGN_CENTER|wxALL, 5 );
+    item7->Add( item8, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item25, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    item0->Add( item7, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    wxBoxSizer *item27 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item29 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxButton *item28 = new wxButton( parent, IDC_LOAD_SNAPS_FROM_XML_FILE, wxT("Load Snapshots From XML File"), wxDefaultPosition, wxDefaultSize, 0 );
-    item27->Add( item28, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxStaticText *item30 = new wxStaticText( parent, ID_TEXT, wxT("Snapshot ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item30, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item29 = new wxButton( parent, IDC_SAVE_SNAPS_TO_XML_FILE, wxT("Save Snapshots to XML File"), wxDefaultPosition, wxDefaultSize, 0 );
-    item27->Add( item29, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxTextCtrl *item31 = new wxTextCtrl( parent, IDC_SEL_SNAP_ID, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item29->Add( item31, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item27, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    wxButton *item32 = new wxButton( parent, IDC_ADD_SNAPSHOT, wxT("Add Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item32, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item33 = new wxButton( parent, IDC_DEL_SNAPSHOT, wxT("Delete Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item33, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item34 = new wxButton( parent, IDC_DEL_ALL_SNAPSHOTS, wxT("Delete All Snapshots"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item34, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item29, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxBoxSizer *item35 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item36 = new wxButton( parent, IDC_SET_CRD_FROM_SNAPSHOT, wxT("Set Current Crd From Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
+    item35->Add( item36, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item37 = new wxButton( parent, IDC_SAVE_CRD_TO_SNAPSHOT, wxT("Save Current Crd To Snapshot"), wxDefaultPosition, wxDefaultSize, 0 );
+    item35->Add( item37, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item35, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item38 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item39 = new wxButton( parent, IDC_LOAD_SNAP_FROM_MOL_FILE, wxT("Load Snapshot From Mol File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item38->Add( item39, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item38, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item40 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item41 = new wxButton( parent, IDC_LOAD_SNAPS_FROM_XML_FILE, wxT("Load Snapshots From XML File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item40->Add( item41, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item42 = new wxButton( parent, IDC_SAVE_SNAPS_TO_XML_FILE, wxT("Save Snapshots to XML File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item40->Add( item42, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item40, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     if (set_sizer)
     {
