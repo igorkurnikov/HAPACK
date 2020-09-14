@@ -3145,8 +3145,7 @@ void SelectLocOrbDlgWX::OnExtractSel(wxCommandEvent& event)
 	phost_dialog->TransferDataToWindow();
 }
 
-void
-SelectLocOrbDlgWX::OnClose(wxCloseEvent& event)
+void SelectLocOrbDlgWX::OnClose(wxCloseEvent& event)
 {
 	dlg_open = FALSE;
 	event.Skip();
@@ -3464,6 +3463,7 @@ void CrdSnapshotDlg::OnInitDialog()
 {
 	dlg_open = TRUE;
 	snap_list = (wxGrid*) FindWindow( IDC_LIST_SNAP );
+	snap_list->SetSelectionMode(wxGrid::wxGridSelectRows);
 
 	wxCheckBox* check_ctrl;
 
@@ -3571,7 +3571,7 @@ void CrdSnapshotDlg::OnInitDialog()
 
 void CrdSnapshotDlg::OnChangeProp(wxCommandEvent& event)
 {
-	TransferDataFromWindow();
+	TransferData FromWindow();
 	SetColumns();
 	// FillAtomGroup();
 }
@@ -3595,7 +3595,7 @@ void CrdSnapshotDlg::SetColumns()
 	int col_width = (tot_width * 2 / 3) / num_cols;
 	
 	snap_list->AutoSizeColumns();
-	snap_list->SetColLabelSize(21);
+	snap_list->SetColLabelSize(50);
 
 	int ncol_act = snap_list->GetNumberCols();
 	if (ncol_act != num_cols)
@@ -3977,8 +3977,9 @@ bool CrdSnapshotDlg::TransferDataToWindow()
 		CrdSnapshot* psnap = pmset->crd_snapshots[i];
 		snap_list->SetRowLabelValue(i, (wxString)psnap->GetName());
 	}
+	snap_list->SetRowLabelSize(wxGRID_AUTOSIZE);
 	snap_list->AutoSize();
-//	snap_list->SetColLabelSize(30);
+	// snap_list->SetColLabelSize(50);
 	return wxFrame::TransferDataToWindow();
 }
 
