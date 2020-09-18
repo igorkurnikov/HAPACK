@@ -3,7 +3,6 @@ import wx
 
 last_issued_id=26000
 
-
 def NewID():
     """Return a new ID, hopefully unique, for use with wxPython, would not conflict with main wxWidgets GUI"""
     global last_issued_id

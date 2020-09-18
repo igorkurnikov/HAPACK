@@ -2,6 +2,7 @@
 Here we define start_harlem() function that starts Harlem GUI.
 """
 import sys
+import test_wx
 
 def start_harlem():
     """
@@ -14,6 +15,7 @@ def start_harlem():
     molset.StartHarlemApp()
     molset.StartHaMainFrameWX()
     
+    test_wx.add_tests()
     app.MainLoop()
 
 """

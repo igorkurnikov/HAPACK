@@ -3571,7 +3571,7 @@ void CrdSnapshotDlg::OnInitDialog()
 
 void CrdSnapshotDlg::OnChangeProp(wxCommandEvent& event)
 {
-	TransferData FromWindow();
+	TransferDataFromWindow();
 	SetColumns();
 	// FillAtomGroup();
 }
@@ -3603,6 +3603,8 @@ void CrdSnapshotDlg::SetColumns()
 		snap_list->DeleteCols(0, ncol_act);
 		snap_list->InsertCols(0, num_cols);
 	}
+	snap_list->SetColLabelValue(0, "CH");
+	snap_list->SetColFormatBool(0);
 
 	int icol = -1;
 	for (auto& pf : prop_show_flags)
@@ -3617,7 +3619,6 @@ void CrdSnapshotDlg::SetColumns()
 		}
 	}
 }
-
 
 BEGIN_EVENT_TABLE(CrdSnapshotDlg, wxFrame)
 	EVT_BUTTON (IDC_ADD_SNAPSHOT,   CrdSnapshotDlg::OnAddSnapshot)

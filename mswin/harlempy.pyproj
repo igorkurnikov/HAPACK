@@ -5,7 +5,7 @@
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>..\HARLEM\harlempy\__main__.py</StartupFile>
-    <SearchPath>..\..\..\PROG_SRC\Phoenix_VS2019_x64_fix_sizer;..\HARLEM;Release_x64</SearchPath>
+    <SearchPath>Release_x64;Release_x64\molset;Release_x64\Lib\site-packages;..\HARLEM;..\HARLEM;..\HARLEM;..\HARLEM;..\HARLEM;..\HARLEM;..\HARLEM</SearchPath>
     <WorkingDirectory>..\examples\MD\BPTI</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
@@ -13,7 +13,7 @@
     <IsWindowsApplication>False</IsWindowsApplication>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
-    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <CommandLineArguments>6PTI.pdb</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -26,24 +26,40 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="..\HARLEM\harlempy\" />
+    <Folder Include="harlempy\" />
+    <Folder Include="harlempy\__pycache__\" />
     <Folder Include="linux\" />
-    <Folder Include="M\" />
-    <Folder Include="M\harlempy\" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|3.7" />
+    <Compile Include="harlempy\test_wx.py" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\HARLEM\harlempy\hapygui.py" />
-    <Compile Include="..\HARLEM\harlempy\hapygui_init.py" />
-    <Compile Include="..\HARLEM\harlempy\harlem_profile.py" />
-    <Compile Include="..\HARLEM\harlempy\start_harlem.py" />
-    <Compile Include="..\HARLEM\harlempy\__init__.py" />
-    <Compile Include="..\HARLEM\harlempy\__main__.py" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="harlempy\__pycache__\hapygui.cpython-35.pyc" />
+    <Content Include="harlempy\__pycache__\hapygui.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\hapygui_init.cpython-35.pyc" />
+    <Content Include="harlempy\__pycache__\hapygui_init.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\harlem_profile.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\molset.cpython-35.pyc" />
+    <Content Include="harlempy\__pycache__\molset.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\start_harlem.cpython-35.pyc" />
+    <Content Include="harlempy\__pycache__\start_harlem.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\test_wx.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\__init__.cpython-35.pyc" />
+    <Content Include="harlempy\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="harlempy\__pycache__\__main__.cpython-37.pyc" />
     <Content Include="linux\harlem_ubuntu.sh" />
     <Content Include="linux\harlem_ubuntu_igor.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.7</Version>
+      <Description>env (harlem1 (3.7, 64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
