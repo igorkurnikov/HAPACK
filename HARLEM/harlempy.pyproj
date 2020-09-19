@@ -42,6 +42,9 @@
     <Compile Include="harlempy\harlem_profile.py" />
     <Compile Include="harlempy\start_harlem.py" />
     <Compile Include="harlempy\test_wx.py" />
+    <Compile Include="harlempy\wxexamples\exgrid.py" />
+    <Compile Include="harlempy\wxexamples\exgrid2.py" />
+    <Compile Include="harlempy\wxexamples\exlist.py" />
     <Compile Include="harlempy\wxexamples\__init__.py" />
     <Compile Include="harlempy\__init__.py" />
     <Compile Include="harlempy\__main__.py" />

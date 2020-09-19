@@ -1,5 +1,6 @@
 import wx
 import harlempy.hapygui as hapygui
+import molset
 
 def OnCenterAtOrigin(e):
     print("Moving molecules geometric center to the coordinates origin ...")
