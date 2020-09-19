@@ -1,5 +1,6 @@
-import hapygui
 import wx
+from .. import hapygui
+
 
 class ExampleListBox(wx.Frame):
 

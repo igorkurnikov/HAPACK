@@ -1,6 +1,6 @@
-import hapygui
 import wx
-import wxexamples
+from . import hapygui
+from . import wxexamples
 
 def print_test(e):
     print("TEST")

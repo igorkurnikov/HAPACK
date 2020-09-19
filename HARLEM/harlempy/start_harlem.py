@@ -2,7 +2,7 @@
 Here we define start_harlem() function that starts Harlem GUI.
 """
 import sys
-import test_wx
+from . import test_wx
 
 def start_harlem():
     """
