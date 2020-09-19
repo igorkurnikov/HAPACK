@@ -44,9 +44,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "harlem_lib_vs", "harlem_lib
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mortlib", "mortlib.vcxproj", "{CD7149EA-ED1A-44C9-A7E7-F9A15EA1470E}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlempy", "harlempy.pyproj", "{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlem_python_tests_1", "harlem_python_tests_1.pyproj", "{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlempy", "..\HARLEM\harlempy\harlempy.pyproj", "{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -270,14 +270,6 @@ Global
 		{CD7149EA-ED1A-44C9-A7E7-F9A15EA1470E}.Release|Win32.Build.0 = Release|Win32
 		{CD7149EA-ED1A-44C9-A7E7-F9A15EA1470E}.Release|x64.ActiveCfg = Release|x64
 		{CD7149EA-ED1A-44C9-A7E7-F9A15EA1470E}.Release|x64.Build.0 = Release|x64
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Win32.ActiveCfg = Release|Any CPU
-		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|x64.ActiveCfg = Release|Any CPU
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Debug|Any CPU.ActiveCfg = PY3_Debug|Any CPU
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Debug|Mixed Platforms.ActiveCfg = PY3_Debug|Any CPU
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Debug|Win32.ActiveCfg = PY3_Debug|Any CPU
@@ -286,6 +278,14 @@ Global
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Release|Mixed Platforms.ActiveCfg = PY3_Release|Any CPU
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Release|Win32.ActiveCfg = PY3_Release|Any CPU
 		{EC92AABE-E1E3-4D9D-B775-3BDAB3F3D171}.Release|x64.ActiveCfg = Release|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Win32.ActiveCfg = Release|Any CPU
+		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
