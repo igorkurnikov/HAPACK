@@ -1,5 +1,0 @@
-#!/bin/sh
-export LD_LIBRARY_PATH=/share/apps/InterX_Simulations/lib:$LD_LIBRARY_PATH
-export HARLEM_HOME="/share/apps/InterX_Simulations/"
-export PYTHONPATH="/share/apps/InterX_Simulations/MD_TOOLS_PY:/share/apps/InterX_Simulations/Phoenix:$PYTHONPATH"
-python3 -m harlempy $@  
