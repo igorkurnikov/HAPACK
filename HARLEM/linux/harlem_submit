@@ -1,0 +1,251 @@
+#!/bin/csh
+#
+#   This 'sander' script sends a HARLEM job to the SGE batch queues.
+#
+#        Start by learning which cluster we are running on.
+#   
+set HeadNode=(`hostname -s`)
+ switch ($HeadNode)
+    case tin:
+         set CLUSTER='TIN'
+    breaksw
+    case radon:
+         set CLUSTER='RADON'
+    breaksw
+    default:
+         echo 'Unknown Cluster using Headnode: ' $HeadNode
+         exit 2
+    breaksw
+endsw
+
+set NCPUS=1
+set PE=pSMP
+set QOPT=""
+set MEM=1920
+set DISK=5120M
+set EXEPATH=/home/kurnikov/local/bin
+#
+#   Parse arguments, anything not recognized is taken as input file name.
+#
+if($#argv == 0) then 
+  set JOB=help
+else
+  set JOB=SUBMIT
+endif
+while ($#argv > 0)
+   set val=$argv[1]
+   shift
+   switch ($val)
+      case -help:
+        set JOB=morehelp
+        breaksw
+      case -cpu:
+        set NCPUS=$argv[1]
+        shift
+        breaksw
+      case -pe:
+        set PE=$argv[1]
+        shift
+        breaksw
+      case -script:
+        set PY_SCRIPT=$argv[1]
+        shift
+        breaksw
+      case -s:
+        set PY_SCRIPT=$argv[1]
+        shift
+        breaksw
+      case -hlm:
+        set STRUCT_FILE=$argv[1]
+        shift
+        breaksw
+      case -i:
+        set STRUCT_FILE=$argv[1]
+        shift
+        breaksw
+      case -q:
+        set QUEUE=$argv[1]
+        shift
+        breaksw
+      case -qo:
+        set QOPT=$argv[1]
+        shift
+        breaksw
+      case -w:
+        set WALL=$argv[1]
+        shift
+        breaksw
+      case -mem:
+        set MEM=$argv[1]
+        shift
+        breaksw
+      case -nic:
+        set NIC=$argv[1]
+        shift
+        breaksw
+      default:
+           echo "Syntax error:  Unknown option $val"
+           exit
+   endsw
+end
+#
+#   --- start to provide the defaults for options not given ---
+#
+if($?PY_SCRIPT == 0)   set JOB=help
+if ($CLUSTER == TIN)   set NIC=ib
+if ($CLUSTER == RADON) set NIC=gigabit
+if ($?WALL == 0)       set WALL=default
+if ($?MEM == 0)        set MEM=1920M
+#
+#   --- some help screens ---
+#
+if ( $JOB != SUBMIT) then
+  switch ($JOB)
+    case help:
+      clear
+      if($?PY_SCRIPT == 0) then
+          echo "No python script specified for HARLEM "
+	  echo "-----------------"
+      endif
+      echo "The syntax to execute HARLEM on `hostname -s` is:"
+      echo "harlem_submit  [-cpu CPUs] [pe PE] [-q Queue] [-mem MEM] [-qo QueueOptions]\
+                ( [-i struct_file] [-s py_script_file] ) | hdscr"
+      echo " " 
+      echo "-cpu n    Parallel processing - use n cores (default = 1, serial processing)."
+      echo "-pe PE    Parallel environment (default = pSMP)"
+      echo "-q QQQ    Submit job to queue QQQ (default = GridEngine decides)."
+      echo "-mem MEM  Available free memory to start job. (default = 1920M)."
+      echo "-qo opt   Pass queue option string opt to GridEngine."
+      echo ""
+      echo "Either specify the necessary input/output files for the harlem command line"
+      echo "or specify the (heredoc) script to be executed as a filename without a leading"
+      echo "switch indicator."
+      echo ""
+      echo "where"
+      echo ""
+      echo "-i  hlm_file       -  input  file with molecular structure (hlm or pdb format)"
+      echo "-s script_file    -  python script for harlem job."
+      echo ""
+      echo "For more help information type 'harlem_submit -help'"
+      exit
+      breaksw
+    case morehelp:
+      clear
+      echo "HARLEM is a specilaized Molecular Mechanis and QM/MM program of Igor Kurnikov et al."
+      echo " " 
+      echo "To learn more about HARLEM please check out the following links:"
+      echo "  The HARLEM home page: http://www.harlemprog,org"
+      echo " "
+      set NQ=`qconf -sql | wc -l`
+      set NP=`qconf -spl | wc -l`
+      echo " On Cluster $CLUSTER, there are $NQ queues and $NP parallel environments available:"
+      echo " "
+      echo "The queues are"
+         qconf -sql
+      echo " "
+      echo "The parallel environments are"
+         qconf -spl
+      echo " "
+      echo " "
+      exit
+      breaksw
+#
+    default:
+         echo "Unknown job type: $JOB"
+         echo "Fatal Error"
+         exit 4
+  endsw
+else
+   if ( ! -e $PY_SCRIPT ) then
+      echo "Could not find python script file: $PY_SCRIPT "
+      echo "Fatal Error"
+      exit 4
+   endif
+   set BASE=harlem
+   set NAME="$BASE:t"
+   set SCRIPT="$BASE.$$.script"
+   set FILELIST=" -script $PY_SCRIPT "
+   if($?STRUCT_FILE == 1) then
+	if( -e $STRUCT_FILE ) then
+	     set FILELIST=" $STRUCT_FILE $FILELIST "
+	else
+	   echo "Could not find structure file:  $STRUCT_FILE "
+           echo "Fatal Error"
+           exit 4
+        endif
+   endif
+endif
+#
+#  --- prepare the job script ---
+# Here we create a second script in order to run the primary script.
+#
+set cwd = /tmp
+if (-e $cwd/$SCRIPT) rm -f $cwd/$SCRIPT
+touch $cwd/$SCRIPT
+echo "#\!/bin/csh"         >  $cwd/$SCRIPT
+echo "# "                  >> $cwd/$SCRIPT
+echo "#$ -S /bin/csh"      >> $cwd/$SCRIPT
+echo "#$ -cwd"             >> $cwd/$SCRIPT
+echo "#$ -j y"             >> $cwd/$SCRIPT
+echo "#$ -A $USER"         >> $cwd/$SCRIPT
+if ($NCPUS > 1) then
+ echo "#$ -pe $PE $NCPUS"  >> $cwd/$SCRIPT
+endif
+echo "#$ -l vf=$MEM"       >> $cwd/$SCRIPT
+echo "#$ -o harlem.out"       >> $cwd/$SCRIPT
+echo "#$ -e harlem.err"       >> $cwd/$SCRIPT
+echo '# '                  >> $cwd/$SCRIPT
+#
+echo 'setenv HARLEM_ROOTDIR /home/kurnikov/local' >> $cwd/$SCRIPT
+echo 'setenv HARLEM_HOME ${HARLEM_ROOTDIR}' >> $cwd/$SCRIPT
+echo 'setenv MPI_HOME /opt/intel/impi/3.1' >> $cwd/$SCRIPT
+echo 'setenv PYTHONPATH ${PYTHONPATH}:/home/kurnikov/local/scripts' >> $cwd/$SCRIPT
+echo 'setenv PATH ${HARLEM_ROOTDIR}/bin:$MPI_HOME/bin64:$PATH' >> $cwd/$SCRIPT
+echo 'setenv LD_LIBRARY_PATH $MPI_HOME/lib64:$LD_LIBRARY_PATH' >> $cwd/$SCRIPT
+echo 'setenv LD_LIBRARY_PATH opt/intel/mkl/10.0.1.014/lib/em64t:$LD_LIBRARY_PATH' >> $cwd/$SCRIPT
+echo 'setenv LD_LIBRARY_PATH /home/kurnikov/PROG_SRC/wxWidgets-2.8.10/build_nogui/lib' >> $cwd/$SCRIPT
+echo 'setenv LD_LIBRARY_PATH ${HARLEM_ROOTDIR}/lib:$LD_LIBRARY_PATH' >> $cwd/$SCRIPT
+echo 'setenv LD_LIBRARY_PATH ${HARLEM_ROOTDIR}/lib/HARLEM:$LD_LIBRARY_PATH' >> $cwd/$SCRIPT
+#
+echo '#---'   >> $cwd/$SCRIPT
+#
+if ($NCPUS == 1) then
+   echo "${EXEPATH}/harlem_nogui_bin ${FILELIST}"  >> $cwd/$SCRIPT
+else
+   echo "mpdallexit >& /dev/null"  >> $cwd/$SCRIPT
+   echo "sleep 4"     >> $cwd/$SCRIPT
+   echo 'mpdboot -r ssh -f "$TMPDIR"/machines ' "-n $NCPUS"  >> $cwd/$SCRIPT
+   echo "sleep 4"     >> $cwd/$SCRIPT
+   echo 'mpiexec -machinefile $TMPDIR/machines ' "-np $NCPUS ${EXEPATH}/harlem_nogui_bin ${FILELIST}"  >> $cwd/$SCRIPT
+   echo "sleep 2"     >> $cwd/$SCRIPT
+   echo "mpdallexit"  >> $cwd/$SCRIPT
+endif
+#
+echo "#     " >> $cwd/$SCRIPT
+echo "#END  " >> $cwd/$SCRIPT
+#
+chmod 755  $cwd/$SCRIPT
+#
+
+echo Submitting HARLEM job $SCRIPT  ....
+echo
+
+#- set echo
+if ($?QUEUE) then
+     qsub -q $QUEUE $QOPT \
+          -N $NAME        \
+          -m n            \
+          -r n            \
+          -w e            \
+     $cwd/$SCRIPT
+else  # Let the scheduler find the most appropriate queue
+ qsub -N $NAME $QOPT \
+      -m n           \
+      -r n           \
+      -w e           \
+  $cwd/$SCRIPT
+endif
+#
+sleep 2
+#rm -f $cwd/$SCRIPT
+exit

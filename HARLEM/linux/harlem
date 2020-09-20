@@ -1,0 +1,6 @@
+#!/bin/sh
+export HARLEM_HOME="/share/apps/HARLEM"
+#export PYTHONPATH="/share/apps/InterX_Simulations/Python3.7:$PYTHONPATH"
+export PYTHONPATH="$(HARLEM_HOME)/Python3.7:$PYTHONPATH"
+export LD_LIBRARY_PATH="/share/apps/anaconda3/lib/python3.7/site-packages/wx:$LD_LIBRARY_PATH"
+python3 -c "import harlempy; harlempy.start_harlem()"
