@@ -428,6 +428,7 @@ set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 set CONF="$(Configuration)_$(PlatformName)"
 
 $(SolutionDir)copy_dependencies.bat
+
 </Command>
     </PostBuildEvent>
     <PreLinkEvent>
@@ -906,24 +907,7 @@ $(SolutionDir)link_python_libs.bat
     <None Include="..\doc\DEVELOP_NOTES\recip_space_amoeba_func.txt" />
     <None Include="..\doc\DEVELOP_NOTES\nonb_inter_amoeba.txt" />
     <None Include="..\doc\INSTALL_harlem_1.txt" />
-    <None Include="..\HARLEM\harlempy\halib.py" />
-    <None Include="..\HARLEM\harlempy\hapygui.py" />
-    <None Include="..\HARLEM\harlempy\hapygui_init.py" />
-    <None Include="..\HARLEM\harlempy\harlem_profile.py" />
-    <None Include="..\HARLEM\harlempy\ha_tmp_script.py" />
-    <None Include="..\HARLEM\harlempy\molset.py" />
-    <CopyFileToFolders Include="..\HARLEM\harlempy\start_harlem.py">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\harlempy</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="..\HARLEM\harlempy\__init__.py">
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\..\harlempy\</DestinationFolders>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </CopyFileToFolders>
-    <None Include="..\HARLEM\harlempy\__main__.py" />
-    <None Include="..\HARLEM\scripts\harlem_profile.py" />
+    <None Include="..\HARLEM\molset\__init__.py" />
     <None Include="..\HARLEM\sources\rasmol.hlp" />
     <None Include="..\HARLEM\sources\ha_wx_ed.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res.wdr" />

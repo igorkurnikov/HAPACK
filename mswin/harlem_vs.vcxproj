@@ -397,8 +397,7 @@ set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(MKL_DLL_PATH)"
 
 set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
+t
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

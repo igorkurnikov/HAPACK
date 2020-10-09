@@ -9,7 +9,7 @@ def start_harlem():
     Start Harlem
     """
     import wx
-    import molset
+    from .. import molset
 
     app = wx.App()
     molset.StartHarlemApp()

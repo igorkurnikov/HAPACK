@@ -28,8 +28,8 @@ int start_harlem(int argc, char **argv)
 
 	PySys_SetArgv(argc, argv_p);
 
-	PyRun_SimpleString("import harlempy");
-	PyRun_SimpleString("harlempy.start_harlem()");
+	PyRun_SimpleString("import molset.harlempy");
+	PyRun_SimpleString("molset.harlempy.start_harlem()");
 
 	delete[] argv_p;
 

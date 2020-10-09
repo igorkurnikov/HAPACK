@@ -4,9 +4,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>harlempy\__main__.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
-    <WorkingDirectory>..\examples\MD\BPTI</WorkingDirectory>
+    <WorkingDirectory>D:\Google Drive\InterX\SCHROD_15\THROMBIN\THROMBIN_ARROW2\Dimers_HIN_FluoroBenzene_from_CL</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
@@ -15,7 +16,8 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>
     </InterpreterId>
-    <CommandLineArguments>6PTI.pdb</CommandLineArguments>
+    <CommandLineArguments>
+    </CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -27,6 +29,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="harlempy\dimers\" />
     <Folder Include="harlempy\wxexamples\" />
     <Folder Include="linux\" />
     <Folder Include="molset\" />
@@ -37,6 +40,9 @@
     <Content Include="linux\harlem_ubuntu_igor.sh" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="harlempy\dimers\convert_dimers_f_to_cl.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="harlempy\hapygui.py" />
     <Compile Include="harlempy\hapygui_init.py" />
     <Compile Include="harlempy\harlem_profile.py" />

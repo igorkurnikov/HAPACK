@@ -258,44 +258,8 @@
     <None Include="..\doc\DEVELOP_NOTES\amoeba_func.txt" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
     <None Include="..\doc\DEVELOP_NOTES\thole_coef.txt" />
-    <None Include="..\HARLEM\scripts\harlem_profile.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\__main__.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\ha_tmp_script.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\halib.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\hapygui.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\hapygui_init.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\harlem_profile.py">
-      <Filter>python</Filter>
-    </None>
-    <None Include="..\HARLEM\harlempy\molset.py">
-      <Filter>python</Filter>
-    </None>
     <None Include="clean.bat" />
     <None Include="copy_dependencies.bat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="python">
-      <UniqueIdentifier>{f39b302c-fff8-47f1-91fd-906ccf483fea}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="..\HARLEM\harlempy\start_harlem.py">
-      <Filter>python</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="..\HARLEM\harlempy\__init__.py">
-      <Filter>python</Filter>
-    </CopyFileToFolders>
+    <None Include="..\HARLEM\molset\__init__.py" />
   </ItemGroup>
 </Project>

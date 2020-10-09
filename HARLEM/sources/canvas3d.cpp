@@ -12,7 +12,7 @@
    Roger Sayle, August 1995
    Version 2.6
 */
-
+ 
 
 #define CANVAS3D_CPP
 #define PIXUTILS
