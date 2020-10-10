@@ -1,15 +1,18 @@
 """
 Here we define start_harlem() function that starts Harlem GUI.
 """
-import sys
-from . import test_wx
+#__package__ = "harlempy"
+
+import sys,os
+sys.path.append(os.path.realpath('..'))
+import test_wx
 
 def start_harlem():
     """
     Start Harlem
     """
     import wx
-    from .. import molset
+    import molset
 
     app = wx.App()
     molset.StartHarlemApp()

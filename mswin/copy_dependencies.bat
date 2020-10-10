@@ -206,7 +206,7 @@ REM ###########################################################################
 REM Copy molset(harlemll) module axxiliary python files
 echo "Copying molset module python files"
 
-xcopy /y /d %script_path%\..\HARLEM\molset\*.py %OutputDir%\molset\
+xcopy /y /d /s %script_path%\..\HARLEM\molset\*.py %OutputDir%\molset\
 
 REM ###########################################################################
 REM Copy harlempy
@@ -217,7 +217,7 @@ if not exist "%OutputDir%\molset\harlempy\NUL" (
     echo "%OutputDir%\molset\harlempy already exists"
 )
 
-xcopy /y /d %script_path%\..\HARLEM\harlempy\* %OutputDir%\molset\harlempy\
+xcopy /y /d /s %script_path%\..\HARLEM\harlempy\* %OutputDir%\molset\harlempy\
 
 REM ###########################################################################
 REM Copy wxextra

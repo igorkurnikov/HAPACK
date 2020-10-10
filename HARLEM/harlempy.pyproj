@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>molset\harlempy\start_harlem.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
     <WorkingDirectory>D:\Google Drive\InterX\SCHROD_15\THROMBIN\THROMBIN_ARROW2\Dimers_HIN_FluoroBenzene_from_CL</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -29,31 +28,28 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="harlempy\dimers\" />
-    <Folder Include="harlempy\wxexamples\" />
     <Folder Include="linux\" />
     <Folder Include="molset\" />
-    <Folder Include="harlempy\" />
+    <Folder Include="molset\harlempy\" />
+    <Folder Include="molset\harlempy\wxexamples\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="linux\harlem_ubuntu.sh" />
     <Content Include="linux\harlem_ubuntu_igor.sh" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="harlempy\dimers\convert_dimers_f_to_cl.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="harlempy\hapygui.py" />
-    <Compile Include="harlempy\hapygui_init.py" />
-    <Compile Include="harlempy\harlem_profile.py" />
-    <Compile Include="harlempy\start_harlem.py" />
-    <Compile Include="harlempy\test_wx.py" />
-    <Compile Include="harlempy\wxexamples\exgrid.py" />
-    <Compile Include="harlempy\wxexamples\exgrid2.py" />
-    <Compile Include="harlempy\wxexamples\exlist.py" />
-    <Compile Include="harlempy\wxexamples\__init__.py" />
-    <Compile Include="harlempy\__init__.py" />
-    <Compile Include="harlempy\__main__.py" />
+    <Compile Include="molset\harlempy\hapygui.py" />
+    <Compile Include="molset\harlempy\hapygui_init.py" />
+    <Compile Include="molset\harlempy\harlem_profile.py" />
+    <Compile Include="molset\harlempy\start_harlem.py" />
+    <Compile Include="molset\harlempy\test_wx.py" />
+    <Compile Include="molset\harlempy\wxexamples\exgrid.py" />
+    <Compile Include="molset\harlempy\wxexamples\exgrid2.py" />
+    <Compile Include="molset\harlempy\wxexamples\exlist.py" />
+    <Compile Include="molset\harlempy\wxexamples\__init__.py" />
+    <Compile Include="molset\harlempy\__init__.py" />
+    <Compile Include="molset\harlempy\__main__.py" />
+    <Compile Include="molset\__init__.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

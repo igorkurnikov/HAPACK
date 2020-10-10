@@ -253,8 +253,6 @@
     <None Include="..\HARLEM\sources\harlemwin.hlp" />
     <None Include="..\HARLEM\sources\harlem_i.ico" />
     <None Include="..\HARLEM\sources\osgview.i" />
-    <None Include="Debug\HARLEM\molset.py" />
-    <None Include="Release\HARLEM\molset.py" />
     <None Include="..\doc\DEVELOP_NOTES\amoeba_func.txt" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
     <None Include="..\doc\DEVELOP_NOTES\thole_coef.txt" />

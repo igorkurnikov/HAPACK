@@ -1,4 +1,4 @@
-%module molset
+%module molsetc
 
 %begin %{
 #include <mpi.h>  
