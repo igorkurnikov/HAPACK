@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>molset\harlempy\start_harlem.py</StartupFile>
+    <StartupFile>molset\harlempy\__main__.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
     <WorkingDirectory>D:\Google Drive\InterX\SCHROD_15\THROMBIN\THROMBIN_ARROW2\Dimers_HIN_FluoroBenzene_from_CL</WorkingDirectory>
     <OutputPath>.</OutputPath>

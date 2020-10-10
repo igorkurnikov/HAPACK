@@ -5,7 +5,7 @@ Here we define start_harlem() function that starts Harlem GUI.
 
 import sys,os
 sys.path.append(os.path.realpath('..'))
-import test_wx
+from . import test_wx
 
 def start_harlem():
     """

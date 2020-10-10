@@ -1,7 +1,7 @@
 import sys,os
 sys.path.append(os.path.realpath('..'))
 import wx
-import hapygui
+from .. import hapygui
 
 
 class ExampleListBox(wx.Frame):
