@@ -48,6 +48,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlem_python_tests_1", "ha
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlempy", "..\HARLEM\harlempy.pyproj", "{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MD_SCRIPTS_IK", "..\..\InterX_Simulations\MD_SCRIPTS_IK\MD_SCRIPTS_IK.pyproj", "{DA52CB73-6498-4842-83D1-C2FADD29F365}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -286,6 +288,14 @@ Global
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Win32.ActiveCfg = Release|Any CPU
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Win32.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

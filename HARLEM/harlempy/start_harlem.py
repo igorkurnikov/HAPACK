@@ -1,10 +1,6 @@
 """
 Here we define start_harlem() function that starts Harlem GUI.
 """
-#__package__ = "harlempy"
-
-import sys,os
-sys.path.append(os.path.realpath('..'))
 from . import test_wx
 
 def start_harlem():
