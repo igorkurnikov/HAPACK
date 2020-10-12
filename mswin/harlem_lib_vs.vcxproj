@@ -624,7 +624,6 @@ $(SolutionDir)copy_dependencies.bat
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
       <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)molsetc.py $(OutputPath)
 
 set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"

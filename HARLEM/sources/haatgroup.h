@@ -450,7 +450,7 @@ public:
 	static void InitStdResNames(); //!< Initialize standard residue names
 	static void InitResSynonym(); //!< Initialize standard residue name synonyms
 
-	static StrVec ResNames;               //!< table of Residue Names 
+	static std::vector<std::string> ResNames;               //!< table of Residue Names 
 	static StrIntMap res_name_refno_map;  //!< map of residue names to ref_no 
 	static StrStrMap ResSynonym;  //!< the table of Residue Name Synonyms
 

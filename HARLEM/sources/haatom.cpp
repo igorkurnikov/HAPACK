@@ -687,6 +687,7 @@ int HaAtom::RegisterAtName(const std::string& at_name)
 
 void HaAtom::FillStdAtomTypes()
 {
+	if (ElemDesc.size() > 10) return;
 	ElemDesc.reserve(200);
 	RegisterAtName("N");    // 0
 	RegisterAtName("CA");   // 1
@@ -890,6 +891,8 @@ int HaAtom::GetElemNoFromName(const std::string& at_name, const HaResidue* pres)
 
 		res_name = pres->GetName();
 	}
+
+	PrintLog("is_protein = %d \n", is_protein);
 
 	if(*ptr == ' ') ptr++;
 	if(*ptr == ' ') ptr++;

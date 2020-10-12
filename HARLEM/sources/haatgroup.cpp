@@ -39,6 +39,7 @@ int HaResidue::RegisterResName( const std::string& res_name)
 
 void HaResidue::InitStdResNames()
 {
+	if (ResNames.size() > 20) return;
 	ResNames.reserve(200);
 
 	RegisterResName("ALA");  // 0 
@@ -107,6 +108,7 @@ void HaResidue::InitStdResNames()
 
 void HaResidue::InitResSynonym()
 {
+	if (ResSynonym.size() > 10) return;
 	ResSynonym["ADE"] = "A";    /*  Adenosine   */
 	ResSynonym["GUA"] = "G";    /*  Guanosine   */
 	ResSynonym["THY"] = "T#D";    /*  Thymidine   */
@@ -220,7 +222,7 @@ void HaResidue::InitResSynonym()
 
 }
 
-StrVec     HaResidue::ResNames;
+std::vector<std::string> HaResidue::ResNames;
 StrStrMap  HaResidue::ResSynonym;
 StrIntMap  HaResidue::res_name_refno_map;
 

@@ -124,7 +124,7 @@ HarlemApp::HarlemApp()
 	HaResidue::InitResSynonym();
 
 	mpi_driver    = NULL;
-	file_log            = NULL;
+	file_log      = NULL;
 }
 
 HarlemApp::~HarlemApp()

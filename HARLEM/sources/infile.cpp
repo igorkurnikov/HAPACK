@@ -1307,9 +1307,14 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 				atom_idx_map[pat] = idx_at;
 				idx_atom_map[idx_at] = pat;
 
+				PrintLog("str_arr[2] = %s str_arr[3] = %s \n", str_arr[2].c_str(), str_arr[3].c_str() );
+				PrintLog("resname = %s  refno = %d \n", pres_cur->GetName(), pres_cur->refno);
+				
 				if (str_arr[3] != "-")
 				{
-					pat->SetElemNo(HaAtom::GetElemNoFromName(str_arr[3], pres_cur));
+					int elem_std = HaAtom::GetElemNoFromName(str_arr[3], pres_cur);
+					PrintLog("elem_std = %d \n", elem_std);
+					pat->SetElemNo(elem_std);
 				}
 
 				std::string at_name = str_arr[2];
@@ -1319,10 +1324,12 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 					at_name.erase(0,1);
 					at_name.push_back( str_arr[2][0]);
 				}
+
 				if (at_name == "-")
 				{
 					at_name = pat->GetStdSymbol() + harlem::ToString(idx_at);
 				}
+				PrintLog(" at_name = %s \n", at_name.c_str());
 				pat->SetName( at_name );
 				
 				if( str_arr[4] != "-")
