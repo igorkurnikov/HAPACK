@@ -3134,24 +3134,23 @@ wxSizer *edit_groups_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxBoxSizer *item36 = new wxBoxSizer( wxHORIZONTAL );
 
-    item23->Add( item36, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxButton *item37 = new wxButton( parent, IDC_EDTGRP_SET_PROT, wxT("Set Protection:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item36->Add( item37, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item37 = new wxBoxSizer( wxHORIZONTAL );
+    wxTextCtrl *item38 = new wxTextCtrl( parent, IDC_EDTGRP_EDT_PROT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item36->Add( item38, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item38 = new wxButton( parent, IDC_EDTGRP_SET_PROT, wxT("Set Protection:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item37->Add( item38, 0, wxALIGN_CENTER|wxALL, 5 );
+    item23->Add( item36, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_EDTGRP_EDT_PROT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
-    item37->Add( item39, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxBoxSizer *item39 = new wxBoxSizer( wxHORIZONTAL );
 
-    item23->Add( item37, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxButton *item40 = new wxButton( parent, IDC_EDTGRP_SAVE_XYZ_FILE, wxT("Save Group to XYZ File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item39->Add( item40, 1, wxALIGN_CENTER|wxALL, 0 );
 
-    wxBoxSizer *item40 = new wxBoxSizer( wxHORIZONTAL );
+    wxButton *item41 = new wxButton( parent, IDC_EDTGRP_SAVE_NDX_FILE, wxT("Save Group to NDX file"), wxDefaultPosition, wxDefaultSize, 0 );
+    item39->Add( item41, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item41 = new wxButton( parent, IDC_EDTGRP_SAVE_XYZ_FILE, wxT("Save Group to XYZ File"), wxDefaultPosition, wxDefaultSize, 0 );
-    item40->Add( item41, 0, wxALIGN_CENTER|wxALL, 5 );
-
-    item23->Add( item40, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item23->Add( item39, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item0->Add( item23, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 

@@ -325,6 +325,10 @@ public:
 	bool DeleteAtomGroup(const char* id );         //!< Delete Atom Group with id
 	bool DeleteAtomGroupPtr( AtomGroup* atgrp_ptr );     //!< Delete Atom Group by pointer
     int CreateAxxMol(const char* mol_name, const char* id); //!< create axxiliary molecule from the group of atoms to set external charges or force centers
+
+	std::string GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const; //!<  Get indexes of atoms in the group as a string for GROMACS NDX file
+	void SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname); //!< Save Atom Group to GROMACS NDX file 
+
 //@}
 
 //! \name Atom Coordinate Snapshots

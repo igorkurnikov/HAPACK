@@ -508,6 +508,7 @@ int AtomContainer::SaveXYZFile( const char* fout_name, const AtomSaveOptions* p_
 	return ires;
 }
 
+
 int AtomContainer::SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_opt_arg )
 {
 	auto_ptr<AtomSaveOptions> p_opt( p_opt_arg != NULL ? (AtomSaveOptions*) p_opt_arg->clone() : new AtomSaveOptions() ); 

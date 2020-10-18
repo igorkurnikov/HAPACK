@@ -867,6 +867,7 @@ protected:
 	void DisplaySelectedGroup();
 	void OnSetProt(wxCommandEvent& event);
 	void OnSaveXYZFile(wxCommandEvent& event);
+	void OnSaveNDXFile(wxCommandEvent& event);
 	void OnStdGroups(wxCommandEvent& event);
 	void OnRenumberGrp(wxCommandEvent& event);
 	void OnChangeSelGroup2(wxCommandEvent& event);

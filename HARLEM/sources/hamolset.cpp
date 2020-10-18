@@ -3208,6 +3208,49 @@ int MolSet::CreateAxxMol(const char* mol_name, const char* id)
 	return TRUE;
 }
 
+std::string MolSet::GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const 
+{
+	CAtomIntMap at_idx_map =  this->GetAtomSeqNumMap();
+	std::string grp_str;
+	grp_str = "[ " + std::string(p_atgrp->GetID()) + " ]\n";
+ 
+	int na = this->GetNAtoms();
+	int len_el = 4;
+	int len_max = 75;
+
+	if (na >= 10000) len_el = (int)log10(na) + 1;
+	std::string fmt_str = std::string("%") + std::to_string(len_el) + std::string("d");
+	boost::format fmt(fmt_str);
+
+	std::string line;
+	for (const HaAtom* aptr : *p_atgrp)
+	{
+		if ( at_idx_map.find(aptr) == at_idx_map.end()) continue;
+		int idx = at_idx_map[aptr];
+		if (!line.empty()) line += " ";
+		line += boost::str(fmt % idx);
+		if (line.size() >= len_max)
+		{
+			line += "\n";
+			grp_str += line;
+			line.erase();
+		}
+	}   
+	if (!line.empty())
+	{
+		line += "\n";
+		grp_str += line;
+	}
+	return grp_str;
+}
+
+void MolSet::SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname)
+{
+	ofstream fos(fname);
+	if (fos.fail()) return;
+	std::string grp_str = this->GetAtomGroupNdxStr(p_atgrp);
+	fos << grp_str;
+}
 
 bool MolSet::SetChemGrpSelected(const std::string& gid)
 {

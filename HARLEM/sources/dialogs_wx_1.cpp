@@ -6174,6 +6174,7 @@ BEGIN_EVENT_TABLE(EditGroupsDlg, wxFrame)
 	EVT_BUTTON (IDC_EDTGRP_DELETE_MEMB, EditGroupsDlg::OnDelMemb)
 	EVT_BUTTON (IDC_EDTGRP_SET_PROT, EditGroupsDlg::OnSetProt)
 	EVT_BUTTON (IDC_EDTGRP_SAVE_XYZ_FILE, EditGroupsDlg::OnSaveXYZFile )
+	EVT_BUTTON(IDC_EDTGRP_SAVE_NDX_FILE, EditGroupsDlg::OnSaveNDXFile)
 	EVT_MENU (IDC_STD_GROUPS, EditGroupsDlg::OnStdGroups)
 	EVT_MENU(IDC_RENUMBER_GRP, EditGroupsDlg::OnRenumberGrp)
 	EVT_MENU(IDC_COLOR_RIGID_CLUSTERS, EditGroupsDlg::OnColorRigidClusters)
@@ -6556,6 +6557,24 @@ void EditGroupsDlg::OnSaveXYZFile(wxCommandEvent& event)
 
 	int ires = p_at_arr->SaveXYZFile( fname_out.c_str() );
 }
+
+void EditGroupsDlg::OnSaveNDXFile(wxCommandEvent& event)
+{
+	AtomGroup* p_atgrp = GetSelGroup();
+	if (p_atgrp == NULL) return;
+
+	wxString fname_init = pmset->GetName();
+	fname_init += "_";
+	fname_init += p_atgrp->GetID();
+	fname_init += ".ndx";
+
+	wxString fname_out = ::wxFileSelector("Select NDX file to save Atom Group coordinates",
+		::wxGetCwd(), fname_init, "ndx", "*.ndx");
+
+	if (fname_out.empty()) return;
+	pmset->SaveAtomGroupToNDXFile(p_atgrp, fname_out.ToStdString());
+}
+
 
 void EditGroupsDlg::OnChangeSelGroup()
 {
