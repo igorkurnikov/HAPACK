@@ -868,6 +868,7 @@ protected:
 	void OnSetProt(wxCommandEvent& event);
 	void OnSaveXYZFile(wxCommandEvent& event);
 	void OnSaveNDXFile(wxCommandEvent& event);
+	void OnSortGrpIdx(wxCommandEvent& event);
 	void OnStdGroups(wxCommandEvent& event);
 	void OnRenumberGrp(wxCommandEvent& event);
 	void OnChangeSelGroup2(wxCommandEvent& event);

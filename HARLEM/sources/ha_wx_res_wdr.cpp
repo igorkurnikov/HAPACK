@@ -3152,6 +3152,13 @@ wxSizer *edit_groups_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     item23->Add( item39, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
+    wxBoxSizer *item42 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item43 = new wxButton( parent, IDC_EDTGRP_SORT_IDX, wxT("Sort Group by Index"), wxDefaultPosition, wxDefaultSize, 0 );
+    item42->Add( item43, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item23->Add( item42, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
     item0->Add( item23, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     if (set_sizer)

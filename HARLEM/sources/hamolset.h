@@ -328,6 +328,7 @@ public:
 
 	std::string GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const; //!<  Get indexes of atoms in the group as a string for GROMACS NDX file
 	void SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname); //!< Save Atom Group to GROMACS NDX file 
+	bool SortAtomGroupByIdx(AtomGroup* p_atgrp); //!< Sort Atom Group By Atom Index 
 
 //@}
 

@@ -6175,6 +6175,7 @@ BEGIN_EVENT_TABLE(EditGroupsDlg, wxFrame)
 	EVT_BUTTON (IDC_EDTGRP_SET_PROT, EditGroupsDlg::OnSetProt)
 	EVT_BUTTON (IDC_EDTGRP_SAVE_XYZ_FILE, EditGroupsDlg::OnSaveXYZFile )
 	EVT_BUTTON(IDC_EDTGRP_SAVE_NDX_FILE, EditGroupsDlg::OnSaveNDXFile)
+	EVT_BUTTON(IDC_EDTGRP_SORT_IDX, EditGroupsDlg::OnSortGrpIdx)
 	EVT_MENU (IDC_STD_GROUPS, EditGroupsDlg::OnStdGroups)
 	EVT_MENU(IDC_RENUMBER_GRP, EditGroupsDlg::OnRenumberGrp)
 	EVT_MENU(IDC_COLOR_RIGID_CLUSTERS, EditGroupsDlg::OnColorRigidClusters)
@@ -6573,6 +6574,15 @@ void EditGroupsDlg::OnSaveNDXFile(wxCommandEvent& event)
 
 	if (fname_out.empty()) return;
 	pmset->SaveAtomGroupToNDXFile(p_atgrp, fname_out.ToStdString());
+}
+
+void EditGroupsDlg::OnSortGrpIdx(wxCommandEvent& event)
+{
+	AtomGroup* p_atgrp = GetSelGroup();
+	if (p_atgrp == NULL) return;
+	pmset->SortAtomGroupByIdx(p_atgrp);
+
+	OnChangeSelGroup();
 }
 
 

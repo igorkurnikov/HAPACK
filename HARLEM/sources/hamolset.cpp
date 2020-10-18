@@ -83,7 +83,7 @@ void SetCurMolSet(MolSet* pmset)
 	PyGILState_STATE gstate;
 	gstate = PyGILState_Ensure();
 	int ires = PyRun_SimpleString("import molset");
-	ires = PyRun_SimpleString("mset_c = molset.GetCurMolSet\(\) ");
+	ires = PyRun_SimpleString("mset_c = molset.GetCurMolSet() ");
 	PyGILState_Release(gstate);
 	if(!ires) return;
 	if( pmset != NULL )
@@ -3250,6 +3250,30 @@ void MolSet::SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname)
 	if (fos.fail()) return;
 	std::string grp_str = this->GetAtomGroupNdxStr(p_atgrp);
 	fos << grp_str;
+}
+
+
+bool MolSet::SortAtomGroupByIdx(AtomGroup* p_atgrp)
+{
+	AtomIntMap at_idx_map = this->GetAtomSeqNumMap();
+	for ( HaAtom* aptr : *p_atgrp)
+	{
+		if (at_idx_map.find(aptr) == at_idx_map.end())
+		{
+			PrintLog("Some atoms of the group does not belong to the Molset");
+			return false;
+		}
+	}
+
+	struct sort_at_idx {
+		bool operator() (HaAtom* aptr1, HaAtom* aptr2) { return (at_idx_map[aptr1] < at_idx_map[aptr2]); }
+		AtomIntMap at_idx_map;
+	} sort_obj;
+
+	sort_obj.at_idx_map = at_idx_map;
+
+	std::sort(p_atgrp->begin(), p_atgrp->end(), sort_obj);
+	return true;
 }
 
 bool MolSet::SetChemGrpSelected(const std::string& gid)
