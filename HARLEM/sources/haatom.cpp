@@ -892,8 +892,6 @@ int HaAtom::GetElemNoFromName(const std::string& at_name, const HaResidue* pres)
 		res_name = pres->GetName();
 	}
 
-	PrintLog("is_protein = %d \n", is_protein);
-
 	if(*ptr == ' ') ptr++;
 	if(*ptr == ' ') ptr++;
 	if( is_coenzyme )
