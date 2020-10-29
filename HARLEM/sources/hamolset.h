@@ -389,8 +389,10 @@ public:
 	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is a fragment)
 	MolSet* CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params = NULL);
 	
-	vector<MolSet*> Fragments;   //!< Vector of fragments
+	std::vector<MolSet*> Fragments;   //!< Vector of fragments
 	PtrPtrMap frag_atom_maps;      //!< map of fragments to mappings of atoms of fragments to atoms of the molecular set
+
+	std::map<void*, std::string> struct_elem_info; //!< info strings for structure elements 
 	
 	int AssociateFragment(MolSet* frag);     //!< Add an existing molecular set as a fragment
 	int ReleaseFragment(MolSet* frag);  //!< Detach the fragment from the molecular set without deleting it 

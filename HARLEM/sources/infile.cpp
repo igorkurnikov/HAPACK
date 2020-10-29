@@ -1185,6 +1185,8 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 		int idx_line = -1;
 		int idx_chk  = -1;
 		int na_max = 10000000;
+		bool read_mol_prop = false;
+		HaAtom* pat = NULL;
 
 		std::vector<string> str_arr;
 
@@ -1202,7 +1204,35 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 			
 			if( line[0] == ';' ) // process comment line
 			{
+				std::string cmnt = line.substr(1);
+				if (read_mol_prop && pMol)
+				{
+					pMol->comments.push_back(cmnt);
+					continue;
+				}
+				if (pat)
+				{
+					pat->comments.push_back(cmnt);
+				}
 				continue;
+			}
+
+			if (read_mol_prop && pMol)
+			{
+				if (str_arr[0] == "charge")
+				{
+					if (str_arr.size() > 1)
+					{
+						try
+						{
+							pMol->charge = std::stoi(str_arr[1]);
+						}
+						catch (const std::out_of_range& ex)
+						{
+
+						}
+					}
+				}
 			}
 
 			if( str_arr[0] == "mol"  ) 
@@ -1218,7 +1248,8 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 				if( str_arr.size() > 2) pMol->SetObjName( mol_name.c_str());
 
 				idx_atom_map.clear();
-				
+				read_mol_prop = true;
+
 				continue;
 			}
 			if( str_arr[0] == "endmol"  ) 
@@ -1227,6 +1258,7 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 				if( pres_cur != NULL && pres_cur->IsAmino() )  pres_cur->SetNameModifier("CT");
 				pch_cur  = NULL;
 				pres_cur = NULL;
+				pat = NULL;
 				continue;
 			}
 
@@ -1269,11 +1301,15 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 				if( str_arr.size() > 2 ) pres_cur->SetName( str_arr[2] );
 				if( pres_cur->IsAmino() && chain_started ) pres_cur->SetNameModifier("NT");
 
+				pat = NULL;
+				read_mol_prop = false;
+
 				continue;
 			}			
 
 			if( str_arr[0] == "endres"  ) 
 			{
+				pat = NULL;
 				continue;
 			}
 
@@ -1302,10 +1338,12 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 					PrintLog(" not unique atom index in the molecule \n%s\n", line.c_str());
 					continue;
 				}
-				HaAtom* pat = pres_cur->AddNewAtom(); 
+				pat = pres_cur->AddNewAtom(); 
 
 				atom_idx_map[pat] = idx_at;
 				idx_atom_map[idx_at] = pat;
+
+				read_mol_prop = false;
 				
 				if (str_arr[3] != "-")
 				{

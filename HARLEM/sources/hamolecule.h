@@ -183,6 +183,9 @@ public:
 	std::string classification;
 	std::string identcode;
 
+	int charge;
+	std::vector<std::string> comments; //!< Additional comments read from the HIN file
+
 public:
 
     friend class ChainIteratorMolecule;

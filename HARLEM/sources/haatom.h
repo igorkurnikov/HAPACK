@@ -210,6 +210,7 @@ public:
   double ew;        //!< mimimum energy of vdW interaction of the two identical atoms kcal/mol
 
   std::string FFSymbol;  //!< Force-field symbol
+  std::vector<std::string> comments; //!< Additional comments read from the HIN file
 //@}
 
   TiXmlElement* AddXml(TiXmlElement* parent_element, const char* name = "", int option=0) const; //!< Add a description of the atom to the XML element

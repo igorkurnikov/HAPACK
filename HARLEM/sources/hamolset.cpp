@@ -505,7 +505,6 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 			break;
 		}
 
-	
 		const HaMolecule* pmol_c = *mol_itr;
 		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap();
 		ChainIteratorMolecule ch_itr(*mol_itr);
@@ -523,7 +522,19 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 		{
 			os << "mol " << imol << " " << '\"' << mol_name << '\"' << std::endl;
 		}
+		if (pmol_c->comments.size() > 0)
+		{
+			for (std::string cmnt : pmol_c->comments)
+			{
+				os << ";" << cmnt << std::endl;
+			}
+		}
 
+
+		if (pmol_c->charge > -100)
+		{
+			os << "charge " << std::to_string(pmol_c->charge) << std::endl;
+		}
 
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
@@ -636,7 +647,14 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 							os << " " << i_bat << " " << bond_type_str;
 						}
 //					} // if selected 
-					os << std::endl;	
+					os << std::endl;
+					if (aptr->comments.size() > 0)
+					{
+						for ( std::string cmnt : aptr->comments )
+						{
+							os << ";" << cmnt << std::endl;
+						}
+					}
 				} // end atom
 				if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
 //				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << std::endl;
@@ -3226,7 +3244,7 @@ std::string MolSet::GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const
 	for (const HaAtom* aptr : *p_atgrp)
 	{
 		if ( at_idx_map.find(aptr) == at_idx_map.end()) continue;
-		int idx = at_idx_map[aptr];
+		int idx = at_idx_map[aptr] + 1;
 		if (!line.empty()) line += " ";
 		line += boost::str(fmt % idx);
 		if (line.size() >= len_max)

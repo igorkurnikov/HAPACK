@@ -39,6 +39,7 @@ Object3D(OBJ3D_MOLECULE)
 
 	sec_struct_found= false;
 	serno = 0;
+	charge = -1000;
 	
 	structsource=SourceNone;
 

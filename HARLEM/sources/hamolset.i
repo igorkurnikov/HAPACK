@@ -10,7 +10,7 @@
 #include <wx/app.h>
 #include <wx/docmdi.h>
 #include <wx/image.h>
-#include <wx/tooltip.h>
+#include <wx/tooltip.h>  
 #include <wx/filedlg.h>
 #include "wx/clipbrd.h"
 #include "wx/printdlg.h"
