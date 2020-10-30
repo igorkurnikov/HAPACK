@@ -459,6 +459,9 @@ public:
 	AtomGroup picked_atoms;
 
 	StrVec info_str; //!< vector of string to display on the screen
+	std::vector<std::string> comments1; //!< Comments strings set 1
+	std::vector<std::string> comments2; //!< Comments strings set 2
+
 //@}
 
 //! \name GLEAP and MORT library interactions

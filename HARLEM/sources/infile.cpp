@@ -1186,6 +1186,8 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 		int idx_chk  = -1;
 		int na_max = 10000000;
 		bool read_mol_prop = false;
+		bool read_mset_prop_1 = true;
+		bool read_mset_prop_2 = false;
 		HaAtom* pat = NULL;
 
 		std::vector<string> str_arr;
@@ -1205,6 +1207,18 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 			if( line[0] == ';' ) // process comment line
 			{
 				std::string cmnt = line.substr(1);
+				if (read_mset_prop_1)
+				{
+					this->comments1.push_back(cmnt);
+					continue;
+				}
+				if (read_mset_prop_2)
+				{
+					this->comments2.push_back(cmnt);
+					continue;
+				}
+
+
 				if (read_mol_prop && pMol)
 				{
 					pMol->comments.push_back(cmnt);
@@ -1249,6 +1263,8 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 
 				idx_atom_map.clear();
 				read_mol_prop = true;
+				read_mset_prop_1 = false;
+				read_mset_prop_2 = false;
 
 				continue;
 			}
@@ -1259,6 +1275,7 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 				pch_cur  = NULL;
 				pres_cur = NULL;
 				pat = NULL;
+				read_mset_prop_2 = true;
 				continue;
 			}
 

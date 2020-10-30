@@ -17,7 +17,7 @@
 
 #include "wx/wx.h"
 #include "wx/filename.h"  
-#include <wx/splitter.h>
+#include <wx/splitter.h>  
 #endif
 
 %}

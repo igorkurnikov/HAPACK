@@ -485,6 +485,14 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 	HaChain* chain;
 	HaResidue* pres;
 	
+	if (this->comments1.size() > 0)
+	{
+		for (std::string cmt : this->comments1)
+		{
+			os << ";" << cmt << std::endl;
+		}
+	}
+
 	MoleculesType::const_iterator mol_itr;
 	
 	int ires = 0;
@@ -662,6 +670,14 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 		} // end chain
 		os << "endmol " << imol << std::endl;
 	} // end mol
+
+	if (this->comments2.size() > 0)
+	{
+		for (std::string cmt : this->comments2)
+		{
+			os << ";" << cmt << std::endl;
+		}
+	}
 
 	return TRUE;
 }
