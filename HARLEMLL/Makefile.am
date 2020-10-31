@@ -1,4 +1,4 @@
-lib_LTLIBRARIES = lib_molset.la
+lib_LTLIBRARIES = lib_molsetc.la
 
 AM_LDFLAGS = -lz -lutil -shared 
 
@@ -21,7 +21,7 @@ AM_CPPFLAGS = \
   $(WX_CPPFLAGS) $(OPEN_SCENE_GRAPH_VIEW_FLAG) \
   -Wno-non-template-friend -Wno-deprecated -fpermissive 
 
-lib_molset_la_LIBADD = \
+lib_molsetc_la_LIBADD = \
  $(top_builddir)/DELPHI_LIB/libdelphi.a \
  $(top_builddir)/MY_VFLIB/libvf.a \
  $(top_builddir)/WOLFGANG/DO_LIB/libdo.a \
@@ -33,14 +33,14 @@ lib_molset_la_LIBADD = \
  $(top_builddir)/MORT_LIB/libmort.a 
 
 #if WITH_LIB_PMEMD
-lib_molset_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
+lib_molsetc_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
 #endif
 
 if WITH_CUDA
-lib_molset_la_LIBADD += $(NVCCLIBS)
+lib_molsetc_la_LIBADD += $(NVCCLIBS)
 endif
 
-lib_molset_la_LIBADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
+lib_molsetc_la_LIBADD += $(MPI_LDFLAGS) $(MPI_LIBS) $(BOOST_LIBS)\
  $(WX_LIBS) \
  $(FLIBS) $(BLAS_LIBS) $(LAPACK_LIBS)  \
  $(RESOURCES_BIN) \
@@ -166,21 +166,21 @@ harlem_main_files = \
  $(top_srcdir)/HARLEM/sources/math/za02.f \
  $(ADD_SRC)
 
-lib_molset_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
+lib_molsetc_la_SOURCES = $(harlem_main_files) $(harlem_wx_files)\
  hamolset_wrap.cpp 
 
 #if WITH_LIB_PMEMD
-#_molset_la_SOURCES += $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp
+#_molsetc_la_SOURCES += $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp
 #endif
 
 hamolset_wrap.cpp:$(top_srcdir)/HARLEM/sources/hamolset.i
 	swig -python -shadow -py3 -c++ $(INCLUDES) $(harlem_DEFVAR) -o hamolset_wrap.cpp $(top_srcdir)/HARLEM/sources/hamolset.i
 
-molset.py:hamolset_wrap.cpp
+molsetc.py:hamolset_wrap.cpp
 
-pkgscript_DATA = molset.py 
+pkgscript_DATA = molsetc.py 
 
-CLEANFILES = hamolset_wrap.cpp molset.py lib_molset.so 
+CLEANFILES = hamolset_wrap.cpp molsetc.py lib_molsetc.so 
 
 
 
