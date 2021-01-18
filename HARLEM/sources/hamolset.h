@@ -136,7 +136,7 @@ public:
 	int SetCoordFromFile(const char* fname, int iform = FormatGUESS); //!< Set Molecular Set atom coordinates from File (in pdb, xyz or other format) 
 	int SetCrdFromArray( const HaVec_double& crd_arr ); //!< Set Molecular Set atom coordinates for coordinate array
 
-	int SavePDBFile(const char* filename );      //!< Save molecules into a file in PDB format
+	int SavePDBFile(const char* filename ) const;      //!< Save molecules into a file in PDB format
 	int SaveHarlemFile(const char* filename, const AtomSaveOptions* popt = NULL );  //!< Save molecules into a file in current HARLEM format (XML) (*.hmlx)
 	int SaveOldHarlemFile(const char* filename );   //!< Save molecules into a file in OLD HARLEM format (*.hml)
 	int SaveXYZRadFile(const char* filename );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
@@ -147,8 +147,10 @@ public:
 	
 	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0) const; //!< Add Minimal Molecular Set Descripion to XML element
 	int SaveXML(FILE* file_out, int option=0) const;              //!< Save Molecular Set Description to a file
-	int SaveOldHarlemStream(std::ostream& os); //!< Save MolSet in Old Harlem Format to stream
-	int SaveHINToStream(std::ostream& os) const; //!< Save MolSet in Abalest HIN Format to stream
+	int SavePDBToStream(std::ostream& os) const; //!< Save MolSet in PDB Format to std::stream
+	std::string SavePDBToString() const; //!< Save MolSet in PDB Format to std::string
+	int SaveOldHarlemStream(std::ostream& os); //!< Save MolSet in Old Harlem Format to std::stream
+	int SaveHINToStream(std::ostream& os) const; //!< Save MolSet in Abalest HIN Format to std::stream
 	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt = NULL ) const;  //!< Write MolSet data in XML format to stream
 	  
 	ZMatCrd* GetZMat( const harlem::HashMap* popt = NULL); //!< Get Z-Matrix for the molecular set   

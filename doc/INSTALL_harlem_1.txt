@@ -54,6 +54,18 @@ cd PMEMD_LIB
 make
 cd ..
 --------------------------------------------------------------------------------------------------------------------
+Compilation on Berkeley cluster with anacoda compilers:
+
+need to make a link  anaconda3/include/GL/glx.h  -> /usr/include/glx.h
+                     anaconda3/include/GL/glxext.h  -> /usr/include/glxext.h
+                     anaconda3/lib/librdmacm.so  -> /usr/lib64/librdmacm.so
+                     anaconda3/lib/libibverbs.so  -> /usr/lib64/libibverbs.so
+                     anaconda3/lib/libudev.so  -> /usr/lib64/libudev.so
+
+hardcoded include dir to  MORT_LIB/CMakeLists.txt
+include_directories( /home/kurnikov/anaconda3/include )
+
+-------------------------------------------------------------------------------------------------------------------------
 MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:
 currently we are using standard blas and lapack on UBUNTU :
 

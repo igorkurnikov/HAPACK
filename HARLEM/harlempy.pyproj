@@ -31,6 +31,7 @@
     <Folder Include="molset\" />
     <Folder Include="molset\harlempy\" />
     <Folder Include="molset\harlempy\wxexamples\" />
+    <Folder Include="molset\molset_ext\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="linux\harlem_ubuntu.sh" />
@@ -48,6 +49,12 @@
     <Compile Include="molset\harlempy\wxexamples\__init__.py" />
     <Compile Include="molset\harlempy\__init__.py" />
     <Compile Include="molset\harlempy\__main__.py" />
+    <Compile Include="molset\molset_ext\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="molset\molset_ext\traj_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="molset\__init__.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

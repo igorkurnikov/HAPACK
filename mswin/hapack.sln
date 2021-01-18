@@ -54,6 +54,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MD_TOOLS_PY", "..\..\InterX
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PROT_FOLD_SCRIPTS1", "..\..\InterX_Simulations\PROT_FOLD_SCRIPTS\PROT_FOLD_SCRIPTS1.pyproj", "{8C9373AE-5B91-4F4B-A59B-A8D1BC61D5B5}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "mdtraj", "..\..\..\PROG_SRC\mdtraj\mdtraj.pyproj", "{216279C8-1D8E-4B22-BF8B-30EFF34C8212}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -316,6 +318,14 @@ Global
 		{8C9373AE-5B91-4F4B-A59B-A8D1BC61D5B5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8C9373AE-5B91-4F4B-A59B-A8D1BC61D5B5}.Release|Win32.ActiveCfg = Release|Any CPU
 		{8C9373AE-5B91-4F4B-A59B-A8D1BC61D5B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|Win32.ActiveCfg = Release|Any CPU
+		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

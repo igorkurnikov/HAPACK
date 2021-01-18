@@ -5,15 +5,15 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ec92aabe-e1e3-4d9d-b775-3bdab3f3d171}</ProjectGuid>
     <ProjectHome>..\examples\</ProjectHome>
-    <StartupFile>
-    </StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <StartupFile>MD\MDTRAJ\test_mdtraj_1.py</StartupFile>
+    <SearchPath>..\mswin\Release_x64;..\HARLEM\molset\harlempy</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <InterpreterId>Global|VisualStudio|HARLEM_64BIT_RELEASE</InterpreterId>
+    <InterpreterId>CondaEnv|CondaEnv|harlem1</InterpreterId>
     <Name>harlem_python_tests_1</Name>
     <RootNamespace>harlem_python_tests_1</RootNamespace>
+    <TestFramework>Pytest</TestFramework>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +66,9 @@
     <Compile Include="MC\scan_ene_gly_1.py" />
     <Compile Include="MD\analize_traj_1.py" />
     <Compile Include="MD\calc_deltag.py" />
+    <Compile Include="MD\MDTRAJ\test_mdtraj_1.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MD\mg_dist_wrap_cell_2.py" />
     <Compile Include="MD\print_tot_ind_dip_1.py" />
     <Compile Include="MD\reduce_traj_1.py" />
@@ -184,6 +187,7 @@
     <Folder Include="MD\MG_HOH_MIN" />
     <Folder Include="MD\MG_WAT_PMF" />
     <Folder Include="MD\MG_WAT_RDF" />
+    <Folder Include="MD\MDTRAJ\" />
     <Folder Include="MD\PEPT3" />
     <Folder Include="MD\TEST_MD_1_GLY" />
     <Folder Include="MD\TI_METH_CH" />
@@ -206,7 +210,7 @@
     <Folder Include="XML" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="Global|VisualStudio|HARLEM_64BIT_RELEASE" />
+    <InterpreterReference Include="CondaEnv|CondaEnv|harlem1" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

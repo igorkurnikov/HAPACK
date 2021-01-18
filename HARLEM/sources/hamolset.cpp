@@ -174,91 +174,87 @@ void MolSet::DeleteAll()
 	DeleteCrdSnapshots();
 } 
 
-
-
-int MolSet::SavePDBFile(const char* filename)
+int MolSet::SavePDBToStream(std::ostream& os) const
 {
+	if (os.fail()) return FALSE;
+
+	char buf[256];
+
 	double x, y, z;
-    
-	HaChain  *chain;
-	HaResidue  *group;
-	HaAtom  *aptr;
+
+	HaChain* chain;
+	HaResidue* group;
+	HaAtom* aptr;
 	int count;
 
-	FILE* DataFile = fopen( filename, "w" );
-	if( !DataFile )
-	{
-		PrintLog("\n");
-		return( False );
-	}
-
 	count = 1;
-	MoleculesType::iterator mol_itr;
-	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	MoleculesType::const_iterator mol_itr;
+	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
 		ChainIteratorMolecule ch_itr(*mol_itr);
-		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
+		for (chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			ResidueIteratorChain ritr_ch(chain);
-			for(group = ritr_ch.GetFirstRes(); group; group = ritr_ch.GetNextRes())
+			for (group = ritr_ch.GetFirstRes(); group; group = ritr_ch.GetNextRes())
 			{
 				std::string res_name = group->GetName();
-				if( p_save_opt_default->save_amber_pdb )
+				if (p_save_opt_default->save_amber_pdb)
 				{
-					res_name = MMForceField::GetAmberResName( group->GetFullName() );
+					res_name = MMForceField::GetAmberResName(group->GetFullName());
 				}
-					
+
 				AtomIteratorAtomGroup aitr_group(group);
-				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
+				for (aptr = aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !p_save_opt_default->save_selected || aptr->Selected())
+					if (!p_save_opt_default->save_selected || aptr->Selected())
 					{
-//						if( prev && (chain->ident!=ch) )
-//							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
-//							count++, prev->GetName(), ch, prev->serno);
-						
-						if( aptr->flag&HeteroFlag )
+						//						if( prev && (chain->ident!=ch) )
+						//							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
+						//							count++, prev->GetName(), ch, prev->serno);
+
+						if (aptr->flag & HeteroFlag)
 						{
-							fputs("HETATM",DataFile);
+							os << "HETATM";
 						}
 						else
 						{
-							fputs("ATOM  ",DataFile);
-						}
-						
-						std::string atname = aptr->GetName();
-						if( p_save_opt_default->save_amber_pdb )
-						{
-							atname = MMForceField::GetAmberAtName( atname, group->GetFullName() );
+							os << "ATOM  ";
 						}
 
-						if(atname.size() < 4) atname.insert(0," ");
+						std::string atname = aptr->GetName();
+						if (p_save_opt_default->save_amber_pdb)
+						{
+							atname = MMForceField::GetAmberAtName(atname, group->GetFullName());
+						}
+
+						if (atname.size() < 4) atname.insert(0, " ");
 
 						int k;
-						for(k=0; k < 4; k++)
+						for (k = 0; k < 4; k++)
 						{
-							if(atname.size() < 4)
-								atname+= " ";
+							if (atname.size() < 4)
+								atname += " ";
 						}
-						
-						if(atname.size() > 4)
-							atname = atname.substr(0,4);
-						
-						for(k=0; k < 4; k++)
+
+						if (atname.size() > 4)
+							atname = atname.substr(0, 4);
+
+						for (k = 0; k < 4; k++)
 						{
-//							if(res_name.size() < 4) res_name.insert(0," ");
-							if(res_name.size() < 4) res_name+= " ";
+							//							if(res_name.size() < 4) res_name.insert(0," ");
+							if (res_name.size() < 4) res_name += " ";
 						}
-						
-						if(res_name.size() > 4) res_name = res_name.substr(0,4);
-						
-						fprintf( DataFile, "%5d %.4s %.4s%c%4d    ", count++, atname.c_str(), res_name.c_str(),
-																      chain->ident, group->serno );
-						
-						HaMolView* pView = GetActiveMolView();
-						if( p_save_opt_default->save_transform && pView != NULL)
+
+						if (res_name.size() > 4) res_name = res_name.substr(0, 4);
+
+						sprintf(buf, "%5d %.4s %.4s%c%4d    ", count++, atname.c_str(), res_name.c_str(),
+							chain->ident, group->serno);
+						os << buf;
+
+						const HaMolView* pView = GetActiveMolView();
+						if (p_save_opt_default->save_transform && pView != NULL)
 						{
-							pView->GetTransfCoord(aptr->GetX_Ang(), aptr->GetY_Ang(), aptr->GetZ_Ang(),x,y,z);
+							pView->GetTransfCoord(aptr->GetX_Ang(), aptr->GetY_Ang(), aptr->GetZ_Ang(), x, y, z);
 						}
 						else
 						{
@@ -266,18 +262,40 @@ int MolSet::SavePDBFile(const char* filename)
 							y = aptr->GetY_Ang();
 							z = aptr->GetZ_Ang();
 						}
-						fprintf(DataFile,"%8.3f%8.3f%8.3f",x,y,z);
-						fprintf(DataFile,"  1.00%6.2f\n",aptr->tempf);
+						sprintf(buf, "%8.3f%8.3f%8.3f", x, y, z); os << buf;
+						sprintf(buf, "  1.00%6.2f\n", aptr->tempf); os << buf;
 					}
 				}
 			}
-			fprintf( DataFile, "TER  \n");
+		    os << "TER  \n";
 		}
 	}
-	fputs("END   \n",DataFile);
-	fclose( DataFile );
-	return( True );
+	os << "END   \n";
+	return(TRUE);
 }
+
+
+int MolSet::SavePDBFile(const char* filename) const
+{
+	ofstream fout(filename);
+	if (fout.fail())
+	{
+		PrintLog(" Error in MolSet::SavePDBFile()  opening file %s\n", filename);
+		return FALSE;
+	}
+
+	int ires = SavePDBToStream(fout);
+	return ires;
+}
+
+std::string MolSet::SavePDBToString() const
+{
+	std::stringstream ss;
+	int ires = SavePDBToStream(ss);
+	return ss.str();
+}
+
+	
 
 int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
 {
@@ -974,8 +992,6 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) 
 	
 	return FALSE;
 }
-
-
 
 int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par ) const
 {
