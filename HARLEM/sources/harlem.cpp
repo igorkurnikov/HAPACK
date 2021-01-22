@@ -31,7 +31,7 @@ int start_harlem(int argc, char **argv)
 	PyRun_SimpleString("import molset.harlempy");
 	PyRun_SimpleString("molset.harlempy.start_harlem()");
 
-	delete[] argv_p;
+	//delete[] argv_p;
 
 	if (Py_FinalizeEx() < 0) {
 		exit(120);

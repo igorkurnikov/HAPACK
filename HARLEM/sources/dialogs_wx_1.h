@@ -102,8 +102,8 @@ public:
 
 protected:
 
-	void OnPressCheck( wxCommandEvent& event);
     void OnLoadFile( wxCommandEvent &event );
+	void OnClose( wxCloseEvent& event );
 
     virtual void FillFileTypes(); //!< Fill File Types filters choice box
     

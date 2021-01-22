@@ -332,6 +332,7 @@ const int IDC_LOAD_FILE = 31001;
 // WDR: event table for ChooseMolFileDlg
 BEGIN_EVENT_TABLE(ChooseMolFileDlg,HaFileDlg1)
     EVT_BUTTON( IDC_LOAD_FILE, ChooseMolFileDlg::OnLoadFile )
+//	EVT_CLOSE( ChooseMolFileDlg::OnClose )
 END_EVENT_TABLE()
 
 ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxString &title,
@@ -456,6 +457,12 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 		case(8): file_format = FormatHIN;      break;
     }
 	this->Close();
+}
+
+void ChooseMolFileDlg::OnClose(wxCloseEvent& event)
+{
+	PrintLog("Close Open Molecular File Dialog \n");
+	wxDialog::Close();
 }
 
 //----------------------------------------------------------------------------
