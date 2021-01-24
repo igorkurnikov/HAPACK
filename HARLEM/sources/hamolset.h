@@ -333,6 +333,9 @@ public:
 	bool SortAtomGroupByIdx(AtomGroup* p_atgrp); //!< Sort Atom Group By Atom Index 
 
 	bool SetStdProteinGroups();  //!< Set Standard Protein Groups for the molecular set
+
+	bool IsDimer();  //!< Check if the molset is the dimer (consist of two submolecule )
+	std::vector<HaAtom*> GetAtomsSubMol( int idx ); //!< Get Atoms of the submolecule of the dimer or multimer  with the index idx (0-based) 
 //@}
 
 //! \name Atom Coordinate Snapshots
@@ -351,7 +354,6 @@ public:
 	int SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* popt = NULL ) const; //!< Save Crd snapshots to file in XML format
 	int SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt = NULL ) const;   //!< Save Crd snapshots to stream in XML format
 	int LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt = NULL ); //!< Load Crd snapshots from file in XML format
-
 //@}  
 
 //! \name Secondary Structure Elements:
@@ -389,24 +391,25 @@ public:
 //@}
 //! \name Fragmentation:
 //@{	
-	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is a fragment)
+	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is not a fragment)
 	MolSet* CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params = NULL);
 	
 	std::vector<MolSet*> Fragments;   //!< Vector of fragments
-	PtrPtrMap frag_atom_maps;      //!< map of fragments to mappings of atoms of fragments to atoms of the molecular set
+	PtrPtrMap frag_atom_maps;         //!< map of fragments to mappings of atoms of fragments to atoms of the molecular set
 
 	std::map<void*, std::string> struct_elem_info; //!< info strings for structure elements 
 	
-	int AssociateFragment(MolSet* frag);     //!< Add an existing molecular set as a fragment
-	int ReleaseFragment(MolSet* frag);  //!< Detach the fragment from the molecular set without deleting it 
-	int DeleteFragment(MolSet* frag);   //!< Delete fragment 
-	int ReleaseAllFragments();            //!< Detach all fragment from the molecular set without deleting them
+	int AssociateFragment(MolSet* frag);   //!< Add an existing molecular set as a fragment
+	int ReleaseFragment(MolSet* frag);     //!< Detach the fragment from the molecular set without deleting it 
+	int DeleteFragment(MolSet* frag);      //!< Delete fragment 
+	int ReleaseAllFragments();             //!< Detach all fragment from the molecular set without deleting them
 	int DeleteAllFragments();             //!< Delete all fragments of the molecular set
 	int BuildFragmentAtomMap(MolSet* frag, AtomAtomMap& frag_atom_map); //<! build the map of correspondence between the atoms of the fragment and those of the parent molecule
     int SelectAtomsMatchingFragment(MolSet* frag); //!< Select Atoms matching atoms of the fragment
 	int IsFragment(const MolSet* pmset); //!< Check if the Molecular Set is the fragment of the given Molecular Set
 	int FragmentIdx(const MolSet* pmset); //!< Return index of the fragment in Fragments & frag_atom_map arrays, (-1) if pmset is not a fragment of this Molecular Set
-	int SyncFragmentCoord(MolSet* frag);  //!< Synchronize Cooordinates of the fragment with current coordinates of the Molecular Set 
+	int SyncFragmentCoord(MolSet* frag);  //!< Sync Cooordinates of the fragment to current coordinates of the Molecular Set ( from parent )
+	int SyncCoordFromParent();            //!< Sync Cooordinates of the fragment to current coordinates of the Molecular Set ( from fragement )
 //@}
 //! \name Computational Modules:
 //@{

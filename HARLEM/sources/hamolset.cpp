@@ -4321,6 +4321,42 @@ bool MolSet::SetStdProteinGroups()
 	return true;
 }
 
+bool MolSet::IsDimer()
+{
+	AtomGroup* submol0 = this->GetAtomGroupByID("SUBMOL0");
+	AtomGroup* submol1 = this->GetAtomGroupByID("SUBMOL1");
+
+	int na_tot = this->GetNAtoms();
+
+	if (submol0 && submol1)
+	{
+		int na0 = submol0->GetNAtoms();
+		int na1 = submol1->GetNAtoms();
+		if (na0 != 0 && na1 != 0 && na0 + na1 == na_tot) return true;
+	}
+
+	int nmol = this->GetNMol();
+	if (nmol == 2) return true;
+	return false;
+}
+
+std::vector<HaAtom*> MolSet::GetAtomsSubMol(int idx)
+{
+	std::vector<HaAtom*> at_vec;
+	std::string at_grp_name = (std::string)"SUBMOL" + std::to_string(idx);
+	 
+	AtomGroup* submol = this->GetAtomGroupByID( at_grp_name.c_str() );
+	
+	if (submol != NULL)
+	{
+		for (HaAtom* aptr : *submol)
+		{
+			at_vec.push_back(aptr);
+		}
+	}
+	return at_vec;
+}
+
 bool MolSet::CheckUniqChemGrpID(const std::string& gid)
 {
 	ChemGroupsType::iterator itr;
@@ -4912,6 +4948,12 @@ int MolSet::SyncFragmentCoord(MolSet* frag)
 	int ires = at_map_ptr->SyncAtomCrd2From1();
 
 	return ires;
+}
+
+int MolSet::SyncCoordFromParent()
+{
+	if (parent_mset == NULL) return FALSE;
+	return parent_mset->SyncFragmentCoord(this);
 }
 
 bool MolSet::CalcDipole()
