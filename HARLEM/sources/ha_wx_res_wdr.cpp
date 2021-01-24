@@ -5217,6 +5217,7 @@ wxMenuBar *edit_groups_menu()
     wxMenu* item2 = new wxMenu;
     item2->Append( IDC_STD_GROUPS, wxT("Set Standard Chem Groups"), wxT("") );
     item2->Append( IDC_RENUMBER_GRP, wxT("Renumber Chemical Groups"), wxT("") );
+    item2->Append( IDC_STD_PROTEIN_GROUPS, wxT("Set Standard Protein Groups"), wxT("") );
     item0->Append( item2, wxT("ChemGroups") );
     
     wxMenu* item3 = new wxMenu;

@@ -332,6 +332,7 @@ public:
 	void SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname); //!< Save Atom Group to GROMACS NDX file 
 	bool SortAtomGroupByIdx(AtomGroup* p_atgrp); //!< Sort Atom Group By Atom Index 
 
+	bool SetStdProteinGroups();  //!< Set Standard Protein Groups for the molecular set
 //@}
 
 //! \name Atom Coordinate Snapshots

@@ -55,6 +55,8 @@ MolEditor::~MolEditor()
 }
 
 
+
+
 int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, vector<HaHBond>& hbonds )
 {	
 	hbonds.clear();
@@ -3055,8 +3057,7 @@ void MolEditor::SetAlphaHelix(MolSet* pmset)
 	}
 }
 
-int
-MolEditor::CenterAtOrigin(AtomContainer* pat_cont)
+int MolEditor::CenterAtOrigin(AtomContainer* pat_cont)
 {
 	if( pat_cont == NULL) return FALSE;
 
@@ -3081,8 +3082,7 @@ MolEditor::CenterAtOrigin(AtomContainer* pat_cont)
 	return TRUE;
 }
 
-int
-MolEditor::CenterAtOriginWithRad(AtomContainer* pat_cont)
+int MolEditor::CenterAtOriginWithRad(AtomContainer* pat_cont)
 {
 	if( pat_cont == NULL) return FALSE;
 

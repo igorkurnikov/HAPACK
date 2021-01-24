@@ -6184,6 +6184,7 @@ BEGIN_EVENT_TABLE(EditGroupsDlg, wxFrame)
 	EVT_BUTTON(IDC_EDTGRP_SAVE_NDX_FILE, EditGroupsDlg::OnSaveNDXFile)
 	EVT_BUTTON(IDC_EDTGRP_SORT_IDX, EditGroupsDlg::OnSortGrpIdx)
 	EVT_MENU (IDC_STD_GROUPS, EditGroupsDlg::OnStdGroups)
+	EVT_MENU(IDC_STD_PROTEIN_GROUPS, EditGroupsDlg::OnStdProteinGroups)
 	EVT_MENU(IDC_RENUMBER_GRP, EditGroupsDlg::OnRenumberGrp)
 	EVT_MENU(IDC_COLOR_RIGID_CLUSTERS, EditGroupsDlg::OnColorRigidClusters)
 	EVT_LISTBOX(IDC_EDTGRP_LIST_GRP, EditGroupsDlg::OnChangeSelGroup2)
@@ -6633,6 +6634,12 @@ void EditGroupsDlg::OnChangeSelGroup()
 void EditGroupsDlg::OnStdGroups(wxCommandEvent& event)
 {
 	if(pmset)pmset->SetStdChemGroups();
+	TransferDataToWindow();
+}
+
+void EditGroupsDlg::OnStdProteinGroups(wxCommandEvent& event)
+{
+	if (pmset)pmset->SetStdProteinGroups();
 	TransferDataToWindow();
 }
 
