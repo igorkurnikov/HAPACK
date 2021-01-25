@@ -4906,8 +4906,8 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 		}
 
 		if( bptr->srcatom->Selected() || bptr->dstatom->Selected())
-		// if only one of the bonded atoms belongs to the fragment
-		// generate truncated hydrogen atom instead of another one
+		// if one of the bonded atoms belongs to the fragment and another not  
+		// generate a hydrogen atom to replace the truncated atom
 		{
 			HaAtom* aptr1=NULL;
 			HaAtom* aptr2=NULL;
@@ -4947,6 +4947,29 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 
 			HaAtom::SetCoordSubstH(aptr1,aptr2,faptr2);
 			pfrag->AddBond(faptr1,faptr2);
+
+// Add sync rules for the added atom:
+			AtomMapping* pat_map = static_cast<AtomMapping*>( this->frag_atom_maps[pfrag] );
+			if (pat_map)
+			{
+				AtomGroup bnd_atoms_fat1;
+				AtomGroup bnd_atoms_at1;
+				aptr1->GetBondedAtoms(bnd_atoms_at1);
+				PrintLog("Module %s \nThe Number of atoms bonded to reference atom in orig molecule = %d \n", __func__, bnd_atoms_at1.GetNAtoms());
+				faptr1->GetBondedAtoms(bnd_atoms_fat1);
+				PrintLog("Module %s \nThe Number of atoms bonded to reference atom = %d \n",__func__,bnd_atoms_fat1.GetNAtoms());
+				if (bnd_atoms_fat1.GetNAtoms() > 2)
+				{
+					HaAtom*  faptr_axx2 = bnd_atoms_fat1[0];
+					HaAtom*  faptr_axx3 = bnd_atoms_fat1[1];
+					if (faptr_axx2 == faptr2) faptr_axx2 = bnd_atoms_fat1[2];
+					if (faptr_axx3 == faptr2) faptr_axx3 = bnd_atoms_fat1[2];
+
+					PrintLog("Set Sync Rule for atom %s  using atoms %s - %s - %s",
+						faptr2->GetRef().c_str(), faptr1->GetRef().c_str(), faptr_axx2->GetRef().c_str(), faptr_axx3->GetRef().c_str());
+					pat_map->SetAtom3PtSyncRule(faptr2, faptr1, faptr_axx2, faptr_axx3);
+				}
+			}
 		}	
 	}
 

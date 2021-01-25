@@ -57,7 +57,7 @@ void AtomMapping::ClearSyncRules2from1()
 	SyncRules2from1.clear();
 }
 
-int AtomMapping::AssociateAtomsRefAtoms(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* aref_2, HaAtom* aref_3, 
+int AtomMapping::SetAtom3PtSyncRule(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* aref_2, HaAtom* aref_3,
 										double dist, double vang, double torsion, int priority )
 {
 	int idx_ac = 0;

@@ -31,7 +31,7 @@ public:
 	
 	int Map2to1ByAtomDistance(); //!< Map atoms of Atom Collection 2 to atoms of Atom Collection 1 based on atom-atom distance, bonding etc 
 	int Map2to1ByAtomRef(); //!< Map atoms of Atom Collection 2 to atoms of Atom Collection 1 based on atom ids (names, residues names and numbers, molecule names)
-	int AssociateAtomsRefAtoms(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* aref_2, HaAtom* aref_3, 
+	int SetAtom3PtSyncRule(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* aref_2, HaAtom* aref_3,
 		 double dist = -1.0, double vang = -1.0, double torsion = -500.0, int priority = -1 ); //!< Map atom relative other 3 atoms
 
 	int SyncAtomCrd1From2(); //!< Sync coordinates of atoms of Atom Collection 1 from those of Atom Collection 2

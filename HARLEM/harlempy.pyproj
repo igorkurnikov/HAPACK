@@ -15,7 +15,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>
     </InterpreterId>
-    <CommandLineArguments>SYSTEM.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
+    <CommandLineArguments>PROT.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
