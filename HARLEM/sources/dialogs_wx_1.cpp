@@ -3233,7 +3233,7 @@ void EditFragmDlgWX::OnCreateFragm(wxCommandEvent& event)
 	wxString frg_name = edit_frag_name->GetValue();
 	if(pmset)
 	{
-		MolSet* pfrag = pmset->CreateFragmentFromSelection(frg_name.c_str());
+		MolSet* pfrag = pmset->CreateFragmentFromSelection( frg_name.ToStdString() );
 		HaMainFrameWX* frame_main = GetHaMainFrameWX();
 		frame_main->CreateMolView(pfrag);
 	}

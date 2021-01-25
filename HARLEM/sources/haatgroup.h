@@ -271,6 +271,9 @@ public:
     const char* GetID() const;           //!< Return Group ID
 	void SetID(const std::string& new_id);  //!< Set ID of the Atom Set
 
+	int HasSelectedAtoms(); //!< Check if some of the atoms of the group are selected
+	void SelectAtomsAll();   //!< Select All Atoms in the residue
+
 protected:
 	std::string id;	
 };
@@ -372,9 +375,6 @@ public:
 
 	std::string GetRef() const;  //!< Get the text reference of the residue
 	virtual bool FillRef(char* buf,int mode = 0) const; //!< Write the text reference of the residue to the buffer
-
-	int HasSelectedAtoms(); //!< Check if some of the atoms of the residue are selected
-	void SelectAtomsAll();   //!< Select All Atoms in the residue
 
 	AtomIntMap  GetAtomSeqNumMap(); //!< Get the map of atoms to sequence atom numbers in the molecule
 	CAtomIntMap GetAtomSeqNumMap() const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version

@@ -6,7 +6,7 @@
     <ProjectHome>.</ProjectHome>
     <StartupFile>molset\harlempy\__main__.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
-    <WorkingDirectory>c:\harlem\examples\MD</WorkingDirectory>
+    <WorkingDirectory>D:\TESTS\THROMBIN</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
@@ -15,7 +15,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>
     </InterpreterId>
-    <CommandLineArguments>mg_wat_1.hlm</CommandLineArguments>
+    <CommandLineArguments>SYSTEM.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

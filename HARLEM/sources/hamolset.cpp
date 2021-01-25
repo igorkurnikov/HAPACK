@@ -2640,15 +2640,18 @@ void MolSet::SelectAtomsAll()
 	}
 }
 
-void MolSet::SelectAtoms(AtomContainer* pat_cont)
+void MolSet::SelectAtoms(AtomContainer* pat_cont, bool add_to_selection  )
 {
 	if(pat_cont == NULL) 
 		return;
 	AtomIteratorMolSet aitr(this);
 	HaAtom* aptr;
-	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	if (!add_to_selection)
 	{
-		aptr->UnSelect();
+		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			aptr->UnSelect();
+		}
 	}
 	
 	AtomIteratorGen aitr_s(pat_cont);
@@ -4684,9 +4687,49 @@ int MolSet::FragmentIdx(const MolSet* pmset)
 	}
 	return -1;
 }
-	
 
-MolSet* MolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params )
+MolSet* MolSet::CreateFragmentFromAtomGroup(std::string grp_name, std::string frag_name, StrStrMap* params )
+{
+	AtomGroup* pat_grp = this->GetAtomGroupByID(grp_name.c_str());
+	if (pat_grp == NULL)
+	{
+		PrintLog("Error in %s\n No Atom Group: %s\n", __func__, grp_name.c_str());
+		return NULL;
+	}
+	AtomGroup sel_atoms_orig = this->GetSelectedAtoms();
+	this->SelectAtoms(pat_grp);
+	MolSet* pfrag = this->CreateFragmentFromSelection(frag_name, params);
+	this->SelectAtoms(&sel_atoms_orig);
+	return pfrag;
+}
+
+MolSet* MolSet::CreateDimerFragmentFromAtomGroups(std::string grp1_name, std::string grp2_name, std::string frag_name, StrStrMap* params)
+{
+	AtomGroup* pat_grp1 = this->GetAtomGroupByID(grp1_name.c_str());
+	AtomGroup* pat_grp2 = this->GetAtomGroupByID(grp2_name.c_str());
+	if (pat_grp1 == NULL)
+	{
+		PrintLog("Error in %s\n No Atom Group: %s\n", __func__, grp1_name.c_str());
+		return NULL;
+	}
+	if (pat_grp2 == NULL)
+	{
+		PrintLog("Error in %s\n No Atom Group: %s\n", __func__, grp2_name.c_str());
+		return NULL;
+	}
+	AtomGroup sel_atoms_orig = this->GetSelectedAtoms();
+	this->SelectAtoms(pat_grp1);
+	this->SelectAtoms(pat_grp2, true);
+	
+	if (frag_name.empty()) frag_name = grp1_name + "_" + grp2_name;
+	
+	MolSet* pfrag = this->CreateFragmentFromSelection(frag_name, params);
+	this->SelectAtoms(&sel_atoms_orig);
+	return pfrag;
+}
+
+ 
+MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* params )
 {
 	HaAtom *aptr, *faptr;
 	HaMolecule* pMol;
@@ -4701,7 +4744,7 @@ MolSet* MolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreat
 	if( this->GetNChemGroups() == 0) this->SetStdChemGroups();
 
 	MolSet* pfrag= new MolSet;
-	pfrag->SetName( frag_name );
+	pfrag->SetName( frag_name.c_str() );
 	
 	int cur_serno=0;
 	vector<HaAtom*>::iterator paitr;
@@ -4925,7 +4968,6 @@ MolSet* MolSet::CreateFragmentFromSelection(const char* frag_name, FragmentCreat
 			ptr_qc_mod_frag->InitLocOrb(lo_set_id.c_str());
 		}
 	}
-
 	return pfrag;
 }
 
@@ -6948,14 +6990,12 @@ HaHBond* HBondIteratorMolSet::GetNextBond()
    return (HaHBond*) &(*bitrm);
 }
 
-void 
-MolSet::ClearPickedAtoms()
+void MolSet::ClearPickedAtoms()
 {
 	picked_atoms.clear();
 }
 
-void 
-MolSet::DisplaySelectCount()
+void MolSet::DisplaySelectCount()
 {
     char buffer[40];
 	
@@ -7133,6 +7173,18 @@ void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 			   bptr->UnSelect();
 		}
 	}
+}
+
+AtomGroup MolSet::GetSelectedAtoms()
+{
+	AtomGroup at_grp;
+	AtomIteratorMolSet aitr(this);
+	HaAtom* aptr;
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		if (aptr->Selected()) at_grp.push_back(aptr);
+	}
+	return at_grp;
 }
 
 void MolSet::SelectAtomsExpr( const char* expr_str)
@@ -7355,11 +7407,6 @@ int MolSet::SaveXML(FILE* file_out, int option) const
 	if( !bres ) return FALSE;
 
 	return TRUE;
-}
-
-FragmentCreatePars::FragmentCreatePars()
-{
-	add_hydr = 1;
 }
 
 CrdSnapshotIterator MolSet::GetCrdSnapshots()

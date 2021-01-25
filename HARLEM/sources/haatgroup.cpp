@@ -1076,9 +1076,9 @@ bool HaResidue::SplitResidue()
 	return true;
 }
 
-int HaResidue::HasSelectedAtoms()
+int AtomGroup::HasSelectedAtoms()
 {
-	AtomIteratorResidue aitr(this);
+	AtomIteratorAtomGroup aitr(this);
 	HaAtom* aptr;
 	
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
@@ -1088,9 +1088,9 @@ int HaResidue::HasSelectedAtoms()
 	return FALSE;
 }
 
-void HaResidue::SelectAtomsAll()
+void AtomGroup::SelectAtomsAll()
 {
-	AtomIteratorResidue aitr(this);
+	AtomIteratorAtomGroup aitr(this);
 	HaAtom* aptr;	
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{

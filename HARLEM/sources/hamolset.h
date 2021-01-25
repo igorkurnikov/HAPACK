@@ -56,8 +56,6 @@ class ChainIteratorMolSet;
 class MolSetEvtHandler; 
 class CrdSnapshotIterator;
 
-class FragmentCreatePars;
-
 class MolViewWX;
 
 class ForceFieldType;
@@ -230,7 +228,7 @@ public:
 //! \name Selection functions:
 //@{
     void SelectAtomsAll();    //!< Select all atoms in the set
-	void SelectAtoms(AtomContainer* atom_coll); //!< Select Atoms of the Atom collection and Unselect other atoms 
+	void SelectAtoms(AtomContainer* atom_coll, bool add_to_selection = false ); //!< Select Atoms of the Atom Collection and Unselect all other atoms or add to the selection 
     void SelectAtomsMask( int mask );       //!< Select Atoms with flags satisfying mask
 	void SelectAtomsExprObj( AtomExpr* expr ); //!< Select Atoms satisfying expression
 	void SelectAtomsExpr( const char* expr_str); //!< Select Atoms using string with RASMOL-like selection expression ("select" keyword is added in the function)
@@ -238,6 +236,7 @@ public:
 	void UnSelectAtomsAll();  //!< Unselest all atoms in the set
 	void RevertAtomSelection();  //!< Select All Unselected atoms and UnSelect all Selected Atoms
 	void DisplaySelectCount();         //!< Print the number of selected atoms
+	AtomGroup GetSelectedAtoms();  //!< GetSelectedAtoms as AtomGroup
 //@}
 //! \name Covalent Bonds, H-Bonds, SS-bonds, Backbone Manipulation:
 //@{
@@ -392,7 +391,9 @@ public:
 //! \name Fragmentation:
 //@{	
 	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is not a fragment)
-	MolSet* CreateFragmentFromSelection(const char* frag_name, FragmentCreatePars* params = NULL);
+	MolSet* CreateFragmentFromAtomGroup(std::string grp_name, std::string frag_name, StrStrMap* params = NULL);  //!< Create fragment from AtomGroup
+	MolSet* CreateFragmentFromSelection(std::string frag_name, StrStrMap* params = NULL); //!< Create fragment from Selected Atoms
+	MolSet* CreateDimerFragmentFromAtomGroups(std::string grp1_name, std::string grp2_name, std::string frag_name ="", StrStrMap* params = NULL); //!< Create Dimer Fragement from two atoms groups
 	
 	std::vector<MolSet*> Fragments;   //!< Vector of fragments
 	PtrPtrMap frag_atom_maps;         //!< map of fragments to mappings of atoms of fragments to atoms of the molecular set
@@ -409,7 +410,7 @@ public:
 	int IsFragment(const MolSet* pmset); //!< Check if the Molecular Set is the fragment of the given Molecular Set
 	int FragmentIdx(const MolSet* pmset); //!< Return index of the fragment in Fragments & frag_atom_map arrays, (-1) if pmset is not a fragment of this Molecular Set
 	int SyncFragmentCoord(MolSet* frag);  //!< Sync Cooordinates of the fragment to current coordinates of the Molecular Set ( from parent )
-	int SyncCoordFromParent();            //!< Sync Cooordinates of the fragment to current coordinates of the Molecular Set ( from fragement )
+	int SyncCoordFromParent();            //!< Sync Cooordinates of the fragment to current coordinates of the Molecular Set ( from fragment )
 //@}
 //! \name Computational Modules:
 //@{
@@ -702,14 +703,6 @@ protected:
 	MolSet* pmset;
 };
 
-
-class FragmentCreatePars
-//! axxiliary class to specify parameters for fragment creation
-{
-public:
-	FragmentCreatePars();
-	int add_hydr;
-};
 
 class PyAccMolSetProp
 //! class for python accellerated access to molset properties
