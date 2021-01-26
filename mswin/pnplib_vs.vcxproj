@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="PY2_Debug|Win32">
-      <Configuration>PY2_Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Debug|x64">
-      <Configuration>PY2_Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -25,14 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Release|Win32">
-      <Configuration>PY2_Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Release|x64">
-      <Configuration>PY2_Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
@@ -41,116 +25,68 @@
     <ClCompile Include="..\PNPS\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\PNPS\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="obj\PY2_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY2_Debug_x64\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Debug_x64\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\Release_x64\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY2_Release_Win32\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="obj\PY2_Release_x64\pnplib_vs\pnpsll_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">false</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Disabled</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
@@ -188,20 +124,12 @@
   <ItemGroup>
     <CustomBuild Include="..\PNPS\src\pnpsll.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -DHARLEM_MOD  -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o $(IntDir)pnpsll_wrap.cpp %(Identity)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)pnpsll_wrap.cpp;$(IntDir)%(Filename).py</Outputs>
     </CustomBuild>
@@ -230,18 +158,6 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
@@ -252,16 +168,6 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -277,20 +183,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths_win32__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths_win32__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
@@ -304,22 +196,6 @@
     <Import Project="paths_x64__vcpkg.props" />
     <Import Project="paths_x64__mpi.props" />
     <Import Project="paths__python3wx.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="haprops_debug.props" />
-    <Import Project="paths_win32_debug__vcpkg.props" />
-    <Import Project="paths_win32_debug__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="haprops_debug.props" />
-    <Import Project="paths_win32_debug__vcpkg.props" />
-    <Import Project="paths_win32_debug__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -340,28 +216,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
@@ -375,21 +239,6 @@
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
     <TargetExt>.pyd</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
-    <TargetExt>.pyd</TargetExt>
-    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">
-    <TargetExt>.pyd</TargetExt>
-    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">
-    <TargetExt>.pyd</TargetExt>
-    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.pyd</TargetExt>
     <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
@@ -400,73 +249,6 @@
     <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">
-    <TargetExt>.pyd</TargetExt>
-    <TargetName>_pnpsll$(PYD_SUFFIX)</TargetName>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\pnpsll</OutDir>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <OpenMP>GenerateParallelCode</OpenMP>
-    </ClCompile>
-    <Lib />
-    <PostBuildEvent>
-      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)pnpsll.py $(OutputPath)
-
-if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
-if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
-
-xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
-      <Message>Copying PNPS python scripts</Message>
-    </PostBuildEvent>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HAVE_CONFIG_H;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <OpenMP>GenerateParallelCode</OpenMP>
-    </ClCompile>
-    <Lib />
-    <PostBuildEvent>
-      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)pnpsll.py $(OutputPath)
-
-if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
-if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
-
-xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
-      <Message>Copying PNPS python scripts</Message>
-    </PostBuildEvent>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -528,66 +310,6 @@ xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">
-    <ClCompile>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OpenMP>GenerateParallelCode</OpenMP>
-    </ClCompile>
-    <Lib />
-    <PostBuildEvent>
-      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)pnpsll.py $(OutputPath)
-
-if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
-if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
-
-xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
-      <Message>Copying PNPS python scripts</Message>
-    </PostBuildEvent>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">
-    <ClCompile>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\libpnp;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\debug_make;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;DEFMAXATM=20000;DEFMAXSHL=20000;DEFMAXNZ=20000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OpenMP>GenerateParallelCode</OpenMP>
-    </ClCompile>
-    <Lib />
-    <PostBuildEvent>
-      <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
-copy /Y $(IntDir)pnpsll.py $(OutputPath)
-
-if not exist $(OutputPath)..\pnps\NUL mkdir $(OutputPath)..\pnps\
-if not exist $(OutputPath)..\pnpsgui\NUL mkdir $(OutputPath)..\pnpsgui\
-
-xcopy /y /d $(SolutionDir)\..\PNPS\pnps\* $(OutputPath)\..\pnps\
-xcopy /y /d $(SolutionDir)\..\PNPS\pnpsgui\* $(OutputPath)\..\pnpsgui\</Command>
-      <Message>Copying PNPS python scripts</Message>
-    </PostBuildEvent>
-    <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

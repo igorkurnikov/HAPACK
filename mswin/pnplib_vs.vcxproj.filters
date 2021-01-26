@@ -4,10 +4,6 @@
     <ClCompile Include="..\PNPS\src\buildworldni.cpp" />
     <ClCompile Include="..\PNPS\src\contworld.cpp" />
     <ClCompile Include="obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Debug_x64\pnplib_vs\pnpsll_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_Win32\pnplib_vs\pnpsll_wrap.cpp" />
-    <ClCompile Include="obj\PY3_Release_x64\pnplib_vs\pnpsll_wrap.cpp" />
     <ClCompile Include="obj\Release_Win32\pnplib_vs\pnpsll_wrap.cpp" />
     <ClCompile Include="..\PNPS\src\mapio.cpp" />
     <ClCompile Include="..\PNPS\src\nernstplanksolver.cpp" />
@@ -24,6 +20,12 @@
     <ClCompile Include="..\PNPS\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\PNPS\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\PNPS\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="obj\PY2_Debug_Win32\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Debug_x64\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\Debug_x64\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\Release_x64\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Release_Win32\pnplib_vs\pnpsll_wrap.cpp" />
+    <ClCompile Include="obj\PY2_Release_x64\pnplib_vs\pnpsll_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PNPS\src\buildworldni.h" />

@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="PY2_Debug|Win32">
-      <Configuration>PY2_Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Debug|x64">
-      <Configuration>PY2_Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -25,14 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Release|Win32">
-      <Configuration>PY2_Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="PY2_Release|x64">
-      <Configuration>PY2_Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2983D105-9456-41FF-A6DB-41FCE625AE90}</ProjectGuid>
@@ -41,20 +25,6 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
-    <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
-    <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
@@ -66,18 +36,6 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
-    <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
     <UseIntelMKL>Sequential</UseIntelMKL>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -96,24 +54,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths_win32__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-    <Import Project="paths_win32__intel_compiler.props" />
-    <Import Project="paths_win32__intel_mkl.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="paths_win32__vcpkg.props" />
-    <Import Project="paths_win32__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-    <Import Project="paths_win32__intel_compiler.props" />
-    <Import Project="paths_win32__intel_mkl.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
@@ -131,26 +71,6 @@
     <Import Project="paths_x64__mpi.props" />
     <Import Project="paths_x64__intel_compiler.props" />
     <Import Project="paths_x64__intel_mkl.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="haprops_debug.props" />
-    <Import Project="paths_win32_debug__vcpkg.props" />
-    <Import Project="paths_win32_debug__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-    <Import Project="paths_win32__intel_compiler.props" />
-    <Import Project="paths_win32__intel_mkl.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="haprops.props" />
-    <Import Project="haprops_debug.props" />
-    <Import Project="paths_win32_debug__vcpkg.props" />
-    <Import Project="paths_win32_debug__python27.props" />
-    <Import Project="paths_win32__mpi.props" />
-    <Import Project="paths_win32__intel_compiler.props" />
-    <Import Project="paths_win32__intel_mkl.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -175,52 +95,24 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</LinkIncremental>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</PostBuildEventUseInBuild>
-    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</PostBuildEventUseInBuild>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PostBuildEventUseInBuild>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">
-    <TargetName>_molset_d</TargetName>
-    <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">
-    <TargetName>_molset_d</TargetName>
-    <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetName>_molset_d</TargetName>
@@ -243,105 +135,6 @@
     <TargetExt>.pyd</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">
-    <TargetName>_molset</TargetName>
-    <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">
-    <TargetName>_molset</TargetName>
-    <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset</OutDir>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <TargetMachine>MachineX86</TargetMachine>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>halib_vs.lib;zlibd.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -436,107 +229,6 @@ $(SolutionDir)copy_dependencies.bat
     <PreBuildEvent>
       <Command>echo "Pre build event"</Command>
     </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>halib_vs.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <TargetMachine>MachineX86</TargetMachine>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;..\GLEAP\mortsrc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>halib_vs.lib;zlibd.lib;_halib$(PYD_SUFFIX);delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;libfmpich2g.a;mpi.lib;Rpcrt4.lib;plplot.lib;plplotcxx.lib;plplotwxwidgets.lib;mkl_intel_c.lib;mkl_sequential.lib;mkl_core.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>if not exist $(OutputPath)\NUL mkdir $(OutputPath)
-copy /Y $(IntDir)molset.py $(OutputPath)
-
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -730,12 +422,8 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\hamolview.cpp" />
     <ClCompile Include="..\HARLEM\sources\object3d.cpp" />
     <ClCompile Include="..\HARLEM\sources\oglview.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -748,24 +436,16 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\command.cpp" />
     <ClCompile Include="..\HARLEM\sources\script.cpp" />
     <ClCompile Include="obj\Debug_x64\harlem_lib_vs\hamolset_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="obj\Release_x64\harlem_lib_vs\hamolset_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">true</ExcludedFromBuild>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
     </ClCompile>
     <ClCompile Include="..\HARLEM\sources\hampi.cpp" />
@@ -916,39 +596,23 @@ $(SolutionDir)copy_dependencies.bat
     <None Include="..\HARLEM\sources\harlem_i.ico" />
     <None Include="..\HARLEM\sources\osgview.i" />
     <CustomBuild Include="..\HARLEM\sources\hamolset.i">
-      <Message Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
-</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">c:\swig\swig.exe -python -shadow -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
-</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER  -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 copy $(IntDir)molsetc.py $(OutputPath)
 </Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Debug|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">c:\swig\swig.exe -python -shadow  -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
-</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">c:\swig\swig.exe -python -shadow  -c++  -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
-</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp   %(RootDir)%(Directory)\%(Filename)%(Extension)
 copy $(IntDir)molsetc.py $(OutputPath)
 
 </Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Release|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='PY2_Release|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
     </CustomBuild>
