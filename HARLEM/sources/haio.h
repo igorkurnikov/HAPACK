@@ -14,11 +14,13 @@
 	#pragma warning (disable:4786)
 	#define DllImport   __declspec( dllimport ) 
 	#define DllExport   __declspec( dllexport )
-
 #else
 	#define DllExport 
 	#define DllImport  extern
 #endif
+
+
+
 
 #include <stdio.h>
 #include <iostream>

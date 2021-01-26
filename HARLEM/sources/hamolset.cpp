@@ -4842,8 +4842,6 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 		}
 	}
 
-	AssociateFragment(pfrag);
-
 	HaAtom *faptr1, *faptr2;
 	HaBond *fbptr;
 
@@ -4865,7 +4863,7 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 			pfMol= pfrag->GetMolByName(mol_name.c_str());
 			if( pMol == NULL || pfMol == NULL) 
 			{
-				PrintLog("MolSet::CreateFragementFromSelection() pMol == NULL || pfMol == NULL \n");
+				PrintLog(" pMol == NULL || pfMol == NULL \n");
 				continue;
 			}
 			mitr = frag_at_map.find(aptr);
@@ -4878,35 +4876,40 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 	int igid_trm=MIN_BUF_GRP_ID+1;
 
 	BondIteratorMolSet bitr(this);
-	for(bptr=bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
+	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
 	{
-		if( bptr->srcatom->Selected() && bptr->dstatom->Selected())
-		// if both bonded atoms belong to the selected region just
-		// include this bond into the fragment
+		if (bptr->srcatom->Selected() && bptr->dstatom->Selected())
+			// if both bonded atoms belong to the selected region just
+			// include this bond into the fragment
 		{
-			pMol  = bptr->srcatom->GetHostMol();
+			pMol = bptr->srcatom->GetHostMol();
 			pfMol = pfrag->GetMolByName(pMol->GetObjName());
-			if( pfMol == NULL ) 
+			if (pfMol == NULL)
 			{
-				PrintLog("Error in MolSet::CreateFragmenFromSelection() \n");
+				PrintLog("Error in MolSet::%s \n", __func__);
 				continue;
 			}
-			
+
 			mitr = frag_at_map.find(bptr->srcatom);
-			if(mitr == frag_at_map.end())
+			if (mitr == frag_at_map.end())
 				continue;
-			faptr1= (*mitr).second;
+			faptr1 = (*mitr).second;
 			mitr = frag_at_map.find(bptr->dstatom);
-			if(mitr == frag_at_map.end())
+			if (mitr == frag_at_map.end())
 				continue;
-			faptr2=(*mitr).second;
-			fbptr=pfrag->AddBond(faptr1,faptr2);
+			faptr2 = (*mitr).second;
+			fbptr = pfrag->AddBond(faptr1, faptr2);
 			fbptr->SetParamFrom(*bptr);
 			continue;
 		}
+	}
 
-		if( bptr->srcatom->Selected() || bptr->dstatom->Selected())
-		// if one of the bonded atoms belongs to the fragment and another not  
+	AssociateFragment(pfrag);
+
+	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
+	{
+		if( (bptr->srcatom->Selected() && !bptr->dstatom->Selected()) || (!bptr->srcatom->Selected() && bptr->dstatom->Selected()))
+		// if one of the bonded atoms belongs to the fragment and another does not  
 		// generate a hydrogen atom to replace the truncated atom
 		{
 			HaAtom* aptr1=NULL;
@@ -4955,18 +4958,24 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 				AtomGroup bnd_atoms_fat1;
 				AtomGroup bnd_atoms_at1;
 				aptr1->GetBondedAtoms(bnd_atoms_at1);
-				PrintLog("Module %s \nThe Number of atoms bonded to reference atom in orig molecule = %d \n", __func__, bnd_atoms_at1.GetNAtoms());
+				PrintLog("Function %s \nThe Number of atoms bonded to reference atom in orig molecule = %d \n", __PRETTY_FUNCTION__, bnd_atoms_at1.GetNAtoms());
 				faptr1->GetBondedAtoms(bnd_atoms_fat1);
-				PrintLog("Module %s \nThe Number of atoms bonded to reference atom = %d \n",__func__,bnd_atoms_fat1.GetNAtoms());
+				PrintLog("Function %s \nThe Number of atoms bonded to reference atom = %d \n", __PRETTY_FUNCTION__,bnd_atoms_fat1.GetNAtoms());
 				if (bnd_atoms_fat1.GetNAtoms() > 2)
 				{
-					HaAtom*  faptr_axx2 = bnd_atoms_fat1[0];
-					HaAtom*  faptr_axx3 = bnd_atoms_fat1[1];
-					if (faptr_axx2 == faptr2) faptr_axx2 = bnd_atoms_fat1[2];
-					if (faptr_axx3 == faptr2) faptr_axx3 = bnd_atoms_fat1[2];
+					HaAtom*  faptr_axx2 = bnd_atoms_fat1.at(0);
+					HaAtom*  faptr_axx3 = bnd_atoms_fat1.at(1);
+					if (faptr_axx2 == faptr2) faptr_axx2 = bnd_atoms_fat1.at(2);
+					if (faptr_axx3 == faptr2) faptr_axx3 = bnd_atoms_fat1.at(2);
 
-					PrintLog("Set Sync Rule for atom %s  using atoms %s - %s - %s",
+					PrintLog("Set Sync Rule for atom %s  using atoms %s - %s - %s \n",
 						faptr2->GetRef().c_str(), faptr1->GetRef().c_str(), faptr_axx2->GetRef().c_str(), faptr_axx3->GetRef().c_str());
+
+					PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n", faptr2->GetX(), faptr2->GetY(), faptr2->GetZ());
+					PrintLog(" Crd faptr1 = %8.3f  %8.3f  %8.3f \n", faptr1->GetX(), faptr1->GetY(), faptr1->GetZ());
+					PrintLog(" Crd faptr_axx2 = %8.3f  %8.3f  %8.3f \n", faptr_axx2->GetX(), faptr_axx2->GetY(), faptr_axx2->GetZ());
+					PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n",     faptr_axx3->GetX(), faptr_axx3->GetY(), faptr_axx3->GetZ());
+
 					pat_map->SetAtom3PtSyncRule(faptr2, faptr1, faptr_axx2, faptr_axx3);
 				}
 			}

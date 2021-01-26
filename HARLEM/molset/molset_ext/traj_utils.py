@@ -33,11 +33,9 @@ def MolSet_crd_from_frame( mset : molset.MolSet, t ):
     if( MDTRAJ_IMPORTED == 0 ): return null
     print(t.time)
     for i,at in enumerate(mset):
-        at.SetX(float(t.xyz[0,i,0]))
-        at.SetY(float(t.xyz[0,i,1]))
-        at.SetZ(float(t.xyz[0,i,2]))
-    aitr = molset.AtomIteratorMolSet(mset)
-    at = aitr.GetFirstAtom()
-    print(at.GetX(), at.GetY(), at.GetZ())
+        at.SetX(float(t.xyz[0,i,0])*10.0)
+        at.SetY(float(t.xyz[0,i,1])*10.0)
+        at.SetZ(float(t.xyz[0,i,2])*10.0)
+
 
 

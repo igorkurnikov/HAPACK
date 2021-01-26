@@ -568,7 +568,6 @@ int AtomMapping::BuildSyncRulesForMissingAtoms(AtomContainer& all_atoms, AtomCon
 	//	PrintLog("Not All Atoms of the child were matched to atoms of the parent \n");
 	//	return FALSE;
 	//}
-
 }
 
 bool compare_sync_rules(CrdAssignRule* p_rule_1,CrdAssignRule* p_rule_2) { return ( p_rule_1->GetPriority() < p_rule_2->GetPriority()); }

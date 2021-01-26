@@ -231,9 +231,6 @@ int Pt3CrdRule::SetManagedAtomCrd()
 {
 	if( p_ref_3 != NULL )
 	{
-//		PrintLog("Pt3CrdRule  mng_atom = %s ref_1 = %s  ref_2 = %s  ref_3 = %s \n",
-//		      (p_mng_atom->GetRef()).c_str(), (((HaAtom*)p_ref_1)->GetRef()).c_str(), 
-//			  (((HaAtom*)p_ref_2)->GetRef()).c_str(), (((HaAtom*)p_ref_3)->GetRef()).c_str());
 		Vec3D::SetAtomPos(p_mng_atom,p_ref_1,p_ref_2,p_ref_3,bond_len,val_ang,dih_ang);
 	}
 	else if( p_ref_2 != NULL )
@@ -1511,7 +1508,7 @@ int ZMatCrd::SaveToStream(std::ostream& os, const harlem::HashMap* popt_par )
 
 			if( popt->ToSaveAtSeqNum() ) 
 			{
-				sprintf(buf," %4s  ",(ir+1)); os << buf;
+				sprintf(buf," %4d  ",(ir+1)); os << buf;
 			}
 
 			if( popt->ToSaveAtSymbol() )
