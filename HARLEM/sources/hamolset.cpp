@@ -4347,12 +4347,22 @@ std::vector<HaAtom*> MolSet::GetAtomsSubMol(int idx)
 {
 	std::vector<HaAtom*> at_vec;
 	std::string at_grp_name = (std::string)"SUBMOL" + std::to_string(idx);
-	 
 	AtomGroup* submol = this->GetAtomGroupByID( at_grp_name.c_str() );
 	
 	if (submol != NULL)
 	{
 		for (HaAtom* aptr : *submol)
+		{
+			at_vec.push_back(aptr);
+		}
+		return at_vec;
+	}
+
+	HaMolecule* pmol = this->GetMolByIdx(idx);
+	if (pmol != NULL)
+	{
+		AtomIteratorMolecule aitr(pmol);
+		for (HaAtom* aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
 			at_vec.push_back(aptr);
 		}

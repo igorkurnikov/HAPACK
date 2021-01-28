@@ -1708,6 +1708,89 @@ int MolSet::SaveXYZRadFile(const char* filename )
     return( True );
 }
 
+int MolSet::SaveDimerXYZFile(const char* prefix )
+{
+	if (!this->IsDimer())
+	{
+		PrintLog("Molecular Set is not a dimer \n Dimer XYZ files are not saved \n");
+		return FALSE;
+	}
+
+	std::vector<std::string> suffix = {"_A","_B"};
+	std::vector<double> chm(2, 0.0);
+	std::vector<int> nam(2, 0);
+
+	double ch=0.0;
+	int i;
+
+	std::vector< std::vector<HaAtom*> > submol(2);
+	submol[0] = this->GetAtomsSubMol(0);
+	submol[1] = this->GetAtomsSubMol(1);
+
+	int nat = this->GetNAtoms();
+
+	for (i = 0; i < 2; i++)
+	{
+		nam[i] = submol[i].size();
+		for (HaAtom* aptr : submol[i])
+		{
+			chm[i] += aptr->GetCharge();
+		}
+	}
+	if (nat != nam[0] + nam[1])
+	{
+		PrintLog("Error in %s\n,Number of atoms in the dimer %d  is not equal to the sum of atom numbers in submolecules %d %d\n",
+			__func__, nat, nam[0], nam[1]);
+		return FALSE;
+	}
+	std::string fname    = (std::string)prefix + ".xyz";
+	std::string fname_m1 = (std::string)prefix + "_A";
+	std::string fname_m2 = (std::string)prefix + "_B";
+
+	ofstream os(fname);
+	ofstream os1(fname_m1);
+	ofstream os2(fname_m2);
+
+	if (os.fail() || os1.fail() || os2.fail())
+	{
+		PrintLog("Error in %s \n Error to open xyz files for writing \n", __func__);
+		return FALSE;
+	}
+
+	os << boost::format("%6d\n") % nat;
+	os << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+
+	os1 << boost::format("%6d\n") % nam[0];
+	os1 << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+
+	os2 << boost::format("%6d\n") % nam[1];
+	os2 << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+
+	i = 1;
+	for (HaAtom* aptr : submol[0])
+	{
+		std::string selem = aptr->GetStdSymbol();
+		std::string ss = selem + "1" + std::to_string(i);
+
+		os1 << boost::format("%8s %16.6f %16.6f %16.6f\n") % ss % aptr->GetX() % aptr->GetY() % aptr->GetZ();
+		os <<  boost::format("%8s %16.6f %16.6f %16.6f\n") % ss % aptr->GetX() % aptr->GetY() % aptr->GetZ();
+		i++;
+	}
+
+	i = 1;
+	for (HaAtom* aptr : submol[1])
+	{
+		std::string selem = aptr->GetStdSymbol();
+		std::string ss = selem + "2" + std::to_string(i);
+
+		os2 << boost::format("%8s %16.6f %16.6f %16.6f\n") % ss % aptr->GetX() % aptr->GetY() % aptr->GetZ();
+		os <<  boost::format("%8s %16.6f %16.6f %16.6f\n") % ss % aptr->GetX() % aptr->GetY() % aptr->GetZ();
+		i++;
+	}
+	
+	return TRUE; 
+}
+
 static int set_string_from_istream(std::string& str, istream& is);
 
 int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )

@@ -138,13 +138,14 @@ public:
 	int SaveHarlemFile(const char* filename, const AtomSaveOptions* popt = NULL );  //!< Save molecules into a file in current HARLEM format (XML) (*.hmlx)
 	int SaveOldHarlemFile(const char* filename );   //!< Save molecules into a file in OLD HARLEM format (*.hml)
 	int SaveXYZRadFile(const char* filename );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
+	int SaveDimerXYZFile(const char* prefix); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
 	int SaveHINFile(const char* filename );      //!< Save molecules into a file in Arbalest HIN format
 	
 	int SavePQRFile(const char* filename, bool SaveChainLetter=true);//!< Save molecule into PQR format file
 	int SavePQRFreeFile(const char* filename);
 	
 	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0) const; //!< Add Minimal Molecular Set Descripion to XML element
-	int SaveXML(FILE* file_out, int option=0) const;              //!< Save Molecular Set Description to a file
+	int SaveXML(FILE* file_out, int option=0) const;          //!< Save Molecular Set Description to a file
 	int SavePDBToStream(std::ostream& os) const; //!< Save MolSet in PDB Format to std::stream
 	std::string SavePDBToString() const; //!< Save MolSet in PDB Format to std::string
 	int SaveOldHarlemStream(std::ostream& os); //!< Save MolSet in Old Harlem Format to std::stream
