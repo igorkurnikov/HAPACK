@@ -121,11 +121,14 @@ void StartHarlemApp();
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 
-
+extern "C" {
 #if defined(HARLEMAPP_CPP)
-HarlemApp* pApp; 
+	HarlemApp* pApp;
+	HarlemApp* GetCurApp();
 #else
-extern HarlemApp* pApp; //!< pointer to the current HARLEM application instance;
+	extern HarlemApp* pApp;          //!< pointer to the current HARLEM application instance
+	extern HarlemApp* GetCurApp();   //!< get pointer to the current HARLEM application instance
 #endif
+}
 
 #endif // !defined(HARLEM_APP_MFC_H)

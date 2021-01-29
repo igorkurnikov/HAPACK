@@ -62,15 +62,12 @@ CmdParser::CmdParser()
   str_start_pos=0;
 }
 
-
 CmdParser::~CmdParser()
 {
 	
 }
 
-
-int 
-CmdParser::InitKeywords()
+int CmdParser::InitKeywords()
 {
 	RegisterKeyword( "X", XTok );
 	RegisterKeyword( "Y", YTok );
@@ -366,7 +363,6 @@ CmdParser::InitKeywords()
 	RegisterKeyword( "ALIGNOVERLAPMOL", AlignOverlapMolTok);
 	RegisterKeyword( "LOADAMBERRESTART", LoadAmberRestartTok);
 	RegisterKeyword( "COMBINEBONDINGATOMS", CombineBondingAtomsTok);
-	
 	
 	return TRUE;
 }

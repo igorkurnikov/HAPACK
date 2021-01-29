@@ -327,6 +327,7 @@ enum ADD_ATOM_TYPE
 
 class ForceFieldType;
 typedef AtomIteratorAtomGroup AtomIteratorResidue;
+typedef std::list<AtomGroup> AtomGroupList;
 
 //!  Class to define Residue in a polymer or biopolymer chain   
 class HaResidue : public AtomGroup
@@ -688,7 +689,6 @@ protected:
 	std::vector<CrdSnapshot*>::iterator itr_curr;
 	std::vector<CrdSnapshot*>::iterator itr_end;
 };
-
 
 
 #endif /* !HAATGROUP_H */

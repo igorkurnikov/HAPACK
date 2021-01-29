@@ -266,6 +266,8 @@ protected:
 
   void Clear();
 };
+
+typedef std::vector<HaAtom*> HaAtomVector;
   
 class AtomDoubleMap : public std::map<HaAtom*,double, less<HaAtom*> >
 {

@@ -321,8 +321,7 @@ public:
 
 	AtomGroup* SetAtomGroupFromSelection( const char* id); //!< Set Atom Group with id by selected atoms of the molset (create new group if needed)
 
-	list<AtomGroup> NamedAtomGroups; //!< Named Atom Groups
-	typedef list<AtomGroup> NamedAtomGroupsType;
+	AtomGroupList NamedAtomGroups; //!< Named Atom Groups
 
 	bool DeleteAtomGroup(const char* id );         //!< Delete Atom Group with id
 	bool DeleteAtomGroupPtr( AtomGroup* atgrp_ptr );     //!< Delete Atom Group by pointer
@@ -335,7 +334,7 @@ public:
 	bool SetStdProteinGroups();  //!< Set Standard Protein Groups for the molecular set
 
 	bool IsDimer();  //!< Check if the molset is the dimer (consist of two submolecule )
-	std::vector<HaAtom*> GetAtomsSubMol( int idx ); //!< Get Atoms of the submolecule of the dimer or multimer  with the index idx (0-based) 
+	HaAtomVector GetAtomsSubMol( int idx ); //!< Get Atoms of the submolecule of the dimer or multimer  with the index idx (0-based) 
 //@}
 
 //! \name Atom Coordinate Snapshots

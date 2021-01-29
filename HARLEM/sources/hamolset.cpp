@@ -3172,7 +3172,7 @@ bool MolSet::DeleteChemGroupPtr( ChemGroup* grp_ptr  )
 
 bool MolSet::DeleteAtomGroup(const char* id )
 {
-	NamedAtomGroupsType::iterator gitr;
+	AtomGroupList::iterator gitr;
 	std::string gid = id;
 	for(gitr= NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
 	{
@@ -3188,7 +3188,7 @@ bool MolSet::DeleteAtomGroup(const char* id )
 bool MolSet::DeleteAtomGroupPtr( AtomGroup* alist_ptr  )
 {
 	if( alist_ptr == NULL) return false;
-	NamedAtomGroupsType::iterator gitr;
+	AtomGroupList::iterator gitr;
 	for(gitr= NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
 	{
 		if(alist_ptr == &(*gitr))
@@ -5516,7 +5516,7 @@ AtomGroup* MolSet::AddAtomGroup(const char* id)
 
 AtomGroup* MolSet::GetAtomGroupByID( const char* id)
 {
-	NamedAtomGroupsType::iterator gitr;
+	AtomGroupList::iterator gitr;
 	for( gitr = NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
 	{
 		if( stricmp_loc((*gitr).GetID(),id) == 0 ) return &(*gitr);

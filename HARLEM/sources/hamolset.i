@@ -29,6 +29,7 @@
 %include file.i           
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_list.i"
 
 namespace std {
     %template(IntVector) vector<int>;
@@ -52,7 +53,14 @@ namespace std {
 #include "haxml.h" 
 #include "tinyxml.h"
 #include "halinalg.h"        
-#include "haatom.h"    
+#include "haatom.h"  
+#include "haatgroup.h"
+%}
+
+%template(AtomGroupList) std::list<AtomGroup>;
+%template(HaAtomVector) std::vector<HaAtom*>;
+
+%{
 #include "hamolecule.h"          
 #include "atom_mapping.h" 
 #include "hamolset.h"  

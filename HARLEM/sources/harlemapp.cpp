@@ -398,6 +398,8 @@ int HarlemApp::ExecRasMolScript(const char* file_name)
 }
 
 
+
+
 int HarlemApp::ExecuteCommand()
 {
     int option;
@@ -835,6 +837,11 @@ void HarlemApp::LoadInitFile()
 		fclose(initrc);
 		ExecuteScriptFromFile(fname);
 	}
+}
+
+HarlemApp* GetCurApp()
+{
+	return pApp;
 }
 
 void HarlemApp::StartWait()
