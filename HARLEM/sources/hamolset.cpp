@@ -2691,6 +2691,12 @@ void MolSet::RevertAtomSelection()
 	}
 }
 
+BondIteratorMolSet MolSet::GetBondIterator()
+{
+	BondIteratorMolSet bitr(this);
+	return bitr;
+}
+
 int MolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
 {
 	HaHBond hbond(src,dst);
@@ -4919,9 +4925,10 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
 	{
 		if( (bptr->srcatom->Selected() && !bptr->dstatom->Selected()) || (!bptr->srcatom->Selected() && bptr->dstatom->Selected()))
-		// if one of the bonded atoms belongs to the fragment and another does not  
+		// if one of the bonded atoms belongs to the fragment and another does not   
 		// generate a hydrogen atom to replace the truncated atom
 		{
+			if (bptr->IsVirtual()) continue;
 			HaAtom* aptr1=NULL;
 			HaAtom* aptr2=NULL;
 			if(bptr->srcatom->Selected())
@@ -6972,6 +6979,7 @@ BondIteratorMolSet::BondIteratorMolSet(MolSet* new_pmset)
 	if(pmset == NULL) { return; }
 	
 	bitrm = pmset->Bonds.begin();
+	first_called = false;
 }
 
 BondIteratorMolSet::~BondIteratorMolSet()
@@ -6999,6 +7007,35 @@ HaBond* BondIteratorMolSet::GetNextBond()
   }
 
   return NULL;
+}
+
+BondIteratorMolSet BondIteratorMolSet::__iter__() const
+{
+	return BondIteratorMolSet(pmset);
+}
+
+HaBond* BondIteratorMolSet::next()
+{
+	HaBond* bptr;
+	if (first_called)
+	{
+		bptr = this->GetNextBond();
+	}
+	else
+	{
+		bptr = GetFirstBond();
+		first_called = true;
+	}
+	if (bptr == NULL)
+	{
+		throw std::out_of_range("Stop Bond Iterations");
+	}
+	return bptr;
+}
+
+HaBond* BondIteratorMolSet::__next__()
+{
+	return this->next();
 }
 
 HBondIteratorMolSet::HBondIteratorMolSet(MolSet* new_pmset)

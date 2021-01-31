@@ -60,6 +60,7 @@ class MolViewWX;
 
 class ForceFieldType;
 namespace mort { class molecule_t; }
+typedef std::vector<CrdSnapshot*> CrdSnapshotVector;
 
 //#if !defined(RAPIDXML_HPP_INCLUDED)
 //	namespace rapidxml { template<class Ch = char> class xml_node; }
@@ -87,9 +88,6 @@ public:
 
 //! \name Axxiliary classes:
 //@{
-//	typedef AtomIteratorMolSet       AtomIterator;
-//  typedef AtomIteratorMolSet_const AtomIterator_const;
-	typedef std::vector<HaBond*>    BondIterator;
 	typedef ResidueIteratorMolSet   ResidueIterator;
 //@}
 //! \name RASMOL-type Text Command Processing:
@@ -156,7 +154,6 @@ public:
 
 protected:
 	void ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_map, HaMolecule* pMol, HaChain* &pch_cur, HaResidue* &pres_cur);
-
 //@}
 
 //! \name Molecular Structure Modifications
@@ -241,6 +238,8 @@ public:
 //@}
 //! \name Covalent Bonds, H-Bonds, SS-bonds, Backbone Manipulation:
 //@{
+	BondIteratorMolSet GetBondIterator(); //!< Get Bond Iterator for the molecular set 
+
 	int AreHBonded(HaAtom* src, HaAtom* dst) const; //!< check if atoms are H-Bonded (src - H-donor and dst H-acceptor 
     HaHBond* AddHBond(HaAtom* src, HaAtom* dst);  //!< Create a hydrogen bond 
 
@@ -340,7 +339,7 @@ public:
 //! \name Atom Coordinate Snapshots
 //@{
 	CrdSnapshotIterator GetCrdSnapshots(); //!< Get iterator over coordinate snapshots of the molecular set
-	vector<CrdSnapshot*> crd_snapshots; //!< Coordinate Snapshots
+	CrdSnapshotVector crd_snapshots; //!< Coordinate Snapshots
 	void DeleteCrdSnapshots(); //!< Delete All Coordinate Snapshots
 	CrdSnapshot* AddCrdSnapshot(const std::string& snap_name_new = ""); //!< add atom coordinate snapshot for given Molecular Set 
 	CrdSnapshot* AddCrdSnapshotForGroup(const std::string& grp_name, const std::string& snap_name_new = ""); //!< add atom coordinate snapshot for atom group of the given Molecular Set 
@@ -516,7 +515,7 @@ try {
 #if defined(SWIG)
 %exception;
 #endif
-	AtomIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( for Python compatibility )
+	AtomIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 protected:
 	std::vector<HaAtom*>::iterator aitr_res;
@@ -677,11 +676,29 @@ public:
 	virtual ~BondIteratorMolSet();
 	
 	HaBond* GetFirstBond(); //!< Return the first bond of the Molecular Set (=NULL if no bonds) 
-	HaBond* GetNextBond();  //!< Return Next bond in the sequence (=NULL if no more bonds)
-	
+	HaBond* GetNextBond();  //!< Return next bond in the sequence (=NULL if no more bonds)
+
+#if defined(SWIG) 
+%exception{
+	try {
+		$action
+		} catch (std::out_of_range) {
+	  PyErr_SetString(PyExc_StopIteration,"End of Bonds in the MolSet");
+	  return NULL;
+  }
+}
+#endif
+	HaBond* next(); //!<  Return next bond in the sequence (first on the first call). Throw std::out_of_range() if no more bonds (Python compatibility)
+	HaBond* __next__(); //!< Return next bond in the sequence (first on the first call). Throw std::out_of_range() if no more bonds (Python compatibility)
+#if defined(SWIG)
+%exception;
+#endif
+	BondIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
+
 protected:
 	vector<HaBond*>::iterator bitrm;
 	MoleculesType::iterator mol_itr;
+	bool first_called; //!< Indicates that the iterator was called already
 	
 	MolSet* pmset;
 };

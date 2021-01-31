@@ -1743,6 +1743,7 @@ int MolSet::SaveDimerXYZFile(const char* prefix )
 			__func__, nat, nam[0], nam[1]);
 		return FALSE;
 	}
+
 	std::string fname    = (std::string)prefix + ".xyz";
 	std::string fname_m1 = (std::string)prefix + "_A";
 	std::string fname_m2 = (std::string)prefix + "_B";
@@ -1757,14 +1758,21 @@ int MolSet::SaveDimerXYZFile(const char* prefix )
 		return FALSE;
 	}
 
-	os << boost::format("%6d\n") % nat;
-	os << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+	std::string mol_name = prefix;
+	
+	size_t ip1 = mol_name.find("/");
+	if (ip1 != std::string::npos) mol_name = mol_name.substr(ip1+1);
+	size_t ip2 = mol_name.find("\\");
+	if (ip2 != std::string::npos) mol_name = mol_name.substr(ip2+1);
 
-	os1 << boost::format("%6d\n") % nam[0];
-	os1 << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+	os << boost::format("%3d\n") % nat;
+	os << boost::format("%s CH1=%d CH2=%d \n") % mol_name % (int)chm[0] % (int)chm[1];
 
-	os2 << boost::format("%6d\n") % nam[1];
-	os2 << boost::format(" %s CH1=%d CH2=%d \n") % prefix % (int)chm[0] % (int)chm[1];
+	os1 << boost::format("%3d\n") % nam[0];
+	os1 << boost::format("%s CH1=%d CH2=%d \n") % mol_name % (int)chm[0] % (int)chm[1];
+
+	os2 << boost::format("%3d\n") % nam[1];
+	os2 << boost::format("%s CH1=%d CH2=%d \n") % mol_name % (int)chm[0] % (int)chm[1];
 
 	i = 1;
 	for (HaAtom* aptr : submol[0])

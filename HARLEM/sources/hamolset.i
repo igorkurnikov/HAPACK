@@ -59,6 +59,7 @@ namespace std {
 
 %template(AtomGroupList) std::list<AtomGroup>;
 %template(HaAtomVector) std::vector<HaAtom*>;
+%template(CrdSnapshotVector) std::vector<CrdSnapshot*>;
 
 %{
 #include "hamolecule.h"          
@@ -114,7 +115,6 @@ void StartHarlemApp();
 %pointer_class(double,doublep);
 %pointer_cast(int*,void*,intp_to_voidp)
 %pointer_cast(void*,int*,voidp_to_intp)
-
 
 %include "abstree.h"
 %include "haconst.h"
