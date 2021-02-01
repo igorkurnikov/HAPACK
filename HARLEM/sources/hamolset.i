@@ -30,6 +30,7 @@
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_list.i"
+%include "std_map.i"
 
 namespace std {
     %template(IntVector) vector<int>;
@@ -60,6 +61,7 @@ namespace std {
 %template(AtomGroupList) std::list<AtomGroup>;
 %template(HaAtomVector) std::vector<HaAtom*>;
 %template(CrdSnapshotVector) std::vector<CrdSnapshot*>;
+%template(AtomIntMap) std::map<HaAtom*, int, less<HaAtom*> >;
 
 %{
 #include "hamolecule.h"          

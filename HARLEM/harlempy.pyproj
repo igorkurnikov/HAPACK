@@ -49,6 +49,9 @@
     <Compile Include="molset\harlempy\wxexamples\__init__.py" />
     <Compile Include="molset\harlempy\__init__.py" />
     <Compile Include="molset\harlempy\__main__.py" />
+    <Compile Include="molset\molset_ext\rdkit_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="molset\molset_ext\__init__.py">
       <SubType>Code</SubType>
     </Compile>

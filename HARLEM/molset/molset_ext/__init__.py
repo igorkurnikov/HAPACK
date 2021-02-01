@@ -1,4 +1,5 @@
 from .traj_utils import *
+from .rdkit_utils import *
 #import molset23
 
 class MolSet(molset.molsetc.MolSet):
