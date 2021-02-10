@@ -1,0 +1,25 @@
+{% set version = "21.02.09" %}
+
+package:
+  name: harlem
+  version: {{ version }}
+
+build:
+  number: 0
+  include_recipe: False
+  
+requirements:
+  build:
+    - python ==3.7
+  run:
+    - python ==3.7
+  
+source:
+    # harlem binary
+  - path: c:\MYPROG\HAPACK\mswin\Release_x64\harlem.exe
+    # molset lib
+  - path: c:\MYPROG\HAPACK\mswin\Release_x64\molset
+    # doc dir
+  - path: c:\MYPROG\HAPACK\doc
+   
+

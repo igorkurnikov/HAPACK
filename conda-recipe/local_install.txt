@@ -1,0 +1,47 @@
+Here is brief instruction on how to update and test simulation conda package locally:
+
+It should be done both on cluster headnode (to test SGE runs) and on pubhost01 node (to test local runs).
+
+TODO: to avoid operations duplication, create isolated test channel accessible from cluster and pubhost01.
+
+1)
+$ mkdir ~/conda
+$ conda create conda-build -p ~/conda/condabuild
+$ conda activate ~/conda/condabuild
+
+2) For the first time: 
+   a) create a directory: mkdir -p <username>/conda/channel/linux-64
+   b) set it as a local channel:
+      $ conda config --add channels file:///home/darkhovskiy/conda/channel/
+   c) conda install conda-build
+
+3) Clone sim-dist-conda git to some folder:
+$ git clone https://git.assembla.com/interx.simulations-base-conda-src.git ~/conda/simulation-base
+
+4) Change revision "svn_rev" for interx.Simulations in ~/conda/simulation-base/meta.yaml to <new>:
+
+```
+$ sed -zE 's/interx.Simulations([^\n]*\n[^\n]*)svn_rev: <old>/interx.Simulations\1svn_rev: <new>/g' \ 
+meta.yaml  > meta_new.yaml; mv meta_new.yaml meta.yaml
+```
+Change package name in meta.yaml (package/name) to "simulation-base-test" for 
+avoiding the installation of regular package.
+
+5) Build
+$ conda build ~/conda/simulation-base
+
+6) Copy built package to local channel (provided you have conda installed in ~/miniconda3):
+
+$ cp ~/miniconda3/conda-bld/linux-64/simulation-base-test-<version>-0.tar.bz2 ~/conda/channel/linux-64/
+$ conda index ~/conda/channel/
+
+5) Install new version from the local channel
+
+$ conda install simulation-base-test
+
+##### How to test #####
+
+cd to ~/conda/condabuild/opt/interx/test-scripts and try to test:
+   a) if you're on cluster headnode - using SGE queue (change queue to gpu.q or md.q).
+   b) if you're on pubhost01 node - using "local" queue.
+
