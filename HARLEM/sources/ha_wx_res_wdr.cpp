@@ -4929,7 +4929,6 @@ wxMenuBar *MainMenu()
     
     wxMenu* item9 = new wxMenu;
     item9->Append( IDM_WIREFRAME_WX, wxT("Wireframe"), wxT("") );
-    item9->Append( IDM_BACKBONE_WX, wxT("Backbone"), wxT("") );
     item9->Append( IDM_STICKS_WX, wxT("Sticks"), wxT("") );
     item9->Append( IDM_SPHERES_WX, wxT("Spacefill"), wxT("") );
     item9->Append( IDM_BALLSTICK_WX, wxT("Ball & Stick"), wxT("") );
@@ -5025,8 +5024,8 @@ wxMenuBar *MainMenu()
     
     wxMenu* item19 = new wxMenu;
     item19->Append( IDM_ABOUT_WX, wxT("About HARLEM"), wxT("") );
-    item19->Append( IDM_HELP_WX, wxT("RASMOL HELP"), wxT("") );
-    item19->Append( IDM_MANUAL_WX, wxT("User Manual"), wxT("") );
+    item19->Append( IDM_HELP_WX, wxT("Beginner's Manual"), wxT("") );
+    item19->Append( IDM_MANUAL_WX, wxT("Advanced Manual"), wxT("") );
     item0->Append( item19, wxT("Help") );
     
     wxMenu* item20 = new wxMenu;

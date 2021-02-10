@@ -101,7 +101,8 @@ public:
 	std::string script_dir;        //!< HARLEM script directory
 	std::string basis_dir;         //!< HARLEM quantum chemical gaussian basis set directory
 	std::string word_editor;       //!< external word editor name 
-	std::string manual_main_page;  //!< URL of the main manual page 
+	std::string manual_main_page;  //!< URL of the advanced manual page 
+	std::string cmd_line_help_main_page;  //!< URL of beginners manual 
 	std::string html_browser;      //!< Browser name
 
 	HaMPI* mpi_driver; 

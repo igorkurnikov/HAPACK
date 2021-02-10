@@ -723,7 +723,7 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
 // Display Menu
 //   Display->Display Mode menu
     EVT_MENU( IDM_WIREFRAME_WX,    HaMainFrameWX::OnWireFrame )
-    EVT_MENU( IDM_BACKBONE_WX,     HaMainFrameWX::OnBackBone )
+//    EVT_MENU( IDM_BACKBONE_WX,     HaMainFrameWX::OnBackBone )
     EVT_MENU( IDM_STICKS_WX,       HaMainFrameWX::OnSticks )
     EVT_MENU( IDM_SPHERES_WX,      HaMainFrameWX::OnSpheres )
     EVT_MENU( IDM_BALLSTICK_WX,    HaMainFrameWX::OnBallStick )
@@ -890,6 +890,16 @@ void HaMainFrameWX::OnClose(wxCloseEvent& event)
 
 void HaMainFrameWX::OnHelp( wxCommandEvent &event )
 {
+	//StrVec args;
+	//StrVec prog_output;
+
+	wxLaunchDefaultBrowser(pApp->cmd_line_help_main_page);
+
+	//args.push_back(pApp->manual_main_page);
+	//HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->html_browser, args, prog_output, FALSE);
+
+
+/*
 #if defined(_MSC_VER)
 	std::string help_file;
     help_file = pApp->harlem_home_dir;
@@ -897,14 +907,15 @@ void HaMainFrameWX::OnHelp( wxCommandEvent &event )
     if( (char)help_file[len-1] != '\\') help_file += '\\';
     help_file += "harlemwin.hlp";
     ::WinHelpA(NULL,help_file.c_str(),HELP_INDEX,0L);   
-#endif
+#endif 
+*/
 }
 
 void HaMainFrameWX::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString Mes="HARLEM: HAmiltonians to Research LargE Molecules \n\n";      
 	Mes+="Igor Kurnikov, Nikolay Simakov, Kirill Speransky, \n"; 
-	Mes+="Maria Kurnikova 1997 - 2020 \n\n"; 
+	Mes+="Maria Kurnikova 1997 - 2021 \n\n"; 
     Mes+="Graphical Interface Based on RASMOL 2.6 of Roger Sayle \n";
 	Mes+="and wxWidgets library \n";
 	Mes+="Quantum Chemistry functionality based on IPACK library of Wolfgang Wenzel \n";
@@ -2441,12 +2452,13 @@ void HaMainFrameWX::DoContElectrPNPDialog( wxCommandEvent &event )
 }
 void HaMainFrameWX::OnLoadManual(wxCommandEvent &event)
 {
-	StrVec args;
-	StrVec prog_output;
+//	StrVec args;
+//	StrVec prog_output;
 
-	args.push_back(pApp->manual_main_page);
+	wxLaunchDefaultBrowser(pApp->manual_main_page);
 
-    HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->html_browser,args, prog_output, FALSE);	
+//	args.push_back(pApp->manual_main_page);
+//  HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->html_browser,args, prog_output, FALSE);	
 }
 
 void HaMainFrameWX::OnMolConnect(wxCommandEvent &event)

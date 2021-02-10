@@ -216,7 +216,8 @@ int HarlemApp::InitFirst()
 	//char* henv= getenv("HARLEM_HOME");
 	//if(henv != NULL) harlem_home_dir = henv;
 	
-	manual_main_page =  harlem_home_dir + "doc/prog_man_html/index.html";
+	manual_main_page =  harlem_home_dir + "doc/advanced_manual_html/index.html";
+	cmd_line_help_main_page = harlem_home_dir + "doc/HARLEM_BeginnerUserManual.htm";
 //  manual_main_page =  harlem_home_dir + "manual/harlem_manual.chm";
 	
 	InitParallel();
