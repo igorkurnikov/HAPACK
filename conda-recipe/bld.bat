@@ -24,17 +24,30 @@ if not exist "%PREFIX%\doc\NUL" (
 ) else (
     echo "%PREFIX%\doc already exists"
 )
+
+if not exist "%PREFIX%\doc\advanced_manual_html\NUL" (
+    mkdir "%PREFIX%\doc\advanced_manual_html"
+) else (
+    echo "%PREFIX%\doc\advanced_manual_html already exists"
+)
+
+if not exist "%PREFIX%\doc\HARLEM_BeginnerUserManual_files\NUL" (
+    mkdir "%PREFIX%\doc\HARLEM_BeginnerUserManual_files"
+) else (
+    echo "%PREFIX%\doc\HARLEM_BeginnerUserManual_files already exists"
+)
+
 if not exist "%PREFIX%\examples\NUL" (
     mkdir "%PREFIX%\examples"
 ) else (
     echo "%PREFIX%\examples already exists"
 )
+
 if not exist "%PREFIX%\molset\NUL" (
     mkdir "%PREFIX%\molset"
 ) else (
     echo "%PREFIX%\molset already exists"
 )
-
 if not exist "%PREFIX%\Lib\site-packages\wx\NUL" (
     mkdir "%PREFIX%\Lib\site-packages\wx"
 ) else (
@@ -48,4 +61,7 @@ xcopy /y /s /e /h /d ..\mswin\Release_x64\molset %PREFIX%\molset
 xcopy /y /s /e /h /d ..\mswin\Release_x64\harlem.exe %PREFIX%
 xcopy /y /s /e /h /d ..\mswin\Release_x64\Lib\site-packages\wx %PREFIX%\Lib\site-packages\wx
 xcopy /y /s /e /h /d ..\examples %PREFIX%\examples
-xcopy /y /s /e /h /d ..\doc %PREFIX%\doc
+xcopy /y /s /e /h /d ..\doc\advanced_manual_html %PREFIX%\doc\advanced_manual_html
+xcopy /y /s /e /h /d ..\doc\HARLEM_BeginnerUserManual.htm %PREFIX%\doc
+xcopy /y /s /e /h /d ..\doc\HARLEM_BeginnerUserManual_files %PREFIX%\doc\HARLEM_BeginnerUserManual_files
+

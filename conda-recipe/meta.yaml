@@ -1,4 +1,4 @@
-{% set version = "21.02.09" %}
+{% set version = "21.02.10" %}
 
 package:
   name: harlem
@@ -11,8 +11,10 @@ build:
 requirements:
   build:
     - python ==3.7
+    - numpy
   run:
     - python ==3.7
+    - numpy
   
 source:
     # harlem binary
