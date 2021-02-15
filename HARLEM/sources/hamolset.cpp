@@ -6273,8 +6273,7 @@ bool visit_f1(int n, node_id ni1[], node_id ni2[], void *usr_data)
 }
 
 
-double
-MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
+double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
 //! Input Parameters:
 //! atset1 - list of atoms of the molecule1 that will be superimposed by the corresponding 
 //!          atoms of the molecule 2 
@@ -6333,11 +6332,11 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 		return FALSE;
 	}
 
-    ARGEdit ed1,ed2;  // Graph bulders for molecules 1 and 2
+    ARGEdit ed1,ed2;  // Graph builders for molecules 1 and 2
 
 	AtomIteratorMolecule aitr_m1(pMol1),aitr_m2(pMol2);
 
-	HaBond* bptr;
+	HaBond* bptr = NULL;
 
     PtrIntMap atmap1;
 	PtrIntMap atmap2;
@@ -6352,16 +6351,18 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 	{
 		ed1.InsertNode(aptr);
 		atmap1[aptr] = i;
-        atvec1[i] = aptr;
+        atvec1.at(i) = aptr;
 		i++;
 	}
 
+	set< HaBond* > used_bonds;
 	for(aptr = aitr_m1.GetFirstAtom(); aptr; aptr = aitr_m1.GetNextAtom())
 	{
 		HaAtom::BondIterator bitr = aptr->Bonds_begin();
 		for( ; bitr != aptr->Bonds_end(); ++bitr )
 		{
 			HaBond* bptr = (*bitr);
+			if (used_bonds.find(bptr) != used_bonds.end()) continue;
 			HaAtom* at1 = bptr->srcatom;
 			HaAtom* at2 = bptr->dstatom;
 			if( at2 < at1 ) continue;
@@ -6369,10 +6370,12 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 
 			if( atmap1.find(at1) != atmap1.end() && atmap1.find(at2) != atmap1.end())
 			{
+
 				idx1 = atmap1[at1];
 				idx2 = atmap1[at2];
 				ed1.InsertEdge(idx1, idx2, NULL);
 				ed1.InsertEdge(idx2, idx1, NULL);
+				used_bonds.insert(bptr);
 			}
 		}
 	}
@@ -6388,12 +6391,14 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 		i++;
 	}
 	
+	used_bonds.clear();
 	for(aptr = aitr_m2.GetFirstAtom(); aptr; aptr = aitr_m2.GetNextAtom())
 	{
 		HaAtom::BondIterator bitr = aptr->Bonds_begin();
 		for( ; bitr != aptr->Bonds_end(); ++bitr )
 		{
 			HaBond* bptr = (*bitr);
+			if (used_bonds.find(bptr) != used_bonds.end()) continue;
 			HaAtom* at1 = bptr->srcatom;
 			HaAtom* at2 = bptr->dstatom;
 			if( at2 < at1 ) continue;
@@ -6405,6 +6410,7 @@ MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
 				idx2 = atmap2[at2];
 				ed2.InsertEdge(idx1, idx2, NULL);
 				ed2.InsertEdge(idx2, idx1, NULL);
+				used_bonds.insert(bptr);
 			}
 		}
 	}

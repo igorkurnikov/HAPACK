@@ -4,7 +4,7 @@
 # Generate Arbalest Resraints File (Type 1) for protein CA atoms for 
 # residues with closet distance to the ligand > 9 Ang
 #  
-# usage: harlem_nogui TYK2_EJM31.hin -script gen_restr_CA_9ang.py  
+# usage: harlem_nogui TYK2_EJM31.hin --script gen_restr_CA_9ang.py  
 #
 fn_rules = "atom_restr_ca_9ang_rules.xml"
 fn_list  = "atom_restr_ca_9ang_list.xml"

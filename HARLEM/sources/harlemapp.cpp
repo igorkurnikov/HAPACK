@@ -701,13 +701,13 @@ int HarlemApp::ProcessOptions()
 			std::string trunc_opt = option.substr(1);
 			boost::to_lower(trunc_opt);
 
-			if( trunc_opt == "nogui" )
+			if( trunc_opt == "nogui" || trunc_opt == "-nogui")
 			{
 				gui_mode = FALSE;
 				continue;
 			}
 
-			if( trunc_opt == "noprompt" )
+			if( trunc_opt == "noprompt" || trunc_opt == "-noprompt" )
 			{
 				cmd_prompt_mode = FALSE;
 				continue;
@@ -726,7 +726,7 @@ int HarlemApp::ProcessOptions()
 				continue;
 			}
 
-			if( trunc_opt == "script" )
+			if( trunc_opt == "script" || trunc_opt == "-script" || trunc_opt == "s" )
 			{
 				i++;
 				if( i >= argv_size )
@@ -738,7 +738,7 @@ int HarlemApp::ProcessOptions()
 				continue;
 			}
 
-			if( trunc_opt == "mpipy" )
+			if( trunc_opt == "mpipy" || trunc_opt == "-mpipy")
 			{
 				gui_mode = FALSE;
 				cmd_prompt_mode = FALSE;
@@ -752,12 +752,12 @@ int HarlemApp::ProcessOptions()
 				continue;
 			}
 
-			if( trunc_opt == "wd" )
+			if( trunc_opt == "wd" || trunc_opt == "-wd" )
 			{
 				i++;
 				if( i >= argv_size )
 				{
-					PrintLog("No Working Directory Name supplied for -wd option\n");
+					PrintLog("No Working Directory Name supplied for --wd option\n");
 					continue;
 				}
 				wxString work_dir = option_next;
