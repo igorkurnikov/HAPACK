@@ -8,7 +8,9 @@
 
 #define WX_MOL_ED_CPP
 
+#if defined(HARLEM_MPI)
 #include <mpi.h>
+#endif
 
 #include "hastl.h"
 #include <stdexcept>

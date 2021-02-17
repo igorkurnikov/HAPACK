@@ -712,6 +712,7 @@ int HaMolMechMod::InitMixedHamSimulations_node(MolMechModel* p_mm_model_2)
 void HaMolMechMod::BcastCtrlParams(MPI_Comm& comm)
 {
 	int ires;
+#if defined(HARLEM_MPI)
 	
 	ires = run_type.Bcast(comm);
 	ires = init_read_coord.Bcast(comm);
@@ -778,6 +779,7 @@ void HaMolMechMod::BcastCtrlParams(MPI_Comm& comm)
 
 	ires = MPI_Bcast(&p_amber_driver->dbg_atom_redistribution,1,MPI_INT,0,comm);
 	ires = MPI_Bcast(&p_amber_driver->loadbal_verbose,1,MPI_INT,0,comm);
+#endif
 }
 
 int HaMolMechMod::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt ) const
@@ -904,6 +906,7 @@ void HaMolMechMod::CallMMFunctionOnSlaves(int id)
 int HaMolMechMod::SetMPICommSplit2()
 {
 	int ires, itmp;
+#if defined(HARLEM_MPI)
 	if(p_amber_driver->driver_mpi_comm  != MPI_COMM_NULL) MPI_Comm_free(&(p_amber_driver->driver_mpi_comm));
 	if(p_amber_driver->driver_mpi_group != MPI_GROUP_NULL) MPI_Group_free(&(p_amber_driver->driver_mpi_group));
 	
@@ -931,6 +934,7 @@ int HaMolMechMod::SetMPICommSplit2()
 //	PrintLog(" pApp->mpi_driver->myrank = %d \n",pApp->mpi_driver->myrank);
 //	PrintLog(" inter_model_rank = %d \n",inter_model_rank);
 //	PrintLog(" p_amber_driver->mytaskid = %d \n",p_amber_driver->mytaskid);
+#endif
 
 	return TRUE;
 }
@@ -2071,6 +2075,7 @@ void TISimMod::SincCrdAndVelTI()
 	MMDriverAmber* p_amber_driver = p_mm_mod->p_amber_driver;
 	AmberMMModel*  p_amber_model  = p_amber_driver->p_amber_model;
 
+#if defined(HARLEM_MPI)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if( p_amber_driver->numtasks > 1 && p_mm_mod->inter_model_rank == 0 && !p_amber_driver->all_crds_valid) 
 	{
@@ -2107,6 +2112,7 @@ void TISimMod::SincCrdAndVelTI()
 	}
 	p_amber_driver->all_crds_valid = TRUE;
 	p_amber_driver->all_vels_valid = TRUE;
+#endif
 }
 
 

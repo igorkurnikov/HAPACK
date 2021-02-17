@@ -41,6 +41,7 @@ HaMPI::HaMPI()
 
 	int ires = -1;
 
+#if defined(HARLEM_MPI)
 #if !defined(_MSC_VER)
 	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
 #endif
@@ -50,6 +51,7 @@ HaMPI::HaMPI()
 		ires = MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 		ires = MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
 		ires = MPI_Comm_group(MPI_COMM_WORLD,&world_group);
+
 	
 //		std::string fname = "test_mpi" + harlem::ToString(myrank);
 //		FILE* ftest = fopen(fname.c_str(),"w");
@@ -57,17 +59,22 @@ HaMPI::HaMPI()
 //		fclose(ftest);
 //		printf("MYRANK rank = %d : Num Processors= %d : after MPI_Init \n", myrank,nprocs);
 	}
+#endif
 }
 
 HaMPI::~HaMPI()
 {
+#if defined(HARLEM_MPI)
 	if( world_group != MPI_GROUP_NULL) MPI_Group_free(&world_group);
 	MPI_Finalize();
+#endif
 }
 
 int HaMPI::Listen()
 {
 	using namespace rapidxml; 
+
+#if defined(HARLEM_MPI)
 
 	MPI_Status status;
 	int i;
@@ -157,6 +164,7 @@ int HaMPI::Listen()
 			PrintLog("%s\n",ex.what());
 		}
 	}
+#endif
 	return TRUE;
 }
 
@@ -183,7 +191,9 @@ int HaMPI::SendXmlMsgAllProc(const char* str)
 		PrintLog("Error in HaMPI::MPI_SendSignal(): Only Master can call it \n");
 		return FALSE;
 	}  
-	int ierr;
+	int ierr = 0;
+#if defined(HARLEM_MPI)
+
 	int len = strlen(str);
 
 	basic_signal[0] = XML_SIGNAL;
@@ -209,6 +219,7 @@ int HaMPI::SendXmlMsgAllProc(const char* str)
 	msg_buffer = str;
 	
 	ierr = MPI_Bcast((void*)&msg_buffer[0],len,MPI_CHAR,0,MPI_COMM_WORLD);
+#endif
 	
 	return ierr;
 }
@@ -220,8 +231,9 @@ int HaMPI::SendKillAppMsgAllProc()
 		PrintLog("Error in HaMPI::SendKillMsgAllProc(): Only Master can call it \n");
 		return FALSE;
 	}
-	int ierr;
+	int ierr= 0;
 
+#if defined(HARLEM_MPI)
 	vector<MPI_Request> req_vec;
 	req_vec.resize(nprocs);
 
@@ -236,6 +248,7 @@ int HaMPI::SendKillAppMsgAllProc()
 	{
 		ierr = MPI_Isend(&basic_signal[0],BASIC_SIGNAL_DIM,MPI_INT,rank,0,MPI_COMM_WORLD,&req_vec[rank]);
 	}
+#endif
 
 	return ierr;
 }

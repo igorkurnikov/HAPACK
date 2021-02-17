@@ -10,7 +10,9 @@
 #include <process.h>
 #endif
 
+#if defined(HARLEM_MPI)
 #include <mpi.h>
+#endif
 
 #include "command.h"
 #include "stdlib.h"

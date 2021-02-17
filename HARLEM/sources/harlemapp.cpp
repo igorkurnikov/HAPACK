@@ -158,7 +158,9 @@ HarlemApp::~HarlemApp()
 // }
    if( mpi_driver->nprocs > 1)
    {
+#if defined(HARLEM_MPI)
 	   MPI_Abort(MPI_COMM_WORLD, -1);
+#endif
    }
    delete mpi_driver;
 }

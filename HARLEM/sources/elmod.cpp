@@ -2692,6 +2692,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 	//exenge energies in case of parrallel
 	if(nprocs>1)
 	{
+#if defined(HARLEM_MPI)
 		MPI_Barrier(MPI_COMM_WORLD);
 		
 		double *vE2=E2.begin();
@@ -2715,6 +2716,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 				inter_mat.r0(ist1,ist2)=dtmp;
 			}
 		}
+#endif
 	}
 	
 	phost_mset->SelectAtoms(&sel_atoms);

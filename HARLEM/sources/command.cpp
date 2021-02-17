@@ -11,7 +11,10 @@
 */
 #define COMMAND_CPP
 
+#if defined HARLEM_MPI
 #include <mpi.h>
+#endif
+
 #include "haconst.h"
 #if !defined(HARLEM_PYTHON_NO)
 #include "Python.h"
