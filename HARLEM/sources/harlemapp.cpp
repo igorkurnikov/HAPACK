@@ -180,8 +180,17 @@ int HarlemApp::InitFirst()
 //	memory_manager->print(cout);
 
 // Set HARLEM HOME directory
-	wxString harlem_home_str;
-	bool exist = wxGetEnv("HARLEM_HOME",&harlem_home_str);
+	std::string harlem_home_str = "";
+	if (std::getenv("CONDA_PREFIX") != NULL)
+	{
+		harlem_home_str = std::getenv("CONDA_PREFIX");
+		harlem_home_str += ""
+	}
+
+	std::string harlem_home_str = std::getenv("HARLEM_HOME");
+	// wxString harlem_home_str;
+
+	// bool exist = wxGetEnv("HARLEM_HOME",&harlem_home_str);
     harlem_home_str.Trim();
 #if(_MSC_VER)
 //	auto path_obj = wxStandardPaths::Get();

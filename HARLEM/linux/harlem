@@ -1,10 +1,7 @@
 #!/bin/sh
 BASEDIR=$(dirname "$0")
 FULL_PATH=`python -c "import os; print(os.path.abspath('$BASEDIR'))"`
-echo "$FULL_PATH"
 export LD_LIBRARY_PATH=$BASEDIR/../molset:$LD_LIBRARY_PATH
-#export LD_LIBRARY_PATH=${HOME}/miniconda3/lib/python3.8/site-packages/wx:$LD_LIBRARY_PATH
 export HARLEM_HOME="$FULL_PATH/../"
 export PYTHONPATH="$BASEDIR/../:$PYTHONPATH"
-echo $PYTHONPATH
 python3 -m molset.harlempy $@  

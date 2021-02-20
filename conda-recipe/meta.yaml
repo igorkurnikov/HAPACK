@@ -1,4 +1,4 @@
-{% set version = "21.02.10" %}
+{% set version = "21.02.20" %}
 
 package:
   name: harlem
@@ -8,6 +8,15 @@ source:
   path: ../basis
   path: ../HARLEM/molset
   path: ../HARLEM/linux
+  
+requirements:
+  build:
+    - python
+    - setuptools
+    
+  run:
+    - python
+    - pip    
   
 
 

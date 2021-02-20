@@ -42,9 +42,9 @@ HaMPI::HaMPI()
 
 	int ires = -1;
 
-//#if !defined(_MSC_VER)
-//	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
-//#endif
+#if !defined(_MSC_VER)
+	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
+#endif
 	ires = MPI_Init(&(pApp->argc_loc), &(pApp->argv_loc)); 
 	if(ires == 0)
 	{
