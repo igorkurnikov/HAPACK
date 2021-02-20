@@ -4,4 +4,10 @@ package:
   name: harlem
   version: {{ version }}
 
+source:
+  path: ../basis
+  path: ../HARLEM/molset
+  path: ../HARLEM/linux
+  
+
 

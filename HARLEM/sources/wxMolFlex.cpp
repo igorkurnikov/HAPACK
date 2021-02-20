@@ -1,9 +1,7 @@
 // wxMolFlex.cpp: implementation of the wxMolFlex class.
 //
 //////////////////////////////////////////////////////////////////////
-#if defined(HARLEM_MPI)
 #include <mpi.h>
-#endif
 #include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP

@@ -357,7 +357,7 @@ C
 	DIMENSION BINCOE(*),FACT(*)
       BINCOE(1)=1.D0                                                    
       IND=2                                                             
-      DO 60 I=1,29                                                      
+      DO 60 I=1,35                                                      
       I1=I+1                                                            
       DO 60 J=1,I1                                                      
       JJ=I1-J+1                                                         
@@ -438,7 +438,7 @@ C
 C     kmax = N1 + N2
 	kmax = 17
       Call AIntgm(P,PT,kmax,MaxAB,A)
-      Call BIntgm(PT,kmax,MaxAB,B,FACT(2)) ! factorial shifted as assumed FACT(N) = (N-1)!
+C      Call BIntgm(PT,kmax,MaxAB,B,FACT(2)) ! factorial shifted as assumed FACT(N) = (N-1)!
                                                   
       F1=FACT(2*N1+1)                                                   
       F2=FACT(2*N2+1)                                                   
@@ -623,7 +623,7 @@ C
       Z=720.0D0*(A(2)*B(1)-A(1)*B(2))
       P=TWO*C
       TT=-TT
-      CALL AUX(P,TT,A,B,FACT(2))
+C      CALL AUX(P,TT,A,B,FACT(2))
       X=CB
       Y=(X**5)*(A(7)*B(1)+FOUR*A(6)*B(2)+FIVE*A(5)*B(3)-FIVE*A(3)*B(5)
      1  -FOUR*A(2)*B(6)-A(1)*B(7))+TEN*(X**4)*(A(6)*B(1)+THREE*A(5)*
@@ -645,7 +645,7 @@ C
       Z=720.D0*(A(4)*B(1)-THREE*A(3)*B(2)+THREE*A(2)*B(3)-A(1)*B(4))
       P=TWO*C
       TT=-TT
-      CALL AUX(P,TT,A,B,FACT(2))
+C      CALL AUX(P,TT,A,B,FACT(2))
       X=CB
       Y=-(X**5)*(A(9)*B(1)+TWO*A(8)*B(2)-TWO*A(7)*B(3)-SIX*A(6)*B(4)
      1  +SIX*A(4)*B(6)+TWO*A(3)*B(7)-TWO*A(2)*B(8)-A(1)*B(9))-TEN*
@@ -669,7 +669,7 @@ C
       Z=A(6)*B(1)-FIVE*A(5)*B(2)+TEN*A(4)*B(3)-TEN*A(3)*B(4)+FIVE*
      1  A(2)*B(5)-A(1)*B(6)
       P=TWO*C
-      CALL AUX(P,TT,A,B,FACT(2))
+C      CALL AUX(P,TT,A,B,FACT(2))
       X=CA
       U=X**3
       Y=(X**5)*(A(11)*B(1)-FIVE*A(9)*B(3)+TEN*A(7)*B(5)-TEN*A(5)*
@@ -801,7 +801,7 @@ C     (X(A)Y(A)/1/R(B))
       ENDIF 
 	ONE = 1.0D0                                                            
       IF(R.LT.1.E-6) GO TO 7                                            
-      CALL AUX(AR,ONE,A,B,FACT(2))                                              
+C      CALL AUX(AR,ONE,A,B,FACT(2))                                              
       X=0.0                                                             
       IF(LA.GE.LB) THEN                                                 
         IJ=(LA*(LA+1))/2 + LB+1                                         
@@ -931,7 +931,7 @@ C     DON'T WORK THEM OUT AGAIN.
       N2=2*N+1                                                          
        P=(AMU+BMU)*R*0.5D0                                              
        T=(AMU-BMU)/(AMU+BMU)                                            
-      CALL AUX(P,T,A,B,FACT(2))                                                 
+C      CALL AUX(P,T,A,B,FACT(2))                                                 
       T=FACT(M2)*FACT(N2)                                               
       P=DSQRT (AR**N2*BR**M2/T)/R                                       
       M2=M+N                                                            
@@ -971,7 +971,7 @@ C
       TT=T                                                             
 C      NM1=N1+N2+1 
 C      WRITE(*,*) "(alpha + beta)/2 =",P, "(alpha - beta)/2 =",P*T                                              
-      CALL AUX(P,T,A,B,FACT(2))   	                                                
+C      CALL AUX(P,T,A,B,FACT(2))   	                                                
     5 CONTINUE                                                          
       SS(2)=0.0D0                                                        
       SS(3)=0.0D0                                                      

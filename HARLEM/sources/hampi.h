@@ -34,11 +34,7 @@ public:
 	int myrank; //!< Rank in  MPI_COMM_WORLD
 	int nprocs; //!< Number of processes in MPI_COMM_WORLD
 
-#if defined( HARLEM_MPI )
     MPI_Group world_group; //!< MPI_Group corresponding to MPI_COMM_WORLD
-#else 
-	int world_group;
-#endif
 
     static const int BASIC_SIGNAL_DIM = 4; 
 

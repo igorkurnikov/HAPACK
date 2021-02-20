@@ -8,9 +8,7 @@
 
 #define DIALOGS_WX_1_CPP
 
-#if defined(HARLEM_MPI)
 #include <mpi.h>
-#endif
 
 #include "vec3d.h"
 #include "g94_globals.h"

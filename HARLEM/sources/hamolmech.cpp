@@ -12,6 +12,7 @@
 #include <float.h>  
 #include <math.h> 
 
+#define HARLEM_MPI 1
 #include <mpi.h>
 #include <stdexcept>
 

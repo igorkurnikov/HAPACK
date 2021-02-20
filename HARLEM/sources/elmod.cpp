@@ -9,6 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#define HARLEM_MPI 1
 #include <mpi.h>
 
 #include "hamolset.h"

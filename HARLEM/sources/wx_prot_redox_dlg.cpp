@@ -6,9 +6,7 @@
     \date 2010-
 */
 
-#if defined(HARLEM_MPI)
 #include <mpi.h>
-#endif
 
 #include <wx/wx.h>
 #include <wx/grid.h>

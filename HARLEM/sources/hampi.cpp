@@ -1,3 +1,4 @@
+#define HARLEM_MPI 1
 #include <mpi.h>
 #if !defined(_MSC_VER)
 #include <dlfcn.h>
@@ -41,10 +42,9 @@ HaMPI::HaMPI()
 
 	int ires = -1;
 
-#if defined(HARLEM_MPI)
-#if !defined(_MSC_VER)
-	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
-#endif
+//#if !defined(_MSC_VER)
+//	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
+//#endif
 	ires = MPI_Init(&(pApp->argc_loc), &(pApp->argv_loc)); 
 	if(ires == 0)
 	{
@@ -59,7 +59,6 @@ HaMPI::HaMPI()
 //		fclose(ftest);
 //		printf("MYRANK rank = %d : Num Processors= %d : after MPI_Init \n", myrank,nprocs);
 	}
-#endif
 }
 
 HaMPI::~HaMPI()

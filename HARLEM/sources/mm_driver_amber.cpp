@@ -10,6 +10,7 @@
 #include <ctime>
 #include <exception>
 
+#define HARLEM_MPI 1
 #include <mpi.h>
 
 #include <math.h>
@@ -483,13 +484,10 @@ void MMDriverAmber::BcastCrd(MPI_Comm& comm)
 	int rank;
 	int nat = p_amber_model->natom;
 
-#if defined(HARLEM_MPI)
-
 	ires = MPI_Comm_rank(comm,&rank);
 
 	if(rank != 0) atm_crd.resize(3*nat);
 	ires = MPI_Bcast(atm_crd.v(),3*nat,MPI_DOUBLE,0,comm);
-#endif
 }
 
 void MMDriverAmber::BcastVel(MPI_Comm& comm)
@@ -498,11 +496,9 @@ void MMDriverAmber::BcastVel(MPI_Comm& comm)
 	int rank;
 	int nat = p_amber_model->natom;
 
-#if defined(HARLEM_MPI)
 	ires = MPI_Comm_rank(comm,&rank);
 	if(rank != 0) atm_vel.resize(3*nat);
 	ires = MPI_Bcast(atm_vel.v(),3*nat,MPI_DOUBLE,0,comm);
-#endif
 }
 
 void MMDriverAmber::BcastFrc(MPI_Comm& comm)
@@ -511,12 +507,10 @@ void MMDriverAmber::BcastFrc(MPI_Comm& comm)
 	int rank;
 	int nat = p_amber_model->natom;
 
-#if defined(HARLEM_MPI)
 	ires = MPI_Comm_rank(comm,&rank);
 
 	if(rank != 0) atm_frc.resize(3*nat);
 	ires = MPI_Bcast(atm_frc.v(),3*nat,MPI_DOUBLE,0,comm);
-#endif
 }
 
 void MMDriverAmber::BcastPBox(MPI_Comm& comm)
@@ -655,7 +649,6 @@ void MMDriverAmber::SetupMasterNode()
 
 int MMDriverAmber::SetMPICommAllProcs()
 {
-#if defined(HARLEM_MPI)
 	int ires, itmp;
 //	PrintLog(" MMDriverAmber::SetMPICommAllProcs() pt 1 \n");
 	if(driver_mpi_comm  != MPI_COMM_NULL) MPI_Comm_free(&driver_mpi_comm);
@@ -679,7 +672,6 @@ int MMDriverAmber::SetMPICommAllProcs()
 	if(p_mm_mod->single_job_comm != MPI_COMM_NULL) MPI_Comm_free(&p_mm_mod->single_job_comm);
 	ires = MPI_Comm_dup(MPI_COMM_WORLD,&p_mm_mod->single_job_comm);
 	ires = MPI_Comm_rank(p_mm_mod->single_job_comm,&p_mm_mod->single_job_rank);
-#endif
 
 	return TRUE;
 }
@@ -4315,7 +4307,7 @@ void MMDriverAmber::RunMD()
 	int nvalid = 0;
 	int new_list = TRUE;
 
-//	PrintLog("MMDriverAmber::RunMD() pt 1 \n");
+	PrintLog("MMDriverAmber::RunMD() pt 1 \n");
 	if (p_mm_mod->restart_flag == 0) 
 	{
 		p_tm->UpdateTime(TimerAmber::RUNMD_TIME);

@@ -3,8 +3,7 @@ LINUX:
 UBUNTU(16.04/18.04) packages:
 
 sudo apt install gcc g++ python3-pip
-sudo apt install libgtk-3-dev  libwebkitgtk-dev libwebkitgtk-3.0-dev freeglut3 freeglut3-dev  ( no libwebkitgtk-dev libwebkitgtk-3.0-dev on ubuntu 20.04)
-
+sudo apt install libgtk-3-dev freeglut3 freeglut3-dev  ( may be but  libwebkitgtk-dev libwebkitgtk-3.0-dev  seems not needed on ubuntu 18.04 and 20.04)
 sudo apt install gfortran gfortran-7
 sudo apt install automake
 sudo apt install libboost-dev libboost-all-dev
@@ -18,9 +17,13 @@ libopenblas-dev
 libplplot-dev
 libplplotwxwidgets1       ( UBUNTU 18.04 and later )
 plplot12-driver-wxwidgets ( UBUNTU 16.04 -installed with libplplot-dev ?? )sud
-sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver )
-sudo apt install libshp-dev         ( for libplot shapelib connection )
+sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver  )
+sudo apt install libshp-dev         ( for libplot shapelib connection   - already installed for UBUNTU 20.04 ) 
 swig 
+--------------------------------------------------------------------------------------
+UBUNTU(20.04):
+COMMENTED A LOT OF LINES in gextr.f !!  - restore! 
+
 -------------------------------------------------------------------------------------------
 GAUSSIAN util.a: 
 unpack g98.tar in ../PROG_SRC

@@ -6,9 +6,7 @@
     \date 2005-
 */
 
-#if defined(HARLEM_MPI)
 #include <mpi.h>
-#endif
 
 #include "wx/wxprec.h"
 
