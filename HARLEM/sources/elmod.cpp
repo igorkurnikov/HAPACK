@@ -12,6 +12,8 @@
 #define HARLEM_MPI 1
 #include <mpi.h>
 
+#include <boost/filesystem/path.hpp>
+
 #include "hamolset.h"
 
 #include "elmod.h"
@@ -40,8 +42,6 @@ extern "C" {
 #if defined(_MSC_VER)
 #include <process.h>
 #endif
-
-
 
 #include "command.h"
 #include "stdlib.h"
@@ -3556,8 +3556,9 @@ const char * PNPMod::GetIonName(int ion)
 }
 int PNPMod::ReadAMBER94FF()
 {
-	std::string amber_94_ff_file=pApp->harlem_home_dir+"residues_db/amber_94_ff.dat";
-	int status = ReadAMBERFF(amber_94_ff_file.c_str());
+	boost::filesystem::path amber_94_ff_path(pApp->res_db_dir);
+	amber_94_ff_path.append("amber_94_ff.dat");
+	int status = ReadAMBERFF(amber_94_ff_path.string().c_str());
 	
 	//fill synonyms
 	int i;
@@ -3642,12 +3643,14 @@ int PNPMod::ReadAMBERFF(const char* filename)
 }
 int PNPMod::ReadOPLSFF()
 {
-	std::string file_ffoplsaanb_itp = pApp->harlem_home_dir + "residues_db/ffoplsaanb.itp";
-	std::string file_ffoplsaa_rtp = pApp->harlem_home_dir + "residues_db/ffoplsaa.rtp";
+	boost::filesystem::path ffoplsaanb_itp_path = pApp->res_db_dir;
+	ffoplsaanb_itp_path.append("ffoplsaanb.itp");
+	boost::filesystem::path ffoplsaa_rtp_path = pApp->res_db_dir;
+	ffoplsaa_rtp_path.append("ffoplsaa.rtp");
 	
 	int status;
-	status = ReadOPLSitp(file_ffoplsaanb_itp.c_str());
-	status = ReadOPLSrtp(file_ffoplsaa_rtp.c_str());
+	status = ReadOPLSitp(ffoplsaanb_itp_path.string().c_str());
+	status = ReadOPLSrtp(ffoplsaa_rtp_path.string().c_str());
 	return EXIT_SUCCESS;
 }
 int PNPMod::ReadOPLSitp(const char *filename)

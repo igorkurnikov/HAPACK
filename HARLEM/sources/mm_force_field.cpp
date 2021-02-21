@@ -1028,7 +1028,7 @@ StrVec MMForceField::GetAmberParamFiles() const
 void MMForceField::SetDefaultParamFiles()
 {
 	std::string res_dir = pApp->res_db_dir;
-	std::string amber_parm_dir = pApp->res_db_dir + "amber_parm" + path_sep;
+	std::string amber_parm_dir = res_dir + "amber_parm" + boost::filesystem::path::preferred_separator;
 	
 	amber_param_files.clear();
 	resff_files.clear();
@@ -1036,26 +1036,26 @@ void MMForceField::SetDefaultParamFiles()
 	if( ff_type == ForceFieldType::AMBER_94 )
 	{
 //		file_name += "amber_94_ff.dat";
-		amber_param_files.push_back(amber_parm_dir + "parm94.dat");
-		amber_param_files.push_back(amber_parm_dir + "frcmod.add1");
-		amber_param_files.push_back(amber_parm_dir + "frcmod.add2");
+		amber_param_files.push_back( amber_parm_dir + "parm94.dat"  );
+		amber_param_files.push_back( amber_parm_dir + "frcmod.add1" );
+		amber_param_files.push_back( amber_parm_dir + "frcmod.add2" );
 
-		resff_files.push_back( res_dir +  "resff_amber94_amino.xml");
-		resff_files.push_back( res_dir +  "resff_amber_solvents.xml");
+		resff_files.push_back( res_dir + "resff_amber94_amino.xml" );
+		resff_files.push_back( res_dir + "resff_amber_solvents.xml");
 	}
 	else if( ff_type == ForceFieldType::AMBER_99_SB )
 	{
-		amber_param_files.push_back(amber_parm_dir + "parm99.dat");
-		amber_param_files.push_back(amber_parm_dir + "frcmod.ff99SB");
+		amber_param_files.push_back( amber_parm_dir + "parm99.dat"    );
+		amber_param_files.push_back( amber_parm_dir + "frcmod.ff99SB" );
 		
-		resff_files.push_back( res_dir +  "resff_amber94_amino.xml");
-		resff_files.push_back( res_dir +  "resff_amber_solvents.xml");
+		resff_files.push_back( res_dir + "resff_amber94_amino.xml"  );
+		resff_files.push_back( res_dir + "resff_amber_solvents.xml" );
 	}
 	else if( ff_type == ForceFieldType::AMBER_99_BSC0 )
 	{
-		amber_param_files.push_back(amber_parm_dir + "parm99.dat");
-		amber_param_files.push_back(amber_parm_dir + "frcmod.ff99SB");
-		amber_param_files.push_back(amber_parm_dir + "frcmod.parmbsc0");
+		amber_param_files.push_back( amber_parm_dir + "parm99.dat"     );
+		amber_param_files.push_back( amber_parm_dir + "frcmod.ff99SB"  );
+		amber_param_files.push_back( amber_parm_dir + "frcmod.parmbsc0");
 
 		resff_files.push_back( res_dir +  "resff_amber94_amino.xml");
 		resff_files.push_back( res_dir +  "resff_amber_solvents.xml");

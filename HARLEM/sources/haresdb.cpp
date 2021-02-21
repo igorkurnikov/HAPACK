@@ -98,7 +98,8 @@ int HaResDB::Init()
 	for(sitr = res_db_files.begin(); sitr != res_db_files.end(); sitr++)
 	{
 		db_file_name = (*sitr);
-		if( !boost::starts_with(db_file_name, ".") ) db_file_name = pApp->res_db_dir + db_file_name;
+		boost::filesystem::path db_file_path(pApp->res_db_dir);
+		if( !boost::starts_with(db_file_name, ".") ) db_file_name = db_file_path.append(db_file_name).string();
 		
 		std::string ext_str = harlem::GetExtFromFileName( db_file_name );
 		boost::to_lower(ext_str);

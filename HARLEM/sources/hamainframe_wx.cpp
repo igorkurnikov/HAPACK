@@ -895,10 +895,6 @@ void HaMainFrameWX::OnHelp( wxCommandEvent &event )
 
 	wxLaunchDefaultBrowser(pApp->cmd_line_help_main_page);
 
-	//args.push_back(pApp->manual_main_page);
-	//HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->html_browser, args, prog_output, FALSE);
-
-
 /*
 #if defined(_MSC_VER)
 	std::string help_file;
@@ -2452,13 +2448,7 @@ void HaMainFrameWX::DoContElectrPNPDialog( wxCommandEvent &event )
 }
 void HaMainFrameWX::OnLoadManual(wxCommandEvent &event)
 {
-//	StrVec args;
-//	StrVec prog_output;
-
 	wxLaunchDefaultBrowser(pApp->manual_main_page);
-
-//	args.push_back(pApp->manual_main_page);
-//  HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->html_browser,args, prog_output, FALSE);	
 }
 
 void HaMainFrameWX::OnMolConnect(wxCommandEvent &event)

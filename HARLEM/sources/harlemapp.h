@@ -37,11 +37,8 @@ public:
 	int InitFirst();
 	int InitLast();
 	int InitParallel();   //!< Init Parallel (MPI) Environment
-	int InitXML();        //!< Init XML Processing
 	int InitRemoteComp();
 	void InitCommand();   //!< Init RASMOL command Processing 
-
-	int FinalizeXML();   //!< Finalize XML Processing
 
 	int RedirectIOLogWindow(); //!<  Create Log Window (if necessary) and redirect stdout and stderr to it
 	int RedirectIOLogFile(const std::string& fname = ""); //!< Redirect stdout and stderr to log file by default: with the name harlem_nproc.log (nproc - MPI rank)
@@ -103,7 +100,6 @@ public:
 	std::string word_editor;       //!< external word editor name 
 	std::string manual_main_page;  //!< URL of the advanced manual page 
 	std::string cmd_line_help_main_page;  //!< URL of beginners manual 
-	std::string html_browser;      //!< Browser name
 
 	HaMPI* mpi_driver; 
 //	void* python_thread;  //!< Thread for Python execution

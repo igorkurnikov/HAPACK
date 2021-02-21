@@ -5,9 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  path: ../basis
-  path: ../HARLEM/molset
-  path: ../HARLEM/linux
+  path: ../../MOLSET_SHARED_LIBS
   
 requirements:
   build:

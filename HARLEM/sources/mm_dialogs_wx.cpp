@@ -812,7 +812,7 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 {
 	int ic;
 	int nc = ext_prog_controls.size();
-	if( ptr_mm_mod->run_internal_flag )
+	if( ptr_mm_mod->run_internal_flag ) // Set to run using internal MD code
 	{
 		for(ic = 0; ic < nc; ic++)
 		{
@@ -820,7 +820,7 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 		}
 		btn_mm_run_calc->Enable();
 	}
-	else
+	else  // Set to run using external MD program
 	{
 		for(ic = 0; ic < nc; ic++)
 		{
@@ -828,7 +828,8 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 		}
 		if( ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_9 ||
 			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_9 || 
-			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_10)
+			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_10 || 
+			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_12)
 		{
 			if( ptr_mm_mod->p_amber_driver->to_save_input_files ) 
 			{

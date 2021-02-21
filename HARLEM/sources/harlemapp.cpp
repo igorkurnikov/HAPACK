@@ -18,10 +18,8 @@
 #endif
 
 #include <boost/algorithm/string.hpp>
-
-#if defined(_MSC_VER)
-//#include <afx.h>
-#endif
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/path.hpp>
 
 #include "wx/wxprec.h"
 
@@ -29,10 +27,7 @@
 #include "wx/wx.h"
 #endif
 
-#include <wx/stdpaths.h>
 #include <wx/process.h>
-#include <wx/filename.h>
-
 
 #if !defined(_MSC_VER)
 #include <unistd.h>
@@ -49,7 +44,6 @@
 #include "tokens.h"
 #include "abstree.h"
 #include "hamolset.h"
-//#include "hamatdb.h"
 #include "etcoupl.h"
 #include "haqchem.h"
 #include "hagaussian.h"
@@ -146,7 +140,6 @@ HarlemApp::~HarlemApp()
 	   fclose(file_log);
 	   file_log = NULL;
    }
-   FinalizeXML();
 //   if(mpi_driver->myrank == 0)
 //   {
 //		if( mpi_driver->nprocs > 1)
@@ -180,57 +173,22 @@ int HarlemApp::InitFirst()
 //	memory_manager->print(cout);
 
 // Set HARLEM HOME directory
-	std::string harlem_home_str = "";
-	if (std::getenv("CONDA_PREFIX") != NULL)
-	{
-		harlem_home_str = std::getenv("CONDA_PREFIX");
-		harlem_home_str += ""
-	}
+	boost::filesystem::path harlem_home_path = ".";
 
-	std::string harlem_home_str = std::getenv("HARLEM_HOME");
-	// wxString harlem_home_str;
+	if( std::getenv("MOLSET_HOME") != NULL ) harlem_home_path = std::getenv("MOLSET_HOME");
+	if (std::getenv("HARLEM_HOME") != NULL)  harlem_home_path = std::getenv("HARLEM_HOME");
 
-	// bool exist = wxGetEnv("HARLEM_HOME",&harlem_home_str);
-    harlem_home_str.Trim();
+	res_db_dir = harlem_home_path.append("residues_db").string() + boost::filesystem::path::preferred_separator;
 #if(_MSC_VER)
-//	auto path_obj = wxStandardPaths::Get();
-	wxString exe_dir = wxStandardPaths::Get().GetDataDir();
-	if( exist && !harlem_home_str.IsEmpty() )
-	{
-		harlem_home_dir = harlem_home_str;  
-	}
-	else
-	{
-//		harlem_home_dir = "C:\\HARLEM\\";
-		harlem_home_dir = exe_dir.ToStdString() + "\\";
-	}
-	res_db_dir = harlem_home_dir + "residues_db\\";
-	word_editor = harlem_home_dir + "scite.exe";
-	html_browser = "c:\\Program Files\\Internet Explorer\\iexplore.exe";
+	word_editor = harlem_home_path.append("scite.exe").string();
 #else
-	if( exist && !harlem_home_str.IsEmpty() )
-	{	
-		if(harlem_home_str.Last() != '/') harlem_home_str += '/';
-		harlem_home_dir = harlem_home_str;
-	}
-	else
-	{
-		harlem_home_dir = "/usr/local/HARLEM/";
-	}
-	res_db_dir = harlem_home_dir + "residues_db/";
 	word_editor = "scite";
-	html_browser = "firefox";
 #endif
 	
-	//char* henv= getenv("HARLEM_HOME");
-	//if(henv != NULL) harlem_home_dir = henv;
-	
-	manual_main_page =  harlem_home_dir + "doc/advanced_manual_html/index.html";
-	cmd_line_help_main_page = harlem_home_dir + "doc/HARLEM_BeginnerUserManual.htm";
-//  manual_main_page =  harlem_home_dir + "manual/harlem_manual.chm";
+	manual_main_page = harlem_home_path.append("doc").append("advanced_manual_html").append("index.html").string();
+	cmd_line_help_main_page = harlem_home_path.append("doc").append("HARLEM_BeginnerUserManual.htm").string();
 	
 	InitParallel();
-	InitXML();
 	ProcessOptions();
 
 	if( mpi_driver->myrank != 0 && mpi_py_script.empty()) return TRUE;
@@ -254,20 +212,20 @@ int HarlemApp::InitFirst()
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
 	{
 		MolSet* pmset = new MolSet();
-		wxString fname_str = finp_name.c_str();
-//		PrintLog(" input file name %s \n", fname_str.ToStdString().c_str());
-		wxFileName fname_obj(fname_str);
-		wxString path = fname_obj.GetPath();
-//		PrintLog(" path of the input file %s \n", path.ToStdString().c_str());
-		path = path.Strip(wxString::both);
-			 
-		wxString cur_dir = ::wxGetCwd();
-//		PrintLog(" Current Working Directory %s \n",cur_dir.ToStdString().c_str());
-		if(!path.IsEmpty())
+		boost::filesystem::path finp_path = finp_name;
+
+		PrintLog(" input file name %s \n", finp_path.string().c_str());
+
+		boost::filesystem::path cur_path = boost::filesystem::current_path();
+		boost::filesystem::path finp_dir_path = finp_path.parent_path();
+		PrintLog(" HarlemApp::InitFirst() pt 1:  Current Working Directory %s \n",cur_path.string().c_str() );
+		if(!finp_dir_path.empty() )
 		{
-			wxFileName::SetCwd(path);
+			boost::filesystem::current_path(finp_dir_path);
 		}
-		PrintLog(" Current Working Directory %s \n",cur_dir.ToStdString().c_str());
+		cur_path = boost::filesystem::current_path();
+
+		PrintLog(" HarlemApp::InitFirst() pt 2:  Current Working Directory %s \n", cur_path.string().c_str());
 			
 		std::string exten = harlem::GetExtFromFileName(finp_name);
 		
@@ -289,7 +247,7 @@ int HarlemApp::InitFirst()
 	}
 	if (!mpi_py_script.empty()) ExecuteScriptFromFile(mpi_py_script.c_str());
 
-	if (mpi_driver->myrank != 0) return true;
+	if ( mpi_driver->myrank != 0) return true;
 
 	if (gui_mode)
 	{
@@ -298,49 +256,17 @@ int HarlemApp::InitFirst()
 			//			CreateCommandWindow();
 			RedirectIOToConsole();
 		}
-		//	    wxLog* p_log = new wxLogStderr();
-		//	    wxLog::SetActiveTarget(p_log);
-
-		//		cout << " HarlemApp::OnInit() test cout " << std::endl;
-		//	    printf("  HarlemApp::OnInit() test printf() \n");
-		//		PrintLog(" HarlemApp::OnInit() test PrintLog() \n");
-
 //		LoadHaPyGUIModules();
 	}
-
 	return TRUE;
 }
 
 int HarlemApp::InitParallel()
 {
-	wxString cur_dir = ::wxGetCwd();	
+	boost::filesystem::path cur_path = boost::filesystem::current_path();
 	mpi_driver = new HaMPI();
 	//Current Directory is changed by MPI_Init() - changing back...
-	wxSetWorkingDirectory(cur_dir);
-	return TRUE;
-}
-
-int HarlemApp::InitXML()
-{
-//  Commented initiation Xerces-c XML processing for now
-//	try
-//  {
-//        XMLPlatformUtils::Initialize();
-//    }
-//    catch(const XMLException& ex)
-//    {
-//        PrintLog("Error in HarlemApp::InitXML() \n");
-//		PrintLog("During Xerces-c Initialization \n");
-//        PrintLog("  Exception message: %s \n",ex.getMessage());
-//        return FALSE;
-//    }
-	return TRUE;
-}
-
-int HarlemApp::FinalizeXML()
-{
-// Commented initiation Xerces-c XML processing for now
-// XMLPlatformUtils::Terminate();
+	boost::filesystem::current_path(cur_path);
 	return TRUE;
 }
 
@@ -406,9 +332,6 @@ int HarlemApp::ExecRasMolScript(const char* file_name)
 	}
 	return TRUE;
 }
-
-
-
 
 int HarlemApp::ExecuteCommand()
 {
