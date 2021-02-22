@@ -167,10 +167,7 @@ HarlemApp::~HarlemApp()
 int HarlemApp::InitFirst()
 {
 	pApp = this;
-
-//	memory_manager = new Memory_Manager(100000);
-//	memory_manager->on();
-//	memory_manager->print(cout);
+	std::string doc_dir;
 
 // Set HARLEM HOME directory
 	boost::filesystem::path harlem_home_path = ".";
@@ -178,15 +175,17 @@ int HarlemApp::InitFirst()
 	if( std::getenv("MOLSET_HOME") != NULL ) harlem_home_path = std::getenv("MOLSET_HOME");
 	if (std::getenv("HARLEM_HOME") != NULL)  harlem_home_path = std::getenv("HARLEM_HOME");
 
-	res_db_dir = harlem_home_path.append("residues_db").string() + boost::filesystem::path::preferred_separator;
+	harlem_home_dir = harlem_home_path.string() + boost::filesystem::path::preferred_separator;
+	res_db_dir = harlem_home_dir + "residues_db" + boost::filesystem::path::preferred_separator;
+	doc_dir    = harlem_home_dir + "doc" + boost::filesystem::path::preferred_separator;
 #if(_MSC_VER)
-	word_editor = harlem_home_path.append("scite.exe").string();
+	word_editor = harlem_home_dir + "scite.exe";
 #else
 	word_editor = "scite";
 #endif
 	
-	manual_main_page = harlem_home_path.append("doc").append("advanced_manual_html").append("index.html").string();
-	cmd_line_help_main_page = harlem_home_path.append("doc").append("HARLEM_BeginnerUserManual.htm").string();
+	manual_main_page = doc_dir + "advanced_manual_html" + boost::filesystem::path::preferred_separator + "index.html" ;
+	cmd_line_help_main_page = doc_dir +  "HARLEM_BeginnerUserManual.htm";
 	
 	InitParallel();
 	ProcessOptions();
@@ -214,7 +213,7 @@ int HarlemApp::InitFirst()
 		MolSet* pmset = new MolSet();
 		boost::filesystem::path finp_path = finp_name;
 
-		PrintLog(" input file name %s \n", finp_path.string().c_str());
+		// PrintLog(" input file name %s \n", finp_path.string().c_str());
 
 		boost::filesystem::path cur_path = boost::filesystem::current_path();
 		boost::filesystem::path finp_dir_path = finp_path.parent_path();
