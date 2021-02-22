@@ -4,7 +4,7 @@
 <molecule name="HIS#PROT_TO_HID" />
 <chain  id=" " />
 <res name="HIS"  no="1" /> 
-  <atom hb_st="D"   >    1     N  7     25.931911896     -1.576626133      0.913636324 <bonds> 2  3  19  </bonds></atom>
+  <atom hb_st="D"   >    1     N  7     25.931911896     -1.576626133      0.913636324 <bonds> 2  3 </bonds></atom>
   <atom >    2     H  1     26.073246145     -0.676999885      0.476832887 <bonds> 1  </bonds></atom>
   <atom >    3    CA  6     26.725369139     -2.697248578      0.450784360 <bonds> 1  4  5  17  </bonds></atom>
   <atom >    4    HA  1     27.317046035     -3.090264166      1.277559540 <bonds> 3  </bonds></atom>
@@ -20,7 +20,7 @@
   <atom >   14   HE2  1     28.875546971     -7.036781656     -1.383491534 <bonds> 13  </bonds></atom>
   <atom >   15   CD2  6     27.904847244     -5.310912627     -0.659235140 <bonds> 8  13  16  </bonds></atom>
   <atom >   16   HD2  1     28.804154203     -4.764461654     -0.375090236 <bonds> 15  </bonds></atom>
-  <atom >   17     C  6     27.669745225     -2.275819254     -0.665922912 <bonds> 3  18  20  </bonds></atom>
+  <atom >   17     C  6     27.669745225     -2.275819254     -0.665922912 <bonds> 3  18 </bonds></atom>
   <atom hb_st="A" >   18     O  8     27.688780323     -1.112147292     -1.060823192 <bonds> 17  </bonds></atom>
 </molset>
 </HARLEM_DATA>

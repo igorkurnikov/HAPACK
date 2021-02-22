@@ -19,6 +19,8 @@
 #pragma warning (disable:4786)
 
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/path.hpp>
 
 #include "hatypes.h"
 #include "hamolmech.h"
@@ -209,7 +211,7 @@ int HaMolMechMod::SetStdParams()
 // output params:
 
 	wrt_log_freq = 10;
-	wrt_rstrt_freq = 500;
+	wrt_rstrt_freq = 100;
 	wrt_coord_freq = 0;
 	wrt_vel_freq = 0;
 	wrt_ener_freq = 10;
@@ -404,7 +406,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
-	PrintLog(" HaMolMechMod::Run() pt 1 \n");
+	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
 
 	int ires = TRUE;
 	if( to_init_simulations || p_mm_model->to_init_mm_model ) ires = InitMMSimulations();
@@ -432,7 +434,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 		if( popt->ToRunSync() ) return TRUE;
 	}
 	RunCtrlThread();
-//	PrintLog(" HaMolMechMod::Run() pt end  \n" );
+	PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", boost::filesystem::current_path().string().c_str());
 	return TRUE;
 }
 
@@ -537,7 +539,7 @@ int HaMolMechMod::UpdateMolInfo()
 		if( /* ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
 			ext_mm_prog == ext_mm_prog.PMEMD_10 || */ ext_mm_prog == ext_mm_prog.PMEMD_12 || ext_mm_prog == ext_mm_prog.PMEMD_18)
 		{
-			p_amber_driver->LoadAmberRestartFile(p_amber_driver->amber_rst_file.c_str()) ;
+			p_amber_driver->LoadAmberRestartFile(p_amber_driver->amber_rst_file.c_str());
 			p_amber_driver->LoadAmberMDInfoFile();
 		}
 	}	

@@ -109,13 +109,13 @@ int MMForceField::Init()
 
 	using namespace boost::filesystem;
  
-	cout << "MMForceField::Init()\n" << "Current PATH:" << current_path() << std::endl;
+//	cout << "MMForceField::Init() pt 1 \n" << "Current PATH:" << current_path() << std::endl;
 
 	directory_iterator ditr( current_path() );
 	for( ; ditr != directory_iterator(); ditr++)
 	{
 		file_name = ditr->path().filename().string();
-		PrintLog(" file_name = %s \n",file_name.c_str() );
+		// PrintLog(" file_name = %s \n",file_name.c_str() );
 		if( boost::starts_with(file_name,"frcmod") )
 		{
 			amber_param_files.push_back(file_name);
@@ -132,7 +132,6 @@ int MMForceField::Init()
 			PrintLog(" Add Tinker Force Field Parameter file %s in the working directory \n", file_name.c_str());
 		}
 	}
-
 
 	try
 	{
@@ -182,6 +181,7 @@ int MMForceField::Init()
 		PrintLog("%s\n",ex.what());
 		return FALSE;
 	}
+
 	return TRUE;
 }
 

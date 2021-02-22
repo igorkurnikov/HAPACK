@@ -97,10 +97,11 @@ int HaResDB::Init()
 
 	for(sitr = res_db_files.begin(); sitr != res_db_files.end(); sitr++)
 	{
+
 		db_file_name = (*sitr);
 		boost::filesystem::path db_file_path(pApp->res_db_dir);
 		if( !boost::starts_with(db_file_name, ".") ) db_file_name = db_file_path.append(db_file_name).string();
-		
+
 		std::string ext_str = harlem::GetExtFromFileName( db_file_name );
 		boost::to_lower(ext_str);
 		
@@ -122,6 +123,7 @@ int HaResDB::Init()
 			LoadXMLFile( db_file_name );
 		}
 	}
+
 	return TRUE;
 }
 

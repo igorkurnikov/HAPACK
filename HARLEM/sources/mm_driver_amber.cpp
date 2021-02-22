@@ -22,6 +22,7 @@
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/filesystem.hpp>
 
 #include <wx/event.h>
 #include <wx/filename.h>
@@ -2279,6 +2280,10 @@ int MMDriverAmber::SaveAmberInpFile()
 	fprintf(fp," \n");
 	fprintf(fp," irest= %d, ", p_mm_mod->restart_flag);
 	fprintf(fp," ntx= %d, ",   p_mm_mod->init_read_coord.value() );
+	if (p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_18)
+	{
+		fprintf(fp, " ntxo= %d, mdinfo_flush_interval = %d, ", 1, 2);
+	}
 	fprintf(fp,"\n"); 
 
 	fprintf(fp,"igb=%d, \n", p_amber_model->igb);
@@ -6432,14 +6437,13 @@ void MMDriverAmber::PrintMinEneMDOUT(HaVec_double& si_vec,int nstep,double rms, 
 
 int MMDriverAmber::LoadAmberRestartFile(const char* rst_file_name)
 {	
+	PrintLog("MMDriverAmber::LoadAmberRestartFile() \n " );
 	char buf[256];
 
-	bool file_exist = ::wxFileExists(rst_file_name);
-
-	if( !file_exist )
+	if( !boost::filesystem::exists( (std::string) rst_file_name ) )
 	{	
 		PrintLog(" Fail to update coordinates from AMBER Restart File \n");
-		PrintLog(" File %s does not exist \n",rst_file_name);
+		PrintLog(" File %s does not exist \n", rst_file_name );
 		return FALSE;
 	}
 
@@ -6450,8 +6454,8 @@ int MMDriverAmber::LoadAmberRestartFile(const char* rst_file_name)
 	is.getline(buf,255);
 	if( is.fail() )
 	{
-//		ErrorInMod("HaMolMechMod::LoadAmberRestartFile()", 
-//			       "Error Reading Title Line of Amber Restart File");
+		ErrorInMod("HaMolMechMod::LoadAmberRestartFile()", 
+			       "Error Reading Title Line of Amber Restart File");
 		return FALSE;
 	}
 	is.getline(buf,255);
@@ -6461,15 +6465,17 @@ int MMDriverAmber::LoadAmberRestartFile(const char* rst_file_name)
 			       "Error Reading Second Line of Restart File");
 		return FALSE;
 	}
-        int npt, ires;
-	
-	ires = sscanf(buf,"%d",&npt);
+       
+	int npt, ires;
+	double time_pt;
+	ires = sscanf(buf,"%d %lf",&npt, &time_pt);
 	if(ires == EOF)
 	{
 		PrintLog(" Error in MMDriverAmber::LoadAMberRestartFile() \n");
-		PrintLog(" Can not read the number of atoms from the Second Line of the Restart File");
+		PrintLog(" Can not read the number of atoms and time  from the Second Line of the Restart File");
 		return FALSE;
 	}
+	// PrintLog(" npt = %d  time = %lf \n", npt, time_pt);
 	
 	if( npt != p_mm_model->Atoms.size() )
 	{
@@ -6493,6 +6499,8 @@ int MMDriverAmber::LoadAmberRestartFile(const char* rst_file_name)
 			return FALSE;
 		}
 	}
+
+
 
 	for(i = 0; i < npt; i++ )
 	{
@@ -6572,13 +6580,18 @@ int MMDriverAmber::LoadAmberMDInfoFile()
 		}
 		
 		std::string str(buf);
+		// PrintLog(" %s \n", str.c_str());
 
 		char* spos;
 		
 		if( p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 		{
 			spos = strstr(buf,"NSTEP");
-			if(spos != NULL) sscanf(spos+6,"%d",&p_mm_mod->p_mm_info->nstep);
+			if (spos != NULL)
+			{
+				sscanf(spos + 6, "%d", &p_mm_mod->p_mm_info->nstep);
+				// PrintLog("nstep = %d \n", p_mm_mod->p_mm_info->nstep);
+			}
 			
 			spos = strstr(buf,"TIME(PS)");
 			if(spos != NULL) sscanf(spos+9,"%lf",&p_mm_mod->p_mm_info->time);
