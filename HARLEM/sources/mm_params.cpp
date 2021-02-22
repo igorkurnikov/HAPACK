@@ -598,13 +598,14 @@ int MMShakeParam::SetWithLabel(const char* label_set)
 IntStrMap SetMMExternalProgLbls()
 {
 	IntStrMap lmap;
-	lmap[MMExternalProg::PMEMD_9  ]  = "AMBER 9: PMEMD";
-	lmap[MMExternalProg::SANDER_9 ]  = "AMBER 9: SANDER";
-	lmap[MMExternalProg::PMEMD_10]   = "AMBER 10: PMEMD";
-	lmap[MMExternalProg::SANDER_10 ] = "AMBER 10: SANDER";
-	lmap[MMExternalProg::PMEMD_12]   = "AMBER 12: PMEMD";
-	lmap[MMExternalProg::SANDER_12 ] = "AMBER 12: SANDER";
-	lmap[MMExternalProg::TINKER_51] = "TINKER 5.1";
+//	lmap[MMExternalProg::PMEMD_9  ]  = "AMBER 9: PMEMD";
+//	lmap[MMExternalProg::SANDER_9 ]  = "AMBER 9: SANDER";
+//	lmap[MMExternalProg::PMEMD_10]   = "AMBER 10: PMEMD";
+//	lmap[MMExternalProg::SANDER_10 ] = "AMBER 10: SANDER";
+//	lmap[MMExternalProg::PMEMD_12]   = "AMBER 12: PMEMD";
+//	lmap[MMExternalProg::SANDER_12 ] = "AMBER 12: SANDER";
+	lmap[MMExternalProg::PMEMD_18]   = "AMBER 18: PMEMD";
+	lmap[MMExternalProg::TINKER_51]  = "TINKER 5.1";
 	lmap[MMExternalProg::GROMACS_51] = "GROMACS 5.1";
 	
 	return lmap;
@@ -614,7 +615,7 @@ IntStrMap MMExternalProg::labels = SetMMExternalProgLbls();
 
 MMExternalProg::MMExternalProg()
 {
-	v_= PMEMD_9;	
+	v_= PMEMD_18;	
 }
 	
 MMExternalProg::~MMExternalProg()

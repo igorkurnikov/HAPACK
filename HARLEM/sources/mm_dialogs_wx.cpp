@@ -826,10 +826,11 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 		{
 			ext_prog_controls[ic]->Enable();
 		}
-		if( ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_9 ||
+		if( /* ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_9 ||
 			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_9 || 
 			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_10 || 
-			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_12)
+			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_12 || */ 
+			ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_18)
 		{
 			if( ptr_mm_mod->p_amber_driver->to_save_input_files ) 
 			{
@@ -993,12 +994,13 @@ void MolMechDlgWX::OnChooseMDAnalScript(wxCommandEvent& event)
 void MolMechDlgWX::OnSaveExtProgInp(wxCommandEvent& event) 
 {
 	TransferDataFromWindow();
-	if( ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_9 ||
+	if( /* ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_9 ||
 		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_9 || 
 		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_10 || 
 		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_10 || 
 		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_12 || 
-		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_12)
+		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.SANDER_12 || */ 
+		ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.PMEMD_18)
 	{
 		ptr_mm_mod->p_amber_driver->SaveAllInpFiles();
 	}

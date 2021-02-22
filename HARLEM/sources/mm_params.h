@@ -428,8 +428,8 @@ public:
 	MMExternalProg();
 	virtual ~MMExternalProg();
 
-	enum Value { PMEMD_9 = 0, SANDER_9 = 1, PMEMD_10 = 2, SANDER_10 = 3, 
-		         PMEMD_12 = 4, SANDER_12 = 5, TINKER_51 = 6,GROMACS_51 = 7 };
+	enum Value { /* PMEMD_9 = 0, SANDER_9 = 1, PMEMD_10 = 2, SANDER_10 = 3, 
+		         PMEMD_12 = 4, */ SANDER_12 = 5, PMEMD_12 = 6, PMEMD_18 = 7, TINKER_51 = 8, GROMACS_51 = 9 };
 
 	operator int() const { return v_; }
 	bool operator==(const Value& val) const { return v_ == val; }
@@ -448,13 +448,14 @@ private:
 };
 
 namespace swig {
-	const MMExternalProg PMEMD_9    = MMExternalProg::PMEMD_9;
+	/* const MMExternalProg PMEMD_9    = MMExternalProg::PMEMD_9;
 	const MMExternalProg SANDER_9   = MMExternalProg::SANDER_9;
 	const MMExternalProg PMEMD_10   = MMExternalProg::PMEMD_10;
-	const MMExternalProg SANDER_10  = MMExternalProg::SANDER_10;
+	const MMExternalProg SANDER_10  = MMExternalProg::SANDER_10; */
 	const MMExternalProg PMEMD_12   = MMExternalProg::PMEMD_12;
 	const MMExternalProg SANDER_12  = MMExternalProg::SANDER_12;
-	const MMExternalProg TINKER_51 = MMExternalProg::TINKER_51;
+	const MMExternalProg PMEMD_18   = MMExternalProg::PMEMD_18;
+	const MMExternalProg TINKER_51  = MMExternalProg::TINKER_51;
 	const MMExternalProg GROMACS_51 = MMExternalProg::GROMACS_51;
 }
 

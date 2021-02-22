@@ -511,8 +511,8 @@ int HaMolMechMod::RunExternal( const harlem::HashMap* popt_par )
 
 	bool sync = popt->ToRunSync();
 
-	if( ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
-		ext_mm_prog == ext_mm_prog.PMEMD_10 )
+	if( /* ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
+		ext_mm_prog == ext_mm_prog.PMEMD_10 || */ ext_mm_prog == ext_mm_prog.PMEMD_12 || ext_mm_prog == ext_mm_prog.PMEMD_18)
 	{
 		p_amber_driver->RunAmberProg(sync);
 	}
@@ -534,8 +534,8 @@ int HaMolMechMod::UpdateMolInfo()
 {
 	if(!run_internal_flag)
 	{
-		if( ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
-			ext_mm_prog == ext_mm_prog.PMEMD_10 )
+		if( /* ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
+			ext_mm_prog == ext_mm_prog.PMEMD_10 || */ ext_mm_prog == ext_mm_prog.PMEMD_12 || ext_mm_prog == ext_mm_prog.PMEMD_18)
 		{
 			p_amber_driver->LoadAmberRestartFile(p_amber_driver->amber_rst_file.c_str()) ;
 			p_amber_driver->LoadAmberMDInfoFile();

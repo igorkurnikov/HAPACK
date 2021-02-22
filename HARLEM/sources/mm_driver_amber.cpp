@@ -2268,7 +2268,7 @@ int MMDriverAmber::SaveAmberInpFile()
 
 	fprintf(fp," \n");
 	fprintf(fp," cut=%6.3f, ",  p_mm_model->nb_cut_dist);
-	if( p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 && p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12 )
+	if( p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 && p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12 && p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_18 )
 	{
 		fprintf(fp," scnb=%6.3f, ", p_mm_model->scale_14_vdw);
 		fprintf(fp," scee=%6.3f, ", p_mm_model->scale_14_electr);
@@ -2302,7 +2302,7 @@ int MMDriverAmber::SaveAmberInpFile()
 	fprintf(fp,"\n"); 
 
 //	fprintf(fp," isolvp=%d, ", last_solute_atom );
-	if( p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 && p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12 )
+	if( p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 && p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12 && p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_18)
 	{
 		fprintf(fp," dtemp=%9.4f, ", p_mm_mod->temp_deviation);
 	}
@@ -2476,9 +2476,9 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 {
 	if(os.fail()) return FALSE;
 
-	if(p_mm_model->ff_type == ForceFieldType::AMOEBA && 
-	   p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_10 &&  p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10 && 
-	   p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 &&  p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12)
+	if( p_mm_model->ff_type == ForceFieldType::AMOEBA && 
+	/*    p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_10 &&  p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10 && */
+	    p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_12 &&  p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_12 && p_mm_mod->ext_mm_prog != MMExternalProg::PMEMD_18 )
 	{
 		PrintLog(" HARLEM doesn't support setup of AMOEBA force field for external program %s\n",p_mm_model->ff_type.label());
 		return FALSE;
@@ -2514,8 +2514,8 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 
 	sprintf(buf,"%8d",p_amber_model->natom); 
 	os << buf;  
-	if( p_mm_model->ff_type == ForceFieldType::AMOEBA && 
-		(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) )
+	if( p_mm_model->ff_type == ForceFieldType::AMOEBA /* && 
+		(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) */)
 	{
 		sprintf(buf,"%8d%8d%8d%8d%8d%8d%8d%8d%8d",1,1,1,1,1,1,1,0,0); 
 		os << buf;
@@ -2531,8 +2531,8 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 
 	sprintf(buf,"%8d%8d",p_amber_model->next,p_amber_model->nres);
 	os << buf;
-	if( p_mm_model->ff_type == ForceFieldType::AMOEBA &&  
-		(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) )
+	if( p_mm_model->ff_type == ForceFieldType::AMOEBA /* &&  
+		(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) */ )
 	{
 		sprintf(buf,"%8d%8d%8d%8d%8d%8d%8d%8d",1,1,1,1,1,1,1,1);
 		os << buf;
@@ -2545,8 +2545,8 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 	}
 	os << std::endl; 
 	
-	if( p_mm_model->ff_type == ForceFieldType::AMOEBA &&  
-	(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) )
+	if( p_mm_model->ff_type == ForceFieldType::AMOEBA /* &&  
+	(p_mm_mod->ext_mm_prog == MMExternalProg::PMEMD_10 || p_mm_mod->ext_mm_prog != MMExternalProg::SANDER_10) */ )
 	{
 		sprintf(buf,"%8d%8d%8d%8d%8d%8d%8d",0,0,0,0,0,0,0);
 		os << buf;
@@ -8533,17 +8533,27 @@ int MMDriverAmber::RunAmberProg(int sync)
 
 	std::string exe_fname;
 
-	if( p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_9 )
+	/* if( p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_9 )
 	{
 		exe_fname = "pmemd";
 	}
 	else if( p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.SANDER_9 )
 	{
 		exe_fname = "sander";
-	}
-	else if ( p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_10 || p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_12 )
+	} 
+	if (p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_10)
 	{
 		exe_fname = "pmemd_amba";
+	} */
+
+	if (p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_12 )
+	{
+		exe_fname = "pmemd_amba";
+	}
+
+	if (p_mm_mod->ext_mm_prog == p_mm_mod->ext_mm_prog.PMEMD_18 )
+	{
+		exe_fname = "pmemd";
 	}
 
 	std::string cmd_line = exe_fname.c_str();
