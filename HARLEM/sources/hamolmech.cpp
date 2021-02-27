@@ -427,7 +427,9 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
-	// PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
+	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
+	PrintLog("\n internal_mm_running = %d \n", this->internal_mm_running);
+	PrintLog("\n ctrl_thread_running = %d \n", this->ctrl_thread_running);
 
 	int ires = TRUE;
 	if( to_init_simulations || p_mm_model->to_init_mm_model ) ires = InitMMSimulations();
@@ -833,7 +835,7 @@ int HaMolMechMod::RunInternal()
 
 void HaMolMechMod::RunInternal_node()
 {
-//	PrintLog(" HaMolMechMod::RunInternal_node() pt 1 \n");
+	PrintLog(" HaMolMechMod::RunInternal_node() pt 1 \n");
 	MolSet* pmset = this->GetMolSet();
 	p_amber_driver->p_tm->InitTimers();
 
@@ -872,7 +874,7 @@ void HaMolMechMod::RunInternal_node()
 	}
 	p_amber_driver->p_tm->EndRunTimers();
 	if(run_type == MMRunType::MD_RUN || run_type == MMRunType::MIN_RUN) p_amber_driver->p_tm->PrintTimings();
-//	PrintLog(" HaMolMechMod::RunInternal_node() pt end \n");
+	PrintLog(" HaMolMechMod::RunInternal_node() pt end \n");
 }
 
 int HaMolMechMod::CalcEnergy()

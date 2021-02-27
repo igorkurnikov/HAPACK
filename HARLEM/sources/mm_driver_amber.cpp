@@ -3535,6 +3535,7 @@ int MMDriverAmber::OpenOutputFiles()
 int MMDriverAmber::CloseOutputFiles()
 {
 	if(!master) return TRUE;
+	PrintLog(" MMDriverAmber::CloseOutputFiles() pt 1 \n ");
 	FC_FUNC_MODULE(runfiles_mod,close_mdout)(); 
 	if( p_mm_mod->run_ti )
 	{	
@@ -4456,41 +4457,42 @@ void MMDriverAmber::RunMD()
 	   
 		p_mm_mod->p_traj_io_agent->AnalyzePt(nstep,sys_info);
 
-		if (nstep >= p_mm_mod->num_md_steps) 
+		if (nstep >= p_mm_mod->num_md_steps)
 		{
-			p_mm_mod->p_traj_io_agent->Finalize(nstep);
-			CloseOutputFiles();
-			if(p_mm_mod->single_job_rank == 0) GetAtomCrdFromInternalArrays();
-				
-			if(p_mm_mod->run_ti)
+//			p_mm_mod->p_traj_io_agent->Finalize(nstep);
+//			CloseOutputFiles();
+			if (p_mm_mod->single_job_rank == 0) GetAtomCrdFromInternalArrays();
+
+			if (p_mm_mod->run_ti)
 			{
-				if(master) 
+				if (master)
 				{
 					p_mm_mod->p_ti_mod->cur_idx_lmb++;
-					if(p_mm_mod->p_ti_mod->cur_idx_lmb >= p_mm_mod->p_ti_mod->num_lmb) p_mm_mod->to_stop_simulations = TRUE;
-					if(p_mm_mod->p_ti_mod->max_idx >= 0 && p_mm_mod->p_ti_mod->cur_idx_lmb > p_mm_mod->p_ti_mod->max_idx) p_mm_mod->to_stop_simulations = TRUE;
-					if(!p_mm_mod->to_stop_simulations) nstep = 0;
+					if (p_mm_mod->p_ti_mod->cur_idx_lmb >= p_mm_mod->p_ti_mod->num_lmb) p_mm_mod->to_stop_simulations = TRUE;
+					if (p_mm_mod->p_ti_mod->max_idx >= 0 && p_mm_mod->p_ti_mod->cur_idx_lmb > p_mm_mod->p_ti_mod->max_idx) p_mm_mod->to_stop_simulations = TRUE;
+					if (!p_mm_mod->to_stop_simulations) nstep = 0;
 				}
 			}
 			else
 			{
 				p_mm_mod->to_stop_simulations = TRUE;
 			}
-			if( p_mm_mod->run_ti )
+		}
+		if (p_mm_mod->run_ti)
+		{
+			if (numtasks > 1) BCastAddMDCtrlParams(p_mm_mod->single_job_comm);
+			if (!p_mm_mod->to_stop_simulations)
 			{
-				if( numtasks > 1 ) BCastAddMDCtrlParams(p_mm_mod->single_job_comm);
-				if(!p_mm_mod->to_stop_simulations) 
-				{
-					OpenOutputFiles();
-					PrintLog(" Current lambda idx = %d   lambda val = %12.6f \n",
-						p_mm_mod->p_ti_mod->cur_idx_lmb,p_mm_mod->p_ti_mod->GetCurLambda()); 
-				}
+				OpenOutputFiles();
+				PrintLog(" Current lambda idx = %d   lambda val = %12.6f \n",
+					p_mm_mod->p_ti_mod->cur_idx_lmb, p_mm_mod->p_ti_mod->GetCurLambda());
 			}
 		}
 	}  // Major cycle back to new step unless we have reached our limit:
+	p_mm_mod->p_traj_io_agent->Finalize(nstep);
+    CloseOutputFiles();
 
 // Print averages:
-
 	p_tm->UpdateTime(TimerAmber::RUNMD_TIME);
 }
 

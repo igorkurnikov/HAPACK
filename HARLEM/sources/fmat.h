@@ -48,19 +48,15 @@ class Fortran_matrix
     typedef const   T&  const_reference;
 
     size_t lbound() const { return 1;}
- 
 	AllocMode amode;
 
   protected:
-    T* v_;               //!< these are adjusted to simulate 1-offset
+
     size_type m_;
     size_type n_;
+    size_type nalloc_;  //!< maximal number of elements in matrix fitting the allocated memory 
+    T* v_;               //!< these are adjusted to simulate 1-offset
     T** col_;           //!< these are adjusted to simulate 1-offset
-
-	size_type nalloc_ ; //!< maximal number of elements in matrix fitting the allocated memory 
-		                   
-  public:
-
 
   public:
 
@@ -72,11 +68,10 @@ class Fortran_matrix
     T* end() { return v_ + m_*n_; }
     const T* end() const { return v_ + m_*n_; }
 
-
     // constructors
 
-    Fortran_matrix() : v_(0), m_(0), n_(0), col_(0),
-		               amode(INTERNAL_ALLOC), nalloc_(0) {}
+    Fortran_matrix() : amode(INTERNAL_ALLOC),m_(0), n_(0), nalloc_(0), v_(NULL), col_(NULL)
+    {}
 
     Fortran_matrix(const Fortran_matrix<T> & A)
     {
