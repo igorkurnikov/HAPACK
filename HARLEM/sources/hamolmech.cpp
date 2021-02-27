@@ -18,6 +18,9 @@
 
 #pragma warning (disable:4786)
 
+#include <chrono>
+#include <thread>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
@@ -168,6 +171,8 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 
 	ctrl_thread = NULL;
 	run_thread  = NULL;
+	internal_mm_running = false;
+	ctrl_thread_running = false;
 #if !defined(HA_NOGUI)
 	p_mm_dlg    = NULL;
 #endif
@@ -383,21 +388,37 @@ public:
 	HaMolMechMod* ptr_mm_mod;
 };
 
+void run_ctrl_thread(HaMolMechMod* p_mm_mod)
+{
+	p_mm_mod->ctrl_thread_running = true;
+	p_mm_mod->ControlCalc();
+	p_mm_mod->ctrl_thread_running = false;
+}
 
 int HaMolMechMod::RunCtrlThread()
 {
-	if( ctrl_thread != NULL) 
+//	if( ctrl_thread != NULL)
+	if( ctrl_thread_running )
 	{
 		PrintLog(" Error in HaMolMechMod::RunCtrlThread() \n");
 		PrintLog(" MM Control thread is already running \n");
 		PrintLog(" Stop calculations before starting a new job \n");
 		return FALSE;
 	}
-	ctrl_thread = new MMCtrlThread(this);
-	ctrl_thread->Create();
-	ctrl_thread->Run();
+	std::thread ctrl_t(run_ctrl_thread, this);
+	ctrl_t.detach();
+	//ctrl_thread = new MMCtrlThread(this);
+	//ctrl_thread->Create();
+	//ctrl_thread->Run();
 
 	return TRUE;
+}
+
+void run_mm(HaMolMechMod* p_mm_mod)
+{
+	p_mm_mod->internal_mm_running = true;
+	p_mm_mod->RunInternal();
+	p_mm_mod->internal_mm_running = false;
 }
 
 int HaMolMechMod::Run( const harlem::HashMap* popt_par )
@@ -406,7 +427,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
-	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
+	// PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
 
 	int ires = TRUE;
 	if( to_init_simulations || p_mm_model->to_init_mm_model ) ires = InitMMSimulations();
@@ -418,9 +439,12 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	{
 		if( !popt->ToRunSync() )
 		{
-			run_thread = new MMRunInternalThread(this);
-			run_thread->Create();
-			run_thread->Run();
+			std::thread mm_t(run_mm, this);
+			mm_t.detach();
+
+			// run_thread = new MMRunInternalThread(this);
+			// run_thread->Create();
+			// run_thread->Run();
 		}
 		else
 		{
@@ -434,7 +458,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 		if( popt->ToRunSync() ) return TRUE;
 	}
 	RunCtrlThread();
-	PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", boost::filesystem::current_path().string().c_str());
+	// PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", boost::filesystem::current_path().string().c_str());
 	return TRUE;
 }
 
@@ -463,10 +487,11 @@ int HaMolMechMod::ControlCalc()
 	clock_t update_time = clock();
 	for(;;)
 	{
-//		PrintLog("HaMolMechMod::ControlCalc() pt 1 \n");
 		if( update_time > clock() ) 
 		{
-			wxThread::Sleep(update_view_interval/5); // Stop MM controlling thread by 1/5 of update_view_interval time interval
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+			// wxThread::Sleep(update_view_interval/5); // Stop MM controlling thread by 1/5 of update_view_interval time interval
 			continue;
 		}
 		if(!run_internal_flag && to_stop_simulations)
@@ -475,16 +500,17 @@ int HaMolMechMod::ControlCalc()
 			PrintMessage("Killing external Molecular Mechanics process");
 			to_stop_simulations = FALSE;
 		}
-//		PrintLog("HaMolMechMod::Run() pt 8 \n");   
 		if(update_view_flag && update_time < clock() )
 		{
 			UpdateMolInfo();
 			UpdateMolView();
 			update_time = clock() + CLOCKS_PER_SEC*update_view_interval;
 		}
+
 		if(run_internal_flag)
 		{
-			if( run_thread == NULL ) 
+			//if( run_thread == NULL )
+			if( !internal_mm_running )
 			{
 				UpdateMolInfo();
 				UpdateMolView();

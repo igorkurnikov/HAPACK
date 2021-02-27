@@ -4312,7 +4312,7 @@ void MMDriverAmber::RunMD()
 	int nvalid = 0;
 	int new_list = TRUE;
 
-	PrintLog("MMDriverAmber::RunMD() pt 1 \n");
+	// PrintLog("MMDriverAmber::RunMD() pt 1 \n");
 	if (p_mm_mod->restart_flag == 0) 
 	{
 		p_tm->UpdateTime(TimerAmber::RUNMD_TIME);
@@ -4375,6 +4375,7 @@ void MMDriverAmber::RunMD()
 		double kin_ene_minus_half_dt = sys_info[SI_KIN_ENE_MINUS_HALF_DT];
 
 		CalcForceAndEne(new_list,nstep);
+		// PrintLog("Nstep = %d \n", nstep);
 		
 		IncrementVelAndCrd(nstep, atm_crd, atm_vel, atm_frc, reset_velocities);
 
@@ -8568,6 +8569,15 @@ int MMDriverAmber::RunAmberProg(int sync)
 	{
 		exe_fname = "pmemd";
 	}
+
+#if defined(_MSC_VER)
+	exe_fname = pApp->harlem_home_dir + boost::filesystem::path::preferred_separator + exe_fname;
+#else
+	std::string exe_fname_test = pApp->harlem_home_dir + boost::filesystem::path::preferred_separator + "bin" + boost::filesystem::path::preferred_separator + exe_fname;
+	PrintLog("exe_fname_test = %s \n", exe_fname_test.c_str() );
+	if (boost::filesystem::exists(exe_fname_test)) exe_fname = exe_fname_test;
+	PrintLog("exe_fname_test = %s \n", exe_fname.c_str() );
+#endif
 
 	std::string cmd_line = exe_fname.c_str();
 	for( i =0; i < sander_args.size(); i++)

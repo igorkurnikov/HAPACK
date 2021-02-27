@@ -1848,8 +1848,6 @@ void HaQCMod::SetExtChCrdOffset( double crd_offset )
 	ext_ch_crd_offset = crd_offset;
 }
 
-
-
 #ifdef USE_IPACK
 
 int HaQCMod::InitIPack()

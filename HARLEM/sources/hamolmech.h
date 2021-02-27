@@ -122,6 +122,9 @@ private:
 	long ext_proc_id;  //!< process ID for external MM program 
 	wxThread* ctrl_thread; //!< Control Thread for Molecular Mechanics simulations
 	wxThread* run_thread;  //!< Thread for Running Molecular Mechanics simulations inside HARLEM
+public:
+	bool internal_mm_running;  //!< Flag to indicate that internal MM thread is running
+	bool ctrl_thread_running;  //!< Flag to indicate that control MM thread is running
 
 //@}
 
