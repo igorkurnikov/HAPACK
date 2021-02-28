@@ -8510,8 +8510,7 @@ public:
 
 	HaMolMechMod* p_mm_mod;
 	
-	virtual 
-	void OnTerminate(int pid, int status)
+	virtual void OnTerminate(int pid, int status)
 	{
 		if(p_mm_mod) p_mm_mod->StopCalc();
 //		::wxMessageBox("AMBER Process Has Stopped \n");

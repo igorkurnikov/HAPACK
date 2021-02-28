@@ -32,10 +32,8 @@
 
 #include <wx/string.h>
 #include <wx/filename.h>
-#include <wx/process.h>
-#include <wx/log.h>
 
-#include "hawx_add.h"
+//#include "hawx_add.h"
 #include "molmech_evt_handler.h"
 
 #include "haio.h"
@@ -342,54 +340,10 @@ MDTrajAnalMod* HaMolMechMod::GetTrajAnalMod()
 	return p_traj_anal_mod;
 }
 
-class MMRunInternalThread: public wxThread
-//!< Thread class to run Internal MM Calculations
-{
-public:
-	MMRunInternalThread(HaMolMechMod* ptr_mm_mod_new): wxThread() 
-	{
-		ptr_mm_mod = ptr_mm_mod_new; 
-	}
-	virtual void* Entry()
-	{
-		ptr_mm_mod->RunInternal();
-		return NULL;
-	}
-	virtual void OnExit()
-	{
-		ptr_mm_mod->run_thread = NULL;
-		PrintLog("MMRunInternalThread::OnExit() \n");
-	}
-
-public:
-	HaMolMechMod* ptr_mm_mod;
-};
-
-class MMCtrlThread: public wxThread
-//!< Molecular Mechanics calculations controlling thread
-{
-public:
-	MMCtrlThread(HaMolMechMod* ptr_mm_mod_new): wxThread() 
-	{
-		ptr_mm_mod = ptr_mm_mod_new; 
-	}
-	virtual void* Entry()
-	{
-		ptr_mm_mod->ControlCalc();
-		return NULL;
-	}
-	virtual void OnExit()
-	{
-		ptr_mm_mod->ctrl_thread = NULL;
-		PrintLog("MMCtrlThread::OnExit() \n");
-	}
-
-public:
-	HaMolMechMod* ptr_mm_mod;
-};
 
 void run_ctrl_thread(HaMolMechMod* p_mm_mod)
 {
+	if ( p_mm_mod == NULL) return;
 	p_mm_mod->ctrl_thread_running = true;
 	p_mm_mod->ControlCalc();
 	p_mm_mod->ctrl_thread_running = false;
@@ -397,7 +351,6 @@ void run_ctrl_thread(HaMolMechMod* p_mm_mod)
 
 int HaMolMechMod::RunCtrlThread()
 {
-//	if( ctrl_thread != NULL)
 	if( ctrl_thread_running )
 	{
 		PrintLog(" Error in HaMolMechMod::RunCtrlThread() \n");
@@ -407,15 +360,13 @@ int HaMolMechMod::RunCtrlThread()
 	}
 	std::thread ctrl_t(run_ctrl_thread, this);
 	ctrl_t.detach();
-	//ctrl_thread = new MMCtrlThread(this);
-	//ctrl_thread->Create();
-	//ctrl_thread->Run();
 
 	return TRUE;
 }
 
 void run_mm(HaMolMechMod* p_mm_mod)
 {
+	if (p_mm_mod == NULL) return;
 	p_mm_mod->internal_mm_running = true;
 	p_mm_mod->RunInternal();
 	p_mm_mod->internal_mm_running = false;
@@ -428,8 +379,6 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	harlem::RunOptions* popt = popt_auto.get();
 
 	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
-	PrintLog("\n internal_mm_running = %d \n", this->internal_mm_running);
-	PrintLog("\n ctrl_thread_running = %d \n", this->ctrl_thread_running);
 
 	int ires = TRUE;
 	if( to_init_simulations || p_mm_model->to_init_mm_model ) ires = InitMMSimulations();
@@ -443,10 +392,6 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 		{
 			std::thread mm_t(run_mm, this);
 			mm_t.detach();
-
-			// run_thread = new MMRunInternalThread(this);
-			// run_thread->Create();
-			// run_thread->Run();
 		}
 		else
 		{
@@ -486,32 +431,34 @@ int HaMolMechMod::RunMD( const harlem::HashMap* popt_par )
 
 int HaMolMechMod::ControlCalc()
 {
-	clock_t update_time = clock();
+	typedef std::chrono::system_clock Time;
+	auto update_time = Time::now();
+
+	std::chrono::duration<long, std::milli> update_interval = std::chrono::milliseconds( (long) ( 1000 * update_view_interval) );
+
 	for(;;)
 	{
-		if( update_time > clock() ) 
+		if( update_time > Time::now() )
 		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
-			// wxThread::Sleep(update_view_interval/5); // Stop MM controlling thread by 1/5 of update_view_interval time interval
+		    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			continue;
 		}
 		if(!run_internal_flag && to_stop_simulations)
 		{
+			PrintLog("Killing External MM Process: %ld \n", ext_proc_id);  
 			HarlemApp::KillProc(ext_proc_id);
-			PrintMessage("Killing external Molecular Mechanics process");
 			to_stop_simulations = FALSE;
 		}
-		if(update_view_flag && update_time < clock() )
+		if(update_view_flag && update_time < Time::now() )
 		{
 			UpdateMolInfo();
 			UpdateMolView();
-			update_time = clock() + CLOCKS_PER_SEC*update_view_interval;
+			update_time = Time::now();
+			update_time += update_interval;
 		}
 
-		if(run_internal_flag)
+		if(run_internal_flag) 
 		{
-			//if( run_thread == NULL )
 			if( !internal_mm_running )
 			{
 				UpdateMolInfo();
@@ -525,6 +472,7 @@ int HaMolMechMod::ControlCalc()
 			int active_flag = HarlemApp::CheckProcIsActive(ext_proc_id);
 			if(!active_flag)
 			{
+				ext_proc_id = 0;
 				PrintMessage("External Molecular Mechanics Execution Process has completed");
 				break;
 			}
@@ -2438,6 +2386,7 @@ MDTrajectory::~MDTrajectory()
 {
 	Close();
 }
+
 int MDTrajectory::Open()
 {
 	PrintLog("MDTrajectory::Open\n");
