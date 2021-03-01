@@ -266,7 +266,6 @@ int HarlemAppWX::LoadHaPyGUIModules()
 	}
 #endif
 #ifdef _MSC_VER
-#if PY_VERSION_HEX >= 0x03000000
 	// Initialize Harlem's wxPython modules
 	PyRun_SimpleString(
 		"try:\n"
@@ -280,7 +279,6 @@ int HarlemAppWX::LoadHaPyGUIModules()
 		"    traceback.print_exc()\n"
 	);
 #endif
-#endif
 	return 0;
 }
 int HarlemAppWX::OnExit()
@@ -288,7 +286,6 @@ int HarlemAppWX::OnExit()
 	PrintLog("HarlemAppWX::OnExit() end \n");
 #if !defined(HA_NOGUI)
 #if(_MSC_VER)
-
 	//FreeConsole();
 #endif
 #endif
@@ -383,7 +380,6 @@ BEGIN_EVENT_TABLE(HaLogFrame, wxFrame)
     EVT_MENU(Menu_Close, HaLogFrame::OnClose)
     EVT_MENU(Menu_Save,  HaLogFrame::OnSave)
     EVT_MENU(Menu_Clear, HaLogFrame::OnClear)
-
     EVT_CLOSE(HaLogFrame::OnCloseWindow)
 END_EVENT_TABLE()
 
@@ -643,9 +639,9 @@ int HarlemApp::RedirectIOLogWindow()
 
 int HarlemAppWX::OnRun()
 {
-//	PrintLog("HarlemAppWX::OnRun() pt 1 \n");
-//	PrintLog( " nprocs = %d \n", mpi_driver->nprocs );
-//	PrintLog( " myrank = %d \n", mpi_driver->myrank );
+    PrintLog("HarlemAppWX::OnRun() pt 1 \n");
+    PrintLog( " nprocs = %d \n", mpi_driver->nprocs );
+    PrintLog( " myrank = %d \n", mpi_driver->myrank );
 	if( mpi_driver->myrank == 0 )
 	{
 #if defined(HA_NOGUI)
@@ -665,3 +661,4 @@ HarlemAppWX* GetAppWX()
 {
 	return (HarlemAppWX*)pApp;
 }
+

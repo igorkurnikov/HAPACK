@@ -152,7 +152,6 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 
 void RedirectIOToConsole()
 {
-	return;
 #if defined(_MSC_VER)
 	int hConHandle;
 	long lStdHandle;
@@ -180,7 +179,6 @@ void RedirectIOToConsole()
 
 	setvbuf( stdout, NULL, _IONBF, 0 );
 
-
 	lStdHandle = (long)GetStdHandle(STD_INPUT_HANDLE);
 	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
 
@@ -199,6 +197,7 @@ void RedirectIOToConsole()
 
 	ios::sync_with_stdio();
 #endif
+	return;
 }
 
 

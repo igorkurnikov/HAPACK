@@ -178,6 +178,7 @@ int HarlemApp::InitFirst()
 	harlem_home_dir = harlem_home_path.string() + boost::filesystem::path::preferred_separator;
 	res_db_dir = harlem_home_dir + "residues_db" + boost::filesystem::path::preferred_separator;
 	doc_dir    = harlem_home_dir + "doc" + boost::filesystem::path::preferred_separator;
+	PrintLog("%s(): harlem_home_dir = %s \n", __func__, harlem_home_dir.c_str());
 #if(_MSC_VER)
 	word_editor = harlem_home_dir + "scite.exe";
 #else
@@ -245,7 +246,8 @@ int HarlemApp::InitFirst()
 		}
 	}
 	if (!mpi_py_script.empty()) ExecuteScriptFromFile(mpi_py_script.c_str());
-
+	
+	PrintLog(" HarlemApp::InitFirst() pt 3:  mpi_driver->myrank = %d \n", mpi_driver->myrank );
 	if ( mpi_driver->myrank != 0) return true;
 
 	if (gui_mode)
@@ -253,6 +255,10 @@ int HarlemApp::InitFirst()
 		if (mpi_driver->nprocs == 1)
 		{
 			//			CreateCommandWindow();
+			RedirectIOToConsole();
+		}
+		else
+		{
 			RedirectIOToConsole();
 		}
 //		LoadHaPyGUIModules();
@@ -264,6 +270,10 @@ int HarlemApp::InitParallel()
 {
 	boost::filesystem::path cur_path = boost::filesystem::current_path();
 	mpi_driver = new HaMPI();
+	if (mpi_driver->nprocs > 1 && mpi_driver->myrank > 0)
+	{
+		mpi_driver->Listen();
+	}
 	//Current Directory is changed by MPI_Init() - changing back...
 	boost::filesystem::current_path(cur_path);
 	return TRUE;
@@ -585,11 +595,13 @@ int HarlemApp::InitLast()
 #endif
 			}
 		}
-		// Print wellcome message
 		PrintLog("\n");
 		PrintLog("HARLEM (HAmiltonians to Research LargE Molecules)\n");
 		PrintLog("==============================================================================\n\n");
 	}
+
+	PrintLog("%s: mpi_driver->myrank = %d \n", __func__, mpi_driver->myrank);
+
 	return TRUE;
 }
 

@@ -52,7 +52,6 @@ HaMPI::HaMPI()
 		ires = MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
 		ires = MPI_Comm_group(MPI_COMM_WORLD,&world_group);
 
-	
 //		std::string fname = "test_mpi" + harlem::ToString(myrank);
 //		FILE* ftest = fopen(fname.c_str(),"w");
 //	    fprintf(ftest,"MYRANK rank = %d : Num Processors= %d : after MPI_Init \n",myrank,nprocs);
@@ -63,17 +62,13 @@ HaMPI::HaMPI()
 
 HaMPI::~HaMPI()
 {
-#if defined(HARLEM_MPI)
 	if( world_group != MPI_GROUP_NULL) MPI_Group_free(&world_group);
 	MPI_Finalize();
-#endif
 }
 
 int HaMPI::Listen()
 {
 	using namespace rapidxml; 
-
-#if defined(HARLEM_MPI)
 
 	MPI_Status status;
 	int i;
@@ -163,7 +158,6 @@ int HaMPI::Listen()
 			PrintLog("%s\n",ex.what());
 		}
 	}
-#endif
 	return TRUE;
 }
 
