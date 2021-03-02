@@ -190,8 +190,6 @@ bool HarlemAppWX::OnInit(void)
 
 		SetTopWindow(m_mainFrame);
 		//	    RedirectIOLogWindow();
-
-		RedirectIOToConsole();
 	}
 #endif
 
@@ -207,7 +205,6 @@ bool HarlemAppWX::OnInit(void)
 		if (mpi_driver->nprocs == 1)
 		{
 			//			CreateCommandWindow();
-			RedirectIOToConsole();
 		}
 //	    wxLog* p_log = new wxLogStderr();
 //	    wxLog::SetActiveTarget(p_log);

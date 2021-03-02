@@ -78,7 +78,6 @@ extern int ErrorMessage(const char* str); //!< Print error message
 extern int PrintMessage(const char* str); //!< Print Message to a standard output and control window on HARLEM panel
 extern int ha_copy_file(const char* src, const char* tgt, const int mode = 0); //!< copy file named src to file named tgt
 extern int ha_delete_file( const char* fname);  //!< delete file with the name fname
-extern void RedirectIOToConsole();              //!< Set STDOUT (standart output channel) to Console
 extern int RedirectIOToFile(const char* fname); //!< Redirect STDOUT (standart output channel) to file
 extern int RedirectIOToMultipleFilesMPI(const char* fname); //!< Redirect STDOUT (standart output channel) to multiple files useful then run harlem in parallel
 extern void write_log_(const char* str, int n); //!< Fortran function to write string to STDOUT 

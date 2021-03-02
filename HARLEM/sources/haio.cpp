@@ -150,57 +150,6 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 }
 
 
-void RedirectIOToConsole()
-{
-#if defined(_MSC_VER)
-	int hConHandle;
-	long lStdHandle;
-
-	CONSOLE_SCREEN_BUFFER_INFO coninfo;
-	FILE *fp;
-	
-	AllocConsole();
-	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
-
-	int MAX_CONSOLE_LINES = 2000;
-
-	// set the screen buffer to be big enough to let us scroll text
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE),&coninfo);
-	coninfo.dwSize.Y = MAX_CONSOLE_LINES;
-	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE),coninfo.dwSize);
-
-// redirect unbuffered STDOUT to the console
-
-	lStdHandle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-
-	fp = _fdopen( hConHandle, "w" );
-	freopen_s(&fp, "CONOUT$", "w", stdout);
-
-	setvbuf( stdout, NULL, _IONBF, 0 );
-
-	lStdHandle = (long)GetStdHandle(STD_INPUT_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-
-//	fp = _fdopen( hConHandle, "r" );
-//	*stdin = *fp;
-//	setvbuf( stdin, NULL, _IONBF, 0 );
-
-// redirect unbuffered STDERR to the console
-
-	lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
-	hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	freopen_s(&fp, "CONOUT$", "w", stderr);
-
-	setvbuf( stderr, NULL, _IONBF, 0 );
-
-	ios::sync_with_stdio();
-#endif
-	return;
-}
-
-
 int RedirectIOToFile(const char* fname)
 {
 	curr_stdout_fp=fopen(fname,"a");

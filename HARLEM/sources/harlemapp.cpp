@@ -196,17 +196,6 @@ int HarlemApp::InitFirst()
 //    PrintLog(" HarlemApp::InitFirst() pt 3 \n");
 
 	InitCommand();
-
-//	PrintLog("HARLEM: HAmiltonians to Research LargE Molecules \n");   
-//	PrintLog("Igor Kurnikov, Nikolay Simakov, Kirill Speransky, \n"); 
-//	PrintLog("Maria Kurnikova 1997 - 2014 \n" );
-//	PrintLog("Graphical Interface Based on RASMOL 2.6 of Roger Sayle \n");
-//	PrintLog("and wxWidgets library \n");
-//	PrintLog("Command line/scripting interface is based on PYTHON 3.7 \n");
-//	PrintLog("Also linked to VFLIB, TINYXML, RAPIDXML, LAPACK, BLAS and other libraries \n");
-//	PrintLog("Build date -  %s \n",__DATE__);               
-//	PrintLog("Harlem Home Dir %s\n",harlem_home_dir.c_str());  
-
 	InitRemoteComp();
 
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
@@ -252,15 +241,6 @@ int HarlemApp::InitFirst()
 
 	if (gui_mode)
 	{
-		if (mpi_driver->nprocs == 1)
-		{
-			//			CreateCommandWindow();
-			RedirectIOToConsole();
-		}
-		else
-		{
-			RedirectIOToConsole();
-		}
 //		LoadHaPyGUIModules();
 	}
 	return TRUE;
