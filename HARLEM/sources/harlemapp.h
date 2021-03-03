@@ -57,6 +57,8 @@ public:
 	static int SwitchThread();             //!< Switch execution to an another thread 
 	static int SleepThread(int ms_delay);  //!< Delay execution of the thread for ms_delay ms 
 
+	int ProcessEvent(int type, int id);    //!< Process Signal (substitution for Event)
+
 	vector<ComputerAccount> comp_accounts; //!< accessible computer accounts
 
 	ComputerAccount* GetAccountByID(const char* acc_id);

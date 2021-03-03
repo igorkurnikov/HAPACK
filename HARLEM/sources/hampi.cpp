@@ -6,22 +6,12 @@
 
 #include "haconst.h"
 #include "haio.h"
-#include "wx/wxprec.h"
 
 #include <sstream>
+#include <chrono>
+#include <thread>
 
 #include <boost/algorithm/string.hpp>
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include "wx/dir.h"
-#include "wx/filename.h"
-
-#include <wx/filefn.h>
-#include <wx/stream.h>
-#include <wx/file.h>
 
 #include "rapidxml.hpp"
 #include "hastring.h"
@@ -30,7 +20,6 @@
 #include "harlemapp_wx.h"
 #include "hamolset.h"
 #include "hampi.h"
-#include "hawx_add.h"
 
 HaMPI::HaMPI()
 {
@@ -66,6 +55,15 @@ HaMPI::~HaMPI()
 	MPI_Finalize();
 }
 
+class ha_event
+{
+public:
+	ha_event(int type_par, int id_par) { type = type_par; id = id_par; }
+	virtual ~ha_event() {} 
+	int type;
+	int id;
+};
+
 int HaMPI::Listen()
 {
 	using namespace rapidxml; 
@@ -81,7 +79,7 @@ int HaMPI::Listen()
 	pmset->SetName(mset_name.c_str());
 	HaMolMechMod* p_mm_mod = pmset->GetMolMechMod(true);
 
-	std::vector< wxCommandEvent* > wx_cmd_events;
+	std::vector< ha_event > ha_events;
 
 //	PrintLog("HaMPI::Listen() start  myrank = %d\n",myrank );
 	
@@ -94,7 +92,7 @@ int HaMPI::Listen()
 //			PrintLog("HaMPI::Listen() pt 1  flag = %d\n", flag );
 			if(!flag)
 			{
-				wxThread::Sleep(100);
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				continue;
 			}
 //			PrintLog("HaMPI::Listen() pt 2 \n");
@@ -132,20 +130,18 @@ int HaMPI::Listen()
 						else if( tag_attr == "id" ) id = atoi( attr->value() );
 					}
 //					PrintLog("HaMPI::Listen() pt 5 \n type = %d  id = %d \n",type,id);  
-					wx_cmd_events.push_back(new wxCommandEvent(type,id));
+					ha_events.push_back(ha_event(type,id));
 				}
 
-				int nc = wx_cmd_events.size();
+				int nc = ha_events.size();
 				int ic; 
 				for(ic = 0; ic < nc; ic++)
 				{
-//					PrintLog("\n HaMPI::Listen() pt 6: wxCommandEvent Type = %d \n", wx_cmd_events[ic]->GetEventType());
-//					PrintLog(" wxCommandEvent ID   = %d \n", wx_cmd_events[ic]->GetId());
-					HarlemAppWX* p_wx_app = (HarlemAppWX*) pApp;
-					p_wx_app->ProcessEvent(*wx_cmd_events[ic]);
-					delete wx_cmd_events[ic];
+//					PrintLog("\n HaMPI::Listen() pt 6: Event Type = %d \n", ha_events[ic].type);
+//					PrintLog(" Event ID   = %d \n", ha_events[ic].id);
+					pApp->ProcessEvent(ha_events[ic].type, ha_events[ic].id);
 				}
-				wx_cmd_events.clear();
+				ha_events.clear();
 			}
 			else if( basic_signal[0] == KILL_APP_SIGNAL )
 			{

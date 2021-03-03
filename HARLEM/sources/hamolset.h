@@ -95,9 +95,9 @@ public:
 	int ExecuteCommand(CmdParser& cmd_pr);
 	int ExecuteShowCommand(CmdParser& cmd_pr);
 //@}
-//! \name wxWidgets command processor:
+//! \name Event processor:
 //@{
-	MolSetEvtHandler* p_evt_h; //!< Handler for wxWidgets events in MolSet  
+	int ProcessEvent(int type, int id); //!< Process Events ( a-la WxEvents) 
 //@}
 
 //! \name Superimpose molecules functions:

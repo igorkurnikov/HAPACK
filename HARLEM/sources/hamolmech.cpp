@@ -33,9 +33,6 @@
 #include <wx/string.h>
 #include <wx/filename.h>
 
-//#include "hawx_add.h"
-#include "molmech_evt_handler.h"
-
 #include "haio.h"
 #include "tokens.h"
 #include "hampi.h"
@@ -152,7 +149,6 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 	p_mm_model->p_amber_model->p_amber_driver = p_amber_driver;
 
 	p_gromacs_driver = new MMDriverGromacs(this);
-	p_evt_h         = new MolMechEvtHandler(this);
 	p_mm_info       = new MMSysInfo(this);
 	p_ti_mod        = new TISimMod(this);
 	p_md_mod        = new MDSimMod(this); 
@@ -183,7 +179,6 @@ HaMolMechMod::~HaMolMechMod()
 {
 	delete p_mm_model;
 	delete p_amber_driver;
-	delete p_evt_h;
 	delete p_mm_info;
 	delete p_ti_mod;
 	delete p_md_mod;
@@ -878,7 +873,7 @@ int HaMolMechMod::CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_m
 void HaMolMechMod::CallMMFunctionOnSlaves(int id)
 {
 //	PrintLog(" HaMolMechMod::CallMMFunctionOnSlaves() pt 1 id= %d \n", id);
-	std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_MOL_MECH,id);
+	std::string msg = HaMPI::BuildXMLwxCmdEventBasic(HA_MOL_MECH_EVENT,id);
 	pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
 }
 
@@ -1271,6 +1266,58 @@ bool HaMolMechMod::Print_info(ostream& sout, const int level)
 		}
 	}
 	return true;
+}
+
+int HaMolMechMod::ProcessEvent(int type, int id)
+{
+	MolSet* pmset = this->GetMolSet();
+	//	PrintLog(" In:HaMolMechMod::ProcessEvent() \n");
+	//	PrintLog(" MolSet Name=%s \n",pmset->GetName() );
+	//	PrintLog(" Event ID =%d \n",id);
+
+	try
+	{
+		switch (id)
+		{
+		case MM_INIT_SIMULATIONS_STEP_2:
+			PrintLog("About to Execute InitSimulationsStep2() \n");
+			this->p_amber_driver->InitSimulationsStep2();
+			break;
+		case MM_DRIVER_AMBER_RUN_INTERNAL:
+			PrintLog("About to Execute RunInternal_node() \n");
+			this->RunInternal_node();
+			break;
+		case MM_SET_MPI_COMM_ALL_PROCS:
+			PrintLog("About to Execute SetMPICommAllProcs() \n");
+			this->p_amber_driver->SetMPICommAllProcs();
+			this->p_amber_driver->InitParallelDatMod();
+			break;
+		case MM_MOD_SET_MPI_COMM_SPLIT_2:
+			PrintLog("About to Execute SetMPICommSplit2() \n");
+			this->SetMPICommSplit2();
+			this->p_amber_driver->InitParallelDatMod();
+			break;
+		case MM_MOD_INIT_MIXED_HAMILTONIAN:
+			PrintLog("About to Execute HaMolMechMod::InitMixedHamSimulations_node()  \n");
+			this->InitMixedHamSimulations_node(this->p_mm_model);
+			break;
+		case MM_UPDATE_CONSTR_2:
+			PrintLog("About to Execute MolMechModel::UpdateConstraints_2() \n");
+			this->GetMolMechModel()->UpdateConstraints_2();
+			break;
+		default:
+			PrintLog("Error in HaMolMechMod::%s() Unknown ID= %d \n", __func__,id);
+		}
+	}
+	catch (std::exception& e)
+	{
+		PrintLog(" Exception executing HaMolMechMod::%s() \n %s \n", __func__,e.what());
+	}
+	catch (...)
+	{
+		PrintLog(" Exception executing HaMolMechMod::::%s() \n",__func__);
+	}
+	return TRUE;
 }
 
 int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)

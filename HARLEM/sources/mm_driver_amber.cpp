@@ -42,7 +42,6 @@
 #include "mm_model.h"
 #include "mm_traj_anal.h"
 #include "mm_driver_amber.h"
-#include "molmech_evt_handler.h"
 
 int MMDriverAmber::stack_limit = 0;
 

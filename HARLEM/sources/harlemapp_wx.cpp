@@ -1,4 +1,4 @@
-/*! file harlemapp_wx.cpp
+ /*! file harlemapp_wx.cpp
 
     wxWindows class for HARLEM application                 
 
@@ -34,7 +34,6 @@
 
 #include "hawx_add.h"
 #include "harlemapp_wx.h"
-#include "molset_evt_handler.h"
 
 #if !defined(HA_NOGUI)
 #	include "hamainframe_wx.h"
@@ -95,20 +94,20 @@ HarlemAppWX::~HarlemAppWX()
 
 bool HarlemAppWX::ProcessEvent(wxEvent& event)
 {
-	if( wxApp::ProcessEvent(event)) return true;
+	//if( wxApp::ProcessEvent(event)) return true;
 
-	MolSet* pmset = GetCurMolSet();
+	//MolSet* pmset = GetCurMolSet();
 
-	if(pmset != NULL) if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
+	//if(pmset != NULL) if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
 
-	int nm = molset_vec.size();
-	int i;
-	for( i = 0; i < nm; i++)
-	{
-		pmset = (MolSet*) molset_vec[i];
-		if( pmset == GetCurMolSet() ) continue;
-		if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
-	}
+	//int nm = molset_vec.size();
+	//int i;
+	//for( i = 0; i < nm; i++)
+	//{
+	//	pmset = (MolSet*) molset_vec[i];
+	//	if( pmset == GetCurMolSet() ) continue;
+	//	if( pmset->p_evt_h->ProcessEvent(event) ) return true; 
+	//}
 	return false;
 }
 

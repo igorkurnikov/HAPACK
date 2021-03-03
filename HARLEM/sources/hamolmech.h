@@ -42,6 +42,17 @@ namespace harlem
 	class RunOptions;
 }
 
+const int HA_MOL_MECH_EVENT = 3;
+
+const int MOL_MECH_ID_TEST1 = 3000;
+const int MOL_MECH_ID_TEST2 = 3001;
+const int MM_DRIVER_AMBER_RUN_INTERNAL = 3002;
+const int MM_SET_MPI_COMM_ALL_PROCS = 3003;
+const int MM_MOD_SET_MPI_COMM_SPLIT_2 = 3004;
+const int MM_INIT_SIMULATIONS_STEP_2 = 3005;
+const int MM_MOD_INIT_MIXED_HAMILTONIAN = 3006;
+const int MM_UPDATE_CONSTR_2 = 3007;
+
 //! \brief Computational module to perform Molecular Mechanics computations
 //!  \nosubgrouping
 class HaMolMechMod : public HaCompMod
@@ -132,7 +143,7 @@ public:
 //@{
 public:
 	int CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2); //!< Check consistency of MM models for TI calculations
-	static void CallMMFunctionOnSlaves(int id); //!< Call MM function on Slave Nodes with the given id using remote wxEVT_MOL_MECH event
+	static void CallMMFunctionOnSlaves(int id); //!< Call MM function on Slave Nodes with the given id using remote HA_MOL_MECH_EVENT event
 	
 	double lambda_ti;             //!< Factor to combine two hamiltonians in TI calculations 
 
@@ -159,9 +170,9 @@ private:
 	bool Print_info(ostream& sout, const int level);   //!< Print Module info
 //@} 
 
-//! \name wxWidgets Command Processing
+//! \name Event Processing
 //@{
-	MolMechEvtHandler* p_evt_h; //!< Handler for wxWidgets events in HaMolMolMech 
+	int ProcessEvent(int type, int id); //!< Process Event ( a-la wxEvent) 
 //@}
 
 //! \name Simulator and Driver modules performing different MM simulations 

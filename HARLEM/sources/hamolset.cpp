@@ -116,7 +116,6 @@ MolSet::MolSet()
 
 	p_zmat = new ZMatCrd(this);
 	p_mol_editor  = new MolEditor();
-	p_evt_h       = new MolSetEvtHandler(this);
 
 	if( pApp ) pApp->AddMolSet(this);
 
@@ -129,7 +128,6 @@ MolSet::~MolSet()
 	DeleteAll();
 	if(p_mol_editor)  delete p_mol_editor;
 	if(per_bc)  delete per_bc;
-	if(p_evt_h) delete p_evt_h;
 	if(p_zmat)  delete p_zmat;
 	
 	if( pApp ) pApp->DeleteMolSet(this);
@@ -2256,6 +2254,12 @@ int MolSet::ExecuteShowCommand(CmdParser& cmd_pr)
 		PrintLog("Invalid command argument\n");
     }
 	return True;
+}
+
+int MolSet::ProcessEvent(int type, int id)
+{
+	PrintLog("Molset::%s type=%d  id=%d\n", __func__, type, id);
+	return TRUE;
 }
 
 bool MolSet::DeleteAtomWithRef(const char* atref)

@@ -28,7 +28,6 @@
 #include "mm_model.h"
 #include "mm_force_field.h"
 #include "mm_driver_amber.h"
-#include "molmech_evt_handler.h"
 #include "haresdb.h"
 
 extern "C" 

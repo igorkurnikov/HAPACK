@@ -48,7 +48,6 @@
 #include "dialogs_wx_1.h"
 #include "dialogs_wx_2.h"
 #include "qc_dialogs_wx.h"
-#include "molmech_evt_handler.h"
 #include "ha_wx_res_wdr.h"
 #include "abstree.h"
 #include "halocorb.h"

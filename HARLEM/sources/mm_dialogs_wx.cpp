@@ -31,7 +31,6 @@
 #include "haatgroup.h"
 #include "hacompmod.h"
 #include "hamolmech.h"
-#include "molmech_evt_handler.h"
 #include "mm_elements.h"
 #include "mm_model.h"
 #include "mm_driver_amber.h"
@@ -1732,7 +1731,7 @@ void MolMechDlgWX::OnSendMPIMsg1(wxCommandEvent& event)
 {
 	std::string msg = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"; msg += "\n";
 	msg+= "<wxCommandEvent>";             msg += "\n";
-	msg+= wxString::Format("<type>%d</type>\n",wxEVT_MOL_MECH); 
+	msg+= wxString::Format("<type>%d</type>\n", HA_MOL_MECH_EVENT);
 	msg+= wxString::Format("<id>%d</id>\n",MOL_MECH_ID_TEST1);            
 	msg+= "</wxCommandEvent>";              msg += "\n";
 	PrintLog("XML Message: \n%s",msg.c_str());

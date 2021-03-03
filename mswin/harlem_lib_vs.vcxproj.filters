@@ -43,7 +43,6 @@
     <ClCompile Include="..\HARLEM\sources\mm_model.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_params.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_traj_anal.cpp" />
-    <ClCompile Include="..\HARLEM\sources\molmech_evt_handler.cpp" />
     <ClCompile Include="..\HARLEM\sources\haproteined.cpp" />
     <ClCompile Include="..\HARLEM\sources\atom_mapping.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_mort_mol.cpp" />
@@ -56,7 +55,6 @@
     <ClCompile Include="..\HARLEM\sources\hamolset.cpp" />
     <ClCompile Include="..\HARLEM\sources\infile.cpp" />
     <ClCompile Include="..\HARLEM\sources\moleditor.cpp" />
-    <ClCompile Include="..\HARLEM\sources\molset_evt_handler.cpp" />
     <ClCompile Include="..\HARLEM\sources\rigidbodycoord.cpp" />
     <ClCompile Include="..\HARLEM\sources\vec3d.cpp" />
     <ClCompile Include="..\HARLEM\sources\haio.cpp" />
@@ -158,7 +156,6 @@
     <ClInclude Include="..\HARLEM\sources\mm_model.h" />
     <ClInclude Include="..\HARLEM\sources\mm_params.h" />
     <ClInclude Include="..\HARLEM\sources\mm_traj_anal.h" />
-    <ClInclude Include="..\HARLEM\sources\molmech_evt_handler.h" />
     <ClInclude Include="..\HARLEM\sources\haproteined.h" />
     <ClInclude Include="..\HARLEM\sources\atom_mapping.h" />
     <ClInclude Include="..\HARLEM\sources\haatgroup.h" />
@@ -170,7 +167,6 @@
     <ClInclude Include="..\HARLEM\sources\hamolecule.h" />
     <ClInclude Include="..\HARLEM\sources\hamolset.h" />
     <ClInclude Include="..\HARLEM\sources\moleditor.h" />
-    <ClInclude Include="..\HARLEM\sources\molset_evt_handler.h" />
     <ClInclude Include="..\HARLEM\sources\rigidbodycoord.h" />
     <ClInclude Include="..\HARLEM\sources\vec3d.h" />
     <ClInclude Include="..\HARLEM\sources\builtin.h" />

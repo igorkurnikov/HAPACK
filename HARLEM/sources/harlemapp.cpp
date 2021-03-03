@@ -579,9 +579,6 @@ int HarlemApp::InitLast()
 		PrintLog("HARLEM (HAmiltonians to Research LargE Molecules)\n");
 		PrintLog("==============================================================================\n\n");
 	}
-
-	PrintLog("%s: mpi_driver->myrank = %d \n", __func__, mpi_driver->myrank);
-
 	return TRUE;
 }
 
@@ -815,6 +812,23 @@ int HarlemApp::SleepThread(int ms_delay)
 {
    wxThread::Sleep(ms_delay);
    return FALSE;
+}
+
+int HarlemApp::ProcessEvent(int type, int id)
+{
+	MolSet* pmset = GetCurMolSet();
+
+	if (pmset != NULL) if (pmset->ProcessEvent(type,id)) return true;
+
+	int nm = molset_vec.size();
+	int i;
+	for (i = 0; i < nm; i++)
+	{
+		pmset = (MolSet*)molset_vec[i];
+		if (pmset == GetCurMolSet()) continue;
+		if (pmset->ProcessEvent(type,id)) return true;
+	}
+	return false;
 }
 
 ComputerAccount* HarlemApp::GetAccountByID(const char* acc_id)
