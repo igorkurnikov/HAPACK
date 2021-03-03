@@ -2,7 +2,7 @@ import math
 import random
 pmset = GetCurMolSet()
 mol_editor = pmset.GetMolEditor()
-mm_mod = pmset.GetMolMechMod(1)
+mm_mod = pmset.GetMolMechMod()
 mm_info  = mm_mod.p_mm_info
 
 at1 = pmset.GetAtomByRef("$PEPT$GLY1.N")

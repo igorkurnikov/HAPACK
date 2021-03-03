@@ -778,7 +778,7 @@ int HaMolMechMod::RunInternal()
 
 void HaMolMechMod::RunInternal_node()
 {
-	PrintLog(" HaMolMechMod::RunInternal_node() pt 1 \n");
+//	PrintLog(" HaMolMechMod::RunInternal_node() pt 1 \n");
 	MolSet* pmset = this->GetMolSet();
 	p_amber_driver->p_tm->InitTimers();
 
@@ -817,7 +817,7 @@ void HaMolMechMod::RunInternal_node()
 	}
 	p_amber_driver->p_tm->EndRunTimers();
 	if(run_type == MMRunType::MD_RUN || run_type == MMRunType::MIN_RUN) p_amber_driver->p_tm->PrintTimings();
-	PrintLog(" HaMolMechMod::RunInternal_node() pt end \n");
+//	PrintLog(" HaMolMechMod::RunInternal_node() pt end \n");
 }
 
 int HaMolMechMod::CalcEnergy()
