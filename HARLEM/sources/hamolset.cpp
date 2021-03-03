@@ -61,10 +61,7 @@
 
 #include "wx/log.h"
 #include "hawx_add.h"
-#include "molset_evt_handler.h"
 #include "hamatdb.h"
-
-
 
 AtomLoadOptions* MolSet::p_load_opt_default = new AtomLoadOptions();
 AtomSaveOptions* MolSet::p_save_opt_default = new AtomSaveOptions();
