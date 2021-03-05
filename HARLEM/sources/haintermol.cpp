@@ -10,8 +10,8 @@
 
 #include <mpi.h>
 
-#include "wx/thread.h"
-#include "wx/tokenzr.h"
+#include <chrono>
+#include <thread>
 
 #include <float.h>
 #include <math.h>
@@ -635,39 +635,27 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 	
 }
 
-class InterMolDockThread: public wxThread
+void intermol_doc_run(InterMolMCSimulator* ptr_im_mc_sim)
 {
-public:
+	if ( ptr_im_mc_sim == NULL) return;
+	HaInterMolMod* ptr_im_mod = ptr_im_mc_sim->GetInterMolMod();
 
-	InterMolDockThread(InterMolMCSimulator* ptr_im_mc_sim_new) 
-	{ 
-		ptr_im_mc_sim = ptr_im_mc_sim_new; 
-		ptr_im_mod = ptr_im_mc_sim->GetInterMolMod();
-	}
-
-	virtual ExitCode Entry()
+	int rex_flag = ptr_im_mc_sim->rex_flag;
+	int empirical_flag = ptr_im_mod->empirical_flag;
+	if (!rex_flag && !empirical_flag)
 	{
-		int rex_flag = ptr_im_mc_sim->rex_flag ;
-		int empirical_flag = ptr_im_mod->empirical_flag;
-		if (!rex_flag && !empirical_flag)
-		{
-			ptr_im_mc_sim->RunMC();
-		}
-		else if (!rex_flag && empirical_flag)
-		{
-			//ptr_im_mod -> RunMCEmpirical();
-			ptr_im_mc_sim->RunMCQuantSampling();
-		}
-		else if (rex_flag && empirical_flag)
-		{
-			ptr_im_mc_sim->RunQuasiREM();
-		}
-	
-		return 0;
+		ptr_im_mc_sim->RunMC();
 	}
-	InterMolMCSimulator* ptr_im_mc_sim;
-	HaInterMolMod*       ptr_im_mod;
-};
+	else if (!rex_flag && empirical_flag)
+	{
+		//ptr_im_mod -> RunMCEmpirical();
+		ptr_im_mc_sim->RunMCQuantSampling();
+	}
+	else if (rex_flag && empirical_flag)
+	{
+		ptr_im_mc_sim->RunQuasiREM();
+	}
+}
 
 
 int InterMolMCSimulator::InitEnergyFunc()
@@ -1433,7 +1421,9 @@ int InterMolMCSimulator::RunMCQuantSampling()
 	double incr;
 	double qang, qx, qy,qz, r1, r2, r3, r4;
 
-	clock_t update_time = clock();
+	typedef std::chrono::system_clock Time;
+	auto update_time = Time::now();
+
 	double ene_prev;
 	double kt_kcal = MC_temp* BOLTZ * AVOG_NUM/(1000.0*CAL_TO_JOULES); 
 	//PrintLog("MC_temp %4.1f \n", MC_temp);  // Remove
@@ -1814,10 +1804,10 @@ int InterMolMCSimulator::RunMCQuantSampling()
 
 		if(delay_time > 0)
 		{
-			wxThread::Sleep(delay_time);
+			std::this_thread::sleep_for(std::chrono::milliseconds(delay_time*1000));
 		}
 
-		//if( clock() > update_time || istep == (num_mc_steps - 1))
+		//if( Time::no > update_time || istep == (num_mc_steps - 1))
 		if(1)
 		{
 			if(!moved_flag)
@@ -1859,7 +1849,8 @@ int InterMolMCSimulator::RunMCQuantSampling()
 			else 
 			{
 				pmset->AnnounceGeomChange();
-				update_time = clock() + CLOCKS_PER_SEC*1 ;
+				update_time = Time::now();
+				update_time += std::chrono::milliseconds( 1000 ); 
 			}
 		}
 		if (intermol_ene_accepted != 0.0)
@@ -2824,12 +2815,12 @@ bool HaInterMolMod::CalcEffInterEne()
 		pmm_mod->p_amber_driver->SaveAmberInpFile();
 		pmm_mod->p_amber_driver->SaveAmberCrdFile();
 		pmm_mod->Run();
-		wxThread::Sleep(2000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 		pmm_mod->run_type = pmm_mod->run_type.MD_RUN;
 		pmm_mod->p_amber_driver->SaveAmberInpFile();
 		pmm_mod->p_amber_driver->SaveAmberCrdFile();
 		pmm_mod->Run();
-		wxThread::Sleep(2000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
 	if( electr_model == CHARGES_IN_FIELD_ELECTR )
@@ -3349,7 +3340,7 @@ clock_t tt2 = clock();
 //	{
 //	srand(time(NULL));
 //	Random rand_num_gen(time(NULL));
-//	wxThread::Sleep(2000);
+//	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 //
 //	for( i= 0; i < 100; i++) 
 //	{

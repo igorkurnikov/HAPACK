@@ -8,7 +8,7 @@
 */
 
 #include <memory>
-#include "wx/thread.h"
+#include <thread>
 
 #include "hamolset.h"
 #include "hacoord.h"
@@ -46,28 +46,16 @@ MCSimulator::~MCSimulator()
 
 }
 
-class SimulatorThread: public wxThread
+void run_simulator(MCSimulator* ptr_sim)
 {
-public:
-	SimulatorThread(MCSimulator* ptr_sim_new) 
-	{ 
-		ptr_sim = ptr_sim_new; 
-	}
-
-	virtual ExitCode Entry()
-	{
-		ptr_sim->RunMC();
-		return 0;
-	}
-	MCSimulator* ptr_sim;
-};
+	if (ptr_sim == NULL) return;
+	ptr_sim->RunMC();
+}
 
 int MCSimulator::RunMCThread()
 {
-	sim_thread = new SimulatorThread(this);
-	sim_thread->Create();
-	sim_thread->Run();
-
+	std::thread sim_t(run_simulator, this);
+	sim_t.detach();
 	return TRUE;
 }
 
@@ -234,7 +222,7 @@ int MCSimulator::AnalyzeTrajectory()
 			ComputePropTrajPoint(&pt_info);
 			if(delay_time > 0)
 			{
-				wxThread::Sleep(delay_time);
+				std::this_thread::sleep_for(std::chrono::milliseconds( (long)(1000*delay_time)) );
 			}	
 			if(npt_step > 1)
 			{

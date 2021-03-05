@@ -1,6 +1,6 @@
 pmset = GetCurMolSet()
 mol_editor = pmset.GetMolEditor()
-mm_mod = pmset.GetMolMechMod()
+mm_mod = pmset.GetMolMechMod(False)
 mm_info  = mm_mod.p_mm_info
 
 at1 = pmset.GetAtomByRef("$PEPT$GLY1.N")

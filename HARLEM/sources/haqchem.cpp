@@ -13,8 +13,9 @@
 #pragma warning (disable:4786)
 
 #include <mpi.h>
+#include <chrono>
+#include <thread>
 #include <boost/algorithm/string.hpp>
-#include <wx/thread.h>
 
 #include "errorip.h"
 #include "randomip.h"
@@ -1760,24 +1761,17 @@ int  HaQCMod::FormDenMat(const HaMat_double& cmo, double* pa, int nel, double* p
 	return TRUE;
 }	
 
-class CNDOThread: public wxThread
+void run_cndo(HaQCMod* ptr_qc_mod)
 {
-public:
-	CNDOThread(HaQCMod* ptr_qc_mod_new) { ptr_qc_mod = ptr_qc_mod_new; }
-	virtual ExitCode Entry()
-	{
-		ptr_qc_mod->RunCNDOThread();
-		return 0;
-	}
-	
-	HaQCMod* ptr_qc_mod;
-};
+	if (ptr_qc_mod == NULL) return;
+	ptr_qc_mod->RunCNDOThread();
+}
+
 
 int HaQCMod::RunCNDO()
 {
-	wxThread* cndo_run_thread = new CNDOThread(this);
-	cndo_run_thread->Create();
-	cndo_run_thread->Run();
+	std::thread cndo_t(run_cndo, this);
+	cndo_t.detach();
 	return TRUE;
 }
 

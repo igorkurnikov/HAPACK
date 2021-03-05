@@ -25,7 +25,6 @@ class TrajAnalAgent;
 class MDTrajectoryIOAgent;
 class RMSDAgent;
 class MMSysInfo;
-class wxThread;     
 class MMDriverAmber;
 class MMDriverTinker;
 class MMDriverGromacs;
@@ -131,8 +130,7 @@ private:
 	int run_ti;                 //!< Flag to indicate TI run
 
 	long ext_proc_id;  //!< process ID for external MM program 
-	wxThread* ctrl_thread; //!< Control Thread for Molecular Mechanics simulations
-	wxThread* run_thread;  //!< Thread for Running Molecular Mechanics simulations inside HARLEM
+
 public:
 	bool internal_mm_running;  //!< Flag to indicate that internal MM thread is running
 	bool ctrl_thread_running;  //!< Flag to indicate that control MM thread is running
@@ -381,14 +379,11 @@ public:
 	friend class MMDriverAmber;
 	friend class MMDriverGromacs;
 	friend class AmberMMModel;
-	friend class MMRunInternalThread;
 	friend class MMCtrlThread;
-	friend class AnalyzeMDTrajThread;
 	friend class MolMechDlgWX;
 	friend class MDTrajectoryIOAgent;
 	friend class MDTrajAnalMod;
 	friend class HaInterMolMod;
-	friend class MolMechEvtHandler;
 	friend class HaMolMembraneMod;
 	friend class PerBoundaryCondType;
 	friend class TimerAmber;

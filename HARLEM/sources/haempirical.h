@@ -10,7 +10,6 @@
 #define HASCOREFUNCTION_H
 
 class HaMolecule;
-class wxThread;
 
 #include "hastl.h"
 #include "hastring.h"

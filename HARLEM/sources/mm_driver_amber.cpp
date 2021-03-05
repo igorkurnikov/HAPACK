@@ -23,6 +23,8 @@
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/process.hpp>
+#include <boost/process/child.hpp>
 
 #include <wx/event.h>
 #include <wx/filename.h>
@@ -8505,18 +8507,20 @@ int AmberMMModel::AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* 
 class AmberProcess : public wxProcess
 {
 public:
-	AmberProcess() {  p_mm_mod = NULL; }
+	AmberProcess() { p_mm_mod = NULL; }
 
 	HaMolMechMod* p_mm_mod;
-	
-	virtual void OnTerminate(int pid, int status)
+
+	virtual
+		void OnTerminate(int pid, int status)
 	{
-		if(p_mm_mod) p_mm_mod->StopCalc();
-//		::wxMessageBox("AMBER Process Has Stopped \n");
+		if (p_mm_mod) p_mm_mod->StopCalc();
+		//		::wxMessageBox("AMBER Process Has Stopped \n");
 
 		PrintLog("AMBER Process Has Stopped \n");
 	}
 };
+
 
 int MMDriverAmber::RunAmberProg(int sync)
 {
@@ -8592,20 +8596,22 @@ int MMDriverAmber::RunAmberProg(int sync)
 	AmberProcess* p_sander_proc = new AmberProcess();
 	p_sander_proc->p_mm_mod = p_mm_mod;
 
+	namespace bp = ::boost::process;
+
 	int res;
 	if( sync )
 	{
+//		bp::context ctx;
+//		ctx.stdout_behavior = bp::silence_stream();
+//		p_mm_mod->ext_proc_id = bp::launch(exec, args, ctx);
+
 		res = wxExecute(cmd_line,wxEXEC_SYNC,p_sander_proc);
 	}
 	else
 	{
 		res = wxExecute(cmd_line,wxEXEC_ASYNC,p_sander_proc);
 	}
-
-	//StrVec prog_output;
-	//int res = HarlemApp::RunExternalProgram(RUN_FOREGROUND, sander_exe_fname, sander_args, prog_output,FALSE);
-
-	if( res < 0) return FALSE;
+    
 	p_mm_mod->ext_proc_id = res;
 	return TRUE;
 }

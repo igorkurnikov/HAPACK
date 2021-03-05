@@ -181,6 +181,8 @@ public:
 
 	friend class MolMechDlgWX;
 
+	HaMolMechMod* GetMolMechMod(); //!< Get MM Module Associated with this module
+
 protected:
 	HaMolMechMod* p_mm_mod;
 	MolMechModel* p_mm_model;

@@ -31,7 +31,6 @@ class HaChain;
 class HaMolecule;
 class AtomExpr;
 class Object3D;
-class wxThread;
 
 class Monitor
 {
@@ -336,7 +335,8 @@ public:
 	int AnimateEigenVector( HaVec_double& evec, AtomContainer* at_coll ); //!< Run an animation of an atom eigen vector in a separate thread
 	int AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* at_coll ); //!< Internal function to run animation of an atom eigen vector
 	void StopAnimation(); //!< Stop an animation
-	wxThread* p_anim_thread; //!< Thread to run an animation
+	
+	bool anim_thread_running; //!< flag to indicate that animation thread is running
 	int to_stop_animation;   //!< Flag to stop an animation
 
 

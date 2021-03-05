@@ -163,8 +163,6 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 	single_job_comm  = MPI_COMM_NULL;
 	single_job_rank  = 0;
 
-	ctrl_thread = NULL;
-	run_thread  = NULL;
 	internal_mm_running = false;
 	ctrl_thread_running = false;
 #if !defined(HA_NOGUI)

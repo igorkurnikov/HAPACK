@@ -11,6 +11,8 @@
 #include <math.h>
 #include <stdexcept>
 #include <sstream>
+#include <chrono>
+#include <thread>
 
 #if !defined(HARLEM_PYTHON_NO)
 #include "Python.h"
@@ -18,8 +20,8 @@
 
 #include "haio.h"
 
-#include <wx/process.h>
-#include <wx/thread.h>
+//#include <wx/process.h>
+//#include <wx/thread.h>
 
 #include <boost/algorithm/string.hpp>
 
@@ -81,53 +83,14 @@ MDTrajAnalMod::~MDTrajAnalMod()
 
 }
 
-class AnalyzeMDTrajThread: public wxThread
+void run_anal_traj(MDTrajAnalMod* p_md_traj_anal_mod)
 {
-public:
-	AnalyzeMDTrajThread(HaMolMechMod* ptr_mm_mod_new): wxThread() 
-	{
-		PrintLog("AnalyzeMDTrajThread::MolMechThread() \n");
-		ptr_mm_mod = ptr_mm_mod_new; 
-	}
-	virtual void* Entry()
-	{
-		PrintLog("AnalyzeMDTrajThread::Entry() \n");
-		ptr_mm_mod->p_traj_anal_mod->AnalyzeTrajectoryInternal();
-		return NULL;
-	}
-	virtual void OnExit()
-	{
-		ptr_mm_mod->run_thread = NULL;
-		PrintLog("AnalyzeMDTrajThread::OnExit() \n");
-	}
-
-public:
-	HaMolMechMod* ptr_mm_mod;
-};
-
-//class AnalMDCtrlThread: public wxThread
-////!< MD analysis controlling thread
-//{
-//public:
-//	AnalMDCtrlThread(HaMolMechMod* ptr_mm_mod_new): wxThread() 
-//	{
-//		PrintLog("AnalMDCtrlThread::AnalMDCtrlThread() \n");
-//		ptr_mm_mod = ptr_mm_mod_new; 
-//	}
-//	virtual void* Entry()
-//	{
-//		ptr_mm_mod->p_traj_anal_mod->ControlCalc();
-//		return NULL;
-//	}
-//	virtual void OnExit()
-//	{
-//		ptr_mm_mod->ctrl_thread = NULL;
-//		PrintLog("AnalMDCtrlThread::OnExit() \n");
-//	}
-//
-//public:
-//	HaMolMechMod* ptr_mm_mod;
-//};
+	if (p_md_traj_anal_mod == NULL) return;
+	HaMolMechMod* p_mm_mod = p_md_traj_anal_mod->GetMolMechMod();
+	p_mm_mod->internal_mm_running = true;
+	p_mm_mod->RunInternal();
+	p_mm_mod->internal_mm_running = false;
+}
 
 
 int MDTrajAnalMod::AnalyzeTrajectory(int sync)
@@ -138,9 +101,8 @@ int MDTrajAnalMod::AnalyzeTrajectory(int sync)
 
 	if( !sync )
 	{
-		p_mm_mod->run_thread = new AnalyzeMDTrajThread(p_mm_mod);
-		p_mm_mod->run_thread->Create();
-		p_mm_mod->run_thread->Run();
+		std::thread anal_traj_t(run_anal_traj, this);
+		anal_traj_t.detach();
 	}
 	else
 	{
@@ -180,7 +142,11 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 			pApp->ExecuteScriptInString("script_status = SCRIPT_START");
 			pApp->ExecuteScriptFromFile(traj_script.c_str());
 		}
-		clock_t update_time = clock();
+
+		typedef std::chrono::system_clock Time;
+		auto update_time = Time::now();
+
+		std::chrono::duration<long, std::milli> update_interval = std::chrono::milliseconds((long)(1000 * p_mm_mod->update_view_interval));
 
 		ipt_curr = 1;
 		if( npt_begin > 1 ) 
@@ -219,7 +185,7 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 			TrajPointInfo pt_info;
 			pt_info.ipt = ipt_curr; 
 
-			if(delay_time > 0.1) wxThread::Sleep( delay_time*1000 );
+			if(delay_time > 0.1) std::this_thread::sleep_for(std::chrono::milliseconds( (int)(delay_time * 1000) ));
 
 			for(i = 0; i < agents.size(); i++)
 			{
@@ -237,10 +203,11 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 			}
 			if(!ires) break;
 
-			if(p_mm_mod->update_view_flag && update_time < clock() )
+			if(p_mm_mod->update_view_flag && update_time < Time::now() )
 			{
 				p_mm_mod->UpdateMolView();
-				update_time = clock() + CLOCKS_PER_SEC * p_mm_mod->update_view_interval;
+				update_time = Time::now();
+				update_time += update_interval;
 			}
 
 			if( npt_step > 1 )
@@ -936,6 +903,11 @@ AtomCorrAgent*  MDTrajAnalMod::GetAtomCorrAgent( int create_flag )
 		agents.push_back(p_agent);
 	}
 	return p_agent;
+}
+
+HaMolMechMod* MDTrajAnalMod::GetMolMechMod()
+{
+	return this->p_mm_mod;
 }
 
 RMSDAgent::RMSDAgent()

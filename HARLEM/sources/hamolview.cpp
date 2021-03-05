@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#include <wx/process.h>
-#include <wx/thread.h>
+#include <chrono>
+#include <thread>
 
 #define RENDER
 
@@ -159,7 +159,7 @@ void HaMolView::ResetView()
 #ifndef _WIN32
     pCanv->FBClear = False;
 #endif
-	p_anim_thread = NULL;
+	anim_thread_running = false;
 	to_stop_animation = TRUE;
 }
 
@@ -3300,40 +3300,17 @@ int HaMolView::CreateImage()
 	return((int)pCanv->FBuffer);
 }
 
-
-class EigenVecAnimationThread: public wxThread
+void run_eigen_vec_animation(HaMolView* p_mol_view, HaVec_double* p_vec, AtomContainer* p_at_cont )
 {
-public:
-	EigenVecAnimationThread(HaMolView* p_mol_view_host, HaVec_double& evec_new, AtomContainer* p_at_coll_new): wxThread() 
-	{
-		PrintLog("EigenVecAnimationThread::MolAnimationThread() \n");
-		p_mol_view = p_mol_view_host;
-		p_at_coll = p_at_coll_new;
-		evec       = evec_new;
-	}
-	virtual void* Entry()
-	{
-		PrintLog("EigenVecAnimationThread::Entry() \n");
-		p_mol_view->AnimateEigenVectorInternal(evec, p_at_coll );
-		return NULL;
-	}
-	virtual void OnExit()
-	{
-		p_mol_view->p_anim_thread = NULL;
-		PrintLog("EigenVecAnimationThread::OnExit() \n");
-	}
+	p_mol_view->AnimateEigenVectorInternal(*p_vec, p_at_cont );
+}
 
-public:
-	HaMolView* p_mol_view;
-	HaVec_double evec;
-	AtomContainer* p_at_coll;
-};
 
-int HaMolView::AnimateEigenVector( HaVec_double& evec, AtomContainer* p_at_coll )
+int HaMolView::AnimateEigenVector( HaVec_double& evec, AtomContainer* p_at_cont )
 {
-	p_anim_thread = new EigenVecAnimationThread(this, evec, p_at_coll );
-	p_anim_thread->Create();
-	p_anim_thread->Run();
+	std::thread anim_t(run_eigen_vec_animation, this, &evec, p_at_cont);
+	anim_t.detach();
+
 	return TRUE;
 }
 
@@ -3368,18 +3345,22 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 			ref_crd[3*i+2] = atgrp[i]->GetZ_Ang();
 		}
 
-		clock_t update_time = clock();
+		typedef std::chrono::system_clock Time;
+		auto update_time = Time::now();
+
 		int npt_cycle = 24;
 		int ipt = 0;
 		double ampl = 2.0;
 		double cycle_time = 2.0;
+
+		std::chrono::duration<long, std::milli> update_interval = std::chrono::milliseconds((long)(1000 * cycle_time / npt_cycle));
 
 		to_stop_animation = FALSE;
 
 		for(;;)
 		{
 			if( to_stop_animation ) break;
-			if( update_time < clock() )
+			if( update_time < Time::now() )
 			{
 				for(i = 0; i < na; i++)
 				{
@@ -3389,7 +3370,9 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 				}
 				UpdateThisView(RFRefresh | RFApply);
 				ipt++;
-				update_time = clock() + CLOCKS_PER_SEC * cycle_time/npt_cycle;
+
+				update_time = Time::now();
+				update_time += update_interval;
 			}
 		}
 		for(i = 0; i < na; i++)
