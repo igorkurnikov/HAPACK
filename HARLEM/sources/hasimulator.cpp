@@ -34,7 +34,6 @@ MCSimulator::MCSimulator()
 	
 	dont_calc_ene_flag = FALSE;  
 
-	sim_thread = NULL;
 	SetTemperature(300.0);
 	p_ene_func = NULL; 
 	p_rand_num_gen = NULL;

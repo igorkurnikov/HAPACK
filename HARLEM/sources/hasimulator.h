@@ -46,8 +46,6 @@ public:
 	
 	int dont_calc_ene_flag;   //!< if TRUE do not calculate intermolecular energy (just playback coordinates) 
 //@}
-    wxThread* sim_thread;
-
 	virtual int SetEnergyFunc( HaEnergyFunc* p_ene_func_new); //!< Set Energy Functional
 	virtual int InitEnergyFunc(); //!< Initialize if necessary Energy Functional associated with the Simulator 
 	virtual double ComputeEnergy(harlem::Coord* pcrd); //!< Compute energy (in kcal/mol) for coordinates defined by pcrd

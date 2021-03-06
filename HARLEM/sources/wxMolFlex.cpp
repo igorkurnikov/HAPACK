@@ -351,7 +351,7 @@ void wxMolFlex::OnRunFirst(wxCommandEvent& event)
 {
 	MolSet* pmset = myHaFlexMod->GetMolSet();
 
-	std::string cmdLine = "C:\\HARLEM\\FIRST.exe";
+	std::string cmdLine = pApp->harlem_home_dir + "first.exe";  
     cmdLine += " -non ";
     cmdLine += " -hbin ";
     cmdLine += " -phin ";

@@ -29,6 +29,9 @@
 
 #include <wx/process.h>
 
+#include <chrono>
+#include <thread>
+
 #if !defined(_MSC_VER)
 #include <unistd.h>
 #endif
@@ -801,15 +804,13 @@ int HarlemApp::KillProc(long proc_id)
 
 int HarlemApp::SwitchThread()
 {
-//	SwitchToThread();
-	wxThread::Sleep(100);
-
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
     return FALSE;
 }
 
 int HarlemApp::SleepThread(int ms_delay)
 {
-   wxThread::Sleep(ms_delay);
+	std::this_thread::sleep_for(std::chrono::milliseconds(ms_delay));
    return FALSE;
 }
 

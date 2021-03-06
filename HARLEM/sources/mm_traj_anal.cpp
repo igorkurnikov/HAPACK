@@ -20,9 +20,6 @@
 
 #include "haio.h"
 
-//#include <wx/process.h>
-//#include <wx/thread.h>
-
 #include <boost/algorithm/string.hpp>
 
 #include "FCMangle.h"
