@@ -13,6 +13,7 @@
 #if defined(_MSC_VER)
 #include <process.h>
 #endif
+#include <cstdlib>
 
 #include "command.h"
 #include "stdlib.h"
@@ -1699,7 +1700,12 @@ bool ElectrostMod::RunDelphi(RunMode rmode)
 	free(xptr);
 	if(phiwrt) el_pot_map.SaveToFile(elfield_fname.c_str());
 #else
-	HarlemApp::RunExternalProgram(rmode, "qdiffxs",delphi_args, prog_output,FALSE);
+	std::string cmd_line = "qdiffxs";
+	cmd_line += " ";
+	for (std::string arg : delphi_args)
+		cmd_line += " " + arg;
+
+	std::system(cmd_line.c_str());
 #endif
 	return true;
 	

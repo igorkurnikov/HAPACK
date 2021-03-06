@@ -11,6 +11,7 @@
 #include <mpi.h>
 
 #include "hastl.h"
+#include <cstdlib>
 
 #include "wx/wx.h"
 #include "wx/notebook.h"
@@ -546,10 +547,11 @@ void MolMechDlgWX::OnEditMDAnalScript(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_traj_anal_mod->traj_script.empty() && fname.FileExists() )
 	{
-		StrVec editor_args;
-		editor_args.push_back(ptr_mm_mod->p_traj_anal_mod->traj_script);
-		StrVec prog_output;
-		HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+		std::string cmd_line = pApp->word_editor;
+		cmd_line += " ";
+		cmd_line += ptr_mm_mod->p_traj_anal_mod->traj_script;
+
+		std::system(cmd_line.c_str());
 	}
 	else
 	{
@@ -1097,21 +1099,13 @@ void MolMechDlgWX::OnCalcSinglePtEne(wxCommandEvent& event)
 
 void MolMechDlgWX::OnLoadLogFile(wxCommandEvent& event) 
 {
-	if(ptr_mm_mod == NULL )
-		return;
+	if(ptr_mm_mod == NULL ) return;
 
-	StrVec editor_args;
-	editor_args.push_back(ptr_mm_mod->p_amber_driver->amber_out_file);
-
-	StrVec prog_output;
-
-	wxString cmd_line = pApp->word_editor.c_str();
+	std::string cmd_line = pApp->word_editor;
 	cmd_line += " ";
-	cmd_line += ptr_mm_mod->p_amber_driver->amber_out_file.c_str();
+	cmd_line += ptr_mm_mod->p_amber_driver->amber_out_file;
 
-    wxExecute(cmd_line);
-
-//	HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+	std::system(cmd_line.c_str());
 }
 
 void MolMechDlgWX::OnChooseMDCrdFile(wxCommandEvent& event) 
@@ -1226,7 +1220,6 @@ void MolMechDlgWX::OnMMStop(wxCommandEvent& event)
 	ptr_mm_mod->StopCalc();
 }
 
-
 void MolMechDlgWX::OnEditAmberInp(wxCommandEvent& event) 
 {
 	TransferDataFromWindow();	
@@ -1235,10 +1228,10 @@ void MolMechDlgWX::OnEditAmberInp(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_inp_file.empty() && fname.FileExists() )
 	{
-		StrVec editor_args;
-		editor_args.push_back(ptr_mm_mod->p_amber_driver->amber_inp_file);
-		StrVec prog_output;
-		HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+		std::string cmd_line = pApp->word_editor;
+		cmd_line += " ";
+		cmd_line += ptr_mm_mod->p_amber_driver->amber_inp_file;
+		std::system(cmd_line.c_str());
 	}
 	else
 	{
@@ -1254,10 +1247,10 @@ void MolMechDlgWX::OnEditAmberTop(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_top_file.empty() && fname.FileExists() )
 	{
-		StrVec editor_args;
-		editor_args.push_back(ptr_mm_mod->p_amber_driver->amber_top_file);
-		StrVec prog_output;
-		HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+		std::string cmd_line = pApp->word_editor;
+		cmd_line += " ";
+		cmd_line += ptr_mm_mod->p_amber_driver->amber_top_file;
+		std::system(cmd_line.c_str());
 	}
 	else
 	{
@@ -1273,10 +1266,11 @@ void MolMechDlgWX::OnEditAmberRun(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_run_file.empty() && fname.FileExists() )
 	{
-		StrVec editor_args;
-		editor_args.push_back(ptr_mm_mod->p_amber_driver->amber_run_file);
-		StrVec prog_output;
-		HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+		std::string cmd_line = pApp->word_editor;
+		cmd_line += " ";
+		cmd_line += ptr_mm_mod->p_amber_driver->amber_run_file;
+
+		std::system(cmd_line.c_str());
 	}
 	else
 	{
@@ -1292,10 +1286,11 @@ void MolMechDlgWX::OnEditAmberRst(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_rst_file.empty() && fname.FileExists() )
 	{
-		StrVec editor_args;
-		editor_args.push_back(ptr_mm_mod->p_amber_driver->amber_rst_file);
-		StrVec prog_output;
-		HarlemApp::RunExternalProgram(RUN_BACKGROUND, pApp->word_editor, editor_args, prog_output, FALSE );	
+		std::string cmd_line = pApp->word_editor;
+		cmd_line += " ";
+		cmd_line += ptr_mm_mod->p_amber_driver->amber_rst_file;
+
+		std::system(cmd_line.c_str());
 	}
 	else
 	{

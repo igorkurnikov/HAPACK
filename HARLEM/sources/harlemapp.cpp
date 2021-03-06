@@ -33,7 +33,6 @@
 #include <unistd.h>
 #endif
 
-
 #include "hampi.h"
 #include "harlemapp.h"
 #include "harlemapp_wx.h"
