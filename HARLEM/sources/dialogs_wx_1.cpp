@@ -813,8 +813,7 @@ void LoadScriptDlgWX::OnExecScriptWindow( wxCommandEvent &event )
     }
 }
 
-void 
-LoadScriptDlgWX::OnSaveScriptToFile( wxCommandEvent &event )
+void LoadScriptDlgWX::OnSaveScriptToFile( wxCommandEvent &event )
 {
     wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
     wxString file_name = file_name_edt->GetValue();

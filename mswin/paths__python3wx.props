@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <PYTHON_HOME_PATH>C:\MYPROG\Python37\$(PlatformName)</PYTHON_HOME_PATH>
+    <PYTHON_HOME_PATH>C:\Python38</PYTHON_HOME_PATH>
     <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
     <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)\DLLs</PYTHON_DLLS_PATH>
     <WX_DLLS_PATH>$(PYTHON_HOME_PATH)\libs</WX_DLLS_PATH>
@@ -11,10 +11,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\MYPROG\Python37\$(PlatformName)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Python38\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\MYPROG\Python37\$(PlatformName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Python38\$(PlatformName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

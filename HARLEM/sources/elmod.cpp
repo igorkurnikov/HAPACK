@@ -12,7 +12,11 @@
 #define HARLEM_MPI 1
 #include <mpi.h>
 
+#include <regex>
+
 #include <boost/filesystem/path.hpp>
+#include <boost/algorithm/string.hpp>
+
 
 #include "hamolset.h"
 
@@ -1639,9 +1643,9 @@ int ElMod::SetNinaBelowRouxRadii(bool only_selected_atoms)
 		if(only_selected_atoms && !aptr->Selected())
 			continue;
 		rptr=aptr->GetHostRes();
-		wxString AtomName=aptr->GetName();
-		wxString ResName=rptr->GetName();
-		wxString ResModName=rptr->GetNameModifier();
+		std::string AtomName=aptr->GetName();
+		std::string ResName=rptr->GetName();
+		std::string ResModName=rptr->GetNameModifier();
 		int elno = aptr->GetElemNo();
 		//double R=-1.0;
 		aptr->radius=-1.0;
@@ -1867,7 +1871,7 @@ int ElMod::LoadConcMaps(const char *filename)
 		if(i==0)conc=&(ConcMap0);
 		else conc=&(ConcMap1);
 		
-		wxString Name="";
+		std::string Name="";
 		Name<<"Conc["<<i<<"]";
 		conc->SetName( Name.ToStdString() );
 		conc->SetDimensions(VField->GridSize[0],VField->GridSize[1],VField->GridSize[2]);
@@ -3534,9 +3538,7 @@ int PNPMod::SetIonName(int ion,const char * name)
 	}
 	else
 	{
-		wxString str;
-		str.Printf(wxT("ion=%d > NIonsTypes=%d\n"), ion,NIonsTypes);
-		ErrorInMod("PNPMod::SetIonName", str.c_str());
+		PrintLog("Error in PNPMod::SetIonName() ion = % d > NIonsTypes = % d\n", ion, NIonsTypes);
 		return EXIT_FAILURE;
 	}
 }
@@ -3548,9 +3550,7 @@ const char * PNPMod::GetIonName(int ion)
 	}
 	else
 	{
-		wxString str;
-		str.Printf(wxT("ion=%d > NIonsTypes=%d\n"), ion,NIonsTypes);
-		ErrorInMod("PNPMod::GetIonName", str.c_str());
+		PrintLog("Error in PNPMod::GetIonName() ion = % d > NIonsTypes = % d\n", ion, NIonsTypes);
 		return NULL;
 	}
 }
@@ -3670,20 +3670,19 @@ int PNPMod::ReadOPLSitp(const char *filename)
 		fgets(strline,1023,fin);
 		if(strline[0]==';')continue;
 		
-		wxString wstr(strline);
-		wstr.Trim(false);
-		if(wstr.StartsWith("["))
+		std::string wstr(strline);
+		boost::algorithm::trim(wstr);
+		if(wstr[0] == '[')
 		{
-			i=wstr.Find(";");
-			if(i!=wxNOT_FOUND)
-				wstr=wstr.Left(i);
-			wstr.Replace(" ","");
-			wstr.Replace("[","");
-			wstr.Replace("]","");
-			wstr.Trim(true);
-			if(wstr.CmpNoCase("atomtypes")==0)
+			i=wstr.find(";");
+			if(i != string::npos) wstr=wstr.substr(i);
+			wstr = std::regex_replace(wstr, std::regex(" "), "");
+			wstr = std::regex_replace(wstr, std::regex("["), "");
+			wstr = std::regex_replace(wstr, std::regex("]"), "");
+			boost::algorithm::trim(wstr);
+			if(boost::iequals(wstr,"atomtypes"))
 			{
-				PrintLog("found %s\n",wstr.ToStdString().c_str());
+				PrintLog("found %s\n",wstr.c_str());
 				break;
 			}
 			
@@ -3722,7 +3721,7 @@ int PNPMod::PrintOPLSLJSigmaEpsilon()
 	PrintLog("AtomName AtomTypes Sigma[A] Epsilon[kT]\n");
 	for(iat=0;iat<OPLSLJAtomName.size();iat++)
 	{
-		PrintLog("%10s %10s %14.10e %14.10e\n",OPLSLJAtomName[iat].ToStdString().c_str(),OPLSLJAtomTypes[iat].ToStdString().c_str(),OPLSLJSigma[iat],OPLSLJEpsilon[iat]);
+		PrintLog("%10s %10s %14.10e %14.10e\n",OPLSLJAtomName[iat].c_str(),OPLSLJAtomTypes[iat].c_str(),OPLSLJSigma[iat],OPLSLJEpsilon[iat]);
 	}
 	return EXIT_SUCCESS;
 }
@@ -3738,7 +3737,7 @@ int PNPMod::PrintOPLSLJAB()
 		
 		A = 4.0*OPLSLJEpsilon[iat]*s6*s6;
 		B = 4.0*OPLSLJEpsilon[iat]*s6;
-		PrintLog("%10s %10s %14.10e %14.10e\n",OPLSLJAtomName[iat].ToStdString().c_str(),OPLSLJAtomTypes[iat].ToStdString().c_str(),A,B);
+		PrintLog("%10s %10s %14.10e %14.10e\n",OPLSLJAtomName[iat].c_str(),OPLSLJAtomTypes[iat].c_str(),A,B);
 	}
 	return EXIT_SUCCESS;
 }
@@ -3760,22 +3759,21 @@ int PNPMod::ReadOPLSrtp(const char *filename)
 		bool foundres=false;
 		while ((!feof(fin))&&(!foundres))
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
-			if(wstr.StartsWith("["))
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
+			if(wstr[0] == '[')
 			{
-				i=wstr.Find(";");
-				if(i!=wxNOT_FOUND)
-					wstr=wstr.Left(i);
-				wstr.Replace(" ","");
-				wstr.Replace("[","");
-				wstr.Replace("]","");
-				if(wstr.Cmp(wstr.Upper())==0)
+				i=wstr.find(";");
+				if(i != std::string::npos) wstr=wstr.substr(i);
+				wstr = std::regex_replace(wstr, std::regex(" "), "");
+				wstr = std::regex_replace(wstr, std::regex("["), "");
+				wstr = std::regex_replace(wstr, std::regex("]"), "");
+
+				if( wstr == boost::to_upper_copy(wstr) )
 				{
 					//here is resedue
-					wstr.Trim(true);
-					wstr.Trim(false);
-					PrintLog("found residue %s\n",wstr.ToStdString().c_str());
+					boost::algorithm::trim(wstr);
+					PrintLog("found residue %s\n",wstr.c_str());
 					foundres=true;
 					OPLSResNames.push_back(wstr);
 				}
@@ -3786,18 +3784,17 @@ int PNPMod::ReadOPLSrtp(const char *filename)
 		bool foundatms=false;
 		while ((!feof(fin))&&(!foundatms))
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
-			if(wstr.StartsWith("["))
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
+			if(wstr[0] == '[')
 			{
-				i=wstr.Find(";");
-				if(i!=wxNOT_FOUND)
-					wstr=wstr.Left(i);
-				wstr.Replace(" ","");
-				wstr.Replace("[","");
-				wstr.Replace("]","");
-				wstr.Trim(true);
-				if(wstr.Cmp("atoms")==0)
+				i=wstr.find(";");
+				if(i != std::string::npos) wstr=wstr.substr(i);
+				wstr = std::regex_replace(wstr, std::regex(" "), "");
+				wstr = std::regex_replace(wstr, std::regex("["), "");
+				wstr = std::regex_replace(wstr, std::regex("]"), "");
+				boost::algorithm::trim(wstr);
+				if( wstr == "atoms" )
 				{
 					//here is atom
 					//wresname=wstr;
@@ -3809,18 +3806,18 @@ int PNPMod::ReadOPLSrtp(const char *filename)
 		}
 		//read params
 		bool stillatoms=true;
-		std::vector<wxString> locOPLSResAtomName;
-		std::vector<wxString> locOPLSResAtomTypes;
+		std::vector<std::string> locOPLSResAtomName;
+		std::vector<std::string> locOPLSResAtomTypes;
 		std::vector<double> locOPLSResAtomCharge;
 		while ((!feof(fin))&&stillatoms)
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
-			if(wstr.StartsWith("["))
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
+			if(wstr[0] == '[')
 			{
 				stillatoms=false;
 			}
-			else if(!wstr.StartsWith(";"))
+			else if(! (wstr[0] == ';'))
 			{
 				char atmtype[12];
 				char name[5];
@@ -3891,22 +3888,20 @@ int PNPMod::ReadIER(const char *filename,bool AddToDB)
 		
 		while ((!feof(fin))&&(!foundres))
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
-			if(wstr.StartsWith("["))
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
+			if(wstr[0] == '[')
 			{
-				i=wstr.Find(";");
-				if(i!=wxNOT_FOUND)
-					wstr=wstr.Left(i);
-				wstr.Replace(" ","");
-				wstr.Replace("[","");
-				wstr.Replace("]","");
-				if(wstr.Cmp(wstr.Upper())==0)
+				i=wstr.find(";");
+				if (i != string::npos) wstr = wstr.substr(i);
+				wstr = std::regex_replace(wstr, std::regex(" "), "");
+				wstr = std::regex_replace(wstr, std::regex("["), "");
+				wstr = std::regex_replace(wstr, std::regex("]"), "");
+				if( wstr == boost::to_upper_copy(wstr) )
 				{
-					//here is resedue
-					wstr.Trim(true);
-					wstr.Trim(false);
-					PrintLog("found residue %s\n",wstr.ToStdString().c_str());
+					//here is residue
+					boost::algorithm::trim(wstr);
+					PrintLog("found residue %s\n",wstr.c_str());
 					foundres=true;
 					IERResNames.push_back(wstr);
 				}
@@ -3916,22 +3911,22 @@ int PNPMod::ReadIER(const char *filename,bool AddToDB)
 		}
 		//read params
 		bool stillatoms=true;
-		std::vector<wxString> locResAtomName;
+		std::vector<std::string> locResAtomName;
 		std::vector<double> locRadiusK;
 		std::vector<double> locRadiusCl;
 		
 		fgets(strline,1023,fin);
 		while ((!feof(fin))&&stillatoms)
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
 			
 			
-			if(wstr.StartsWith("["))
+			if(wstr[0] == '[')
 			{
 				stillatoms=false;
 			}
-			else if(!wstr.StartsWith(";"))
+			else if(!(wstr[0] == ';'))
 			{
 				char name[5];
 				double rK,rCl;
@@ -4047,13 +4042,13 @@ int PNPMod::SaveIER(const char* filename, bool OnlyHeavyAtoms)
 	fclose( DataFile );
 	return( True );
 }
-int PNPMod::GetResNumAtIERDB(wxString* ResName)
+int PNPMod::GetResNumAtIERDB(std::string* ResName)
 {
 	int myres=-1;
 	int ires;
 	for(ires=0;ires<IERResNames.size();ires++)
 	{
-		if(ResName->Cmp(IERResNames[ires])==0)
+		if( *ResName == IERResNames[ires] )
 		{
 			myres=ires;
 			break;
@@ -4061,13 +4056,13 @@ int PNPMod::GetResNumAtIERDB(wxString* ResName)
 	}
 	return myres;
 }
-int PNPMod::GetAtmNumOfResAtIERDB(int myres,wxString* AtmName)
+int PNPMod::GetAtmNumOfResAtIERDB(int myres,std::string* AtmName)
 {
 	int myat=-1;
 	int iat;
 	for(iat=0;iat<IERAtomName[myres].size();iat++)
 	{
-		if(AtmName->Cmp(IERAtomName[myres][iat])==0)
+		if(*AtmName == IERAtomName[myres][iat] )
 		{
 			//PrintLog("RES: %s found\n",AtmName.c_str());
 			//PrintLog("ATM: %s %s %g\n",OPLSResAtomName[myres][iat].c_str(), OPLSResAtomTypes[myres][iat].c_str(), OPLSResAtomCharge[myres][iat]);
@@ -4092,33 +4087,33 @@ int PNPMod::GetIER(HaAtom  *aptr, double *rK, double *rCl, bool OnlyHeavyAtoms)
 		ResPos=-1;
 	
 	//Find Res
-	wxString ResName(res->GetName());
+	std::string ResName(res->GetName());
 	int myres=GetResNumAtIERDB(&ResName);
 	if(myres==-1)
 	{
-		PrintLog("Error: resedue %s not found\n",ResName.ToStdString().c_str());
+		PrintLog("Error: resedue %s not found\n",ResName.c_str());
 		return FALSE;
 	}
 	//Find Atom
-	wxString AtmName=aptr->GetName();
+	std::string AtmName=aptr->GetName();
 	int myat=GetAtmNumOfResAtIERDB(myres,&AtmName);
 	//Modify Terminal values
 	if(ResPos==1)
 	{
 		//PrintLog("resedue %s SerNo=%d ResPos=%d\n",res->GetName(),res->GetSerNo(),ResPos);
-		wxString NTermStr("NTERMALA");
+		std::string NTermStr("NTERMALA");
 		int NTerm=GetResNumAtIERDB(&NTermStr);
 		if(NTerm==-1)
 		{
-			PrintLog("Error: resedue NTERMALA not found\n",ResName.ToStdString().c_str());
+			PrintLog("Error: resedue NTERMALA not found\n",ResName.c_str());
 		}
 		else
 		{
 			bool ReSetmyat=false;
-			if(AtmName.Cmp("N")==0)ReSetmyat=true;
-			if(AtmName.Cmp("CA")==0)ReSetmyat=true;
-			if(AtmName.Cmp("C")==0)ReSetmyat=true;
-			if(AtmName.Cmp("O")==0)ReSetmyat=true;
+			if(AtmName == "N" )ReSetmyat=true;
+			if(AtmName == "CA")ReSetmyat=true;
+			if(AtmName == "C" )ReSetmyat=true;
+			if(AtmName == "O" )ReSetmyat=true;
 			if(ReSetmyat)
 			{
 				myres=NTerm;
@@ -4129,21 +4124,21 @@ int PNPMod::GetIER(HaAtom  *aptr, double *rK, double *rCl, bool OnlyHeavyAtoms)
 	else if(ResPos==-1)
 	{
 		//PrintLog("resedue %s SerNo=%d ResPos=%d\n",res->GetName(),res->GetSerNo(),ResPos);
-		wxString CTermStr("CTERMALA");
+		std::string CTermStr("CTERMALA");
 		
 		int CTerm=GetResNumAtIERDB(&CTermStr);
 		if(CTerm==-1)
 		{
-			PrintLog("Error: resedue CTERMALA not found\n",ResName.ToStdString().c_str());
+			PrintLog("Error: resedue CTERMALA not found\n",ResName.c_str());
 		}
 		else
 		{
 			bool ReSetmyat=false;
-			if(AtmName.Cmp("N")==0)ReSetmyat=true;
-			if(AtmName.Cmp("CA")==0)ReSetmyat=true;
-			if(AtmName.Cmp("C")==0)ReSetmyat=true;
-			if(AtmName.Cmp("O")==0)ReSetmyat=true;
-			if(AtmName.Cmp("OXT")==0)ReSetmyat=true;
+			if(AtmName == "N" )ReSetmyat=true;
+			if(AtmName == "CA")ReSetmyat=true;
+			if(AtmName == "C" )ReSetmyat=true;
+			if(AtmName == "O" )ReSetmyat=true;
+			if(AtmName == "OXT")ReSetmyat=true;
 			if(ReSetmyat)
 			{
 				myres=CTerm;
@@ -4162,18 +4157,18 @@ int PNPMod::GetIER(HaAtom  *aptr, double *rK, double *rCl, bool OnlyHeavyAtoms)
 			else
 			{
 				if(ResPos==0)
-					PrintLog("Error: atom %s of resedue %s not found\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+					PrintLog("Error: atom %s of resedue %s not found\n",AtmName.c_str(),ResName.c_str());
 				else
-                                        PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+                                        PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.c_str(),ResName.c_str());
 				return FALSE;
 			}
 		}
 		else
 		{
 			if(ResPos==0)
-				PrintLog("Error: atom %s of resedue %s not found\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+				PrintLog("Error: atom %s of resedue %s not found\n",AtmName.c_str(),ResName.c_str());
 			else
-				PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+				PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.c_str(),ResName.c_str());
 			return FALSE;
 		}
 	}
@@ -4221,22 +4216,20 @@ int PNPMod::ReadPANDB(const char *filename,bool AddToDB)
 		
 		while ((!feof(fin))&&(!foundres))
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
-			if(wstr.StartsWith("["))
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
+			if(wstr[0] == '[')
 			{
-				i=wstr.Find(";");
-				if(i!=wxNOT_FOUND)
-					wstr=wstr.Left(i);
-				wstr.Replace(" ","");
-				wstr.Replace("[","");
-				wstr.Replace("]","");
-				if(wstr.Cmp(wstr.Upper())==0)
+				i = wstr.find(";");
+				if (i != std::string::npos) wstr = wstr.substr(i);
+				wstr = std::regex_replace(wstr, std::regex(" "), "");
+				wstr = std::regex_replace(wstr, std::regex("["), "");
+				wstr = std::regex_replace(wstr, std::regex("]"), "");
+				if(wstr == boost::to_upper_copy(wstr))
 				{
 					//here is resedue
-					wstr.Trim(true);
-					wstr.Trim(false);
-					PrintLog("found residue %s\n",wstr.ToStdString().c_str());
+					boost::algorithm::trim(wstr);
+					PrintLog("found residue %s\n",wstr.c_str());
 					foundres=true;
 					SR_AN_ResNames.push_back(wstr);
 				}
@@ -4246,7 +4239,7 @@ int PNPMod::ReadPANDB(const char *filename,bool AddToDB)
 		}
 		//read params
 		bool stillatoms=true;
-		std::vector<wxString> locResAtomName;
+		std::vector<std::string> locResAtomName;
 		std::vector<double> locAK;
 		std::vector<double> locACl;
 		std::vector<double> locNK;
@@ -4255,15 +4248,15 @@ int PNPMod::ReadPANDB(const char *filename,bool AddToDB)
 		fgets(strline,1023,fin);
 		while ((!feof(fin))&&stillatoms)
 		{
-			wxString wstr(strline);
-			wstr.Trim(false);
+			std::string wstr(strline);
+			boost::algorithm::trim(wstr);
 			
 			
-			if(wstr.StartsWith("["))
+			if(wstr[0] == '[')
 			{
 				stillatoms=false;
 			}
-			else if(!wstr.StartsWith(";"))
+			else if(!(wstr[0] == ';'))
 			{
 				char name[5];
 				double AK,ACl,NK,NCl;
@@ -4474,43 +4467,43 @@ int PNPMod::GetSR_AN(HaAtom  *aptr, double *AK, double *NK, double *ACl, double 
 	HaChain* chn=res->GetHostChain();
 	int ResPos=0;//0-inside 1-NTerm -1-CTerm
 	
-	wxString nameCT("CT");
-	wxString nameNT("NT");
-	wxString NameModifier=res->GetNameModifier();
+	std::string nameCT("CT");
+	std::string nameNT("NT");
+	std::string NameModifier=res->GetNameModifier();
 	
-	if(NameModifier.Cmp(nameNT)==0)
+	if( NameModifier == nameNT )
 		ResPos=1;
-	if(NameModifier.Cmp(nameCT)==0)
+	if( NameModifier == nameCT )
 		ResPos=-1;
 	
 	//Find Res
-	wxString ResName(res->GetName());
+	std::string ResName(res->GetName());
 	int myres=GetResNumAtSR_AN_DB(&ResName);
 	if(myres==-1)
 	{
-		PrintLog("Error: resedue %s not found\n",ResName.ToStdString().c_str());
+		PrintLog("Error: resedue %s not found\n",ResName.c_str());
 		return FALSE;
 	}
 	//Find Atom
-	wxString AtmName=aptr->GetName();
+	std::string AtmName=aptr->GetName();
 	int myat=GetAtmNumOfResAtSR_AN_DB(myres,&AtmName);
 	//Modify Terminal values
 	if(ResPos==1)
 	{
 		//PrintLog("resedue %s SerNo=%d ResPos=%d\n",res->GetName(),res->GetSerNo(),ResPos);
-		wxString NTermStr("NTERMALA");
+		std::string NTermStr("NTERMALA");
 		int NTerm=GetResNumAtSR_AN_DB(&NTermStr);
 		if(NTerm==-1)
 		{
-			PrintLog("Error: resedue NTERMALA not found\n",ResName.ToStdString().c_str());
+			PrintLog("Error: resedue NTERMALA not found\n",ResName.c_str());
 		}
 		else
 		{
 			bool ReSetmyat=false;
-			if(AtmName.Cmp("N")==0)ReSetmyat=true;
-			if(AtmName.Cmp("CA")==0)ReSetmyat=true;
-			if(AtmName.Cmp("C")==0)ReSetmyat=true;
-			if(AtmName.Cmp("O")==0)ReSetmyat=true;
+			if(AtmName == "N" )ReSetmyat=true;
+			if(AtmName == "CA")ReSetmyat=true;
+			if(AtmName == "C" )ReSetmyat=true;
+			if(AtmName == "O" )ReSetmyat=true;
 			if(ReSetmyat)
 			{
 				myres=NTerm;
@@ -4521,21 +4514,21 @@ int PNPMod::GetSR_AN(HaAtom  *aptr, double *AK, double *NK, double *ACl, double 
 	else if(ResPos==-1)
 	{
 		//PrintLog("resedue %s SerNo=%d ResPos=%d\n",res->GetName(),res->GetSerNo(),ResPos);
-		wxString CTermStr("CTERMALA");
+		std::string CTermStr("CTERMALA");
 		
 		int CTerm=GetResNumAtSR_AN_DB(&CTermStr);
 		if(CTerm==-1)
 		{
-			PrintLog("Error: resedue CTERMALA not found\n",ResName.ToStdString().c_str());
+			PrintLog("Error: resedue CTERMALA not found\n",ResName.c_str());
 		}
 		else
 		{
 			bool ReSetmyat=false;
-			if(AtmName.Cmp("N")==0)ReSetmyat=true;
-			if(AtmName.Cmp("CA")==0)ReSetmyat=true;
-			if(AtmName.Cmp("C")==0)ReSetmyat=true;
-			if(AtmName.Cmp("O")==0)ReSetmyat=true;
-			if(AtmName.Cmp("OXT")==0)ReSetmyat=true;
+			if(AtmName == "N"  )ReSetmyat=true;
+			if(AtmName == "CA" )ReSetmyat=true;
+			if(AtmName == "C"  )ReSetmyat=true;
+			if(AtmName == "O"  )ReSetmyat=true;
+			if(AtmName == "OXT")ReSetmyat=true;
 			if(ReSetmyat)
 			{
 				myres=CTerm;
@@ -4554,18 +4547,18 @@ int PNPMod::GetSR_AN(HaAtom  *aptr, double *AK, double *NK, double *ACl, double 
 			else
 			{
 				if(ResPos==0)
-					PrintLog("Error: atom %s of resedue %s not found\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+					PrintLog("Error: atom %s of residue %s not found\n",AtmName.c_str(),ResName.c_str());
 				else
-					PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+					PrintLog("Error: atom %s of residue %s not found, this is terminal residue so check db of terminals\n",AtmName.c_str(),ResName.c_str());
 				return FALSE;
 			}
 		}
 		else
 		{
 			if(ResPos==0)
-				PrintLog("Error: atom %s of resedue %s not found\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+				PrintLog("Error: atom %s of residue %s not found\n",AtmName.c_str(),ResName.c_str());
 			else
-				PrintLog("Error: atom %s of resedue %s not found, this is terminal residue so check db of terminals\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+				PrintLog("Error: atom %s of residue %s not found, this is terminal residue so check db of terminals\n",AtmName.c_str(),ResName.c_str());
 			return FALSE;
 		}
 	}
@@ -4575,13 +4568,13 @@ int PNPMod::GetSR_AN(HaAtom  *aptr, double *AK, double *NK, double *ACl, double 
 	*NCl=SR_N_Cl[myres][myat];
 	return TRUE;
 }
-int PNPMod::GetResNumAtSR_AN_DB(wxString* ResName)
+int PNPMod::GetResNumAtSR_AN_DB(std::string* ResName)
 {
 	int myres=-1;
 	int ires;
 	for(ires=0;ires<SR_AN_ResNames.size();ires++)
 	{
-		if(ResName->Cmp(SR_AN_ResNames[ires])==0)
+		if(*ResName == SR_AN_ResNames[ires])
 		{
 			myres=ires;
 			break;
@@ -4589,13 +4582,13 @@ int PNPMod::GetResNumAtSR_AN_DB(wxString* ResName)
 	}
 	return myres;
 }
-int PNPMod::GetAtmNumOfResAtSR_AN_DB(int myres,wxString* AtmName)
+int PNPMod::GetAtmNumOfResAtSR_AN_DB(int myres,std::string* AtmName)
 {
 	int myat=-1;
 	int iat;
 	for(iat=0;iat<SR_AN_AtomName[myres].size();iat++)
 	{
-		if(AtmName->Cmp(SR_AN_AtomName[myres][iat])==0)
+		if( *AtmName == SR_AN_AtomName[myres][iat] )
 		{
 			//PrintLog("RES: %s found\n",AtmName.c_str());
 			//PrintLog("ATM: %s %s %g\n",OPLSResAtomName[myres][iat].c_str(), OPLSResAtomTypes[myres][iat].c_str(), OPLSResAtomCharge[myres][iat]);
@@ -4923,13 +4916,13 @@ int PNPMod::GetOPLSEpsilonSigma(const char *AtmNM, const char *ResNM, double *Ep
 	*Eps=0.0;
 	*Sgm=0.0;
 	//Find Res
-	wxString ResName(ResNM);
+	std::string ResName(ResNM);
 	
 	int myres=-1;
 	int ires;
 	for(ires=0;ires<OPLSResNames.size();ires++)
 	{
-		if(ResName.Cmp(OPLSResNames[ires])==0)
+		if( ResName == OPLSResNames[ires] )
 		{
 			//PrintLog("RES: %s found\n",ResName.c_str());
 			myres=ires;
@@ -4938,17 +4931,17 @@ int PNPMod::GetOPLSEpsilonSigma(const char *AtmNM, const char *ResNM, double *Ep
 	}
 	if(myres==-1)
 	{
-		PrintLog("Error: resedue %s not found\n",ResName.ToStdString().c_str());
+		PrintLog("Error: residue %s not found\n",ResName.c_str());
 		return EXIT_FAILURE;
 	}
 	//Find Atom
-	wxString AtmName(AtmNM);
+	std::string AtmName(AtmNM);
 	
 	int myat=-1;
 	int iat;
 	for(iat=0;iat<OPLSResAtomName[myres].size();iat++)
 	{
-		if(AtmName.Cmp(OPLSResAtomName[myres][iat])==0)
+		if(AtmName == OPLSResAtomName[myres][iat] )
 		{
 			//PrintLog("RES: %s found\n",AtmName.c_str());
 			//PrintLog("ATM: %s %s %g\n",OPLSResAtomName[myres][iat].c_str(), OPLSResAtomTypes[myres][iat].c_str(), OPLSResAtomCharge[myres][iat]);
@@ -4958,15 +4951,15 @@ int PNPMod::GetOPLSEpsilonSigma(const char *AtmNM, const char *ResNM, double *Ep
 	}
 	if(myat==-1)
 	{
-		PrintLog("Error: atom %s of resedue %s not found\n",AtmName.ToStdString().c_str(),ResName.ToStdString().c_str());
+		PrintLog("Error: atom %s of resedue %s not found\n",AtmName.c_str(),ResName.c_str());
 		return EXIT_FAILURE;
 	}
 	//Find AtomType in LJDB
-	wxString AtmType=OPLSResAtomTypes[myres][myat];
+	std::string AtmType=OPLSResAtomTypes[myres][myat];
 	int myatLJ=-1;
 	for(iat=0;iat<OPLSLJAtomTypes.size();iat++)
 	{
-		if(AtmType.Cmp(OPLSLJAtomTypes[iat])==0)
+		if(AtmType == OPLSLJAtomTypes[iat] )
 		{
 			//PrintLog("RES: %s found\n",AtmName.c_str());
 			//PrintLog("ATM: %s %s %g\n",OPLSResAtomName[myres][iat].c_str(), OPLSResAtomTypes[myres][iat].c_str(), OPLSResAtomCharge[myres][iat]);
@@ -4976,7 +4969,7 @@ int PNPMod::GetOPLSEpsilonSigma(const char *AtmNM, const char *ResNM, double *Ep
 	}
 	if(myatLJ==-1)
 	{
-		PrintLog("Error: type of %s for atom %s of resedue %s not found\n",AtmType.ToStdString().c_str(), AtmName.ToStdString().c_str(), ResName.ToStdString().c_str());
+		PrintLog("Error: type of %s for atom %s of resedue %s not found\n",AtmType.c_str(), AtmName.c_str(), ResName.c_str());
 		return EXIT_FAILURE;
 	}
 	double s2=OPLSLJSigma[myatLJ]*OPLSLJSigma[myatLJ];

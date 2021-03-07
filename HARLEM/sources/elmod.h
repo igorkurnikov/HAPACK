@@ -14,8 +14,8 @@
 
 #include "electrostmod.h"
 #include "haatgroup.h"
-#include <wx/string.h>
 #include <vector>
+
 class ContWorld;
 class TiXmlElement;
 class HaAtom;
@@ -348,14 +348,14 @@ class PNPMod : public  HaCompMod
 		
 		int GetOPLSEpsilonSigma(const char *AtmNM, const char *ResNM, double *Eps, double *Sgm);
 		
-		std::vector<wxString> OPLSLJAtomTypes;
-		std::vector<wxString> OPLSLJAtomName;
+		std::vector<std::string> OPLSLJAtomTypes;
+		std::vector<std::string> OPLSLJAtomName;
 		std::vector<double> OPLSLJSigma;//!<Sigma DB[A]
 		std::vector<double> OPLSLJEpsilon;//!<Epsilon DB[kT]
 		//res-atoms name
-		std::vector<wxString> OPLSResNames;
-		std::vector< std::vector<wxString> > OPLSResAtomName;
-		std::vector< std::vector<wxString> > OPLSResAtomTypes;
+		std::vector<std::string> OPLSResNames;
+		std::vector< std::vector<std::string> > OPLSResAtomName;
+		std::vector< std::vector<std::string> > OPLSResAtomTypes;
 		std::vector< std::vector<double> > OPLSResAtomCharge;
 	
 	public:
@@ -363,11 +363,11 @@ class PNPMod : public  HaCompMod
 		int ReadIER(const char *filename,bool AddToDB);//!<read ion exclusion radii
 		
 		int GetIER(HaAtom  *aptr, double *rK, double *rCl, bool OnlyHeavyAtoms);
-		int GetResNumAtIERDB(wxString* ResName);
-		int GetAtmNumOfResAtIERDB(int myres,wxString* AtmName);
+		int GetResNumAtIERDB(std::string* ResName);
+		int GetAtmNumOfResAtIERDB(int myres,std::string* AtmName);
 		
-		std::vector<wxString> IERResNames;
-		std::vector< std::vector<wxString> > IERAtomName;
+		std::vector<std::string> IERResNames;
+		std::vector< std::vector<std::string> > IERAtomName;
 		std::vector< std::vector<double> > IERRadiusK;
 		std::vector< std::vector<double> > IERRadiusCl;
 	public:
@@ -376,11 +376,11 @@ class PNPMod : public  HaCompMod
 		int ReadPANDB(const char *filename,bool AddToDB);//!<read ion exclusion radii
 		
 		int GetSR_AN(HaAtom  *aptr, double *AK, double *NK, double *ACl, double *NCl, bool OnlyHeavyAtoms);
-		int GetResNumAtSR_AN_DB(wxString* ResName);
-		int GetAtmNumOfResAtSR_AN_DB(int myres,wxString* AtmName);
+		int GetResNumAtSR_AN_DB(std::string* ResName);
+		int GetAtmNumOfResAtSR_AN_DB(int myres,std::string* AtmName);
 		
-		std::vector<wxString> SR_AN_ResNames;
-		std::vector< std::vector<wxString> > SR_AN_AtomName;
+		std::vector<std::string> SR_AN_ResNames;
+		std::vector< std::vector<std::string> > SR_AN_AtomName;
 		std::vector< std::vector<double> > SR_A_K;
 		std::vector< std::vector<double> > SR_A_Cl;
 		std::vector< std::vector<double> > SR_N_K;

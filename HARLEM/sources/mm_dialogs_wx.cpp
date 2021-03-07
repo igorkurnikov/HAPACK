@@ -57,6 +57,8 @@ wxFrame( parent, -1, "Molecular Mechanics Module")
 	cur_dih  = NULL;
 	cur_impr_dih = NULL;
 
+	p_mm_info_dlg = new MMInfoDlg(ptr_mm_mod, this);
+
 	wxColour back_colour = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
  	SetBackgroundColour(back_colour);
 
@@ -64,13 +66,14 @@ wxFrame( parent, -1, "Molecular Mechanics Module")
     this->SetMenuBar(mm_menu_bar);
 
 	mol_mech_dlg( this, TRUE );
+	return;
 
 //    wxMenuBar* edit_groups_menu_bar = edit_groups_menu();
 //    SetMenuBar(edit_groups_menu_bar); 
 
 	ptr_mm_mod->p_mm_dlg = this;
 
-	p_mm_info_dlg = new MMInfoDlg(ptr_mm_mod,this);
+	
 
 	OnInitDialog();
 }

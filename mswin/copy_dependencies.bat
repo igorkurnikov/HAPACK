@@ -77,7 +77,7 @@ if "%IS_DEBUG%" == "Y" (
 REM	runas /user:administrator mklink /D %OutputDir%\Lib %PYTHON_HOME_PATH%\Lib
     
     xcopy /y /d %PYTHON_BIN_PATH%\python3_d.dll %OutputDir%
-    xcopy /y /d %PYTHON_BIN_PATH%\python37_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python38_d.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
 REM	runas /user:administrator mklink %OutputDir%\python%PYTHON_MAJOR_VERSION%?_d.dll %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll
 REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\python_d.exe
@@ -90,7 +90,7 @@ REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\
     xcopy /y  /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
     
     xcopy /y /d %PYTHON_BIN_PATH%\python3.dll %OutputDir%
-	xcopy /y /d %PYTHON_BIN_PATH%\python37.dll %OutputDir%
+	xcopy /y /d %PYTHON_BIN_PATH%\python38.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
 )
 xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
@@ -142,19 +142,19 @@ xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*core*.dll  %OutputDir%\molset
 
 REM ###########################################################################
 REM Copy PLPLOT 
-echo "Copying PLPLOT Dlls"
-if "%IS_DEBUG%" == "Y" (
-    if exist %VCPKG_DLL_PATH%\plplotd.dll (
-        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll 
-    ) else (
-        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
-    )
-) else (
-    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
-)
-FOR %%G IN (%PLPLOT_LIB%) DO (
-    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
-)
+REM echo "Copying PLPLOT Dlls"
+REM if "%IS_DEBUG%" == "Y" (
+REM    if exist %VCPKG_DLL_PATH%\plplotd.dll (
+REM        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll 
+REM    ) else (
+REM        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
+REM    )
+REM ) else (
+REM    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
+REM )
+REM FOR %%G IN (%PLPLOT_LIB%) DO (
+REM    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
+REM )
 
 xcopy /y /d %VCPKG_DLL_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
 xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset

@@ -1,3 +1,4 @@
+print("scan_ene  pt 1 ")
 pmset = GetCurMolSet()
 mol_editor = pmset.GetMolEditor()
 mm_mod = pmset.GetMolMechMod(False)

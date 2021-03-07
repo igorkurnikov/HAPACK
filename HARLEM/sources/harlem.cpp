@@ -46,6 +46,6 @@ int start_harlem(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	setvbuf(stdout, NULL, _IONBF, 0);
-	SetConsoleTitle(TEXT("HARLEM CONSOLE TEST"));
+	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
 	return start_harlem(argc, argv);
 }

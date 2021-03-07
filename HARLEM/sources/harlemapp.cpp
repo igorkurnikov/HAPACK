@@ -1180,6 +1180,7 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 		gstate = PyGILState_Ensure();
 		int ires = PyRun_SimpleString("from molset import *");
 		ires = PyRun_SimpleFile(finp,fname_var);
+
 		PyGILState_Release(gstate);
 		fclose(finp);
 		if( ires == 0 )

@@ -2124,8 +2124,7 @@ void HaMainFrameWX::DoMolMechDialog(wxCommandEvent &event)
 	if(pmset != NULL)
 	{
 	   HaMolMechMod* ptr_mm_mod = pmset->GetMolMechMod(true);
-	   if(ptr_mm_mod == NULL)
-		  return;
+	   if(ptr_mm_mod == NULL) return;
 		
 	   MolMechDlgWX* mol_mech_dlg = new MolMechDlgWX(ptr_mm_mod,this);
 	   mol_mech_dlg->Show(TRUE);
