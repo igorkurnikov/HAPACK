@@ -872,6 +872,7 @@ void HaMolMechMod::CallMMFunctionOnSlaves(int id)
 {
 //	PrintLog(" HaMolMechMod::CallMMFunctionOnSlaves() pt 1 id= %d \n", id);
 	std::string msg = HaMPI::BuildXMLwxCmdEventBasic(HA_MOL_MECH_EVENT,id);
+	printf("HaMolMechMod::CallMMFunctionOnSlaves() %s \n", msg.c_str());
 	pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
 }
 

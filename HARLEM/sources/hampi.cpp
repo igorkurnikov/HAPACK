@@ -95,21 +95,19 @@ int HaMPI::Listen()
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				continue;
 			}
-//			PrintLog("HaMPI::Listen() pt 2 \n");
 			//		ires = MPI_Bcast((void*)&basic_signal[0],BASIC_SIGNAL_DIM,MPI_INT,0,MPI_COMM_WORLD);
 			ires = MPI_Recv((void*)&basic_signal[0],BASIC_SIGNAL_DIM,MPI_INT,
 				MPI_ANY_SOURCE,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
 
 			if(basic_signal[0] == XML_SIGNAL)
 			{
-//				PrintLog("HaMPI::Listen() pt 3  myrank = %d\n",myrank );
 				int len = basic_signal[1];
 				if( len <= 0) throw std::runtime_error(" invalid msg string len =" + harlem::ToString(len) );
-				if( msg_buffer.size() < (len+1) ) msg_buffer.resize(len+1);
+				//if( msg_buffer.size() < (len+1)*sizeof(MPI_CHAR) ) msg_buffer.resize(len+2);
 				ires = MPI_Bcast((void*)&msg_buffer[0],len,MPI_CHAR,0,MPI_COMM_WORLD);
 				msg_buffer[len] = 0;
 
-//				PrintLog("HaMPI::Listen() pt 4  msg recieved \n%s\n",msg_buffer.c_str() );
+				// PrintLog("HaMPI::Listen() pt 4  msg len = %d recieved \n%s\n",len,&msg_buffer[0] );
 
 				xml_document<> doc;
 				doc.parse<0>(&msg_buffer[0]);  
@@ -128,8 +126,7 @@ int HaMPI::Listen()
 						boost::to_lower(tag_attr);
 						if( tag_attr == "type" ) type = atoi( attr->value() );
 						else if( tag_attr == "id" ) id = atoi( attr->value() );
-					}
-//					PrintLog("HaMPI::Listen() pt 5 \n type = %d  id = %d \n",type,id);  
+					} 
 					ha_events.push_back(ha_event(type,id));
 				}
 
@@ -137,11 +134,15 @@ int HaMPI::Listen()
 				int ic; 
 				for(ic = 0; ic < nc; ic++)
 				{
-//					PrintLog("\n HaMPI::Listen() pt 6: Event Type = %d \n", ha_events[ic].type);
-//					PrintLog(" Event ID   = %d \n", ha_events[ic].id);
+					// printf("\n HaMPI::Listen() pt 6 myrank = %d\n", myrank);
+					// printf("\n HaMPI::Listen() pt 6: Event Type = %d \n", ha_events[ic].type);
+					// printf(" Event ID   = %d \n", ha_events[ic].id);
 					pApp->ProcessEvent(ha_events[ic].type, ha_events[ic].id);
+					// printf("\n HaMPI::Listen() pt 7 \n");
 				}
+				//printf("\n HaMPI::Listen() pt 8 \n");
 				ha_events.clear();
+				//printf("\n HaMPI::Listen() pt 9 \n");
 			}
 			else if( basic_signal[0] == KILL_APP_SIGNAL )
 			{
@@ -154,6 +155,7 @@ int HaMPI::Listen()
 			PrintLog("%s\n",ex.what());
 		}
 	}
+	// printf("\n HaMPI::Listen() pt end \n");
 	return TRUE;
 }
 
@@ -174,14 +176,13 @@ std::string HaMPI::BuildXMLwxCmdEventBasic(int type, int id, bool add_header)
 
 int HaMPI::SendXmlMsgAllProc(const char* str)
 {
-//	PrintLog(" HaMPI::SendXmlMsgAllProc() \n %s\n",str);
+	// PrintLog(" HaMPI::SendXmlMsgAllProc() \n %s\n",str);
 	if( myrank != 0) 
 	{
 		PrintLog("Error in HaMPI::MPI_SendSignal(): Only Master can call it \n");
 		return FALSE;
 	}  
 	int ierr = 0;
-#if defined(HARLEM_MPI)
 
 	int len = strlen(str);
 
@@ -200,15 +201,20 @@ int HaMPI::SendXmlMsgAllProc(const char* str)
 		ierr = MPI_Isend(&basic_signal[0],BASIC_SIGNAL_DIM,MPI_INT,rank,0,MPI_COMM_WORLD,&req_vec[rank]);
 	}
 
+	// std::this_thread::sleep_for(std::chrono::milliseconds(5 * 1000));
+
 	if( len <= 0 ) 
 	{
 		PrintLog("Error in HaMPI::SendXmlMsgAllProc(): invalid msg string len = %d \n",len);
 		return FALSE;
 	}
-	msg_buffer = str;
+	strcpy(&msg_buffer[0],str);
+
+	// PrintLog(" HaMPI::SendXmlMsgAllProc()  msg_buffer= \n %s\n", &msg_buffer[0]);
 	
 	ierr = MPI_Bcast((void*)&msg_buffer[0],len,MPI_CHAR,0,MPI_COMM_WORLD);
-#endif
+
+
 	
 	return ierr;
 }

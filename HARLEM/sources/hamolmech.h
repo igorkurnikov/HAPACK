@@ -162,7 +162,6 @@ public:
 	MolMechModel* GetMolMechModel(); //!< Get Molecular Mechanics Model associated with the Module
 	const MolMechModel* GetMolMechModel() const; //!< Get Molecular Mechanics Model associated with the Module (const version) 
 
-private:
  	MolMechModel* p_mm_model; //!< Molecular Mechanics Model
 	virtual int OnDelAtoms(AtomContainer& del_atoms);  //!< Modify module content to react to deleted atoms (from HaCompMod)
 	bool Print_info(ostream& sout, const int level);   //!< Print Module info

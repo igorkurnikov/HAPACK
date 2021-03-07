@@ -12,6 +12,7 @@
 
 #include <mpi.h>
 #include <string>
+#include <vector>
 
 class HaVec_int;
 
@@ -41,7 +42,7 @@ public:
 	enum HARLEM_MPI_SIGNAL{ KILL_APP_SIGNAL = 0, XML_SIGNAL, WX_EVENT_SIGNAL };
 
     int basic_signal[BASIC_SIGNAL_DIM];
-	std::string msg_buffer;
+	std::vector<char> msg_buffer;
 
 	static std::string BuildXMLwxCmdEventBasic(int type, int id, bool add_header = true); //!< Build XML string corresponding to wxCommandEvent no Object 
 

@@ -191,14 +191,22 @@ int HarlemApp::InitFirst()
 	cmd_line_help_main_page = doc_dir +  "HARLEM_BeginnerUserManual.htm";
 	
 	InitParallel();
+
 	ProcessOptions();
 
 	if( mpi_driver->myrank != 0 && mpi_py_script.empty()) return TRUE;
 	
-//    PrintLog(" HarlemApp::InitFirst() pt 3 \n");
-
 	InitCommand();
 	InitRemoteComp();
+
+	//RedirectIOToMultipleFilesMPI("test.log");
+	//RedirectIOLogWindow();
+	//ios::sync_with_stdio();
+	
+	cout << "HarlemApp::InitFirst() Check output to cout" << endl;
+	printf("HarlemApp::InitFirst()  Check output to stdout \n");
+	PrintLog(" HarlemApp::InitFirst() Check output to PrintLog \n");
+	//cout.flush();
 
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
 	{
@@ -818,7 +826,10 @@ int HarlemApp::ProcessEvent(int type, int id)
 {
 	MolSet* pmset = GetCurMolSet();
 
-	if (pmset != NULL) if (pmset->ProcessEvent(type,id)) return true;
+	printf(" HarlemApp::ProcessEvent()  myrank = %d \n", this->mpi_driver->myrank);
+	printf("pmset = %s \n", pmset->GetName());
+
+	if (pmset != NULL && pmset->ProcessEvent(type,id)) return true;
 
 	int nm = molset_vec.size();
 	int i;

@@ -3,13 +3,16 @@
 #include <vector>
 #include <string>
 
+#include<chrono>
+#include<thread>
+
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
 //! Start harlem using Harlem with python's wxApp
 int start_harlem(int argc, char **argv)
 {
-	wchar_t *program = Py_DecodeLocale("HARLEM CONSOLE", NULL);
+	wchar_t *program = Py_DecodeLocale("HARLEM", NULL);
 
 	Py_SetProgramName(program);  /* optional but recommended */
 	Py_Initialize();
@@ -31,7 +34,7 @@ int start_harlem(int argc, char **argv)
 	PyRun_SimpleString("import molset.harlempy");
 	PyRun_SimpleString("molset.harlempy.start_harlem()");
 
-	//delete[] argv_p;
+	// delete[] argv_p;
 
 	if (Py_FinalizeEx() < 0) {
 		exit(120);
@@ -42,6 +45,7 @@ int start_harlem(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	SetConsoleTitle(TEXT("HARLEM CONSOLE"));
+	setvbuf(stdout, NULL, _IONBF, 0);
+	SetConsoleTitle(TEXT("HARLEM CONSOLE TEST"));
 	return start_harlem(argc, argv);
 }

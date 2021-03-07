@@ -3444,7 +3444,7 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 int MMDriverAmber::CheckForStop()
 {
 	if( numtasks > 1 || p_mm_mod->run_ti ) MPI_Bcast(&p_mm_mod->to_stop_simulations, 1, MPI_INT , 0, p_mm_mod->single_job_comm);
-	if( p_mm_mod->to_stop_simulations ) PrintLog(" Terminating MM Calculations: \n"); 
+	if( p_mm_mod->to_stop_simulations && mytaskid == 0) PrintLog (" Terminating MM Calculations: \n"); 
 	return p_mm_mod->to_stop_simulations;
 }
 
@@ -4262,16 +4262,23 @@ LBL_270:
 
 void MMDriverAmber::RunMD()
 {
-	if(p_mm_mod->run_ti)
+	if (p_mm_mod->run_ti)
 	{
-		PrintLog(" Start TI Simulations \n\n");
-		PrintLog(" Number of lambdas = %d \n",p_mm_mod->p_ti_mod->num_lmb);
-		PrintLog(" Current lambda idx = %d   lambda val = %12.6f \n",
-			      p_mm_mod->p_ti_mod->cur_idx_lmb,p_mm_mod->p_ti_mod->GetCurLambda()); 
+		if (this->master)
+		{
+
+			PrintLog(" Start TI Simulations \n\n");
+			PrintLog(" Number of lambdas = %d \n", p_mm_mod->p_ti_mod->num_lmb);
+			PrintLog(" Current lambda idx = %d   lambda val = %12.6f \n",
+				p_mm_mod->p_ti_mod->cur_idx_lmb, p_mm_mod->p_ti_mod->GetCurLambda());
+		}
 	}
 	else
 	{
-		PrintLog(" Start MD Simulations \n");
+		if (this->master)
+		{
+			PrintLog(" Start MD Simulations \n");
+		}
 	}
 	
 	double etot_save;
