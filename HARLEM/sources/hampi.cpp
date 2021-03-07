@@ -89,7 +89,6 @@ int HaMPI::Listen()
 		{
 			ires = MPI_Iprobe(MPI_ANY_SOURCE,MPI_ANY_TAG,MPI_COMM_WORLD,&flag,&status);
 //			ires = MPI_Probe(MPI_ANY_SOURCE,MPI_ANY_TAG,MPI_COMM_WORLD,&status);
-//			PrintLog("HaMPI::Listen() pt 1  flag = %d\n", flag );
 			if(!flag)
 			{
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -103,7 +102,7 @@ int HaMPI::Listen()
 			{
 				int len = basic_signal[1];
 				if( len <= 0) throw std::runtime_error(" invalid msg string len =" + harlem::ToString(len) );
-				//if( msg_buffer.size() < (len+1)*sizeof(MPI_CHAR) ) msg_buffer.resize(len+2);
+				if( msg_buffer.size() < (len+1) ) msg_buffer.resize(len+1);
 				ires = MPI_Bcast((void*)&msg_buffer[0],len,MPI_CHAR,0,MPI_COMM_WORLD);
 				msg_buffer[len] = 0;
 

@@ -180,7 +180,7 @@ int HarlemApp::InitFirst()
 	harlem_home_dir = harlem_home_path.string() + boost::filesystem::path::preferred_separator;
 	res_db_dir = harlem_home_dir + "residues_db" + boost::filesystem::path::preferred_separator;
 	doc_dir    = harlem_home_dir + "doc" + boost::filesystem::path::preferred_separator;
-	PrintLog("%s(): harlem_home_dir = %s \n", __func__, harlem_home_dir.c_str());
+	//PrintLog("%s(): harlem_home_dir = %s \n", __func__, harlem_home_dir.c_str());
 #if(_MSC_VER)
 	word_editor = harlem_home_dir + "scite.exe";
 #else
