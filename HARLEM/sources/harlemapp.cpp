@@ -203,9 +203,9 @@ int HarlemApp::InitFirst()
 	//RedirectIOLogWindow();
 	//ios::sync_with_stdio();
 	
-	cout << "HarlemApp::InitFirst() Check output to cout" << endl;
-	printf("HarlemApp::InitFirst()  Check output to stdout \n");
-	PrintLog(" HarlemApp::InitFirst() Check output to PrintLog \n");
+	//cout << "HarlemApp::InitFirst() Check output to cout" << endl;
+	//printf("HarlemApp::InitFirst()  Check output to stdout \n");
+	//PrintLog(" HarlemApp::InitFirst() Check output to PrintLog \n");
 	//cout.flush();
 
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
@@ -217,14 +217,14 @@ int HarlemApp::InitFirst()
 
 		boost::filesystem::path cur_path = boost::filesystem::current_path();
 		boost::filesystem::path finp_dir_path = finp_path.parent_path();
-		PrintLog(" HarlemApp::InitFirst() pt 1:  Current Working Directory %s \n",cur_path.string().c_str() );
+		// PrintLog(" HarlemApp::InitFirst() pt 1:  Current Working Directory %s \n",cur_path.string().c_str() );
 		if(!finp_dir_path.empty() )
 		{
 			boost::filesystem::current_path(finp_dir_path);
 		}
 		cur_path = boost::filesystem::current_path();
 
-		PrintLog(" HarlemApp::InitFirst() pt 2:  Current Working Directory %s \n", cur_path.string().c_str());
+		// PrintLog(" HarlemApp::InitFirst() pt 2:  Current Working Directory %s \n", cur_path.string().c_str());
 			
 		std::string exten = harlem::GetExtFromFileName(finp_name);
 		
@@ -246,7 +246,7 @@ int HarlemApp::InitFirst()
 	}
 	if (!mpi_py_script.empty()) ExecuteScriptFromFile(mpi_py_script.c_str());
 	
-	PrintLog(" HarlemApp::InitFirst() pt 3:  mpi_driver->myrank = %d \n", mpi_driver->myrank );
+	// PrintLog(" HarlemApp::InitFirst() pt 3:  mpi_driver->myrank = %d \n", mpi_driver->myrank );
 	if ( mpi_driver->myrank != 0) return true;
 
 	if (gui_mode)
@@ -826,8 +826,8 @@ int HarlemApp::ProcessEvent(int type, int id)
 {
 	MolSet* pmset = GetCurMolSet();
 
-	printf(" HarlemApp::ProcessEvent()  myrank = %d \n", this->mpi_driver->myrank);
-	printf("pmset = %s \n", pmset->GetName());
+	// printf(" HarlemApp::ProcessEvent()  myrank = %d \n", this->mpi_driver->myrank);
+	// printf("pmset = %s \n", pmset->GetName());
 
 	if (pmset != NULL && pmset->ProcessEvent(type,id)) return true;
 

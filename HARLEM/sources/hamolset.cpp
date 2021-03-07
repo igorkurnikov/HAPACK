@@ -2255,7 +2255,7 @@ int MolSet::ExecuteShowCommand(CmdParser& cmd_pr)
 
 int MolSet::ProcessEvent(int type, int id)
 {
-	PrintLog("Molset::%s type=%d  id=%d\n", __func__, type, id);
+	// PrintLog("Molset::%s type=%d  id=%d\n", __func__, type, id);
 	if (type == HA_MOL_MECH_EVENT)
 	{
 		HaMolMechMod* p_mm_mod = this->GetMolMechMod(true);
