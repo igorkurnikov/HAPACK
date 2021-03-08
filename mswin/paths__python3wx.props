@@ -4,8 +4,8 @@
   <PropertyGroup Label="UserMacros">
     <PYTHON_HOME_PATH>C:\Python38</PYTHON_HOME_PATH>
     <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
-    <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)\DLLs</PYTHON_DLLS_PATH>
-    <WX_DLLS_PATH>$(PYTHON_HOME_PATH)\libs</WX_DLLS_PATH>
+    <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)</PYTHON_DLLS_PATH>
+    <WX_DLLS_PATH>C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll</WX_DLLS_PATH>
     <PLPLOT_DLLS_PATH>$(VCPKG_DLL)</PLPLOT_DLLS_PATH>
     <WX_VERSION>31u</WX_VERSION>
   </PropertyGroup>
@@ -14,7 +14,7 @@
       <AdditionalIncludeDirectories>C:\Python38\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Python38\$(PlatformName)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Python38\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
