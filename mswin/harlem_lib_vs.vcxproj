@@ -59,7 +59,6 @@
     <Import Project="haprops.props" />
     <Import Project="paths_win32__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
   </ImportGroup>
@@ -68,7 +67,6 @@
     <Import Project="haprops.props" />
     <Import Project="paths_x64__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_x64__mpi.props" />
     <Import Project="paths_x64__intel_compiler.props" />
     <Import Project="paths_x64__intel_mkl.props" />
   </ImportGroup>
@@ -78,7 +76,6 @@
     <Import Project="haprops_debug.props" />
     <Import Project="paths_win32_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_win32__mpi.props" />
     <Import Project="paths_win32__intel_compiler.props" />
     <Import Project="paths_win32__intel_mkl.props" />
   </ImportGroup>
@@ -90,7 +87,6 @@
     <Import Project="paths__python3wx.props" />
     <Import Project="paths_x64__intel_compiler.props" />
     <Import Project="paths_x64__intel_mkl.props" />
-    <Import Project="paths_x64__mpi.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
