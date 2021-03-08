@@ -156,8 +156,8 @@ REM FOR %%G IN (%PLPLOT_LIB%) DO (
 REM    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
 REM )
 
-xcopy /y /d %VCPKG_DLL_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
-xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
+REM xcopy /y /d %VCPKG_DLL_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
+REM xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (

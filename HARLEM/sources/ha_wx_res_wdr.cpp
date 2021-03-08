@@ -403,18 +403,18 @@ wxSizer *mol_mech_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxPanel *item4 = new wxPanel( item3, -1 );
     mm_run_param_page( item4, FALSE );
     item3->AddPage( item4, wxT("MM Run parameters") );
-    
+
     wxPanel *item5 = new wxPanel( item3, -1 );
     mm_par_setup_page( item5, FALSE );
     item3->AddPage( item5, wxT("Force Field Parameters") );
 
-    //wxPanel *item6 = new wxPanel( item3, -1 );
-    //mm_edit_model_page( item6, FALSE );
-    //item3->AddPage( item6, wxT("Edit MM Model") );
+    wxPanel *item6 = new wxPanel( item3, -1 );
+    mm_edit_model_page( item6, FALSE );
+    item3->AddPage( item6, wxT("Edit MM Model") );
 
-    //wxPanel *item7 = new wxPanel( item3, -1 );
-    //mm_md_anal_page( item7, FALSE );
-    //item3->AddPage( item7, wxT("MD analysis") );
+    wxPanel *item7 = new wxPanel( item3, -1 );
+    mm_md_anal_page( item7, FALSE );
+    item3->AddPage( item7, wxT("MD analysis") );
 
     item1->Add( item2, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
@@ -1062,7 +1062,7 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item60 = new wxBoxSizer( wxHORIZONTAL );
 
     wxStaticText *item61 = new wxStaticText( parent, ID_TEXT, wxT("Boundary Conditions:"), wxDefaultPosition, wxDefaultSize, 0 );
-    //item61->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item61->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
     item60->Add( item61, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxString *strs62 = (wxString*) NULL;
@@ -1072,17 +1072,13 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item63 = new wxStaticText( parent, ID_TEXT_PRESS_CTRL, wxT("Pressure control:"), wxDefaultPosition, wxDefaultSize, 0 );
     item60->Add( item63, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    //return item0;
-
-    //wxString *strs64 = (wxString*) NULL;
-    //wxChoice *item64 = new wxChoice( parent, IDC_MM_PRESSURE_REG_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs64, 0 );
-    //item60->Add( item64, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxString *strs64 = (wxString*) NULL;
+    wxChoice *item64 = new wxChoice( parent, IDC_MM_PRESSURE_REG_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs64, 0 );
+    item60->Add( item64, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     item18->Add( item60, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxBoxSizer *item65 = new wxBoxSizer( wxHORIZONTAL );
-
-
 
     wxButton *item66 = new wxButton( parent, IDC_MM_EDIT_PERIODIC_BOX, wxT("Edit Periodic Box"), wxDefaultPosition, wxDefaultSize, 0 );
     item65->Add( item66, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -1098,8 +1094,6 @@ wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item68 = new wxBoxSizer( wxVERTICAL );
 
     wxBoxSizer *item69 = new wxBoxSizer( wxHORIZONTAL );
-
-
 
     wxStaticText *item70 = new wxStaticText( parent, ID_TEXT, wxT("Input/Output files:"), wxDefaultPosition, wxDefaultSize, 0 );
     item70->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
