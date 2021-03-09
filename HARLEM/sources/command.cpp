@@ -13,10 +13,8 @@
 
 #include <mpi.h>
 
-#include "haconst.h"
-#if !defined(HARLEM_PYTHON_NO)
+#include "haconst.h" 
 #include "Python.h"
-#endif
 
 #include <boost/algorithm/string.hpp>
 
