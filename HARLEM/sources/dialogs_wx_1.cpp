@@ -285,7 +285,7 @@ void HaFileDlg1::OnChangeDir()
 	}
 	
     wxListCtrl* file_list = (wxListCtrl*) FindWindow( IDC_FILE_LIST);
-    file_list->ClearAll();
+    if(file_list->GetItemCount() > 0 ) file_list->ClearAll();
 //	file_list->SetImageList(&dir_img,wxIMAGE_LIST_SMALL);
 
     int nd = dir_arr.GetCount();

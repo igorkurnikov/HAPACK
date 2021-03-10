@@ -85,6 +85,7 @@ public:
         long style = wxDEFAULT_DIALOG_STYLE );
 
 
+
 	void OnInitDialog();
 
 	wxBoxSizer *sizer_main_v; //!< Main vertical sizer of the dialog
