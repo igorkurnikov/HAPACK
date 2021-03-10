@@ -975,7 +975,7 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
-	boost::filesystem::current_path(load_dlg.dir_name); 
+	if( !load_dlg.dir_name.empty() )  boost::filesystem::current_path(load_dlg.dir_name);
 //	::wxSetWorkingDirectory(load_dlg.dir_name);
      
     MolSet* pmset = GetCurMolSet();

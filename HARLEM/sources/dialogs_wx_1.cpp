@@ -36,8 +36,6 @@
 
 #include "hampi.h"
 
-#include <boost/algorithm/string.hpp>
-
 #include "rapidxml.hpp"
 
 #include "harlemapp_wx.h"
@@ -161,6 +159,7 @@ BEGIN_EVENT_TABLE(HaFileDlg1,wxDialog)
     EVT_LIST_ITEM_SELECTED( IDC_FILE_LIST, HaFileDlg1::OnSelectFile )
 	EVT_LIST_ITEM_ACTIVATED( IDC_FILE_LIST, HaFileDlg1::OnActivateFile )
     EVT_CHOICE( IDC_FILE_TYPE, HaFileDlg1::OnChangeFileType )
+	EVT_CLOSE(HaFileDlg1::OnClose)
 END_EVENT_TABLE()
 
 HaFileDlg1::HaFileDlg1( wxWindow *parent, wxWindowID id, const wxString &title,
@@ -169,6 +168,18 @@ HaFileDlg1::HaFileDlg1( wxWindow *parent, wxWindowID id, const wxString &title,
 {
     nsubdir = 0;
 	file_types_ch = NULL; 
+}
+
+//HaFileDlg1::~HaFileDlg1()
+//{
+//	//wxDialog::~wxDialog();
+//}
+
+void HaFileDlg1::OnClose(wxCloseEvent& event)
+{
+	event.Skip();
+//	this->EndModal(0);
+//	this->Close();
 }
 
 void HaFileDlg1::OnChangeFileType( wxCommandEvent &event )
@@ -230,6 +241,7 @@ void HaFileDlg1::ChooseDir( wxCommandEvent &event )
 void HaFileDlg1::OnChangeDir()
 {
     int isel = file_types_ch->GetSelection();
+	if (isel == wxNOT_FOUND) return;
     wxString filter_str = (const char*) file_types_ch->GetClientData(isel);
 
     wxString path;
@@ -329,7 +341,7 @@ const int IDC_LOAD_FILE = 31001;
 // WDR: event table for ChooseMolFileDlg
 BEGIN_EVENT_TABLE(ChooseMolFileDlg,HaFileDlg1)
     EVT_BUTTON( IDC_LOAD_FILE, ChooseMolFileDlg::OnLoadFile )
-//	EVT_CLOSE( ChooseMolFileDlg::OnClose )
+	EVT_CLOSE( ChooseMolFileDlg::OnClose )
 END_EVENT_TABLE()
 
 ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxString &title,
@@ -375,6 +387,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
      item10->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
 
      file_types_ch = new wxChoice( this, IDC_FILE_TYPE, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
+	 FillFileTypes();
      item10->Add( file_types_ch, 0, wxGROW|wxALL, 5 );
 
      sizer_main_v->Add( item10, 0, wxALL, 5 );
@@ -394,6 +407,11 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
 
      OnInitDialog();                          
 }
+
+//ChooseMolFileDlg::~ChooseMolFileDlg()
+//{
+//	HaFileDlg1::~HaFileDlg1();
+//}
 
 const char* pdb_filters = "*.pdb;*.ent";
 const char* sybyl_filters = "*.syb;*.mol";
@@ -426,7 +444,6 @@ void ChooseMolFileDlg::OnInitDialog()
 { 	
 	file_format = FormatHarlem;
 
-	FillFileTypes();
 	OnChangeDir();    
 }
 
@@ -458,8 +475,7 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 
 void ChooseMolFileDlg::OnClose(wxCloseEvent& event)
 {
-	PrintLog("Close Open Molecular File Dialog \n");
-	wxDialog::Close();
+	event.Skip();
 }
 
 //----------------------------------------------------------------------------

@@ -49,6 +49,10 @@ public:
         const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize,
         long style = wxDEFAULT_DIALOG_STYLE );
+
+	//virtual ~HaFileDlg1();
+
+	void OnClose(wxCloseEvent& event);
    
 	wxChoice* file_types_ch; //!< choice box for file types choices
     
@@ -84,7 +88,7 @@ public:
         const wxSize& size = wxDefaultSize,
         long style = wxDEFAULT_DIALOG_STYLE );
 
-
+	//virtual ~ChooseMolFileDlg();
 
 	void OnInitDialog();
 
