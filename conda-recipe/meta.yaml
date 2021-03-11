@@ -1,11 +1,11 @@
-{% set version = "21.02.20" %}
+{% set version = "21.03.10" %}
 
 package:
   name: harlem
   version: {{ version }}
 
 source:
-  path: ../../MOLSET_SHARED_LIBS
+  path: ../../MOLSET_BIN_LIBS
   
 requirements:
   build:

@@ -346,7 +346,9 @@ int HarlemApp::ExecuteCommand()
 	{
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
+		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
 		int ires = PyRun_SimpleString(cmd_pr.GetCmdLine());
+		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
 		PyGILState_Release(gstate);
 		
 		if( ires == 0 )
@@ -1168,7 +1170,6 @@ HaAtom* HarlemApp::GetAtomByRef(const char* at_ref)
 
 int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 {
-#if !defined(HARLEM_PYTHON_NO)
 	FILE* finp;
 	finp = fopen(script_fname,"r");
 	
@@ -1178,9 +1179,12 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 		strcpy(fname_var,script_fname);
 		PyGILState_STATE gstate;
 		gstate = PyGILState_Ensure();
+		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
+		
 		int ires = PyRun_SimpleString("from molset import *");
 		ires = PyRun_SimpleFile(finp,fname_var);
 
+		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
 		PyGILState_Release(gstate);
 		fclose(finp);
 		if( ires == 0 )
@@ -1190,21 +1194,20 @@ int HarlemApp::ExecuteScriptFromFile(const char* script_fname)
 	{
 		PrintLog("Can't find script file %s \n", script_fname);
 	}
-#endif
 	return TRUE;
 }
 
 int HarlemApp::ExecuteScriptInString(const char* script_str)
 {
-#if !defined(HARLEM_PYTHON_NO)
 	char script_str_int[50000];
 	strcpy(script_str_int,script_str);
 	PyGILState_STATE gstate;
 	gstate = PyGILState_Ensure();
+	if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
 	int ires = PyRun_SimpleString(script_str_int);
+	if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
 	PyGILState_Release(gstate);
 	if( ires == 0 )
 		return True;	
-#endif
 	return True;
 }

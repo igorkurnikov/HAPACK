@@ -139,8 +139,6 @@ harlem_main_files = \
  $(top_srcdir)/HARLEM/sources/mm_params.cpp \
  $(top_srcdir)/HARLEM/sources/mm_traj_anal.cpp \
  $(top_srcdir)/HARLEM/sources/moleditor.cpp \
- $(top_srcdir)/HARLEM/sources/molmech_evt_handler.cpp \
- $(top_srcdir)/HARLEM/sources/molset_evt_handler.cpp \
  $(top_srcdir)/HARLEM/sources/ndo.cpp \
  $(top_srcdir)/HARLEM/sources/nuclacidmod.cpp \
  $(top_srcdir)/HARLEM/sources/object3d.cpp \

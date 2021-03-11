@@ -13,7 +13,8 @@ mkdir -p ${PREFIX}/opt/harlem/basis
 echo ${SP_DIR}
 
 echo Copying molset library:
-cp -rp ${RECIPE_DIR}/../../MOLSET_SHARED_LIBS/UBUNTU_20.04/*  ${PREFIX}/lib
+cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_20.04/*  ${PREFIX}/lib
+cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_20.04/*  ${PREFIX}/bin
 cp -rp ${RECIPE_DIR}/../HARLEM/molset/*  ${SP_DIR}/molset
 cp -L ${RECIPE_DIR}/../../BUILD_HARLEM/HARLEMLL/.libs/lib_molsetc.so  ${SP_DIR}/molset/_molsetc.so
 cp -rp ${RECIPE_DIR}/../../BUILD_HARLEM/HARLEMLL/molsetc.py  ${SP_DIR}/molset/
