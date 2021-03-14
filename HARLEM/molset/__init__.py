@@ -21,6 +21,7 @@ if( os.getenv("MOLSET_HOME") == None ):
             break
 
 from molset.molsetc import *      
+from molset.harlempy import start_harlem
 
 HaAtom_FillStdAtomTypes()
 HaResidue_InitStdResNames()
