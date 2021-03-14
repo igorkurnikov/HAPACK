@@ -23,8 +23,8 @@
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/process.hpp>
-#include <boost/process/child.hpp>
+//#include <boost/process.hpp>
+//#include <boost/process/child.hpp>
 
 #include <wx/event.h>
 #include <wx/filename.h>
@@ -8603,7 +8603,7 @@ int MMDriverAmber::RunAmberProg(int sync)
 	AmberProcess* p_sander_proc = new AmberProcess();
 	p_sander_proc->p_mm_mod = p_mm_mod;
 
-	namespace bp = ::boost::process;
+	// namespace bp = ::boost::process;
 
 	int res;
 	if( sync )

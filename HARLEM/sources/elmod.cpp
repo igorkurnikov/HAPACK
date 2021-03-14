@@ -3676,9 +3676,12 @@ int PNPMod::ReadOPLSitp(const char *filename)
 		{
 			i=wstr.find(";");
 			if(i != string::npos) wstr=wstr.substr(i);
-			wstr = std::regex_replace(wstr, std::regex(" "), "");
-			wstr = std::regex_replace(wstr, std::regex("["), "");
-			wstr = std::regex_replace(wstr, std::regex("]"), "");
+                                boost::replace_all(wstr," ","");
+                                boost::replace_all(wstr,"[","");
+                                boost::replace_all(wstr,"]","");
+			// wstr = std::regex_replace(wstr, std::regex(" "), "");
+			// wstr = std::regex_replace(wstr, std::regex("["), "");
+			// wstr = std::regex_replace(wstr, std::regex("]"), "");
 			boost::algorithm::trim(wstr);
 			if(boost::iequals(wstr,"atomtypes"))
 			{
@@ -3765,9 +3768,12 @@ int PNPMod::ReadOPLSrtp(const char *filename)
 			{
 				i=wstr.find(";");
 				if(i != std::string::npos) wstr=wstr.substr(i);
-				wstr = std::regex_replace(wstr, std::regex(" "), "");
-				wstr = std::regex_replace(wstr, std::regex("["), "");
-				wstr = std::regex_replace(wstr, std::regex("]"), "");
+                                boost::replace_all(wstr," ","");
+                                boost::replace_all(wstr,"[","");
+                                boost::replace_all(wstr,"]","");
+				// wstr = std::regex_replace(wstr, std::regex(" "), "");
+				// wstr = std::regex_replace(wstr, std::regex("["), "");
+				// wstr = std::regex_replace(wstr, std::regex("]"), "");
 
 				if( wstr == boost::to_upper_copy(wstr) )
 				{
@@ -3790,9 +3796,12 @@ int PNPMod::ReadOPLSrtp(const char *filename)
 			{
 				i=wstr.find(";");
 				if(i != std::string::npos) wstr=wstr.substr(i);
-				wstr = std::regex_replace(wstr, std::regex(" "), "");
-				wstr = std::regex_replace(wstr, std::regex("["), "");
-				wstr = std::regex_replace(wstr, std::regex("]"), "");
+                                boost::replace_all(wstr," ","");
+                                boost::replace_all(wstr,"[","");
+                                boost::replace_all(wstr,"]","");
+				// wstr = std::regex_replace(wstr, std::regex(" "), "");
+				// wstr = std::regex_replace(wstr, std::regex("["), "");
+				// wstr = std::regex_replace(wstr, std::regex("]"), "");
 				boost::algorithm::trim(wstr);
 				if( wstr == "atoms" )
 				{
@@ -3894,9 +3903,12 @@ int PNPMod::ReadIER(const char *filename,bool AddToDB)
 			{
 				i=wstr.find(";");
 				if (i != string::npos) wstr = wstr.substr(i);
-				wstr = std::regex_replace(wstr, std::regex(" "), "");
-				wstr = std::regex_replace(wstr, std::regex("["), "");
-				wstr = std::regex_replace(wstr, std::regex("]"), "");
+                                boost::replace_all(wstr," ","");
+                                boost::replace_all(wstr,"[","");
+                                boost::replace_all(wstr,"]","");
+				// wstr = std::regex_replace(wstr, std::regex(" "), "");
+				// wstr = std::regex_replace(wstr, std::regex("["), "");
+				// wstr = std::regex_replace(wstr, std::regex("]"), "");
 				if( wstr == boost::to_upper_copy(wstr) )
 				{
 					//here is residue
@@ -4222,9 +4234,12 @@ int PNPMod::ReadPANDB(const char *filename,bool AddToDB)
 			{
 				i = wstr.find(";");
 				if (i != std::string::npos) wstr = wstr.substr(i);
-				wstr = std::regex_replace(wstr, std::regex(" "), "");
-				wstr = std::regex_replace(wstr, std::regex("["), "");
-				wstr = std::regex_replace(wstr, std::regex("]"), "");
+                                boost::replace_all(wstr," ","");
+                                boost::replace_all(wstr,"[","");
+                                boost::replace_all(wstr,"]","");
+				// wstr = std::regex_replace(wstr, std::regex(" "), "");
+				// wstr = std::regex_replace(wstr, std::regex("["), "");
+				// wstr = std::regex_replace(wstr, std::regex("]"), "");
 				if(wstr == boost::to_upper_copy(wstr))
 				{
 					//here is resedue
