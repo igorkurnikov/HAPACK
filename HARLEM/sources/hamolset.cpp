@@ -78,22 +78,26 @@ void SetCurMolSet(MolSet* pmset)
 	MolSet::CurMolSet = pmset;
 	PyGILState_STATE gstate;
 	gstate = PyGILState_Ensure();
-	if (PyErr_Occurred()) {  PyErr_Print(); PyErr_Clear(); }
+	if (PyErr_Occurred()) {  // PyErr_Print();  
+		PyErr_Clear(); }
 	int ires = PyRun_SimpleString("import molset");
 	ires = PyRun_SimpleString("mset_c = molset.GetCurMolSet() ");
-	if (PyErr_Occurred()) {  PyErr_Print(); PyErr_Clear(); }
+	if (PyErr_Occurred()) {  // PyErr_Print(); 
+	      PyErr_Clear(); }
 	PyGILState_Release(gstate);
 	if (!ires) return;
 	if (pmset != NULL)
 	{
 		gstate = PyGILState_Ensure();
-		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
+		if (PyErr_Occurred()) { //PyErr_Print(); 
+		     PyErr_Clear(); }
 		ires = PyRun_SimpleString(
 			"mmod_c  = mset_c.GetMolMechMod(False)\n"
 			"elmod_c = mset_c.GetElectrostMod(False)\n"
 			"qcmod_c = mset_c.GetQCMod(False)\n"
 		);
-		if (PyErr_Occurred()) { PyErr_Print(); PyErr_Clear(); }
+		if (PyErr_Occurred()) { // PyErr_Print(); 
+			PyErr_Clear(); }
 		PyGILState_Release(gstate);
 	}
 }
