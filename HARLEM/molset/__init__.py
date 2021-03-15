@@ -1,10 +1,11 @@
 # __init__.py file for molset package
 import os
+import sys 
 if( os.getenv("HARLEM_HOME") != None ): 
     os.environ["MOLSET_HOME"] = os.getenv("HARLEM_HOME")
 
+molset_dir = os.path.dirname(__file__)
 if( os.getenv("MOLSET_HOME") == None ):
-    molset_dir = os.path.dirname(__file__)
     test_dirs = []
     test_dirs.append( os.path.join(molset_dir,"..") )
     test_dirs.append( os.path.join(molset_dir,"..","..","..","..","opt","interx"))
@@ -19,6 +20,10 @@ if( os.getenv("MOLSET_HOME") == None ):
             os.environ["MOLSET_HOME"] = d 
             os.environ["HARLEM_HOME"] = d
             break
+
+pkg_sub_dir = "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1])
+pkg_dir = os.path.join(molset_dir,"..",pkg_sub_dir)
+sys.path.append( pkg_dir )
 
 from molset.molsetc import *      
 from molset.harlempy import start_harlem
