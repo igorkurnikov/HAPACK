@@ -248,6 +248,10 @@ in c:\MYPROG\vcpkg install packages:
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
 .\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+BUILD HARLEM AND MOLSET CONDA PACKAGE:
+
+conda build ./conda-recipe --output-folder ..\HARLEM_CONDA_CHANNEL
+
+
 
