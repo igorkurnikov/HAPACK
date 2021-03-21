@@ -1,0 +1,20 @@
+{% set version = "21.03.21" %}
+
+package:
+  name: molset
+  version: {{ version }}
+
+source:
+  path: ../../MOLSET_BIN_LIBS
+  
+requirements:
+  build:
+    - python
+    - setuptools
+    
+  run:
+    - python
+    - pip    
+  
+
+

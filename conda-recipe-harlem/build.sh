@@ -1,4 +1,4 @@
-# build.sh HARLEM linux
+# build.sh HARLEM/MOLSET linux
 set -x -e
 
 os_id=`lsb_release -i` 
