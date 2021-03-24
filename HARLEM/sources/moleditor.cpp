@@ -2168,7 +2168,7 @@ int MolEditor::SetFormalAtChrgFromTempl(MolSet* pmset)
 				}
 			}
 
-			if( res_name == "HIS" && name_mod == "PROT")
+			if( (res_name == "HIS" && name_mod == "PROT") || res_name == "HIP" )
 			{
 				HaAtom* aptr_ne2  = pres->GetAtomByName("NE2");
 				if( aptr_ne2 ) aptr_ne2->SetCharge(1.0);
