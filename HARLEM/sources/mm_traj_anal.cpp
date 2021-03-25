@@ -85,7 +85,7 @@ void run_anal_traj(MDTrajAnalMod* p_md_traj_anal_mod)
 	if (p_md_traj_anal_mod == NULL) return;
 	HaMolMechMod* p_mm_mod = p_md_traj_anal_mod->GetMolMechMod();
 	p_mm_mod->internal_mm_running = true;
-	p_mm_mod->RunInternal();
+	p_md_traj_anal_mod->AnalyzeTrajectoryInternal();
 	p_mm_mod->internal_mm_running = false;
 }
 

@@ -986,12 +986,12 @@ const char* HaResidue::GetName() const
 	return(ResNames[refno].c_str());
 }
 
-void HaResidue::SetName(const std::string& res_name_par, int convert_to_std_name )
+void HaResidue::SetName(const std::string& res_name_par)
 {
 	std::string new_name = boost::trim_copy(res_name_par);
 	boost::to_upper( new_name );
 
-	if( convert_to_std_name && ResSynonym.count(new_name.c_str()) > 0 )
+	if(ResSynonym.count(new_name.c_str()) > 0) 
 	{
 		std::string fname = ResSynonym.GetVal( new_name.c_str() );
 		
@@ -1006,7 +1006,6 @@ void HaResidue::SetName(const std::string& res_name_par, int convert_to_std_name
             NameModifier = fname.substr(isep+1);
 		}
 	}
-
 
 	bool contain_digit=false;
 

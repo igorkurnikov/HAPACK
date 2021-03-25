@@ -365,7 +365,7 @@ public:
 	int HasBackBHBond(HaResidue* res2); //!< Check if amino acid residue has a backbone H-bond to another aminoacid 
 
 	const char* GetName() const;  //!< Get the basic name of the residue
-	void SetName(const std::string& res_name, int convert_to_std_name = 0  ); //!< Set Residue Name ( convert_to_std_name - convert to standard residue name flag )  
+	void SetName(const std::string& res_name); //!< Set Residue Name 
 	void SetNameModifier( const std::string& new_name_mod) { NameModifier = new_name_mod; } 
     
 	const char* GetNameModifier() { return NameModifier.c_str(); }  //!< Get Residue Name Modifier

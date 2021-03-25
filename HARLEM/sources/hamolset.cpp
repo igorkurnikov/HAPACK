@@ -2331,6 +2331,29 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	nmol = GetNMol();
 	vector<HaMolecule*>::iterator mol_itr;
 
+	// Delete bonds to deleted atoms saved in atom objects :
+
+	AtomIteratorMolSet aitr_m(this);
+
+	for ( aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom() )
+	{
+		if (del_atoms.IsMember(aptr)) continue;
+		std::vector<HaBond*>::iterator bitr_at = aptr->p_bonds->begin();
+
+		while (bitr_at != aptr->p_bonds->end())
+		{
+			HaBond* bptr_at = *bitr_at;
+			if (del_atoms.IsMember(bptr_at->srcatom) || del_atoms.IsMember(bptr_at->dstatom))
+			{
+				bitr_at = aptr->p_bonds->erase(bitr_at);
+			}
+			else
+			{
+				bitr_at++;
+			}
+		}
+	}
+
 	std::vector<HaBond*>::iterator bitr1 = Bonds.begin();
 	std::vector<HaBond*>::iterator bitr2 = Bonds.begin();
 	

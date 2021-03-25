@@ -443,13 +443,16 @@ int MolSet::LoadPDBFile(const char* fname , int flag )
 					if( line.size() >= 4 && !strncmp("CONE",line.c_str(),4) )
 					{   
 						if( ignore || flag ) continue;
-
-						srcatm = lexical_cast<int>( trim_copy(line.substr(6,5)) );
+						std::string atom_id_str = trim_copy(line.substr(6, 5));
+						if (atom_id_str.empty()) continue;
+						srcatm = lexical_cast<int>( atom_id_str );
 						if( srcatm )
 						{
 							for( i=11; i<=36 && line[i]; i+=5 )
 							{   
-								dstatm = lexical_cast<int>( trim_copy(line.substr(i,5)) );
+								atom_id_str = trim_copy(line.substr(i, 5));
+								if (atom_id_str.empty()) continue;
+								dstatm = lexical_cast<int>( atom_id_str );
 								if( dstatm && (dstatm>srcatm) )
 								{
 									IntPtrMap::iterator mitr;
