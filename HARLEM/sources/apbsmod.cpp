@@ -77,7 +77,7 @@ int APBSMod::SavePQRFile(const char* filename)
   for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())      // FIX IGOR
   {
     HaResidue* group = aptr->GetHostRes();                             // FIX IGOR
-    if(phost_mset->p_save_opt_default->save_selected && !aptr->Selected() )continue;
+    if(phost_mset->save_opt_default.save_selected && !aptr->Selected() )continue;
         
     x = aptr->GetX_Ang();
     y = aptr->GetY_Ang();

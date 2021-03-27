@@ -63,8 +63,8 @@
 #include "hawx_add.h"
 #include "hamatdb.h"
 
-AtomLoadOptions* MolSet::p_load_opt_default = new AtomLoadOptions();
-AtomSaveOptions* MolSet::p_save_opt_default = new AtomSaveOptions();
+AtomLoadOptions MolSet::load_opt_default;
+AtomSaveOptions MolSet::save_opt_default;
 
 MolSet* MolSet::CurMolSet = NULL;
 
@@ -175,7 +175,7 @@ void MolSet::DeleteAll()
 	DeleteCrdSnapshots();
 } 
 
-int MolSet::SavePDBToStream(std::ostream& os) const
+int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 {
 	if (os.fail()) return FALSE;
 
@@ -199,7 +199,7 @@ int MolSet::SavePDBToStream(std::ostream& os) const
 			for (group = ritr_ch.GetFirstRes(); group; group = ritr_ch.GetNextRes())
 			{
 				std::string res_name = group->GetName();
-				if (p_save_opt_default->save_amber_pdb)
+				if ( opt.save_amber_pdb )
 				{
 					res_name = MMForceField::GetAmberResName(group->GetFullName());
 				}
@@ -207,7 +207,7 @@ int MolSet::SavePDBToStream(std::ostream& os) const
 				AtomIteratorAtomGroup aitr_group(group);
 				for (aptr = aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if (!p_save_opt_default->save_selected || aptr->Selected())
+					if (!opt.save_selected || aptr->Selected())
 					{
 						//						if( prev && (chain->ident!=ch) )
 						//							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -223,7 +223,7 @@ int MolSet::SavePDBToStream(std::ostream& os) const
 						}
 
 						std::string atname = aptr->GetName();
-						if (p_save_opt_default->save_amber_pdb)
+						if ( opt.save_amber_pdb )
 						{
 							atname = MMForceField::GetAmberAtName(atname, group->GetFullName());
 						}
@@ -252,8 +252,8 @@ int MolSet::SavePDBToStream(std::ostream& os) const
 							chain->ident, group->serno);
 						os << buf;
 
-						const HaMolView* pView = GetActiveMolView();
-						if (p_save_opt_default->save_transform && pView != NULL)
+						const HaMolView* pView = this->GetActiveMolView();
+						if (opt.save_transform && pView != NULL)
 						{
 							pView->GetTransfCoord(aptr->GetX_Ang(), aptr->GetY_Ang(), aptr->GetZ_Ang(), x, y, z);
 						}
@@ -276,7 +276,7 @@ int MolSet::SavePDBToStream(std::ostream& os) const
 }
 
 
-int MolSet::SavePDBFile(const char* filename) const
+int MolSet::SavePDBFile(const char* filename, const AtomSaveOptions& opt ) const
 {
 	ofstream fout(filename);
 	if (fout.fail())
@@ -285,21 +285,24 @@ int MolSet::SavePDBFile(const char* filename) const
 		return FALSE;
 	}
 
-	int ires = SavePDBToStream(fout);
+	int ires = SavePDBToStream(fout, opt);
 	return ires;
 }
 
-std::string MolSet::SavePDBToString() const
+std::string MolSet::SavePDBToString(const AtomSaveOptions& opt) const
 {
 	std::stringstream ss;
-	int ires = SavePDBToStream(ss);
+	int ires = SavePDBToStream(ss, opt);
 	return ss.str();
 }
 
 	
 
-int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
+int MolSet::SavePQRFile(const char* filename, const AtomSaveOptions& opt )
 {
+	bool SaveChainLetter = false;
+	if (opt.has_i("SAVE_CHAIN_LETTER") && opt.get_i("SAVE_CHAIN_LETTER") > 0) SaveChainLetter = true;
+
 	double x, y, z;
 	HaChain  *chain;
 	HaResidue  *group;
@@ -326,7 +329,7 @@ int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !p_save_opt_default->save_selected || aptr->Selected())
+					if( !opt.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -374,7 +377,7 @@ int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
 								 group->serno );
 						
 						HaMolView* pView = GetActiveMolView();
-						if(p_save_opt_default->save_transform && pView != NULL)
+						if(opt.save_transform && pView != NULL)
 						{
 							pView->GetTransfCoord(aptr->GetX_Ang(),aptr->GetY_Ang(),aptr->GetZ_Ang(),x,y,z);
 						}
@@ -399,7 +402,7 @@ int MolSet::SavePQRFile(const char* filename, bool SaveChainLetter)
     return( True );
 }
 
-int MolSet::SavePQRFreeFile(const char* filename)
+int MolSet::SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt )
 {
 	double x, y, z;
 	HaChain  *chain;
@@ -427,7 +430,7 @@ int MolSet::SavePQRFreeFile(const char* filename)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !p_save_opt_default->save_selected || aptr->Selected())
+					if( !opt.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -471,7 +474,7 @@ int MolSet::SavePQRFreeFile(const char* filename)
 																					 chain->ident, group->serno );
 						
 						HaMolView* pView = GetActiveMolView();
-						if(p_save_opt_default->save_transform && pView != NULL)
+						if(opt.save_transform && pView != NULL)
 						{
 							pView->GetTransfCoord(aptr->GetX_Ang(),aptr->GetY_Ang(),aptr->GetZ_Ang(),x,y,z);
 						}
@@ -496,7 +499,7 @@ int MolSet::SavePQRFreeFile(const char* filename)
 	return( True );
 }
 
-int MolSet::SaveHINToStream(std::ostream& os ) const
+int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 {      
 	if( os.fail() ) return FALSE;
 	char buf[128];
@@ -541,7 +544,7 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 		HaChain* chain_fst = ch_itr.GetFirstChain();
 		if (chain_fst) pres_fst_ch0 = chain_fst->GetFirstRes();
 
-		if(pres_fst_ch0 != NULL && pres_fst_ch0->IsWater() && this->p_save_opt_default->save_sep_wat_mol )
+		if( pres_fst_ch0 != NULL && pres_fst_ch0->IsWater() && opt.save_sep_wat_mol )
 		{ 
 			os << "mol " << imol << " " << '\"' << "HOH" << '\"' << std::endl;
 		}
@@ -574,7 +577,7 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 				bool save_res_as_mol = false;
 				bool save_res_info = true;
 
-				if (this->p_save_opt_default->save_sep_wat_mol)
+				if ( opt.save_sep_wat_mol)
 				{
 					save_res_as_mol = true;
 					save_res_info = false;
@@ -701,18 +704,17 @@ int MolSet::SaveHINToStream(std::ostream& os ) const
 	return TRUE;
 }
 
-int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) const
+int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) const
 {
 	if( os.fail() ) return FALSE;
 
-	std::auto_ptr<AtomSaveOptions>popt_auto( popt_arg == NULL ? (AtomSaveOptions*) p_save_opt_default->clone() : (AtomSaveOptions*) popt_arg->clone() );
-	AtomSaveOptions* popt = popt_auto.get();
+	AtomSaveOptions opt(opt_par);
 
-	bool save_header = popt->ToSaveHeader();
-	bool save_footer = popt->ToSaveFooter();
+	bool save_header = opt.ToSaveHeader();
+	bool save_footer = opt.ToSaveFooter();
 
-	popt->SetSaveHeader(false);
-	popt->SetSaveFooter(false);
+	opt.SetSaveHeader(false);
+	opt.SetSaveFooter(false);
 
 	char buf[256];
 
@@ -806,7 +808,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) 
 
 					double x, y, z;
 					const HaMolView* pView = GetActiveMolView();
-					if( p_save_opt_default->save_transform && pView != NULL )
+					if( opt.save_transform && pView != NULL )
 					{
 						pView->GetTransfCoord(aptr->GetX(), aptr->GetY(), aptr->GetZ(),x,y,z);
 					}
@@ -873,7 +875,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) 
 
 	if( !p_zmat->IsEmpty() )
 	{
-		p_zmat->SaveXMLToStream(os, popt);
+		p_zmat->SaveXMLToStream(os, &opt);
 	}
 
 	const ChemGroup* gptr;
@@ -983,7 +985,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt_arg ) 
 	int im;
 	for( im = 0; im < nm; im++)
 	{
-		CompModules[im]->SaveXMLToStream(os, popt);
+		CompModules[im]->SaveXMLToStream(os, &opt);
 	}
 
 	if( save_footer )
@@ -1095,7 +1097,7 @@ int MolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* po
 	return ires;
 }
 
-int  MolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt )
+int MolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap& opt )
 {
 	using namespace rapidxml;
 	std::ifstream is(fname.c_str(), ios::binary);
@@ -1105,21 +1107,18 @@ int  MolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* p
 		PrintLog(" Error to open file %s\n",fname.c_str());
 		return FALSE;
 	}
-	int ires = LoadXMLStream (is, NULL );
+	int ires = LoadXMLStream (is);
 
 	return FALSE;
 
 }
 
 
-int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions& opt )
 {
 	using namespace rapidxml;
 
 //	PrintLog( "MolSet::LoadXMLNode() pt 1 \n");
-
-	std::auto_ptr<AtomLoadOptions> popt_auto( popt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) popt_arg->clone() );
-	AtomLoadOptions* popt = popt_auto.get();
  
 	try
 	{
@@ -1424,7 +1423,7 @@ int MolSet::LoadXMLNode( rapidxml::xml_node<>* node_mset, const AtomLoadOptions*
 			{
 				ZMatCrd* pzm = this->GetZMat();
 				pzm->Clear();
-				int ires = pzm->LoadXMLNode(node1,popt);
+				int ires = pzm->LoadXMLNode(node1,&opt);
 				if(!ires)
 				{
 					delete pzm;
@@ -1561,7 +1560,7 @@ ZMatCrd* MolSet::GetZMat( const harlem::HashMap* popt )
 	return p_zmat;
 }
 
-int MolSet::SaveOldHarlemStream(std::ostream& os)
+int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 {
 	if( os.fail() ) return FALSE;
 
@@ -1616,7 +1615,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os)
 					atid++;
 
 					HaMolView* pView = GetActiveMolView();
-					if( p_save_opt_default->save_transform && pView != NULL )
+					if( opt.save_transform && pView != NULL )
 					{
 						pView->GetTransfCoord(aptr->GetX(), aptr->GetY(), aptr->GetZ(),x,y,z);
 					}
@@ -1911,10 +1910,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os)
 	return TRUE;
 }
 
-int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_arg )
+int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions& opt_par )
 {
-	std::auto_ptr<AtomSaveOptions> popt_auto( popt_arg == NULL ? (AtomSaveOptions*) p_save_opt_default->clone() : (AtomSaveOptions*) popt_arg->clone() );
-	AtomSaveOptions* popt = popt_auto.get();
+	AtomSaveOptions opt(opt_par);
 
 	ofstream fout(filename);
 	if( fout.fail())
@@ -1922,16 +1920,16 @@ int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions* popt_arg
 		PrintLog(" Error in MolSet::SaveHarlemFile()  opening file %s\n",filename);
 		return FALSE;
 	}	
-	popt->SetSaveHeader(true);
-	popt->SetSaveFooter(true);
+	opt.SetSaveHeader(true);
+	opt.SetSaveFooter(true);
 	
-	int ires = SaveXMLToStream(fout, popt);
+	int ires = SaveXMLToStream(fout, opt);
 
 	return ires;
 }
 
 
-int MolSet::SaveHINFile(const char* filename )
+int MolSet::SaveHINFile(const char* filename, const AtomSaveOptions& opt )
 {
 	ofstream fout(filename);
 	if( fout.fail())
@@ -1940,11 +1938,11 @@ int MolSet::SaveHINFile(const char* filename )
 		return FALSE;
 	}	
 	
-	int ires = SaveHINToStream(fout);
+	int ires = SaveHINToStream(fout, opt);
 	return ires;
 }
 
-int MolSet::SaveOldHarlemFile(const char* filename )
+int MolSet::SaveOldHarlemFile(const char* filename, const AtomSaveOptions& opt)
 {
 	ofstream fout(filename);
 	if( fout.fail())
@@ -1952,7 +1950,7 @@ int MolSet::SaveOldHarlemFile(const char* filename )
 		PrintLog(" Error in MolSet::SaveOldHarlemFile()   opening file %s\n",filename);
 		return FALSE;
 	}
-	int ires = SaveOldHarlemStream(fout);
+	int ires = SaveOldHarlemStream(fout, opt );
 	return ires;
 }
 
@@ -7511,7 +7509,7 @@ TiXmlElement* MolSet::AddXml(TiXmlElement* parent_element, const char* name, int
 	return molset_element;
 }
 
-int MolSet::SaveXML(FILE* file_out, int option) const
+int MolSet::SaveXML(FILE* file_out, const AtomSaveOptions& opt ) const
 {
 	TiXmlDocument doc;
 	TiXmlDeclaration * decl = new TiXmlDeclaration( "1.0", "", "" );
@@ -7661,7 +7659,7 @@ std::vector<int>* PyAccMolSetProp::GetAtomsSerNoAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(ser_no);
 			ser_no++;
@@ -7680,7 +7678,7 @@ std::vector<int>* PyAccMolSetProp::GetResidueSerNoAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			HaResidue* pres= aptr->GetHostRes(); 
 			Result->push_back(pres->GetSerNo());
@@ -7699,7 +7697,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsChargeAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->charge);
 		}
@@ -7717,7 +7715,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsRadiusAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->radius);
 		}
@@ -7735,7 +7733,7 @@ std::vector<std::string>* PyAccMolSetProp::GetAtomsNameAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(std::string(aptr->GetName()));
 		}
@@ -7753,7 +7751,7 @@ std::vector<std::string>* PyAccMolSetProp::GetResidueNameAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			HaResidue* pres= aptr->GetHostRes(); 
 			Result->push_back(std::string(pres->GetName()));
@@ -7772,7 +7770,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsCoorXAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->GetX());
 		}
@@ -7790,7 +7788,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsCoorYAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->GetY());
 		}
@@ -7808,7 +7806,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsCoorZAsVec()
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->GetZ());
 		}
@@ -7826,7 +7824,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsIonExcludedRadiusAsVec(double Rion
 
 		for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( this->pmset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			Result->push_back(aptr->radius+Rion);
 		}

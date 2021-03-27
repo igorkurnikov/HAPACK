@@ -98,6 +98,8 @@ HashMap::~HashMap()
 
 }
 
+HashMap HashMap::empty_map;
+
 void HashMap::Copy( const HashMap& ref )
 {
 	this->i_params = ref.i_params;

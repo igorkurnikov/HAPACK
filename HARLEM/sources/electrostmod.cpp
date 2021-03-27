@@ -308,8 +308,7 @@ bool ElectrostMod::SaveRadiusFile()
 	return true;
 }
 
-bool
-ElectrostMod::SaveChargeFile()
+bool ElectrostMod::SaveChargeFile()
 {
 	char buf[256];
 	ofstream fcrg(charge_file_name.c_str());
@@ -321,7 +320,7 @@ ElectrostMod::SaveChargeFile()
 	    AtomIteratorMolSet aitr(phost_mset);
 	    for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 		{
-			if( phost_mset->p_save_opt_default->save_selected && !aptr->Selected())
+			if( phost_mset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
 			if( fabs( aptr->GetCharge() ) < DBL_EPSILON )
 				continue;
@@ -1056,7 +1055,7 @@ double ElectrostMod::CalcETReorgEne()
 		}
 	}
 
-	phost_mset->p_save_opt_default->save_selected = TRUE;
+	phost_mset->save_opt_default.save_selected = TRUE;
 
 	double epsout_save;
 	epsout_save = epsout;
@@ -1066,7 +1065,7 @@ double ElectrostMod::CalcETReorgEne()
 
 	ene2 = this->tot_ene;
 
-	phost_mset->p_save_opt_default->save_selected = FALSE;
+	phost_mset->save_opt_default.save_selected = FALSE;
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom() )
 	{
 		aptr->Select();
@@ -1149,7 +1148,7 @@ bool ElectrostMod::CalcAltStatePK(AltChemState* alt_res_st, AtomGroup* active_at
 	double ene1, ene2, ene3, ene4;
 	bool bres;
 	
-	phost_mset->p_save_opt_default->save_selected = TRUE; // Only selected atoms are saved
+	phost_mset->save_opt_default.save_selected = TRUE; // Only selected atoms are saved
 	SetBoundaryAtoms(xmin, ymin, zmin, xmax, ymax, zmax);
 	
 	alt_res_st->SetAltCharges(0.0);
@@ -1186,7 +1185,7 @@ bool ElectrostMod::CalcAltStatePK(AltChemState* alt_res_st, AtomGroup* active_at
 	ene4 = this->tot_ene;
 	if(!bres) { return false; }
 												
-	phost_mset->p_save_opt_default->save_selected = FALSE; // restore default mode of atoms saving
+	phost_mset->save_opt_default.save_selected = FALSE; // restore default mode of atoms saving
 								
 //
 //  ene1 - full system (protein)      unmodified chemical state  (in kT)
@@ -1287,7 +1286,7 @@ ElectrostMod::CalcRedoxPotShft()
 
 	for( m = 0 ; m < 2; m++)
 	{
-		phost_mset->p_save_opt_default->save_selected = FALSE;
+		phost_mset->save_opt_default.save_selected = FALSE;
 		
 		bres = run(RUN_FOREGROUND);
 		
@@ -1317,15 +1316,14 @@ ElectrostMod::CalcRedoxPotShft()
 			rionst = 0.0;
 		}
 		
-		phost_mset->p_save_opt_default->save_selected = TRUE;
+		phost_mset->save_opt_default.save_selected = TRUE;
 
 		bres = run(RUN_FOREGROUND);
 
 		epsout = epsout_save;
 		rionst = rionst_save;
 
-
-		phost_mset->p_save_opt_default->save_selected = FALSE;
+		phost_mset->save_opt_default.save_selected = FALSE;
 			
     	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom() )
 		{
@@ -1799,7 +1797,7 @@ void setatq_(freal* xn2, freal* rad3, freal* chrgv4, int_4* natom, freal* gr_cen
 
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
-		if( pmset->p_save_opt_default->save_selected && !aptr->Selected())
+		if( pmset->save_opt_default.save_selected && !aptr->Selected())
 			continue;
 		xn2[3*na]   = aptr->GetX_Ang();
 		xn2[3*na+1] = aptr->GetY_Ang();

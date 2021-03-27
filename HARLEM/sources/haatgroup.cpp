@@ -108,122 +108,137 @@ void HaResidue::InitStdResNames()
 
 void HaResidue::InitResSynonym()
 {
-	if (ResSynonym.size() > 10) return;
-	ResSynonym["ADE"] = "A";    /*  Adenosine   */
-	ResSynonym["GUA"] = "G";    /*  Guanosine   */
-	ResSynonym["THY"] = "T#D";    /*  Thymidine   */
-	ResSynonym["URI"] = "U";    /*  Uridine     */
-	ResSynonym["CYT"] = "C";    /*  Cytosine    */
+	if (ResSynonym_to_std.size() > 10) return;
+	ResSynonym_to_std["ADE"] = "A";    /*  Adenosine   */
+	ResSynonym_to_std["GUA"] = "G";    /*  Guanosine   */
+	ResSynonym_to_std["THY"] = "T#D";    /*  Thymidine   */
+	ResSynonym_to_std["URI"] = "U";    /*  Uridine     */
+	ResSynonym_to_std["CYT"] = "C";    /*  Cytosine    */
 
-	ResSynonym["A5"] = "A#R5";
-	ResSynonym["A3"] = "A#R3";
-	ResSynonym["AN"] = "A#RN";
-	ResSynonym["DA"] = "A#D";
-	ResSynonym["DA3"] = "A#D3";
-	ResSynonym["DA5"] = "A#D5";
-	ResSynonym["DAN"] = "A#DN";
+	ResSynonym_to_std["A5"] = "A#R5";
+	ResSynonym_to_std["A3"] = "A#R3";
+	ResSynonym_to_std["AN"] = "A#RN";
+	ResSynonym_to_std["DA"] = "A#D";
+	ResSynonym_to_std["DA3"] = "A#D3";
+	ResSynonym_to_std["DA5"] = "A#D5";
+	ResSynonym_to_std["DAN"] = "A#DN";
 
-	ResSynonym["G5"] = "G#R5";
-	ResSynonym["G3"] = "G#R3";
-	ResSynonym["GN"] = "G#RN";
-	ResSynonym["DG"] = "G#D";
-	ResSynonym["DG3"] = "G#D3";
-	ResSynonym["DG5"] = "G#D5";
-	ResSynonym["DGN"] = "G#DN";
+	ResSynonym_to_std["G5"] = "G#R5";
+	ResSynonym_to_std["G3"] = "G#R3";
+	ResSynonym_to_std["GN"] = "G#RN";
+	ResSynonym_to_std["DG"] = "G#D";
+	ResSynonym_to_std["DG3"] = "G#D3";
+	ResSynonym_to_std["DG5"] = "G#D5";
+	ResSynonym_to_std["DGN"] = "G#DN";
 
-	ResSynonym["C5"] = "C#R5";
-	ResSynonym["C3"] = "C#R3";
-	ResSynonym["CN"] = "C#RN";
-	ResSynonym["DC"] = "C#D";
-	ResSynonym["DC3"] = "C#D3";
-	ResSynonym["DC5"] = "C#D5";
-	ResSynonym["DCN"] = "C#DN";
+	ResSynonym_to_std["C5"] = "C#R5";
+	ResSynonym_to_std["C3"] = "C#R3";
+	ResSynonym_to_std["CN"] = "C#RN";
+	ResSynonym_to_std["DC"] = "C#D";
+	ResSynonym_to_std["DC3"] = "C#D3";
+	ResSynonym_to_std["DC5"] = "C#D5";
+	ResSynonym_to_std["DCN"] = "C#DN";
 
-	ResSynonym["DT"]  = "T#D";
-	ResSynonym["DT3"] = "T#D3";
-	ResSynonym["DT5"] = "T#D5";
-	ResSynonym["DTN"] = "T#DN";
+	ResSynonym_to_std["DT"]  = "T#D";
+	ResSynonym_to_std["DT3"] = "T#D3";
+	ResSynonym_to_std["DT5"] = "T#D5";
+	ResSynonym_to_std["DTN"] = "T#DN";
 
-	ResSynonym["U5"] = "U#R5";
-	ResSynonym["U3"] = "U#R3";
-	ResSynonym["UN"] = "U#RN";
+	ResSynonym_to_std["U5"] = "U#R5";
+	ResSynonym_to_std["U3"] = "U#R3";
+	ResSynonym_to_std["UN"] = "U#RN";
 	
-	ResSynonym["CPR"] = "PRO";  /*  Cis-proline */
-	ResSynonym["TRY"] = "TRP";  /*  Cis-proline */
-	ResSynonym["CSH"] = "CYS";  /*  Cystine     */
-	ResSynonym["CSM"] = "CYS";  /*  Cystine     */
-	ResSynonym["CYH"] = "CYS";  /*  Cystine     */
-	ResSynonym["CYX"] = "CYS#UNPROT";  /*  Cystine unprotonated*/
-	ResSynonym["D2O"] = "DOD";  /*  Heavy Water */
-	ResSynonym["H2O"] = "HOH";  /*  Water       */
-	ResSynonym["SOL"] = "HOH";  /*  Water       */
-	ResSynonym["TIP"] = "HOH";  /*  Water       */
-	ResSynonym["WAT"] = "HOH";  /*  Water       */
-	ResSynonym["HID"] = "HIS";  /*  histidine - hydrogen at delta position  */
-	ResSynonym["HIE"] = "HIS#EPSILON";  /*  histidine - hydrogen at epsilon position  */
-	ResSynonym["HSD"] = "HIS";  /*  histidine - hydrogen at delta position  */
-	ResSynonym["HSE"] = "HIS#EPSILON";  /*  histidine - hydrogen at epsilon position  */
-	ResSynonym["HSP"] = "HIS#PROT";  /*  histidine - protonated  */
-	ResSynonym["HIP"] = "HIS#PROT";  /*  histidine - protonated  */
+	ResSynonym_to_std["NALA"] = "ALA#NT";  /*  N-terminal ALA  */
+	ResSynonym_to_std["NARG"] = "ARG#NT";  /*  N-terminal ARG  */
+	ResSynonym_to_std["NASN"] = "ASN#NT";  /*  N-terminal ASN  */
+	ResSynonym_to_std["NGLN"] = "GLN#NT";  /*  N-terminal GLN  */
+	ResSynonym_to_std["NASP"] = "ASP#NT";  /*  N-terminal ASP  */
+	ResSynonym_to_std["NHIS"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
+	ResSynonym_to_std["NHIE"] = "HIS#EPSILON_NT";  /*  N-terminal HIS EPSILON  */
+	ResSynonym_to_std["NHID"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
+	ResSynonym_to_std["NHSE"] = "HIS#EPSILON_NT";  /*  N-terminal HIS EPSILON  */
+	ResSynonym_to_std["NHSD"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
+	ResSynonym_to_std["NHIP"] = "HIS#PROT_NT";  /*  N-terminal HIS PROTONATED  */
+	ResSynonym_to_std["NPRO"] = "PRO#NT";  /*  N-terminal PRO   */
+	ResSynonym_to_std["NTRP"] = "TRP#NT";  /*  N-terminal TRP   */
+	ResSynonym_to_std["NCYS"] = "CYS#NT";  /*  N-terminal CYS   */
+	ResSynonym_to_std["NCYX"] = "CYS#UNPROT_NT";  /*  N-terminal CYS UNPROTONATED   */
+	ResSynonym_to_std["NGLY"] = "GLY#NT";  /*  N-terminal GLY   */
+	ResSynonym_to_std["NILE"] = "ILE#NT";  /*  N-terminal ILE   */
+	ResSynonym_to_std["NLEU"] = "LEU#NT";  /*  N-terminal LEU   */
+	ResSynonym_to_std["NLYS"] = "LYS#NT";  /*  N-terminal LYS   */
+	ResSynonym_to_std["NMET"] = "MET#NT";  /*  N-terminal MET   */
+	ResSynonym_to_std["NPHE"] = "PHE#NT";  /*  N-terminal PHE   */
+	ResSynonym_to_std["NSER"] = "SER#NT";  /*  N-terminal SER   */
+	ResSynonym_to_std["NTYR"] = "TYR#NT";  /*  N-terminal TYR   */
+	ResSynonym_to_std["NVAL"] = "VAL#NT";  /*  N-terminal VAL   */
+	ResSynonym_to_std["NTHR"] = "THR#NT";  /*  N-terminal THR   */
+	ResSynonym_to_std["NGLU"] = "GLU#NT";  /*  N-terminal THR   */
 
-	ResSynonym["NALA"] = "ALA#NT";  /*  N-terminal ALA  */
-	ResSynonym["NARG"] = "ARG#NT";  /*  N-terminal ARG  */
-	ResSynonym["NASN"] = "ASN#NT";  /*  N-terminal ASN  */
-	ResSynonym["NGLN"] = "GLN#NT";  /*  N-terminal GLN  */
-	ResSynonym["NASP"] = "ASP#NT";  /*  N-terminal ASP  */
-	ResSynonym["NHIS"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
-	ResSynonym["NHIE"] = "HIS#EPSILON_NT";  /*  N-terminal HIS EPSILON  */
-	ResSynonym["NHID"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
-	ResSynonym["NHSE"] = "HIS#EPSILON_NT";  /*  N-terminal HIS EPSILON  */
-	ResSynonym["NHSD"] = "HIS#NT";  /*  N-terminal HIS DELTA  */
-	ResSynonym["NHIP"] = "HIS#PROT_NT";  /*  N-terminal HIS PROTONATED  */
-	ResSynonym["NPRO"] = "PRO#NT";  /*  N-terminal PRO   */
-	ResSynonym["NTRP"] = "TRP#NT";  /*  N-terminal TRP   */
-	ResSynonym["NCYS"] = "CYS#NT";  /*  N-terminal CYS   */
-	ResSynonym["NCYX"] = "CYS#UNPROT_NT";  /*  N-terminal CYS UNPROTONATED   */
-	ResSynonym["NGLY"] = "GLY#NT";  /*  N-terminal GLY   */
-	ResSynonym["NILE"] = "ILE#NT";  /*  N-terminal ILE   */
-	ResSynonym["NLEU"] = "LEU#NT";  /*  N-terminal LEU   */
-	ResSynonym["NLYS"] = "LYS#NT";  /*  N-terminal LYS   */
-	ResSynonym["NMET"] = "MET#NT";  /*  N-terminal MET   */
-	ResSynonym["NPHE"] = "PHE#NT";  /*  N-terminal PHE   */
-	ResSynonym["NSER"] = "SER#NT";  /*  N-terminal SER   */
-	ResSynonym["NTYR"] = "TYR#NT";  /*  N-terminal TYR   */
-	ResSynonym["NVAL"] = "VAL#NT";  /*  N-terminal VAL   */
-	ResSynonym["NTHR"] = "THR#NT";  /*  N-terminal THR   */
-	ResSynonym["NGLU"] = "GLU#NT";  /*  N-terminal THR   */
+	ResSynonym_to_std["CALA"] = "ALA#CT";  /*  C-terminal ALA  */
+	ResSynonym_to_std["CARG"] = "ARG#CT";  /*  C-terminal ARG  */
+	ResSynonym_to_std["CASN"] = "ASN#CT";  /*  C-terminal ASN  */
+	ResSynonym_to_std["CGLN"] = "GLN#CT";  /*  C-terminal GLN  */
+	ResSynonym_to_std["CASP"] = "ASP#CT";  /*  C-terminal ASP  */
+	ResSynonym_to_std["CHIS"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
+	ResSynonym_to_std["CHIE"] = "HIS#EPSILON_CT";  /*  C-terminal HIS EPSILON  */
+	ResSynonym_to_std["CHID"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
+	ResSynonym_to_std["CHSE"] = "HIS#EPSILON_CT";  /*  C-terminal HIS EPSILON  */
+	ResSynonym_to_std["CHSD"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
+	ResSynonym_to_std["CHIP"] = "HIS#PROT_CT";  /*  C-terminal HIS PROTONATED  */
+	ResSynonym_to_std["CPRO"] = "PRO#CT";  /*  C-terminal PRO   */
+	ResSynonym_to_std["CTRP"] = "TRP#CT";  /*  C-terminal TRP   */
+	ResSynonym_to_std["CCYS"] = "CYS#CT";  /*  C-terminal CYS   */
+	ResSynonym_to_std["CCYX"] = "CYS#UNPROT_CT";  /*  C-terminal CYS UNPROTONATED   */
+	ResSynonym_to_std["CGLY"] = "GLY#CT";  /*  C-terminal GLY   */
+	ResSynonym_to_std["CILE"] = "ILE#CT";  /*  C-terminal ILE   */
+	ResSynonym_to_std["CLEU"] = "LEU#CT";  /*  C-terminal LEU   */
+	ResSynonym_to_std["CLYS"] = "LYS#CT";  /*  C-terminal LYS   */
+	ResSynonym_to_std["CMET"] = "MET#CT";  /*  C-terminal MET   */
+	ResSynonym_to_std["CPHE"] = "PHE#CT";  /*  C-terminal PHE   */
+	ResSynonym_to_std["CSER"] = "SER#CT";  /*  C-terminal SER   */
+	ResSynonym_to_std["CTYR"] = "TYR#CT";  /*  C-terminal TYR   */
+	ResSynonym_to_std["CVAL"] = "VAL#CT";  /*  C-terminal VAL   */
+	ResSynonym_to_std["CTHR"] = "THR#CT";  /*  C-terminal THR   */
+	ResSynonym_to_std["CGLU"] = "GLU#CT";  /*  C-terminal THR   */
 
-	ResSynonym["CALA"] = "ALA#CT";  /*  C-terminal ALA  */
-	ResSynonym["CARG"] = "ARG#CT";  /*  C-terminal ARG  */
-	ResSynonym["CASN"] = "ASN#CT";  /*  C-terminal ASN  */
-	ResSynonym["CGLN"] = "GLN#CT";  /*  C-terminal GLN  */
-	ResSynonym["CASP"] = "ASP#CT";  /*  C-terminal ASP  */
-	ResSynonym["CHIS"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
-	ResSynonym["CHIE"] = "HIS#EPSILON_CT";  /*  C-terminal HIS EPSILON  */
-	ResSynonym["CHID"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
-	ResSynonym["CHSE"] = "HIS#EPSILON_CT";  /*  C-terminal HIS EPSILON  */
-	ResSynonym["CHSD"] = "HIS#CT";  /*  C-terminal HIS DELTA  */
-	ResSynonym["CHIP"] = "HIS#PROT_CT";  /*  C-terminal HIS PROTONATED  */
-	ResSynonym["CPRO"] = "PRO#CT";  /*  C-terminal PRO   */
-	ResSynonym["CTRP"] = "TRP#CT";  /*  C-terminal TRP   */
-	ResSynonym["CCYS"] = "CYS#CT";  /*  C-terminal CYS   */
-	ResSynonym["CCYX"] = "CYS#UNPROT_CT";  /*  C-terminal CYS UNPROTONATED   */
-	ResSynonym["CGLY"] = "GLY#CT";  /*  C-terminal GLY   */
-	ResSynonym["CILE"] = "ILE#CT";  /*  C-terminal ILE   */
-	ResSynonym["CLEU"] = "LEU#CT";  /*  C-terminal LEU   */
-	ResSynonym["CLYS"] = "LYS#CT";  /*  C-terminal LYS   */
-	ResSynonym["CMET"] = "MET#CT";  /*  C-terminal MET   */
-	ResSynonym["CPHE"] = "PHE#CT";  /*  C-terminal PHE   */
-	ResSynonym["CSER"] = "SER#CT";  /*  C-terminal SER   */
-	ResSynonym["CTYR"] = "TYR#CT";  /*  C-terminal TYR   */
-	ResSynonym["CVAL"] = "VAL#CT";  /*  C-terminal VAL   */
-	ResSynonym["CTHR"] = "THR#CT";  /*  C-terminal THR   */
-	ResSynonym["CGLU"] = "GLU#CT";  /*  C-terminal THR   */
+	ResSynonym_to_std["HID"] = "HIS";  /*  histidine - hydrogen at delta position  */
+	ResSynonym_to_std["HIE"] = "HIS#EPSILON";  /*  histidine - hydrogen at epsilon position  */
+	ResSynonym_to_std["HIP"] = "HIS#PROT";  /*  histidine - protonated  */
+	ResSynonym_to_std["CYX"] = "CYS#UNPROT";  /*  Cystine unprotonated*/
+
+	// Make a reverse map from standard to AMBER residue names:
+	for ( const auto& kv : ResSynonym_to_std ) 
+	{
+		ResSynonym_std_to_AMBER[kv.second] = kv.first;
+	}
+
+	// Next conversions are not one to one
+
+	ResSynonym_to_std["HSD"] = "HIS";  /*  histidine - hydrogen at delta position  */
+	ResSynonym_to_std["HSE"] = "HIS#EPSILON";  /*  histidine - hydrogen at epsilon position  */
+	ResSynonym_to_std["HSP"] = "HIS#PROT";  /*  histidine - protonated  */
+
+	ResSynonym_to_std["CPR"] = "PRO";  /*  Cis-proline */
+	ResSynonym_to_std["TRY"] = "TRP";  /*  Cis-proline */
+	ResSynonym_to_std["CSH"] = "CYS";  /*  Cystine     */
+	ResSynonym_to_std["CSM"] = "CYS";  /*  Cystine     */
+	ResSynonym_to_std["CYH"] = "CYS";  /*  Cystine     */
+
+	ResSynonym_to_std["D2O"] = "DOD";  /*  Heavy Water */
+	ResSynonym_to_std["H2O"] = "HOH";  /*  Water       */
+	ResSynonym_to_std["SOL"] = "HOH";  /*  Water       */
+	ResSynonym_to_std["TIP"] = "HOH";  /*  Water       */
+	ResSynonym_to_std["WAT"] = "HOH";  /*  Water       */
+
+	ResSynonym_std_to_AMBER["HOH"] = "WAT";
 
 }
 
 std::vector<std::string> HaResidue::ResNames;
-StrStrMap  HaResidue::ResSynonym;
+StrStrMap  HaResidue::ResSynonym_to_std;
+StrStrMap  HaResidue::ResSynonym_std_to_AMBER;
+
 StrIntMap  HaResidue::res_name_refno_map;
 
 AtomGroup::AtomGroup(AtomExpr* expr, MolSet* pmset)
@@ -986,14 +1001,14 @@ const char* HaResidue::GetName() const
 	return(ResNames[refno].c_str());
 }
 
-void HaResidue::SetName(const std::string& res_name_par)
+void HaResidue::SetName(const std::string& res_name_par, int convert_res_names )
 {
 	std::string new_name = boost::trim_copy(res_name_par);
 	boost::to_upper( new_name );
 
-	if(ResSynonym.count(new_name.c_str()) > 0) 
+	if( convert_res_names && ResSynonym_to_std.count(new_name.c_str()) > 0 )
 	{
-		std::string fname = ResSynonym.GetVal( new_name.c_str() );
+		std::string fname = ResSynonym_to_std.GetVal( new_name.c_str() );
 		
 		size_t isep = fname.find('#');
 		if( isep == std::string::npos )
@@ -3522,4 +3537,17 @@ CrdSnapshot* CrdSnapshotIterator::next()
 CrdSnapshotIterator CrdSnapshotIterator::__iter__() const
 {
 	return (*this);
+}
+
+
+int AtomLoadOptions::ConvertResNames()
+{
+	if (!this->has_i("CONVERT_RES_NAMES")) return 0;
+	return this->get_i("CONVERT_RES_NAMES");
+}
+
+void AtomLoadOptions::SetConvertResNames( int convert_res_names_opt )
+{
+	if (convert_res_names_opt < 0 || convert_res_names_opt > 1) this->set_i("CONVERT_RES_NAMES", 0);
+	this->set_i("CONVERT_RES_NAMES", convert_res_names_opt);
 }

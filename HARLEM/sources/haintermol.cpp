@@ -465,7 +465,7 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 
 	bool bres;
 
-	pmset->p_save_opt_default->save_selected = TRUE; // only interacting molecules are saved
+	pmset->save_opt_default.save_selected = TRUE; // only interacting molecules are saved
 
 	double ene_cmplx;
 	HaVec_double ene_part(ngrp);
@@ -558,7 +558,7 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 //		PrintLog(" Electr inter ene for charge distr of isol molecules: %9.3f kT \n",inter_ene_2);
 	}		
 
-	phost_mset->p_save_opt_default->save_selected = FALSE;
+	phost_mset->save_opt_default.save_selected = FALSE;
 
 	double activ_ch_ene = 0.0; // acivation energy assciated with the changes of the charges of the isolated compounds
 		                       // to that of the complex
@@ -769,7 +769,7 @@ int HaInterMolMod::InitMolecularFields()
 	pmset->GetMinMaxCrd(xmin,ymin,zmin,xmax,ymax,zmax);
 	el_mod->SetBoundaryAtoms(xmin, ymin, zmin, xmax, ymax, zmax);
 
-	pmset->p_save_opt_default->save_selected = TRUE;
+	pmset->save_opt_default.save_selected = TRUE;
 
 	HaAtom* aptr;
 	AtomIteratorMolSet aitr_mset(pmset);

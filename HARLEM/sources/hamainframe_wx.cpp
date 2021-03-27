@@ -971,7 +971,11 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 
     wxCheckBox* calc_bonds_chk = new wxCheckBox( &load_dlg, -1, wxT("Build bonds from atom-atom distance criteria"), wxDefaultPosition, wxDefaultSize, 0 );
 //	calc_bonds_chk->SetValidator(wxGenericValidator(&(MolSet::p_load_opt_default->calc_bonds)));
-    load_dlg.sizer_main_v->Add( calc_bonds_chk, 0, wxALL, 5 );
+	load_dlg.sizer_main_v->Add(calc_bonds_chk, 0, wxALL, 5);
+
+	wxCheckBox* convert_res_names_chk = new wxCheckBox(&load_dlg, -1, wxT("Convert Residue Names to Standard"), wxDefaultPosition, wxDefaultSize, 0);
+	load_dlg.sizer_main_v->Add(convert_res_names_chk, 0, wxALL, 5);
+
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
@@ -984,6 +988,12 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
         pmset = new MolSet();
         pmset->canvas_wx = CreateMolView(pmset);        
     }
+
+	AtomLoadOptions load_opt;
+	if (convert_res_names_chk->IsChecked()) 
+		load_opt.SetConvertResNames(1);
+	else
+		load_opt.SetConvertResNames(0);
 
 	std::vector<std::string> tokens;
 	boost::split( tokens, load_dlg.file_name, boost::is_any_of(";") );

@@ -498,16 +498,16 @@ SaveMolFileDlg::SaveMolFileDlg( MolSet* pmset_new, wxWindow *parent, wxWindowID 
 	file_types_ch = (wxChoice*) FindWindow(IDC_FILE_TYPE);
 	wxCheckBox* chk_box;
 	chk_box = (wxCheckBox*) FindWindow( IDC_SAVE_TRANSFORMED );
-	if(pmset->p_save_opt_default->save_transform)
+	if(pmset->save_opt_default.save_transform)
 		chk_box->SetValue(true);
 	chk_box  = (wxCheckBox*) FindWindow( IDC_SAVE_CONNECT );
-	if(pmset->p_save_opt_default->save_connect)
+	if(pmset->save_opt_default.save_connect)
 		chk_box->SetValue(true);
 	chk_box  = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
-	if(pmset->p_save_opt_default->save_amber_pdb)
+	if(pmset->save_opt_default.save_amber_pdb)
 		chk_box->SetValue(true);
 	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	if (pmset->p_save_opt_default->save_sep_wat_mol)
+	if (pmset->save_opt_default.save_sep_wat_mol)
 		chk_box->SetValue(true);
 
     FillFileTypes();
@@ -564,16 +564,16 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
 	wxCheckBox* chk_box;
 
 	chk_box = (wxCheckBox*) FindWindow( IDC_SAVE_TRANSFORMED );
-	pmset->p_save_opt_default->save_transform = chk_box->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_transform = chk_box->IsChecked() ? TRUE : FALSE;
 	
 	chk_box   = (wxCheckBox*) FindWindow( IDC_SAVE_CONNECT );
-	pmset->p_save_opt_default->save_connect = chk_box->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_connect = chk_box->IsChecked() ? TRUE : FALSE;
 
 	chk_box   = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
-	pmset->p_save_opt_default->save_amber_pdb = chk_box->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_amber_pdb = chk_box->IsChecked() ? TRUE : FALSE;
 
 	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	pmset->p_save_opt_default->save_sep_wat_mol = chk_box->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_sep_wat_mol = chk_box->IsChecked() ? TRUE : FALSE;
 		
     wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
     wxString file_name = file_name_edt->GetValue();

@@ -108,47 +108,47 @@ public:
 //@}
 //! \name Input/Output geometry from/to files
 //@{
-	static AtomLoadOptions* p_load_opt_default; //!< Atom Load Options structure
-	static AtomSaveOptions* p_save_opt_default; //!< Atom Save Options structure
+	static AtomLoadOptions load_opt_default; //!< Default Atom Load Options 
+	static AtomSaveOptions save_opt_default; //!< Default Atom Save Options 
 
-	int FetchFile(int format, const char* file_name ); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
-	int LoadHarlemFile (const char* fname, const AtomLoadOptions* popt = NULL);    //!< Load Molecules from file in HARLEM (*.HLM) (OLD or new XML) format
-	int LoadAmberPrepFile(const char* fname);        //!< Load Molecule in AMBER PREP (*.IN) format
-	int LoadAmberTopFile(const char* fname);         //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
-	int LoadRWFMolecule (const char* fname);         //!< Load structure in binary Gaussian checkpoint (*.rwf, *.chk) format
-	int LoadPDBFile(const char* fname, int flag=0);  //!< Load molecule in PDB format (flag = 1 - NMR extension)
-	int LoadMol2File(const char* fname);             //!< Load molecule in TRIPOS *.mol format 
-	int LoadMDLFile(const char* fname);              //!< Load molecule in TRIPOS *.mdl format 
-	int LoadXYZFile(const char* fname, const AtomLoadOptions* popt = NULL);   //!< Load molecule in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
-	int LoadHINFile(const char* fname, const AtomLoadOptions* popt = NULL);   //!< Load molecule in Arbalest HIN format 
+	int FetchFile(int format, const char* file_name, const AtomLoadOptions& opt = load_opt_default); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
+	int LoadHarlemFile (const char* fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecules from file in HARLEM (*.HLM) (OLD or new XML) format
+	int LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecule in AMBER PREP (*.IN) format
+	int LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
+	int LoadRWFMolecule (const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load structure in binary Gaussian checkpoint (*.rwf, *.chk) format
+	int LoadPDBFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load molecule in PDB format (flag = 1 - NMR extension)
+	int LoadMol2File(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load molecule in TRIPOS *.mol format 
+	int LoadMDLFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load molecule in TRIPOS *.mdl format 
+	int LoadXYZFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load molecule in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
+	int LoadHINFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);        //!< Load molecule in Arbalest HIN format 
 
-	int LoadXYZStream( std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load coordinates from stream
-	int LoadHINStream( std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load Molecules from the stream in Arbalest HIN format 
-	int LoadXMLStream (std::istream& is, const AtomLoadOptions* popt = NULL); //!< Load from file in HARLEM XML format
-	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions* popt = NULL ); //!< Load MolSet data from RAPID XML node
+	int LoadXYZStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load coordinates from stream
+	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecules from the stream in Arbalest HIN format 
+	int LoadXMLStream (std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load from file in HARLEM XML format
+	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions& opt = load_opt_default); //!< Load MolSet data from RAPID XML node
 	
-	int LoadOldHarlemFile(FILE* fp ); //!< Load file in OLD Harlem format
+	int LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt = load_opt_default); //!< Load file in OLD Harlem format
 
 	int SetCoordFromFile(const char* fname, int iform = FormatGUESS); //!< Set Molecular Set atom coordinates from File (in pdb, xyz or other format) 
 	int SetCrdFromArray( const HaVec_double& crd_arr ); //!< Set Molecular Set atom coordinates for coordinate array
 
-	int SavePDBFile(const char* filename ) const;      //!< Save molecules into a file in PDB format
-	int SaveHarlemFile(const char* filename, const AtomSaveOptions* popt = NULL );  //!< Save molecules into a file in current HARLEM format (XML) (*.hmlx)
-	int SaveOldHarlemFile(const char* filename );   //!< Save molecules into a file in OLD HARLEM format (*.hml)
-	int SaveXYZRadFile(const char* filename );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
-	int SaveDimerXYZFile(const char* prefix); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
-	int SaveHINFile(const char* filename );      //!< Save molecules into a file in Arbalest HIN format
+	int SavePDBFile(const char* filename,    const AtomSaveOptions& opt = save_opt_default ) const;      //!< Save molecules into a file in PDB format
+	int SaveHarlemFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );  //!< Save molecules into a file in current HARLEM format (XML) (*.hlm)
+	int SaveOldHarlemFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save molecules into a file in OLD HARLEM format (*.hlm)
+	int SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
+	int SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt = save_opt_default ); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
+	int SaveHINFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in Arbalest HIN format
 	
-	int SavePQRFile(const char* filename, bool SaveChainLetter=true);//!< Save molecule into PQR format file
-	int SavePQRFreeFile(const char* filename);
+	int SavePQRFile(const char* filename, const AtomSaveOptions& opt = save_opt_default ); //!< Save molecule into PQR format file
+	int SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );
 	
-	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0) const; //!< Add Minimal Molecular Set Descripion to XML element
-	int SaveXML(FILE* file_out, int option=0) const;          //!< Save Molecular Set Description to a file
-	int SavePDBToStream(std::ostream& os) const; //!< Save MolSet in PDB Format to std::stream
-	std::string SavePDBToString() const; //!< Save MolSet in PDB Format to std::string
-	int SaveOldHarlemStream(std::ostream& os); //!< Save MolSet in Old Harlem Format to std::stream
-	int SaveHINToStream(std::ostream& os) const; //!< Save MolSet in Abalest HIN Format to std::stream
-	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions* popt = NULL ) const;  //!< Write MolSet data in XML format to stream
+	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0 ) const; //!< Add Minimal Molecular Set Descripion to XML element
+	int SaveXML(FILE* file_out, const AtomSaveOptions& opt = save_opt_default) const;          //!< Save Molecular Set Description to a file
+	int SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const; //!< Save MolSet in PDB Format to std::stream
+	std::string SavePDBToString(const AtomSaveOptions& opt = save_opt_default ) const; //!< Save MolSet in PDB Format to std::string
+	int SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ); //!< Save MolSet in Old Harlem Format to std::stream
+	int SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const; //!< Save MolSet in Abalest HIN Format to std::stream
+	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const;  //!< Write MolSet data in XML format to stream
 	  
 	ZMatCrd* GetZMat( const harlem::HashMap* popt = NULL); //!< Get Z-Matrix for the molecular set   
 
@@ -351,7 +351,7 @@ public:
 
 	int SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* popt = NULL ) const; //!< Save Crd snapshots to file in XML format
 	int SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt = NULL ) const;   //!< Save Crd snapshots to stream in XML format
-	int LoadCrdSnapshots(const std::string& fname, const harlem::HashMap* popt = NULL ); //!< Load Crd snapshots from file in XML format
+	int LoadCrdSnapshots(const std::string& fname, const harlem::HashMap& opt = harlem::HashMap::empty_map ); //!< Load Crd snapshots from file in XML format
 //@}  
 
 //! \name Secondary Structure Elements:

@@ -392,8 +392,11 @@ int HaMolecule::SetCysBridgeNames()
 	return TRUE;
 }
 
-int MolSet::LoadPDBFile(const char* fname , int flag )
+int MolSet::LoadPDBFile(const char* fname , const AtomLoadOptions& opt )
 {
+	bool flag_NMR = false;
+	if (opt.has_d("NMRPDB") && opt.get_d("NMRPDB") > 0) flag_NMR = true;
+
 	using boost::lexical_cast;
 	using boost::trim_copy;
 
@@ -442,7 +445,7 @@ int MolSet::LoadPDBFile(const char* fname , int flag )
 				case('C'):    
 					if( line.size() >= 4 && !strncmp("CONE",line.c_str(),4) )
 					{   
-						if( ignore || flag ) continue;
+						if( ignore || flag_NMR ) continue;
 						std::string atom_id_str = trim_copy(line.substr(6, 5));
 						if (atom_id_str.empty()) continue;
 						srcatm = lexical_cast<int>( atom_id_str );
@@ -487,7 +490,7 @@ int MolSet::LoadPDBFile(const char* fname , int flag )
 				case('E'):    
 					if( line.size() >= 4 && !strncmp("ENDM",line.c_str(),4) )
 					{   /* break after single model??? */
-						if( flag )
+						if( flag_NMR )
 						{   
 							pres_cur = NULL;
 							pch_cur  = NULL;
@@ -583,7 +586,7 @@ int MolSet::LoadPDBFile(const char* fname , int flag )
 
     if( !pMol->Features.empty() ) pMol->ProcessFeatures();
 
-	if( p_load_opt_default->UniqueAtNames() )
+	if( opt.UniqueAtNames() )
 	{
 		pMol->SetUniqueAtomNames();
 	}
@@ -636,7 +639,7 @@ bool HaMolecule::FixChainsIdent()
 }
 
 
-int MolSet::LoadMDLFile(const char* fname )
+int MolSet::LoadMDLFile(const char* fname, const AtomLoadOptions& opt )
 {
 	using boost::trim_copy;
 	using boost::lexical_cast;
@@ -760,11 +763,11 @@ int MolSet::LoadMDLFile(const char* fname )
 	}
 	
 
-	if( p_load_opt_default->ToCalcBonds() )
+	if( opt.ToCalcBonds() )
 	{
 		p_mol_editor->CreateCovBonds(pMol);
 	}
-	if( p_load_opt_default->UniqueAtNames() )
+	if( opt.UniqueAtNames() )
 	{
 		pMol->SetUniqueAtomNames();
 	}
@@ -848,7 +851,7 @@ int MolSet::SetCrdFromArray( const HaVec_double& crd_arr )
 	return TRUE;
 }
 
-int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions& opt_par )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
@@ -859,17 +862,15 @@ int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions* popt_arg )
 	}
 	std::string mol_name = harlem::GetPrefixFromFullName(fname);
 
-	std::auto_ptr<AtomLoadOptions> popt_auto( popt_arg != NULL ? (AtomLoadOptions*) popt_arg->clone() : (AtomLoadOptions*) p_load_opt_default->clone() );
-	AtomLoadOptions* popt = popt_auto.get();
+	AtomLoadOptions opt(opt_par);
+	opt.SetDefaultMolName(mol_name);
 
-	popt->SetDefaultMolName(mol_name);
-
-	int ires = LoadXYZStream( is_f, popt );
+	int ires = LoadXYZStream( is_f, opt );
 
 	return ires;
 }
 
-int MolSet::LoadHINFile(const char* fname, const AtomLoadOptions* popt_arg )
+int MolSet::LoadHINFile(const char* fname, const AtomLoadOptions& opt_par )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
@@ -880,21 +881,16 @@ int MolSet::LoadHINFile(const char* fname, const AtomLoadOptions* popt_arg )
 	}
 	std::string mol_name = harlem::GetPrefixFromFullName(fname);
 
-	std::auto_ptr<AtomLoadOptions> popt_auto( popt_arg != NULL ? (AtomLoadOptions*) popt_arg->clone() : (AtomLoadOptions*) p_load_opt_default->clone() );
-	AtomLoadOptions* popt = popt_auto.get();
+	AtomLoadOptions opt(opt_par);
+	opt.SetDefaultMolName(mol_name);
 
-	popt->SetDefaultMolName(mol_name);
-
-	int ires = LoadHINStream( is_f, popt );
+	int ires = LoadHINStream( is_f, opt );
 
 	return ires;
 }
 
-int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
-{
-	std::auto_ptr<AtomLoadOptions> p_opt_auto( p_opt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) p_opt_arg->clone() );
-	AtomLoadOptions* p_opt = p_opt_auto.get();
-	
+int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
+{	
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
  
 	if( !is_arg.good() )
@@ -915,7 +911,7 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 	std::string line;
 
 	HaMolecule* pMol = AddNewMolecule();
-	pMol->SetObjName(p_opt->GetDefaultMolName().c_str() );
+	pMol->SetObjName(opt.GetDefaultMolName().c_str() );
 	HaChain*   pch_cur  = NULL;
 	HaResidue* pres_cur = NULL; 
 
@@ -1133,18 +1129,15 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 //	{
 		p_mol_editor->CreateCovBonds(pMol);
 //	}
-	if( p_opt->UniqueAtNames() )
+	if( opt.UniqueAtNames() )
 	{
 		pMol->SetUniqueAtomNames();
 	}
 	return( TRUE );
 }
 
-int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_arg )
+int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions& opt )
 {
-	std::auto_ptr<AtomLoadOptions> p_opt_auto( p_opt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) p_opt_arg->clone() );
-	AtomLoadOptions* p_opt = p_opt_auto.get();
-	
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
  
 	if( !is_arg.good() )
@@ -1469,11 +1462,11 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 		return FALSE;
 	}
 
-	if( p_opt->ToCalcBonds() )
+	if( opt.ToCalcBonds() )
 	{
 		p_mol_editor->CreateCovBonds(pMol);
 	}
-	if( p_opt->UniqueAtNames() )
+	if( opt.UniqueAtNames() )
 	{
 		pMol->SetUniqueAtomNames();
 	}
@@ -1481,7 +1474,7 @@ int MolSet::LoadHINStream( std::istream& is_arg, const AtomLoadOptions* p_opt_ar
 }
 
 
-int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
+int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions& opt)
 { 
 	using namespace rapidxml;
 
@@ -1489,9 +1482,6 @@ int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 	try
 	{
 		clock_t init_time = clock();
-
-		std::auto_ptr<AtomLoadOptions> popt_auto( popt_arg == NULL ? (AtomLoadOptions*) p_load_opt_default->clone() : (AtomLoadOptions*) popt_arg->clone() );
-		AtomLoadOptions* popt = popt_auto.get();
 
 		std::streampos length;
 		is.seekg (0, std::ios::end);
@@ -1526,7 +1516,7 @@ int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 
 			if( boost::iequals(tag, "molset") )
 			{
-				this->LoadXMLNode(node1, popt );
+				this->LoadXMLNode(node1, opt );
 			}
 			if( boost::iequals(tag, "crd_snap") )
 			{
@@ -1559,7 +1549,7 @@ int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions* popt_arg )
 }
  
  
-int MolSet::LoadMol2File(const char* fname )
+int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     std::ifstream is(fname);
@@ -1676,11 +1666,11 @@ int MolSet::LoadMol2File(const char* fname )
 		}
 	}
 
-	if( p_load_opt_default->ToCalcBonds() )
+	if( opt.ToCalcBonds() )
 	{
 		p_mol_editor->CreateCovBonds(pMol);
 	}
-	if( p_load_opt_default->UniqueAtNames() )
+	if( opt.UniqueAtNames() )
 	{
 		pMol->SetUniqueAtomNames();
 	}
@@ -1693,7 +1683,7 @@ int MolSet::LoadMol2File(const char* fname )
 /* Molecule File Format Generation */
 /*=================================*/
  
-int MolSet::SaveXYZRadFile(const char* filename )
+int MolSet::SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt )
 {
 	FILE* fout = fopen(filename,"w");
 	if(fout == NULL) return FALSE;
@@ -1701,7 +1691,7 @@ int MolSet::SaveXYZRadFile(const char* filename )
 	HaAtom* aptr;
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		if( !p_save_opt_default->save_selected || aptr->Selected())
+		if( !opt.save_selected || aptr->Selected())
 		{
 			fprintf(fout," %12.6f %12.6f %12.6f %12.6f \n", aptr->GetX_Ang(),aptr->GetY_Ang(),aptr->GetZ_Ang(),
 					aptr->radius);
@@ -1711,7 +1701,7 @@ int MolSet::SaveXYZRadFile(const char* filename )
     return( True );
 }
 
-int MolSet::SaveDimerXYZFile(const char* prefix )
+int MolSet::SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt)
 {
 	if (!this->IsDimer())
 	{
@@ -1804,7 +1794,7 @@ int MolSet::SaveDimerXYZFile(const char* prefix )
 
 static int set_string_from_istream(std::string& str, istream& is);
 
-int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
+int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions& opt )
 {
 //	PrintLog(" MolSet::LoadHarlemFile() pt 1 \n");
 
@@ -1828,14 +1818,14 @@ int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
 		is.close();
 		FILE* fp = fopen(fname,"r");
 		if( fp == NULL ) return FALSE;
-		ires =  LoadOldHarlemFile(fp);
+		ires =  LoadOldHarlemFile(fp, opt);
 	}
 	else
 	{
 		is.close();
 		is.open(fname,ios::binary);
 //	    PrintLog(" MolSet::LoadHarlemFile() load file in new XML format \n");
-		ires = LoadXMLStream (is, p_opt );
+		ires = LoadXMLStream (is, opt );
 	}
 	
 //	clock_t fin_time = clock();
@@ -1844,7 +1834,7 @@ int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions* p_opt )
 	return ires;
 }
 
-int MolSet::LoadOldHarlemFile(FILE* fp )
+int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 {
 	HaMolecule* pMol     = NULL; 
 	HaChain*    pch_cur  = NULL;
@@ -2507,8 +2497,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp )
 	return True;
 }
 
-int
-MolSet::LoadAmberPrepFile(const char* fname)
+int MolSet::LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     FILE* fp = fopen(fname,"r");
@@ -2806,7 +2795,7 @@ MolSet::LoadAmberPrepFile(const char* fname)
 	return TRUE;
 }
 
-int MolSet::LoadAmberTopFile(const char* fname)
+int MolSet::LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt )
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     FILE* fp = fopen(fname,"r");
@@ -3137,9 +3126,9 @@ static int set_string_from_istream(std::string& str, istream& is)
 	}
 }
 
-int MolSet::LoadRWFMolecule(const char* fname)
+int MolSet::LoadRWFMolecule(const char* fname, const AtomLoadOptions& opt )
 {
-	PrintLog(" This is LoadRWFMolecule \n ");
+	PrintLog(" This is MolSet::LoadRWFMolecule() \n ");
 
 	HaMolecule* pMol=AddNewMolecule();	
 

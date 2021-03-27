@@ -407,7 +407,7 @@ void HaAtomsParmDB::SetAtomsParam(MolSet* pmset, const char *FFName)
 				AtomIteratorResidue aitr_res(rptr);
 				for(aptr = aitr_res.GetFirstAtom(); aptr; aptr = aitr_res.GetNextAtom())
 				{
-					if(pmset->p_save_opt_default->save_selected && !aptr->Selected())
+					if(pmset->save_opt_default.save_selected && !aptr->Selected())
 						continue;
 					HaAtomParmEntry* atm=res->GetAtom(aptr->GetName());
 					if(atm==NULL)
@@ -2159,8 +2159,8 @@ int pKaCalcMod::PrintResWithAltProtState()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintResWithAltProtState\n");
-	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
-	phost_mset->p_save_opt_default->save_selected = FALSE;
+	int old_save_selected=phost_mset->save_opt_default.save_selected;
+	phost_mset->save_opt_default.save_selected = FALSE;
 	
 	HaResidue* pres;
 	ResidueIteratorMolSet ritr(phost_mset);
@@ -2173,7 +2173,7 @@ int pKaCalcMod::PrintResWithAltProtState()
 			pnpPrint("%d %s %d\n",pres->GetSerNo(),full_res_name.c_str(),nst);
 	}
 	
-	phost_mset->p_save_opt_default->save_selected=old_save_selected;
+	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::PrintPopulation()
@@ -2287,8 +2287,8 @@ int pKaCalcMod::PrintResults()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
 	pnpPrint("PrintResults\n");
-	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
-	phost_mset->p_save_opt_default->save_selected=FALSE;
+	int old_save_selected=phost_mset->save_opt_default.save_selected;
+	phost_mset->save_opt_default.save_selected=FALSE;
 	
 	
 	pnpPrint("E1 = %.14e kT\n",E1);
@@ -2349,7 +2349,7 @@ int pKaCalcMod::PrintResults()
 		pnpPrint("\n");
 	}
 	
-	phost_mset->p_save_opt_default->save_selected=old_save_selected;
+	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::CalcpKaUsingElectrostMod()
@@ -2400,8 +2400,8 @@ int pKaCalcMod::ReadCalculatedEnergies(const char *filename)
 int pKaCalcMod::MakeAltStList()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
-	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
-	phost_mset->p_save_opt_default->save_selected = TRUE;
+	int old_save_selected=phost_mset->save_opt_default.save_selected;
+	phost_mset->save_opt_default.save_selected = TRUE;
 	
 	AtomIteratorMolSet aitr(phost_mset);
 	HaAtom* aptr;
@@ -2497,14 +2497,14 @@ int pKaCalcMod::MakeAltStList()
 		pKaIntr[i]=alt_st->std_pk;
 	}
 	
-	phost_mset->p_save_opt_default->save_selected=old_save_selected;
+	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::RunCalcUsingElectrostMod()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
-	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
-	phost_mset->p_save_opt_default->save_selected = TRUE;
+	int old_save_selected=phost_mset->save_opt_default.save_selected;
+	phost_mset->save_opt_default.save_selected = TRUE;
 	
 	int myrank, nprocs;
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
@@ -2725,7 +2725,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 	}
 	
 	phost_mset->SelectAtoms(&sel_atoms);
-	phost_mset->p_save_opt_default->save_selected=old_save_selected;
+	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::RunCalcUsingElMod()
@@ -3080,8 +3080,8 @@ int pKaCalcMod::RunCalcUsingElMod()
 int pKaCalcMod::CalcIntrpKa()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
-	int old_save_selected=phost_mset->p_save_opt_default->save_selected;
-	phost_mset->p_save_opt_default->save_selected = TRUE;
+	int old_save_selected=phost_mset->save_opt_default.save_selected;
+	phost_mset->save_opt_default.save_selected = TRUE;
 	
 	
 	int iAltSt=0;
@@ -3116,7 +3116,7 @@ int pKaCalcMod::CalcIntrpKa()
 	}
 	
 	
-	phost_mset->p_save_opt_default->save_selected=old_save_selected;
+	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
 int pKaCalcMod::RoutineCalcAvgPopMC(HaMat_double& inter_mat, HaVec_double& alt_pop, HaVec_double& delt_e,int N_mc_cyc)
@@ -3997,7 +3997,7 @@ int PNPMod::SaveIER(const char* filename, bool OnlyHeavyAtoms)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -4335,7 +4335,7 @@ int PNPMod::SavePAN(const char* filename, bool OnlyHeavyAtoms)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -4419,7 +4419,7 @@ int PNPMod::AssignPAN(bool OnlyHeavyAtoms)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -4673,7 +4673,7 @@ int PNPMod::SavePREFile(const char* filename)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -4718,7 +4718,7 @@ int PNPMod::SavePREFile(const char* filename)
 																					 chain->ident, group->serno );
 						
 						HaMolView* pView = phost_mset->GetActiveMolView();
-						if(phost_mset->p_save_opt_default->save_transform && pView != NULL)
+						if(phost_mset->save_opt_default.save_transform && pView != NULL)
 						{
 							pView->GetTransfCoord(aptr->GetX_Ang(),aptr->GetY_Ang(),aptr->GetZ_Ang(),x,y,z);
 						}
@@ -4783,7 +4783,7 @@ int PNPMod::SetLJABfromAMBERFF()
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 						AtmsSet.push_back(aptr);
 					}
@@ -5030,7 +5030,7 @@ int PNPMod::SetLJABfromOPLS()
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 						AtmsSet.push_back(aptr);
 					}
@@ -5098,7 +5098,7 @@ int PNPMod::SavePREFreeFile(const char* filename)
 				AtomIteratorAtomGroup aitr_group(group);
 				for(aptr= aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
-					if( !phost_mset->p_save_opt_default->save_selected || aptr->Selected())
+					if( !phost_mset->save_opt_default.save_selected || aptr->Selected())
 					{
 //						if( prev && (chain->ident!=ch) )
 //							fprintf( DataFile, "TER   %5d      %.3s %c%4d \n",
@@ -5143,7 +5143,7 @@ int PNPMod::SavePREFreeFile(const char* filename)
 																					 chain->ident, group->serno );
 						
 						HaMolView* pView = phost_mset->GetActiveMolView();
-						if(phost_mset->p_save_opt_default->save_transform && pView != NULL)
+						if(phost_mset->save_opt_default.save_transform && pView != NULL)
 						{
 							pView->GetTransfCoord(aptr->GetX_Ang(), aptr->GetY_Ang(), aptr->GetZ_Ang(),x,y,z);
 						}

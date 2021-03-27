@@ -81,6 +81,9 @@ public:
 	const std::string& GetDefaultMolName() const { return mol_name_default; } 
 	void SetDefaultMolName( const std::string& mol_name) { mol_name_default = mol_name; }
 
+	int ConvertResNames();  //!<  Residue Names conversion option: = 0 - NO COnversion, = 1 Standard conversion: ( HIP -> HIS#PROT,  HIE -> HIS#EPSILON etc ), 
+	void SetConvertResNames( int convert_res_names_opt ); //!< Set Residue Conversion option: = 0 - NO COnversion, = 1 Standard conversion: ( HIP -> HIS#PROT,  HIE -> HIS#EPSILON etc )
+
 	bool ToCalcBonds() const { return calc_bonds; } 
 	void SetCalcBonds( bool set_par = true ) { calc_bonds = set_par; }
 
@@ -365,7 +368,7 @@ public:
 	int HasBackBHBond(HaResidue* res2); //!< Check if amino acid residue has a backbone H-bond to another aminoacid 
 
 	const char* GetName() const;  //!< Get the basic name of the residue
-	void SetName(const std::string& res_name); //!< Set Residue Name 
+	void SetName(const std::string& res_name, int convert_res_names = 0); //!< Set Residue Name 
 	void SetNameModifier( const std::string& new_name_mod) { NameModifier = new_name_mod; } 
     
 	const char* GetNameModifier() { return NameModifier.c_str(); }  //!< Get Residue Name Modifier
@@ -452,8 +455,9 @@ public:
 	static void InitResSynonym(); //!< Initialize standard residue name synonyms
 
 	static std::vector<std::string> ResNames;               //!< table of Residue Names 
-	static StrIntMap res_name_refno_map;  //!< map of residue names to ref_no 
-	static StrStrMap ResSynonym;  //!< the table of Residue Name Synonyms
+	static StrIntMap res_name_refno_map;       //!< map of residue names to ref_no 
+	static StrStrMap ResSynonym_to_std;        //!< the table of Residue Name Synonyms from AMBER to STD names( with modifies) 
+	static StrStrMap ResSynonym_std_to_AMBER;  //!< the table of Residue Name Synonyms from STD names( with modifies) to AMBER
 
 protected:
 	void Clear();	

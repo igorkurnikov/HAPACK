@@ -33,6 +33,8 @@ namespace harlem
 		virtual void Copy( const HashMap& ref );
 		virtual HashMap* clone() const;
 
+		static HashMap empty_map;
+
 		// Set functions
 		void set_i( const HashID& parmid, const int& value ); 
 		void set_d( const HashID& parmid, const double& value );

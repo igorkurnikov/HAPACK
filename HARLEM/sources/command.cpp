@@ -452,8 +452,10 @@ void CmdParser::CommandError(const char* error )
     CurToken = 0;
 }
 
-int MolSet::FetchFile(int format, const char* file_name )
+int MolSet::FetchFile(int format, const char* file_name, const AtomLoadOptions& opt_par )
 {
+	AtomLoadOptions opt(opt_par);
+
     int done;
 	std::string fname = file_name;
 	boost::trim(fname);
@@ -466,16 +468,16 @@ int MolSet::FetchFile(int format, const char* file_name )
 	
 	switch( format )
 	{	
-	case(FormatHarlem):      done = LoadHarlemFile(fname.c_str());    break;
-	case(FormatAmberPrep):   done = LoadAmberPrepFile(fname.c_str()); break; 
-	case(FormatAmberTop):    done = LoadAmberTopFile (fname.c_str()); break;
-	case(FormatRWF):         done = LoadRWFMolecule(fname.c_str());   break; 
-	case(FormatPDB):         done = LoadPDBFile(fname.c_str(),False); break;
-	case(FormatNMRPDB):      done = LoadPDBFile(fname.c_str(),True);  break;
-	case(FormatMol2):        done = LoadMol2File(fname.c_str());      break;
-	case(FormatMDL):         done = LoadMDLFile(fname.c_str());       break;
-	case(FormatXYZ):         done = LoadXYZFile(fname.c_str());       break;
-	case(FormatHIN):         done = LoadHINFile(fname.c_str());       break;
+	case(FormatHarlem):      done = LoadHarlemFile(fname.c_str(),    opt); break;
+	case(FormatAmberPrep):   done = LoadAmberPrepFile(fname.c_str(), opt); break;
+	case(FormatAmberTop):    done = LoadAmberTopFile (fname.c_str(), opt); break;
+	case(FormatRWF):         done = LoadRWFMolecule(fname.c_str(),   opt); break;
+	case(FormatPDB):         done = LoadPDBFile(fname.c_str(),       opt); break;
+	case(FormatNMRPDB):      opt.set_i("NMRPDB", 1);  done = LoadPDBFile(fname.c_str(), opt); break;
+	case(FormatMol2):        done = LoadMol2File(fname.c_str(),      opt); break;
+	case(FormatMDL):         done = LoadMDLFile(fname.c_str(),       opt); break;
+	case(FormatXYZ):         done = LoadXYZFile(fname.c_str(),       opt); break;
+	case(FormatHIN):         done = LoadHINFile(fname.c_str(),       opt); break;
 
 	default:                 done = False;
 	}
