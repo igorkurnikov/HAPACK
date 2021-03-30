@@ -4,5 +4,5 @@ FULL_PATH=`python -c "import os; print(os.path.abspath('$BASEDIR'))"`
 export LD_LIBRARY_PATH=$BASEDIR/../molset:$LD_LIBRARY_PATH
 export HARLEM_HOME="$FULL_PATH/../"
 export PYTHONPATH="$BASEDIR/../:$PYTHONPATH"
-#export LC_ALL="en_US.utf8"
+export LC_ALL="en_US.utf8"
 python3 -m molset.harlempy $@  
