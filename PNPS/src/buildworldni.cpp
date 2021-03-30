@@ -1034,7 +1034,7 @@ int GOAtoms::LoadHaMolSet(MolSet *molset)
 
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
-		if(molset->p_save_opt_default->save_selected && !aptr->Selected())
+		if(molset->save_opt_default.save_selected && !aptr->Selected())
 			continue;
 				
 		r[0].push_back(float(aptr->GetX()));
