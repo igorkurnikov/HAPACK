@@ -25,6 +25,25 @@ if [[ "$PY_VER" = "3.6" ]] && [[ "$os_id"  = "CentOS" ]]; then
   cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_4.8_PY36/wx/*    ${SP_DIR}/wx
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_CENTOS_7.7/*  ${PREFIX}/lib
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
+elif [[ "$PY_VER" = "3.7" ]] && [[ "$os_id"  = "CentOS" ]]; then
+  echo "CENTOS OS :  PY_VER = 3.7"
+  cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_4.8_PY37/wx/*    ${SP_DIR}/wx
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_CENTOS_7.7/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
+elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "CentOS" ]]; then
+  echo "CENTOS OS :  PY_VER = 3.8"
+  cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_4.8_PY38/wx/*    ${SP_DIR}/wx
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_CENTOS_7.7/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
+elif [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "CentOS" ]]; then
+  echo "CENTOS OS :  PY_VER = 3.8"
+  cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_4.8_PY39/wx/*    ${SP_DIR}/wx
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_CENTOS_7.7/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
+elif [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then
+  echo "UBUNTU OS :  PY_VER = 3.9"
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_20.04/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_20.04/*  ${PREFIX}/bin
 elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "Ubuntu" ]]; then
   echo "UBUNTU OS :  PY_VER = 3.8"
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_20.04/*  ${PREFIX}/lib
@@ -47,8 +66,10 @@ cp -a ${RECIPE_DIR}/../examples/*     ${PREFIX}/opt/harlem/examples
 cp -a ${RECIPE_DIR}/../basis/*        ${PREFIX}/opt/harlem/basis
 cp -a ${RECIPE_DIR}/../residues_db/*  ${PREFIX}/opt/harlem/residues_db
 
-if [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
-  pip install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+if [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
+  pip install wxPython-4.1.1-cp39-cp39-linux_x86_64.whl
+elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
+  pip install wxPython-4.1.1-cp38-cp38m-linux_x86_64.whl
 elif [[ "$PY_VER" = "3.7" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
   pip install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
 else

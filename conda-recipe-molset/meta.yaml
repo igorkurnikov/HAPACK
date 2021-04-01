@@ -16,10 +16,3 @@ requirements:
     - python
     - pip    
 
-outputs:
-  - name: harlem 
-    version: {{ version }}
-  - name: molset
-    version: {{ version }}
-
-
