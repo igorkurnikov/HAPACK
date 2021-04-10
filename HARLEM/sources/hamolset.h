@@ -114,6 +114,7 @@ public:
 	int FetchFile(int format, const char* file_name, const AtomLoadOptions& opt = load_opt_default); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
 	int LoadHarlemFile (const char* fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecules from file in HARLEM (*.HLM) (OLD or new XML) format
 	int LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecule in AMBER PREP (*.IN) format
+	int LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);  //!< Load Molecule in AMBER OFF (*.off;*.lib) format
 	int LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
 	int LoadRWFMolecule (const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load structure in binary Gaussian checkpoint (*.rwf, *.chk) format
 	int LoadPDBFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load molecule in PDB format (flag = 1 - NMR extension)
@@ -123,7 +124,8 @@ public:
 	int LoadHINFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);        //!< Load molecule in Arbalest HIN format 
 
 	int LoadXYZStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load coordinates from stream
-	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecules from the stream in Arbalest HIN format 
+	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecules from the std::istream in Arbalest HIN format
+	int LoadAmberOffStream(std::istream& is, const AtomLoadOptions& opt = load_opt_default);  //!< Load Molecule in AMBER OFF (*.off;*.lib) format from std::istream
 	int LoadXMLStream (std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load from file in HARLEM XML format
 	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions& opt = load_opt_default); //!< Load MolSet data from RAPID XML node
 	

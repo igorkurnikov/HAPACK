@@ -422,6 +422,7 @@ const char* gauss_filters = "*.rwf;*.chk";
 const char* harlem_filters = "*.hlm";
 const char* amber_prep_filters = "*.in";
 const char* amber_top_filters = "*.top;*.crd;*.rst";
+const char* amber_off_filters = "*.off;*.lib";
 
 void ChooseMolFileDlg::FillFileTypes()
 {
@@ -435,6 +436,7 @@ void ChooseMolFileDlg::FillFileTypes()
 	file_types_ch->Append("HARLEM File Format (*.hlm)",(void*)harlem_filters);
     file_types_ch->Append("AMBER PREP File Format (*.in)",(void*)amber_prep_filters);
 	file_types_ch->Append("AMBER TOP File Format (*.top)",(void*)amber_top_filters);
+	file_types_ch->Append("AMBER OFF File Format (*.off;*.lib)", (void*)amber_off_filters);
 	file_types_ch->Append("ARBALEST File Format (*.hin)",(void*)hin_filters);
 
     file_types_ch->SetSelection(5);
@@ -468,7 +470,8 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 		case(5): file_format = FormatHarlem;  break;
         case(6): file_format = FormatAmberPrep;  break;
 		case(7): file_format = FormatAmberTop;   break;
-		case(8): file_format = FormatHIN;      break;
+		case(8): file_format = FormatAmberOff;   break;
+		case(9): file_format = FormatHIN;      break;
     }
 	this->Close();
 }

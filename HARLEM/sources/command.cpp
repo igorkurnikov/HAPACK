@@ -471,6 +471,7 @@ int MolSet::FetchFile(int format, const char* file_name, const AtomLoadOptions& 
 	case(FormatHarlem):      done = LoadHarlemFile(fname.c_str(),    opt); break;
 	case(FormatAmberPrep):   done = LoadAmberPrepFile(fname.c_str(), opt); break;
 	case(FormatAmberTop):    done = LoadAmberTopFile (fname.c_str(), opt); break;
+	case(FormatAmberOff):    done = LoadAmberOffFile(fname.c_str(),  opt); break;
 	case(FormatRWF):         done = LoadRWFMolecule(fname.c_str(),   opt); break;
 	case(FormatPDB):         done = LoadPDBFile(fname.c_str(),       opt); break;
 	case(FormatNMRPDB):      opt.set_i("NMRPDB", 1);  done = LoadPDBFile(fname.c_str(), opt); break;

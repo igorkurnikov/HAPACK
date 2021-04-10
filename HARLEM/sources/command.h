@@ -38,7 +38,8 @@ const int FormatRWF      = 17;
 const int FormatHarlem    = 18;
 const int FormatAmberPrep = 19;
 const int FormatAmberTop = 20;
-const int FormatHIN      = 21;
+const int FormatAmberOff = 21;
+const int FormatHIN      = 22;
 
 const int FormatGUESS    = 0;
 

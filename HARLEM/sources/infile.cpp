@@ -21,6 +21,7 @@
 
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
@@ -2795,6 +2796,7 @@ int MolSet::LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt)
 	return TRUE;
 }
 
+
 int MolSet::LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt )
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
@@ -3094,6 +3096,390 @@ int MolSet::LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt )
 
 	fclose(fp);
 	return TRUE;
+}
+
+int MolSet::LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt )
+{
+	ifstream is_f(fname);
+	if (!is_f.good())
+	{
+		PrintLog(" Error in MolSet::LoadAmberOffFile() \n");
+		PrintLog(" Error to open file %s for reading \n", fname);
+		return FALSE;
+	}
+
+	int ires = LoadAmberOffStream(is_f, opt);
+
+	return ires;
+}
+
+int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
+{
+	MolEditor* p_mol_editor = this->GetMolEditor(true);
+
+	if (!is_arg.good())
+	{
+		PrintLog("Error in MolSet::LoadAmberOffStream() \n");
+		PrintLog("Can not read from input stream \n");
+		return(FALSE);
+	}
+
+	int na;
+	HaAtom* aptr;
+	int i;
+	int idx_line = -1;
+	int idx_line_section = -1;
+	std::string line;
+
+	std::string curr_unit_name = "";
+	HaMolecule* pMol = NULL;
+
+	int cur_res_idx = -9999;
+	HaChain* pch_cur = NULL;
+	HaResidue* pres_cur = NULL;
+
+	std::vector<HaAtom*> unit_atom_vec;
+
+	std::map<HaAtom*, int> atom_idx_map;
+	std::map<int, HaAtom*> idx_atom_map;  // indexes of atoms in the molecule
+
+	try
+	{
+		std::map<std::string,HaMolecule*> units;
+		std::vector<string> str_arr_init;
+		std::vector<string> str_arr;
+		std::vector<string> tokens;
+
+		enum READ_MODE { UNKNOWN_SECTION = 0, READ_UNIT_NAMES, READ_ATOMS_TABLE, READ_ATOMS_PERT_INFO, READ_BOUND_BOX,
+			READ_CHILD_SEQUENCE, READ_UNIT_CONNECT, READ_ATOM_CONNECTIVITY, READ_HIERARCHY, READ_UNIT_NAME,
+			READ_ATOM_POSITIONS, READ_RESIDUE_CONNECT, READ_RESIDUES, READ_RESIDUES_PDB_SEQUENCE_NUMBER, 
+			READ_SOLVENT_CAP, READ_VELOCITIES
+		} read_mode;
+
+		read_mode = UNKNOWN_SECTION;
+
+		while (1)
+		{
+			std::getline(is_arg, line);
+			if (is_arg.fail()) break;
+			idx_line++;
+			idx_line_section++;
+		
+			boost::trim(line);
+			boost::split(str_arr_init, line, boost::is_any_of("\t \""), boost::token_compress_on);
+		
+			str_arr.clear();
+			for ( std::string ss : str_arr_init )
+			{
+				if (ss.size() > 0) str_arr.push_back(ss);
+			}
+			if (str_arr.empty()) continue;
+
+			if (idx_line == 0)
+			{
+				if ( !boost::algorithm::starts_with( line, "!!index ") ) throw std::runtime_error("file does not start with: !!index "); 
+				read_mode = READ_UNIT_NAMES;
+				continue;
+			}
+
+			if (line[0] == '!')
+			{
+				idx_line_section = -1;
+				if (!boost::algorithm::starts_with(line, "!entry"))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Unknown Section %s \n", line.c_str());
+					read_mode = UNKNOWN_SECTION;
+					continue;
+				}
+				boost::split(tokens, str_arr[0], boost::is_any_of("."), boost::token_compress_on);
+				if (tokens.size() < 3)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Unknown Section %s \n", line.c_str());
+					read_mode = UNKNOWN_SECTION;
+					continue;
+				}
+				std::string unit_name = tokens[1];
+				if (unit_name != curr_unit_name)
+				{
+					if (units.count(unit_name) == 0)
+					{
+						PrintLog("MolSet::LoadAmberOffStream() \n Unknown Unit Name in section header %s \n Section will be ignored \n", unit_name.c_str());
+						read_mode = UNKNOWN_SECTION;
+						continue;
+					}
+					if (units[unit_name] != NULL)
+					{
+						PrintLog("MolSet::LoadAmberOffStream() \n Unit Name %s is already associated with the molecule \n Section will be ignored \n", unit_name.c_str());
+						read_mode = UNKNOWN_SECTION;
+						continue;
+					}
+
+					curr_unit_name = unit_name;
+					pMol = this->AddNewMolecule();
+					pMol->SetObjName(curr_unit_name.c_str());
+					units[unit_name] = pMol;
+					pch_cur = NULL;
+					cur_res_idx = -9999;
+					pres_cur = NULL;
+				}
+
+				if (tokens[2] == "unit" && tokens[3] == "atoms")
+				{
+					unit_atom_vec.clear();
+					read_mode = READ_ATOMS_TABLE;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "atomspertinfo")
+				{
+					read_mode = READ_ATOMS_PERT_INFO;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "boundbox")
+				{
+					read_mode = READ_BOUND_BOX;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "childsequence")
+				{
+					read_mode = READ_CHILD_SEQUENCE;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "connect")
+				{
+					read_mode = READ_UNIT_CONNECT;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "connectivity")
+				{
+					read_mode = READ_ATOM_CONNECTIVITY;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "hierarchy")
+				{
+					read_mode = READ_HIERARCHY; 
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "name")
+				{
+					read_mode = READ_UNIT_NAME;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "positions")
+				{
+					read_mode = READ_ATOM_POSITIONS;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "residueconnect")
+				{
+					read_mode = READ_RESIDUE_CONNECT;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "residues")
+				{
+					read_mode = READ_RESIDUES;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "residuesPdbSequenceNumber")
+				{
+					read_mode = READ_RESIDUES_PDB_SEQUENCE_NUMBER;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "solventcap")
+				{
+					read_mode = READ_SOLVENT_CAP;
+				}
+				else if (tokens[2] == "unit" && tokens[3] == "velocities")
+				{
+					read_mode = READ_VELOCITIES;
+				}
+				else
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Unrecognized section title %s \n ", line.c_str());
+					read_mode = UNKNOWN_SECTION;
+				}
+				continue;
+			}
+
+			if( read_mode == UNKNOWN_SECTION )
+			{
+				PrintLog("MolSet::LoadAmberOffStream() \n line in Unknown Section: %s \n", line.c_str());
+				continue;
+			}
+
+			if( read_mode == READ_UNIT_NAMES )
+			{
+				units[str_arr[0]] = NULL;
+				continue;
+			}
+
+			if (read_mode == READ_ATOMS_TABLE)
+			{
+				if (pMol == NULL)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n pMol should be set already for line %s \n section will be ignored \n", line.c_str());
+					continue;
+				}
+
+				if (str_arr.size() < 8)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Number of tokens too small for Atoms Table entry:\n%s \n It will be skipped \n", line.c_str());
+					continue;
+				}
+
+				std::string atom_name = str_arr[0];
+				std::string atom_type = str_arr[1];
+
+				if (!harlem::IsInt(str_arr[2]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid typex field in %s \n", line.c_str());
+					continue;
+				}
+				int atom_typex = std::stoi(str_arr[2]);
+
+				if (!harlem::IsInt(str_arr[3]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid resx field in %s \n", line.c_str());
+					continue;
+				}
+				int resx = std::stoi(str_arr[3]);
+
+				if (!harlem::IsInt(str_arr[4]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom_flags field in %s \n", line.c_str());
+					continue;
+				}
+				std::string atom_flags = str_arr[4];
+
+				if (!harlem::IsInt(str_arr[5]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom_seq field in %s \n", line.c_str());
+					continue;
+				}
+				int atom_seq = std::stoi(str_arr[5]);
+
+				if (!harlem::IsInt(str_arr[6]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom_elem field in %s \n", line.c_str());
+					continue;
+				}
+				int atom_elem = std::stoi(str_arr[6]);
+
+				if (!harlem::IsFloat(str_arr[7]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom_charge field in %s \n", line.c_str());
+					continue;
+				}
+				double atom_charge = std::stoi(str_arr[7]);
+
+				if (pch_cur == NULL) pch_cur = pMol->AddChain(' ');
+				if (pres_cur == NULL || cur_res_idx != resx)
+				{
+					cur_res_idx = resx;
+					pres_cur = pch_cur->AddResidue(cur_res_idx);
+				}
+
+				HaAtom* aptr = pres_cur->AddNewAtom();
+				aptr->SetElemNo( abs(atom_elem) );
+				aptr->SetName(atom_name);
+				aptr->SetFFSymbol(atom_type);
+				aptr->SetCharge(atom_charge);
+				unit_atom_vec.push_back(aptr);
+			}
+			if (read_mode == READ_ATOMS_PERT_INFO )
+			{
+				continue;
+			}
+			if (read_mode == READ_BOUND_BOX)
+			{
+				continue;
+			}
+			if (read_mode == READ_CHILD_SEQUENCE)
+			{
+				continue;
+			}
+			if (read_mode == READ_UNIT_CONNECT)
+			{
+				continue;
+			}
+			if (read_mode == READ_ATOM_CONNECTIVITY)
+			{
+				if (str_arr.size() != 3)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid Number of fields in Atom Connectivity line %s\n", line.c_str());
+					continue;
+				}
+				if (!harlem::IsInt(str_arr[0]) || !harlem::IsInt(str_arr[1]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Atom indexes are not integers in Atom Connectivity line %s\n", line.c_str());
+					continue;
+				}
+				int idx1 = std::stoi(str_arr[0]) - 1;
+				int idx2 = std::stoi(str_arr[1]) - 1;
+				if (idx1 < 0 || idx2 < 0 || idx1 >= unit_atom_vec.size() || idx2 >= unit_atom_vec.size() || idx1 == idx2)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom indexes in Atom Connectivity line %s\n", line.c_str());
+					continue;
+				}
+				HaAtom* aptr1 = unit_atom_vec[idx1];
+				HaAtom* aptr2 = unit_atom_vec[idx2];
+
+				this->AddBond(aptr1, aptr2);
+
+ 				continue;
+			}
+			if (read_mode == READ_HIERARCHY)
+			{
+				continue;
+			}
+			if (read_mode == READ_UNIT_NAME)
+			{
+				continue;
+			}
+			if (read_mode == READ_ATOM_POSITIONS)
+			{
+				if (idx_line_section >= unit_atom_vec.size())
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Too many lines in Atom Positions section %s\n", line.c_str());
+					continue;
+				}
+				if (str_arr.size() != 3)
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid number of fields in Atom Positions line %s\n", line.c_str());
+					continue;
+				}
+				if (!harlem::IsFloat(str_arr[0]) || !harlem::IsFloat(str_arr[1]) || !harlem::IsFloat(str_arr[2]))
+				{
+					PrintLog("MolSet::LoadAmberOffStream() \n Invalid coordinates in Atom Positions line %s\n", line.c_str());
+					continue;
+				}
+				double x = std::stod(str_arr[0]);
+				double y = std::stod(str_arr[1]);
+				double z = std::stod(str_arr[2]);
+				HaAtom* aptr = unit_atom_vec[idx_line_section];
+				aptr->SetX_Ang(x);
+				aptr->SetY_Ang(y);
+				aptr->SetZ_Ang(z);
+				continue;
+			}
+			if (read_mode == READ_RESIDUE_CONNECT)
+			{
+				continue;
+			}
+			if (read_mode == READ_RESIDUES)
+			{
+				continue;
+			}
+			if (read_mode == READ_RESIDUES_PDB_SEQUENCE_NUMBER)
+			{
+				continue;
+			}
+			if (read_mode == READ_SOLVENT_CAP)
+			{
+				continue;
+			}
+			if (read_mode == READ_VELOCITIES)
+			{
+				continue;
+			}
+		}
+
+	}
+	catch (const std::exception& ex)
+	{
+		PrintLog(" Error in MolSet::LoadAmberOffStream()  Reading line: \n");
+		PrintLog("%s \n", line.c_str());
+		PrintLog("%s\n", ex.what());
+		return FALSE;
+	}
+	return(TRUE);
 }
 
 
