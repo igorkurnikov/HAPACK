@@ -3357,13 +3357,14 @@ int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
 					PrintLog("MolSet::LoadAmberOffStream() \n Invalid atom_charge field in %s \n", line.c_str());
 					continue;
 				}
-				double atom_charge = std::stoi(str_arr[7]);
+				double atom_charge = std::stod(str_arr[7]);
 
 				if (pch_cur == NULL) pch_cur = pMol->AddChain(' ');
 				if (pres_cur == NULL || cur_res_idx != resx)
 				{
 					cur_res_idx = resx;
 					pres_cur = pch_cur->AddResidue(cur_res_idx);
+					pres_cur->SetName(curr_unit_name);
 				}
 
 				HaAtom* aptr = pres_cur->AddNewAtom();
