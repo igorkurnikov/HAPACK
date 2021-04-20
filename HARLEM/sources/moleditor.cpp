@@ -3151,10 +3151,20 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	fclose(solv_file);
 
+	double dist_min_to_prot = 4.0;
+	double dist_min_to_prot_sq = dist_min_to_prot * dist_min_to_prot;
+
 	this->CenterAtOriginWithRad(pmset);
 
 	double xmin, ymin, zmin, xmax, ymax, zmax;
 	pmset->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
+
+	BoxPartition part_table; // Table of Distributions of atoms into quadrants between minimal and maximal coordinates of atoms of the molecular set
+	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
+	part_table.DistributePointsToCells(*pmset);
+	part_table.SetRegionRad(dist_min_to_prot);
+
+
 
 	xmax += solv_buffer_dist;
 	ymax += solv_buffer_dist;
@@ -3218,6 +3228,8 @@ int MolEditor::Solvate(MolSet* pmset)
 
 	HaChain* chain_cur = pMol->AddChain(' ');
 
+	AtomGroup close_atoms;
+
 	int nres = 0;
 	for(mol_itr = solvent->HostMolecules.begin(); mol_itr != solvent->HostMolecules.end(); mol_itr++)
 	{
@@ -3230,14 +3242,26 @@ int MolEditor::Solvate(MolSet* pmset)
 			ResidueIteratorChain ritr_ch(chain);
 			for(group = ritr_ch.GetFirstRes();group; group = ritr_ch.GetNextRes())
 			{
-				int overlap = False;
-		        for(aptr = aitr_old_atoms.GetFirstAtom(); aptr; aptr = aitr_old_atoms.GetNextAtom())
+				bool overlap = false;
+				AtomIteratorAtomGroup aitr_res(group);
+				
+				HaAtom* aptr_res;
+				for (aptr_res = aitr_res.GetFirstAtom(); aptr_res; aptr_res = aitr_res.GetNextAtom())
 				{
-					if( group->IsWithinRadius(aptr, 25.0))
-						overlap = True;
+					part_table.GetNeighbors(*aptr_res, close_atoms);
+					AtomIteratorAtomGroup aitr_close(&close_atoms);
+
+					for (aptr = aitr_close.GetFirstAtom(); aptr; aptr = aitr_close.GetNextAtom())
+					{
+						if (Vec3D::CalcDistanceSq(aptr, aptr_res) < dist_min_to_prot_sq)
+						{
+							overlap = true;
+							break;
+						}
+					}
+					if (overlap) break;
 				}
-				if(overlap)
-					continue;
+				if(overlap) continue;
 
 				nres++;
 				HaResidue* new_res = chain_cur->AddResidue(nres);
@@ -3622,6 +3646,8 @@ int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mol
 			clusters.push_back(empty_atset);
 			p_last_atset = &(clusters.back());
 		}
+		if( atoms_left.size() % 1000 == 0)
+			PrintLog(" MolEditor::SplitToMolecules() N atoms_left = %d \n", atoms_left.size() );
 		aptr = conn_atoms.front();
 		aptr->GetBondedAtoms(bonded_atoms);
 		int na = bonded_atoms.GetNAtoms();

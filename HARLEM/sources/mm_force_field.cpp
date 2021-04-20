@@ -1073,6 +1073,7 @@ void MMForceField::SetDefaultParamFiles()
 		amber_param_files.push_back(amber_parm_dir + "frcmod.add1");
 		amber_param_files.push_back(amber_parm_dir + "frcmod.add2");
 		amber_param_files.push_back(amber_parm_dir + "frcmod.ionsjc_tip3p");
+		amber_param_files.push_back(amber_parm_dir + "gaff.dat");
 		
 		resff_files.push_back( res_dir +  "resff_amber10_amino.xml");
 		resff_files.push_back( res_dir +  "resff_amber10_nucleo.xml");

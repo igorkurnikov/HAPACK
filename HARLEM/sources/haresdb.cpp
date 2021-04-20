@@ -60,25 +60,22 @@ int HaResDB::Init()
 
 	using namespace boost::filesystem;
 
-    DIR *dir = opendir(pApp->res_db_dir.c_str());
+	directory_iterator ditr_main(pApp->res_db_dir);
+
+    // DIR *dir = opendir(pApp->res_db_dir.c_str());
     PrintLog(" Initialize Residue Database \n");
-    if(dir)
-    {
-        struct dirent *entry;
-        while((entry = readdir(dir)) != 0)
-        {
-//            PrintLog( " res file %s \n",entry->d_name);
-			if(!_fstrnicmp(entry->d_name,"res_",4) )
-			{
-				res_db_files.push_back(entry->d_name);
-			}
-        }
-        closedir(dir);
-    }
-    else
-    {
-        ErrorInMod("HaResDB::Init()"," Can't find residue template directory "); 
-    }
+	for (; ditr_main != directory_iterator(); ditr_main++)
+	{
+		std::string file_name = ditr_main->path().filename().string();
+		//		PrintLog(" file_name = %s \n",file_name.c_str() );
+		if (boost::starts_with(file_name, "res_"))
+		{
+			//std::string full_name = pApp->res_db_dir + file_name;
+			//res_db_files.push_back(full_name);
+			res_db_files.push_back(file_name);
+			PrintLog(" Add residue template file %s  in the Residue Database directory \n", file_name.c_str());
+		}
+	}
 
 	std::sort(res_db_files.begin(),res_db_files.end(),sort_fn);
 
