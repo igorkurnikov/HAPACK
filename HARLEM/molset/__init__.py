@@ -22,7 +22,7 @@ if( os.getenv("MOLSET_HOME") == None ):
             break
 
 pkg_sub_dir = "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1])
-pkg_dir = os.path.join(molset_dir,"..",pkg_sub_dir)
+pkg_dir = os.path.join(molset_dir,"..","lib",pkg_sub_dir)
 sys.path.append( pkg_dir )
 
 from molset.molsetc import *      
