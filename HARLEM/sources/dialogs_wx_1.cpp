@@ -414,7 +414,7 @@ ChooseMolFileDlg::ChooseMolFileDlg( wxWindow *parent, wxWindowID id, const wxStr
 //}
 
 const char* pdb_filters = "*.pdb;*.ent";
-const char* sybyl_filters = "*.syb;*.mol";
+const char* sybyl_filters = "*.syb;*.mol;*.mol2";
 const char* mdl_filters = "*.mdl;*.mol";
 const char* xyz_filters = "*.xyz";
 const char* hin_filters = "*.hin";
@@ -429,7 +429,7 @@ void ChooseMolFileDlg::FillFileTypes()
     file_types_ch->Clear();
 
     file_types_ch->Append("Protein Data Bank  (*.pdb;*.ent)", (void*)pdb_filters);
-    file_types_ch->Append("Sybyl MOL2 Format  (*.syb;*.mol)",(void*)sybyl_filters);
+    file_types_ch->Append("TRIPOS MOL2 Format  (*.syb;*.mol;*.mol2)",(void*)sybyl_filters);
     file_types_ch->Append("MDL Mol File Format(*.mdl;*.mol)",(void*)mdl_filters);
     file_types_ch->Append("TINKER XYZ Format    (*.xyz)",(void*)xyz_filters);
     file_types_ch->Append("Gaussian RWF File Format (*.rwf;*.chk)",(void*)gauss_filters);

@@ -1566,7 +1566,12 @@ int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
     long atoms, bonds, structs;
     long srcatm, dstatm;
 	std::string str,line;
- 
+	int res_serno = 0;
+	int res_serno_old = -99999;
+	std::string res_serno_str;
+	std::string res_str;
+	std::string atom_info_str;
+
 	HaMolecule* pMol    = AddNewMolecule();
 	HaChain*    pch_cur  = NULL;
 	HaResidue*  pres_cur = NULL; 
@@ -1616,21 +1621,46 @@ int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
 			{   
 				if( !atoms ) continue;
 
-				pMol->AddChainAndResidue();
-				for( i=0; i<atoms; i++ )
-				{    
-					std::getline(is,line);
+				pch_cur = pMol->AddChain(' ');
+				for (i = 0; i < atoms; i++)
+				{
+					std::getline(is, line);
+					try
+					{
+						std::istringstream iss(line);
+						iss >> serno;
+						iss >> name;
+						iss >> xpos;
+						iss >> ypos;
+						iss >> zpos;
+						iss >> type;
+						iss >> res_serno_str;
+						iss >> res_str;
+						iss >> atom_info_str;
+
+						res_serno = std::stoi(res_serno_str);
+					}
+					catch (const std::exception& ex)
+					{
+						PrintLog(" Error in MolSet::LoadMol2File()  Reading line: \n");
+						PrintLog("%s \n", line.c_str());
+						continue;
+					}
+
+					if (res_serno_old != res_serno || pres_cur == NULL )
+					{
+						pres_cur = pch_cur->AddResidue(res_serno);
+						res_serno_old = res_serno;
+						for (int j = 0; j < res_serno_str.length(); j++)
+						{
+							if( isdigit(res_str.back()) )  res_str.pop_back();
+						}
+						pres_cur->SetName(res_str);
+					}
 					ptr = pres_cur->AddNewAtom();
 
-					std::istringstream iss(line);
-					iss >> serno;
-					iss >> name;
-					iss >> xpos;
-					iss >> ypos;
-					iss >> zpos;
-					iss >> type;
-
-					ptr->SetName( type );
+					ptr->SetName( name );
+					ptr->SetFFSymbol(type);
 					ptr->SetElemNo( HaAtom::GetElemNoFromName( ptr->GetName(), pres_cur ) );
 					id_at_map[serno]= (void*)ptr;
 					/* ptr->serno = i; */
