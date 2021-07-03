@@ -23,8 +23,8 @@ public:
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Gromacs 
 	
-	int SaveTopFile();                      //!< Save Molecular Sysytem Topology in GROMACS format to File
-	int SaveTopToStream(std::ostream& os);  //!< Save Molecular Sysytem Topology in GROMACS format to Stream
+	int SaveTopFile( const std::string& top_fname = "system_gmx.itp");  //!< Save Molecular Sysytem Topology in GROMACS format to File
+	int SaveTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to Stream
 
 	int SaveAtomTypesToStream(std::ostream& os); //!< Save [ atomtypes ] section of GROMACS topology
 	int SaveAtomsToStream(std::ostream& os);     //!< Save [ atoms ] section of GROMACS topology 

@@ -39,15 +39,14 @@ int MMDriverGromacs::SaveAllInpFiles()
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveTopFile()
+int MMDriverGromacs::SaveTopFile( const std::string& top_fname )
 {
-	std::string gmx_top_fname = "system_gmx.itp";
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os(gmx_top_fname.c_str());
+	std::ofstream os( top_fname );
 	if(os.fail()) 
 	{
 		PrintLog("Error in MMDriverAmber::SaveTopFile() \n");
-		PrintLog("Can't create file %s \n", gmx_top_fname.c_str());
+		PrintLog("Can't create file %s \n", top_fname.c_str() );
 		return FALSE;
 	}
 	return SaveTopToStream(os);

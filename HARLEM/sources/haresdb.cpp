@@ -115,6 +115,10 @@ int HaResDB::Init()
 		{
 			LoadHarlemFile(db_file_name.c_str());
 		}
+		else if (ext_str == "mol2")
+		{
+			LoadMol2File(db_file_name.c_str());
+		}
 		else if( ext_str == "xml" )
 		{
 			LoadXMLFile( db_file_name );

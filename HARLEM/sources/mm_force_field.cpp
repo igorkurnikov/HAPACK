@@ -116,7 +116,7 @@ int MMForceField::Init()
 	{
 		file_name = ditr->path().filename().string();
 		// PrintLog(" file_name = %s \n",file_name.c_str() );
-		if( boost::starts_with(file_name,"frcmod") )
+		if( boost::starts_with(file_name,"frcmod") || boost::ends_with(file_name, "frcmod"))
 		{
 			amber_param_files.push_back(file_name);
 			PrintLog(" Add AMBER parameter file %s in the working directory \n", file_name.c_str());

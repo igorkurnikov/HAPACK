@@ -331,9 +331,9 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate( res_fname );
 		if( p_res_ff_templ == NULL )
 		{
-			PrintLog(" Force field %s  doesn't have parameters for residue name %s\n",
+			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n",
 					      p_ff->GetFFType().label(),res_fname.c_str());
-			PrintLog(" Standard parameters will be set for residue %s\n",pres->GetRef().c_str());
+			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n",pres->GetFullName(), pres->GetRef().c_str());
 		}
 
 		AtomIteratorAtomGroup aitr_r(pres);
