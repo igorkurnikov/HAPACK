@@ -2384,6 +2384,7 @@ int MolEditor::BondIfClose(HaAtom* sptr, HaAtom* dptr)
     double max, dist;
 	
 	if( sptr == NULL || dptr == NULL) return FALSE;
+	if (sptr->IsBonded(*dptr)) return FALSE;
 
 	MolSet* pmset = sptr->GetHostMolSet();
 
@@ -3163,8 +3164,6 @@ int MolEditor::Solvate(MolSet* pmset)
 	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
 	part_table.DistributePointsToCells(*pmset);
 	part_table.SetRegionRad(dist_min_to_prot);
-
-
 
 	xmax += solv_buffer_dist;
 	ymax += solv_buffer_dist;

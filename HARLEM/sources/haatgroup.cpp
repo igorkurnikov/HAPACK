@@ -2060,7 +2060,7 @@ static const int IS_EXTERNAL_AT = 0x0010;
 
 
 class AtomNode 
-//! Axxiliary class for attaching missing atoms
+//! Axxiliary class for attaching missing atoms in a residue using a residue template
 {
 public:
 	AtomNode() {}
@@ -2075,13 +2075,13 @@ public:
 	}
 	virtual ~AtomNode() {}
 
-	HaAtom* at; //!< Atom of the template residue 
+	HaAtom* at; //!< Atom of the residue template 
 	HaAtom* ar; //!< Corresponding Atom of the current residue
 	            // if ar == NULL - the atom is missing	
-	int ntype;
-	int nresolv_neib;
-	vector<int> bonded_nodes; //!< the node indexes the template atom(node) is connected 
-	                          //!< to in the template residue
+	int ntype;  //!< Indicator of resolved state of the atom and his neighbors
+	int nresolv_neib; //!< the numbor of resolved neighbor atoms
+	vector<int> bonded_nodes; //!< the node indexes the template atoms(nodes) connected 
+	                          //!< to the template atom in the template residue
 };
 
 
@@ -2116,6 +2116,8 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 
 		AtomIteratorAtomGroup aitr_this(this);
 
+		// Fill Atom<->Atom template nodes array for atoms with templates that can be resolved with atom names 
+
 		for(aptr= aitr_this.GetFirstAtom(); aptr; aptr= aitr_this.GetNextAtom())
 		{
 			std::string at_name = aptr->GetName();
@@ -2135,8 +2137,10 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 
 		int residue_complete = TRUE;
 
-		AtomIteratorMolecule aitr_templ(res_templ);
 
+		// Fill nodes array for Non-proxy atoms that can not be resolved by atom names 
+
+		AtomIteratorMolecule aitr_templ(res_templ);
 		for(atempl = aitr_templ.GetFirstAtom(); atempl; atempl = aitr_templ.GetNextAtom())
 		{
 			if( atempl->IsProxy() ) continue; 
@@ -2158,7 +2162,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 		int i;
 		int nsize = nodes.size();
 
- // Match to proxy atoms of the template atoms from other residues connected to the given residue: 
+ // Match to proxy atoms of the residue template to atoms of residues connected to the given residue: 
 
 		for( i = 0; i < nsize; i++)
 		{
@@ -2186,7 +2190,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 					{
 						if( bond_at->GetHostRes() != this )
 						{
-							if( bond_at_templ->IsProxy() && !bond_at->IsMatch(bond_at_templ) ) continue;
+							if( bond_at_templ->IsProxy() && !bond_at->IsMatch(bond_at_templ) ) continue; // Check if proxy atom of the residue template match by name the atom of the connected residue 
 							AtomNode node;
 							node.at = bond_at_templ;
 							node.ar = bond_at;
@@ -2203,13 +2207,14 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 			}
 		}
 
-		// Fill Bond information of nodes  
+		// Fill Bonding information of nodes    
 
 		for(i = 0; i < nodes.size(); i++ )
 		{
 			atempl= nodes[i].at;
 			AtomGroup bonded_templ_atoms;
 			int ibt= atempl->GetBondedAtoms(bonded_templ_atoms);
+			PrintLog("Atom template %s has %d bonded atoms \n", atempl->GetRef().c_str(), bonded_templ_atoms.size());
 			AtomIteratorAtomGroup aitr_bonded_templ_atoms(&bonded_templ_atoms);
 
 			int found_boundary_atom = FALSE;
@@ -2223,7 +2228,8 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 					nodes[i].bonded_nodes.push_back( i_bond_node );
 					if( nodes[i_bond_node].ntype | IS_RESOLVED )  nodes[i].nresolv_neib++;
 				}
-			}		
+			}
+			PrintLog("Atom template %s has %d bonded_nodes \n", atempl->GetRef().c_str(), nodes[i].bonded_nodes.size());
 		}
 
 		if( !AddMissingAtoms_2(prtempl, atom_type) ) throw std::runtime_error(" Error in AddMissingAtoms_2() ");
@@ -2287,7 +2293,8 @@ int HaResidue::AddWaterHydrogens()
 }
 	
 int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
-{
+// Adding atoms to the residue using the filled nodes array mapping atoms of the residue to the residue template
+{ 
 	MolSet* pmset = GetHostMolSet();
 	HaAtom* atempl;
 
@@ -2301,8 +2308,8 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 			HaAtom* aptr2 = NULL;   HaAtom* aptr3  = NULL; HaAtom* aptr4   = NULL;
 			HaAtom* atempl2 = NULL; HaAtom* atempl3= NULL; HaAtom* atempl4 = NULL;
 
-			aptr2   = nodes[i].ar; // to this atom the missing atoms will be attached
-			atempl2 = nodes[i].at; // atom corresponding to aptr2 in the template residue
+			aptr2   = nodes[i].ar; // to this atom missing atoms will be attached
+			atempl2 = nodes[i].at; // atom corresponding to aptr2 in the residue template
 
 			if( aptr2 == NULL) continue; // if atom is not resolved go to the next node
 				
@@ -2331,22 +2338,26 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 				}
 				else 
 				{
-					aptr4   = nodes[iat].ar;
-					atempl4 = nodes[iat].at;
-					break;
+					if (nodes[iat].ar != aptr3)
+					{
+						aptr4 = nodes[iat].ar;
+						atempl4 = nodes[iat].at;
+						break;
+					}
 				}
 			}
 			if(aptr3 == NULL) continue;
 
 			if(aptr4 == NULL)
 			{
-				for(j =0; j < nodes[iat3].bonded_nodes.size(); j++)
+				for(j = 0; j < nodes[iat3].bonded_nodes.size(); j++)
 				{
 					iat = nodes[iat3].bonded_nodes[j];
 					if(nodes[iat].ar == NULL)  continue;
 					if(nodes[iat].ar == aptr2) continue;
 					aptr4   = nodes[iat].ar;
 					atempl4 = nodes[iat].at;
+					PrintLog("Added aptr4: %s as a neighbor of aptr3: %s \n", aptr4->GetRef().c_str(), aptr3->GetRef().c_str());
 					break;
 				}
 			}
@@ -2363,8 +2374,22 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 					if( (atom_type & ADD_HEAVY_ATOMS) && atempl->IsHydrogen())
 						continue;
 
+					std::string ns = "NULL";
+					PrintLog("Adding Atom for the template: %s \n", atempl->GetRef().c_str() );
+					PrintLog("atempl2: %s  atempl3: %s atempl4: %s \n", 
+						atempl2 == NULL ? ns.c_str() : atempl2->GetRef().c_str(),   
+						atempl3 == NULL ? ns.c_str() : atempl3->GetRef().c_str(),
+						atempl4 == NULL ? ns.c_str() : atempl4->GetRef().c_str()
+					);
+					PrintLog("at2: %s  at3: %s at4: %s \n", 
+						aptr2 == NULL ? ns.c_str() : aptr2->GetRef().c_str(),
+						aptr3 == NULL ? ns.c_str() : aptr3->GetRef().c_str(),
+						aptr4 == NULL ? ns.c_str() : aptr4->GetRef().c_str());
+					PrintLog("at2 crd : %8.3f %8.3f %8.3f \n at3 crd: %8.3f %8.3f %8.3f \n", 
+						aptr2->GetX(), aptr2->GetY(), aptr2->GetZ(),
+						aptr3->GetX(), aptr3->GetY(), aptr3->GetZ());
 					HaAtom* new_atom= HaAtom::AddAtomFromTempl(aptr2,aptr3,aptr4, atempl, atempl2, atempl3, atempl4);
-					if(new_atom == NULL) continue;
+ 					if(new_atom == NULL) continue;
 					nodes[iat].ar = new_atom;
 
 					int nbond = nodes[iat].bonded_nodes.size();
@@ -2405,6 +2430,16 @@ HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4,
 			(aptr_templ_2 == NULL) || (aptr_templ_3 == NULL) || (aptr_templ_4 == NULL) ) 
 		{
 			throw std::runtime_error("One of that atom pointers is NULL");
+		}
+
+		if (aptr2 == aptr3)
+		{
+			throw::runtime_error("Reference atoms aptr2 and patr3 are the same ");
+		}
+
+		if (aptr2->GetHostMolSet() != aptr3->GetHostMolSet() )
+		{
+			throw::runtime_error("Reference atoms aptr2 and aptr3 do not belong to the same Molecular Set");
 		}
 
 		double dist      = Vec3D::CalcDistance( aptr_templ, aptr_templ_2);
@@ -2449,7 +2484,8 @@ HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4,
 	}
 	catch(std::exception& ex )
 	{
-		PrintLog("Error in HaResidue::AddAtomFromTempl() \n");
+		PrintLog("Error in HaResidue::AddAtomFromTempl(): \n");
+		if (aptr_templ != NULL) PrintLog("Adding atom for the template %s \n", aptr_templ->GetRef().c_str());
 		PrintLog("%s\n",ex.what());
 	}
 	return new_atom;

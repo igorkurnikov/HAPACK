@@ -249,8 +249,8 @@ HaVec_double MMForceField::FindBondParamFromSymbol(const char* as1,const char* a
 	
 	if(at_symbol_2 < at_symbol_1) at_symbol_2.swap(at_symbol_1);
 
-	boost::trim(at_symbol_1); boost::to_upper(at_symbol_1);
-	boost::trim(at_symbol_2); boost::to_upper(at_symbol_2);
+	boost::trim(at_symbol_1); // boost::to_upper(at_symbol_1);
+	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
 
 	HaVec_double best_match;
 
@@ -314,8 +314,8 @@ HaVec_double MMForceField::FindHBondParamFromSymbol(const char* as1,const char* 
 	std::string at_symbol_2 = as2;
 	if(at_symbol_2 < at_symbol_1) at_symbol_2.swap(at_symbol_1);
 
-	boost::trim(at_symbol_1); boost::to_upper(at_symbol_1);
-	boost::trim(at_symbol_2); boost::to_upper(at_symbol_2);
+	boost::trim(at_symbol_1); //boost::to_upper(at_symbol_1);
+	boost::trim(at_symbol_2); //boost::to_upper(at_symbol_2);
 
 	HaVec_double best_match;
 
@@ -342,9 +342,9 @@ HaVec_double MMForceField::FindValAngleParamFromSymbol(const char* ats1,const ch
 
 	if(at_symbol_3 < at_symbol_1) at_symbol_3.swap(at_symbol_1);
 
-	boost::trim(at_symbol_1); boost::to_upper(at_symbol_1);
-	boost::trim(at_symbol_2); boost::to_upper(at_symbol_2);
-	boost::trim(at_symbol_3); boost::to_upper(at_symbol_3);
+	boost::trim(at_symbol_1); // boost::to_upper(at_symbol_1);
+	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
+	boost::trim(at_symbol_3); // boost::to_upper(at_symbol_3);
 	
 	HaVec_double best_match;
 
@@ -416,10 +416,10 @@ HaVec_double MMForceField::FindDihedralParamFromSymbol(const char* as1,const cha
 		at_symbol_3.swap(at_symbol_2);
 	}
 
-	boost::trim(at_symbol_1); boost::to_upper(at_symbol_1);
-	boost::trim(at_symbol_2); boost::to_upper(at_symbol_2);
-	boost::trim(at_symbol_3); boost::to_upper(at_symbol_3);
-	boost::trim(at_symbol_4); boost::to_upper(at_symbol_4);
+	boost::trim(at_symbol_1); // boost::to_upper(at_symbol_1);
+	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
+	boost::trim(at_symbol_3); // boost::to_upper(at_symbol_3);
+	boost::trim(at_symbol_4); // boost::to_upper(at_symbol_4);
 	
 	std::string ats_1;
 	std::string ats_2;
@@ -439,7 +439,7 @@ HaVec_double MMForceField::FindDihedralParamFromSymbol(const char* as1,const cha
 	map<std::string,HaVec_double,less<std::string> >::iterator mitr;
 
 	int ifound = FALSE;
-	label = at_symbol_1 + "-" + at_symbol_2 + "-" + at_symbol_3 + "-" + at_symbol_4;
+ 	label = at_symbol_1 + "-" + at_symbol_2 + "-" + at_symbol_3 + "-" + at_symbol_4;
 	mitr = ptr_dih_map->find(label);
 	if(mitr != ptr_dih_map->end())
 	{
@@ -671,8 +671,8 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				get_str_from_stream(is,at1s); if( is.fail()) throw std::runtime_error("Error Reading Bond Params");
 				get_str_from_stream(is,at2s); if( is.fail()) throw std::runtime_error("Error Reading Bond Params");
 
-				boost::to_upper(at1s);
-				boost::to_upper(at2s);
+				//boost::to_upper(at1s);
+				//boost::to_upper(at2s);
 
 				if(at2s < at1s) at1s.swap(at2s);
 				
@@ -704,9 +704,9 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				get_str_from_stream(is,at2s); if( is.fail()) throw std::runtime_error("Error Reading Valence Angle Params");
 				get_str_from_stream(is,at3s); if( is.fail()) throw std::runtime_error("Error Reading Valence Angle Params");
 
-				boost::to_upper(at1s);
-				boost::to_upper(at2s);
-				boost::to_upper(at3s);
+				//boost::to_upper(at1s);
+				//boost::to_upper(at2s);
+				//boost::to_upper(at3s);
 
 				if(at3s < at1s) at1s.swap(at3s);
 			
@@ -739,10 +739,10 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				get_str_from_stream(is,at3s); if( is.fail()) throw std::runtime_error("Error Reading Dihedral Angle Params");
 				get_str_from_stream(is,at4s); if( is.fail()) throw std::runtime_error("Error Reading Dihedral Angle Params");
 
-				boost::to_upper(at1s);
-				boost::to_upper(at2s);
-				boost::to_upper(at3s);
-				boost::to_upper(at4s);
+				//boost::to_upper(at1s);
+				//boost::to_upper(at2s);
+				//boost::to_upper(at3s);
+				//boost::to_upper(at4s);
 
 				if( (at1s > at4s) || ( (at1s == at4s) &&  (at2s > at3s) ) )
 				{
@@ -826,10 +826,10 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				get_str_from_stream(is,at3s); if( is.fail()) throw std::runtime_error("Error Reading Improper Dihedral Angle Params");
 				get_str_from_stream(is,at4s); if( is.fail()) throw std::runtime_error("Error Reading Improper Dihedral Angle Params");
 
-				boost::to_upper(at1s);
-				boost::to_upper(at2s);
-				boost::to_upper(at3s);
-				boost::to_upper(at4s);
+				//boost::to_upper(at1s);
+				//boost::to_upper(at2s);
+				//boost::to_upper(at3s);
+				//boost::to_upper(at4s);
 
 				if( (at1s > at4s) || ( (at1s == at4s) &&  (at2s > at3s) ) )
 				{

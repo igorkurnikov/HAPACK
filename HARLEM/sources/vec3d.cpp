@@ -433,7 +433,6 @@ int Vec3D::SetAtomPos( Vec3D* pptr, const Vec3D* pptr1, const Vec3D* pptr2, cons
 	  int i;
 	  Vec3D u1, u2, u3, u4;
 
-	
 	  for(i=0; i < 3; i++)
 	  {
 		u1[i]= (*pptr1)[i] - (*pptr2)[i];
@@ -444,13 +443,13 @@ int Vec3D::SetAtomPos( Vec3D* pptr, const Vec3D* pptr1, const Vec3D* pptr2, cons
 
 	  if(len1 < DBL_EPSILON )
 	  {
-		  ErrorInMod("Vec3D::SetAtomPos", "points 1 and 2 coincide");
+		  ErrorInMod("Vec3D::SetAtomPos()", "points 1 and 2 coincide");
 		  return FALSE;
 	  }
 
 	  if(len2 < DBL_EPSILON )
 	  {
-		  ErrorInMod("Vec3D::SetAtomPos", "points 2 and 3 coincide");
+		  ErrorInMod("Vec3D::SetAtomPos()", "points 2 and 3 coincide");
 		  return FALSE;
 	  }
 

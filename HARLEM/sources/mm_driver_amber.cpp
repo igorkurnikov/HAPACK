@@ -1612,7 +1612,7 @@ void AmberMMModel::FindResMolPartition()
 	HaResidue* pres;
 	max_res_size = 0;
 	
-	gbl_res_atms.clear();
+	gbl_res_atms.clear();  // Array of indexes of first atoms of residues
 	amber_residues.clear();
 	nat_amber_residues.clear();
 	res_labels.clear();
@@ -1668,7 +1668,7 @@ void AmberMMModel::FindResMolPartition()
 				last_lbl += ' '; 
 		}
 
-		gbl_res_atms.push_back(fat);
+		gbl_res_atms.push_back(fat);   // 
 		amber_residues.push_back(pres);
 
 		int nat_curr_amber_res = pres->size();
@@ -1693,7 +1693,7 @@ void AmberMMModel::FindResMolPartition()
 	int na = p_mm_model->Atoms.size();
 	if(na == 0) return;
 
-	vector<AtomGroup> res_conn(na); // array of atoms in the residue the current atom belong to
+	vector<AtomGroup> res_conn(na); // array of atoms in the residue the current atom belongs to 
 
 	int ir;
 	for(ir = 0; ir < gbl_res_atms.size() - 1; ir++)
@@ -1754,15 +1754,15 @@ void AmberMMModel::FindResMolPartition()
 				aptr = (HaAtom*) (*aitr);
 				AtomGroup bonded_atoms;
 				aptr->GetBondedAtoms(bonded_atoms);
-				for(j = 0; j < bonded_atoms.size(); j++)
+				for(j = 0; j < bonded_atoms.size(); j++) // Adding to the current molecule all atoms bonded to atoms of the molecule
 				{
 					aptr2 = bonded_atoms[j];
-					at_set_2.insert(aptr2);
+					at_set_2.insert(aptr2);  
 				}
 				if( atm_idx_map.count(aptr) > 0) 
 				{
 					int at_idx = atm_idx_map[aptr];  // Prevent splitting a residue into different molecules 
-					for(j = 0; j < res_conn[at_idx].size(); j++)
+					for(j = 0; j < res_conn[at_idx].size(); j++) // Adding to the current molecule all atoms belonging to the residues for atoms already in the molecule
 					{	
 						aptr2 = res_conn[at_idx][j];
 						at_set_2.insert(aptr2);
@@ -1772,8 +1772,8 @@ void AmberMMModel::FindResMolPartition()
 			int n1 = at_set_curr.size();
 			int n2 = at_set_2.size();
 
-//			PrintLog("at %d   n1 = %d   n2 = %d \n",i,n1,n2); 
-			if( at_set_2.size() == at_set_curr.size())
+			PrintLog("at %d   n1 = %d   n2 = %d \n",i,n1,n2); 
+			if( at_set_2.size() == at_set_curr.size()) // if no additional atoms appear in the molecule after iteration set to atoms of the molecule index of this molecule and continue with partitioning
 			{
 				for(aitr = at_set_curr.begin(); aitr != at_set_curr.end(); aitr++)
 				{
@@ -7096,7 +7096,9 @@ int AmberMMModel::UpdateAmberData()
 // Distribute atoms over residues and molecules 
 // ( Do not quite correspond to HARLEM classification)
 
+	PrintLog("Before FindResMolPartition() \n");
 	FindResMolPartition();
+	PrintLog("After FindResMolPartition() \n");
 
 // Set Van-Der-Waals parameters of the Atoms 
 

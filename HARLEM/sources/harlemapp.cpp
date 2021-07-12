@@ -236,6 +236,8 @@ int HarlemApp::InitFirst()
 			FileFormat = FormatXYZ;
 		else if( exten == "HIN" )
 			FileFormat = FormatHIN;
+		else if (exten == "MOL2")
+			FileFormat = FormatMol2;
 
 		int result = pmset->FetchFile(FileFormat,finp_name.c_str());
 		if(!result)

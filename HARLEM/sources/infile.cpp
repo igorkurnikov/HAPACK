@@ -1699,7 +1699,7 @@ int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
 
 	if( opt.ToCalcBonds() )
 	{
-		p_mol_editor->CreateCovBonds(pMol);
+//		p_mol_editor->CreateCovBonds(pMol);
 	}
 	if( opt.UniqueAtNames() )
 	{

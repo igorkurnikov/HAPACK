@@ -249,7 +249,7 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						if (res_name.size() > 4) res_name = res_name.substr(0, 4);
 
 						sprintf(buf, "%5d %.4s %.4s%c%4d    ", count++, atname.c_str(), res_name.c_str(),
-							chain->ident, group->serno);
+							chain->ident, group->serno % 10000);
 						os << buf;
 
 						const HaMolView* pView = this->GetActiveMolView();
