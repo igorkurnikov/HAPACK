@@ -210,6 +210,7 @@ int HaMolMechMod::SetStdParams()
 	wrt_rstrt_freq = 100;
 	wrt_coord_freq = 0;
 	wrt_vel_freq = 0;
+	wrt_frc_freq = 0;
 	wrt_ener_freq = 10;
 	wrt_constr_freq = 0;
 
@@ -1473,6 +1474,11 @@ void HaMolMechMod::SetWrtCoordFreq(int wrt_freq)
 void HaMolMechMod::SetWrtVelFreq(int wrt_freq)
 {
 	wrt_vel_freq = wrt_freq;
+}
+
+void HaMolMechMod::SetWrtFrcFreq(int wrt_freq)
+{
+	wrt_frc_freq = wrt_freq;
 }
 
 void HaMolMechMod::SetWrtEnerFreq(int wrt_freq)

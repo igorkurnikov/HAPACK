@@ -264,7 +264,12 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							z = aptr->GetZ_Ang();
 						}
 						sprintf(buf, "%8.3f%8.3f%8.3f", x, y, z); os << buf;
-						sprintf(buf, "  1.00%6.2f\n", aptr->tempf); os << buf;
+						sprintf(buf, "  1.00%6.2f", aptr->tempf); os << buf;
+
+						std::string at_symb = aptr->GetStdSymbol();
+						os << "          ";
+						if (at_symb.size() < 2) os << " ";
+						os << at_symb << std::endl;
 					}
 				}
 			}

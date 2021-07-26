@@ -1772,7 +1772,7 @@ void AmberMMModel::FindResMolPartition()
 			int n1 = at_set_curr.size();
 			int n2 = at_set_2.size();
 
-			PrintLog("at %d   n1 = %d   n2 = %d \n",i,n1,n2); 
+			// PrintLog("at %d   n1 = %d   n2 = %d \n",i,n1,n2); 
 			if( at_set_2.size() == at_set_curr.size()) // if no additional atoms appear in the molecule after iteration set to atoms of the molecule index of this molecule and continue with partitioning
 			{
 				for(aitr = at_set_curr.begin(); aitr != at_set_curr.end(); aitr++)
@@ -1816,7 +1816,7 @@ void AmberMMModel::FindResMolPartition()
 
 	if( non_seq_mols )
 	{
-		PrintLog("MMDriverAmber::FindMolPartion() WARNING: \n");
+		PrintLog("MMDriverAmber::FindResMolPartion() WARNING: \n");
 		PrintLog("Atoms are not in sequential order with molecule order \n");
 	}
 

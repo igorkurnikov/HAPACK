@@ -153,7 +153,6 @@ public:
     void SetTholeExponCoef( double thole_expon_coeff_new );  //!< Set Thole's damping factor for interaction of induced dipoles
 	void SetVdwTaper( double vdw_taper_new );  //!<  
 
-protected:
 	OmitInteractionsParam omit_interactions;   //!< Omit certain atom interactions     to eliminate???
 
 	MMElectrMethod electr_method; //!< method to treat electrostatic interactions

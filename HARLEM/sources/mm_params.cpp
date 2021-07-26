@@ -197,6 +197,8 @@ IntStrMap SetCrdFormatParamLbls()
 	IntStrMap lmap;
 	lmap[CrdFormatParam::BINARY]     = "Binary";
 	lmap[CrdFormatParam::FORMATTED]  = "Formatted";
+	lmap[CrdFormatParam::TRR]        = "TRR";
+	lmap[CrdFormatParam::XTC]        = "XTC";
 	return lmap;
 }
 

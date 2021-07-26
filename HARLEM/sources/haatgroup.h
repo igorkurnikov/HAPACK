@@ -159,6 +159,9 @@ public:
 
 	int SaveXYZFile( const char* fout_name,  const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to XYZ file
 	virtual int SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to output stream
+
+	int SaveGROFile(const char* fout_name, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file
+	virtual int SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file stream
 };
 
 

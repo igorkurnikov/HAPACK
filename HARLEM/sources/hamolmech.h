@@ -220,12 +220,12 @@ public:
 	void SetWrtLogFreq(int wrt_freq);    //!< Set frequency (num MD steps) to write to log file 
 	void SetWrtRstrtFreq(int wrt_freq);  //!< Set frequency to write restart file
 	void SetWrtMDTrajFreq(int wrt_freq, int save_vel = FALSE );  //!< Set frequency to write MD trajectory ( coordinates, energy and velocities(optional))
-	void SetWrtCoordFreq(int wrt_freq); //!< Set frequency to write MD coord file
-	void SetWrtVelFreq(int wrt_freq);   //!< Set frequency to write MD velocities file 
-	void SetWrtEnerFreq(int wrt_freq);  //!< Set frequency to write MD energy file
+	void SetWrtCoordFreq(int wrt_freq); //!< Set frequency to write MD coord to a file
+	void SetWrtVelFreq(int wrt_freq);   //!< Set frequency to write MD velocities to a file 
+	void SetWrtFrcFreq(int wrt_freq);   //!< Set frequency to write MD velocities to a file 
+	void SetWrtEnerFreq(int wrt_freq);  //!< Set frequency to write MD Atom Forces to a file
 	void SetWrtConstrFreq(int wrt_freq); //!< Set frequency to write MD constraints info file  
 
-private:
 	std::string prefix; //!< Prefix for output files 
 
 	CrdFormatParam write_coord_format; //!< format of final coord and vel output, NTXO in AMBER
@@ -237,6 +237,7 @@ private:
 	int wrt_rstrt_freq;      //!< frequency to write restart file 
 	int wrt_coord_freq;      //!< frequency to write MD coord file 	
 	int wrt_vel_freq;        //!< frequency to write MD velocities file 
+	int wrt_frc_freq;        //!< frequency to write atom forces to file 
 	int wrt_ener_freq;       //!< frequency to write MD energy file 
 	int wrt_constr_freq;     //!< frequency to write MD constraints info file
 

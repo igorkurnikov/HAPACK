@@ -174,9 +174,9 @@ private:
 };
 
 namespace swig {
-	const MMReadInitCrdType READ_X_FORM  = MMReadInitCrdType::READ_X_FORM;
-	const MMReadInitCrdType READ_X_BIN   = MMReadInitCrdType::READ_X_BIN;
-	const MMReadInitCrdType READ_XV_BIN  = MMReadInitCrdType::READ_XV_BIN;
+	const MMReadInitCrdType READ_X_FORM     = MMReadInitCrdType::READ_X_FORM;
+	const MMReadInitCrdType READ_X_BIN      = MMReadInitCrdType::READ_X_BIN;
+	const MMReadInitCrdType READ_XV_BIN     = MMReadInitCrdType::READ_XV_BIN;
 	const MMReadInitCrdType READ_XV_FORM    = MMReadInitCrdType::READ_XV_FORM;
 	const MMReadInitCrdType READ_XVBOX_BIN  = MMReadInitCrdType::READ_XVBOX_BIN;
 	const MMReadInitCrdType READ_XVBOX_FORM = MMReadInitCrdType::READ_XVBOX_FORM;
@@ -189,7 +189,7 @@ public:
 	CrdFormatParam();
 	virtual ~CrdFormatParam();
 
-	enum Value { FORMATTED = 0, BINARY = 1 };
+	enum Value { FORMATTED = 0, BINARY = 1 , TRR = 2 , XTC = 3 };
 
 	operator int() const { return v_; }
 	bool operator==(const Value& val) const { return v_ == val; }
