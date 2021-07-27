@@ -195,32 +195,35 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES || p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL)
 		{
 			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  " << std::endl;
-			if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING )
+			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 			{
-				os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  " << std::endl;
-			}
-			else if ( p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES )
-			{
-				// os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
-				// pressure regulation
-				if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
+				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING)
 				{
-					// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
-					os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  " << std::endl;
-					os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  " << std::endl;
-					if (fabs(p_mm_mod->compressibility - 44.6) > 1.0)
+					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  " << std::endl;
+				}
+				else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES)
+				{
+					// os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
+					// pressure regulation
+					if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
 					{
-						os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  " << std::endl;
+						// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
+						os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  " << std::endl;
+						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  " << std::endl;
+						if (fabs(p_mm_mod->compressibility - 44.6) > 1.0)
+						{
+							os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  " << std::endl;
+						}
+					}
+					else
+					{
+						throw std::runtime_error((std::string)("Pressure control method ") + p_mm_mod->pressure_reg_method.label() + " is not supported in GROMACS ");
 					}
 				}
 				else
 				{
-					throw std::runtime_error((std::string)("Pressure control method ") + p_mm_mod->pressure_reg_method.label() + " is not supported in GROMACS ");
+					throw std::runtime_error((std::string)("Periodic boundary condition: ") + p_mm_mod->period_bcond.label() + " is not supported in GROMACS ");
 				}
-			}
-			else
-			{
-				throw std::runtime_error((std::string)("Periodic boundary condition: ") + p_mm_mod->period_bcond.label() + " is not supported in GROMACS ");
 			}
 		}
 
@@ -250,31 +253,34 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		os << " rvdw= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) " << std::endl;
 
 		// temperature regulation:
-		os << std::endl << "; Temperature Control " << std::endl << std::endl;
+		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
+		{
+			os << std::endl << "; Temperature Control " << std::endl << std::endl;
 
-		if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_ENE_MD )
-		{
-			os << " tcoupl=no " << "        ;  No temperature coupling." << std::endl ;
-		}
-		else if ( p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_LANGEVIN || p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN )
-		{
-			if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN)
+			if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_ENE_MD)
 			{
-				os << " tcoupl=berendsen " << "        ;  Temperature coupling with a Berendsen thermostat." << std::endl;
+				os << " tcoupl=no " << "        ;  No temperature coupling." << std::endl;
 			}
-			os << " tc-grps= system" << "              ; groups to couple to separate temperature baths  " << std::endl;
-			os << " ref-t= " << p_mm_mod->ref_temp << "        ;  reference temperature for coupling (K) " << std::endl;
-			os << " tau-t= " << p_mm_mod->langevin_dump_const << "        ;  time constant for coupling (ps) " << std::endl;
-		}
-		else
-		{
-			throw std::runtime_error((std::string)("Temperature control method ") + p_mm_mod->temp_control_method.label() + " is not supported in GROMACS ");
-		}
+			else if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_LANGEVIN || p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN)
+			{
+				if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN)
+				{
+					os << " tcoupl=berendsen " << "        ;  Temperature coupling with a Berendsen thermostat." << std::endl;
+				}
+				os << " tc-grps= system" << "              ; groups to couple to separate temperature baths  " << std::endl;
+				os << " ref-t= " << p_mm_mod->ref_temp << "        ;  reference temperature for coupling (K) " << std::endl;
+				os << " tau-t= " << p_mm_mod->langevin_dump_const << "        ;  time constant for coupling (ps) " << std::endl;
+			}
+			else
+			{
+				throw std::runtime_error((std::string)("Temperature control method ") + p_mm_mod->temp_control_method.label() + " is not supported in GROMACS ");
+			}
 
-		if (fabs(p_mm_mod->init_temp - 0.0) > 0.00001)
-		{
-			os << " gen-vel=yes " << "   ;  Generate velocities in gmx grompp according to a Maxwell distribution " << std::endl;
-			os << " gen-temp= " << p_mm_mod->init_temp << std::endl;
+			if (fabs(p_mm_mod->init_temp - 0.0) > 0.00001)
+			{
+				os << " gen-vel=yes " << "   ;  Generate velocities in gmx grompp according to a Maxwell distribution " << std::endl;
+				os << " gen-temp= " << p_mm_mod->init_temp << std::endl;
+			}
 		}
 
 

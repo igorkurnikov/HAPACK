@@ -26,7 +26,7 @@
 
 #include "ha_mort_mm.h"
 
-ForceFieldType MMForceField::ff_type_default = ForceFieldType::AMBER_10;
+ForceFieldType MMForceField::ff_type_default = ForceFieldType::AMBER_99_SB;
 std::vector<MMForceField*> MMForceField::ff_arr;
 
 StrVec  MMForceField::resff_files_add;        
