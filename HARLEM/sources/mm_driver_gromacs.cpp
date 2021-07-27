@@ -39,7 +39,7 @@ int MMDriverGromacs::SaveAllInpFiles()
 	PrintLog("Save GROMACS mdp file \n");
 	SaveMdpFile();
 	PrintLog("Save GROMACS top file \n");
-	SaveTopFile();
+	SaveGromacsTopFile();
 	PrintLog("Save GROMACS gro file \n");
 	pmset->SaveGROFile("system.gro");
 	to_save_input_files = FALSE;
@@ -59,7 +59,7 @@ int MMDriverGromacs::SaveMdpFile(const std::string& mdp_fname)
 	return SaveMdpToStream(os);
 }
 
-int MMDriverGromacs::SaveTopFile( const std::string& top_fname )
+int MMDriverGromacs::SaveGromacsTopFile( const std::string& top_fname )
 {
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
 	std::ofstream os( top_fname );
@@ -69,7 +69,7 @@ int MMDriverGromacs::SaveTopFile( const std::string& top_fname )
 		PrintLog("Can't create file %s \n", top_fname.c_str() );
 		return FALSE;
 	}
-	return SaveTopToStream(os);
+	return SaveGromacsTopToStream(os);
 }
 
 int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
@@ -201,11 +201,11 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			}
 			else if ( p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES )
 			{
-				os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
+				// os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
 				// pressure regulation
 				if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
 				{
-					os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
+					// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
 					os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  " << std::endl;
 					os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  " << std::endl;
 					if (fabs(p_mm_mod->compressibility - 44.6) > 1.0)
@@ -245,6 +245,7 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		os << " cutoff-scheme=Verlet " << "        ;  Generate a pair list with buffering " << std::endl;
 		os << " rlist= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  Cut-off distance for the short-range neighbor list (nm). " << std::endl;
 
+		os << " rcoulomb= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the Coulomb cut-off (nm) " << std::endl;
 		os << " vdwtype=Cut-off " << "        ;  Plain cut-off  " << std::endl;
 		os << " rvdw= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) " << std::endl;
 
@@ -261,6 +262,7 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			{
 				os << " tcoupl=berendsen " << "        ;  Temperature coupling with a Berendsen thermostat." << std::endl;
 			}
+			os << " tc-grps= system" << "              ; groups to couple to separate temperature baths  " << std::endl;
 			os << " ref-t= " << p_mm_mod->ref_temp << "        ;  reference temperature for coupling (K) " << std::endl;
 			os << " tau-t= " << p_mm_mod->langevin_dump_const << "        ;  time constant for coupling (ps) " << std::endl;
 		}
@@ -293,22 +295,32 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 	return FALSE;
 }
 
-int MMDriverGromacs::SaveTopToStream(std::ostream& os)
+int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 {
 	int i;
 	char buf[256];
 	
+	std::string ffdb_prefix;
+
+	if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_94)  ffdb_prefix = "amber94.ff";
+	else if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_99_SB) ffdb_prefix = "amber99sb.ff";
+	else if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_03)  ffdb_prefix = "amber03.ff";
+	else if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_10)  ffdb_prefix = "amber03.ff";  // TMP IGOR
+	else ffdb_prefix = "amber99sb.ff";
+
 	try
 	{
 		AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(TRUE);
-		os << "; system.itp created by HARLEM" << std::endl;
+		os << "; GROMACS top created by HARLEM" << std::endl;
 		os << std::endl;
 
-		SaveAtomTypesToStream(os);
+		os << "#include \"" << ffdb_prefix << "/forcefield.itp\" " << std::endl;
+
+		// SaveAtomTypesToStream(os); // TEMP IGOR 
 
 		os << "[ moleculetype ]" << std::endl;
 		os << ";name            nrexcl" << std::endl;
-		os << " REF            3 " << std::endl;
+		os << " MOL            3 " << std::endl;
 		os << "  " << std::endl;
 
 		SaveAtomsToStream(os);
@@ -316,6 +328,21 @@ int MMDriverGromacs::SaveTopToStream(std::ostream& os)
 		SavePairsToStream(os);
 		SaveAnglesToStream(os);
 		SaveDihedralsToStream(os);
+
+		os << std::endl << "; Include water topology " << std::endl;
+		os << "#include \"" << ffdb_prefix << "/tip3p.itp\" " << std::endl;
+
+		os << std::endl << "; Include topology for ions" << std::endl;
+		os << "#include \"" << ffdb_prefix << "/ions.itp\" " << std::endl;
+
+		os << std::endl << "[ system ]" << std::endl;
+		os << "; Name " << std::endl;
+		os << "System" << std::endl;
+
+		os << std::endl << "[ molecules ]" << std::endl;
+		os << "; Compound        #mols" << std::endl;
+		os << "MOL             1 " << std::endl << std::endl;
+
 	}
 	catch( const std::exception& ex )
 	{

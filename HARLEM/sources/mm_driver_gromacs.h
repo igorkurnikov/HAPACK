@@ -24,10 +24,10 @@ public:
 	virtual int SaveAllInpFiles(); //!< Save input files for Gromacs 
 	
 	int SaveMdpFile( const std::string& mdp_fname = "system.mdp" );   //!< Save MM run parameters in GROMACS MDP format to File
-	int SaveTopFile( const std::string& top_fname = "system.itp" );  //!< Save Molecular System Topology in GROMACS format to File
+	int SaveGromacsTopFile( const std::string& top_fname = "system.top" );  //!< Save Molecular System Topology in GROMACS format to File
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
-	int SaveTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
+	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
 
 	int SaveAtomTypesToStream(std::ostream& os); //!< Save [ atomtypes ] section of GROMACS topology
 	int SaveAtomsToStream(std::ostream& os);     //!< Save [ atoms ] section of GROMACS topology 
