@@ -1,8 +1,0 @@
-﻿  determinant.cpp
-  diagonalize.cpp
-  inverse.cpp
-  stringc.cpp
-  svd.cpp
-  xtime.cpp
-C:\MYPROG\HAPACK\WOLFGANG\DO_LIB\diagonalize.cpp(341): warning C4715: 'tqli': not all control paths return a value
-  do_lib.vcxproj -> C:\MYPROG\HAPACK\mswin\Debug_Win32\do_lib.lib

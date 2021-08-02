@@ -1,2 +1,0 @@
-C:\MYPROG\HAPACK\mswin\Debug_Win32\pmemd_lib_c.pdb
-C:\MYPROG\HAPACK\mswin\obj\Debug_Win32\pmemd_lib_c\pmemd_lib_c.pdb

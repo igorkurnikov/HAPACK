@@ -1,2 +1,0 @@
-^C:\MYPROG\HAPACK\PNPS\SRC\PNPSLL.I
-c:\swig\swig.exe -python -py3 -shadow -c++  -D_MSC_VER -o C:\MYPROG\HAPACK\mswin\obj\Debug_Win32\pnplib_vs\pnpsll_wrap.cpp ..\PNPS\src\pnpsll.i

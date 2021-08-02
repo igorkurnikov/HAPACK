@@ -1,2 +1,0 @@
-C:\MYPROG\HAPACK\mswin\obj\Debug_x64\harlem_vs\harlem_vs.vcxproj.CopyComplete
-C:\MYPROG\HAPACK\mswin\Debug_x64\python38_d.dll

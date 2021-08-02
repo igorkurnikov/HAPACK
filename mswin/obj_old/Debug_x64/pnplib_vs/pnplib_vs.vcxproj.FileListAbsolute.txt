@@ -1,3 +1,0 @@
-C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll\zlibd1.dll
-C:\MYPROG\HAPACK\mswin\obj\Debug_x64\pnplib_vs\pnplib_vs.vcxproj.CopyComplete
-C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll\python38_d.dll

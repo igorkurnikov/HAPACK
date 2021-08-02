@@ -1,3 +1,0 @@
-^C:\MYPROG\HAPACK\HARLEM\SOURCES\HAMOLSET.I
-c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER  -o C:\MYPROG\HAPACK\mswin\obj\Debug_x64\harlem_lib_vs\hamolset_wrap.cpp  C:\MYPROG\HAPACK\HARLEM\sources\\hamolset.i
-copy C:\MYPROG\HAPACK\mswin\obj\Debug_x64\harlem_lib_vs\molsetc.py C:\MYPROG\HAPACK\mswin\Debug_x64\molset\

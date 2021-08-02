@@ -1,3 +1,0 @@
-﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  pmemd_clib.c
-  pmemd_lib_c.vcxproj -> C:\MYPROG\HAPACK\mswin\Debug_Win32\pmemd_lib_c.lib

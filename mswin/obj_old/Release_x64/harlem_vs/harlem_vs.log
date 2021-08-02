@@ -1,2 +1,0 @@
-﻿LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
-  harlem_vs.vcxproj -> C:\MYPROG\HAPACK\mswin\Release_x64\harlem.exe
