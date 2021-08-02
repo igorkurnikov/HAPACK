@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="12/19/2011">
+<res_templ name="CYS#UNPROT" action="modify" >
+  <atom type="proxy"  name="SG_SS"  replaced_at="SG"  bond_to="SG"  desc="S atom bonded to SG atom by SS bond"/>  
+</res_templ>
+</HARLEM_DATA>
+ 

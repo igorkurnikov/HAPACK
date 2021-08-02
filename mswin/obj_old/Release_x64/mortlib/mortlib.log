@@ -1,0 +1,92 @@
+﻿  atom.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(55,45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(102,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(128,57): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(132,61): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(136,59): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(144,70): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\tripos\atom.cpp(145,86): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  bond.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  resd.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  atom.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\atom.cpp(13,17): warning C4244: 'initializing': conversion from 'mort::hashid_t' to 'int', possible loss of data
+  bond.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\bond.cpp(15,17): warning C4244: 'initializing': conversion from 'mort::hashid_t' to 'int', possible loss of data
+  resd.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+  atom.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  bond.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\pdbent\bond.cpp(19,97): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  resd.cpp
+C:\MYPROG\HAPACK\MORT_LIB\object\rela.hpp(82,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(80,63): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(101,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,92): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\mole.hpp(102,107): warning C4244: 'argument': conversion from 'const mort::hashid_t' to 'int', possible loss of data
+C:\MYPROG\HAPACK\MORT_LIB\object\comp.hpp(105,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  mortlib.vcxproj -> C:\MYPROG\HAPACK\mswin\Release_x64\mortlib.lib

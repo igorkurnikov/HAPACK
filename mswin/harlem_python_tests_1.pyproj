@@ -9,7 +9,7 @@
     <SearchPath>..\mswin\Release_x64;..\HARLEM\molset\harlempy</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <InterpreterId>CondaEnv|CondaEnv|harlem1</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.8</InterpreterId>
     <Name>harlem_python_tests_1</Name>
     <RootNamespace>harlem_python_tests_1</RootNamespace>
     <TestFramework>Pytest</TestFramework>
@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|harlem1" />
+    <InterpreterReference Include="Global|PythonCore|3.8" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

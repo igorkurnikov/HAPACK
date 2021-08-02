@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="res_GLF" >
+<molecule name="GLF" />
+<chain  id=" " />
+<res name="GLF"  /> 
+  <atom>    1     N  7     75.284000000     27.362000000     43.370000000 <bonds> 11  12  13  2  </bonds></atom>
+  <atom>    2    CA  6     76.276000000     26.268000000     43.589000000 <bonds> 3  5  14  1  </bonds></atom>
+  <atom>    3     C  6     76.403000000     25.926000000     45.066000000 <bonds> 4  10  2  </bonds></atom>
+  <atom>    4     O  8     77.187000000     25.019000000     45.385000000 <bonds> 3  </bonds></atom>
+  <atom>    5    CB  6     77.641000000     26.655000000     43.016000000 <bonds> 6  15  16  2  </bonds></atom>
+  <atom>    6    CG  6     77.754000000     26.524000000     41.485000000 <bonds> 5  7  17  18  </bonds></atom>
+  <atom>    7    CD  6     77.803000000     25.070000000     41.023000000 <bonds> 6  8  9  </bonds></atom>
+  <atom>    8   OE1  8     77.626000000     24.817000000     39.806000000 <bonds> 7  </bonds></atom>
+  <atom>    9   OE2  8     78.018000000     24.174000000     41.872000000 <bonds> 7  </bonds></atom>
+  <atom>   10   OXT  8     75.695000000     26.557000000     45.878000000 <bonds> 3  </bonds></atom>
+  <atom>   11    H1  1     74.948894859     27.667038448     44.272638404 <bonds> 1  </bonds></atom>
+  <atom>   12    H2  1     74.519808986     26.932768256     42.868131289 <bonds> 1  </bonds></atom>
+  <atom>   13    H3  1     75.806635038     28.115255167     42.946255656 <bonds> 1  </bonds></atom>
+  <atom>   14    HA  1     75.930968412     25.359711133     43.094971118 <bonds> 2  </bonds></atom>
+  <atom>   15   HB2  1     77.856740361     27.695027931     43.260740679 <bonds> 5  </bonds></atom>
+  <atom>   16   HB3  1     78.410895490     26.013979474     43.445480639 <bonds> 5  </bonds></atom>
+  <atom>   17   HG2  1     76.891079245     26.995566460     41.014794891 <bonds> 6  </bonds></atom>
+  <atom>   18   HG3  1     78.665916541     27.014263478     41.144192215 <bonds> 6  </bonds></atom>
+</molset>
+</HARLEM_DATA>

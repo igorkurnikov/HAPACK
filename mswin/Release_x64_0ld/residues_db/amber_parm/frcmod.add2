@@ -1,0 +1,26 @@
+additional AMBER parameters to model azurin 
+MASS
+CU1 65.36
+
+BOND 
+NB-CU1  70.000   2.05000 #kludge by JRS    
+CU1-S  20.000   3.00000 #kludge by JRS     
+
+ANGLE      
+CU1-NB-CR   50.000     126.700  #JRS estimate      
+CU1-NB-CC   50.000     126.700  #JRS estimate      
+CU1-S -CT   50.000     120.000  #JRS estimate        
+NB-CU1-NB   10.000     110.000  #dac estimate        
+NB-CU1-S    10.000     110.000  #dac estimate    
+
+DIHE 
+X -NB-CU1-X    1       0.000 180.000       3.000    
+X -CU1-SM-X    1       0.000 180.000       3.000   
+X -CU1-S -X    1       0.000 180.000       3.000   
+
+IMPROPER
+
+NONB
+ CU1    2.20      0.200   
+ 
+ 

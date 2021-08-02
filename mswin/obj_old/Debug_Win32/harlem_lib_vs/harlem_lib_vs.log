@@ -1,0 +1,307 @@
+﻿  Generate Python interface hamolset_wrap.cpp file with SWIG
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(920): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1172): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1233): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1296): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1351): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1391): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(1629): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(105): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(106): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(114): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(127): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(128): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(136): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(150): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(151): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(159): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(226): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(45): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(46): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(49): warning 389: operator[] ignored (consider using %extend)
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(50): warning 389: operator[] ignored (consider using %extend)
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(27): warning 320: Explicit template instantiation ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(667): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hasurface.h(204): warning 325: Nested class not currently supported (GEPOLParams ignored)
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(24): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(122): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(62): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(472): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(510): warning 362: operator= ignored
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(115): warning 401: Nothing known about base class 'IntIntMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(149): warning 401: Nothing known about base class 'IntPtrMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(185): warning 401: Nothing known about base class 'PtrIntMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(219): warning 401: Nothing known about base class 'PtrPtrMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(253): warning 401: Nothing known about base class 'PtrDoubleMap_itr_parent'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(288): warning 401: Nothing known about base class 'set< void *,less< void * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(288): warning 401: Maybe you forgot to instantiate 'set< void *,less< void * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(297): warning 401: Nothing known about base class 'vector< void * >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastl.h(297): warning 401: Maybe you forgot to instantiate 'vector< void * >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(90): warning 401: Nothing known about base class 'map< std::string,double,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(90): warning 401: Maybe you forgot to instantiate 'map< std::string,double,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(125): warning 401: Nothing known about base class 'map< std::string,std::string,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(125): warning 401: Maybe you forgot to instantiate 'map< std::string,std::string,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(142): warning 401: Nothing known about base class 'map< std::string,int,less< std::string > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\hastring.h(142): warning 401: Maybe you forgot to instantiate 'map< std::string,int,less< std::string > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(266): warning 401: Nothing known about base class 'std::vector< Vec3D >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(266): warning 401: Maybe you forgot to instantiate 'std::vector< Vec3D >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(371): warning 401: Nothing known about base class 'std::vector< VecPtr >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(371): warning 401: Maybe you forgot to instantiate 'std::vector< VecPtr >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(272): warning 401: Nothing known about base class 'std::map< HaAtom *,double,less< HaAtom * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(272): warning 401: Maybe you forgot to instantiate 'std::map< HaAtom *,double,less< HaAtom * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(288): warning 401: Nothing known about base class 'std::map< HaAtom *,HaAtom *,less< HaAtom * > >'. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.h(288): warning 401: Maybe you forgot to instantiate 'std::map< HaAtom *,HaAtom *,less< HaAtom * > >' using %template.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(68): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.h(99): warning 401: Base class 'harlem::SaveOptions' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(81): warning 401: 'harlem::SaveOptions' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\hacompmod.h(46): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(15): warning 401: Base class 'HaEnum1' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(133): warning 401: 'HaEnum1' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\hacoord.h(35): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\hacoord.h(65): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.h(232): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.h(257): warning 401: Base class 'harlem::HashMap' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(27): warning 401: 'harlem::HashMap' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_driver_amber.h(23): warning 401: Base class 'MMDriver' undefined.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolmech.h(551): warning 401: 'MMDriver' must be defined before it is used as a base class.
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.h(166): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(425): warning 503: Can't wrap 'operator >>' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(443): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\tinyxml.h(446): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(43): warning 504: Function HaVec_int_parent::HaVec_int() must have a return type. Ignored.
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(79): warning 509: Overloaded method HaVec_double_parent::r0(size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(77): warning 509: as it is shadowed by HaVec_double_parent::r0(size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(80): warning 509: Overloaded method HaVec_double_parent::r1(size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(78): warning 509: as it is shadowed by HaVec_double_parent::r1(size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(191): warning 509: Overloaded method HaMat_double_parent::r0(size_t,size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(189): warning 509: as it is shadowed by HaMat_double_parent::r0(size_t,size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(192): warning 509: Overloaded method HaMat_double_parent::r1(size_t,size_t) const effectively ignored,
+C:\MYPROG\HAPACK\HARLEM\sources\halinalg.h(190): warning 509: as it is shadowed by HaMat_double_parent::r1(size_t,size_t).
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(54): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(55): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(56): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\vec3d.h(294): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(111): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(112): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.h(163): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\harlemapp.h(112): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\harlemapp.h(128): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\canvas3d.h(298): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.h(526): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.h(25): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\haqchem.h(306): warning 454: Setting a pointer/reference variable may leak memory.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(63): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(95): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(128): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(160): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(194): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(222): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(262): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(299): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(335): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(368): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(402): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(434): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(473): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.h(511): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\protonredox.h(26): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+C:\MYPROG\HAPACK\HARLEM\sources\protonredox.h(88): warning 503: Can't wrap 'operator int' unless renamed to a valid identifier.
+  hacompmod.cpp
+  apbsmod.cpp
+  electrostmod.cpp
+  elmod.cpp
+  etcoupl.cpp
+  gaufile.cpp
+  haatbasdb.cpp
+  haatombasis.cpp
+  haconsts.cpp
+  hacoord.cpp
+  hadalton.cpp
+  hagaussian.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\electrostmod.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\etcoupl.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\apbsmod.cpp(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hagaussian.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\haatbasdb.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hadalton.cpp(15,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hampi.h(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hacompmod.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\elmod.cpp(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\haatombasis.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hacoord.cpp)
+  haintengine.cpp
+  halocorb.cpp
+  hamultipole.cpp
+  haobject.cpp
+  hapseudopot.cpp
+  haqchem.cpp
+  hascattermod.cpp
+  haxml.cpp
+  hazindo.cpp
+  mm_driver_gromacs.cpp
+  ndo.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haintengine.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  qc_params.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\halocorb.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  protonredox.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hascattermod.cpp(18,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\haqchem.cpp(15,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haflexmod.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamultipole.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\ndo.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haintermol.cpp
+  halocexcit.cpp
+  harpaham.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hazindo.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\mm_driver_gromacs.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  harpavec.cpp
+  nuclacidmod.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\qc_params.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  stmmod.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\protonredox.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haempirical.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haflexmod.cpp(1,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\halocexcit.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\harpavec.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\harpaham.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  hasimulator.cpp
+  tinyxml.cpp
+  tinyxmlerror.cpp
+  tinyxmlparser.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haintermol.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hampi.h(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\haempirical.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\stmmod.cpp(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  trajanal.cpp
+  ha_mort_mm.cpp
+  hamolmech.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mm.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haresdb.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamolmech.cpp(16,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  mm_driver_amber.cpp
+  mm_driver_tinker.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haxml.cpp(12,10): fatal error C1083: Cannot open include file: 'zlib.h': No such file or directory
+  mm_elements.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_driver_tinker.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  mm_force_field.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_driver_amber.cpp(14,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  mm_model.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_elements.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  mm_params.cpp
+  mm_traj_anal.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_force_field.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haproteined.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  atom_mapping.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_params.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  ha_mort_mol.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_traj_anal.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haatgroup.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haproteined.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haatom.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.cpp(15,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  habond.cpp
+  hahbhp.cpp
+  haintcrd.cpp
+  hamolecule.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\trajanal.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hasimulator.cpp)
+  hamolset.cpp
+  infile.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamolecule.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  moleditor.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\infile.cpp(14,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  rigidbodycoord.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haatgroup.cpp(16,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  vec3d.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamolset.cpp(19,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  haio.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\rigidbodycoord.cpp)
+  hastl.cpp
+  hastring.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haio.cpp(13,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  hatypes.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  manual.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\atom_mapping.cpp)
+  dialogs_wx_1.cpp
+  dialogs_wx_2.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  ha_wx_aux_1.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_2.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  ha_wx_ed_wdr.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_aux_1.cpp(10,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  ha_wx_res_2_wdr.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_ed_wdr.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+  ha_wx_res_mikola_wdr.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_res_2_wdr.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_res_mikola_wdr.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+  ha_wx_res_molflex_wdr.cpp
+  ha_wx_res_wdr.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_res_molflex_wdr.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\ha_wx_res_wdr.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+  hamainframe_wx.cpp
+  hawx_add.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\habond.cpp)
+  mm_dialogs_wx.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\moleditor.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hawx_add.h(11,10): fatal error C1083: Cannot open include file: 'wx/string.h': No such file or directory (compiling source file ..\HARLEM\sources\hawx_add.cpp)
+  qc_dialogs_wx.cpp
+  wx_prot_redox_dlg.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamainframe_wx.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  wxMolED.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\vec3d.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\mm_dialogs_wx.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  wxMolFlex.cpp
+  wxpymod.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\qc_dialogs_wx.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  canvas3d.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\wx_prot_redox_dlg.cpp(9,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\wxpymod.h(11,10): fatal error C1083: Cannot open include file: 'wx/wx.h': No such file or directory (compiling source file ..\HARLEM\sources\wxpymod.cpp)
+  hacolors.cpp
+  hamolview.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\wxMolFlex.cpp(4,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\wxMolED.cpp(11,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  object3d.cpp
+  outfile.cpp
+  repres.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\outfile.cpp(18,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+  transfor.cpp
+  hachart.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\nuclacidmod.cpp)
+  hachart_wx.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hachart_wx.cpp(11,10): fatal error C1083: Cannot open include file: 'wx/wxprec.h': No such file or directory
+  abstree.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\haresdb.cpp(16,10): fatal error C1083: Cannot open include file: 'boost/filesystem.hpp': No such file or directory
+  command.cpp
+  script.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hamolview.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\command.cpp(14,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  hampi.cpp
+  harlemapp.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\canvas3d.cpp)
+  harlemapp_wx.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\object3d.cpp)
+  hasvnrev.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hampi.cpp(2,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  fminbr.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\harlemapp.cpp(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\harlemapp_wx.cpp(14,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+  halinalg.cpp
+  hamatdb.cpp
+  hasurface.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\haintcrd.cpp)
+  march_cube.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\abstree.cpp)
+  hatests.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hatests.cpp(15,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\script.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hasurface.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hacolors.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\transfor.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\repres.cpp)
+C:\MYPROG\HAPACK\HARLEM\sources\hatypes.h(12,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\HARLEM\sources\hamatdb.cpp)

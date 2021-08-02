@@ -1,0 +1,152 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  buildworldni.cpp
+  contworld.cpp
+  tinyxml.cpp
+  tinyxmlerror.cpp
+  tinyxmlparser.cpp
+  mapio.cpp
+  nernstplanksolver.cpp
+  pbwithljsolver.cpp
+  pnpinterfaces.cpp
+  pnps.cpp
+  pnpsapp.cpp
+  pnpstructs.cpp
+  pnputil.cpp
+  poissonboltzmannsolver.cpp
+  poissonnernstplancksolver.cpp
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(138,32): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(138,44): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(138,56): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(139,32): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(139,44): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(139,56): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(188,32): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(188,44): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(188,56): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(189,32): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(189,44): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(189,56): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(777,23): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(777,35): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(777,47): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(1368,23): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(1368,35): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(1368,47): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2002,39): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2002,51): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2002,63): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2270,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2271,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2582,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(2583,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(3423,14): warning C4305: '/=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(3424,14): warning C4305: '/=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(1082,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(2779,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3145,6): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3176,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3190,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3239,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3249,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3296,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3297,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3308,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3309,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3356,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3357,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3359,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3365,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3366,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3538,6): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3569,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3583,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3632,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3642,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3689,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3690,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3701,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3702,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3749,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3750,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3752,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3758,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3759,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3875,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3947,6): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3971,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3972,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3983,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(3984,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4031,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4032,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4034,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4040,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4041,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4147,6): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4171,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4172,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4183,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4184,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4231,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4232,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4234,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4240,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4241,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4339,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(4700,15): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(5441,45): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(5441,70): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(5441,95): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6489,45): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6489,70): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6489,95): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6639,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6640,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6641,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7059,45): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7059,70): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7059,95): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7207,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7208,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7209,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7413,45): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7413,70): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7413,95): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7567,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(7701,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  poissonsolver.cpp
+C:\MYPROG\HAPACK\PNPS\src\mapio.cpp(633,8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\mapio.cpp(634,8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\mapio.cpp(635,8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(1360): warning C4700: uninitialized local variable 'BlackAndWhiteMask' used
+C:\MYPROG\HAPACK\PNPS\src\contworld.cpp(1361): warning C4700: uninitialized local variable 'DielBoarderMask' used
+  sissgausps.cpp
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(52,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(862,63): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(878,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(878,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(1104,63): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(1124,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\pbwithljsolver.cpp(1124,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\mapio.cpp(1145): warning C4715: 'VectorField3D::ReadFromFile': not all control paths return a value
+C:\MYPROG\HAPACK\PNPS\src\pnpsapp.cpp(629): warning C4700: uninitialized local variable 'tvtime1' used
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(50,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(1123,63): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(1255,63): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(1263,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(1263,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonboltzmannsolver.cpp(1511,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\buildworldni.cpp(6837): warning C4789: buffer 'GridIDs' of size 24 bytes will be overrun; 4 bytes will be written starting at offset 24
+C:\MYPROG\HAPACK\PNPS\src\poissonsolver.cpp(61,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonsolver.cpp(1392,64): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonsolver.cpp(1947,63): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\PNPS\src\poissonsolver.cpp(2071,41): warning C4068: unknown pragma 'ivdep'
+C:\MYPROG\HAPACK\PNPS\src\sissgausps.cpp(800,1): warning C4010: single-line comment contains line-continuation character
+C:\MYPROG\HAPACK\PNPS\src\sissgausps.cpp(528): warning C4700: uninitialized local variable 'ival' used
+  pnpsll_wrap.cpp
+     Creating library C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll\_pnpsll_d.lib and object C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll\_pnpsll_d.exp
+  pnplib_vs.vcxproj -> C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll\_pnpsll_d.pyd
+  Copying PNPS python scripts
+          1 file(s) copied.
+  0 File(s) copied
+  0 File(s) copied

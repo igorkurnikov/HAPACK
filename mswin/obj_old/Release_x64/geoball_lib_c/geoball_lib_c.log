@@ -1,0 +1,44 @@
+﻿  alf_gmp.c
+  GeoBall.c
+  sos_minor_gmp.c
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(369,21): warning C4013: 'atoi' undefined; assuming extern returning int
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(375,9): warning C4013: 'exit' undefined; assuming extern returning int
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(397,27): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(414,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(417,2): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(423,3): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(440,6): warning C4101: 'i': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(466,16): warning C4101: 'idx3': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(467,6): warning C4101: 'iadd': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(466,21): warning C4101: 'idx4': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(466,6): warning C4101: 'idx1': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(466,11): warning C4101: 'idx2': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(470,21): warning C4101: 'radiusat': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(467,11): warning C4101: 'ired': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(468,6): warning C4101: 'ntet_new': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(465,11): warning C4101: 'i': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(468,16): warning C4101: 'tet_new': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(467,16): warning C4101: 'irem': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(470,9): warning C4101: 'coordat': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(525,19): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(139,11): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(520,20): warning C4101: 'ilink7': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(518,6): warning C4101: 'idx': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(520,6): warning C4101: 'ilink5': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(213,11): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(520,13): warning C4101: 'ilink6': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(520,27): warning C4101: 'ilink8': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(688,19): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(885,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(508,9): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(909,6): warning C4101: 'ival': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(506,6): warning C4101: 'ivalue': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\GeoBall.c(910,6): warning C4101: 'iatom': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(607,9): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(604,6): warning C4101: 'ivalue': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(823,9): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(820,6): warning C4101: 'ivalue': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(1354,9): warning C4101: 'value': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\sos_minor_gmp.c(1352,6): warning C4101: 'ivalue': unreferenced local variable
+C:\MYPROG\HAPACK\GEOBALL\alf_gmp.c(651,17): warning C4101: 'test_u': unreferenced local variable
+  geoball_lib_c.vcxproj -> C:\MYPROG\HAPACK\mswin\Release_x64\geoball_lib_c.lib

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="res_fmm" >
+<molecule name="FMM" />
+<chain  id=" " />
+<res name="FMM"  no="1" /> 
+  <atom hb_st="A" >    1     O  8      1.437493157      0.546587400     -0.504778889 <bonds> 2  </bonds></atom>
+  <atom >                  2     C  6      1.273730127      1.731457839     -0.815907128 <bonds> 1  3  4  </bonds></atom>
+  <atom hb_st="D" >    3     N  7      0.055306248      2.200142274     -1.080589739 <bonds> 2  5  6  </bonds></atom>
+  <atom >                  4    HC  1      2.126619998      2.393371616     -0.873790490 <bonds> 2  </bonds></atom>
+  <atom >                  5   HN1  1     -0.039177338      3.173834472     -1.331344484 <bonds> 3  </bonds></atom>
+  <atom >                  6   HN2  1     -0.752537883      1.596691277     -1.031536405 <bonds> 3  </bonds></atom>
+</molset>
+</HARLEM_DATA>

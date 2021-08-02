@@ -1,0 +1,21 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=METHYL
+#MOLECULE 
+MOLNAME=MTH
+#ATOMS 
+    1   6 "C"     -0.256897487     -0.363205430      0.000054926  " " "MTH"       1    -0.20000 "SP3" ""  "CT"      1.00000 
+    2   1 "H1"     -0.119056643      0.165697375     -0.943004841  " " "MTH"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+    3   1 "H2"     -0.391595539      0.358861310      0.805397125  " " "MTH"       1     0.10000 "NO_HYBRID" ""  "HC"      1.00000 
+    4   1 "HT"     -1.137886276     -1.001543353     -0.066903637  " " "HED"       2     0.00000 "NO_HYBRID" ""  ""      1.00000 
+    5   1 "HT"      0.620994520     -0.976088494      0.204456428  " " "TAL"       3     0.00000 "NO_HYBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1     4  SINGLE
+    1     5  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#END MOL_SET

@@ -1,0 +1,1099 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="02/12/2012">
+<resff rname="HOH"  >
+  <atomff  name="O"  ff_type="OW" chg="-0.834" >  </atomff>
+  <atomff  name="H1" ff_type="HW" chg="0.417" >  </atomff>
+  <atomff  name="H2" ff_type="HW" chg="0.417" >  </atomff>
+</resff>
+<resff rname="ACE" >
+  <atomff  name="HH31" ff_type="HC" chg="0.112300" >  </atomff>
+  <atomff  name="CH3" ff_type="CT" chg="-0.366200" >  </atomff>
+  <atomff  name="HH32" ff_type="HC" chg="0.112300" >  </atomff>
+  <atomff  name="HH33" ff_type="HC" chg="0.112300" >  </atomff>
+  <atomff  name="C" ff_type="C" chg="0.59720" >  </atomff>
+  <atomff  name="O" ff_type="O" chg="-0.56790" >  </atomff>
+<improper_dihedrals>
+   CH3  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="ACE#AMB03" >
+  <atomff  name="HH31" ff_type="HC" chg="0.07601" >  </atomff>
+  <atomff  name="CH3" ff_type="CT" chg="-0.190263" >  </atomff>
+  <atomff  name="HH32" ff_type="HC" chg="0.076010" >  </atomff>
+  <atomff  name="HH33" ff_type="HC" chg="0.076010" >  </atomff>
+  <atomff  name="C" ff_type="C" chg="0.512403" >  </atomff>
+  <atomff  name="O" ff_type="O" chg="-0.55017" >  </atomff>
+<improper_dihedrals>
+   CH3  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="NME" >
+  <atomff  name="N" ff_type="N" chg="-0.415700" >  </atomff>
+  <atomff  name="H" ff_type="H" chg="0.271900" >  </atomff>
+  <atomff  name="CH3" ff_type="CT" chg="-0.14900" >  </atomff>
+  <atomff  name="HH31" ff_type="H1" chg="0.097600" >  </atomff>
+  <atomff  name="HH32" ff_type="H1" chg="0.097600" >  </atomff>
+  <atomff  name="HH33" ff_type="H1" chg="0.097600" >  </atomff>
+<improper_dihedrals>
+   PREV.C CH3  N   H
+</improper_dihedrals>
+</resff>
+<resff rname="NME#AMB03" >
+  <atomff  name="N" ff_type="N" chg="-0.423888" >  </atomff>
+  <atomff  name="H" ff_type="H" chg="0.290111" >  </atomff>
+  <atomff  name="CH3" ff_type="CT" chg="-0.054293" >  </atomff>
+  <atomff  name="HH31" ff_type="H1" chg="0.062690" >  </atomff>
+  <atomff  name="HH32" ff_type="H1" chg="0.062690" >  </atomff>
+  <atomff  name="HH33" ff_type="H1" chg="0.062690" >  </atomff>
+<improper_dihedrals>
+   PREV.C CH3  N   H
+</improper_dihedrals>
+</resff>
+<resff rname="NHC" >
+  <atomff  name="N"   ff_type="N" chg="-0.8" >  </atomff>
+  <atomff  name="H1" ff_type="H" chg="0.4" >  </atomff>
+  <atomff  name="H2" ff_type="H" chg="0.4" >  </atomff>
+<improper_dihedrals>
+   PREV.C H2  N   H1
+</improper_dihedrals>
+</resff>
+<resff rname="FMM"  >
+  <atomff  name="O"  ff_type="O" chg="-0.548" >  </atomff>
+  <atomff  name="C"  ff_type="C" chg="0.613" >  </atomff>
+  <atomff  name="N" ff_type="N" chg="-0.834" >  </atomff>
+  <atomff  name="HC"   ff_type="H" chg="-0.016" >  </atomff>
+  <atomff  name="HN1" ff_type="H" chg="0.411" >  </atomff>
+  <atomff  name="HN2" ff_type="H" chg="0.374" >  </atomff>
+  <improper_dihedrals>
+   C     HN2   N   HN1
+   HC  N       C   O
+</improper_dihedrals>
+</resff>
+<resff rname="NMA"  >
+  <atomff  name="H1"  ff_type="HC" chg="0.0173" >   </atomff>
+  <atomff  name="C1"  ff_type="CT" chg="-0.0411" >  </atomff>
+  <atomff  name="H2" ff_type="HC" chg="0.0173" >  </atomff>
+  <atomff  name="H3" ff_type="HC" chg="0.0173" >  </atomff>
+  <atomff  name="C"  ff_type="C" chg="0.5869" >  </atomff>
+  <atomff  name="O"  ff_type="O" chg="-0.5911" >  </atomff>
+  <atomff  name="N" ff_type="N" chg="-0.4192" >  </atomff>
+  <atomff  name="HN" ff_type="H" chg="0.2823" >  </atomff>
+  <atomff  name="C2"   ff_type="CT" chg="-0.2078" >  </atomff>
+  <atomff  name="H4" ff_type="H1" chg="0.1127" >  </atomff>
+  <atomff  name="H5" ff_type="H1" chg="0.1127" >  </atomff>
+  <atomff  name="H6" ff_type="H1" chg="0.1127" >  </atomff>
+  <improper_dihedrals>
+   C     C2   N   HN
+   C1   N     C    O
+</improper_dihedrals>
+</resff>
+<resff rname="DMF"  >
+  <atomff  name="H31"  ff_type="H1" chg="0.1056" >   </atomff>
+  <atomff  name="C3"  ff_type="CT" chg="-0.2586" >  </atomff>
+  <atomff  name="H32" ff_type="H1" chg="0.1056" >  </atomff>
+  <atomff  name="H33" ff_type="H1" chg="0.1056" >  </atomff>
+  <atomff  name="C"   ff_type="C" chg="0.4284" >  </atomff>
+  <atomff  name="O"  ff_type="O" chg="-0.5600" >  </atomff>
+  <atomff  name="N"   ff_type="N" chg="-0.0300" >  </atomff>
+  <atomff  name="H22" ff_type="H" chg="0.0452" >  </atomff>
+  <atomff  name="C2"   ff_type="CT" chg="-0.2586" >  </atomff>
+  <atomff  name="H4"   ff_type="H1" chg="0.1056" >  </atomff>
+  <atomff  name="H5"   ff_type="H1" chg="0.1056" >  </atomff>
+  <atomff  name="H6"   ff_type="H1" chg="0.1056" >  </atomff>
+<improper_dihedrals>
+   C     C2   N   C3
+   H22   N     C    O
+</improper_dihedrals>
+</resff>
+<resff rname="HOH"  >
+  <atomff  name="O"  ff_type="OW" chg="-0.834" >  </atomff>
+  <atomff  name="H1" ff_type="HW" chg="0.417" >  </atomff>
+  <atomff  name="H2" ff_type="HW" chg="0.417" >  </atomff>
+</resff>
+<resff rname="MG"  >
+  <atomff  name="MG"  ff_type="MG" chg="2.0" >  </atomff>
+</resff>
+<resff rname="MG#DUMMY"  >
+  <atomff  name="MG"  ff_type="DC" chg="0.0" >  </atomff>
+</resff>
+<resff rname="MG#NEUTRAL"  >
+  <atomff  name="MG"  ff_type="MG" chg="0.0" >  </atomff>
+</resff>
+<resff rname="CA"  >
+  <atomff  name="CA"  ff_type="C0" chg="2.0" >  </atomff>
+</resff>
+<resff rname="CA#DUMMY"  >
+  <atomff  name="CA"  ff_type="DC" chg="0.0" >  </atomff>
+</resff>
+<resff rname="CA#NEUTRAL"  >
+  <atomff  name="CA"  ff_type="C0" chg="0.0" >  </atomff>
+</resff>
+<resff rname="LI"  >
+  <atomff  name="LI"  ff_type="Li+" chg="1.0" >  </atomff>
+</resff>
+<resff rname="NA"  >
+  <atomff  name="NA"  ff_type="Na+" chg="1.0" >  </atomff>
+</resff>
+<resff rname="K"  >
+  <atomff  name="K"  ff_type="K+" chg="1.0" >  </atomff>
+</resff>
+<resff rname="RB"  >
+  <atomff  name="RB"  ff_type="Rb+" chg="1.0" >  </atomff>
+</resff>
+<resff rname="CS"  >
+  <atomff  name="CS"  ff_type="Cs+" chg="1.0" >  </atomff>
+</resff>
+<resff rname="F"  >
+  <atomff  name="F"  ff_type="F-" chg="-1.0" >  </atomff>
+</resff>
+<resff rname="CL"  >
+  <atomff  name="CL"  ff_type="Cl-" chg="-1.0" >  </atomff>
+</resff>
+<resff rname="BR"  >
+  <atomff  name="BR"  ff_type="Br-" chg="-1.0" >  </atomff>
+</resff>
+<resff rname="I"  >
+  <atomff  name="I"  ff_type="I-" chg="-1.0" >  </atomff>
+</resff>
+<resff rname="CU#CH1"  >
+  <atomff  name="CU"  ff_type="CU1" chg="1.0" >  </atomff>
+</resff>
+<resff rname="CU#CH2"  >
+  <atomff  name="CU"  ff_type="CU2" chg="2.0" >  </atomff>
+</resff>
+<resff rname="ZNB" >
+  <atomff  name="DZ1" ff_type="DZ" chg="0.5" >  </atomff>
+  <atomff  name="DZ2" ff_type="DZ" chg="0.5" >  </atomff>
+  <atomff  name="DZ3" ff_type="DZ" chg="0.5" >  </atomff>
+  <atomff  name="DZ4" ff_type="DZ" chg="0.5" >  </atomff>
+  <atomff  name="ZN"  ff_type="ZN"  chg="0.0" >  </atomff>
+</resff>
+<resff rname="DMP"  >
+  <atomff  name="CN1"  ff_type="CP_LPD" chg="0.17000" >   </atomff>
+  <atomff  name="NTM"  ff_type="NL_LPD" chg="0.15000" >   </atomff>
+  <atomff  name="CN2"  ff_type="CP_LPD" chg="0.17000" >   </atomff>
+  <atomff  name="CN3"  ff_type="CP_LPD" chg="0.17000" >   </atomff>
+  <atomff  name="CA"   ff_type="CF_LPD" chg="0.16000" >   </atomff>
+  <atomff  name="CB"   ff_type="CI_LPD" chg="0.22000" >   </atomff>
+  <atomff  name="OA"   ff_type="OE_LPD" chg="-0.36000" >  </atomff>
+  <atomff  name="P"    ff_type="PO_LPD" chg="1.03000" >   </atomff>
+  <atomff  name="OB"   ff_type="OP_LPD" chg="-0.76000" >  </atomff>
+  <atomff  name="OC"   ff_type="OP_LPD" chg="-0.76000" >  </atomff>
+  <atomff  name="OD"   ff_type="OE_LPD" chg="-0.42000" >  </atomff>
+  <atomff  name="CC"   ff_type="CI_LPD" chg="0.29000" >   </atomff>
+  <atomff  name="CD"   ff_type="CE_LPD" chg="0.23000" >   </atomff>
+  <atomff  name="OE"   ff_type="OE_LPD" chg="-0.40000" >  </atomff>
+  <atomff  name="C2A"  ff_type="CL_LPD" chg="0.64000" >   </atomff>
+  <atomff  name="OF"   ff_type="OC_LPD" chg="-0.53000" >  </atomff>
+  <atomff  name="C2B"  ff_type="CG_LPD" chg="-0.02000" >  </atomff>
+  <atomff  name="C2C"  ff_type="CG_LPD" chg="0.05000" >   </atomff>
+  <atomff  name="C2D"  ff_type="CG_LPD" chg="-0.02000" >  </atomff>
+  <atomff  name="C2E"  ff_type="CG_LPD" chg="0.03000" >   </atomff>
+  <atomff  name="C2F"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2G"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2H"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2I"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2J"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2K"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2L"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C2M"  ff_type="CG_LPD" chg="0.03000" >   </atomff>
+  <atomff  name="C2N"  ff_type="CH_LPD" chg="-0.04000" >  </atomff>
+  <atomff  name="CE"   ff_type="CJ_LPD" chg="0.13000" >   </atomff>
+  <atomff  name="OG"   ff_type="OE_LPD" chg="-0.30000" >  </atomff>
+  <atomff  name="C1A"  ff_type="CL_LPD" chg="0.73000" >   </atomff>
+  <atomff  name="OH"   ff_type="OC_LPD" chg="-0.57000" >  </atomff>
+  <atomff  name="C1B"  ff_type="CG_LPD" chg="-0.10000" >  </atomff>
+  <atomff  name="C1C"  ff_type="CG_LPD" chg="0.08000" >   </atomff>
+  <atomff  name="C1D"  ff_type="CG_LPD" chg="-0.02000" >  </atomff>
+  <atomff  name="C1E"  ff_type="CG_LPD" chg="0.03000" >   </atomff>
+  <atomff  name="C1F"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1G"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1H"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1I"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1J"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1K"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1L"  ff_type="CG_LPD" chg="0.00000" >   </atomff>
+  <atomff  name="C1M"  ff_type="CG_LPD" chg="0.03000" >   </atomff>
+  <atomff  name="C1N"  ff_type="CH_LPD" chg="-0.04000" >  </atomff> 
+<improper_dihedrals>
+  CC   CE   CD    OE  
+ C2B   OF   C2A   OE  
+</improper_dihedrals>
+</resff>
+<resff rname="HIS#PROT_TO_HID" ffname="AMBER_10" >
+  <atomff  name="N" ff_type="N" chg="-0.4157" >  </atomff>
+  <atomff  name="H" ff_type="H" chg="0.2719" >  </atomff>
+  <atomff  name="CA" ff_type="CX" chg="0.0188" >  </atomff>
+  <atomff  name="HA" ff_type="H1" chg="0.0881" >  </atomff>
+  <atomff  name="CB" ff_type="CT" chg="-0.0462" >  </atomff>
+  <atomff  name="HB2" ff_type="HC" chg="0.0402" >  </atomff>
+  <atomff  name="HB3" ff_type="HC" chg="0.0402" >  </atomff>
+  <atomff  name="CG" ff_type="CC" chg="-0.0266" >  </atomff>
+  <atomff  name="ND1" ff_type="NA" chg="-0.3811" >  </atomff>
+  <atomff  name="HD1" ff_type="H" chg="0.3649" >  </atomff>
+  <atomff  name="CE1" ff_type="CR" chg="0.2057" >  </atomff>
+  <atomff  name="HE1" ff_type="H5" chg="0.1392" >  </atomff>
+  <atomff  name="NE2" ff_type="NA" chg="-0.5727" >  </atomff>
+   <atomff  name="HE2" ff_type="H" chg="0.0000" >  </atomff>
+  <atomff  name="CD2" ff_type="CW" chg="0.1292" >  </atomff>
+  <atomff  name="HD2" ff_type="H4" chg="0.1147" >  </atomff>
+  <atomff  name="C" ff_type="C" chg="0.5973" >  </atomff>
+  <atomff  name="O" ff_type="O" chg="-0.5679" >  </atomff>
+<improper_dihedrals>
+   PREV.C  CA   N   H
+   CB  CD2   CG   ND1
+   CG  CE1   ND1   HD1
+   ND1  NE2   CE1   HE1
+   CE1  CD2   NE2   HE2
+   CG  NE2   CD2   HD2
+   CA  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="HIS#PROT_TO_HIE" ffname="AMBER_10" >
+  <atomff  name="N" ff_type="N" chg="-0.4157" >  </atomff>
+  <atomff  name="H" ff_type="H" chg="0.2719" >  </atomff>
+  <atomff  name="CA" ff_type="CX" chg="-0.0581" >  </atomff>
+  <atomff  name="HA" ff_type="H1" chg="0.136" >  </atomff>
+  <atomff  name="CB" ff_type="CT" chg="-0.0074" >  </atomff>
+  <atomff  name="HB2" ff_type="HC" chg="0.0367" >  </atomff>
+  <atomff  name="HB3" ff_type="HC" chg="0.0367" >  </atomff>
+  <atomff  name="CG" ff_type="CC" chg="0.1868" >  </atomff>
+  <atomff  name="ND1" ff_type="NB" chg="-0.5432" >  </atomff>
+  <atomff  name="HD1" ff_type="H" chg="0.0000" >  </atomff>
+  <atomff  name="CE1" ff_type="CR" chg="0.1635" >  </atomff>
+  <atomff  name="HE1" ff_type="H5" chg="0.1435" >  </atomff>
+  <atomff  name="NE2" ff_type="NA" chg="-0.2795" >  </atomff>
+  <atomff  name="HE2" ff_type="H" chg="0.3339" >  </atomff>
+  <atomff  name="CD2" ff_type="CW" chg="-0.2207" >  </atomff>
+  <atomff  name="HD2" ff_type="H4" chg="0.1862" >  </atomff>
+  <atomff  name="C" ff_type="C" chg="0.5973" >  </atomff>
+  <atomff  name="O" ff_type="O" chg="-0.5679" >  </atomff>
+<improper_dihedrals>
+   PREV.C  CA   N   H
+   CB  CD2   CG   ND1
+   ND1  NE2   CE1   HE1
+   CE1  CD2   NE2   HE2
+   CG  NE2   CD2   HD2
+   CA  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="ASP#PROT" ffname="AMBER_10" >
+  <atomff  name="N"   ff_type="N"   chg="-0.4157" >  </atomff>   
+  <atomff  name="H"   ff_type="H"   chg=" 0.2719" >  </atomff>   
+  <atomff  name="CA"  ff_type="CX"  chg=" 0.0341" >  </atomff>   
+  <atomff  name="HA"  ff_type="H1"  chg=" 0.0864" >  </atomff>   
+  <atomff  name="CB"  ff_type="CT"  chg="-0.0316" >  </atomff>   
+  <atomff  name="HB2" ff_type="HC"  chg=" 0.0488" >  </atomff>   
+  <atomff  name="HB3" ff_type="HC"  chg=" 0.0488" >  </atomff>   
+  <atomff  name="CG"  ff_type="C"  chg=" 0.6462" >  </atomff>   
+  <atomff  name="OD1" ff_type="O"  chg="-0.5554" >  </atomff>   
+  <atomff  name="OD2" ff_type="OH"   chg="-0.6376" >  </atomff>   
+  <atomff  name="HD2" ff_type="HO"  chg=" 0.4747" >  </atomff>   
+  <atomff  name="C"   ff_type="C"   chg=" 0.5973" >  </atomff>   
+  <atomff  name="O"   ff_type="O"   chg="-0.5679" >  </atomff>   
+<improper_dihedrals>                                            
+   PREV.C  CA   N   H
+   CB  OD1   CG   OD2
+   CA  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="ASP#PROT_TO_UNPROT" ffname="AMBER_10" >
+  <atomff  name="N"   ff_type="N"   chg="-0.4157" >  </atomff>   
+  <atomff  name="H"   ff_type="H"   chg=" 0.2719" >  </atomff>   
+  <atomff  name="CA"  ff_type="CX"  chg=" 0.0341" >  </atomff>   
+  <atomff  name="HA"  ff_type="H1"  chg=" 0.0864" >  </atomff>   
+  <atomff  name="CB"  ff_type="CT"  chg="-0.0316" >  </atomff>   
+  <atomff  name="HB2" ff_type="HC"  chg=" 0.0488" >  </atomff>   
+  <atomff  name="HB3" ff_type="HC"  chg=" 0.0488" >  </atomff>   
+  <atomff  name="CG"  ff_type="C"  chg=" 0.5679" >  </atomff>   
+  <atomff  name="OD1" ff_type="O"  chg="-0.82" >  </atomff>   
+  <atomff  name="OD2" ff_type="OH"   chg="-0.82" >  </atomff>   
+  <atomff  name="HD2" ff_type="HO"  chg=" 0.0000" >  </atomff>   
+  <atomff  name="C"   ff_type="C"   chg=" 0.5973" >  </atomff>   
+  <atomff  name="O"   ff_type="O"   chg="-0.5679" >  </atomff>   
+<improper_dihedrals>                                            
+   PREV.C  CA   N   H
+   CB  OD1   CG   OD2
+   CA  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="RUI" ffname="AMBER_10" >
+ <atomff  name="C01"  ff_type="CA"  chg="0.0" >  </atomff>
+ <atomff  name="C02"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C03"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C05"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="C06"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C08"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="N10"  ff_type="NA"  chg="0.0" >  </atomff> 
+ <atomff  name="C11"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="RU1"  ff_type="RU"  chg="2.0" >  </atomff>  
+ <atomff  name="N13"  ff_type="NB"  chg="0.0" >  </atomff>  
+ <atomff  name="C14"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C15"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C17"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C19"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C21"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="N22"  ff_type="N4"  chg="0.0" >  </atomff> 
+ <atomff  name="C23"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C24"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C25"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C26"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C27"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C28"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C29"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C30"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C31"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C32"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="N33"  ff_type="N5"  chg="0.0" >  </atomff> 
+ <atomff  name="N34"  ff_type="N6"  chg="0.0" >  </atomff> 
+ <atomff  name="C35"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C36"  ff_type="CA"  chg="0.0" >  </atomff>
+ <atomff  name="C37"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C38"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C39"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="C40"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="N41"  ff_type="N7"  chg="0.0" >  </atomff>  
+ <atomff  name="C42"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="C43"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="C44"  ff_type="CA"  chg="0.0" >  </atomff>  
+ <atomff  name="C45"  ff_type="CA"  chg="0.0" >  </atomff> 
+ <atomff  name="N46"  ff_type="N"  chg="0.0" >  </atomff>  
+ <atomff  name="C47"  ff_type="C"   chg="0.0" >  </atomff>  
+ <atomff  name="O48"  ff_type="O"   chg="0.0" >  </atomff>  
+ <atomff  name="C49"  ff_type="CT"  chg="0.0" >  </atomff>  
+ <atomff  name="H1"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H2"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H3"   ff_type="HA"  chg="0.0" >  </atomff> 
+ <atomff  name="H4"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H5"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H6"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H7"   ff_type="HA"  chg="0.0" >  </atomff> 
+ <atomff  name="H8"   ff_type="HA"  chg="0.0" >  </atomff> 
+ <atomff  name="H9"   ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H10"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H11"  ff_type="HA"  chg="0.0" >  </atomff>   
+ <atomff  name="H12"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H13"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H14"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H15"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H16"  ff_type="HA"  chg="0.0" >  </atomff>   
+ <atomff  name="H17"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H18"  ff_type="HA"  chg="0.0" >  </atomff>   
+ <atomff  name="H19"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H20"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H21"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H22"  ff_type="HA"  chg="0.0" >  </atomff>  
+ <atomff  name="H23"  ff_type="HA"  chg="0.0" >  </atomff>   
+ <atomff  name="H27"  ff_type="H"   chg="0.0" >  </atomff>   
+ <atomff  name="H24"  ff_type="HC"   chg="0.0" >  </atomff>   
+ <atomff  name="H26"  ff_type="HC"   chg="0.0" >  </atomff>   
+<improper_dihedrals>
+C45  C45  C43  H22  
+C44  C43  C42  H21  
+C43  C42  C40  H20  
+C42  C40  N41  C39  
+C39  C38  C37  H19  
+C38  C37  C36  H18  
+C37  C36  C35  H17  
+C36  C35  N34  H16  
+N22  C23  C24  H8  
+C23  C24  C25  H9  
+C24  C25  C26  H10  
+C25  C26  C27  H11  
+C26  C27  N22  C28  
+N33  C28  C29  C27  
+C28  C29  C30  H12  
+C29  C30  C31  H13  
+C30  C31  C32  H14  
+N13  C15  C17  H5  
+C15  C17  C19  H6  
+C17  C19  C21  H7  
+C19  C21  C14  C05  
+C05  C03  C02  H2  
+C03  C05  C21  N46 
+N10  C11  C02  C14  
+C11  C02  C01  C03  
+C02  C01  C06  H1  
+C01  C15  C17  H3  
+C06  C08  N10  H4  
+RU1 N10  C11  C08
+RU1 N41  C45  C40 
+RU1 N34  C39  C35 
+RU1 N22  C23  C27  
+RU1 N13  C15  C14
+RU1 N33  C28  C32
+</improper_dihedrals>
+</resff>
+<resff rname="RUI#2P" ffname="AMBER_10" >
+ <atomff  name="C01"  ff_type="CA"  chg="-0.116699" >  </atomff>  
+ <atomff  name="C02"  ff_type="CA"  chg=" 0.052745" >  </atomff>  
+ <atomff  name="C03"  ff_type="CA"  chg="-0.235629" >  </atomff>  
+ <atomff  name="C05"  ff_type="CA"  chg="-0.249399" >  </atomff>  
+ <atomff  name="C06"  ff_type="CA"  chg="-0.278273" >  </atomff>  
+ <atomff  name="C08"  ff_type="CA"  chg="-0.124535" >  </atomff>  
+ <atomff  name="N10"  ff_type="NA"  chg=" 0.493468" >  </atomff>  
+ <atomff  name="C11"  ff_type="CA"  chg=" 0.064984" >  </atomff>  
+ <atomff  name="RU1"  ff_type="RU"  chg="-2.72944" >  </atomff>  
+ <atomff  name="N13"  ff_type="NB"  chg=" 0.442549" >  </atomff>  
+ <atomff  name="C14"  ff_type="CA"  chg=" 0.133386" >  </atomff>  
+ <atomff  name="C15"  ff_type="CA"  chg="-0.093412" >  </atomff>  
+ <atomff  name="C17"  ff_type="CA"  chg="-0.285710" >  </atomff>  
+ <atomff  name="C19"  ff_type="CA"  chg="-0.088227" >  </atomff>  
+ <atomff  name="C21"  ff_type="CA"  chg=" 0.024045" >  </atomff>  
+ <atomff  name="N22"  ff_type="N4"  chg=" 0.588947" >  </atomff>  
+ <atomff  name="C23"  ff_type="CA"  chg="-0.109602" >  </atomff>  
+ <atomff  name="C24"  ff_type="CA"  chg="-0.314027" >  </atomff>  
+ <atomff  name="C25"  ff_type="CA"  chg="-0.006367" >  </atomff>  
+ <atomff  name="C26"  ff_type="CA"  chg="-0.362701" >  </atomff>  
+ <atomff  name="C27"  ff_type="CA"  chg=" 0.163374" >  </atomff>  
+ <atomff  name="C28"  ff_type="CA"  chg="-0.071427" >  </atomff>  
+ <atomff  name="C29"  ff_type="CA"  chg="-0.263255" >  </atomff>  
+ <atomff  name="C30"  ff_type="CA"  chg="-0.055219" >  </atomff>  
+ <atomff  name="C31"  ff_type="CA"  chg="-0.284876" >  </atomff>  
+ <atomff  name="C32"  ff_type="CA"  chg="-0.224491" >  </atomff>  
+ <atomff  name="N33"  ff_type="N5"  chg=" 0.890302" >  </atomff>  
+ <atomff  name="N34"  ff_type="N6"  chg=" 0.600852" >  </atomff>  
+ <atomff  name="C35"  ff_type="CA"  chg="-0.110647" >  </atomff>  
+ <atomff  name="C36"  ff_type="CA"  chg="-0.311944" >  </atomff>  
+ <atomff  name="C37"  ff_type="CA"  chg="-0.015838" >  </atomff>  
+ <atomff  name="C38"  ff_type="CA"  chg="-0.342271" >  </atomff>  
+ <atomff  name="C39"  ff_type="CA"  chg=" 0.149621" >  </atomff>  
+ <atomff  name="C40"  ff_type="CA"  chg="-0.062030" >  </atomff>  
+ <atomff  name="N41"  ff_type="N7"  chg=" 0.890553" >  </atomff>  
+ <atomff  name="C42"  ff_type="CA"  chg="-0.286985" >  </atomff>  
+ <atomff  name="C43"  ff_type="CA"  chg="-0.045632" >  </atomff>  
+ <atomff  name="C44"  ff_type="CA"  chg="-0.284640" >  </atomff>  
+ <atomff  name="C45"  ff_type="CA"  chg="-0.230846" >  </atomff>  
+ <atomff  name="N46"  ff_type="N"   chg="-0.4157  " >  </atomff>    
+ <atomff  name="C47"  ff_type="C"   chg=" 0.5973  " >  </atomff>  
+ <atomff  name="O48"  ff_type="O"   chg="-0.5679  " >  </atomff>  
+ <atomff  name="C49"  ff_type="CT"  chg="-0.2093  " >  </atomff>  
+ <atomff  name="H1"   ff_type="HA"  chg=" 0.226312" >  </atomff>   
+ <atomff  name="H2"   ff_type="HA"  chg=" 0.225393" >  </atomff>   
+ <atomff  name="H3"   ff_type="HA"  chg=" 0.230672" >  </atomff>   
+ <atomff  name="H4"   ff_type="HA"  chg=" 0.238200" >  </atomff>   
+ <atomff  name="H5"   ff_type="HA"  chg=" 0.225130" >  </atomff>   
+ <atomff  name="H6"   ff_type="HA"  chg=" 0.221220" >  </atomff>   
+ <atomff  name="H7"   ff_type="HA"  chg=" 0.218659" >  </atomff>   
+ <atomff  name="H8"   ff_type="HA"  chg=" 0.220616" >  </atomff>   
+ <atomff  name="H9"   ff_type="HA"  chg=" 0.242327" >  </atomff>   
+ <atomff  name="H10"  ff_type="HA"  chg=" 0.206106" >  </atomff>   
+ <atomff  name="H11"  ff_type="HA"  chg=" 0.245700" >  </atomff>   
+ <atomff  name="H12"  ff_type="HA"  chg=" 0.223967" >  </atomff>   
+ <atomff  name="H13"  ff_type="HA"  chg=" 0.212952" >  </atomff>   
+ <atomff  name="H14"  ff_type="HA"  chg=" 0.237534" >  </atomff>   
+ <atomff  name="H15"  ff_type="HA"  chg=" 0.249515" >  </atomff>   
+ <atomff  name="H16"  ff_type="HA"  chg=" 0.221057" >  </atomff>   
+ <atomff  name="H17"  ff_type="HA"  chg=" 0.238428" >  </atomff>   
+ <atomff  name="H18"  ff_type="HA"  chg=" 0.206292" >  </atomff>   
+ <atomff  name="H19"  ff_type="HA"  chg=" 0.242596" >  </atomff>   
+ <atomff  name="H20"  ff_type="HA"  chg=" 0.227161" >  </atomff>   
+ <atomff  name="H21"  ff_type="HA"  chg=" 0.214944" >  </atomff>   
+ <atomff  name="H22"  ff_type="HA"  chg=" 0.241626" >  </atomff>   
+ <atomff  name="H23"  ff_type="HA"  chg=" 0.243785" >  </atomff>   
+ <atomff  name="H27"  ff_type="H"   chg=" 0.2719  " >  </atomff>   
+ <atomff  name="H24"  ff_type="HC"  chg=" 0.0764  " >  </atomff>   
+ <atomff  name="H26"  ff_type="HC"  chg=" 0.0764  " >  </atomff>   
+<improper_dihedrals>
+C45  C45  C43  H22  
+C44  C43  C42  H21  
+C43  C42  C40  H20  
+C42  C40  N41  C39  
+C39  C38  C37  H19  
+C38  C37  C36  H18  
+C37  C36  C35  H17  
+C36  C35  N34  H16  
+N22  C23  C24  H8  
+C23  C24  C25  H9  
+C24  C25  C26  H10  
+C25  C26  C27  H11  
+C26  C27  N22  C28  
+N33  C28  C29  C27  
+C28  C29  C30  H12  
+C29  C30  C31  H13  
+C30  C31  C32  H14  
+N13  C15  C17  H5  
+C15  C17  C19  H6  
+C17  C19  C21  H7  
+C19  C21  C14  C05  
+C05  C03  C02  H2  
+C03  C05  C21  N46 
+N10  C11  C02  C14  
+C11  C02  C01  C03  
+C02  C01  C06  H1  
+C01  C15  C17  H3  
+C06  C08  N10  H4  
+RU1 N10  C11  C08
+RU1 N41  C45  C40 
+RU1 N34  C39  C35 
+RU1 N22  C23  C27  
+RU1 N13  C15  C14
+RU1 N33  C28  C32
+</improper_dihedrals>
+</resff>
+<resff rname="RUI#3P" ffname="AMBER_10" >
+ <atomff  name="C01"  ff_type="CA"  chg="-0.063186" >  </atomff>    
+ <atomff  name="C02"  ff_type="CA"  chg=" 0.059990" >  </atomff>    
+ <atomff  name="C03"  ff_type="CA"  chg="-0.225147" >  </atomff>    
+ <atomff  name="C05"  ff_type="CA"  chg="-0.225397" >  </atomff>    
+ <atomff  name="C06"  ff_type="CA"  chg="-0.270731" >  </atomff>    
+ <atomff  name="C08"  ff_type="CA"  chg="-0.120661" >  </atomff>    
+ <atomff  name="N10"  ff_type="NA"  chg=" 0.474712" >  </atomff>    
+ <atomff  name="C11"  ff_type="CA"  chg=" 0.034520" >  </atomff>    
+ <atomff  name="RU1"  ff_type="RU"  chg="-2.32665" >  </atomff>    
+ <atomff  name="N13"  ff_type="NB"  chg=" 0.393855" >  </atomff>    
+ <atomff  name="C14"  ff_type="CA"  chg=" 0.145604" >  </atomff>    
+ <atomff  name="C15"  ff_type="CA"  chg="-0.076764" >  </atomff>    
+ <atomff  name="C17"  ff_type="CA"  chg="-0.292086" >  </atomff>    
+ <atomff  name="C19"  ff_type="CA"  chg="-0.015553" >  </atomff>    
+ <atomff  name="C21"  ff_type="CA"  chg=" 0.008799" >  </atomff>    
+ <atomff  name="N22"  ff_type="N4"  chg=" 0.555281" >  </atomff>    
+ <atomff  name="C23"  ff_type="CA"  chg="-0.099077" >  </atomff>    
+ <atomff  name="C24"  ff_type="CA"  chg="-0.307840" >  </atomff>    
+ <atomff  name="C25"  ff_type="CA"  chg=" 0.052367" >  </atomff>    
+ <atomff  name="C26"  ff_type="CA"  chg="-0.353121" >  </atomff>    
+ <atomff  name="C27"  ff_type="CA"  chg=" 0.156568" >  </atomff>    
+ <atomff  name="C28"  ff_type="CA"  chg="-0.084247" >  </atomff>    
+ <atomff  name="C29"  ff_type="CA"  chg="-0.249225" >  </atomff>    
+ <atomff  name="C30"  ff_type="CA"  chg="-0.002931" >  </atomff>    
+ <atomff  name="C31"  ff_type="CA"  chg="-0.275488" >  </atomff>    
+ <atomff  name="C32"  ff_type="CA"  chg="-0.217521" >  </atomff>    
+ <atomff  name="N33"  ff_type="N5"  chg=" 0.859677" >  </atomff>    
+ <atomff  name="N34"  ff_type="N6"  chg=" 0.564256" >  </atomff>    
+ <atomff  name="C35"  ff_type="CA"  chg="-0.097004" >  </atomff>    
+ <atomff  name="C36"  ff_type="CA"  chg="-0.307632" >  </atomff>    
+ <atomff  name="C37"  ff_type="CA"  chg=" 0.042261" >  </atomff>    
+ <atomff  name="C38"  ff_type="CA"  chg="-0.333014" >  </atomff>    
+ <atomff  name="C39"  ff_type="CA"  chg=" 0.145846" >  </atomff>    
+ <atomff  name="C40"  ff_type="CA"  chg="-0.078780" >  </atomff>    
+ <atomff  name="N41"  ff_type="N7"  chg=" 0.858331" >  </atomff>    
+ <atomff  name="C42"  ff_type="CA"  chg="-0.270504" >  </atomff>    
+ <atomff  name="C43"  ff_type="CA"  chg=" 0.004604" >  </atomff>    
+ <atomff  name="C44"  ff_type="CA"  chg="-0.273681" >  </atomff>    
+ <atomff  name="C45"  ff_type="CA"  chg="-0.222085" >  </atomff>    
+ <atomff  name="N46"  ff_type="N"   chg="-0.4157  " >  </atomff>    
+ <atomff  name="C47"  ff_type="C"   chg=" 0.5973  " >  </atomff>  
+ <atomff  name="O48"  ff_type="O"   chg="-0.5679  " >  </atomff>  
+ <atomff  name="C49"  ff_type="CT"  chg="-0.2093  " >  </atomff>  
+ <atomff  name="H1"   ff_type="HA"  chg=" 0.238539" >  </atomff>    
+ <atomff  name="H2"   ff_type="HA"  chg=" 0.241068" >  </atomff>    
+ <atomff  name="H3"   ff_type="HA"  chg=" 0.248714" >  </atomff>    
+ <atomff  name="H4"   ff_type="HA"  chg=" 0.252329" >  </atomff>    
+ <atomff  name="H5"   ff_type="HA"  chg=" 0.236315" >  </atomff>    
+ <atomff  name="H6"   ff_type="HA"  chg=" 0.240355" >  </atomff>    
+ <atomff  name="H7"   ff_type="HA"  chg=" 0.228180" >  </atomff>    
+ <atomff  name="H8"   ff_type="HA"  chg=" 0.233319" >  </atomff>    
+ <atomff  name="H9"   ff_type="HA"  chg=" 0.262158" >  </atomff>    
+ <atomff  name="H10"  ff_type="HA"  chg=" 0.218844" >  </atomff>    
+ <atomff  name="H11"  ff_type="HA"  chg=" 0.261889" >  </atomff>    
+ <atomff  name="H12"  ff_type="HA"  chg=" 0.239531" >  </atomff>    
+ <atomff  name="H13"  ff_type="HA"  chg=" 0.226086" >  </atomff>    
+ <atomff  name="H14"  ff_type="HA"  chg=" 0.256591" >  </atomff>    
+ <atomff  name="H15"  ff_type="HA"  chg=" 0.263263" >  </atomff>    
+ <atomff  name="H16"  ff_type="HA"  chg=" 0.233227" >  </atomff>    
+ <atomff  name="H17"  ff_type="HA"  chg=" 0.258520" >  </atomff>    
+ <atomff  name="H18"  ff_type="HA"  chg=" 0.219023" >  </atomff>    
+ <atomff  name="H19"  ff_type="HA"  chg=" 0.258624" >  </atomff>    
+ <atomff  name="H20"  ff_type="HA"  chg=" 0.241806" >  </atomff>    
+ <atomff  name="H21"  ff_type="HA"  chg=" 0.228230" >  </atomff>    
+ <atomff  name="H22"  ff_type="HA"  chg=" 0.260236" >  </atomff>    
+ <atomff  name="H23"  ff_type="HA"  chg=" 0.255710" >  </atomff>    
+ <atomff  name="H27"  ff_type="H"   chg=" 0.2719  " >  </atomff>    
+ <atomff  name="H24"  ff_type="HC"  chg=" 0.0764  " >  </atomff>   
+ <atomff  name="H26"  ff_type="HC"  chg=" 0.0764  " >  </atomff>   
+<improper_dihedrals>
+C45  C45  C43  H22  
+C44  C43  C42  H21  
+C43  C42  C40  H20  
+C42  C40  N41  C39  
+C39  C38  C37  H19  
+C38  C37  C36  H18  
+C37  C36  C35  H17  
+C36  C35  N34  H16  
+N22  C23  C24  H8  
+C23  C24  C25  H9  
+C24  C25  C26  H10  
+C25  C26  C27  H11  
+C26  C27  N22  C28  
+N33  C28  C29  C27  
+C28  C29  C30  H12  
+C29  C30  C31  H13  
+C30  C31  C32  H14  
+N13  C15  C17  H5  
+C15  C17  C19  H6  
+C17  C19  C21  H7  
+C19  C21  C14  C05  
+C05  C03  C02  H2  
+C03  C05  C21  N46 
+N10  C11  C02  C14  
+C11  C02  C01  C03  
+C02  C01  C06  H1  
+C01  C15  C17  H3  
+C06  C08  N10  H4  
+RU1 N10  C11  C08
+RU1 N41  C45  C40 
+RU1 N34  C39  C35 
+RU1 N22  C23  C27  
+RU1 N13  C15  C14
+RU1 N33  C28  C32
+</improper_dihedrals>
+</resff>
+<resff rname="RBP">
+<atomff name="CB"   ff_type="CT"  chg="-0.01350" > </atomff>
+<atomff name="HB1"  ff_type="HC"  chg="0.01340" > </atomff>  
+<atomff name="HB2"  ff_type="HC"  chg="0.01340" > </atomff>  
+<atomff name="HB3"  ff_type="HC"  chg="0.01340" > </atomff>  
+<atomff name="CG"   ff_type="CC"  chg="-0.02660" > </atomff>  
+<atomff name="ND1"  ff_type="NA"  chg="-0.38110" > </atomff>  
+<atomff name="HD1"  ff_type="H"   chg="0.36490" > </atomff>  
+<atomff name="CE1"  ff_type="CR"  chg="0.20570" > </atomff>  
+<atomff name="HE1"  ff_type="H5"  chg="0.13920" > </atomff>  
+<atomff name="NE2"  ff_type="RBP_NB"  chg="-0.57270" > </atomff>  
+<atomff name="CD2"  ff_type="CV"  chg="0.12920" > </atomff>  
+<atomff name="HD2"  ff_type="H4"  chg="0.11470" > </atomff>  
+<atomff name="RU"   ff_type="RU"  chg="2.00000" > </atomff>  
+<atomff name="NL1"  ff_type="N4" > </atomff>   
+<atomff name="CL6"  ff_type="CA" > </atomff>    
+<atomff name="HL6"  ff_type="HA" > </atomff>    
+<atomff name="CL5"  ff_type="CA" > </atomff>    
+<atomff name="HL5"  ff_type="HA" > </atomff>    
+<atomff name="CL4"  ff_type="CA" > </atomff>    
+<atomff name="HL4"  ff_type="HA" > </atomff>    
+<atomff name="CL3"  ff_type="CA" > </atomff>    
+<atomff name="HL3"  ff_type="HA" > </atomff>    
+<atomff name="CL2"  ff_type="CA" > </atomff>    
+<atomff name="CM2"  ff_type="CA" > </atomff>    
+<atomff name="CM3"  ff_type="CA" > </atomff>    
+<atomff name="HM3"  ff_type="HA" > </atomff>    
+<atomff name="CM4"  ff_type="CA" > </atomff>   
+<atomff name="HM4"  ff_type="HA" > </atomff>    
+<atomff name="CM5"  ff_type="CA" > </atomff>    
+<atomff name="HM5"  ff_type="HA" > </atomff>    
+<atomff name="CM6"  ff_type="CA" > </atomff>    
+<atomff name="HM6"  ff_type="HA" > </atomff>    
+<atomff name="NM1"  ff_type="N5" > </atomff>    
+<atomff name="NP1"  ff_type="N6" > </atomff>    
+<atomff name="CP6"  ff_type="CA" > </atomff>    
+<atomff name="HP6"  ff_type="HA" > </atomff>    
+<atomff name="CP5"  ff_type="CA" > </atomff>    
+<atomff name="HP5"  ff_type="HA" > </atomff>    
+<atomff name="CP4"  ff_type="CA" > </atomff>    
+<atomff name="HP4"  ff_type="HA" > </atomff>   
+<atomff name="CP3"  ff_type="CA" > </atomff>    
+<atomff name="HP3"  ff_type="HA" > </atomff>    
+<atomff name="CP2"  ff_type="CA" > </atomff>    
+<atomff name="CN2"  ff_type="CA" > </atomff>    
+<atomff name="CN3"  ff_type="CA" > </atomff>    
+<atomff name="HN3"  ff_type="HA" > </atomff>    
+<atomff name="CN4"  ff_type="CA" > </atomff>    
+<atomff name="HN4"  ff_type="HA" > </atomff>    
+<atomff name="CN5"  ff_type="CA" > </atomff>    
+<atomff name="HN5"  ff_type="HA" > </atomff>    
+<atomff name="CN6"  ff_type="CA" > </atomff>    
+<atomff name="HN6"  ff_type="HA" > </atomff>    
+<atomff name="NN1"  ff_type="N7" > </atomff>    
+<improper_dihedrals>
+ NL1  CL3  CL2  CM2  
+ CL2  CL4  CL3  HL3  
+ CL3  CL5  CL4  HL4  
+ CL4  CL6  CL5  HL5  
+ CL5  NL1  CL6  HL6  
+ CL6  CL2  NL1  RU  
+ NM1  CM3  CM2  CL2  
+ CM2  CM4  CM3  HM3  
+ CM3  CM5  CM4  HM4  
+ CM4  CM6  CM5  HM5  
+ CM5  NM1  CM6  HM6  
+ CM6  CM2  NM1  RU  
+ NN1  CN3  CN2  CP2  
+ CN2  CN4  CN3  HN3  
+ CN3  CN5  CN4  HN4  
+ CN4  CN6  CN5  HN5  
+ CN5  NN1  CN6  HN6  
+ CN6  CN2  NN1  RU  
+ NP1  CP3  CP2  CN2  
+ CP2  CP4  CP3  HP3  
+ CP3  CP5  CP4  HP4  
+ CP4  CP6  CP5  HP5  
+ CP5  NP1  CP6  HP6  
+ CP6  CP2  NP1  RU  
+ CG   CE1  ND1  HD1  
+ CG   NE2  CD2  HD2  
+ ND1  NE2  CE1  HE1  
+ CB  CD2   CG   ND1
+ CD2  CE1  NE2  RU  
+</improper_dihedrals>
+</resff>
+<resff rname="RBP#2P">
+  <atomff  name="CB"  ff_type="CT"    chg="-0.01350" >   </atomff>           
+  <atomff  name="HB1"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="HB2"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="HB3"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="CG"   ff_type="CC"   chg="-0.02660" >   </atomff>           
+  <atomff  name="ND1"   ff_type="NA"  chg="-0.38110" >   </atomff>           
+  <atomff  name="HD1"   ff_type="H"   chg="0.36490"  >  </atomff>            
+  <atomff  name="CE1"    ff_type="CR" chg="0.20570"  >   </atomff>           
+  <atomff  name="HE1"   ff_type="H5"  chg="0.13920"  >  </atomff>            
+  <atomff  name="NE2"   ff_type="RBP_NB"  chg="-0.57270" >  </atomff>            
+  <atomff  name="CD2"   ff_type="CV"  chg="0.12920"  >  </atomff>            
+  <atomff  name="HD2"   ff_type="H4"  chg="0.11470"  >  </atomff>    
+  <atomff  name="RU"   ff_type="RU"   chg="1.023991" >   </atomff>           
+  <atomff  name="NL1"   ff_type="N4"  chg="-0.300208" >   </atomff>          
+  <atomff  name="CL6"   ff_type="CA"  chg="-0.023372" >  </atomff>           
+  <atomff  name="HL6"  ff_type="HA"   chg="0.181969" >   </atomff>           
+  <atomff  name="CL5"   ff_type="CA"  chg="-0.135417" >  </atomff>           
+  <atomff  name="HL5"  ff_type="HA"   chg=" 0.198820" >  </atomff>           
+  <atomff  name="CL4"  ff_type="CA"   chg="-0.010471" >   </atomff>          
+  <atomff  name="HL4"  ff_type="HA"   chg=" 0.195811" >  </atomff>           
+  <atomff  name="CL3"  ff_type="CA"   chg="-0.188492" >   </atomff>          
+  <atomff  name="HL3"  ff_type="HA"   chg=" 0.199308" >   </atomff>          
+  <atomff  name="CL2"  ff_type="CA"   chg=" 0.024593" >   </atomff>          
+  <atomff  name="CM2"  ff_type="CA"   chg=" 0.458257" >   </atomff>          
+  <atomff  name="CM3"  ff_type="CA"   chg="-0.447016" >   </atomff>          
+  <atomff  name="HM3"  ff_type="HA"   chg=" 0.258695" >   </atomff>          
+  <atomff  name="CM4"  ff_type="CA"   chg=" 0.118865" >   </atomff>          
+  <atomff  name="HM4"  ff_type="HA"   chg=" 0.182151" >   </atomff>          
+  <atomff  name="CM5"  ff_type="CA"   chg="-0.281053" >   </atomff>          
+  <atomff  name="HM5"  ff_type="HA"   chg=" 0.227102" >  </atomff>           
+  <atomff  name="CM6"   ff_type="CA"  chg=" 0.070007" >   </atomff>          
+  <atomff  name="HM6"   ff_type="HA"  chg=" 0.165671" >  </atomff>           
+  <atomff  name="NM1"  ff_type="N5"   chg="-0.404444" >   </atomff>          
+  <atomff  name="NP1"   ff_type="N6"  chg="-0.304694" >  </atomff>           
+  <atomff  name="CP6"  ff_type="CA"   chg="-0.022260" >  </atomff>           
+  <atomff  name="HP6"  ff_type="HA"   chg=" 0.178608" >   </atomff>          
+  <atomff  name="CP5"  ff_type="CA"   chg="-0.117116" >  </atomff>           
+  <atomff  name="HP5"  ff_type="HA"   chg=" 0.193485" >   </atomff>          
+  <atomff  name="CP4"  ff_type="CA"   chg="-0.027175" >   </atomff>          
+  <atomff  name="HP4"  ff_type="HA"   chg=" 0.198457" >   </atomff>          
+  <atomff  name="CP3"  ff_type="CA"   chg="-0.176943" >   </atomff>          
+  <atomff  name="HP3"  ff_type="HA"   chg=" 0.195708" >   </atomff>          
+  <atomff  name="CP2"  ff_type="CA"   chg=" 0.014416" >   </atomff>          
+  <atomff  name="CN2"  ff_type="CA"   chg=" 0.504856" >   </atomff>          
+  <atomff  name="CN3"  ff_type="CA"   chg="-0.484541" >   </atomff>          
+  <atomff  name="HN3"  ff_type="HA"   chg=" 0.266549" >   </atomff>          
+  <atomff  name="CN4"  ff_type="CA"   chg=" 0.149102" >   </atomff>          
+  <atomff  name="HN4"  ff_type="HA"   chg=" 0.175940" >  </atomff>           
+  <atomff  name="CN5"  ff_type="CA"   chg="-0.300470" >  </atomff>           
+  <atomff  name="HN5"  ff_type="HA"   chg=" 0.228079" >  </atomff>           
+  <atomff  name="CN6"  ff_type="CA"   chg=" 0.094066" >  </atomff>           
+  <atomff  name="HN6"  ff_type="HA"   chg=" 0.169184" >  </atomff>           
+  <atomff  name="NN1"  ff_type="N7"   chg="-0.450022" >  </atomff>           
+<improper_dihedrals>                                                           
+ NL1  CL3  CL2  CM2                                                     
+ CL2  CL4  CL3  HL3  
+ CL3  CL5  CL4  HL4  
+ CL4  CL6  CL5  HL5  
+ CL5  NL1  CL6  HL6  
+ CL6  CL2  NL1  RU  
+ NM1  CM3  CM2  CL2  
+ CM2  CM4  CM3  HM3  
+ CM3  CM5  CM4  HM4  
+ CM4  CM6  CM5  HM5  
+ CM5  NM1  CM6  HM6  
+ CM6  CM2  NM1  RU  
+ NN1  CN3  CN2  CP2  
+ CN2  CN4  CN3  HN3  
+ CN3  CN5  CN4  HN4  
+ CN4  CN6  CN5  HN5  
+ CN5  NN1  CN6  HN6  
+ CN6  CN2  NN1  RU  
+ NP1  CP3  CP2  CN2  
+ CP2  CP4  CP3  HP3  
+ CP3  CP5  CP4  HP4  
+ CP4  CP6  CP5  HP5  
+ CP5  NP1  CP6  HP6  
+ CP6  CP2  NP1  RU  
+ CG   CE1  ND1  HD1  
+ CG   NE2  CD2  HD2  
+ ND1  NE2  CE1  HE1  
+ CB  CD2   CG   ND1
+ CD2  CE1  NE2  RU  
+</improper_dihedrals>
+</resff>
+<resff rname="RBP#3P">
+  <atomff  name="CB"  ff_type="CT"    chg="-0.01350" >   </atomff>           
+  <atomff  name="HB1"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="HB2"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="HB3"  ff_type="HC"   chg="0.01340"  >   </atomff>           
+  <atomff  name="CG"   ff_type="CC"   chg="-0.02660" >   </atomff>           
+  <atomff  name="ND1"   ff_type="NA"  chg="-0.38110" >   </atomff>           
+  <atomff  name="HD1"   ff_type="H"   chg="0.36490"  >  </atomff>            
+  <atomff  name="CE1"    ff_type="CR" chg="0.20570"  >   </atomff>           
+  <atomff  name="HE1"   ff_type="H5"  chg="0.13920"  >  </atomff>            
+  <atomff  name="NE2"   ff_type="RBP_NB"  chg="-0.57270" >  </atomff>            
+  <atomff  name="CD2"   ff_type="CV"  chg="0.12920"  >  </atomff>            
+  <atomff  name="HD2"   ff_type="H4"  chg="0.11470"  >  </atomff>    
+  <atomff  name="RU"   ff_type="RU"   chg=" 1.209339" >   </atomff>          
+  <atomff  name="NL1"   ff_type="N4"  chg="-0.286872" >   </atomff>          
+  <atomff  name="CL6"   ff_type="CA"  chg="-0.000017" >  </atomff>           
+  <atomff  name="HL6"  ff_type="HA"   chg=" 0.188971" >   </atomff>          
+  <atomff  name="CL5"   ff_type="CA"  chg="-0.143687" >  </atomff>           
+  <atomff  name="HL5"  ff_type="HA"   chg=" 0.219657" >  </atomff>           
+  <atomff  name="CL4"  ff_type="CA"   chg=" 0.056061" >   </atomff>          
+  <atomff  name="HL4"  ff_type="HA"   chg=" 0.203379" >  </atomff>           
+  <atomff  name="CL3"  ff_type="CA"   chg="-0.176201" >   </atomff>          
+  <atomff  name="HL3"  ff_type="HA"   chg=" 0.212017" >   </atomff>          
+  <atomff  name="CL2"  ff_type="CA"   chg="-0.040490" >   </atomff>          
+  <atomff  name="CM2"  ff_type="CA"   chg=" 0.539567" >   </atomff>          
+  <atomff  name="CM3"  ff_type="CA"   chg="-0.472790" >   </atomff>          
+  <atomff  name="HM3"  ff_type="HA"   chg=" 0.282347" >   </atomff>          
+  <atomff  name="CM4"  ff_type="CA"   chg=" 0.179987" >   </atomff>          
+  <atomff  name="HM4"  ff_type="HA"   chg=" 0.197115" >   </atomff>          
+  <atomff  name="CM5"  ff_type="CA"   chg="-0.295182" >   </atomff>          
+  <atomff  name="HM5"  ff_type="HA"   chg=" 0.249176" >  </atomff>           
+  <atomff  name="CM6"   ff_type="CA"  chg=" 0.098724" >   </atomff>          
+  <atomff  name="HM6"   ff_type="HA"  chg=" 0.153374" >  </atomff>           
+  <atomff  name="NM1"  ff_type="N5"   chg="-0.485393" >   </atomff>          
+  <atomff  name="NP1"   ff_type="N6"  chg="-0.312700" >  </atomff>           
+  <atomff  name="CP6"  ff_type="CA"   chg=" 0.019636" >  </atomff>           
+  <atomff  name="HP6"  ff_type="HA"   chg=" 0.183420" >   </atomff>          
+  <atomff  name="CP5"  ff_type="CA"   chg="-0.042505" >  </atomff>           
+  <atomff  name="HP5"  ff_type="HA"   chg=" 0.215649" >   </atomff>          
+  <atomff  name="CP4"  ff_type="CA"   chg=" 0.078128" >   </atomff>          
+  <atomff  name="HP4"  ff_type="HA"   chg=" 0.207615" >   </atomff>          
+  <atomff  name="CP3"  ff_type="CA"   chg="-0.193473" >   </atomff>          
+  <atomff  name="HP3"  ff_type="HA"   chg=" 0.227526" >   </atomff>          
+  <atomff  name="CP2"  ff_type="CA"   chg=" 0.137416" >   </atomff>          
+  <atomff  name="CN2"  ff_type="CA"   chg=" 0.456982" >   </atomff>          
+  <atomff  name="CN3"  ff_type="CA"   chg="-0.388538" >   </atomff>          
+  <atomff  name="HN3"  ff_type="HA"   chg=" 0.275780" >   </atomff>          
+  <atomff  name="CN4"  ff_type="CA"   chg=" 0.109021" >   </atomff>          
+  <atomff  name="HN4"  ff_type="HA"   chg=" 0.198875" >  </atomff>           
+  <atomff  name="CN5"  ff_type="CA"   chg="-0.178268" >  </atomff>           
+  <atomff  name="HN5"  ff_type="HA"   chg=" 0.240309" >  </atomff>           
+  <atomff  name="CN6"  ff_type="CA"   chg=" 0.075898" >  </atomff>           
+  <atomff  name="HN6"  ff_type="HA"   chg=" 0.171886" >  </atomff>           
+  <atomff  name="NN1"  ff_type="N7"   chg="-0.371740" >  </atomff>           
+<improper_dihedrals>                                                           
+ NL1  CL3  CL2  CM2                                                     
+ CL2  CL4  CL3  HL3  
+ CL3  CL5  CL4  HL4  
+ CL4  CL6  CL5  HL5  
+ CL5  NL1  CL6  HL6  
+ CL6  CL2  NL1  RU  
+ NM1  CM3  CM2  CL2  
+ CM2  CM4  CM3  HM3  
+ CM3  CM5  CM4  HM4  
+ CM4  CM6  CM5  HM5  
+ CM5  NM1  CM6  HM6  
+ CM6  CM2  NM1  RU  
+ NN1  CN3  CN2  CP2  
+ CN2  CN4  CN3  HN3  
+ CN3  CN5  CN4  HN4  
+ CN4  CN6  CN5  HN5  
+ CN5  NN1  CN6  HN6  
+ CN6  CN2  NN1  RU  
+ NP1  CP3  CP2  CN2  
+ CP2  CP4  CP3  HP3  
+ CP3  CP5  CP4  HP4  
+ CP4  CP6  CP5  HP5  
+ CP5  NP1  CP6  HP6  
+ CP6  CP2  NP1  RU  
+ CG   CE1  ND1  HD1  
+ CG   NE2  CD2  HD2  
+ ND1  NE2  CE1  HE1  
+ CB  CD2   CG   ND1
+ CD2  CE1  NE2  RU  
+</improper_dihedrals>
+</resff>
+<resff rname="HEM#B" >
+  <atomff name="FE" ff_type="FE"  chg="   1.24000" > </atomff>   
+  <atomff name="NA" ff_type="NP"  chg="  -0.18000" > </atomff> 
+  <atomff name="C1A" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="C2A" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CAA" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HAA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HAA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CBA" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HBA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CGA"  ff_type="C"  chg="  -0.20000" > </atomff>   
+  <atomff name="O1A" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="O2A" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="C3A" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMA" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMA3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C4A" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHB" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHB" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1B" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="NB" ff_type="NO"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2B" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMB" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMB2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMB3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMB1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3B" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CAB" ff_type="CA"  chg="  -0.15000" > </atomff>  
+  <atomff name="CBB" ff_type="CA"  chg="  -0.20000" > </atomff>  
+  <atomff name="C4B" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHC" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHC" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1C" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="NC"  ff_type="NP"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2C" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMC" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMC2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMC1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMC3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3C" ff_type="CB"  chg="   0.02000" >  </atomff> 
+  <atomff name="CAC" ff_type="CA"  chg="  -0.15000" > </atomff>  
+  <atomff name="CBC" ff_type="CA"  chg="  -0.20000" > </atomff>  
+  <atomff name="C4C" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHD"  ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHD" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1D"  ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="ND" ff_type="NO"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2D" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMD" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMD3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3D" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="C4D" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHA" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHA" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="CAD" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HAD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HAD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CBD" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HBD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CGD"  ff_type="C"  chg="  -0.20000" >  </atomff>  
+  <atomff name="O1D"  ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="O2D" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="HAB" ff_type="HA"  chg="   0.15000" > </atomff>  
+  <atomff name="HBB1" ff_type="HA"  chg="   0.10000" > </atomff>  
+  <atomff name="HBB2" ff_type="HA"  chg="   0.10000" > </atomff>  
+  <atomff name="HAC" ff_type="HA"  chg="   0.15000" > </atomff>  
+  <atomff name="HBC1" ff_type="HA"  chg="   0.10000" > </atomff>  
+  <atomff name="HBC2" ff_type="HA"  chg="   0.10000" > </atomff>  
+<improper_dihedrals>
+ NA  C1A  C4A  FE  
+ NB  C1B  C4B  FE  
+ NC  C1C  C4C  FE  
+ ND  C1D  C4D  FE  
+ C1A  C2A  NA  CHA  
+ C1B  C2B  NB  CHB  
+ C1C  C2C  NC  CHC  
+ C1D  C2D  ND  CHD  
+ C2A  C3A  C1A  CAA   
+ C2B  C3B  C1B  CMB  
+ C2C  C3C  C1C  CMC  
+ C2D  C3D  C1D  CMD  
+ C3A  C4A  C2A  CMA  
+ C3B  C4B  C2B  CAB  
+ C3C  C4C  C2C  CAC  
+ C3D  C4D  C2D  CAD  
+ C4A  NA  C3A  CHB  
+ C4B  NB  C3B  CHC  
+ C4C  NC  C3C  CHD  
+ C4D  ND  C3D  CHA 
+ C3B  CBB CAB HAB
+ HBB1 CAB CBB HBB2
+ C3C CBC CAC  HAC
+ HBC1 CAC CBC HBC2 
+</improper_dihedrals>
+</resff>
+<resff rname="HEM#C" >
+  <atomff name="FE" ff_type="FE"  chg="   1.24000" > </atomff>   
+  <atomff name="NA" ff_type="NP"  chg="  -0.18000" > </atomff> 
+  <atomff name="C1A" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="C2A" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CAA" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HAA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HAA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CBA" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HBA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CGA"  ff_type="C"  chg="  -0.20000" > </atomff>   
+  <atomff name="O1A" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="O2A" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="C3A" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMA" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMA1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMA2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMA3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C4A" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHB" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHB" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1B" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="NB" ff_type="NO"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2B" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMB" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMB2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMB3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMB1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3B" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CAB" ff_type="CY"  chg="  -0.15000" > </atomff>  
+  <atomff name="CBB" ff_type="CX"  chg="  -0.20000" > </atomff>  
+  <atomff name="C4B" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHC" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHC" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1C" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="NC"  ff_type="NP"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2C" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMC" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMC2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMC1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMC3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3C" ff_type="CB"  chg="   0.02000" >  </atomff> 
+  <atomff name="CAC" ff_type="CY"  chg="  -0.15000" > </atomff>  
+  <atomff name="CBC" ff_type="CX"  chg="  -0.20000" > </atomff>  
+  <atomff name="C4C" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHD"  ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHD" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="C1D"  ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="ND" ff_type="NO"  chg="  -0.18000" > </atomff>  
+  <atomff name="C2D" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="CMD" ff_type="CT"  chg="  -0.30000" > </atomff>  
+  <atomff name="HMD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HMD3" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="C3D" ff_type="CB"  chg="   0.02000" > </atomff>  
+  <atomff name="C4D" ff_type="CC"  chg="   0.02000" > </atomff>  
+  <atomff name="CHA" ff_type="CD"  chg="  -0.11000" > </atomff>  
+  <atomff name="HHA" ff_type="HC"  chg="   0.15000" > </atomff>  
+  <atomff name="CAD" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HAD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HAD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CBD" ff_type="CT"  chg="  -0.20000" > </atomff>  
+  <atomff name="HBD1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBD2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="CGD"  ff_type="C"  chg="  -0.20000" >  </atomff>  
+  <atomff name="O1D"  ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="O2D" ff_type="O2"  chg="  -0.40000" > </atomff>  
+  <atomff name="HAB" ff_type="HC"  chg="   0.05000" > </atomff>  
+  <atomff name="HBB1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBB2" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBB3" ff_type="HC"  chg="   0.10000" > </atomff>
+  <atomff name="HAC" ff_type="HC"  chg="   0.05000" > </atomff>  
+  <atomff name="HBC1" ff_type="HC"  chg="   0.10000" > </atomff>  
+  <atomff name="HBC2" ff_type="HC"  chg="   0.10000" > </atomff>  
+   <atomff name="HBC3" ff_type="HC"  chg="   0.10000" > </atomff>  
+<improper_dihedrals>
+ NA  C1A  C4A  FE  
+ NB  C1B  C4B  FE  
+ NC  C1C  C4C  FE  
+ ND  C1D  C4D  FE  
+ C1A  C2A  NA  CHA  
+ C1B  C2B  NB  CHB  
+ C1C  C2C  NC  CHC  
+ C1D  C2D  ND  CHD  
+ C2A  C3A  C1A  CAA   
+ C2B  C3B  C1B  CMB  
+ C2C  C3C  C1C  CMC  
+ C2D  C3D  C1D  CMD  
+ C3A  C4A  C2A  CMA  
+ C3B  C4B  C2B  CAB  
+ C3C  C4C  C2C  CAC  
+ C3D  C4D  C2D  CAD  
+ C4A  NA  C3A  CHB  
+ C4B  NB  C3B  CHC  
+ C4C  NC  C3C  CHD  
+ C4D  ND  C3D  CHA  
+</improper_dihedrals>
+</resff>
+</HARLEM_DATA>

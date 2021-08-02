@@ -1,0 +1,71 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=RES_BPP_PROT
+#MOLECULE 
+MOLNAME=BPP
+#ATOMS 
+    1   7 "NA1"      1.355111645      1.199156962      0.118375662  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+    2   6 "CA6"      2.735297665      1.344802148      0.213259952  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+    3   1 "HA6"      3.199785383      2.316952146      0.236009535  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    4   6 "CA5"      3.557243716      0.205666844      0.268581270  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+    5   1 "HA5"      4.628174026      0.315041221      0.350724554  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    6   6 "CA4"      2.982354868     -1.075131445      0.210991740  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+    7   1 "HA4"      3.611581167     -1.952857891      0.253140863  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    8   6 "CA3"      1.589360530     -1.213234590      0.080120442  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+    9   1 "HA3"      1.176155664     -2.207993917      0.022486949  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   10   6 "CA2"      0.775400436     -0.060944606      0.023713356  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   11   6 "CB2"     -0.656696025     -0.081439898     -0.125550407  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   12   6 "CB3"     -1.432215678     -1.257018388     -0.224673956  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   13   1 "HB3"     -0.988623361     -2.239361318     -0.192344013  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   14   6 "CB4"     -2.828032535     -1.159286587     -0.364025296  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   15   1 "HB4"     -3.428981435     -2.054281615     -0.438189434  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   16   6 "CB5"     -3.441600389      0.104199702     -0.404705603  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   17   1 "HB5"     -4.513481745      0.181746463     -0.510525536  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   18   6 "CB6"     -2.658842519      1.266702385     -0.303006892  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   19   1 "HB6"     -3.151830280      2.225260016     -0.334745434  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   20   7 "NB1"     -1.278195013      1.161945448     -0.166008902  " " "BPP"       1     0.00000 "SP2" ""  ""      1.00000 
+   21   1 "HA1"      0.639944644      2.008391222      0.109653695  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+   22   1 "HB1"     -0.597684812      1.996437714     -0.082771136  " " "BPP"       1     0.00000 "NO_HIBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    2     1  SINGLE
+    2     3  SINGLE
+    2     4  SINGLE
+    1    10  SINGLE
+    1    21  SINGLE
+    4     5  SINGLE
+    4     6  SINGLE
+    6     7  SINGLE
+    6     8  SINGLE
+    8     9  SINGLE
+    8    10  SINGLE
+   10    11  SINGLE
+   11    12  SINGLE
+   11    20  SINGLE
+   12    13  SINGLE
+   12    14  SINGLE
+   14    15  SINGLE
+   14    16  SINGLE
+   16    17  SINGLE
+   16    18  SINGLE
+   18    19  SINGLE
+   18    20  SINGLE
+   20    22  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$BPP$BPP1.NA1  $BPP$BPP1.CA3  $BPP$BPP1.CA2  $BPP$BPP1.CB2  
+$BPP$BPP1.CA2  $BPP$BPP1.CA4  $BPP$BPP1.CA3  $BPP$BPP1.HA3  
+$BPP$BPP1.CA3  $BPP$BPP1.CA5  $BPP$BPP1.CA4  $BPP$BPP1.HA4  
+$BPP$BPP1.CA4  $BPP$BPP1.CA6  $BPP$BPP1.CA5  $BPP$BPP1.HA5  
+$BPP$BPP1.CA5  $BPP$BPP1.NA1  $BPP$BPP1.CA6  $BPP$BPP1.HA6  
+$BPP$BPP1.NB1  $BPP$BPP1.CB3  $BPP$BPP1.CB2  $BPP$BPP1.CA2  
+$BPP$BPP1.CB2  $BPP$BPP1.CB4  $BPP$BPP1.CB3  $BPP$BPP1.HB3  
+$BPP$BPP1.CB3  $BPP$BPP1.CB5  $BPP$BPP1.CB4  $BPP$BPP1.HB4  
+$BPP$BPP1.CB4  $BPP$BPP1.CB6  $BPP$BPP1.CB5  $BPP$BPP1.HB5  
+$BPP$BPP1.CB5  $BPP$BPP1.NB1  $BPP$BPP1.CB6  $BPP$BPP1.HB6  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

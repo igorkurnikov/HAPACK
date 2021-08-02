@@ -1,0 +1,96 @@
+﻿  alloc.cpp
+  angular.cpp
+  basis.cpp
+  coef_array.cpp
+  coef_set.cpp
+  const.cpp
+  contract.cpp
+  e_field.cpp
+  element.cpp
+  f.cpp
+  fix.cpp
+  flexfile.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\contract.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\basis.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\fix.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\angular.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\e_field.cpp)
+  four_stor.cpp
+  function.cpp
+  hrr1.cpp
+  hrr2.cpp
+  hrr_set.cpp
+  input.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\hrr1.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\input.cpp)
+  integ_array.cpp
+  integ_file.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\hrr2.cpp)
+  ipack.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\integ_file.cpp)
+  ipack_main.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\integ_array.cpp)
+  kinetic.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\ipack.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\kinetic.cpp)
+  memmgr.cpp
+  moment.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\ipack_main.cpp)
+  nuc_e_field.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\moment.cpp)
+  nuc_mom.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\nuc_e_field.cpp)
+  nuc_rep.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\nuc_mom.cpp)
+  nuclear.cpp
+  one_el.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\nuc_rep.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\nuclear.cpp)
+  operators.cpp
+  orbinfo.cpp
+  output.cpp
+  output1.cpp
+  output2.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\operators.cpp)
+  output3.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\one_el.cpp)
+  overlap.cpp
+  print.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\output2.cpp)
+  qc_utilities.cpp
+  quad.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\output3.cpp)
+  rec.cpp
+  rec_stor.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\overlap.cpp)
+  sphere.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\rec.cpp)
+  spin_orb.cpp
+  storage.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\rec_stor.cpp)
+  symdesig.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\sphere.cpp)
+  symlogic.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\spin_orb.cpp)
+  symop.cpp
+  tpair.cpp
+  tquadruple.cpp
+  twoel.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\twoel.cpp)
+  twoel0.cpp
+  types.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\twoel0.cpp)
+  vrr.cpp
+  iphys_file.cpp
+  memchk.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\IPACK\vrr.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\generic\iphys_file.cpp)
+  orbital.cpp
+  parallel.cpp
+  symmetry.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\generic\parallel.cpp)
+  vault.cpp
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\generic\orbital.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\parallel.h(27,10): fatal error C1083: Cannot open include file: 'mpi.h': No such file or directory (compiling source file ..\WOLFGANG\generic\symmetry.cpp)
+C:\MYPROG\HAPACK\WOLFGANG\generic\memchk.cpp(196,19): warning C4477: 'sprintf' : format string '%10x' requires an argument of type 'unsigned int', but variadic argument 1 has type 'void *'
+C:\MYPROG\HAPACK\WOLFGANG\generic\memchk.cpp(208,14): warning C4477: 'sprintf' : format string '%10x' requires an argument of type 'unsigned int', but variadic argument 1 has type 'void *'

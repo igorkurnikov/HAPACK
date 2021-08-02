@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="02/12/2012">
+<resff rname="HOH" ffname="ARROW_2.0" > >
+  <atomff  name="O"  ff_type="OW" chg="0.0 " >  </atomff>
+  <atomff  name="H1" ff_type="HW" chg="0.0 " >  </atomff>
+  <atomff  name="H2" ff_type="HW" chg="0.0 " >  </atomff>
+</resff>
+</HARLEM_DATA>

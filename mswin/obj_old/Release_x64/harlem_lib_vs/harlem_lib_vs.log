@@ -1,0 +1,7 @@
+﻿  hamolset_wrap.cpp
+  gmathc.c
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+  mortlib.lib(morf.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+LINK : warning C4743: 'boost::wrapexcept<class boost::bad_any_cast>::`RTTI Base Class Array'' has different size in 'c:\myprog\hapack\mort_lib\tripos\bond.cpp' and 'c:\myprog\hapack\mort_lib\object\morf.cpp': 52 and 68 bytes
+LINK : fatal error LNK1104: cannot open file 'ifconsol.lib'

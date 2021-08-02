@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="08/20/2012">
+<molset name="DMP" >
+<molecule name="DMP" />
+<chain  id=" " />
+<res name="DMP"  no="1" /> 
+  <atom hybr="SP3"  >    1   CN1  6    -10.247000000      4.692000000     -1.130000000 <bonds> 2  </bonds></atom>
+  <atom hybr="SP3"  >    2   NTM  7    -10.277000000      3.213000000     -1.164000000 <bonds> 3  5  4  1  </bonds></atom>
+  <atom hybr="SP3"  >    3   CN2  6    -10.006000000      2.684000000      0.190000000 <bonds> 2  </bonds></atom>
+  <atom hybr="SP3"  >    4   CN3  6    -11.610000000      2.758000000     -1.613000000 <bonds> 2  </bonds></atom>
+  <atom hybr="SP3"  >    5    CA  6     -9.221000000      2.709000000     -2.124000000 <bonds> 6  2  </bonds></atom>
+  <atom hybr="SP3"  >    6    CB  6     -8.401000000      1.562000000     -1.344000000 <bonds> 7  5  </bonds></atom>
+  <atom hybr="SP3"  >    7    OA  8     -9.295000000      0.386000000     -1.101000000 <bonds> 6  8  </bonds></atom>
+  <atom hybr="SP3"  >    8     P  15     -9.084000000     -0.966000000     -1.985000000 <bonds> 7  9  10  11  </bonds></atom>
+  <atom hybr="SP3"  >    9    OB  8    -10.132000000     -1.843000000     -1.442000000 <bonds> 8  </bonds></atom>
+  <atom hybr="SP3"  >   10    OC  8     -9.010000000     -0.766000000     -3.396000000 <bonds> 8  </bonds></atom>
+  <atom hybr="SP3"  >   11    OD  8     -7.626000000     -1.452000000     -1.476000000 <bonds> 8  12  </bonds></atom>
+  <atom hybr="SP3"  >   12    CC  6     -7.504000000     -1.709000000     -0.029000000 <bonds> 13  11  </bonds></atom>
+  <atom hybr="SP3"  >   13    CD  6     -5.970000000     -1.483000000      0.244000000 <bonds> 14  12  30  </bonds></atom>
+  <atom hybr="SP3"  >   14    OE  8     -5.659000000     -0.022000000     -0.010000000 <bonds> 13  15  </bonds></atom>
+  <atom hybr="SP2"  >   15   C2A  6     -5.678000000      0.638000000      1.122000000 <bonds> 14  16  17  </bonds></atom>
+  <atom hybr="SP2"  >   16    OF  8     -5.952000000      0.325000000      2.232000000 <bonds> 15  </bonds></atom>
+  <atom hybr="SP3"  >   17   C2B  6     -5.321000000      2.158000000      0.747000000 <bonds> 15  18  </bonds></atom>
+  <atom hybr="SP3"  >   18   C2C  6     -3.967000000      2.601000000      1.486000000 <bonds> 17  19  </bonds></atom>
+  <atom hybr="SP3"  >   19   C2D  6     -2.804000000      1.812000000      0.994000000 <bonds> 18  20  </bonds></atom>
+  <atom hybr="SP3"  >   20   C2E  6     -1.425000000      2.202000000      1.758000000 <bonds> 19  21  </bonds></atom>
+  <atom hybr="SP3"  >   21   C2F  6     -0.216000000      1.509000000      1.194000000 <bonds> 20  22  </bonds></atom>
+  <atom hybr="SP3"  >   22   C2G  6      1.001000000      2.124000000      2.018000000 <bonds> 21  23  </bonds></atom>
+  <atom hybr="SP3"  >   23   C2H  6      2.322000000      1.521000000      1.303000000 <bonds> 22  24  </bonds></atom>
+  <atom hybr="SP3"  >   24   C2I  6      3.539000000      2.217000000      2.148000000 <bonds> 23  25  </bonds></atom>
+  <atom hybr="SP3"  >   25   C2J  6      4.835000000      1.569000000      1.351000000 <bonds> 24  26  </bonds></atom>
+  <atom hybr="SP3"  >   26   C2K  6      5.961000000      2.169000000      2.184000000 <bonds> 25  27  </bonds></atom>
+  <atom hybr="SP3"  >   27   C2L  6      7.369000000      1.614000000      1.490000000 <bonds> 26  28  </bonds></atom>
+  <atom hybr="SP3"  >   28   C2M  6      8.577000000      2.168000000      2.265000000 <bonds> 27  29  </bonds></atom>
+  <atom hybr="SP3"  >   29   C2N  6      9.879000000      1.656000000      1.623000000 <bonds> 28  </bonds></atom>
+  <atom hybr="SP3"  >   30    CE  6     -5.080000000     -2.270000000     -0.677000000 <bonds> 13  31  </bonds></atom>
+  <atom hybr="SP3"  >   31    OG  8     -3.690000000     -2.056000000     -0.118000000 <bonds> 30  32  </bonds></atom>
+  <atom hybr="SP2"  >   32   C1A  6     -2.726000000     -2.659000000     -0.834000000 <bonds> 31  33  34  </bonds></atom>
+  <atom hybr="SP2"  >   33    OH  8     -2.887000000     -3.169000000     -1.845000000 <bonds> 32  </bonds></atom>
+  <atom hybr="SP3"  >   34   C1B  6     -1.401000000     -2.075000000     -0.106000000 <bonds> 32  35  </bonds></atom>
+  <atom hybr="SP3"  >   35   C1C  6     -0.179000000     -2.693000000     -0.793000000 <bonds> 34  36  </bonds></atom>
+  <atom hybr="SP3"  >   36   C1D  6      1.119000000     -2.308000000      0.049000000 <bonds> 35  37  </bonds></atom>
+  <atom hybr="SP3"  >   37   C1E  6      2.282000000     -2.751000000     -0.710000000 <bonds> 36  38  </bonds></atom>
+  <atom hybr="SP3"  >   38   C1F  6      3.583000000     -2.269000000     -0.011000000 <bonds> 37  39  </bonds></atom>
+  <atom hybr="SP3"  >   39   C1G  6      4.884000000     -2.675000000     -0.778000000 <bonds> 38  40  </bonds></atom>
+  <atom hybr="SP3"  >   40   C1H  6      6.125000000     -2.214000000      0.044000000 <bonds> 39  41  </bonds></atom>
+  <atom hybr="SP3"  >   41   C1I  6      7.391000000     -2.606000000     -0.811000000 <bonds> 40  42  </bonds></atom>
+  <atom hybr="SP3"  >   42   C1J  6      8.603000000     -2.199000000      0.030000000 <bonds> 41  43  </bonds></atom>
+  <atom hybr="SP3"  >   43   C1K  6      9.862000000     -2.765000000     -0.736000000 <bonds> 42  44  </bonds></atom>
+  <atom hybr="SP3"  >   44   C1L  6     11.032000000     -1.858000000     -0.083000000 <bonds> 43  45  </bonds></atom>
+  <atom hybr="SP3"  >   45   C1M  6     12.388000000     -2.248000000     -0.698000000 <bonds> 44  46  </bonds></atom>
+  <atom hybr="SP3"  >   46   C1N  6     13.501000000     -1.387000000     -0.076000000 <bonds> 45  </bonds></atom>
+</molset>
+</HARLEM_DATA>

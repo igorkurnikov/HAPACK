@@ -1,0 +1,17 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=carbonyl
+#MOLECULE 
+MOLNAME=CRB
+#ATOMS 
+    1   6 "C"      1.835704805      1.689280972     -0.736563659   " " "CRB"       1     0.65000 "NO_HIBRID" ""  "C"      1.00000 
+    2   8 "O"      2.033786952      2.872611642     -1.002896133   " " "CRB"       1    -0.65000 "NO_HIBRID" "A" "O"      1.00000 
+    3   1 "H1"      2.710489804      1.107466748     -0.486276995  " " "HED"       2     0.00000 "NO_HIBRID" ""  ""      1.00000 
+    4   1 "H2"      0.835595240      1.282265990     -0.759359754  " " "TAL"       3     0.00000 "NO_HIBRID" ""  ""      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     3  SINGLE
+    1     4  SINGLE
+#END BONDS 
+#END MOLECULE 
+#END MOL_SET

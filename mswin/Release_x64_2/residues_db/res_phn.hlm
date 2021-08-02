@@ -1,0 +1,74 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=res_phn
+#MOLECULE 
+MOLNAME=PHN
+#ATOMS 
+    1   7 "NA1"      1.400017385      1.161032122      0.122109153  " " "PHN"       1     0.00000 "SP2" ""  "NA"     14.00670 
+    2   6 "CA6"      2.786578790      1.222950944      0.215610639  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+    3   1 "HA6"      3.308632706      2.165297817      0.243612118  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+    4   6 "CA5"      3.538708942      0.036196938      0.262516514  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+    5   1 "HA5"      4.614378658      0.080558480      0.343564140  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+    6   6 "CA4"      2.887874931     -1.207388144      0.197946915  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+    7   1 "HA4"      3.463313480     -2.121556623      0.233618562  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+    8   6 "CA3"      1.488935182     -1.260783640      0.068527055  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+    9   6 "CC1"      0.828391580     -2.503514740     -0.017505276  " " "PHN"       1     0.00000 "SP2" ""  "HA"     12.01100 
+   10   6 "CA2"      0.745565093     -0.061371591      0.020603694  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   11   6 "CB2"     -0.656696025     -0.081439898     -0.125550407  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   12   6 "CB3"     -1.360757682     -1.301686444     -0.217943839  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   13   6 "CC2"     -0.661677914     -2.524925137     -0.162494960  " " "PHN"       1     0.00000 "SP2" ""  "HA"     12.01100 
+   14   6 "CB4"     -2.759760046     -1.288077081     -0.358947981  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   15   1 "HB4"     -3.306289109     -2.217697606     -0.427996254  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+   16   6 "CB5"     -3.447398098     -0.063629779     -0.407945057  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   17   1 "HB5"     -4.521875590     -0.050679794     -0.515049762  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+   18   6 "CB6"     -2.735335660      1.144011135     -0.312889768  " " "PHN"       1     0.00000 "SP2" ""  "CA"     12.01100 
+   19   1 "HB6"     -3.284467834      2.071309158     -0.350958542  " " "PHN"       1     0.00000 "NO_HYBRID" ""  "HA"      1.00790 
+   20   7 "NB1"     -1.351054965      1.122471741     -0.174206631  " " "PHN"       1     0.00000 "SP2" ""  "NA"     14.00670 
+   21   1 "HC1"      1.381000678     -3.395527819      0.020387352  " " "PHN"       1     0.00000 "NO_HYBRID" ""  ""      1.00790 
+   22   1 "HC2"     -1.186163722     -3.432553466     -0.222706709  " " "PHN"       1     0.00000 "NO_HYBRID" ""  ""      1.00790 
+#END ATOMS 
+#BONDS 
+    1    10  SINGLE
+    1     2  SINGLE
+    6     4  SINGLE
+    6     7  SINGLE
+    6     8  SINGLE
+   10    11  SINGLE
+   10     8  SINGLE
+    3     2  SINGLE
+    4     2  SINGLE
+    4     5  SINGLE
+   22    13  SINGLE
+    9    13  SINGLE
+    9    21  SINGLE
+    9     8  SINGLE
+   15    14  SINGLE
+   17    16  SINGLE
+   12    11  SINGLE
+   12    14  SINGLE
+   12    13  SINGLE
+   16    14  SINGLE
+   16    18  SINGLE
+   11    20  SINGLE
+   20    18  SINGLE
+   19    18  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$PHN$PHN1.NA1  $PHN$PHN1.CA3  $PHN$PHN1.CA2  $PHN$PHN1.CB2  
+$PHN$PHN1.CA2  $PHN$PHN1.CA4  $PHN$PHN1.CA3  $PHN$PHN1.CC1  
+$PHN$PHN1.CA3  $PHN$PHN1.CA5  $PHN$PHN1.CA4  $PHN$PHN1.HA4  
+$PHN$PHN1.CA4  $PHN$PHN1.CA6  $PHN$PHN1.CA5  $PHN$PHN1.HA5  
+$PHN$PHN1.CA5  $PHN$PHN1.NA1  $PHN$PHN1.CA6  $PHN$PHN1.HA6  
+$PHN$PHN1.NB1  $PHN$PHN1.CB3  $PHN$PHN1.CB2  $PHN$PHN1.CA2  
+$PHN$PHN1.CB2  $PHN$PHN1.CB4  $PHN$PHN1.CB3  $PHN$PHN1.CC2  
+$PHN$PHN1.CB3  $PHN$PHN1.CB5  $PHN$PHN1.CB4  $PHN$PHN1.HB4  
+$PHN$PHN1.CB4  $PHN$PHN1.CB6  $PHN$PHN1.CB5  $PHN$PHN1.HB5  
+$PHN$PHN1.CB5  $PHN$PHN1.NB1  $PHN$PHN1.CB6  $PHN$PHN1.HB6  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

@@ -1,0 +1,217 @@
+﻿  "Pre build event"
+  abstree.cpp
+  apbsmod.cpp
+  atom_mapping.cpp
+  canvas3d.cpp
+  command.cpp
+  dialogs_wx_1.cpp
+  dialogs_wx_2.cpp
+  electrostmod.cpp
+  elmod.cpp
+  etcoupl.cpp
+  ha_mort_mm.cpp
+  ha_mort_mol.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.cpp(174,57): warning C4311: 'type cast': pointer truncation from 'HaMolecule *' to 'long'
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.cpp(174,57): warning C4302: 'type cast': truncation from 'HaMolecule *' to 'long'
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.cpp(522,32): warning C4311: 'type cast': pointer truncation from 'HaMolecule *' to 'long'
+C:\MYPROG\HAPACK\HARLEM\sources\abstree.cpp(522,32): warning C4302: 'type cast': truncation from 'HaMolecule *' to 'long'
+  haatbasdb.cpp
+  haatgroup.cpp
+  haatom.cpp
+  haatombasis.cpp
+  habond.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(48,16): warning C4477: 'sprintf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'const _Elem *'
+          with
+          [
+              _Elem=char
+          ]
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(48,16): warning C4313: 'sprintf': '%d' in format string conflicts with argument 2 of type 'const _Elem *'
+          with
+          [
+              _Elem=char
+          ]
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(48,16): warning C4473: 'sprintf' : not enough arguments passed for format string
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(48,16): message : placeholders and their parameters expect 3 variadic arguments, but 2 were provided
+C:\MYPROG\HAPACK\HARLEM\sources\ha_mort_mol.cpp(48,16): message : the missing variadic argument 3 is required by format string '%d'
+C:\MYPROG\HAPACK\HARLEM\sources\command.cpp(999,71): warning C4311: 'type cast': pointer truncation from 'AtomGroup *' to 'int'
+C:\MYPROG\HAPACK\HARLEM\sources\command.cpp(999,71): warning C4302: 'type cast': truncation from 'AtomGroup *' to 'int'
+  hacolors.cpp
+  hacompmod.cpp
+  hadalton.cpp
+  haempirical.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\elmod.cpp(2185,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\HARLEM\sources\elmod.cpp(2218,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\HARLEM\sources\elmod.cpp(2331,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\HARLEM\sources\elmod.cpp(3283,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\MYPROG\HAPACK\HARLEM\sources\haatombasis.cpp(41,14): warning C4477: 'sprintf' : format string '%x' requires an argument of type 'unsigned int', but variadic argument 1 has type 'const HaBasisSet *'
+C:\MYPROG\HAPACK\HARLEM\sources\haatombasis.cpp(41,14): warning C4313: 'sprintf': '%x' in format string conflicts with argument 1 of type 'const HaBasisSet *'
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.cpp(1534,50): warning C4311: 'type cast': pointer truncation from 'const HaAtom *' to 'int'
+C:\MYPROG\HAPACK\HARLEM\sources\haatom.cpp(1534,50): warning C4302: 'type cast': truncation from 'const HaAtom *' to 'int'
+  haflexmod.cpp
+  hagaussian.cpp
+  haintcrd.cpp
+  haintengine.cpp
+  haintermol.cpp
+  halocexcit.cpp
+  halocorb.cpp
+  hamainframe_wx.cpp
+  hamatdb.cpp
+  hamolecule.cpp
+  hamolmech.cpp
+  hamolset.cpp
+  hamolview.cpp
+  hampi.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3495,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3500,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3505,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3510,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3515,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3520,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3525,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3530,28): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3535,36): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3540,36): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3545,36): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3550,36): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3555,36): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3560,31): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3565,30): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3570,31): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3575,31): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3580,27): warning C4305: '=': truncation from 'int' to 'bool'
+C:\MYPROG\HAPACK\HARLEM\sources\dialogs_wx_1.cpp(3606,17): warning C4305: '=': truncation from 'int' to '_Ty2'
+          with
+          [
+              _Ty2=bool
+          ]
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.cpp(1511,17): warning C4477: 'sprintf' : format string '%4d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+C:\MYPROG\HAPACK\HARLEM\sources\haintcrd.cpp(1511,17): message : consider using '%zd' in the format string
+  hamultipole.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.cpp(3300,28): warning C4311: 'type cast': pointer truncation from 'ColorVal *' to 'int'
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.cpp(3300,28): warning C4302: 'type cast': truncation from 'ColorVal *' to 'int'
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.cpp(3336,16): warning C4477: 'sprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'NumVector<double>::size_type'
+C:\MYPROG\HAPACK\HARLEM\sources\hamolview.cpp(3336,16): message : consider using '%zd' in the format string
+  haproteined.cpp
+  haqchem.cpp
+  haresdb.cpp
+  harlemapp.cpp
+  harlemapp_wx.cpp
+  harpaham.cpp
+  harpavec.cpp
+  hascattermod.cpp
+  hasimulator.cpp
+  hasurface.cpp
+  hatests.cpp
+  hazindo.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hasimulator.cpp(33,22): warning C4305: '=': truncation from '__int64' to 'long'
+C:\MYPROG\HAPACK\HARLEM\sources\hasimulator.cpp(33,12): warning C4309: '=': truncation of constant value
+  infile.cpp
+  mm_dialogs_wx.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\hasurface.cpp(1228,16): warning C4477: 'fprintf' : format string '%8d' requires an argument of type 'int', but variadic argument 4 has type 'unsigned __int64'
+C:\MYPROG\HAPACK\HARLEM\sources\hasurface.cpp(1228,16): message : consider using '%zd' in the format string
+  mm_driver_amber.cpp
+  mm_driver_gromacs.cpp
+  mm_elements.cpp
+  mm_force_field.cpp
+  mm_model.cpp
+  mm_params.cpp
+  mm_traj_anal.cpp
+  moleditor.cpp
+  ndo.cpp
+  nuclacidmod.cpp
+  object3d.cpp
+  outfile.cpp
+  protonredox.cpp
+  qc_dialogs_wx.cpp
+  repres.cpp
+  rigidbodycoord.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\object3d.cpp(930,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\HARLEM\sources\object3d.cpp(945,17): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\HARLEM\sources\object3d.cpp(1076,29): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\HARLEM\sources\object3d.cpp(1111,15): warning C4305: '=': truncation from 'double' to 'float'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_traj_anal.cpp(1719,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  script.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(720,96): warning C4311: 'type cast': pointer truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(720,96): warning C4302: 'type cast': truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(820,61): warning C4311: 'type cast': pointer truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(820,61): warning C4302: 'type cast': truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(821,61): warning C4311: 'type cast': pointer truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(821,61): warning C4302: 'type cast': truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(822,60): warning C4311: 'type cast': pointer truncation from 'HaResidue *' to 'unsigned long'
+C:\MYPROG\HAPACK\HARLEM\sources\mm_model.cpp(822,60): warning C4302: 'type cast': truncation from 'HaResidue *' to 'unsigned long'
+  stmmod.cpp
+  trajanal.cpp
+  transfor.cpp
+  vec3d.cpp
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(712,21): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(716,21): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(720,21): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(724,21): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(728,21): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'double'
+C:\MYPROG\HAPACK\HARLEM\sources\script.cpp(1307,29): warning C4477: 'fprintf' : format string '%g' requires an argument of type 'double', but variadic argument 3 has type 'int'
+  wxMolED.cpp
+  wxMolFlex.cpp
+  wx_prot_redox_dlg.cpp
+  hamolset_wrap.cpp
+  "Pre-link event"
+     Creating library C:\MYPROG\HAPACK\mswin\Debug_x64\molset\_molsetc_d.lib and object C:\MYPROG\HAPACK\mswin\Debug_x64\molset\_molsetc_d.exp
+mortlib.lib(tripos_atom.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(tripos_atom.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(tripos_bond.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(tripos_bond.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(tripos_resd.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(tripos_resd.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(object_atom.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(object_atom.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(object_bond.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(object_bond.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(object_resd.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(object_resd.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(pdbent_atom.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(pdbent_atom.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(pdbent_bond.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(pdbent_bond.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+mortlib.lib(pdbent_resd.obj) : warning LNK4099: PDB 'mortlib.pdb' was not found with 'mortlib.lib(pdbent_resd.obj)' or at 'C:\MYPROG\HAPACK\mswin\Debug_x64\molset\mortlib.pdb'; linking object as if no debug info
+  harlem_lib_vs.vcxproj -> C:\MYPROG\HAPACK\mswin\Debug_x64\molset\_molsetc_d.pyd
+  Copy Python Scripts and Other Dependencies
+  "Copying HARLEM dependencies ..."
+  "Configuration: "Debug_x64""
+  "Script Path: C:\MYPROG\HAPACK\mswin\"
+  "Output Dir: "C:\MYPROG\HAPACK\mswin\"Debug_x64"""
+  "Python Major Version: 2"
+  "Is it debug: Y"
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\molset already exists.
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\pnpsll already exists.
+  "Copying PYTHON"
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\DLLs already exists.
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\Lib already exists.
+  "Copying Debug Version of Python"
+  0 File(s) copied
+  0 File(s) copied
+  File not found - Lib
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  File not found - *.ico
+  0 File(s) copied
+  "Copying BOOST Dlls"
+  0 File(s) copied
+  0 File(s) copied
+  "Copying wxWidgets Dlls"
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  File not found - libbz2d.dll
+  0 File(s) copied
+  File not found - lzma.dll
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  "Copying MKL Dlls"
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\residues_db already exists.
+  0 File(s) copied
+  "Copying molset module python files"
+  0 File(s) copied
+  A subdirectory or file C:\MYPROG\HAPACK\mswin\Debug_x64\wxextra already exists.
+  0 File(s) copied

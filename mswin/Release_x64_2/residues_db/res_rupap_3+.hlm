@@ -1,0 +1,88 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=res_rupap_3+
+#MOLECULE 
+MOLNAME=RPAP
+#ATOMS 
+    1   6 "C"      3.978999198      0.011174869     -0.003000000  " " "RPAP"       1     0.27340 "NO_HYBRID" ""  "CM"     12.01100 
+    2   6 "C5"      3.251999198      1.217174869      0.000000000  " " "RPAP"       1    -0.28300 "NO_HYBRID" ""  "CM"     12.01100 
+    3   6 "C6"      1.849999198      1.158174869      0.001000000  " " "RPAP"       1     0.17510 "NO_HYBRID" ""  "CM"     12.01100 
+    4   6 "C7"      1.860999198     -1.155825131      0.001000000  " " "RPAP"       1     0.17510 "NO_HYBRID" ""  "CM"     12.01100 
+    5   6 "C8"      3.262999198     -1.200825131     -0.003000000  " " "RPAP"       1    -0.28300 "NO_HYBRID" ""  "CM"     12.01100 
+    6   1 "H"      3.753999198      2.182174869      0.001000000  " " "RPAP"       1     0.22550 "NO_HYBRID" ""  "HA"      1.00790 
+    7   1 "H8"      1.284999198      2.082174869      0.000000000  " " "RPAP"       1     0.09810 "NO_HYBRID" ""  "HA"      1.00790 
+    8   1 "H9"      1.303999198     -2.084825131      0.002000000  " " "RPAP"       1     0.09810 "NO_HYBRID" ""  "HA"      1.00790 
+    9   1 "H10"      5.067999198      0.016174869     -0.005000000  " " "RPAP"       1     0.15270 "NO_HYBRID" ""  "HA"      1.00790 
+   10   1 "H11"      3.772999198     -2.161825131     -0.006000000  " " "RPAP"       1     0.22550 "NO_HYBRID" ""  "HA"      1.00790 
+   11   1 "H12"     -1.897298147     -2.484346435      0.086274564  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   12   1 "H13"     -0.480582785     -2.486166955      0.904954152  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   13   1 "H14"     -0.484483376     -2.541640279     -0.736109069  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   14   1 "H15"     -1.902286466      2.459912240     -0.001591216  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   15   1 "H16"     -0.482090953      2.502050242     -0.817099091  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   16   1 "H17"     -0.488004798      2.501143848      0.821893040  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   17   1 "H18"     -1.702574147     -0.681138255      2.498112250  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   18   1 "H19"     -1.103989147      0.843140211      2.551414723  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   19   1 "H20"     -0.075346506     -0.428427476      2.454874915  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   20   1 "H21"     -1.623357254     -0.659015411     -2.508066172  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   21   1 "H22"      0.002425095     -0.410368110     -2.408984016  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   22   1 "H23"     -1.019882262      0.864493533     -2.529547105  " " "RPAP"       1     0.43950 "NO_HYBRID" ""  "H"      1.00790 
+   23   1 "H24"     -3.436821203     -0.925338480     -0.003171297  " " "RPAP"       1     0.42250 "NO_HYBRID" ""  "H"      1.00790 
+   24   1 "H25"     -3.401668981      0.487125111      0.821801385  " " "RPAP"       1     0.42250 "NO_HYBRID" ""  "H"      1.00790 
+   25   1 "H26"     -3.399776776      0.489152727     -0.821200231  " " "RPAP"       1     0.42250 "NO_HYBRID" ""  "H"      1.00790 
+   26   7 "N"      1.147999198     -0.001825131      0.001000000  " " "RPAP"       1    -0.53190 "NO_HYBRID" ""  "NC"     14.00670 
+   27   7 "N1"     -0.944832574     -2.121732968      0.072606867  " " "RPAP"       1    -1.15100 "NO_HYBRID" ""  "N5"     14.00670 
+   28   7 "N2"     -0.945532962      2.104934873      0.000082583  " " "RPAP"       1    -1.15100 "NO_HYBRID" ""  "NA"     14.00670 
+   29   7 "N3"     -0.973499385     -0.073516579      2.122260031  " " "RPAP"       1    -1.15100 "NO_HYBRID" ""  "N6"     14.00670 
+   30   7 "N4"     -0.905056669     -0.056486301     -2.103105752  " " "RPAP"       1    -1.15100 "NO_HYBRID" ""  "N4"     14.00670 
+   31   7 "N5"     -3.028979966      0.009162258      0.000556349  " " "RPAP"       1    -1.07380 "NO_HYBRID" ""  "N7"     14.00670 
+   32  44 "RU"     -0.929000000      0.000000000      0.001000000  " " "RPAP"       1     1.81050 "NO_HYBRID" ""  "RU"      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     5  SINGLE
+    1     9  SINGLE
+    2     3  SINGLE
+    2     6  SINGLE
+    3     7  SINGLE
+    3    26  SINGLE
+    4     5  SINGLE
+    4     8  SINGLE
+    4    26  SINGLE
+    5    10  SINGLE
+   11    27  SINGLE
+   12    27  SINGLE
+   13    27  SINGLE
+   14    28  SINGLE
+   15    28  SINGLE
+   16    28  SINGLE
+   17    29  SINGLE
+   18    29  SINGLE
+   19    29  SINGLE
+   20    30  SINGLE
+   21    30  SINGLE
+   22    30  SINGLE
+   23    31  SINGLE
+   24    31  SINGLE
+   25    31  SINGLE
+   26    32  SINGLE
+   27    32  SINGLE
+   28    32  SINGLE
+   29    32  SINGLE
+   30    32  SINGLE
+   31    32  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#ATOM LISTS 
+#END ATOM LISTS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$RPAP$RPAP1.C5  $RPAP$RPAP1.C8  $RPAP$RPAP1.C  $RPAP$RPAP1.H10  
+$RPAP$RPAP1.C  $RPAP$RPAP1.C7  $RPAP$RPAP1.C8  $RPAP$RPAP1.H11  
+$RPAP$RPAP1.C8  $RPAP$RPAP1.N  $RPAP$RPAP1.C7  $RPAP$RPAP1.H9  
+$RPAP$RPAP1.C7  $RPAP$RPAP1.C6  $RPAP$RPAP1.N  $RPAP$RPAP1.RU  
+$RPAP$RPAP1.N  $RPAP$RPAP1.C5  $RPAP$RPAP1.C6  $RPAP$RPAP1.H22  
+$RPAP$RPAP1.C6  $RPAP$RPAP1.C  $RPAP$RPAP1.C5  $RPAP$RPAP1.H  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

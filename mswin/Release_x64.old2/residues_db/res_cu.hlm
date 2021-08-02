@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="res_cu" >
+<molecule name="CU#CH1" />
+<chain  id=" " />
+<res name="CU"  no="1" /> 
+  <atom >    1    CU  29      0.000000000      0.000000000      0.000000000 </atom>
+<molecule name="CU#CH2" />
+<chain  id=" " />
+<res name="CU"  no="1" /> 
+  <atom >    2    CU  29      0.000000000      0.000000000      0.000000000 </atom>
+</molset>
+</HARLEM_DATA>

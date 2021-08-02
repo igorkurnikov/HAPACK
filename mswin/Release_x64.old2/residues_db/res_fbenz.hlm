@@ -1,0 +1,83 @@
+#BEGIN MOL_SET 
+MOL_SET_NAME=RES_FBENZ
+#MOLECULE 
+MOLNAME=BZF
+#ATOMS 
+    1   6 "C1"     -1.489000000     -0.723000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    2   6 "C2"     -1.489000000      0.677000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    3   6 "C3"     -0.276564435      1.377000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    4   6 "C4"      0.935871131      0.677000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    5   6 "C5"      0.935871131     -0.723000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    6   6 "C6"     -0.276564435     -1.423000000      0.000000000  " " "BZF"       1     0.12000 "SP2" ""  "CA"      1.00000 
+    7   9 "F2"     -2.666794549      1.357000000      0.000000000  " " "BZF"       1    -0.18000 "NO_HYBRID" ""  "F"      1.00000 
+    8   9 "F3"     -0.276564435      2.737000000      0.000000000  " " "BZF"       1    -0.18000 "NO_HYBRID" ""  "F"      1.00000 
+    9   9 "F5"      2.113665680     -1.403000000      0.000000000  " " "BZF"       1    -0.18000 "NO_HYBRID" ""  "F"      1.00000 
+   10   9 "F6"     -0.276564435     -2.783000000      0.000000000  " " "BZF"       1    -0.18000 "NO_HYBRID" ""  "F"      1.00000 
+   11   1 "HT"     -2.666794549     -1.403000000      0.000000000  " " "HED"       2     0.00000 "NO_HYBRID" ""  "H"      1.00000 
+   12   1 "HT"      2.113665680      1.357000000      0.000000000  " " "TAL"       3    -0.00000 "NO_HYBRID" ""  "H"      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     6  SINGLE
+    1    11  SINGLE
+    2     3  SINGLE
+    2     7  SINGLE
+    3     4  SINGLE
+    3     8  SINGLE
+    4     5  SINGLE
+    4    12  SINGLE
+    5     6  SINGLE
+    5     9  SINGLE
+    6    10  SINGLE
+#END BONDS 
+#END MOLECULE 
+#MOLECULE 
+MOLNAME=BZF#FULL
+#ATOMS 
+    1   6 "C1"      4.414534680     -0.701852215      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    2   6 "C2"      4.414534680      0.698147785      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    3   6 "C3"      5.626970245      1.398147785      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    4   6 "C4"      6.839405811      0.698147785      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    5   6 "C5"      6.839405811     -0.701852215      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    6   6 "C6"      5.626970245     -1.401852215      0.939743119  " " "BZF"       1     0.15500 "SP2" ""  "CA"      1.00000 
+    7   9 "F1"      3.236740131     -1.381852215      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+    8   9 "F2"      3.236740131      1.378147785      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+    9   9 "F3"      5.626970245      2.758147785      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+   10   9 "F4"      8.017200360      1.378147785      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+   11   9 "F5"      8.017200360     -1.381852215      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+   12   9 "F6"      5.626970245     -2.761852215      0.939743119  " " "BZF"       1    -0.15500 "NO_HYBRID" ""  "F"      1.00000 
+#END ATOMS 
+#BONDS 
+    1     2  SINGLE
+    1     6  SINGLE
+    1     7  SINGLE
+    2     3  SINGLE
+    2     8  SINGLE
+    3     4  SINGLE
+    3     9  SINGLE
+    4     5  SINGLE
+    4    10  SINGLE
+    5     6  SINGLE
+    5    11  SINGLE
+    6    12  SINGLE
+#END BONDS 
+#END MOLECULE 
+#GROUPS 
+#END GROUPS 
+#MOLECULAR MECHANICS MODULE 
+IMPROPER ANGLES
+$BZF#FULL$BZF1.C6  $BZF#FULL$BZF1.C2  $BZF#FULL$BZF1.C1  $BZF#FULL$BZF1.F1  
+$BZF#FULL$BZF1.C1  $BZF#FULL$BZF1.C3  $BZF#FULL$BZF1.C2  $BZF#FULL$BZF1.F2  
+$BZF#FULL$BZF1.C2  $BZF#FULL$BZF1.C4  $BZF#FULL$BZF1.C3  $BZF#FULL$BZF1.F3  
+$BZF#FULL$BZF1.C3  $BZF#FULL$BZF1.C5  $BZF#FULL$BZF1.C4  $BZF#FULL$BZF1.F4  
+$BZF#FULL$BZF1.C4  $BZF#FULL$BZF1.C6  $BZF#FULL$BZF1.C5  $BZF#FULL$BZF1.F5  
+$BZF#FULL$BZF1.C5  $BZF#FULL$BZF1.C1  $BZF#FULL$BZF1.C6  $BZF#FULL$BZF1.F6 
+$BZF$BZF1.C6  $BZF$BZF1.C2  $BZF$BZF1.C1  $BZF$HED2.HT  
+$BZF$BZF1.C1  $BZF$BZF1.C3  $BZF$BZF1.C2  $BZF$BZF1.F2  
+$BZF$BZF1.C2  $BZF$BZF1.C4  $BZF$BZF1.C3  $BZF$BZF1.F3  
+$BZF$BZF1.C3  $BZF$BZF1.C5  $BZF$BZF1.C4  $BZF$TAL3.HT  
+$BZF$BZF1.C4  $BZF$BZF1.C6  $BZF$BZF1.C5  $BZF$BZF1.F5  
+$BZF$BZF1.C5  $BZF$BZF1.C1  $BZF$BZF1.C6  $BZF$BZF1.F6  
+END IMPROPER ANGLES
+#END MOLECULAR MECHANICS MODULE 
+#END MOL_SET

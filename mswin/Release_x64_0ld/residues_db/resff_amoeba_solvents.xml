@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="2/28/2012">
+<resff rname="FMM" ffname="AMOEBA" >
+  <atomff  name="O" elem="8" pol_type_id="141" ff_type="5" chg="-0.7358" >
+      <frame > O  C  N </frame>
+      <dipole>   -0.03885    0.00000   -0.16798 </dipole>
+      <qpole> 
+         -0.52854 
+          0.00000    0.21141 
+         -0.07316    0.00000    0.31713 
+      </qpole>
+      <polar>    0.83400 </polar>
+  </atomff>
+  <atomff  name="C" elem="6" pol_type_id="140" ff_type="3" chg="0.7596" >
+      <frame > C  N O </frame>
+      <dipole>    0.31245    0.00000   -0.15091 </dipole>
+      <qpole> 
+          0.08446 
+          0.00000   -0.26109 
+          0.04693    0.00000    0.17663 
+      </qpole>
+      <polar>    1.33400 </polar>
+  </atomff>
+  <atomff  name="N" elem="7" pol_type_id="142" ff_type="1" chg="-0.29408" >
+      <frame > N  C  O </frame>
+      <dipole>    0.09788    0.00000   -0.09720 </dipole>
+      <qpole> 
+          0.51333 
+          0.00000   -0.62294 
+         -0.01456    0.00000    0.10962 
+      </qpole>
+      <polar>    1.07300 </polar>
+  </atomff>
+  <atomff  name="HC" elem="1" pol_type_id="139" ff_type="8" chg="-0.01374" >
+      <frame > HC  C O </frame>
+      <dipole>    0.0    0.00000   0.0 </dipole>
+      <qpole> 
+          0.00000 
+          0.00000    0.00000 
+          0.00000    0.00000    0.00000  
+      </qpole>
+      <polar>     0.49600 </polar>
+  </atomff>
+  <atomff  name="HN1" elem="1" pol_type_id="143" ff_type="4" chg="0.14201" >
+      <frame > HN1 N C </frame>
+      <dipole>    0.00000    0.00000   -0.19800 </dipole>
+      <qpole> 
+          0.01182 
+          0.00000   -0.00588 
+         -0.00249    0.00000   -0.00594 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+  <atomff  name="HN2" elem="1" pol_type_id="143" ff_type="4" chg="0.14201" >
+      <frame > HN2  N C </frame>
+      <dipole>    0.00000    0.00000   -0.19800 </dipole>
+      <qpole> 
+          0.01182 
+          0.00000   -0.00588 
+         -0.00249    0.00000   -0.00594 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+</resff>
+<resff rname="HOH#LMG" ffname="AMOEBA" >
+  <atomff  name="O" elem="8" pol_type_id="202" ff_type="39" chg="-0.51966" >
+      <frame bisect="1" > O  H1 H2 </frame>
+      <dipole>    0.00000    0.00000    0.14279 </dipole>
+      <qpole> 
+          0.37928 
+          0.00000   -0.41809 
+          0.00000    0.00000    0.03881 
+      </qpole>
+      <polar>    0.70000 </polar>
+  </atomff>
+  <atomff  name="H1" elem="1" pol_type_id="203" ff_type="40" chg="0.25983" >
+      <frame > H1  O H2 </frame>
+      <dipole>   -0.03859    0.00000   -0.05818 </dipole>
+      <qpole> 
+         -0.03673 
+          0.00000   -0.10739 
+         -0.00203    0.00000    0.14412 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+  <atomff  name="H2" elem="1" pol_type_id="203" ff_type="40" chg="0.25983" >
+      <frame > H2  O H1 </frame>
+      <dipole>   -0.03859    0.00000   -0.05818 </dipole>
+      <qpole> 
+         -0.03673 
+          0.00000   -0.10739 
+         -0.00203    0.00000    0.14412 
+      </qpole>
+      <polar>    0.49600 </polar>
+  </atomff>
+</resff>
+</HARLEM_DATA>

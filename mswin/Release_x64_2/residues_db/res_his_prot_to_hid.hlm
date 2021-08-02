@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<HARLEM_DATA version="01/07/2013">
+<molset name="res_his_prot_to_hid" >
+<molecule name="HIS#PROT_TO_HID" />
+<chain  id=" " />
+<res name="HIS"  no="1" /> 
+  <atom hb_st="D"   >    1     N  7     25.931911896     -1.576626133      0.913636324 <bonds> 2  3 </bonds></atom>
+  <atom >    2     H  1     26.073246145     -0.676999885      0.476832887 <bonds> 1  </bonds></atom>
+  <atom >    3    CA  6     26.725369139     -2.697248578      0.450784360 <bonds> 1  4  5  17  </bonds></atom>
+  <atom >    4    HA  1     27.317046035     -3.090264166      1.277559540 <bonds> 3  </bonds></atom>
+  <atom >    5    CB  6     25.836971050     -3.814103630     -0.086810867 <bonds> 3  6  7  8  </bonds></atom>
+  <atom  >    6   HB2  1     25.171084607     -4.161482830      0.703140357 <bonds> 5  </bonds></atom>
+  <atom  >    7   HB3  1     25.244894636     -3.438292206     -0.921263558 <bonds> 5  </bonds></atom>
+  <atom  >    8    CG  6     26.576085597     -5.029170393     -0.594179026 <bonds> 5  9  15  </bonds></atom>
+  <atom hb_st="D"   >    9   ND1  7     25.909874389     -6.132120762     -1.115488059 <bonds> 8  10  11  </bonds></atom>
+  <atom >   10   HD1  1     24.908999490     -6.233008864     -1.205881793 <bonds> 9  </bonds></atom>
+  <atom >   11   CE1  6     26.814946745     -7.024523480     -1.471664166 <bonds> 9  12  13  </bonds></atom>
+  <atom >   12   HE1  1     26.502614144     -7.973195050     -1.908208092 <bonds> 11  </bonds></atom>
+  <atom hb_st="A"  >   13   NE2  7     28.007536964     -6.551526749     -1.206895091 <bonds> 11  14  15  </bonds></atom>
+  <atom >   14   HE2  1     28.875546971     -7.036781656     -1.383491534 <bonds> 13  </bonds></atom>
+  <atom >   15   CD2  6     27.904847244     -5.310912627     -0.659235140 <bonds> 8  13  16  </bonds></atom>
+  <atom >   16   HD2  1     28.804154203     -4.764461654     -0.375090236 <bonds> 15  </bonds></atom>
+  <atom >   17     C  6     27.669745225     -2.275819254     -0.665922912 <bonds> 3  18 </bonds></atom>
+  <atom hb_st="A" >   18     O  8     27.688780323     -1.112147292     -1.060823192 <bonds> 17  </bonds></atom>
+</molset>
+</HARLEM_DATA>
