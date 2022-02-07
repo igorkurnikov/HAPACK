@@ -192,6 +192,7 @@ public:
 	friend class AtomIteratorMolecule;
 	friend class AtomIteratorMolecule_const;
 	friend class ResidueIteratorMolecule;
+	friend class ResidueIteratorMolecule_const;
 	friend class ChainIteratorMolSet;
 	friend class AtomIteratorMolSet;
 	friend class ResidueIteratorMolSet;
@@ -259,6 +260,26 @@ protected:
 	
 	HaMolecule* pmol;
 };
+
+class ResidueIteratorMolecule_const
+	//! Residue iterator class to browse residues of the molecule
+{
+public:
+	ResidueIteratorMolecule_const(const HaMolecule* new_pmol);
+	ResidueIteratorMolecule_const(const ResidueIteratorMolecule_const& ritr_ref);
+	virtual ~ResidueIteratorMolecule_const();
+
+	const HaResidue* GetFirstRes(); //!< Return the first residue of the molecule (=NULL if no residues) 
+	const HaResidue* GetNextRes();  //!< Return next residue of the molecule (=NULL if no more residues)
+
+protected:
+	vector<HaResidue*>::const_iterator res_itr;
+	list<HaChain>::const_iterator ch_itr;
+
+	const HaMolecule* pmol;
+};
+
+
 
 class ChainIteratorMolecule
 //! Chain iterator class to browse chains of the molecule

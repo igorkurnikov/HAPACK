@@ -1484,9 +1484,7 @@ ResidueIteratorMolecule::~ResidueIteratorMolecule()
 HaResidue* ResidueIteratorMolecule::GetFirstRes()
 {
    if(pmol == NULL) return NULL; 
-
    if(pmol->Chains.empty()) return NULL;
-   
    ch_itr = pmol->Chains.begin();
  
    while( ch_itr != pmol->Chains.end() )
@@ -1503,7 +1501,6 @@ HaResidue* ResidueIteratorMolecule::GetFirstRes()
    }
 
    return NULL;
-
 }
 
 HaResidue* ResidueIteratorMolecule::GetNextRes()
@@ -1533,6 +1530,80 @@ HaResidue* ResidueIteratorMolecule::GetNextRes()
   }
   return NULL;
 }
+
+
+ResidueIteratorMolecule_const::ResidueIteratorMolecule_const(const HaMolecule* new_pmol)
+{
+	pmol = new_pmol;
+	if (pmol == NULL) { return; }
+
+	ch_itr = pmol->Chains.begin();
+	if (ch_itr != pmol->Chains.end())
+	{
+		res_itr = (*ch_itr).res_arr.begin();
+	}
+}
+
+ResidueIteratorMolecule_const::ResidueIteratorMolecule_const(const ResidueIteratorMolecule_const& ritr_ref)
+{
+	pmol = ritr_ref.pmol;
+	ch_itr = ritr_ref.ch_itr;
+	res_itr = ritr_ref.res_itr;
+}
+
+ResidueIteratorMolecule_const::~ResidueIteratorMolecule_const()
+{
+
+}
+
+const HaResidue* ResidueIteratorMolecule_const::GetFirstRes()
+{
+	if (pmol == NULL) return NULL;
+	if (pmol->Chains.empty()) return NULL;
+	ch_itr = pmol->Chains.begin();
+	while (ch_itr != pmol->Chains.end())
+	{
+		if ((*ch_itr).res_map.empty())
+		{
+			ch_itr++;
+		}
+		else
+		{
+			res_itr = (*ch_itr).res_arr.begin();
+			return (*res_itr);
+		}
+	}
+	return NULL;
+}
+
+const HaResidue* ResidueIteratorMolecule_const::GetNextRes()
+{
+	if (pmol == NULL) { return NULL; }
+
+	res_itr++;
+
+	if (res_itr != (*ch_itr).res_arr.end())
+	{
+		return (*res_itr);
+	}
+
+	ch_itr++;
+
+	while (ch_itr != pmol->Chains.end())
+	{
+		if ((*ch_itr).res_map.empty())
+		{
+			ch_itr++;
+		}
+		else
+		{
+			res_itr = (*ch_itr).res_arr.begin();
+			return (*res_itr);
+		}
+	}
+	return NULL;
+}
+
 
 ChainIteratorMolecule::ChainIteratorMolecule(HaMolecule* new_pmol)
 {

@@ -112,22 +112,25 @@ public:
 	static AtomSaveOptions save_opt_default; //!< Default Atom Save Options 
 
 	int FetchFile(int format, const char* file_name, const AtomLoadOptions& opt = load_opt_default); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
-	int LoadHarlemFile (const char* fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecules from file in HARLEM (*.HLM) (OLD or new XML) format
-	int LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecule in AMBER PREP (*.IN) format
-	int LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);  //!< Load Molecule in AMBER OFF (*.off;*.lib) format
+	int LoadHarlemFile (const char* fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecular System in HARLEM (*.HLM) (OLD or new XML) format
+	int LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecular System in AMBER PREP (*.IN) format
+	int LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);    //!< Load Molecular System in AMBER OFF (*.off;*.lib) format
 	int LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
-	int LoadRWFMolecule (const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load structure in binary Gaussian checkpoint (*.rwf, *.chk) format
-	int LoadPDBFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load molecule in PDB format (flag = 1 - NMR extension)
-	int LoadMol2File(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load molecule in TRIPOS *.mol format 
-	int LoadMDLFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load molecule in TRIPOS *.mdl format 
-	int LoadXYZFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load molecule in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
-	int LoadHINFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);        //!< Load molecule in Arbalest HIN format 
+	int LoadRWFMolecule (const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecular System in binary Gaussian checkpoint (*.rwf, *.chk) format
+	int LoadPDBFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in PDB format (flag = 1 - NMR extension)
+	int LoadMol2File(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load Molecular System in TRIPOS *.mol format 
+	int LoadMDLFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TRIPOS *.mdl format 
+	int LoadXYZFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
+	int LoadHINFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in Arbalest HIN format
+	int LoadNRGFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in NRG format (MBX program )
 
 	int LoadXYZStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load coordinates from stream
-	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecules from the std::istream in Arbalest HIN format
-	int LoadAmberOffStream(std::istream& is, const AtomLoadOptions& opt = load_opt_default);  //!< Load Molecule in AMBER OFF (*.off;*.lib) format from std::istream
-	int LoadXMLStream (std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load from file in HARLEM XML format
+	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecular System from the std::istream in Arbalest HIN format
+	int LoadAmberOffStream(std::istream& is, const AtomLoadOptions& opt = load_opt_default);  //!< Load Molecular System in AMBER OFF (*.off;*.lib) format 
+	int LoadNRGStream(std::istream& is, const AtomLoadOptions& opt = load_opt_default);       //!< Load Molecular System in NRG format (MBX program ) 
+	int LoadXMLStream (std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecular System HARLEM XML format
 	int LoadXMLNode( rapidxml::xml_node<>* node, const AtomLoadOptions& opt = load_opt_default); //!< Load MolSet data from RAPID XML node
+	
 	
 	int LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt = load_opt_default); //!< Load file in OLD Harlem format
 
@@ -140,6 +143,7 @@ public:
 	int SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
 	int SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt = save_opt_default ); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
 	int SaveHINFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in Arbalest HIN format
+	int SaveNRGFile(const char* filename, const AtomSaveOptions& opt = save_opt_default);      //!< Save MolSet in MBX NRG format
 	
 	int SavePQRFile(const char* filename, const AtomSaveOptions& opt = save_opt_default ); //!< Save molecule into PQR format file
 	int SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );
@@ -150,7 +154,9 @@ public:
 	std::string SavePDBToString(const AtomSaveOptions& opt = save_opt_default ) const; //!< Save MolSet in PDB Format to std::string
 	int SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ); //!< Save MolSet in Old Harlem Format to std::stream
 	int SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const; //!< Save MolSet in Abalest HIN Format to std::stream
-	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const;  //!< Write MolSet data in XML format to stream
+	int SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default) const; //!< Save MolSet in MBX NRG format to std::stream
+	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const;  //!< Save MolSet data in XML format to std::stream
+
 	  
 	ZMatCrd* GetZMat( const harlem::HashMap* popt = NULL); //!< Get Z-Matrix for the molecular set   
 

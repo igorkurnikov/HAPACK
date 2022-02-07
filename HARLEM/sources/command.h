@@ -40,6 +40,7 @@ const int FormatAmberPrep = 19;
 const int FormatAmberTop = 20;
 const int FormatAmberOff = 21;
 const int FormatHIN      = 22;
+const int FormatNRG      = 23;
 
 const int FormatGUESS    = 0;
 

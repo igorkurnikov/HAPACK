@@ -479,6 +479,7 @@ int MolSet::FetchFile(int format, const char* file_name, const AtomLoadOptions& 
 	case(FormatMDL):         done = LoadMDLFile(fname.c_str(),       opt); break;
 	case(FormatXYZ):         done = LoadXYZFile(fname.c_str(),       opt); break;
 	case(FormatHIN):         done = LoadHINFile(fname.c_str(),       opt); break;
+	case(FormatNRG):         done = LoadNRGFile(fname.c_str(),       opt); break;
 
 	default:                 done = False;
 	}

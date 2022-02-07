@@ -709,6 +709,45 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	return TRUE;
 }
 
+int MolSet::SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt) const
+{
+	if (os.fail()) return FALSE;
+
+	std::string name; 
+	name = this->GetName();
+	os << "SYSTEM " << name << std::endl;
+	
+	MoleculesType::const_iterator mol_itr; 
+	int ires = 0;
+	int imol = 0;
+	const HaResidue* pres;
+	const HaAtom* aptr;
+	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
+	{
+		os << "MOLECULE" << std::endl;
+		ResidueIteratorMolecule_const ritr(*mol_itr);
+		for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+		{
+			os << "MONOMER " << pres->GetName() << std::endl;
+			AtomIteratorAtomGroup_const aitr(pres);
+			for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+			{
+				os << std::scientific;
+				os << std::setprecision(8);
+				os << std::setw(5) << std::left << aptr->GetStdSymbol() 
+					<< std::setw(20) << std::right << aptr->GetX() 
+					<< std::setw(20) << std::right << aptr->GetY() 
+					<< std::setw(20) << std::right << aptr->GetZ() << std::endl;
+			}
+			os << "ENDMON" << std::endl;
+		}
+		os << "ENDMOL" << std::endl;
+	}
+	os << "ENDSYS" << std::endl;
+
+	return TRUE;
+}
+
 int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) const
 {
 	if( os.fail() ) return FALSE;
@@ -1944,6 +1983,19 @@ int MolSet::SaveHINFile(const char* filename, const AtomSaveOptions& opt )
 	}	
 	
 	int ires = SaveHINToStream(fout, opt);
+	return ires;
+}
+
+int MolSet::SaveNRGFile(const char* filename, const AtomSaveOptions& opt)
+{
+	ofstream fout(filename);
+	if (fout.fail())
+	{
+		PrintLog(" Error in MolSet::SaveNRGFile()  opening file %s\n", filename);
+		return FALSE;
+	}
+
+	int ires = SaveNRGToStream(fout, opt);
 	return ires;
 }
 

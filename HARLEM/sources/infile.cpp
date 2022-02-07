@@ -3513,6 +3513,151 @@ int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
 	return(TRUE);
 }
 
+int MolSet::LoadNRGFile(const char* fname, const AtomLoadOptions& opt)
+{
+	ifstream is_f(fname);
+	if (!is_f.good())
+	{
+		PrintLog(" Error in MolSet::LoadNRGFile() \n");
+		PrintLog(" Error to open file %s for reading \n", fname);
+		return FALSE;
+	}
+
+	int ires = LoadNRGStream(is_f, opt);
+
+	return ires;
+}
+
+int MolSet::LoadNRGStream(std::istream& is, const AtomLoadOptions& opt )
+{
+	HaMolecule* pMol = NULL;
+	HaChain* pch_cur = NULL;
+	HaResidue* pres_cur = NULL;
+	HaAtom* aptr = NULL;
+
+	std::string line;
+	std::string word, name;
+	std::string xs, ys, zs;
+	double x, y, z;
+	std::vector<string> tokens;
+	int cur_res_idx = 0;
+	int cur_at_idx = 0;
+
+	enum READ_MODE { UNKNOWN_SECTION = 0, READ_SYSTEM, READ_MOLECULE, READ_MONOMER } read_mode;
+	read_mode = UNKNOWN_SECTION;
+
+	try
+	{
+		while (1)
+		{
+			if (is.eof()) break;
+			std::getline(is,line);
+			boost::to_upper(line);
+			std::istringstream iss(line);
+
+			iss >> word;
+			if (iss.fail()) continue;
+			
+			if ( read_mode == UNKNOWN_SECTION )
+			{
+				if (word == "SYSTEM")
+				{
+					read_mode = READ_SYSTEM;
+					pMol = NULL;
+					pres_cur = NULL;
+					aptr = NULL;
+
+					std::getline(iss, name);
+					boost::trim(name);
+					std::replace(name.begin(), name.end(), ' ', '_');
+
+					if (!iss.fail()) this->SetName(name.c_str());
+				}
+				continue;
+			}
+			if (read_mode == READ_SYSTEM)
+			{
+				if (word == "MOLECULE")
+				{
+					read_mode = READ_MOLECULE;
+					pMol = this->AddNewMolecule();
+					pch_cur = pMol->AddChain(' ');
+					cur_res_idx = 0;
+				}
+				continue;
+			}
+			if (read_mode == READ_MOLECULE)
+			{
+				if (word == "MONOMER")
+				{
+					read_mode = READ_MONOMER;
+					cur_res_idx += 1;
+					cur_at_idx = 0;
+					pres_cur = pch_cur->AddResidue(cur_res_idx);
+					iss >> name;
+					if (name == "H2O") name = "HOH";
+					if (!iss.fail()) pres_cur->SetName(name);
+					continue;
+				}
+				if (word == "ENDMOL")
+				{
+					if( pMol ) p_mol_editor->CreateCovBonds(pMol);
+					if (pMol->GetNRes() == 1)
+					{
+						const HaResidue* pres = pMol->GetFirstChain()->GetFirstRes();
+						pMol->SetObjName(pres->GetName());
+					}
+					pMol = NULL;
+					pres_cur = NULL;
+					aptr = NULL;
+					read_mode = READ_SYSTEM;
+				}
+			}
+			if (read_mode == READ_MONOMER)
+			{
+				if (word == "ENDMON")
+				{
+					read_mode = READ_MOLECULE;
+					continue;
+				}
+				int elem = HaAtom::GetElemNoFromName(word);
+				cur_at_idx++;
+				name = word + std::to_string(cur_at_idx);
+
+				iss >> xs;
+				iss >> ys;
+				iss >> zs;
+				if (iss.fail()) continue;
+
+				try
+				{
+					x = std::stod(xs);
+					y = std::stod(ys);
+					z = std::stod(zs);
+				}
+				catch (...)
+				{
+					continue;
+				}
+
+				aptr = pres_cur->AddNewAtom();
+				aptr->SetElemNo(elem);
+				aptr->SetName(name);
+				aptr->SetX(x);
+				aptr->SetY(y);
+				aptr->SetZ(z);
+				continue;
+			}
+		}
+	}
+	catch (...)
+	{
+
+	}
+	return TRUE;
+}
+
+
 
 static int set_string_from_istream(std::string& str, istream& is)
 {

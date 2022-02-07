@@ -68,6 +68,12 @@ need to make a link  anaconda3/include/GL/glx.h  -> /usr/include/glx.h
 hardcoded include dir to  MORT_LIB/CMakeLists.txt
 include_directories( /home/kurnikov/anaconda3/include )
 
+
+need to copy  /lib64/libboost*                to $CONDA_PREFIX/lib
+              /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
+			  /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib
+			  /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
+			  
 -------------------------------------------------------------------------------------------------------------------------
 MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:
 currently we are using standard blas and lapack on UBUNTU :
@@ -252,6 +258,9 @@ in c:\MYPROG\vcpkg install packages:
 BUILD HARLEM AND MOLSET CONDA PACKAGE:
 
 conda build ./conda-recipe --output-folder ..\HARLEM_CONDA_CHANNEL
+
+-----------------------------------------------------------------------------------------------
+
 
 
 

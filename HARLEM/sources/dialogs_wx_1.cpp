@@ -423,6 +423,7 @@ const char* harlem_filters = "*.hlm";
 const char* amber_prep_filters = "*.in";
 const char* amber_top_filters = "*.top;*.crd;*.rst";
 const char* amber_off_filters = "*.off;*.lib";
+const char* nrg_filters = "*.nrg";
 
 void ChooseMolFileDlg::FillFileTypes()
 {
@@ -438,6 +439,7 @@ void ChooseMolFileDlg::FillFileTypes()
 	file_types_ch->Append("AMBER TOP File Format (*.top)",(void*)amber_top_filters);
 	file_types_ch->Append("AMBER OFF File Format (*.off;*.lib)", (void*)amber_off_filters);
 	file_types_ch->Append("ARBALEST File Format (*.hin)",(void*)hin_filters);
+	file_types_ch->Append("MBX Program File Format (*.nrg)", (void*)nrg_filters);
 
     file_types_ch->SetSelection(5);
 }
@@ -472,6 +474,7 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 		case(7): file_format = FormatAmberTop;   break;
 		case(8): file_format = FormatAmberOff;   break;
 		case(9): file_format = FormatHIN;      break;
+		case(10): file_format = FormatNRG;      break;
     }
 	this->Close();
 }
@@ -556,6 +559,7 @@ void SaveMolFileDlg::FillFileTypes()
     file_types_ch->Append("TINKER XYZ Format    (*.xyz)",(void*)xyz_filters);
     file_types_ch->Append("MSMS XYZR Format   (*.xyz)",(void*)xyz_filters);
 	file_types_ch->Append("ARBALEST HIN Format   (*.hin)",(void*)hin_filters);
+	file_types_ch->Append("MBX Program NRG Format   (*.nrg)", (void*)nrg_filters);
 
     file_types_ch->SetSelection(1);
 }
@@ -602,6 +606,7 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
 			case(3): pmset->SaveXYZFile(file_name_full.c_str());     break;
 			case(4): pmset->SaveXYZRadFile(file_name_full.c_str());  break;	
 			case(5): pmset->SaveHINFile(file_name_full.c_str());  break;	
+			case(6): pmset->SaveNRGFile(file_name_full.c_str());  break;
 		}		
 	}
 	delete this;
