@@ -1269,6 +1269,8 @@ void HaMainFrameWX::DoEditMutationMapDialog(wxCommandEvent& event)
 	if (EditMutMapDlg::dlg_open) return;
 	MolSet* pmset = GetCurMolSet();
 	if (pmset == NULL) return;
+	HaMolView* pview = pmset->GetActiveMolView();
+	if (pview == NULL) return;
 	EditMutMapDlg* edit_mut_map_dlg = new EditMutMapDlg(pmset, this);
 	edit_mut_map_dlg->Show(TRUE);
 }

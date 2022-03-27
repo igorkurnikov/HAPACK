@@ -94,7 +94,7 @@ public:
 
 //! Display Related functions:
 
-	int SetAtomScreenCoord(HaMolView* pview);
+	int SetAtomScreenCoord(HaMolView* pview, int x_sh, int y_sh); //!< Compute Screen Coordinates adding additional shifts along X and Y axes 
 	
 	bool SetUniqueAtomNames();
 

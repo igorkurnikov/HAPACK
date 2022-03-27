@@ -4823,36 +4823,37 @@ wxSizer *edit_mut_map_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 {
     wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
 
-    wxStaticText *item1 = new wxStaticText( parent, ID_TEXT, wxT("Edit Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item2 = new wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *item3 = new wxBoxSizer( wxVERTICAL );
+    wxCheckBox *item3 = new wxCheckBox( parent, IDC_VIEW_ATOM_MAP, wxT("View Atom Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxCheckBox *item4 = new wxCheckBox( parent, IDC_VIEW_ATOM_MAP, wxT("View Atom Map"), wxDefaultPosition, wxDefaultSize, 0 );
-    item3->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxCheckBox *item4 = new wxCheckBox( parent, IDC_COLOR_MAPPED_ATOMS, wxT("Color Mapped Atoms"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxCheckBox *item5 = new wxCheckBox( parent, IDC_COLOR_MAPPED_ATOMS, wxT("Color Mapped Atoms"), wxDefaultPosition, wxDefaultSize, 0 );
-    item3->Add( item5, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxBoxSizer *item5 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxBoxSizer *item6 = new wxBoxSizer( wxHORIZONTAL );
+    wxButton *item6 = new wxButton( parent, IDC_SET_MOL_SHIFT, wxT("Set Molecular Shift (Ang):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item5->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item7 = new wxStaticText( parent, ID_TEXT, wxT("Molecular Shift (Ang):"), wxDefaultPosition, wxDefaultSize, 0 );
-    item6->Add( item7, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxTextCtrl *item7 = new wxTextCtrl( parent, IDC_MOL_SHIFT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item5->Add( item7, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item8 = new wxTextCtrl( parent, IDC_MOL_SHIFT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
-    item6->Add( item8, 0, wxALIGN_CENTER|wxALL, 5 );
+    item2->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item3->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxButton *item8 = new wxButton( parent, IDC_LOAD_MUTATION_MAP, wxT("Load Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item8, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxButton *item9 = new wxButton( parent, IDC_LOAD_MUTATION_MAP, wxT("Load Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
-    item3->Add( item9, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxButton *item9 = new wxButton( parent, IDC_SAVE_MUTATION_MAP, wxT("Save Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item9, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxButton *item10 = new wxButton( parent, IDC_SAVE_MUTATION_MAP, wxT("Save Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
-    item3->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxBoxSizer *item10 = new wxBoxSizer( wxHORIZONTAL );
 
-    item2->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
+    item2->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item1->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxBoxSizer *item11 = new wxBoxSizer( wxVERTICAL );
 
@@ -4863,12 +4864,12 @@ wxSizer *edit_mut_map_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     {
         wxT("ListItem")
     };
-    wxListBox *item13 = new wxListBox( parent, IDC_LIST_ATOM_PAIRS, wxDefaultPosition, wxSize(80,100), 1, strs13, wxLB_SINGLE );
-    item11->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxListBox *item13 = new wxListBox( parent, IDC_LIST_ATOM_PAIRS, wxDefaultPosition, wxSize(160,110), 1, strs13, wxLB_SINGLE );
+    item11->Add( item13, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    item2->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
+    item1->Add( item11, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
 
     if (set_sizer)
     {

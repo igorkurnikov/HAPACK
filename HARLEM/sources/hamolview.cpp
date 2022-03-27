@@ -1590,8 +1590,7 @@ HaMolView::SetStereoMode( int enable )
 }
 
 
-void 
-HaMolView::ResetRenderer()
+void HaMolView::ResetRenderer()
 {
     DrawAtoms = False; 
     DrawBonds = False;  
@@ -1613,6 +1612,9 @@ HaMolView::ResetRenderer()
 
     SetStereoMode(False);
     StereoAngle = 6.0;
+
+	UseMolShift = FALSE;
+	mol_shift = 8.0;
 }
 
 
@@ -3407,14 +3409,13 @@ Monitor::~Monitor()
 {
 
 }
-bool 
-Monitor::operator ==( const Monitor& ref) const
+
+bool  Monitor::operator ==( const Monitor& ref) const
 {
   return ( (src == ref.src) && (dst == ref.dst));
 }
 
-bool 
-Monitor::operator <( const Monitor& ref) const
+bool Monitor::operator <( const Monitor& ref) const
 {
    if( (src < ref.src)) 
          return true;

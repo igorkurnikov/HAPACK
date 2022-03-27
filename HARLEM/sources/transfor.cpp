@@ -2377,10 +2377,28 @@ void HaMolView::ApplyTransform()
 	MolSet* pmset = GetMolSet();
 
 	MoleculesType::iterator mol_itr;
+	int x_sh = 0;
+	int y_sh = 0;
 
-	ForEachMol_VIEW
+	for( int i = 0; i < pmset->HostMolecules.size(); i++ )
 	{
-		(*mol_itr)->SetAtomScreenCoord(this);
+		HaMolecule* pmol = pmset->HostMolecules[i];
+		if ( UseMolShift )
+		{
+			if (i == 0)
+			{
+				x_sh = -mol_shift * 0.5 * Scale;
+			}
+			else if (i == 1)
+			{
+				x_sh =  mol_shift * 0.5 * Scale;
+			}
+			else
+			{
+				x_sh = 0.0;
+			}
+		}
+		pmol->SetAtomScreenCoord(this, x_sh, y_sh);
 	}
 	
 	

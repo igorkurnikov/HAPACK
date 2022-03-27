@@ -141,6 +141,9 @@ public:
 	static int UseBackFade;
 	static double Ambient;
 
+	int UseMolShift;  //!< Use Shift along X-axis of the second molecule vs first in a two molecule Molecular Set
+	double mol_shift; //!< Shift (Ang) along X-axis of the second molecule vs first in a two molecule Molecular Set  ( used for Mutation Map Editing )
+
  // Transformation matricies connecting absolute and screen coordinate system:
 	HaMat_double Rot;  //!< Coordinates of x, y, z directional vectors in the screen(transformed) coordinate system 
 	HaVec_double Orig; //!< Coordinates of the origin of the absolute coordinate system in the screen(transformed) c.s. 

@@ -3587,3 +3587,14 @@ void AtomLoadOptions::SetConvertResNames( int convert_res_names_opt )
 	if (convert_res_names_opt < 0 || convert_res_names_opt > 1) this->set_i("CONVERT_RES_NAMES", 0);
 	this->set_i("CONVERT_RES_NAMES", convert_res_names_opt);
 }
+
+
+MutationMap::MutationMap(MolSet* pmset_par)
+{
+	pmset = pmset_par;
+}
+
+MutationMap::~MutationMap()
+{
+
+}

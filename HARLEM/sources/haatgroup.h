@@ -697,6 +697,22 @@ protected:
 	std::vector<CrdSnapshot*>::iterator itr_end;
 };
 
+class MutationMap
+//!< Mutaton Map between atoms of two molecules
+{
+public:
+
+	MutationMap(MolSet* pmset);
+	virtual ~MutationMap();
+
+	std::map<HaAtom*, HaAtom*> atom_atom_map;
+
+	HaMolecule* pmol1;
+	HaMolecule* pmol2;
+
+	MolSet* pmset;
+};
+
 
 #endif /* !HAATGROUP_H */
 

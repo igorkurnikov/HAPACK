@@ -377,16 +377,15 @@ HaMolecule::~HaMolecule(void)
 	
 }
 
-int
-HaMolecule::SetAtomScreenCoord(HaMolView* pview)
+int HaMolecule::SetAtomScreenCoord(HaMolView* pview, int x_sh, int y_sh)
 {
 	if( pview == NULL )
 	{
 		return False;
 	}
 
-	int ixadd=  pview->pCanv->XRange()/2;
-	int iyadd=  pview->pCanv->YRange()/2;
+	int ixadd=  pview->pCanv->XRange()/2 + x_sh;
+	int iyadd=  pview->pCanv->YRange()/2 + y_sh;
 	int izadd=  pview->ZOffset();
 
 	HaAtom* aptr;
