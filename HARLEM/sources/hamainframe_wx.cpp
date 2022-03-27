@@ -56,6 +56,7 @@
 #include "mm_dialogs_wx.h"
 #include "qc_dialogs_wx.h"
 #include "wx_prot_redox_dlg.h"
+#include "edit_mut_map_dlg_wx.h"
 #include "harlemapp_wx.h"
 #include "hamolmech.h"
 #include "mm_driver_amber.h"
@@ -700,6 +701,7 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
     EVT_MENU( IDM_EDIT_GROUPS_WX,         HaMainFrameWX::DoEditGroupsDialog )
 	EVT_MENU( IDM_CRD_SNAPSHOT,           HaMainFrameWX::DoCrdSnapshotDialog )
     EVT_MENU( IDM_EDIT_GEOM_WX,           HaMainFrameWX::DoEditGeomDialog )
+	EVT_MENU( IDM_EDIT_MUT_MAP,           HaMainFrameWX::DoEditMutationMapDialog)
     EVT_MENU( IDM_FIND_HBONDS_WX,         HaMainFrameWX::OnFindHbonds )
     EVT_MENU( IDM_SOLVATE_WX,             HaMainFrameWX::DoSolvateDialog )
 	EVT_MENU( IDM_WRAP_UNIT_CELL,         HaMainFrameWX::OnWrapIntoUnitCell )
@@ -1260,6 +1262,15 @@ void HaMainFrameWX::DoEditGeomDialog(wxCommandEvent &event)
 	if( pmset == NULL) return;
 	EditGeomDlgWX* edit_geom_dlg = new EditGeomDlgWX( pmset, this );
 	edit_geom_dlg->Show(TRUE);
+}
+
+void HaMainFrameWX::DoEditMutationMapDialog(wxCommandEvent& event)
+{
+	if (EditMutMapDlg::dlg_open) return;
+	MolSet* pmset = GetCurMolSet();
+	if (pmset == NULL) return;
+	EditMutMapDlg* edit_mut_map_dlg = new EditMutMapDlg(pmset, this);
+	edit_mut_map_dlg->Show(TRUE);
 }
 
 void HaMainFrameWX::OnFindHbonds(wxCommandEvent &event)

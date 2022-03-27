@@ -69,6 +69,7 @@ class HaMainFrameWX : public wxMDIParentFrame
     void DoEditGroupsDialog ( wxCommandEvent &event );
 	void DoCrdSnapshotDialog ( wxCommandEvent &event );
     void DoEditGeomDialog ( wxCommandEvent &event );
+    void DoEditMutationMapDialog(wxCommandEvent& event);
     void OnFindHbonds ( wxCommandEvent &event );
     void DoSolvateDialog ( wxCommandEvent &event );
 	void OnWrapIntoUnitCell( wxCommandEvent &event );

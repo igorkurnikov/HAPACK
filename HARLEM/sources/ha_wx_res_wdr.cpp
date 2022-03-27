@@ -4819,6 +4819,67 @@ wxSizer *atom_prop_colors_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     return item0;
 }
 
+wxSizer *edit_mut_map_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
+{
+    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item1 = new wxStaticText( parent, ID_TEXT, wxT("Edit Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item3 = new wxBoxSizer( wxVERTICAL );
+
+    wxCheckBox *item4 = new wxCheckBox( parent, IDC_VIEW_ATOM_MAP, wxT("View Atom Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxCheckBox *item5 = new wxCheckBox( parent, IDC_COLOR_MAPPED_ATOMS, wxT("Color Mapped Atoms"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item5, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item6 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item7 = new wxStaticText( parent, ID_TEXT, wxT("Molecular Shift (Ang):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item6->Add( item7, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item8 = new wxTextCtrl( parent, IDC_MOL_SHIFT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item6->Add( item8, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item3->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item9 = new wxButton( parent, IDC_LOAD_MUTATION_MAP, wxT("Load Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item9, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxButton *item10 = new wxButton( parent, IDC_SAVE_MUTATION_MAP, wxT("Save Mutation Map"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item2->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxBoxSizer *item11 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item12 = new wxStaticText( parent, ID_TEXT, wxT("Atom Pairs"), wxDefaultPosition, wxDefaultSize, 0 );
+    item11->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString strs13[] = 
+    {
+        wxT("ListItem")
+    };
+    wxListBox *item13 = new wxListBox( parent, IDC_LIST_ATOM_PAIRS, wxDefaultPosition, wxSize(80,100), 1, strs13, wxLB_SINGLE );
+    item11->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    if (set_sizer)
+    {
+        parent->SetSizer( item0 );
+        if (call_fit)
+            item0->SetSizeHints( parent );
+    }
+    
+    return item0;
+}
+
 // Implement menubar functions
 
 wxMenuBar *TestMenu()
@@ -4867,6 +4928,7 @@ wxMenuBar *MainMenu()
     item2->Append( IDM_EDIT_RES_PARAM_WX, wxT("Edit Residue Parameters"), wxT("") );
     item2->Append( IDM_EDIT_MOLSETS, wxT("Edit Molecular Sets"), wxT("") );
     item2->Append( IDM_EDIT_GROUPS_WX, wxT("Edit Groups"), wxT("") );
+    item2->Append( IDM_EDIT_MUT_MAP, wxT("Edir Mutation Map"), wxT("") );
     item2->Append( IDM_CRD_SNAPSHOT, wxT("Edit Coordinate Snapshots"), wxT("") );
     item2->Append( IDM_EDIT_GEOM_WX, wxT("Edit Geometry"), wxT("") );
     item2->Append( IDM_FIND_HBONDS_WX, wxT("Find Hydrogen Bonds"), wxT("") );

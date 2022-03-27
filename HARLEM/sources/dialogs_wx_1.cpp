@@ -1340,8 +1340,7 @@ BEGIN_EVENT_TABLE(PathwaysDlgWX,wxDialog)
     EVT_CLOSE( PathwaysDlgWX::OnClose)
 END_EVENT_TABLE()
 
-void
-PathwaysDlgWX::OnClose(wxCloseEvent& event)
+void PathwaysDlgWX::OnClose(wxCloseEvent& event)
 {
 	dlg_open = FALSE;
 	event.Skip();
