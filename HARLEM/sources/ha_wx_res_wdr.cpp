@@ -4853,7 +4853,7 @@ wxSizer *edit_mut_map_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 
     item2->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    item1->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
+    item1->Add( item2, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     wxBoxSizer *item11 = new wxBoxSizer( wxVERTICAL );
 
@@ -4865,11 +4865,41 @@ wxSizer *edit_mut_map_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
         wxT("ListItem")
     };
     wxListBox *item13 = new wxListBox( parent, IDC_LIST_ATOM_PAIRS, wxDefaultPosition, wxSize(160,110), 1, strs13, wxLB_SINGLE );
-    item11->Add( item13, 1, wxALIGN_CENTER|wxALL, 5 );
+    item11->Add( item13, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    item1->Add( item11, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    wxBoxSizer *item14 = new wxBoxSizer( wxHORIZONTAL );
 
-    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxButton *item15 = new wxButton( parent, IDC_DELETE_ATOM_PAIR, wxT("Delete Atom Pair"), wxDefaultPosition, wxDefaultSize, 0 );
+    item14->Add( item15, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item16 = new wxButton( parent, IDC_ADD_ATOM_PAIR, wxT("Add Atom Pair"), wxDefaultPosition, wxDefaultSize, 0 );
+    item14->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item11->Add( item14, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxBoxSizer *item17 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item18 = new wxStaticText( parent, ID_TEXT, wxT("Atom 1:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item17->Add( item18, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item19 = new wxStaticText( parent, ID_TEXT, wxT("Atom 2:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item17->Add( item19, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item11->Add( item17, 0, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
+
+    wxBoxSizer *item20 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxTextCtrl *item21 = new wxTextCtrl( parent, IDC_EDIT_ATOM_1, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item20->Add( item21, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item22 = new wxTextCtrl( parent, IDC_EDIT_ATOM_2, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item20->Add( item22, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item11->Add( item20, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item1->Add( item11, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item1, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     if (set_sizer)
     {

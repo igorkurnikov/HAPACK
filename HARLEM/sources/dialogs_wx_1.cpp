@@ -76,6 +76,7 @@
 #include "nuclacidmod.h"
 #include "hascattermod.h"
 #include "haempirical.h"
+#include "edit_mut_map_dlg_wx.h"
 
 #include "gaufile.h"
 //>mikola to make some wxstuff to work under win
@@ -8527,6 +8528,14 @@ int HaMolView::BroadcastCurrAtom()
 		at_event.SetEventObject( EditGeomDlgWX::active_dlg_ptr );
 //		EditGeomDlgWX::active_dlg_ptr->ProcessEvent(at_event);:
 		EditGeomDlgWX::active_dlg_ptr->ProcessWindowEvent( at_event );
+	}
+
+	if (EditMutMapDlg::dlg_open)
+	{
+		wxCommandEvent at_event(wxEVT_COMMAND_BUTTON_CLICKED, IDU_ATOM_PICK);
+		at_event.SetEventObject(EditMutMapDlg::active_dlg_ptr);
+		//		EditGeomDlgWX::active_dlg_ptr->ProcessEvent(at_event);:
+		EditMutMapDlg::active_dlg_ptr->ProcessWindowEvent(at_event);
 	}
 	
 //	wxAtomEdit::BroadCastPickedAtom(PkAtom);

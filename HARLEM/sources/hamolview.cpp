@@ -3029,8 +3029,7 @@ int HaMolView::ExecuteSetCommand(CmdParser& cmd_pr)
 	return True;
 }
 
-int
-HaMolView::ExecuteColourCommand(CmdParser& cmd_pr)
+int HaMolView::ExecuteColourCommand(CmdParser& cmd_pr)
 {
     int flag;
 	int RVal,GVal,BVal;

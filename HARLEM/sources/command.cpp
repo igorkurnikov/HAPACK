@@ -661,8 +661,7 @@ int CmdParser::NextIf(int token, const char* error )
 }
 
 
-int
-CmdParser::ParseColour(int& RVal, int& GVal, int& BVal)
+int CmdParser::ParseColour(int& RVal, int& GVal, int& BVal)
 {
     switch( CurToken )
     {

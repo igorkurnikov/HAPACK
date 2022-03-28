@@ -275,6 +275,8 @@ public:
     static HaColor BoxColor;   //!< Color of the Box
     static HaColor LabelColor; //!< Color of labels
 
+	void ColorAtom(HaAtom* aptr, int r, int g, int b); //!< Color Atom with (r,g,b) 
+	void ColorAtom(HaAtom* aptr, std::string color_name ); //!< Color atom by Color name 
 	int ColorAtomsByProp( const std::string& str_prop, DValColorMap* p_col_map = NULL ); //!< Color selected atoms by specified property and color map
 	void ColourBackNone();
 	void ColourBondNone();
@@ -301,6 +303,7 @@ public:
 	void AminoColourAttrib();
 	void StructColourAttrib();
 	void RigidClusterColourAttrib();
+	
 	
 	static int IsCPKColour( HaAtom* aptr );
 	static HaColorMap cpk_col_map; //!< map of atoms CPK colors

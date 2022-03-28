@@ -795,6 +795,23 @@ void HaMolView::RefreshColors()
 	}		
 }
 
+void HaMolView::ColorAtom(HaAtom* aptr, int r, int g, int b)
+{
+	int col_new = HaColor::RegisterColor(r, g, b);
+	aptr->col = col_new;
+}
+
+void HaMolView::ColorAtom(HaAtom* aptr, std::string color_name)
+{
+	if (HaColor::ColorNameExist(color_name))
+	{
+		ColorVal col_new = HaColor::GetColorVal(color_name);
+		int r = RComp(col_new);
+		int g = GComp(col_new);
+		int b = BComp(col_new);
+		HaMolView::ColorAtom(aptr, r, g, b);
+	}
+}
 
 int HaMolView::ColorAtomsByProp( const std::string& str_prop_par, DValColorMap* p_col_map )
 {
@@ -915,8 +932,7 @@ void HaMolView::ColourBackAttrib( int r, int g, int b )
 }
 
 
-void 
-HaMolView::ColourHBondNone()
+void HaMolView::ColourHBondNone()
 {
     set<HaHBond, less<HaHBond> >  *list_ptr;
     set<HaHBond, less<HaHBond> >::iterator  ptr;
