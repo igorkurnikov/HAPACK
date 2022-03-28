@@ -35,6 +35,7 @@ public:
 	wxCheckBox* color_mappped_atoms_chk; //!< Color Mapped Atoms CheckBox
 
 	wxTextCtrl* mol_shift_txt; //!< Text Control for molecular shift
+	wxListBox* atom_pair_list; //!< List of Atom Paits in the Mutation Map
 
 	std::string file_name;
 	std::string dir_name;

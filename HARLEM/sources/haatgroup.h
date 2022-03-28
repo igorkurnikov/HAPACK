@@ -11,12 +11,14 @@
 
 
 #include "haio.h"
+#include "tinyxml.h"
 #include "rapidxml.hpp"
 #include "haconst.h"
 #include "hacoord.h"
 #include "haatom.h"
 #include "habond.h"
 #include "halinalg.h"
+
 
 class AtomExpr;
 typedef std::set<HaAtom*, less<HaAtom*> > AtomSet;
@@ -704,6 +706,9 @@ public:
 
 	MutationMap(MolSet* pmset);
 	virtual ~MutationMap();
+
+	void Clear();
+	int LoadArbalestMutMap( std::string fname ) noexcept; //!< Load Mutation Map from Arbalest XML file
 
 	std::map<HaAtom*, HaAtom*> atom_atom_map;
 

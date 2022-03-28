@@ -4929,7 +4929,7 @@ wxMenuBar *MainMenu()
     item2->Append( IDM_EDIT_RES_PARAM_WX, wxT("Edit Residue Parameters"), wxT("") );
     item2->Append( IDM_EDIT_MOLSETS, wxT("Edit Molecular Sets"), wxT("") );
     item2->Append( IDM_EDIT_GROUPS_WX, wxT("Edit Groups"), wxT("") );
-    item2->Append( IDM_EDIT_MUT_MAP, wxT("Edir Mutation Map"), wxT("") );
+    item2->Append( IDM_EDIT_MUT_MAP, wxT("Edit Mutation Map"), wxT("") );
     item2->Append( IDM_CRD_SNAPSHOT, wxT("Edit Coordinate Snapshots"), wxT("") );
     item2->Append( IDM_EDIT_GEOM_WX, wxT("Edit Geometry"), wxT("") );
     item2->Append( IDM_FIND_HBONDS_WX, wxT("Find Hydrogen Bonds"), wxT("") );

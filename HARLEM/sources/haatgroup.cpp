@@ -3598,3 +3598,115 @@ MutationMap::~MutationMap()
 {
 
 }
+
+void MutationMap::Clear()
+{
+	this->pmol1 = NULL;
+	this->pmol2 = NULL;
+	this->atom_atom_map.clear();
+}
+
+int MutationMap::LoadArbalestMutMap(std::string fname) noexcept
+{
+	if(!(pmset->GetNMol() == 2))
+	{
+		PrintLog("Error in MutationMap::LoadArbalestMutMap() \n");
+		PrintLog("Number of Molecules in Molecular Set = %d  is not equal 2", pmset->GetNMol());
+		return FALSE;
+	}
+	this->Clear();
+
+	pmol1 = pmset->GetMolByIdx(0);
+	pmol2 = pmset->GetMolByIdx(1);
+	
+	try
+	{ 
+		TiXmlDocument doc;
+		bool bres = doc.LoadFile(fname.c_str());
+
+		const TiXmlElement* root_element;
+		const TiXmlElement* data_element;
+
+		if (!bres) throw std::runtime_error("Error to load an XML file with a mutation map ");
+	
+		root_element = doc.FirstChildElement();
+		if (root_element == NULL)  throw std::runtime_error("No ROOT Element");
+		
+		const TiXmlElement* resA_elem = root_element->FirstChildElement("ResA");
+		if( resA_elem == NULL ) throw std::runtime_error("No ResA Element");
+		std::string res_name_a = resA_elem->GetText();
+
+		const TiXmlElement* resB_elem = root_element->FirstChildElement("ResB");
+		if (resB_elem == NULL) throw std::runtime_error("No ResB Element");
+		std::string res_name_b = resB_elem->GetText();
+		
+		HaResidue* pres = NULL;
+		HaResidue* pres_a = NULL;
+		HaResidue* pres_b = NULL;
+		
+		ResidueIteratorMolecule ritr_a(pmol1);
+		for (pres = ritr_a.GetFirstRes(); pres; pres = ritr_a.GetNextRes())
+		{
+			std::string res_name = pres->GetName();
+			if (res_name == res_name_a)
+			{
+				pres_a = pres;
+				break;
+			}
+			if (res_name == res_name_b)
+			{
+				pres_b = pres;
+				break;
+			}
+		}
+		if( pres_a == NULL && pres_b == NULL ) throw std::runtime_error((std::string) "Can not find residue in MOL1 with name = " + res_name_a + " OR name = " + res_name_b );
+
+		ResidueIteratorMolecule ritr_b(pmol2);
+		for (pres = ritr_b.GetFirstRes(); pres; pres = ritr_b.GetNextRes())
+		{
+			std::string res_name = pres->GetName();
+			if (res_name == res_name_b && pres_a )
+			{
+				pres_b = pres;
+				break;
+			}
+			if (res_name == res_name_a && pres_b)
+			{
+				pres_a = pres;
+				break;
+			}
+		}
+		if ( pres_a && pres_b == NULL ) throw std::runtime_error("Can not find residue in MOL2 with name " + res_name_b);
+		if ( pres_b && pres_a == NULL)  throw std::runtime_error("Can not find residue in MOL2 with name " + res_name_a);
+
+		const TiXmlElement* atoms_mapping_elem = root_element->FirstChildElement("AtomsMapping");
+		if (atoms_mapping_elem == NULL ) throw std::runtime_error("Can not find AtomsMapping element");
+
+		const TiXmlElement* atoms_elem = atoms_mapping_elem->FirstChildElement();
+		for (; atoms_elem != NULL; atoms_elem = atoms_elem->NextSiblingElement())
+		{
+			const char* sattr_a = atoms_elem->Attribute("A");
+			const char* sattr_b = atoms_elem->Attribute("B");
+			if (sattr_a != NULL && sattr_b != NULL)
+			{
+				HaAtom* aptr_a = pres_a->GetAtomByName(sattr_a);
+				HaAtom* aptr_b = pres_b->GetAtomByName(sattr_b);
+				if (aptr_a == NULL) PrintLog(" Can not find Atom Name %s in ResA ", sattr_a);
+				if (aptr_b == NULL) PrintLog(" Can not find Atom Name %s in ResB ", sattr_b);
+				if (aptr_a != NULL && aptr_b != NULL)
+				{
+					this->atom_atom_map[aptr_a] = aptr_b;
+				}
+			}
+		}
+	}
+	catch(const std::exception & ex)
+	{
+		PrintLog(" Error in MutationMap::LoadArbalestMutMap \n");
+		PrintLog(" Failed to Load Mutation Map XML File %s \n", fname.c_str());
+		PrintLog("%s\n", ex.what());
+		return FALSE;
+	}
+	return TRUE;
+
+}

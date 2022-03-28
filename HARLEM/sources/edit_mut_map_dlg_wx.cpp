@@ -16,6 +16,7 @@
 
 #include "ha_wx_aux_1.h"
 
+#include "haatom.h"
 #include "hamolset.h"
 #include "hamolview.h"
 #include "ha_wx_res_wdr.h"
@@ -59,6 +60,8 @@ void EditMutMapDlg::OnInitDialog()
         pView->UseMolShift = TRUE;
         mol_shift_txt->SetValidator(wxDoubleValidator(&(pView->mol_shift), "%6.2f"));
     }
+    atom_pair_list = (wxListBox*)FindWindow(IDC_LIST_ATOM_PAIRS);
+
     TransferDataToWindow();
     pmset->RefreshAllViews(RFApply);
 }
@@ -71,7 +74,24 @@ int EditMutMapDlg::dlg_open = FALSE;
 
 void EditMutMapDlg::OnLoadMutMap(wxCommandEvent& event) noexcept
 {
+    if (pmset->GetNMol() != 2)
+    {
+        PrintLog("The Number of Molecules in MolSet = %5d  is not equal 2 \n", pmset->GetNMol());
+        return;
+    }
 
+    wxString mut_map_fname_wx = ::wxFileSelector("Choose Mutation Map File",
+        ::wxGetCwd(), "map_mutation.xml",
+        "xml", "*.xml");
+
+    std::string mut_map_fname = mut_map_fname_wx.ToStdString();
+
+    if (!mut_map_fname.empty())
+    {
+        p_mut_map.reset( new MutationMap(pmset) );
+        p_mut_map->LoadArbalestMutMap(mut_map_fname);
+    }
+    TransferDataToWindow();
 }
 
 void EditMutMapDlg::OnSaveMutMap(wxCommandEvent& event) noexcept
@@ -103,7 +123,19 @@ bool EditMutMapDlg::TransferDataFromWindow()
 
 bool EditMutMapDlg::TransferDataToWindow()
 {
-
+    atom_pair_list->Clear();
+    if (p_mut_map)
+    {
+        auto mitr = p_mut_map->atom_atom_map.begin();
+        for (; mitr != p_mut_map->atom_atom_map.end(); mitr++)
+        {
+            HaAtom* aptr1 = (*mitr).first;
+            HaAtom* aptr2 = (*mitr).second;
+            std::string s1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL);
+            std::string s2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL);
+            atom_pair_list->AppendString( s1 + " -> " + s2);
+        }
+    }
     return wxFrame::TransferDataToWindow();
 }
 

@@ -761,8 +761,7 @@ void LoadScriptDlgWX::FillFileTypes()
     file_types_ch->SetSelection(0);
 }
 
-void 
-LoadScriptDlgWX::OnSelectFile(wxListEvent &event )
+void LoadScriptDlgWX::OnSelectFile(wxListEvent &event )
 {
 	HaFileDlg1::OnSelectFile(event);
 
@@ -856,8 +855,7 @@ void LoadScriptDlgWX::OnSaveScriptToFile( wxCommandEvent &event )
 	OnChangeDir();
 }
 
-void 
-LoadScriptDlgWX::OnClose( wxCloseEvent &event )
+void LoadScriptDlgWX::OnClose( wxCloseEvent &event )
 {
 	event.Skip();
 	dlg_open = False;	
