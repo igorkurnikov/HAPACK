@@ -3599,14 +3599,30 @@ MutationMap::~MutationMap()
 
 }
 
-void MutationMap::Clear()
+void MutationMap::Clear() noexcept
 {
 	this->pmol1 = NULL;
 	this->pmol2 = NULL;
 	this->atom_atom_map.clear();
 }
 
-int MutationMap::LoadArbalestMutMap(std::string fname) noexcept
+bool MutationMap::IsValid()
+{
+	try
+	{
+		if (pmol1 == NULL) throw std::runtime_error(" First molecule is not defined ");
+		if (pmol2 == NULL) throw std::runtime_error(" Second molecule is not defined ");
+		if ( atom_atom_map.empty() ) throw std::runtime_error(" Atom-Atom correspondence map is empty ");
+	}
+	catch (const std::exception& ex)
+	{
+		PrintLog("Mutation Map is no valid %s \n", ex.what());
+		return false;
+	}
+	return true;
+}
+
+int MutationMap::LoadArbalestMutMap(std::string fname) 
 {
 	if(!(pmset->GetNMol() == 2))
 	{
@@ -3653,31 +3669,20 @@ int MutationMap::LoadArbalestMutMap(std::string fname) noexcept
 				pres_a = pres;
 				break;
 			}
-			if (res_name == res_name_b)
-			{
-				pres_b = pres;
-				break;
-			}
 		}
-		if( pres_a == NULL && pres_b == NULL ) throw std::runtime_error((std::string) "Can not find residue in MOL1 with name = " + res_name_a + " OR name = " + res_name_b );
+		if( pres_a == NULL ) throw std::runtime_error( "Can not find residue in MOL1 the name = " + res_name_a  );
 
 		ResidueIteratorMolecule ritr_b(pmol2);
 		for (pres = ritr_b.GetFirstRes(); pres; pres = ritr_b.GetNextRes())
 		{
 			std::string res_name = pres->GetName();
-			if (res_name == res_name_b && pres_a )
+			if (res_name == res_name_b  )
 			{
 				pres_b = pres;
 				break;
 			}
-			if (res_name == res_name_a && pres_b)
-			{
-				pres_a = pres;
-				break;
-			}
 		}
-		if ( pres_a && pres_b == NULL ) throw std::runtime_error("Can not find residue in MOL2 with name " + res_name_b);
-		if ( pres_b && pres_a == NULL)  throw std::runtime_error("Can not find residue in MOL2 with name " + res_name_a);
+		if ( pres_b == NULL ) throw std::runtime_error("Can not find residue in MOL2 with the name " + res_name_b);
 
 		const TiXmlElement* atoms_mapping_elem = root_element->FirstChildElement("AtomsMapping");
 		if (atoms_mapping_elem == NULL ) throw std::runtime_error("Can not find AtomsMapping element");
@@ -3709,4 +3714,36 @@ int MutationMap::LoadArbalestMutMap(std::string fname) noexcept
 	}
 	return TRUE;
 
+}
+
+int MutationMap::SaveArbalestMutMap(std::string fname)
+{
+	if (!this->IsValid()) return FALSE;
+	std::ofstream os(fname);
+	if (os.fail()) return FALSE;
+	os << "<?xml version=\"1.0\" encoding=\"windows - 1251\"?>" << std::endl;
+	std::string title = pmol1->GetObjName();
+	title += "-}";
+	title += pmol2->GetObjName();
+	os << "<MutationMap Title=\"" + title + "\">" << std::endl;
+
+	HaResidue* pres_1 = pmol1->GetFirstChain()->GetFirstRes();
+	std::string res_name_1 = pres_1->GetName();
+	HaResidue* pres_2 = pmol2->GetFirstChain()->GetFirstRes();
+	std::string res_name_2 = pres_2->GetName();
+
+	os << "    <ResA>" << res_name_1 << "</ResA>" << std::endl;
+	os << "    <ResB>" << res_name_2 << "</ResB>" << std::endl;
+	os << "    <AtomsMapping>" << std::endl;
+	
+	auto mitr = atom_atom_map.begin();
+	for (; mitr != atom_atom_map.end(); mitr++)
+	{
+		HaAtom* aptr1 = (*mitr).first;
+		HaAtom* aptr2 = (*mitr).second;
+		os << "        <Atoms A=\"" << aptr1->GetName() << "\"  B=\"" << aptr2->GetName() << "\"/> " << std::endl;
+	}
+	os << "    </AtomsMapping>" << std::endl;
+	os << "</MutationMap>" << std::endl;
+	return TRUE;
 }

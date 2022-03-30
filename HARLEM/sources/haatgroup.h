@@ -707,8 +707,10 @@ public:
 	MutationMap(MolSet* pmset);
 	virtual ~MutationMap();
 
-	void Clear();
-	int LoadArbalestMutMap( std::string fname ) noexcept; //!< Load Mutation Map from Arbalest XML file
+	void Clear() noexcept;
+	bool IsValid(); //!< Check if the Mutation Map is valid
+	int LoadArbalestMutMap( std::string fname ); //!< Load Mutation Map from Arbalest XML file
+	int SaveArbalestMutMap( std::string fname ); //!< Save Mutation Map to   Arbalest XML file
 
 	std::map<HaAtom*, HaAtom*> atom_atom_map;
 

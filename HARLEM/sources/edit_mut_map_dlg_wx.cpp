@@ -110,7 +110,22 @@ void EditMutMapDlg::OnLoadMutMap(wxCommandEvent& event) noexcept
 
 void EditMutMapDlg::OnSaveMutMap(wxCommandEvent& event) noexcept
 {
+    if (!p_mut_map || !p_mut_map->IsValid())
+    {
+        return;
+    }
 
+    wxString fname_init = "map_";
+    fname_init += p_mut_map->pmol1->GetName();
+    fname_init += "_";
+    fname_init += p_mut_map->pmol2->GetName();
+    fname_init += ".xml";
+
+    wxString mut_map_fname_wx = ::wxFileSelector("Choose File to save Mutation Map ",
+        ::wxGetCwd(), fname_init,
+        "xml", "*.xml");
+
+    p_mut_map->SaveArbalestMutMap(mut_map_fname_wx.ToStdString());
 }
 
 void EditMutMapDlg::OnSelectAtomPair(wxListEvent& event) noexcept
