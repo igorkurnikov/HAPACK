@@ -10,6 +10,10 @@
 #if !defined(EDIT_MUT_MAP_DLG_H)
 #define EDIT_MUT_MAP_DLG_H
 
+#if !defined MSC_VER_
+#include <memory>
+#endif
+
 class MolSet;
 
 class EditMutMapDlg : public wxFrame

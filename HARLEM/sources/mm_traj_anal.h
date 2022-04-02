@@ -67,7 +67,8 @@ class MDTrajectory
 };
 
 #ifndef _MSC_VER
-class XDR;
+#include "rpc/xdr.h"
+//class XDR;
 class XTCTraj
 {
 	public:

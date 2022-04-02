@@ -53,9 +53,10 @@ harlem_wx_files = \
  $(top_srcdir)/HARLEM/sources/dialogs_wx_2.cpp \
  $(top_srcdir)/HARLEM/sources/mm_dialogs_wx.cpp \
  $(top_srcdir)/HARLEM/sources/qc_dialogs_wx.cpp \
- $(top_srcdir)/HARLEM/sources/wx_prot_redox_dlg.cpp \
- $(top_srcdir)/HARLEM/sources/hamainframe_wx.cpp \
  $(top_srcdir)/HARLEM/sources/harlemapp_wx.cpp \
+ $(top_srcdir)/HARLEM/sources/hamainframe_wx.cpp \
+ $(top_srcdir)/HARLEM/sources/edit_mut_map_dlg_wx.cpp \
+ $(top_srcdir)/HARLEM/sources/wx_prot_redox_dlg.cpp \
  $(top_srcdir)/HARLEM/sources/ha_wx_aux_1.cpp \
  $(top_srcdir)/HARLEM/sources/ha_wx_ed_wdr.cpp \
  $(top_srcdir)/HARLEM/sources/ha_wx_res_wdr.cpp \
