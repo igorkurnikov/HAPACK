@@ -160,6 +160,13 @@ export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++
 ../configure --disable-gui --disable-shared --prefix=/export/apps/local           - 
 make
 
+----------------------------------------------------------------------------------------
+Atomix hercules workstation (Centos 8):
+Compile and install OpenBlas:
+add to PKG_CONFIG_PATH environment variable the directory with openblas.pc:
+export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH
+Set alias pkg-config to pkgconf (new substitution for pkg-config) 
+alias pkg-config=pkgconf
 ------------------------------------------------------------------------------------------
 INTEL complilers and MKL on LINUX:
 
