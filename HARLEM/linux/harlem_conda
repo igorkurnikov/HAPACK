@@ -1,3 +1,8 @@
-#!/bin/sh
-export LC_ALL="en_US.utf8"
+#!/bin/bash
+eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+conda activate /usr/local/py37
+export LD_LIBRARY_PATH=/usr/local/HARLEM/molset:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+export HARLEM_HOME="/usr/local/HARLEM/"
+export PYTHONPATH="/usr/local/HARLEM/:$PYTHONPATH"
 python3 -m molset.harlempy $@  
+ 

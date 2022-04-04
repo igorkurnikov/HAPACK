@@ -1,0 +1,3 @@
+#!/bin/sh
+export LC_ALL="en_US.utf8"
+python3 -m molset.harlempy $@  
