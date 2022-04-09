@@ -1355,6 +1355,16 @@ void HaMolView::IdentifyAtom( int xpos, int ypos )
 
 void HaMolView::SetPickMode( int mode )
 {
+	if ( mode == PickNone ) PrintLog(" Turn off Atom Pick Mode \n");
+	else if ( mode == PickIdent ) PrintLog(" Set Show Atom ID Mode \n");
+	else if ( mode == PickDist ) PrintLog(" Set Measure Atom Distance Mode \n");
+	else if ( mode == PickAngle ) PrintLog(" Set Measure Valence Angle Mode \n");
+	else if ( mode == PickTorsn ) PrintLog(" Set Measure Torsion Angle Mode \n");
+	else if ( mode == PickLabel ) PrintLog(" Set Show Atom Label Mode \n");
+	else if ( mode == PickMonit ) PrintLog(" Set Add Distance Monitor Mode \n");
+	else if ( mode == PickCentr ) PrintLog(" Set Molecular Center Mode \n");
+	else if ( mode == PickMolConnect ) PrintLog(" Set Molecule Connect Mode \n");
+
     PickMode = mode;
     PickCount = 0;
 }
@@ -1551,10 +1561,10 @@ void HaMolView::PickAtom( int shift, int xpos, int ypos )
 			}
         }
     }
+	this->UpdateThisView(ReDrawFlag);
 }
 
-void 
-HaMolView::ClampShiftVal(int  ivar,double  value )
+void HaMolView::ClampShiftVal(int  ivar,double  value )
 {
     double temp;
 	
@@ -2891,7 +2901,7 @@ int HaMolView::ExecuteSetCommand(CmdParser& cmd_pr)
 			SetPickMode(PickTorsn); 
 			break;
 		case(MonitorTok):  
-			SetPickMode(PickMonit); 
+			SetPickMode(PickMonit);
 			break;
 		case(CentreTok):   
 			SetPickMode(PickCentr); 

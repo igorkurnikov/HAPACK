@@ -137,6 +137,8 @@ class HaMainFrameWX : public wxMDIParentFrame
     void OnMeasureDist   ( wxCommandEvent &event );
     void OnMeasureAngle  ( wxCommandEvent &event );
     void OnMeasureDihed  ( wxCommandEvent &event );
+    void OnAddDistMonitor( wxCommandEvent& event );
+    void OnShowAtomLabel ( wxCommandEvent& event );
 // ET menu
     void OnEditRedox     ( wxCommandEvent &event );
     void DoPathwaysDialog( wxCommandEvent &event );

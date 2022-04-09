@@ -769,6 +769,8 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
     EVT_MENU( IDM_MEASURE_DISTANCE_WX, HaMainFrameWX::OnMeasureDist )
     EVT_MENU( IDM_MEASURE_ANGLE_WX,    HaMainFrameWX::OnMeasureAngle )
     EVT_MENU( IDM_MEASURE_DIHEDRAL_WX, HaMainFrameWX::OnMeasureDihed )
+	EVT_MENU( IDM_ADD_DIST_MONITOR,    HaMainFrameWX::OnAddDistMonitor)
+	EVT_MENU( IDM_SHOW_ATOM_LABEL,     HaMainFrameWX::OnShowAtomLabel)
 // ET Menu
     EVT_MENU( IDM_EDIT_REDOX_WX,       HaMainFrameWX::OnEditRedox )
     EVT_MENU( IDM_RUN_PATHWAYS_WX,     HaMainFrameWX::DoPathwaysDialog )
@@ -1979,6 +1981,19 @@ void HaMainFrameWX::OnMeasureDihed(wxCommandEvent &event)
 	HaMolView* pview = CurMolView;
 	if(pview) pview->SetPickMode(PickTorsn);
 }
+
+void HaMainFrameWX::OnAddDistMonitor(wxCommandEvent& event)
+{
+	HaMolView* pview = CurMolView;
+	if (pview) pview->SetPickMode(PickMonit);
+}
+
+void HaMainFrameWX::OnShowAtomLabel(wxCommandEvent& event)
+{
+	HaMolView* pview = CurMolView;
+	if (pview) pview->SetPickMode(PickLabel);
+}
+
 
 
 

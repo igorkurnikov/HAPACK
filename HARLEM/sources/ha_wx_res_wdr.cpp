@@ -5005,6 +5005,8 @@ wxMenuBar *MainMenu()
     item7->Append( IDM_MEASURE_DISTANCE_WX, wxT("Distance"), wxT("") );
     item7->Append( IDM_MEASURE_ANGLE_WX, wxT("Angle"), wxT("") );
     item7->Append( IDM_MEASURE_DIHEDRAL_WX, wxT("Dihedral"), wxT("") );
+    item7->Append( IDM_ADD_DIST_MONITOR, wxT("Add Distance Monitor"), wxT("") );
+    item7->Append( IDM_SHOW_ATOM_LABEL, wxT("Show Atom Label"), wxT("") );
     item2->Append( ID_MENU, wxT("Measure"), item7 );
 
     item0->Append( item2, wxT("Edit") );
