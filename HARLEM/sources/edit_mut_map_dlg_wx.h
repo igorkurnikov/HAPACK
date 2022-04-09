@@ -31,6 +31,7 @@ public:
 	void OnAddAtomPair(wxCommandEvent& event) noexcept;
 	void OnDeleteAtomPair(wxCommandEvent& event) noexcept;
 	void OnAtomSelect(wxCommandEvent& event) noexcept;
+	void OnChkViewAtomMap(wxCommandEvent& event) noexcept;
 	void OnChkColorMappedAtoms(wxCommandEvent& event) noexcept;
 	void OnSelectAtomPair(wxListEvent& event) noexcept;
 	

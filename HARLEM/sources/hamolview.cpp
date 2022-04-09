@@ -147,7 +147,7 @@ void HaMolView::ResetView()
     ResetTransform();
     ResetRenderer();
    
-    DeleteMonitors();
+    DeleteAllMonitors();
 	
     DrawLabels = False;
 
@@ -1462,7 +1462,7 @@ void HaMolView::PickAtom( int shift, int xpos, int ypos )
                 {   
 					if( PickHist[0] != PkAtom )
                     {   
-						AddMonitors(PickHist[0],PkAtom);
+						AddAtomPairMonitor(PickHist[0],PkAtom);
                         ReDrawFlag |= RFRefresh;
                     }
                     PickCount = 2;
@@ -1478,7 +1478,7 @@ void HaMolView::PickAtom( int shift, int xpos, int ypos )
                 } 
 				else if( PickHist[0] != PkAtom )   
                 {   
-					AddMonitors(PickHist[0],PkAtom);
+					AddAtomPairMonitor(PickHist[0],PkAtom);
                     ReDrawFlag |= RFRefresh;
                 }
 				
@@ -2101,7 +2101,7 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 					HaAtom* aptr2 = pmset->GetAtomByRef(str2.c_str());
 					if(aptr1 != NULL && aptr2 != NULL)
 					{
-						AddMonitors( aptr1, aptr2 );
+						AddAtomPairMonitor( aptr1, aptr2 );
 					}
 				}
 				else
@@ -2112,7 +2112,7 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 			else if( cmd_pr.CurToken == FalseTok )
 			{   
 				ReDrawFlag |= RFRefresh;
-				DeleteMonitors();
+				DeleteAllMonitors();
 			} 
 			else 
 				PrintLog("Invalid command argument\n");
@@ -3411,7 +3411,8 @@ Monitor::Monitor()
 {
   src=dst=NULL;
   dist = 0.0;
-  col =0;
+  col = 0;
+  monitor_show_mode = MONITOR_SHOW_DISTANCE;
 }
 
 Monitor::~Monitor()
@@ -3432,6 +3433,25 @@ bool Monitor::operator <( const Monitor& ref) const
          return false;
    return ( dst < ref.dst);
 }
+
+void Monitor::SetShowValue(bool set )
+{
+	if (set)
+	{
+		monitor_show_mode = MONITOR_SHOW_DISTANCE;
+	}
+	else
+	{
+		monitor_show_mode = MONITOR_SHOW_NONE;
+	}
+}
+
+bool Monitor::ToShowValue()
+{
+	if (monitor_show_mode == MONITOR_SHOW_DISTANCE) return true;
+	return false;
+}
+
 
 #if defined(HA_NOGUI)
 int 

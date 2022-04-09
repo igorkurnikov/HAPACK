@@ -336,15 +336,28 @@ HaMolView::FormatLabel(HaChain* chain, HaResidue* group, HaAtom* aptr, const cha
 
 
  
-void 
-HaMolView::DeleteMonitors()
+void HaMolView::DeleteAllMonitors()
 {
 	MonitList.clear();
 }
+
+void HaMolView::DeleteAtomPairMonitor(HaAtom* src, HaAtom* dst)
+{
+	list<Monitor>::iterator mitr;
+	for (mitr = MonitList.begin(); mitr != MonitList.end(); )
+	{
+		if (((*mitr).src == src) && ((*mitr).dst == dst) ||
+			((*mitr).src == dst) && ((*mitr).dst == src))
+		{
+			mitr = MonitList.erase(mitr);
+			continue;
+		}
+		mitr++;
+	}
+}
  
 
-void 
-HaMolView::AddMonitors( HaAtom* src, HaAtom* dst )
+void HaMolView::AddAtomPairMonitor( HaAtom* src, HaAtom* dst )
 {
     double dx,dy,dz;
     double dist;
@@ -387,8 +400,7 @@ HaMolView::AddMonitors( HaAtom* src, HaAtom* dst )
 }
 
 
-void 
-HaMolView::CreateMonitor( int src, int dst )
+void  HaMolView::CreateMonitor( int src, int dst )
 {
     register HaAtom  *aptr;
     register HaAtom  *sptr;
@@ -443,13 +455,14 @@ HaMolView::CreateMonitor( int src, int dst )
 		else sprintf(buffer,"s %d and %d",src,dst);
         PrintLog("%s not found!\n",buffer); 
     } 
-	else 
-		AddMonitors( sptr, dptr );
+	else
+	{
+		AddAtomPairMonitor(sptr, dptr);
+	}
 }
  
  
-void 
-HaMolView::DisplayMonitors()
+void HaMolView::DisplayMonitors()
 {
     HaAtom  *s;
     HaAtom  *d;
@@ -470,11 +483,8 @@ HaMolView::DisplayMonitors()
 
 
 	list<Monitor>::iterator mitr;
-
-
     for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
     {   
-
 		ptr = &(*mitr);
 		s = ptr->src;
         d = ptr->dst;
@@ -489,25 +499,27 @@ HaMolView::DisplayMonitors()
  
         pCanv->ClipDashVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
  
-        if( DrawMonitDistance )
-            if( ZValid_v( (s->z+d->z)/2 ) )
-            {   
-				x = (s->x+d->x)/2;
-                y = (s->y+d->y)/2;
- 
-                if( !UseLabelCol )
-                {   /* Use Source atom colour! */
-                    col = sc + (ColourMask>>1);
-                } 
-				else 
+		if (DrawMonitDistance)
+		{
+			if (ZValid_v((s->z + d->z) / 2))
+			{
+				x = (s->x + d->x) / 2;
+				y = (s->y + d->y) / 2;
+
+				if (!UseLabelCol)
+				{   /* Use Source atom colour! */
+					col = sc + (ColourMask >> 1);
+				}
+				else
 					col = LabelColor.cidx;
- 
-				
-				dist = Vec3D::CalcDistance(s,d,ANGSTROM_U);
-				sprintf(buf, "%7.3f",dist);
-   
-                pCanv->DisplayTextString(x+4,y,z,buf,col);
-            }
+
+
+				dist = Vec3D::CalcDistance(s, d, ANGSTROM_U);
+				sprintf(buf, "%7.3f", dist);
+
+				pCanv->DisplayTextString(x + 4, y, z, buf, col);
+			}
+		}
     }
 }
  

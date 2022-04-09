@@ -29,7 +29,7 @@
 
 EditMutMapDlg::EditMutMapDlg(MolSet* pmset_par, wxWindow* parent): wxFrame(parent, -1, "Edit Mutation Map")
 {
-    mol_shift = 5.0;
+    mol_shift = 8.0;
     pmset = pmset_par;
     pat1 = NULL;
     pat2 = NULL;
@@ -138,6 +138,13 @@ void EditMutMapDlg::OnAddAtomPair(wxCommandEvent& event) noexcept
     if (pat1 != NULL && pat2 != NULL)
     {
         p_mut_map->atom_atom_map[pat1] = pat2;
+        Monitor mtr;
+        mtr.src = pat1;
+        mtr.dst = pat2;
+        mtr.col = 0;
+        mtr.monitor_show_mode = mtr.MONITOR_SHOW_NONE;
+        HaMolView* pView = pmset->GetActiveMolView();
+        if( pView) pView->MonitList.push_back(mtr);
     }
     TransferDataToWindow();
 }
@@ -165,6 +172,26 @@ void EditMutMapDlg::OnDeleteAtomPair(wxCommandEvent& event) noexcept
                 mitr++;
             }
         }
+        HaMolView* pView = pmset->GetActiveMolView();
+        if (pView) pView->DeleteAtomPairMonitor(aptr1, aptr2);
+    }
+
+    if (pat1 != NULL && pat2 != NULL)
+    {
+        auto mitr = p_mut_map->atom_atom_map.begin();
+        for (; mitr != p_mut_map->atom_atom_map.end(); )
+        {
+            if ((*mitr).first == pat1 && (*mitr).second == pat2)
+            {
+                mitr = p_mut_map->atom_atom_map.erase(mitr);
+            }
+            else
+            {
+                mitr++;
+            }
+        }
+        HaMolView* pView = pmset->GetActiveMolView();
+        if (pView) pView->DeleteAtomPairMonitor(pat1, pat2);
     }
     TransferDataToWindow();
 }
@@ -205,6 +232,38 @@ void EditMutMapDlg::OnAtomSelect(wxCommandEvent& event) noexcept
         }
     }
 }
+
+void EditMutMapDlg::OnChkViewAtomMap(wxCommandEvent& event) noexcept
+{
+	HaMolView* pView = pmset->GetActiveMolView();
+	if (!view_atom_map_chk->IsChecked())
+	{
+		pView->MonitList.clear();
+        pView->DrawMonitDistance = TRUE;
+	}
+	else
+	{
+		pView->MonitList.clear();
+		if (p_mut_map)
+		{
+			auto mitr = p_mut_map->atom_atom_map.begin();
+			for (; mitr != p_mut_map->atom_atom_map.end(); mitr++)
+			{
+				HaAtom* aptr1 = (*mitr).first;
+				HaAtom* aptr2 = (*mitr).second;
+
+				Monitor mtr;
+				mtr.src = aptr1;
+				mtr.dst = aptr2;
+				mtr.col = 0;
+				pView->MonitList.push_back(mtr);
+			}
+		}
+        pView->DrawMonitDistance = FALSE;
+	}
+	pmset->RefreshAllViews(RFRefresh | RFColour);
+}
+
 
 void EditMutMapDlg::OnChkColorMappedAtoms(wxCommandEvent& event) noexcept
 {
@@ -275,6 +334,7 @@ EVT_BUTTON(IDC_ADD_ATOM_PAIR,     EditMutMapDlg::OnAddAtomPair)
 EVT_BUTTON(IDC_DELETE_ATOM_PAIR,  EditMutMapDlg::OnDeleteAtomPair)
 EVT_BUTTON(IDC_LOAD_MUTATION_MAP, EditMutMapDlg::OnLoadMutMap)
 EVT_BUTTON(IDC_SAVE_MUTATION_MAP, EditMutMapDlg::OnSaveMutMap)
+EVT_CHECKBOX(IDC_VIEW_ATOM_MAP,   EditMutMapDlg::OnChkViewAtomMap)
 EVT_CHECKBOX(IDC_COLOR_MAPPED_ATOMS, EditMutMapDlg::OnChkColorMappedAtoms)
 EVT_LIST_ITEM_SELECTED(IDC_LIST_ATOM_PAIRS, EditMutMapDlg::OnSelectAtomPair)
 EVT_BUTTON(IDU_ATOM_PICK, EditMutMapDlg::OnAtomSelect)

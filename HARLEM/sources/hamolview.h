@@ -40,8 +40,13 @@ public:
     HaAtom  *src;
     HaAtom  *dst;
 
+	void SetShowValue(bool set = true); //!< Set to show value of the monitor
+	bool ToShowValue(); //!< Flag to show value of the monitor 
+
     bool operator ==( const Monitor& ref) const;
     bool operator < ( const Monitor& ref) const;
+
+	enum MONITOR_SHOW_MODE { MONITOR_SHOW_DISTANCE, MONITOR_SHOW_NONE } monitor_show_mode;
 
     double dist;
     short col;
@@ -323,8 +328,9 @@ public:
 
 	list<Monitor> MonitList;
 
-	void DeleteMonitors();
-	void AddMonitors( HaAtom* src, HaAtom* dst );
+	void DeleteAllMonitors();
+	void AddAtomPairMonitor( HaAtom* src, HaAtom* dst );
+	void DeleteAtomPairMonitor( HaAtom* src, HaAtom* dst );
 	void CreateMonitor( int src, int dst );
 	void DisplayMonitors();
 
