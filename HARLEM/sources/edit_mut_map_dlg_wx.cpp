@@ -264,7 +264,6 @@ void EditMutMapDlg::OnChkViewAtomMap(wxCommandEvent& event) noexcept
 	pmset->RefreshAllViews(RFRefresh | RFColour);
 }
 
-
 void EditMutMapDlg::OnChkColorMappedAtoms(wxCommandEvent& event) noexcept
 {
     TransferDataToWindow();

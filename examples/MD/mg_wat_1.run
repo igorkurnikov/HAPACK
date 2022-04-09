@@ -1,0 +1,2 @@
+#!/bin/sh 
+pmemd -O -i mg_wat_1.inp -o mg_wat_1.out -p mg_wat_1.top -c mg_wat_1.crd -r mg_wat_1.rst -ref mg_wat_1.ref -x mg_wat_1.mdcrd -v mg_wat_1.mdvel -e mg_wat_1.mden 

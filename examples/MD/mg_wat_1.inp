@@ -1,0 +1,18 @@
+ Amber Input file for the molecule set mg_wat_1
+
+ &cntrl   
+ imin=0,  nstlim=100000,  nscm=1000,  
+ t=       0.000,  dt=       0.001,  
+ ntpr=10,  ntwr=100,  ntwx=0,  ntwv=0,  ntwe=10,  ioutfm=0,  ntwprt=0,  
+ ntf=1,  ntb=2,  dielc= 1.000,  
+ cut= 6.396,  iwrap=1,  
+ irest= 0,  ntx= 1,  ntxo= 1, mdinfo_flush_interval = 2, 
+igb=0, 
+ibelly=0, ntr=0, 
+ temp0=300.000,  tempi=300.000,  ntt=3,  gamma_ln= 5.000, 
+ tautp=   0.5000, 
+ ntp=1,  pres0= 1.000,  comp=44.600,  taup= 1.000, 
+ ntc=1, tol=   0.0005000, 
+ jfastw=0,  
+  &end   
+
