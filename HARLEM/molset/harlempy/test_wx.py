@@ -3,7 +3,7 @@ from . import hapygui
 from . import wxexamples
 
 def print_test(e):
-    print("TEST")
+    print("TEST HO HO ")
 
 
 def list_box_test(e):
