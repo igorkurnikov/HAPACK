@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows - 1251"?>
+<MutationMap Title="REF-}LIG">
+    <ResA>REF</ResA>
+    <ResB>LIG</ResB>
+    <AtomsMapping>
+        <Atoms A="C01"  B="C01"/> 
+        <Atoms A="H02"  B="H02"/> 
+        <Atoms A="C03"  B="C03"/> 
+        <Atoms A="H04"  B="H04"/> 
+        <Atoms A="C05"  B="C05"/> 
+        <Atoms A="C07"  B="C07"/> 
+        <Atoms A="H06"  B="H06"/> 
+        <Atoms A="C12"  B="C12"/> 
+        <Atoms A="H10"  B="H10"/> 
+        <Atoms A="H13"  B="H13"/> 
+        <Atoms A="C15"  B="C15"/> 
+        <Atoms A="H16"  B="H16"/> 
+        <Atoms A="N17"  B="N17"/> 
+        <Atoms A="N23"  B="N23"/> 
+        <Atoms A="H31"  B="H31"/> 
+        <Atoms A="H32"  B="H32"/> 
+        <Atoms A="H34"  B="H34"/> 
+        <Atoms A="C35"  B="C35"/> 
+        <Atoms A="O36"  B="O36"/> 
+        <Atoms A="N37"  B="N37"/> 
+        <Atoms A="C39"  B="C39"/> 
+        <Atoms A="H41"  B="H41"/> 
+        <Atoms A="C42"  B="C42"/> 
+        <Atoms A="C45"  B="C45"/> 
+        <Atoms A="H47"  B="H47"/> 
+        <Atoms A="C48"  B="C48"/> 
+        <Atoms A="C50"  B="C50"/> 
+        <Atoms A="CL51"  B="H51"/> 
+        <Atoms A="CL52"  B="CL52"/> 
+        <Atoms A="C09"  B="C09"/> 
+        <Atoms A="H08"  B="H08"/> 
+        <Atoms A="C11"  B="C11"/> 
+        <Atoms A="H14"  B="H14"/> 
+        <Atoms A="H19"  B="H19"/> 
+        <Atoms A="C21"  B="C21"/> 
+        <Atoms A="C24"  B="C24"/> 
+        <Atoms A="H25"  B="H25"/> 
+        <Atoms A="H26"  B="H26"/> 
+        <Atoms A="C27"  B="C27"/> 
+        <Atoms A="H28"  B="H28"/> 
+        <Atoms A="H29"  B="H29"/> 
+        <Atoms A="C33"  B="C33"/> 
+        <Atoms A="H38"  B="H38"/> 
+        <Atoms A="H40"  B="H40"/> 
+        <Atoms A="C43"  B="C43"/> 
+        <Atoms A="H44"  B="H44"/> 
+        <Atoms A="C46"  B="C46"/> 
+        <Atoms A="H49"  B="H49"/> 
+        <Atoms A="H18"  B="H18"/> 
+        <Atoms A="H20"  B="H20"/> 
+        <Atoms A="O22"  B="O22"/> 
+        <Atoms A="C30"  B="C30"/> 
+    </AtomsMapping>
+</MutationMap>
