@@ -1458,6 +1458,191 @@ int MolEditor::OrderAtomsInRes(MolSet* pmset)
 	return TRUE;
 }
 
+int MolEditor::RenameAtomsFlexToAmber(MolSet* pmset)
+{
+	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
+	ResidueIteratorMolSet ritr(pmset);
+	HaResidue* pres;
+	for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	{
+		try
+		{
+			if (pres->size() == 0) continue;
+			HaAtom* aptr = (*pres)[0];
+			if (!aptr->Selected()) continue;
+			if (!pres->IsNucleo()) continue;
+			std::string res_name = pres->GetName();
+			std::string name_mod = pres->GetNameModifier();
+
+
+
+			//HaAtom* phb1 = pres->GetAtomByName("HB1");
+			//HaAtom* phb2 = pres->GetAtomByName("HB2");
+			//HaAtom* phb3 = pres->GetAtomByName("HB3");
+			//if (phb1 && phb2 && !phb3)
+			//{
+			//	phb2->SetName("HB3");
+			//	phb1->SetName("HB2");
+			//	PrintLog("In Residue %s  Rename HB2->HB3, HB1->HB2 \n", pres->GetRef().c_str());
+			//}
+			if (res_name == "A" || res_name == "G" )
+			{
+				HaAtom* pc5m = pres->GetAtomByName("C5M");  // T
+				HaAtom* ph1c5 = pres->GetAtomByName("H1C5"); // T
+				HaAtom* ph2c5 = pres->GetAtomByName("H2C5"); // T
+				HaAtom* ph3c5 = pres->GetAtomByName("H3C5"); // T
+
+				HaAtom* phc2  = pres->GetAtomByName("HC2"); // A
+				HaAtom* phc8  = pres->GetAtomByName("HC8"); // A
+				HaAtom* phc5  = pres->GetAtomByName("HC5"); // C? T
+				HaAtom* phc6  = pres->GetAtomByName("HC6"); // C? T
+				HaAtom* ph1n4 = pres->GetAtomByName("H1N4"); // C
+				HaAtom* ph2n4 = pres->GetAtomByName("H2N4"); // C
+
+				HaAtom* ph1n6 = pres->GetAtomByName("H1N6"); // A G
+				HaAtom* ph2n6 = pres->GetAtomByName("H2N6"); // A G
+
+				HaAtom* phn1 = pres->GetAtomByName("HN1");  // G
+				HaAtom* phn3 = pres->GetAtomByName("HN3");  // T
+
+				HaAtom* po1x = pres->GetAtomByName("O1X");
+
+				HaAtom* ph2x = pres->GetAtomByName("H2X");
+				HaAtom* ph2y = pres->GetAtomByName("H2Y");
+
+				HaAtom* ph5x = pres->GetAtomByName("H5X1");
+				HaAtom* ph5y = pres->GetAtomByName("H5X2");
+
+				if (pc5m) // A
+				{
+					pc5m->SetName("C7");
+					PrintLog("In Residue %s  Rename C5M->C7 \n", pres->GetRef().c_str());
+				}
+				if (phc2) // A
+				{
+					phc2->SetName("H2");
+					PrintLog("In Residue %s  Rename HC2->H2 \n", pres->GetRef().c_str());
+				}
+				if (phc8) // A
+				{
+					phc8->SetName("H8");
+					PrintLog("In Residue %s  Rename HC8->H8 \n", pres->GetRef().c_str());
+				}
+				if (phc5) // C
+				{
+					phc5->SetName("H5");
+					PrintLog("In Residue %s  Rename HC5->H5 \n", pres->GetRef().c_str());
+				}
+				if (phc6) // C
+				{
+					phc6->SetName("H6");
+					PrintLog("In Residue %s  Rename HC6->H6 \n", pres->GetRef().c_str());
+				}
+				if (ph1c5)  // T
+				{
+					ph1n6->SetName("H41");
+					PrintLog("In Residue %s  Rename H1N4->H41 \n", pres->GetRef().c_str());
+				}
+
+				if (ph1n4)  // C
+				{
+					ph1n6->SetName("H41");
+					PrintLog("In Residue %s  Rename H1N4->H41 \n", pres->GetRef().c_str());
+				}
+				if (ph2n4) // C
+				{
+					ph2n6->SetName("H42");
+					PrintLog("In Residue %s  Rename H2N4->H42 \n", pres->GetRef().c_str());
+				}
+				if (ph1n6)
+				{
+					ph1n6->SetName("H61");
+					PrintLog("In Residue %s  Rename H1N6->H61 \n", pres->GetRef().c_str());
+				}
+				if (ph2n6)
+				{
+					ph2n6->SetName("H62");
+					PrintLog("In Residue %s  Rename H2N6->H62 \n", pres->GetRef().c_str());
+				}
+				if (phn1)
+				{
+					phn1->SetName("H1");
+					PrintLog("In Residue %s  Rename HN1->H1 \n", pres->GetRef().c_str());
+				}
+				if (phn3)
+				{
+					phn3->SetName("H3");
+					PrintLog("In Residue %s  Rename HN3->H3 \n", pres->GetRef().c_str());
+				}
+				if (po1x)
+				{
+					po1x->SetName("O4X");
+					PrintLog("In Residue %s  Rename O1X->O4X \n", pres->GetRef().c_str());
+				}
+				if (ph2x)
+				{
+					ph2x->SetName("H2X1");
+					PrintLog("In Residue %s  Rename H2X->H2X1 \n", pres->GetRef().c_str());
+				}
+				if (ph2y)
+				{
+					ph2x->SetName("H2Y");
+					PrintLog("In Residue %s  Rename H2Y->H2X2 \n", pres->GetRef().c_str());
+				}
+				if (ph5x)  
+				{
+					ph5x->SetName("H5X1");
+					PrintLog("In Residue %s  Rename H5X->H5X1 \n", pres->GetRef().c_str());
+				}
+				if (ph5y)
+				{
+					ph2x->SetName("H5Y");
+					PrintLog("In Residue %s  Rename H5Y->H5X2 \n", pres->GetRef().c_str());
+				}
+			}
+
+			if (res_name == "LYS" || res_name == "PRO" || res_name == "ARG")
+			{
+				HaAtom* phd1 = pres->GetAtomByName("HD1");
+				HaAtom* phd2 = pres->GetAtomByName("HD2");
+				if (phd2)
+				{
+					phd2->SetName("HD3");
+					PrintLog("In Residue %s  Rename HD2->HD3 \n", pres->GetRef().c_str());
+				}
+				if (phd1)
+				{
+					phd1->SetName("HD2");
+					PrintLog("In Residue %s  Rename HD1->HD2 \n", pres->GetRef().c_str());
+				}
+			}
+
+			if (res_name == "GLY")
+			{
+				HaAtom* pha1 = pres->GetAtomByName("HA1");
+				HaAtom* pha2 = pres->GetAtomByName("HA2");
+
+				if (pha2)
+				{
+					pha2->SetName("HA3");
+					PrintLog("In Residue %s  Rename HA2->HA3 \n", pres->GetRef().c_str());
+				}
+				if (pha1)
+				{
+					pha1->SetName("HA2");
+					PrintLog("In Residue %s  Rename HA1->HA2 \n", pres->GetRef().c_str());
+				}
+			}
+		}
+		catch (std::exception& ex)
+		{
+			PrintLog("Error in MolEditor::RenameAtomsFlexToAmber() \n");
+			PrintLog("%s\n", ex.what());
+		}
+	}
+	return TRUE;
+}
+
 int MolEditor::RenameAtomsToAmber(MolSet* pmset)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	

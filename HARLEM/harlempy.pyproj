@@ -4,15 +4,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>molset\harlempy\__main__.py</StartupFile>
+    <StartupFile>molset\molset_ext\calculate_rdf.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
-    <WorkingDirectory>D:\TESTS\THROMBIN</WorkingDirectory>
+    <WorkingDirectory>D:\TESTS\MBX_IPI_MD\PIMD_R4</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
     <InterpreterId>Global|VisualStudio|CHEM_WIN_PY38</InterpreterId>
     <CommandLineArguments>PROT.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,10 @@
     <Compile Include="molset\harlempy\wxexamples\__init__.py" />
     <Compile Include="molset\harlempy\__init__.py" />
     <Compile Include="molset\harlempy\__main__.py" />
+    <Compile Include="molset\molset_ext\calculate_rdf.py" />
+    <Compile Include="molset\molset_ext\convert_ipi_xyz.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="molset\molset_ext\rdkit_utils.py">
       <SubType>Code</SubType>
     </Compile>
