@@ -374,8 +374,7 @@ NuclAcidMod::IsHelCoordLocked(int ir, int i_crd)
 	return lock_hel[ir*6 + i_crd];
 }
 
-int 
-NuclAcidMod::BuildNuclAcid()
+int NuclAcidMod::BuildNuclAcid()
 {
 #if defined(INT_JUMNA)
 //	strcpy_to_fort(jfinp_.finp,"gc_build_3.inp",80);
@@ -2712,10 +2711,17 @@ int NuclAcidMod::CreateMolFromJumna()
 		aptr->SetCharge(mrc_.dmon[i]);
 	}
 	SetCoordsFromJumna();
+	ResidueIteratorMolecule ritr(pMol);
+	HaResidue* rptr;
+	for (rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes())
+	{
+		p_mol_editor->RenameAtomsFlexToAmber(rptr);
+	}
 	p_mol_editor->CreateCovBonds(pMol);
 	HaMolView* pView= pmset->GetActiveMolView();
 	if(!pView)
 		return TRUE;
+
 	pView->ReDrawFlag |= RFInitial;
 	pView->InitialTransform();
 	pView->DefaultRepresentation();	
