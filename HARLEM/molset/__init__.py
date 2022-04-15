@@ -27,6 +27,7 @@ sys.path.append( pkg_dir )
 
 from molset.molsetc import *      
 from molset.harlempy import start_harlem
+from molset.molset_ext import *
 
 HaAtom_FillStdAtomTypes()
 HaResidue_InitStdResNames()

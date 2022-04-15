@@ -2690,7 +2690,9 @@ int NuclAcidMod::CreateMolFromJumna()
 			res_name += seq[ich][mres_loc-1];
 
 			boost::trim(res_name);
-			pres->SetName(res_name.c_str());
+			pres->SetName(res_name);
+			pres->SetNameModifier("D");
+
 			nres_old = nres;
 		}
 		HaAtom* aptr = pres->AddNewAtom();
@@ -2731,8 +2733,7 @@ int NuclAcidMod::CreateMolFromJumna()
 	return TRUE;
 }
 
-int
-NuclAcidMod::SaveConfig()
+int NuclAcidMod::SaveConfig()
 {
 	int_4 zero = 0;
 #if defined(INT_JUMNA)
@@ -2741,8 +2742,7 @@ NuclAcidMod::SaveConfig()
 	return TRUE;
 }
 
-int
-NuclAcidMod::RestoreConfig()
+int NuclAcidMod::RestoreConfig()
 {
 	int_4 one = 1;
 #if defined(INT_JUMNA)

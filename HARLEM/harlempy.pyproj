@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>molset\molset_ext\calculate_rdf.py</StartupFile>
+    <StartupFile>work\rdf\calc_rdf_centroid.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
     <WorkingDirectory>D:\TESTS\MBX_IPI_MD\PIMD_R4</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -29,6 +29,10 @@
     <Folder Include="molset\harlempy\" />
     <Folder Include="molset\harlempy\wxexamples\" />
     <Folder Include="molset\molset_ext\" />
+    <Folder Include="work\" />
+    <Folder Include="work\mdtraj_mod\" />
+    <Folder Include="work\mdtraj_mod\formats\" />
+    <Folder Include="work\rdf\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="linux\harlem_ubuntu.sh" />
@@ -46,8 +50,12 @@
     <Compile Include="molset\harlempy\wxexamples\__init__.py" />
     <Compile Include="molset\harlempy\__init__.py" />
     <Compile Include="molset\harlempy\__main__.py" />
-    <Compile Include="molset\molset_ext\calculate_rdf.py" />
-    <Compile Include="molset\molset_ext\convert_ipi_xyz.py">
+    <Compile Include="work\mdtraj_mod\formats\xyzfile_ipi.py" />
+    <Compile Include="work\mdtraj_mod\formats\__init__.py" />
+    <Compile Include="work\mdtraj_mod\__init__.py" />
+    <Compile Include="work\rdf\calc_rdf_centroid.py" />
+    <Compile Include="work\rdf\calculate_rdf.py" />
+    <Compile Include="work\rdf\convert_ipi_xyz.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="molset\molset_ext\rdkit_utils.py">
