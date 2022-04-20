@@ -64,7 +64,7 @@
 				<Tool Name="VFPreBuildEventTool"/>
 				<Tool Name="VFPostBuildEventTool"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
-		<Configuration Name="Release|x64" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+		<Configuration Name="Release|x64" UseCompiler="ifxCompiler" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
 				<Tool Name="VFLibrarianTool"/>
 				<Tool Name="VFResourceCompilerTool"/>

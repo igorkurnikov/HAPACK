@@ -39,16 +39,14 @@
     <Import Project="haprops.props" />
     <Import Project="paths_x64__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_x64__intel_compiler.props" />
-    <Import Project="paths_x64__intel_mkl.props" />
+    <Import Project="paths_x64__intel_compiler_oneAPI.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
     <Import Project="paths_x64_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_x64__intel_compiler.props" />
-    <Import Project="paths_x64__intel_mkl.props" />
+    <Import Project="paths_x64__intel_compiler_oneAPI.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -133,7 +131,7 @@ t
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>

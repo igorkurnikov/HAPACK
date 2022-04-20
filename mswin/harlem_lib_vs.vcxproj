@@ -31,6 +31,7 @@
     <UseIntelMKL>Sequential</UseIntelMKL>
     <PlatformToolset>v142</PlatformToolset>
     <UseMpiLibrary1A>MSMPI</UseMpiLibrary1A>
+    <UseInteloneMKL>Sequential</UseInteloneMKL>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -174,14 +175,14 @@ $(SolutionDir)copy_dependencies.bat
       <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;mkl_intel_lp64_dll.lib;mkl_sequential_dll.lib;mkl_core_dll.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Program Files (x86)\Intel\oneAPI\compiler\latest\windows\compiler\lib\intel64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>

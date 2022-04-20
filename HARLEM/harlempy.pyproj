@@ -6,11 +6,11 @@
     <ProjectHome>.</ProjectHome>
     <StartupFile>work\rdf\calc_rdf_centroid.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
-    <WorkingDirectory>D:\TESTS\MBX_IPI_MD\PIMD_R4</WorkingDirectory>
+    <WorkingDirectory>C:\TESTS\MBX_IPI_MD\PIMD_R4</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
-    <InterpreterId>Global|VisualStudio|CHEM_WIN_PY38</InterpreterId>
+    <InterpreterId>CondaEnv|CondaEnv|CHEM_WIN_PY38</InterpreterId>
     <CommandLineArguments>PROT.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
     <IsWindowsApplication>False</IsWindowsApplication>
@@ -73,6 +73,7 @@
     <Compile Include="molset\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|CHEM_WIN_PY38" />
     <InterpreterReference Include="Global|VisualStudio|CHEM_WIN_PY38" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
