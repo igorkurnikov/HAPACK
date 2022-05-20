@@ -32,6 +32,7 @@ public:
 	int FixBondsUsingTempl(MolSet* pmset); //!< Fix Bonds of the selected residues according to residue templates
 	int OrderAtomsInRes(MolSet* pmset);    //!< order atoms in residues according to residue templates
 	int RenameAtomsFlexToAmber(HaResidue* pres); //!< Rename Atoms of Nucleic Acid Residue from FLEX to AMBER notation 
+	static int FixFlexDNA(HaMolecule* pMol); //!< Fix Structure of DNA molecule build in FLEX module 
 	int RenameAtomsToAmber(MolSet* pmset); //!< Rename Atoms of Residues according to AMBER databases   
 	int RenameAtomsToGromacs(MolSet* pmset); //!< Rename Atoms of Residues according to GROMACS databases  
 	int ConvertWaterArrowVB(MolSet* pmset); //!< Convert Water Residues to Separate Molecules, make H-H virtual bond and Rename Water atoms

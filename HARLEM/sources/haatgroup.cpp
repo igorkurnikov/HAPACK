@@ -2214,7 +2214,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 			atempl= nodes[i].at;
 			AtomGroup bonded_templ_atoms;
 			int ibt= atempl->GetBondedAtoms(bonded_templ_atoms);
-			PrintLog("Atom template %s has %d bonded atoms \n", atempl->GetRef().c_str(), bonded_templ_atoms.size());
+			// PrintLog("Atom template %s has %d bonded atoms \n", atempl->GetRef().c_str(), bonded_templ_atoms.size());
 			AtomIteratorAtomGroup aitr_bonded_templ_atoms(&bonded_templ_atoms);
 
 			int found_boundary_atom = FALSE;
@@ -2229,7 +2229,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 					if( nodes[i_bond_node].ntype | IS_RESOLVED )  nodes[i].nresolv_neib++;
 				}
 			}
-			PrintLog("Atom template %s has %d bonded_nodes \n", atempl->GetRef().c_str(), nodes[i].bonded_nodes.size());
+			// PrintLog("Atom template %s has %d bonded_nodes \n", atempl->GetRef().c_str(), nodes[i].bonded_nodes.size());
 		}
 
 		if( !AddMissingAtoms_2(prtempl, atom_type) ) throw std::runtime_error(" Error in AddMissingAtoms_2() ");
@@ -2357,7 +2357,7 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 					if(nodes[iat].ar == aptr2) continue;
 					aptr4   = nodes[iat].ar;
 					atempl4 = nodes[iat].at;
-					PrintLog("Added aptr4: %s as a neighbor of aptr3: %s \n", aptr4->GetRef().c_str(), aptr3->GetRef().c_str());
+					// PrintLog("Added aptr4: %s as a neighbor of aptr3: %s \n", aptr4->GetRef().c_str(), aptr3->GetRef().c_str());
 					break;
 				}
 			}
@@ -2375,19 +2375,19 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 						continue;
 
 					std::string ns = "NULL";
-					PrintLog("Adding Atom for the template: %s \n", atempl->GetRef().c_str() );
-					PrintLog("atempl2: %s  atempl3: %s atempl4: %s \n", 
-						atempl2 == NULL ? ns.c_str() : atempl2->GetRef().c_str(),   
-						atempl3 == NULL ? ns.c_str() : atempl3->GetRef().c_str(),
-						atempl4 == NULL ? ns.c_str() : atempl4->GetRef().c_str()
-					);
-					PrintLog("at2: %s  at3: %s at4: %s \n", 
-						aptr2 == NULL ? ns.c_str() : aptr2->GetRef().c_str(),
-						aptr3 == NULL ? ns.c_str() : aptr3->GetRef().c_str(),
-						aptr4 == NULL ? ns.c_str() : aptr4->GetRef().c_str());
-					PrintLog("at2 crd : %8.3f %8.3f %8.3f \n at3 crd: %8.3f %8.3f %8.3f \n", 
-						aptr2->GetX(), aptr2->GetY(), aptr2->GetZ(),
-						aptr3->GetX(), aptr3->GetY(), aptr3->GetZ());
+					// PrintLog("Adding Atom for the template: %s \n", atempl->GetRef().c_str() );
+					// PrintLog("atempl2: %s  atempl3: %s atempl4: %s \n", 
+					//	atempl2 == NULL ? ns.c_str() : atempl2->GetRef().c_str(),   
+					//	atempl3 == NULL ? ns.c_str() : atempl3->GetRef().c_str(),
+					//	atempl4 == NULL ? ns.c_str() : atempl4->GetRef().c_str()
+					//);
+					// PrintLog("at2: %s  at3: %s at4: %s \n", 
+					//	aptr2 == NULL ? ns.c_str() : aptr2->GetRef().c_str(),
+					//	aptr3 == NULL ? ns.c_str() : aptr3->GetRef().c_str(),
+					//	aptr4 == NULL ? ns.c_str() : aptr4->GetRef().c_str());
+					// PrintLog("at2 crd : %8.3f %8.3f %8.3f \n at3 crd: %8.3f %8.3f %8.3f \n", 
+					//	aptr2->GetX(), aptr2->GetY(), aptr2->GetZ(),
+					//	aptr3->GetX(), aptr3->GetY(), aptr3->GetZ());
 					HaAtom* new_atom= HaAtom::AddAtomFromTempl(aptr2,aptr3,aptr4, atempl, atempl2, atempl3, atempl4);
  					if(new_atom == NULL) continue;
 					nodes[iat].ar = new_atom;

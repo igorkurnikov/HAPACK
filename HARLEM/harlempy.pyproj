@@ -10,7 +10,7 @@
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
-    <InterpreterId>CondaEnv|CondaEnv|CHEM_WIN_PY38</InterpreterId>
+    <InterpreterId>Global|VisualStudio|CHEM_WIN_PY38</InterpreterId>
     <CommandLineArguments>PROT.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
     <IsWindowsApplication>False</IsWindowsApplication>

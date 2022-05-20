@@ -29,7 +29,7 @@ def MolSet_to_mdtraj_top( mset : molset.MolSet ):
     if(os.path.exists(temp_dir)): shutil.rmtree(temp_dir)
     return topology
 
-def MolSet_crd_from_frame( mset : molset.MolSet, t : md.Trajectory ):
+def MolSet_crd_from_frame( mset : molset.MolSet, t ):
     if( MDTRAJ_IMPORTED == 0 ): return None
     print(t.time)
     for i,at in enumerate(mset):

@@ -368,8 +368,7 @@ int NuclAcidMod::LockHelCoord(int i_strand, int i_res, int i_crd, int do_lock )
 	return TRUE;
 }
 
-int 
-NuclAcidMod::IsHelCoordLocked(int ir, int i_crd)
+int NuclAcidMod::IsHelCoordLocked(int ir, int i_crd)
 {
 	return lock_hel[ir*6 + i_crd];
 }
@@ -509,15 +508,14 @@ int NuclAcidMod::BuildNuclAcid()
     LockHelCoord(1,1,3,1);
 	if(!IsSupHlxConstr())LockHelCoord(1,1,6,1);
 
-	int nr1 = p_dna_mol->GetNRes();
+	MolEditor::FixFlexDNA(p_dna_mol);
 
 	init_flag = TRUE;
 #endif
 	return TRUE;
 }
 
-int 
-NuclAcidMod::UpdateXYZ()
+int  NuclAcidMod::UpdateXYZ()
 {
 #if defined(INT_JUMNA)
 	microb_();
@@ -526,8 +524,7 @@ NuclAcidMod::UpdateXYZ()
 	return TRUE;
 }
 
-int 
-NuclAcidMod::MinEne()
+int  NuclAcidMod::MinEne()
 {
 #if defined(INT_JUMNA)
 	int_4 ipl[N9_J];
@@ -2720,14 +2717,6 @@ int NuclAcidMod::CreateMolFromJumna()
 		p_mol_editor->RenameAtomsFlexToAmber(rptr);
 	}
 	p_mol_editor->CreateCovBonds(pMol);
-	HaMolView* pView= pmset->GetActiveMolView();
-	if(!pView)
-		return TRUE;
-
-	pView->ReDrawFlag |= RFInitial;
-	pView->InitialTransform();
-	pView->DefaultRepresentation();	
-	pmset->RefreshAllViews();
 
 #endif
 	return TRUE;

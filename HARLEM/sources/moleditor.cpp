@@ -1501,6 +1501,9 @@ int MolEditor::RenameAtomsFlexToAmber(HaResidue* pres)
 			HaAtom* ph5x = pres->GetAtomByName("H5X");
 			HaAtom* ph5y = pres->GetAtomByName("H5Y");
 
+			HaAtom* pho3x = pres->GetAtomByName("HO3X");
+
+
 			if (pc5m) // A
 			{
 				pc5m->SetName("C7");
@@ -1599,21 +1602,90 @@ int MolEditor::RenameAtomsFlexToAmber(HaResidue* pres)
 			}
 			if (ph5x)
 			{
-				ph5x->SetName("H5X1");
-				PrintLog("In Residue %s  Rename H5X->H5X1 \n", pres->GetRef().c_str());
+				ph5x->SetName("H5X2");
+				PrintLog("In Residue %s  Rename H5X->H5X2 \n", pres->GetRef().c_str());
 			}
 			if (ph5y)
 			{
-				ph5y->SetName("H5X2");
-				PrintLog("In Residue %s  Rename H5Y->H5X2 \n", pres->GetRef().c_str());
+				ph5y->SetName("H5X1");
+				PrintLog("In Residue %s  Rename H5Y->H5X1 \n", pres->GetRef().c_str());
 			}
+			if (pho3x)
+			{
+				pho3x->SetName("H3T");
+				PrintLog("In Residue %s  Rename HO3X->H3T \n", pres->GetRef().c_str());
+			}						
 		}
 	}
-	catch (std::exception& ex)
+	catch (const std::exception& ex)
 	{
 		PrintLog("Error in MolEditor::RenameAtomsFlexToAmber() \n");
 		PrintLog("%s\n", ex.what());
 	}
+	return TRUE;
+}
+
+int MolEditor::FixFlexDNA(HaMolecule* pMol)
+{
+	MolSet* pmset = pMol->GetHostMolSet();
+
+	HaChain* pch_a = pMol->GetChain('A');
+	HaChain* pch_b = pMol->GetChain('B');
+
+	int nres = pch_a->GetNRes();
+	int ires;
+
+	HaResidue* p_res;
+	p_res = pch_a->GetResBySerNo(1);
+	if( p_res ) p_res->SetNameModifier("D5");
+	p_res = pch_a->GetResBySerNo(nres);
+	if (p_res) p_res->SetNameModifier("D3");
+	p_res = pch_b->GetResBySerNo(1);
+	if (p_res) p_res->SetNameModifier("D3");
+	p_res = pch_b->GetResBySerNo(nres);
+	if (p_res) p_res->SetNameModifier("D5");
+
+	for (ires = 1; ires < nres; ires++)
+	{
+		int ii;
+		for ( ii = 0; ii < 2; ii++ )
+		{
+			HaResidue* p_res_1;
+			HaResidue* p_res_2;
+
+			if (ii == 0)
+			{
+				p_res_1 = pch_b->GetResBySerNo(ires);
+				p_res_2 = pch_b->GetResBySerNo(ires + 1);
+			}
+			else if (ii == 1)
+			{
+				p_res_1 = pch_a->GetResBySerNo(nres - ires + 1);
+				p_res_2 = pch_a->GetResBySerNo(nres - ires );
+			}
+
+			if (p_res_1 == NULL || p_res_2 == NULL) continue;
+
+			HaAtom* pat1 = p_res_1->GetAtomByName("C5X");
+			HaAtom* pat2 = p_res_2->GetAtomByName("O5X");
+
+			if (pat1 && pat2) pmset->AddBond(pat1, pat2);
+
+			std::vector<std::string> at_names = { "O5X","P","O1P","O2P" };
+
+			for (std::string atn : at_names)
+			{
+				HaAtom* pat = p_res_2->GetAtomByName(atn.c_str());
+				if (pat)
+				{
+					p_res_2->DeleteAtom(pat);
+					p_res_1->InsertAtom(pat);
+					pat->SetHostRes(p_res_1);
+				}
+			}
+		}
+	}
+
 	return TRUE;
 }
 

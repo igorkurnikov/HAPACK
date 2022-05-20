@@ -7867,6 +7867,14 @@ void NuclAcidDlgWX::OnBuildNuclAcid(wxCommandEvent& event)
 {
 	TransferDataFromWindow();
 	nucl_acid_mod->BuildNuclAcid();
+
+	HaMolView* pView = pmset->GetActiveMolView();
+	if (!pView) return;
+
+	pView->ReDrawFlag |= RFInitial;
+	pView->InitialTransform();
+	pView->DefaultRepresentation();
+	pmset->RefreshAllViews();
 }
 
 void NuclAcidDlgWX::OnPdistToCnt(wxCommandEvent& event) 
