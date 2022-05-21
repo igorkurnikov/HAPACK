@@ -17,10 +17,16 @@ if not defined PYTHON_DLLS_PATH (
     echo "This script should run as post-build event in VS"
     exit 1
 )
+if not defined IFORT_DLL_PATH (
+    echo "Variable IFORT_DLL_PATH is not defined"
+	set IFORT_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\redist\intel64_win\compiler"
+	echo "IFORT_DLL_PATH set to C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\redist\intel64_win\compiler"
+)
 if not defined MKL_DLL_PATH (
     echo "Variable MKL_DLL_PATH is not defined"
-    echo "This script should run as post-build event in VS"
-    exit 1
+	set MKL_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\mkl\latest\redist\intel64"
+	echo "MKL_DLL_PATH set to C:\Program Files (x86)\Intel\oneAPI\mkl\latest\redist\intel64"
+    
 )
 if not defined WX_DLLS_PATH (
     echo "Variable WX_DLLS_PATH is not defined"
@@ -28,14 +34,11 @@ if not defined WX_DLLS_PATH (
     exit 1
 )
 
+
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
 echo "Output Dir: %OutputDir%"
-
-REM Get Python Major Version
-if not x%CONF:PY3=%==x%CONF% (set PYTHON_MAJOR_VERSION=3) else (set PYTHON_MAJOR_VERSION=2)
-echo "Python Major Version: %PYTHON_MAJOR_VERSION%"
 
 REM Is it debug
 if not x%CONF:Debug=%==x%CONF% (set "IS_DEBUG=Y") else (set "IS_DEBUG=N")
@@ -77,10 +80,8 @@ if "%IS_DEBUG%" == "Y" (
 REM	runas /user:administrator mklink /D %OutputDir%\Lib %PYTHON_HOME_PATH%\Lib
     
     xcopy /y /d %PYTHON_BIN_PATH%\python3_d.dll %OutputDir%
-    xcopy /y /d %PYTHON_BIN_PATH%\python38_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_BIN_PATH%\python3*_d.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
-REM	runas /user:administrator mklink %OutputDir%\python%PYTHON_MAJOR_VERSION%?_d.dll %PYTHON_BIN_PATH%\python%PYTHON_MAJOR_VERSION%?_d.dll
-REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\python_d.exe
 	
 ) else (
     echo "Copying Release Version of Python"
@@ -90,7 +91,7 @@ REM	runas /user:administrator mklink %OutputDir%\python_d.exe %PYTHON_BIN_PATH%\
     xcopy /y  /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
     
     xcopy /y /d %PYTHON_BIN_PATH%\python3.dll %OutputDir%
-	xcopy /y /d %PYTHON_BIN_PATH%\python38.dll %OutputDir%
+	xcopy /y /d %PYTHON_BIN_PATH%\python3*.dll %OutputDir%
     xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
 )
 xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
@@ -182,9 +183,16 @@ FOR %%G IN (%OTHER_LIBS%) DO (
 )
 
 REM ###########################################################################
-REM Copy MKL
+echo "Copying IFORT Dlls"
+set IFORT_LIBS=libifcoremd.dll libmmd.dll svml_dispmd.dll  
+
+FOR %%G IN (%IFORT_LIBS%) DO (
+    xcopy /y /d %IFORT_DLL_PATH%\%%G %OutputDir%\molset
+)
+REM ###########################################################################
 echo "Copying MKL Dlls"
-set MKL_LIBS=mkl_sequential.dll mkl_core.dll mkl_avx2.dll
+REM set MKL_LIBS=mkl_sequential.dll mkl_core.dll mkl_avx2.dll
+set MKL_LIBS=mkl_sequential.2.dll mkl_core.2.dll mkl_avx2.2.dll
 
 FOR %%G IN (%MKL_LIBS%) DO (
     xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molset

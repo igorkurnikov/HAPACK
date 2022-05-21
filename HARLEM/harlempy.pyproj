@@ -10,7 +10,7 @@
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
-    <InterpreterId>Global|VisualStudio|CHEM_WIN_PY38</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.9</InterpreterId>
     <CommandLineArguments>PROT.hlm -script create_dimer_snaps_1.py</CommandLineArguments>
     <TestFramework>Pytest</TestFramework>
     <IsWindowsApplication>False</IsWindowsApplication>
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|CHEM_WIN_PY38" />
+    <InterpreterReference Include="Global|PythonCore|3.9" />
     <InterpreterReference Include="Global|VisualStudio|CHEM_WIN_PY38" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
