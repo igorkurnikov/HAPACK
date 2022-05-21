@@ -126,7 +126,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>

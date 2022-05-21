@@ -7,11 +7,21 @@ if not defined CONF (
     echo "This script should run as post-build event in VS"
     exit 1
 )
+
+REM Is it debug
+if not x%CONF:Debug=%==x%CONF% (set "IS_DEBUG=Y") else (set "IS_DEBUG=N")
+echo "Is it debug: %IS_DEBUG%"
+
 if not defined VCPKG_DLL_PATH (
     echo "Variable VCPKG_DLL_PATH is not defined"
-    echo "This script should run as post-build event in VS"
-    exit 1
+if "%IS_DEBUG%" == "Y" (
+    set VCPKG_DLL_PATH="C:\MYPROG\vcpkg\installed\x64-windows\debug\bin"
+) else (
+	set VCPKG_DLL_PATH="C:\MYPROG\vcpkg\installed\x64-windows\bin"
 )
+	echo "VCPKG_DLL_PATH set to " %VCPKG_DLL_PATH%
+)
+
 if not defined PYTHON_DLLS_PATH (
     echo "Variable PYTHON_DLLS_PATH is not defined"
     echo "This script should run as post-build event in VS"
@@ -20,12 +30,12 @@ if not defined PYTHON_DLLS_PATH (
 if not defined IFORT_DLL_PATH (
     echo "Variable IFORT_DLL_PATH is not defined"
 	set IFORT_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\redist\intel64_win\compiler"
-	echo "IFORT_DLL_PATH set to C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\redist\intel64_win\compiler"
+	echo "IFORT_DLL_PATH set to "  %IFORT_DLL_PATH%
 )
 if not defined MKL_DLL_PATH (
     echo "Variable MKL_DLL_PATH is not defined"
 	set MKL_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\mkl\latest\redist\intel64"
-	echo "MKL_DLL_PATH set to C:\Program Files (x86)\Intel\oneAPI\mkl\latest\redist\intel64"
+	echo "MKL_DLL_PATH set to " %MKL_DLL_PATH%
     
 )
 if not defined WX_DLLS_PATH (
@@ -34,15 +44,10 @@ if not defined WX_DLLS_PATH (
     exit 1
 )
 
-
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
 echo "Output Dir: %OutputDir%"
-
-REM Is it debug
-if not x%CONF:Debug=%==x%CONF% (set "IS_DEBUG=Y") else (set "IS_DEBUG=N")
-echo "Is it debug: %IS_DEBUG%"
 
 REM ###########################################################################
 REM Make directories if not exists
@@ -162,7 +167,7 @@ REM xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
-    set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll
+    set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll 
 ) else (
     set OTHER_LIBS=mpir.dll jpeg62.dll freetype.dll libbz2.dll libpng16.dll lzma.dll tiff.dll zlib1.dll
 )
@@ -184,8 +189,11 @@ FOR %%G IN (%OTHER_LIBS%) DO (
 
 REM ###########################################################################
 echo "Copying IFORT Dlls"
-set IFORT_LIBS=libifcoremd.dll libmmd.dll svml_dispmd.dll  
-
+if "%IS_DEBUG%" == "Y" (
+    set IFORT_LIBS=libifcoremdd.dll libmmdd.dll libmmd.dll svml_dispmd.dll
+) else (	
+	set IFORT_LIBS=libifcoremd.dll libmmd.dll svml_dispmd.dll
+)
 FOR %%G IN (%IFORT_LIBS%) DO (
     xcopy /y /d %IFORT_DLL_PATH%\%%G %OutputDir%\molset
 )
@@ -199,6 +207,8 @@ FOR %%G IN (%MKL_LIBS%) DO (
 )
 REM ###########################################################################
 REM Copy MPI
+
+xcopy /y /d C:\Windows\System32\msmpi.dll %OutputDir%\molset
 
 REM ###########################################################################
 REM Copy DB
