@@ -19,30 +19,32 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
 	set VCPKG_DLL_PATH="C:\MYPROG\vcpkg\installed\x64-windows\bin"
 )
-	echo "VCPKG_DLL_PATH set to " %VCPKG_DLL_PATH%
 )
+echo VCPKG_DLL_PATH set to %VCPKG_DLL_PATH%
 
 if not defined PYTHON_DLLS_PATH (
     echo "Variable PYTHON_DLLS_PATH is not defined"
     echo "This script should run as post-build event in VS"
-    exit 1
 )
+echo PYTHONS_DLL_PATH set to %PYTHON_DLLS_PATH%
+
 if not defined IFORT_DLL_PATH (
     echo "Variable IFORT_DLL_PATH is not defined"
-	set IFORT_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\redist\intel64_win\compiler"
-	echo "IFORT_DLL_PATH set to "  %IFORT_DLL_PATH%
+	set IFORT_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\compiler\latest\windows\redist\intel64_win\compiler"
 )
+echo IFORT_DLL_PATH set to %IFORT_DLL_PATH%
+
 if not defined MKL_DLL_PATH (
     echo "Variable MKL_DLL_PATH is not defined"
 	set MKL_DLL_PATH="C:\Program Files (x86)\Intel\oneAPI\mkl\latest\redist\intel64"
-	echo "MKL_DLL_PATH set to " %MKL_DLL_PATH%
-    
 )
+echo MKL_DLL_PATH set to %MKL_DLL_PATH%
+    
 if not defined WX_DLLS_PATH (
     echo "Variable WX_DLLS_PATH is not defined"
     echo "This script should run as post-build event in VS"
-    exit 1
 )
+echo WX_DLLS_PATH set to %WX_DLLS_PATH%
 
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"

@@ -58,10 +58,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
-    <Import Project="paths_x64__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_x64__intel_compiler.props" />
-    <Import Project="paths_x64__intel_mkl.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -73,10 +70,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="haprops.props" />
     <Import Project="haprops_debug.props" />
-    <Import Project="paths_x64_debug__vcpkg.props" />
     <Import Project="paths__python3wx.props" />
-    <Import Project="paths_x64__intel_compiler.props" />
-    <Import Project="paths_x64__intel_mkl.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -96,6 +90,7 @@
     <TargetExt>.pyd</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <LibraryPath>$(oneMKLLibDir);$(IFORT_COMPILER22)compile\lib\intel64_win\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>_molsetc</TargetName>
@@ -126,18 +121,19 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(oneMKLLibDir);$(IFORT_COMPILER22)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
       <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
 
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\debug\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
+set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
+set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
@@ -182,18 +178,19 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Program Files (x86)\Intel\oneAPI\compiler\2022.0.0\windows\compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(IFORT_COMPILER22)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
       <Command>if not exist $(OutputPath)NUL mkdir $(OutputPath)
 
-set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
+set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
+set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
+set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
