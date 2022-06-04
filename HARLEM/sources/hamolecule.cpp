@@ -1049,8 +1049,7 @@ int HaMolecule::GetNAtoms() const
 }
 
 
-bool
-HaMolecule::Print_info(ostream &sout, const int level) const
+bool HaMolecule::Print_info(ostream &sout, const int level) const
 // Output information about the molecule
 {
 	sout << "This is the molecule info " << endl;
@@ -1083,6 +1082,12 @@ HaBond* MolSet::AddBond(HaAtom* src, HaAtom* dst )
 		PrintLog(" Error in MolSet::AddBond() \n"); 
 		PrintLog(" Two atom pointers are identical \n"); 
 		return NULL;
+	}
+
+	BondArray::iterator bitr = src->p_bonds->begin();
+	for (; bitr != src->p_bonds->end(); bitr++)
+	{
+		if ((*bitr)->srcatom == dst || (*bitr)->dstatom == dst) return (*bitr);
 	}
 	
 	HaBond* pb = new HaBond(src,dst);

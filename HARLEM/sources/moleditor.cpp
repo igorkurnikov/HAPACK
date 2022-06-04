@@ -1498,6 +1498,7 @@ int MolEditor::RenameAtomsFlexToAmber(HaResidue* pres)
 			HaAtom* ph2x = pres->GetAtomByName("H2X");
 			HaAtom* ph2y = pres->GetAtomByName("H2Y");
 
+			HaAtom* ph5  = pres->GetAtomByName("H5");
 			HaAtom* ph5x = pres->GetAtomByName("H5X");
 			HaAtom* ph5y = pres->GetAtomByName("H5Y");
 
@@ -1599,6 +1600,11 @@ int MolEditor::RenameAtomsFlexToAmber(HaResidue* pres)
 			{
 				ph2y->SetName("H2X2");
 				PrintLog("In Residue %s  Rename H2Y->H2X2 \n", pres->GetRef().c_str());
+			}
+			if (ph5)
+			{
+				ph5->SetName("O5X");
+				ph5->SetElemNo(8); 
 			}
 			if (ph5x)
 			{
@@ -2089,6 +2095,69 @@ int MolEditor::ConvertWaterArrowVB(MolSet* pmset)
 	PrintLog("MolEditor::ConvertWaterArrowVB() \n");
 	return TRUE;
 }
+
+int MolEditor::ConvertWaterFastAmber(MolSet* pmset)
+{
+	ResidueIteratorMolSet ritr(pmset);
+
+	HaResidue* pres;
+	for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	{
+		bool is_water = false;
+		HaMolecule* pMol = pres->GetHostMol();
+		std::string mol_name = pMol->GetObjName();
+		int nres = pMol->GetNRes();
+		if (nres == 1 && mol_name == "HOH" || nres == 1 && mol_name == "WAT")
+			is_water = true;
+		if (pres->IsWater()) is_water = true;
+		if (!is_water) continue;
+
+		if (pres->GetNAtoms() != 3)
+		{
+			PrintLog("Warning in MolEditor::ConvertWaterAmberFastW() : ");
+			PrintLog("Water Residue %s doesn't have 3 atoms - skip", pres->GetRef().c_str());
+			continue;
+		}
+		HaAtom* pox = nullptr;
+		HaAtom* ph1 = nullptr;
+		HaAtom* ph2 = nullptr;
+
+		AtomIteratorResidue aitr(pres);
+		HaAtom* aptr;
+		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			if (aptr->GetElemNo() == 8) pox = aptr;
+			if (aptr->GetElemNo() == 1)
+			{
+				if (ph1 == nullptr)
+					ph1 = aptr;
+				else
+					ph2 = aptr;
+			}
+		}
+		if (pox == nullptr || ph1 == nullptr || ph2 == nullptr)
+		{
+			PrintLog("Warning in MolEditor::ConvertWaterArrowVB() : ");
+			PrintLog("Can not assign O,H1,H2 atoms for Water Residue %s - skip", pres->GetRef().c_str());
+			continue;
+		}
+		pox->SetName("O");
+		ph1->SetName("H1");
+		ph2->SetName("H2");
+
+		pox->SetFFSymbol("OW");
+		ph1->SetFFSymbol("HW");
+		ph2->SetFFSymbol("HW");
+
+		if (!pox->IsBonded(*ph1)) HaAtom::CreateBond(pox, ph1);
+		if (!pox->IsBonded(*ph2)) HaAtom::CreateBond(pox, ph2);
+		if (!ph1->IsBonded(*ph2)) HaAtom::CreateBond(ph1, ph2);
+	}
+
+	PrintLog("MolEditor::ConvertWaterAmberFastW() \n");
+	return TRUE;
+}
+
 
 int MolEditor::AddHydrogens(MolSet* pmset)
 {
@@ -3513,7 +3582,7 @@ int MolEditor::Solvate(MolSet* pmset)
 		HaBond* bptr;
 		HaBond* bptr_new;
 
-		AtomIteratorMolecule aitr(*mol_itr);
+		AtomIteratorMolecule aitr(*mol_itr);  // Atom Iterator of a molecule in SOLVENT Molecular Set 
 		for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 		{
 			HaAtom::BondIterator bitr = aptr->Bonds_begin();
@@ -3523,7 +3592,7 @@ int MolEditor::Solvate(MolSet* pmset)
 
 				mitr = at_map.find(bptr->srcatom);
 				if(mitr == at_map.end()) continue;
-				HaAtom* aptr1= (*mitr).second;
+				HaAtom* aptr1= (*mitr).second; 
 				mitr = at_map.find(bptr->dstatom);
 				if(mitr == at_map.end()) continue;
 				HaAtom* aptr2=(*mitr).second;
@@ -3533,7 +3602,7 @@ int MolEditor::Solvate(MolSet* pmset)
 			}
 		}
 	}
-
+ 
 	pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
     delete solvent;
 

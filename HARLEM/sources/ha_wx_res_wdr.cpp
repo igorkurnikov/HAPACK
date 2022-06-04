@@ -5284,6 +5284,7 @@ wxMenuBar *res_params_menu()
     
     wxMenu* item2 = new wxMenu;
     item2->Append( IDC_CONVERT_WAT_ARROW_VB, wxT("Convert Water to ARROW VB"), wxT("") );
+    item2->Append( IDC_CONVERT_WAT_FAST_AMBER, wxT("Convert Water to Fast Amber water (3-bond)"), wxT("") );
     item0->Append( item2, wxT("Water") );
     
     return item0;

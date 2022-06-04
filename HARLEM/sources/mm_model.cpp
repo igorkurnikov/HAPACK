@@ -280,6 +280,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		Atoms.push_back(aptr);
 	}
 
+
 	if( ff_type == ForceFieldType::AMOEBA ) // TMP IGOR should consider to turn it off
 	{
 		ClearMortModel();

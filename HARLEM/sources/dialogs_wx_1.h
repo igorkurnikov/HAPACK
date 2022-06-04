@@ -767,6 +767,7 @@ protected:
 	void OnRenameAtomsToAmber(wxCommandEvent& event);
 	void OnRenameAtomsToGromacs(wxCommandEvent& event);
 	void OnConvertWaterArrowVB(wxCommandEvent& event);
+	void OnConvertWaterFastAmber(wxCommandEvent& event);
 	void OnUpdateResidueList(wxCommandEvent& event);
 	void OnResidueRenumber(wxCommandEvent& event);
 	void OnEndLabelEdit(wxGridEvent& event);

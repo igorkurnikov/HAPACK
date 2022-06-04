@@ -5417,6 +5417,7 @@ BEGIN_EVENT_TABLE(ResidueParamsDlgWX, wxFrame)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_AMBER,   ResidueParamsDlgWX::OnRenameAtomsToAmber)
 	EVT_MENU(IDC_RENAME_ATOMS_TO_GROMACS, ResidueParamsDlgWX::OnRenameAtomsToGromacs)
 	EVT_MENU(IDC_CONVERT_WAT_ARROW_VB, ResidueParamsDlgWX::OnConvertWaterArrowVB)
+	EVT_MENU(IDC_CONVERT_WAT_FAST_AMBER, ResidueParamsDlgWX::OnConvertWaterFastAmber)
 	EVT_GRID_CELL_CHANGED( ResidueParamsDlgWX::OnEndLabelEdit)
 END_EVENT_TABLE()
 
@@ -5598,7 +5599,14 @@ void ResidueParamsDlgWX::OnRenameAtomsToGromacs(wxCommandEvent& event)
 void ResidueParamsDlgWX::OnConvertWaterArrowVB(wxCommandEvent& event)
 {
 	p_mol_editor->ConvertWaterArrowVB(pmset);
+	pmset->RefreshAllViews(RFApply);
 }
+void ResidueParamsDlgWX::OnConvertWaterFastAmber(wxCommandEvent& event)
+{
+	p_mol_editor->ConvertWaterFastAmber(pmset);
+	pmset->RefreshAllViews(RFApply);
+}
+
 /////////////////////////////////////////////////////////////////////
 // EditGeomDlgWX Dialog:
 
