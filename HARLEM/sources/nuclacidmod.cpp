@@ -509,6 +509,11 @@ int NuclAcidMod::BuildNuclAcid()
 	if(!IsSupHlxConstr())LockHelCoord(1,1,6,1);
 
 	MolEditor::FixFlexDNA(p_dna_mol);
+	MolSet* pmset = p_dna_mol->GetHostMolSet();
+	MolEditor* pedt = pmset->GetMolEditor();
+	pedt->DeleteExtraAtoms(pmset);
+	pedt->AddMissingAtoms(pmset);
+	pedt->OrderAtomsInRes(pmset);
 
 	init_flag = TRUE;
 #endif

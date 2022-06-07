@@ -445,6 +445,45 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		conn_graph[bptr->dstatom].push_back(bptr->srcatom);
 	}
 
+	// FAST WATER:
+	if (ff_type == ForceFieldType::AMOEBA || ff_type == ForceFieldType::AMBER_10 || ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_99_BSC0 ||
+		ff_type == ForceFieldType::AMBER_99_SB)
+	{
+		for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+		{
+			if (pres->IsWater())
+			{
+				HaAtom* ph1 = NULL;
+				HaAtom* ph2 = NULL;
+				AtomIteratorAtomGroup aitr_r(pres);
+				for (aptr = aitr_r.GetFirstAtom(); aptr; aptr = aitr_r.GetNextAtom())
+				{
+					if (aptr->IsHydrogen())
+					{
+						if (ph1 == NULL)
+						{
+							ph1 = aptr;
+							continue;
+						}
+						if (ph2 == NULL)
+						{
+							ph2 = aptr;
+							continue;
+						}
+					}
+				}
+				if (ph1 != NULL & ph2 != NULL)
+				{
+					auto itr = std::find(conn_graph[ph1].begin(), conn_graph[ph1].end(), ph2);
+					if (itr != conn_graph[ph1].end()) continue; // H1 - H2 bond in water in already present 
+					SetMMBond(ph1, ph2, 0.0, 0.0, NOT_SET);
+					conn_graph[ph1].push_back(ph2);
+					conn_graph[ph2].push_back(ph1);
+				}
+			}
+		}
+	}
+
 // Fill Arrays of Valence Angles and Dihedrals
 	
 	std::vector<HaAtom*>::iterator pitr;
