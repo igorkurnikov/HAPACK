@@ -8,7 +8,7 @@
      1 lar(n7),lock(n6a)
       common/sst/phase(8,3),ampli(8,3),ph5(n2),am5(n2),kr5(n2)
       common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
      1 kink(n2),lthy(n2)
       data (co(1,j),j=1,15)/
      1  1.902762514,-0.0064873401,-0.127658642,

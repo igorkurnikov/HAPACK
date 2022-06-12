@@ -21,7 +21,7 @@
      1 nuni(n4,n5),sub(n5),isch(n4,n5),isty(n4,n5),ics(n4,n5),
      1 mats(3*n4,n5),kas(n5),khs(n5),ksub
       common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
      1 kink(n2),lthy(n2)
 	common/hacon/iret
       data iofref/20,19,16,21,20,17/

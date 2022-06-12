@@ -12,7 +12,7 @@
      1 imch(n1),imty(n1),icm(n1),matm(3*n1),matd(n1,7),nunit(n1),
      1 nuc(0:n2),ncen(0:n0*n2),kam,khm,lkm,kcen
       common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
      1 kink(n2),lthy(n2)
       common/parjm/aij(25,25),bij(25,25),ahb(15),bhb(15),vt(35),va(25),
      1 vo(25),delmax,time0,nzsh,nwdg,ivf(35),ifhb(25,25)

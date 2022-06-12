@@ -76,7 +76,7 @@ c*******************************************************************************
      1 vkis(n2,4),has(n2,9),rlis(n9,6),eref,rref,pref
       common/sst/phase(8,3),ampli(8,3),ph5(n2),am5(n2),kr5(n2)
       common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
      1 kink(n2),lthy(n2)
       common/symjm/xsum,ysum,itwl(n2),nvs(n7),ihm(n2),ksym(3),nbrk(2),
      1 isym,isur,isup,ihl(n2)

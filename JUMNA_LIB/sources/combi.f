@@ -43,7 +43,7 @@
      1 vo(25),delmax,time0,nzsh,nwdg,ivf(35),ifhb(25,25)
       common/slg/hst(n2,6),bst(n2,n8),vst(n2,4),lgi(n1),lgj(n1),lgu(n2)
       common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+     1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
      1 kink(n2),lthy(n2)
       nmx=maxn
 c----------------------------------------------------------------save combi data

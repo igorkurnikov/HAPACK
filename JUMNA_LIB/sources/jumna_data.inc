@@ -5,10 +5,10 @@ c...Maximum number of rings/subunits per ligand
       parameter (n0=5)
 
 c...Maximum number of atoms in the DNA oligomer
-      parameter (n1=2000)
+      parameter (n1=4000)
 
 c...Maximum number of nucleotides
-      parameter (n2=74)
+      parameter (n2=120)
 
 c...Maximum number of additional distance constraints
       parameter (n3=300)
@@ -26,7 +26,7 @@ c...Maximum number of physical variables (lock only)
       parameter (n6a=12000)
 
 c...Maximum number of independent, unlocked variables
-      parameter (n7=1100)
+      parameter (n7=4400)
 
 c...Maximum number of physical variables per nucleotide
       parameter (n8=200)

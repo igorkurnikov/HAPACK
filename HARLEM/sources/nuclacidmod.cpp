@@ -393,10 +393,10 @@ int NuclAcidMod::BuildNuclAcid()
 
 	int nlen = seq[0].size();
 	len_strand[0] = nlen;
-	if(nlen == 0 || nlen > 40 )
+	if(nlen == 0 || nlen > 120 )
 	{
 		ErrorInMod("NuclAcidMod::BuildNuclAcid()",
-			       "Length of the nucleotide sequence should be > 0 and <= 40 \n");
+			       "Length of the nucleotide sequence should be > 0 and <= 120 \n");
 		return FALSE;
 	}
     nstrands = 1;

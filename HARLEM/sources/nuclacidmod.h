@@ -185,14 +185,14 @@ extern "C"{
     extern void setbac_();                       //!< Set backbone conformation using int backbone conf read in reset(0 and equim()
 
      const int N0_J = 5;     //!< Maximum number of rings/subunits per ligand
-     const int N1_J = 2000;  //!< Maximum number of atoms in the DNA oligomer
-     const int N2_J = 74;    //!< Maximum number of nucleotides
+     const int N1_J = 4000;  //!< Maximum number of atoms in the DNA oligomer
+     const int N2_J = 120;    //!< Maximum number of nucleotides
      const int N3_J = 300;   //!< Maximum number of additional distance constraints
      const int N4_J = 230;   //!< Maximum number of atoms per nucleotide
      const int N5_J = 20;    //!< Maximum number of types of nucleotide
 	 const int N6_J = 12000;  //!< Maximum number of physical backbone variables
 	 const int N6A_J = 12000; //!< Maximum number of physical variables (lock only)
-	 const int N7_J = 1100;  //!< Maximum number of independent, unlocked variables
+	 const int N7_J = 4400;  //!< Maximum number of independent, unlocked variables
 	 const int N8_J = 200;   //!< Maximum number of physical variables per nucleotide
      const int N9_J = 20;    //!< Maximum number of non-bonded ligands
 	   
@@ -294,7 +294,7 @@ extern "C"{
 		  int_4	nst;         //!< the number of strands (see nstrands param)
 		  int_4 nto;         //!< The index of the last nucleotide residue (number of nucleotides)
 		  int_4	kseq;        //!< length of the sequence (length of the first strand)
-		  int_4 ieq[50*4];   //!< ieq(l,i) - abs residue number of the nucleotide with an index (l)in the chain(i), = 0 - if position empty
+		  int_4 ieq[120*4];   //!< ieq(l,i) - abs residue number of the nucleotide with an index (l)in the chain(i), = 0 - if position empty
 		  int_4	ilq[N2_J*2]; //!< ilq(k,1) - index of the residue in the chain(relative to sequence of the 1st chain), ilq(k,2) - index of the chain of the residue
 		  int_4	idr[4];      //!< The number of the residues in the strand and its direction (len_strand)
           int_2 kink[N2_J];  //!< flag to indicate the kink on the residue
@@ -305,7 +305,7 @@ extern "C"{
 
 //	  typedef struct{
 //	  common/strjm/seq,hel(n2,6),vkink(n2,4),set(n2,n8),code(n2),kode(n2),
-//   1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(50,4),ilq(n2,2),idr(4),
+//   1 irec(n2),itr(n2),ito(n2),nst,nto,kseq,ieq(120,4),ilq(n2,2),idr(4),
 //     1 kink(n2),lthy(n2)
 //	  } strjm_type;
 //	  extern strjm_type strjm_;
