@@ -257,7 +257,8 @@ Install VCPKG to:
 c:\MYPROG\vcpkg
 
 in c:\MYPROG\vcpkg install packages:
-.\vcpkg install plplot[wxwidgets]:x64-windows   (plplot + wxWidgets)
+.\vcpkg install python3   ( check vcpkg_python_install.txt for a specific python version install )
+.\vcpkg install plplot[wxwidgets]:x64-windows   (plplot + wxWidgets)   not needed any more?? 
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
 .\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
