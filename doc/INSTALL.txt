@@ -257,7 +257,14 @@ Install VCPKG to:
 c:\MYPROG\vcpkg
 
 in c:\MYPROG\vcpkg install packages:
-.\vcpkg install python3   ( check vcpkg_python_install.txt for a specific python version install )
+  
+( for python 3.9.7 ( see more in VCPKG_PYTHON 
+git checkout 2ed5383f7b88b23975f9cfd325f6451fd8716fb2 -- ports/python3
+orts/python3/portfile.cmake  subsitute 
+find_library(LZMA_DEBUG NAMES lzmad PATHS "${CURRENT_INSTALLED_DIR}/debug/lib" NO_DEFAULT_PATH) to:
+find_library(LZMA_DEBUG NAMES lzma PATHS "${CURRENT_INSTALLED_DIR}/debug/lib" NO_DEFAULT_PATH) )
+
+.\vcpkg install python3 
 .\vcpkg install plplot[wxwidgets]:x64-windows   (plplot + wxWidgets)   not needed any more?? 
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)

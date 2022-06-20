@@ -186,8 +186,6 @@ $(SolutionDir)copy_dependencies.bat
 
 set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
 set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
@@ -475,7 +473,7 @@ copy $(IntDir)molsetc.py $(OutputPath)
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp   %(RootDir)%(Directory)\%(Filename)%(Extension)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 copy $(IntDir)molsetc.py $(OutputPath)
 
 </Command>

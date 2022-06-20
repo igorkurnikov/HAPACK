@@ -1,4 +1,4 @@
-REM Copy DLLs and other files necessary to run HARLEM
+REM Copy and link DLLs and other files necessary to run HARLEM
 SET script_path=%~dp0
 
 echo "Copying HARLEM dependencies ..."
@@ -20,13 +20,8 @@ if "%IS_DEBUG%" == "Y" (
 	set VCPKG_DLL_PATH="C:\MYPROG\vcpkg\installed\x64-windows\bin"
 )
 )
-echo VCPKG_DLL_PATH set to %VCPKG_DLL_PATH%
 
-if not defined PYTHON_DLLS_PATH (
-    echo "Variable PYTHON_DLLS_PATH is not defined"
-    echo "This script should run as post-build event in VS"
-)
-echo PYTHONS_DLL_PATH set to %PYTHON_DLLS_PATH%
+echo VCPKG_DLL_PATH set to %VCPKG_DLL_PATH%
 
 if not defined IFORT_DLL_PATH (
     echo "Variable IFORT_DLL_PATH is not defined"
@@ -51,6 +46,7 @@ echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
 echo "Output Dir: %OutputDir%"
 
+
 REM ###########################################################################
 REM Make directories if not exists
 if not exist "%OutputDir%\molset\NUL" (
@@ -58,6 +54,7 @@ if not exist "%OutputDir%\molset\NUL" (
 ) else (
     echo "%OutputDir%\molset already exists"
 )
+
 if not exist "%OutputDir%\pnpsll\NUL" (
     mkdir "%OutputDir%\pnpsll"
 ) else (
@@ -65,49 +62,33 @@ if not exist "%OutputDir%\pnpsll\NUL" (
 )
 
 REM ###########################################################################
-REM Copy python
-echo "Copying PYTHON"
+echo "Linking PYTHON Directories"
 if not exist "%OutputDir%\DLLs\NUL" (
-    mkdir "%OutputDir%\DLLs"
+    mklink /D %OutputDir%\DLLs %PYTHON_HOME_PATH%\DLLs
 ) else (
     echo "%OutputDir%\DLLs already exists"
 )
 if not exist "%OutputDir%\Lib\NUL" (
-    mkdir "%OutputDir%\Lib"
+    mklink /D "%OutputDir%\Lib" %PYTHON_HOME_PATH%\Lib
 ) else (
     echo "%OutputDir%\Lib already exists"
 )
 
+
 if "%IS_DEBUG%" == "Y" (
     echo "Copying Debug Version of Python"
-    xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pyd %OutputDir%\DLLs
-    xcopy /y /d %PYTHON_DLLS_PATH%\*_d.pdb %OutputDir%\DLLs
     
-    xcopy /y /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
-REM	runas /user:administrator mklink /D %OutputDir%\Lib %PYTHON_HOME_PATH%\Lib
-    
-    xcopy /y /d %PYTHON_BIN_PATH%\python3_d.dll %OutputDir%
-    xcopy /y /d %PYTHON_BIN_PATH%\python3*_d.dll %OutputDir%
-    xcopy /y /d %PYTHON_BIN_PATH%\python_d.exe %OutputDir%
+    xcopy /y /d %PYTHON_HOME_PATH%\python3_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_HOME_PATH%\python3*_d.dll %OutputDir%
+    xcopy /y /d %PYTHON_HOME_PATH%\python_d.exe %OutputDir%
 	
 ) else (
     echo "Copying Release Version of Python"
-    xcopy /y /d %PYTHON_DLLS_PATH%\*.pyd %OutputDir%\DLLs
-    xcopy /y /d %PYTHON_DLLS_PATH%\*.pdb %OutputDir%\DLLs
     
-    xcopy /y  /s /e /h /d %PYTHON_HOME_PATH%\Lib %OutputDir%\Lib
-    
-    xcopy /y /d %PYTHON_BIN_PATH%\python3.dll %OutputDir%
-	xcopy /y /d %PYTHON_BIN_PATH%\python3*.dll %OutputDir%
-    xcopy /y /d %PYTHON_BIN_PATH%\python.exe %OutputDir%
+    xcopy /y /d %PYTHON_HOME_PATH%\python3.dll %OutputDir%
+	xcopy /y /d %PYTHON_HOME_PATH%\python3*.dll %OutputDir%
+    xcopy /y /d %PYTHON_HOME_PATH%\python.exe %OutputDir%
 )
-xcopy /y /d %PYTHON_DLLS_PATH%\*.dll %OutputDir%\DLLs
-xcopy /y /d %PYTHON_DLLS_PATH%\*.ico %OutputDir%\DLLs
-
-REM echo "Linking PYTHON Directories"
-REM I did not figured out how to link Python libraries not to copy
-REM powershell -Command '& {new-item -itemtype symboliclink -path %OutputDir% -name DLLs2 -value C:\MYPROG\Python37\x64\DLLs ; }'
-REM powershell -Command "new-item -itemtype symboliclink -path %OutputDir% -name DLLs2 -value C:\MYPROG\Python37\x64\DLLs"
 
 REM ###########################################################################
 REM Copy Things from VCPKG
@@ -115,9 +96,9 @@ REM Copy Things from VCPKG
 REM BOOST
 echo "Copying BOOST Dlls"
 if "%IS_DEBUG%" == "Y" (
-    set BOOST_SUFFIX=-vc142-mt-gd-x*-1_70.dll
+    set BOOST_SUFFIX=-vc142-mt-gd-x*-1_79.dll
 ) else (
-    set BOOST_SUFFIX=-vc142-mt-x*-1_70.dll
+    set BOOST_SUFFIX=-vc142-mt-x*-1_79.dll
 )
 
 REM set BOOST_LIBS=^
@@ -143,29 +124,9 @@ if "%IS_DEBUG%" == "Y" (
 ) else (
     set WXVER=u
 )
-REM xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_*.dll  %OutputDir%\molset
-REM xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*.dll  %OutputDir%\molset
+
 xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
 xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*core*.dll  %OutputDir%\molset
-
-REM ###########################################################################
-REM Copy PLPLOT 
-REM echo "Copying PLPLOT Dlls"
-REM if "%IS_DEBUG%" == "Y" (
-REM    if exist %VCPKG_DLL_PATH%\plplotd.dll (
-REM        set PLPLOT_LIB=plplotd.dll  plplotcxxd.dll  plplotwxwidgetsd.dll csirocsad.dll qsastimed.dll 
-REM    ) else (
-REM        set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
-REM    )
-REM ) else (
-REM    set PLPLOT_LIB=plplot.dll  plplotcxx.dll  plplotwxwidgets.dll csirocsa.dll qsastime.dll 
-REM )
-REM FOR %%G IN (%PLPLOT_LIB%) DO (
-REM    xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\molset
-REM )
-
-REM xcopy /y /d %VCPKG_DLL_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
-REM xcopy /y /d %VCPKG_DLL_PATH%\wxmsw*core*.dll  %OutputDir%\molset
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
@@ -189,6 +150,7 @@ FOR %%G IN (%OTHER_LIBS%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G %OutputDir%\pnpsll
 )
 
+
 REM ###########################################################################
 echo "Copying IFORT Dlls"
 if "%IS_DEBUG%" == "Y" (
@@ -207,35 +169,41 @@ set MKL_LIBS=mkl_sequential.2.dll mkl_core.2.dll mkl_avx2.2.dll
 FOR %%G IN (%MKL_LIBS%) DO (
     xcopy /y /d %MKL_DLL_PATH%\%%G %OutputDir%\molset
 )
+
 REM ###########################################################################
 REM Copy MPI
 
 xcopy /y /d C:\Windows\System32\msmpi.dll %OutputDir%\molset
 
 REM ###########################################################################
-REM Copy DB
+REM Link DB
 if not exist "%OutputDir%\residues_db\NUL" (
-    mkdir "%OutputDir%\residues_db"
+    mklink /D %OutputDir%\residues_db %script_path%\..\residues_db 
 ) else (
     echo "%OutputDir%\residues_db already exists"
 )
 
-xcopy /s /e /h /d %script_path%\..\residues_db %OutputDir%\residues_db
+REM ###########################################################################
+echo "Linking molset module python files"
+
+if not exist %OutputDir%\molset\__init__.py (
+	mklink %OutputDir%\molset\__init__.py  %script_path%\..\HARLEM\molset\__init__.py
+)
+if not exist %OutputDir%\molset\harlempy (
+	mklink /D %OutputDir%\molset\harlempy     %script_path%\..\HARLEM\molset\harlempy
+)
+if not exist %OutputDir%\molset\molset_ext (
+	mklink /D %OutputDir%\molset\molset_ext   %script_path%\..\HARLEM\molset\molset_ext
+)
+
 
 REM ###########################################################################
-REM Copy molset(harlemll) module axxiliary python files
-echo "Copying molset module python files"
-
-xcopy /y /d /s %script_path%\..\HARLEM\molset\* %OutputDir%\molset\
-
-REM ###########################################################################
-REM Copy wxextra
-if not exist "%OutputDir%\wxextra\NUL" (
-    mkdir "%OutputDir%\wxextra"
+REM Link wxextra
+if not exist "%OutputDir%\wxextra" (
+    mklink /D %OutputDir%\wxextra\ %script_path%\..\PNPS\wxextra
 ) else (
     echo "%OutputDir%\wxextra already exists"
 )
 
-xcopy /y /d %script_path%\..\PNPS\wxextra\* %OutputDir%\wxextra\
 
 
