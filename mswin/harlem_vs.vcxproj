@@ -137,18 +137,9 @@ t
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Message>Copy Python Scripts and Other Dependencies</Message>
-      <Command>set VCPKG_DLL_PATH="$(VCPKG_DLL_PATH)"
-set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
-set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
-set PLPLOT_DLLS_PATH="$(PLPLOT_DLLS_PATH)"
-set MKL_DLL_PATH="$(MKL_DLL_PATH)"
-
-set CONF="$(Configuration)_$(PlatformName)"
-
-$(SolutionDir)copy_dependencies.bat
+      <Message>
+      </Message>
+      <Command>
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
