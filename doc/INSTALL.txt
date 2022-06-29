@@ -269,6 +269,14 @@ find_library(LZMA_DEBUG NAMES lzma PATHS "${CURRENT_INSTALLED_DIR}/debug/lib" NO
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
 .\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
+---------------------------------------------------------------------------------------
+conda packages to install with HARLEM:
+conda install python=3.9
+conda install matplotlib
+conda install mdtraj
+conda install openbabel
+conda install rdkit 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 BUILD HARLEM AND MOLSET CONDA PACKAGE:
 

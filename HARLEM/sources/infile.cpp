@@ -1661,6 +1661,13 @@ int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
 
 					ptr->SetName( name );
 					ptr->SetFFSymbol(type);
+
+					if (!atom_info_str.empty())
+					{
+						double ch = harlem::ToDouble(atom_info_str);
+						ptr->SetCharge(ch);
+					}
+
 					ptr->SetElemNo( HaAtom::GetElemNoFromName( ptr->GetName(), pres_cur ) );
 					id_at_map[serno]= (void*)ptr;
 					/* ptr->serno = i; */

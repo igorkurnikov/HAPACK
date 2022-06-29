@@ -1820,13 +1820,17 @@ void AmberMMModel::FindResMolPartition()
 		PrintLog("Atoms are not in sequential order with molecule order \n");
 	}
 
+	nspm = atm_nsp.size();
+
 	int nsolv_mol = 0; // Number of solvent molecules
+    this->n_solute_mol = nspm;
 	for( ir = nres - 1; ir >= 0; ir--)
 	{	
 		HaResidue* pres = amber_residues[ir];
 		if( pres->IsSolvent() )
 		{
 			nsolv_mol++;
+			this->n_solute_mol--;
 		}
 		else
 		{
@@ -1869,7 +1873,7 @@ void AmberMMModel::FindResMolPartition()
 		atm_nsp[0] = natom;
 	}
 */
-	nspm = atm_nsp.size();
+//	nspm = atm_nsp.size();
 }
 
 void AmberMMModel::CalcAddDihParams()
@@ -2648,8 +2652,15 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 // Indexes of first atoms of residues (RESIDUE_POINTER)
 
 	os << "%FLAG RESIDUE_POINTER                                                           " << std::endl;
-	os << "%FORMAT(10I8)                                                                   " << std::endl;
-	write_int_array_chuncks(os,p_amber_model->gbl_res_atms,10,"%8d");   // FORMAT(10I8) (IPRES(i), i=1,NRES) 
+	os << "%FORMAT(10I8)     " << std::endl;
+	HaVec_int iaxx;
+	if (p_amber_model->gbl_res_atms.size() > 0)
+	{
+		iaxx.resize(p_amber_model->gbl_res_atms.size() - 1);
+		for (int i = 0; i < p_amber_model->gbl_res_atms.size() - 1; i++)
+			iaxx[i] = p_amber_model->gbl_res_atms[i];
+	}
+	write_int_array_chuncks(os,iaxx,10,"%8d");   // FORMAT(10I8) (IPRES(i), i=1,NRES) 
                                                              // IPRES : the atom number of the first atom in residue
 // Bonds constants:
 	
@@ -2973,7 +2984,7 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
 		iarr.newsize(3);
 		iarr[0] = p_amber_model->n_solute_res;     // IPTRES
 		iarr[1] = p_amber_model->nspm;             // NSPM
-		iarr[2] = p_amber_model->n_solute_mol + 1; // NSPSOL 
+		iarr[2] = p_amber_model->n_solute_mol + 1; // NSPSOL - index of the first solvent molecule ??
 
 		os << "%FLAG SOLVENT_POINTERS                                                          " << std::endl;
 		os << "%FORMAT(10I8)                                                                   " << std::endl;

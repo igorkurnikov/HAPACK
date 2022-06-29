@@ -86,6 +86,7 @@ int MMForceField::InitMortFF()
 //		res_files.push_back("solvents.lib");
 
 		parm_files.push_back("parm94.dat");
+		parm_files.push_back("gaff.dat");
 	}
 	else if( ff_type == ForceFieldType::AMBER_99_SB )
 	{
@@ -98,6 +99,7 @@ int MMForceField::InitMortFF()
 
 		parm_files.push_back("parm99.dat");
 		parm_files.push_back("frcmod.ff99SB");
+		parm_files.push_back("gaff.dat");
 	}
 	else if( ff_type == ForceFieldType::AMBER_99_BSC0 )
 	{
@@ -112,6 +114,7 @@ int MMForceField::InitMortFF()
 		parm_files.push_back("parm99.dat");
 		parm_files.push_back("frcmod.ff99SB");
 		parm_files.push_back("frcmod.parmbsc0");
+		parm_files.push_back("gaff.dat");
 	}
 	else if( ff_type == ForceFieldType::AMBER_03 )
 	{
@@ -125,6 +128,7 @@ int MMForceField::InitMortFF()
 
 		parm_files.push_back("parm99.dat");
 		parm_files.push_back("frcmod.ff03");
+		parm_files.push_back("gaff.dat");
 	}
 	else if( ff_type == ForceFieldType::AMBER_10 )  //   ff10 =  ff99SB for proteins; ff99bsc0 for DNA; ff99sbsc_chiOL3 for RNA
 	{
@@ -137,6 +141,7 @@ int MMForceField::InitMortFF()
 
 		parm_files.push_back("parm10.dat");
 		parm_files.push_back("frcmod.ionsjc_tip3p");
+		parm_files.push_back("gaff.dat");
 	}
 
 	int i;
