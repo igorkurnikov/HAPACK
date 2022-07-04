@@ -19,9 +19,6 @@
 	#define DllImport  extern
 #endif
 
-
-
-
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -72,10 +69,11 @@ const std::string FLOAT_F8_3 = "%15.7f";
 //const std::string FLOAT_F15_7= "(F15.7)";
 //const std::string FLOAT_F8_3 = "(F8.3)";
 
+
 extern "C" 
 {
 extern int ErrorMessage(const char* str); //!< Print error message
-extern int PrintMessage(const char* str); //!< Print Message to a standard output and control window on HARLEM panel
+extern int PrintMessage(const char* str); //!< Print a message to a standard output and control window on HARLEM panel
 extern int ha_copy_file(const char* src, const char* tgt, const int mode = 0); //!< copy file named src to file named tgt
 extern int ha_delete_file( const char* fname);  //!< delete file with the name fname
 extern int RedirectIOToFile(const char* fname); //!< Redirect STDOUT (standart output channel) to file
@@ -87,9 +85,11 @@ extern int RestoreIOToConsole();                //!< Restore STDOUT to console t
 
 #if !defined(HAIO_CPP)
 extern int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
+extern int PrintLogCount(int type, const char* str,  ... ); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #else
 	int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
+	int PrintLogCount(int type, const char* str,  ...); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 	int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #endif
 

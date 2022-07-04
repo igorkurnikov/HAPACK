@@ -1885,9 +1885,8 @@ PointIterator_const* HaChain::GetPointIteratorPtr() const
 HaResidue* HaChain::AddResidue(int res_ser_no)
 {
 	if( res_map.count(res_ser_no) > 0 )
-	{
-	    PrintLog(" Warning in HaChain::AddResidue() \n");
-        PrintLog(" Residue Number %d is not unique \n",res_ser_no);
+	{  
+	   PrintLogCount(1, " Warning in HaChain::AddResidue() \n  Residue Number %d is not unique \n", res_ser_no );  // Limit number of prints 
 	}
 	HaResidue* pres = new HaResidue(this);
 	res_arr.push_back(pres);

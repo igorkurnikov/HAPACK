@@ -66,7 +66,6 @@ int PrintMessage(const char* str)
 	printf("%s\n",str);
 	return TRUE;
 }
-
 #endif
 
 HarlemApp* HarlemApp::m_HarlemApp = NULL;
@@ -121,6 +120,8 @@ HarlemApp::HarlemApp()
 
 	mpi_driver    = NULL;
 	file_log      = NULL;
+
+	max_num_log_msg = 50;
 }
 
 HarlemApp::~HarlemApp()

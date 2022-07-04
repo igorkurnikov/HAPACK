@@ -73,6 +73,55 @@ int PrintLog(const char* str, ... )
 	return TRUE;
 }
 
+
+int PrintLogCount(int type, const char* str,  ...)
+{
+	if (pApp->log_msg_count.count(type) == 0)
+	{
+		pApp->log_msg_count[type] = 1;
+	}
+	else
+	{
+		pApp->log_msg_count[type]++;
+	}
+	if ( pApp->log_msg_count[type] > pApp->max_num_log_msg ) return true;
+
+
+	va_list arg_list;
+	va_start(arg_list, str);     /* Initialize variable arguments. */
+
+	if (pApp != NULL && pApp->file_log != NULL)
+	{
+		vfprintf(pApp->file_log, str, arg_list);
+		fflush(pApp->file_log);
+	}
+	else
+	{
+#if defined(HA_NOGUI) 
+		vprintf(str, arg_list);
+#else
+		if (pApp == NULL)
+		{
+			vprintf(str, arg_list);
+		}
+		else if (pApp->mpi_driver != NULL && pApp->mpi_driver->myrank == 0)
+		{
+			//		wxVLogGeneric(wxLOG_Message,str,arg_list);
+			//		wxVLogMessage(str,arg_list);
+			vprintf(str, arg_list);
+		}
+		else
+		{
+			vprintf(str, arg_list);
+		}
+#endif
+	}
+
+	//	wxLog::OnLog(1,wxString::FormatV(str, arg_list),0);
+	va_end(arg_list);              /* Reset variable arguments.      */
+	return TRUE;
+}
+
  
 void write_log_(const char* str, int n)
 {

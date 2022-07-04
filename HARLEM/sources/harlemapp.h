@@ -80,7 +80,7 @@ public:
 	int gui_mode;        //!< flag for GUI mode of the application to be activated
 	int cmd_prompt_mode;  //!< flag for python command mode of the application to be activated
 	std::string mpi_py_script; //!<execute python script in parrallel, it's the script job to think about parrallelizm
- 
+
 	int argc_loc;
 	char **argv_loc;
 
@@ -106,7 +106,10 @@ public:
 	HaMPI* mpi_driver; 
 //	void* python_thread;  //!< Thread for Python execution
 	
-	FILE* file_log; //!< Log file 
+	FILE* file_log; //!< Log file
+
+	std::map<int, int> log_msg_count; // map of counts of printed messages of a given type 
+	int max_num_log_msg;              // maximal number of messages of a given type to print 
 
 	VecPtr molset_vec;  //!< Vector of pointers to Molecular Sets in the application
 	static HarlemApp* m_HarlemApp;
