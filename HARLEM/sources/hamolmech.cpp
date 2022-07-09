@@ -523,7 +523,7 @@ int HaMolMechMod::UpdateMolView()
 	pmset->info_str.clear();
 	if( run_type == MMRunType::MD_RUN )
 	{
-		sprintf(buf," nstep = %d  time = %9.3f(ps) T = %9.3f(K) Press= %9.3f (atm)",p_mm_info->nstep, p_mm_info->time,p_mm_info->temp,p_mm_info->press);
+		sprintf(buf," nstep = %d  time = %9.3f(ps) T = %9.3f(K) Press= %9.3f (atm), Density= %9.3f (g/mL)\n",p_mm_info->nstep, p_mm_info->time,p_mm_info->temp,p_mm_info->press, p_mm_info->density);
 		pmset->info_str.push_back(buf);
 	}
 	else if( run_type == MMRunType::MIN_RUN ) 

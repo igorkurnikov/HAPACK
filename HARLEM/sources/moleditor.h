@@ -78,10 +78,13 @@ public:
 	int Solvate(MolSet* pmset); //!< Solvate Molecular Set 
 	int CenterSoluteInSolvent(MolSet* pmset); //!< Center solute in the center of periodic box
 	int CenterMolInPBox(MolSet* pmset);  //!< Center Molecule in the center of periodic box
+	void AddIons(MolSet* pmset, int n_na, int n_cl); //!< Add Na+ and CL- atoms 
 	int ReplicatePeriodBox(MolSet* pmset, int nx, int ny, int nz); //!< Replicate Molecular Set Along X,Y,Z axes using box periodical boundary info
     int WrapToUnitCell(AtomContainer* at_cont, PeriodicUnitInfo* per_info); //!< Wrap Atoms in the periodical system to the Unit Cell  
     int DeleteOverlapMols(MolSet* pmset, AtomGroup& at_coll); //!< Remove all molecules (connected groups of atoms) that overlap at_coll 
 	int SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mols); //!< Split Atom Collection into groups of bonded atoms (molecules) 
+
+	
 
 	int MergeMolecules(HaMolecule* pMol1, HaMolecule* pMol2); //!< Merge molecule 2 into molecule 1
 

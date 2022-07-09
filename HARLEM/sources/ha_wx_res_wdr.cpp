@@ -1318,9 +1318,9 @@ wxSizer *solvate_mset_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     item1->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item3 = new wxTextCtrl( parent, IDC_SOLVENT, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
-    item1->Add( item3, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item1->Add( item3, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item1, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item1, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     wxBoxSizer *item4 = new wxBoxSizer( wxHORIZONTAL );
 
@@ -1328,16 +1328,46 @@ wxSizer *solvate_mset_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     item4->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxTextCtrl *item6 = new wxTextCtrl( parent, IDC_SOLV_BUF, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
-    item4->Add( item6, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    item4->Add( item6, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-    item0->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     wxBoxSizer *item7 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxButton *item8 = new wxButton( parent, IDC_SOLV_MOL, wxT("Solvate Molecule"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item8 = new wxButton( parent, IDC_SOLV_MOL, wxT("Solvate Molecules"), wxDefaultPosition, wxDefaultSize, 0 );
     item7->Add( item8, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item7, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item7, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxBoxSizer *item9 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item10 = new wxStaticText( parent, ID_TEXT, wxT("Num  Na+ ions: "), wxDefaultPosition, wxDefaultSize, 0 );
+    item9->Add( item10, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item11 = new wxTextCtrl( parent, IDC_NUM_NA, wxT("0"), wxDefaultPosition, wxSize(80,-1), 0 );
+    item9->Add( item11, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item9, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item12 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item13 = new wxStaticText( parent, ID_TEXT, wxT("Num Cl- ions : "), wxDefaultPosition, wxDefaultSize, 0 );
+    item12->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item14 = new wxTextCtrl( parent, IDC_NUM_CL, wxT("0"), wxDefaultPosition, wxSize(80,-1), 0 );
+    item12->Add( item14, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item12, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item15 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item16 = new wxButton( parent, IDC_ADD_IONS, wxT("Add Ions"), wxDefaultPosition, wxDefaultSize, 0 );
+    item15->Add( item16, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item17 = new wxButton( parent, IDC_CALC_NUM_IONS, wxT("Calc Num Ions"), wxDefaultPosition, wxDefaultSize, 0 );
+    item15->Add( item17, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item15, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     if (set_sizer)
     {

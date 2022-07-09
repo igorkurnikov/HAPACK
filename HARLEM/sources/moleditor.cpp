@@ -4059,6 +4059,35 @@ int MolEditor::CenterSoluteInSolvent(MolSet* pmset)
 	return TRUE;
 }
 
+void MolEditor::AddIons(MolSet* pmset, int n_na, int n_cl)
+{
+	if (n_na < 0 || n_cl < 0)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Number of ions to add is less than zero \n");
+		return;
+	}
+	ResidueIteratorMolSet ritr(pmset);
+	HaResidue* rptr;
+	std::vector<HaResidue*> wat_res_vec;
+	for (rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes())
+	{
+		if (rptr->IsWater()) wat_res_vec.push_back(rptr);
+	}
+	int n_ion = n_na + n_cl;
+	if (wat_res_vec.size() < n_ion)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Number of ions is greater that the number of water molecules \n");
+		return;
+	}
+
+	std::set<HaResidue*> wat_remove_set;
+
+
+
+
+
+}
+
 int MolEditor::CenterMolInPBox(MolSet* pmset)
 {
 	if(!pmset->per_bc->IsSet())

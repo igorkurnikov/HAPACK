@@ -2345,7 +2345,7 @@ int MMDriverAmber::SaveAmberInpFile()
 //	fprintf(fp," fcap=%6.3f, ", cap_fconst);
 //	fprintf(fp," \n ");
 	
-	fprintf(fp, " &end   \n\n");
+	fprintf(fp, " &end   \n");
 
 	if(p_mm_mod->period_bcond > 0 && p_mm_model->IsAmoebaFF() )
 	{
@@ -2421,7 +2421,8 @@ int MMDriverAmber::SaveAmberInpFile()
 	AtomGroup* restr_atlist =  p_mm_model->GetRestrAtoms();
 	if(restr_atlist)
 	{
-		fprintf(fp,"%.80s\n",p_mm_model->restrained_atoms.c_str());
+		std::string pos_restr_str = "Positional restraints group: " + p_mm_model->restrained_atoms;
+		fprintf(fp,"%.80s\n",pos_restr_str.c_str());
 		fprintf(fp,"%12.6f \n",p_mm_model->atom_restr_const);
 		AtomIteratorAtomGroup aitr(restr_atlist);
 		HaAtom* pt;
