@@ -17,6 +17,7 @@
 
 #include <math.h>
 #include <float.h>
+#include <random>
 
 #include <stdexcept>
 
@@ -47,6 +48,9 @@ void MolEditor::Init()
 
 	solv_name = "water";
     solv_buffer_dist = 6.0;
+
+	num_na_add = 0;
+	num_cl_add = 0;
 }
 
 MolEditor::~MolEditor()
@@ -4079,13 +4083,112 @@ void MolEditor::AddIons(MolSet* pmset, int n_na, int n_cl)
 		PrintLog("Error in MolEditor::AddIons():  Number of ions is greater that the number of water molecules \n");
 		return;
 	}
+	if (n_ion == 0) return;
 
-	std::set<HaResidue*> wat_remove_set;
+	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
 
+	HaMolecule* pMol = pmset->AddNewMolecule();
+	pMol->SetObjName("IONS");
+	HaChain* chain_c = pMol->AddChain(' ');
+	
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(0, wat_res_vec.size() - 1);
 
+	std::set<int> wat_remove_idx;
+	
+	while (wat_remove_idx.size() < n_ion)
+	{
+		wat_remove_idx.insert(dist(mt));
+	}
+	
+	int nres = 0;
+	HaMolView* pView = pmset->GetActiveMolView();
 
+	HaMolecule* p_mol_templ = p_res_db->GetMolByName("NA");
+	if (p_mol_templ == NULL)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Can not find the template for Na+ \n");
+		return;
+	}
+	HaResidue* p_res_templ = p_mol_templ->GetFirstChain()->GetFirstRes();
+	if (p_mol_templ == NULL)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Residue template for Na+ is empty \n");
+		return;
+	}
+	HaAtom* p_at_templ = p_res_templ->GetAtomByIdx(0);
+	if (p_at_templ == NULL )
+	{
+		PrintLog("Error in MolEditor::AddIons():  Atom template for Na+ is empty \n");
+		return;
+	}
 
+	AtomGroup at_list_del;
+	auto idx_itr = wat_remove_idx.begin();
+	for (; idx_itr != wat_remove_idx.end(); idx_itr++)
+	{
+		if (nres >= n_na) break;
+		int idx_wat = *idx_itr;
+		HaResidue* pres_wat = wat_res_vec[idx_wat];
+		HaAtom* p_o_at = pres_wat->GetAtomByName("O");
+		nres++;
+		HaResidue* pres = chain_c->AddResidue(nres);
+		pres->SetParamFrom(*p_res_templ);
+		HaAtom* aptr = pres->AddNewAtom();
+		aptr->SetParamFrom(*p_at_templ);
+		if (pView) pView->ColorAtomCPK(aptr);
+		if (p_o_at) aptr->SetCoordFrom(*p_o_at);
 
+		AtomIteratorAtomGroup aitr(pres_wat);
+		for (HaAtom* aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			at_list_del.InsertAtom(aptr);
+		}
+	}
+
+	p_mol_templ = p_res_db->GetMolByName("CL");
+	if (p_mol_templ == NULL)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Can not find the template for CL- \n");
+		return;
+	}
+	p_res_templ = p_mol_templ->GetFirstChain()->GetFirstRes();
+	if (p_mol_templ == NULL)
+	{
+		PrintLog("Error in MolEditor::AddIons():  Residue template for CL- is empty \n");
+		return;
+	}
+	p_at_templ = p_res_templ->GetAtomByIdx(0);
+	if (p_at_templ == NULL )
+	{
+		PrintLog("Error in MolEditor::AddIons():  Atom template for CL- is empty \n");
+		return;
+	}
+
+	for (; idx_itr != wat_remove_idx.end(); idx_itr++)
+	{
+		int idx_wat = *idx_itr;
+		HaResidue* pres_wat = wat_res_vec[idx_wat];
+		HaAtom* p_o_at = pres_wat->GetAtomByName("O");
+		nres++;
+		HaResidue* pres = chain_c->AddResidue(nres);
+		pres->SetParamFrom(*p_res_templ);
+		HaAtom* aptr = pres->AddNewAtom();
+		aptr->SetParamFrom(*p_at_templ);
+		if (pView) pView->ColorAtomCPK(aptr);
+		if (p_o_at) aptr->SetCoordFrom(*p_o_at);
+
+		AtomIteratorAtomGroup aitr(pres_wat);
+		for (HaAtom* aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			at_list_del.InsertAtom(aptr);
+		}
+
+	}
+
+	pmset->DeleteAtoms(at_list_del);
+	pmset->RefreshAllViews(RFRefresh | RFColour | RFApply);
 }
 
 int MolEditor::CenterMolInPBox(MolSet* pmset)

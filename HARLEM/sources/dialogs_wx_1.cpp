@@ -1078,6 +1078,12 @@ void SolvateDlgWX::OnInitDialog(wxInitDialogEvent& event)
 	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_SOLV_BUF);
 	edit_ctrl->SetValidator( wxDoubleValidator(&p_mol_editor->solv_buffer_dist, "%6.1f") );
 
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_NUM_NA);
+	edit_ctrl->SetValidator(wxGenericValidator(&p_mol_editor->num_na_add));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_NUM_CL);
+	edit_ctrl->SetValidator(wxGenericValidator(&p_mol_editor->num_cl_add));
+
 	event.Skip();
 }
 
@@ -1095,6 +1101,7 @@ bool SolvateDlgWX::TransferDataFromWindow()
 BEGIN_EVENT_TABLE(SolvateDlgWX,wxDialog)
     EVT_INIT_DIALOG( SolvateDlgWX::OnInitDialog )
     EVT_BUTTON( IDC_SOLV_MOL,    SolvateDlgWX::OnSolvMol )
+	EVT_BUTTON( IDC_ADD_IONS,    SolvateDlgWX::OnAddIons )
     EVT_CLOSE( SolvateDlgWX::OnClose)
 END_EVENT_TABLE()
 
@@ -1103,6 +1110,13 @@ void  SolvateDlgWX::OnSolvMol(wxCommandEvent &event)
 {
 	TransferDataFromWindow();
 	p_mol_editor->Solvate(pmset);
+}
+
+void  SolvateDlgWX::OnAddIons(wxCommandEvent& event)
+{
+	TransferDataFromWindow();
+	p_mol_editor->AddIons( pmset, p_mol_editor->num_na_add, p_mol_editor->num_cl_add);
+	pmset->RefreshAllViews(RFApply);
 }
 
 void SolvateDlgWX::OnClose(wxCloseEvent& event)

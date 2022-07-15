@@ -266,6 +266,7 @@ public:
 
 // WDR: handler declarations for SolvateDlgWX
 	void OnSolvMol(wxCommandEvent &event);
+	void OnAddIons(wxCommandEvent& event);
 	void OnClose(wxCloseEvent& event);
 private:
 	DECLARE_EVENT_TABLE()

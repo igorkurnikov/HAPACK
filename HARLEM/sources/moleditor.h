@@ -99,7 +99,8 @@ public:
 
 	std::string solv_name;   //!< Solvent to solvate molecular set
 	double solv_buffer_dist; //!< thickness of the solvent buffer around the solute 
-
+	int num_na_add;  //!< Number of sodium ions to add
+	int num_cl_add;  //!< Number of chloride ions to add
 };
 
 //! constants to specify different types of atom parameters to set  
