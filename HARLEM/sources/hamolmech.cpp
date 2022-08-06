@@ -51,8 +51,8 @@
 #include "mm_driver_gromacs.h"
 
 #ifndef _MSC_VER
-#include <tirpc/rpc/rpc.h>
-#include <tirpc/rpc/xdr.h>
+// #include <tirpc/rpc/rpc.h>
+// #include <tirpc/rpc/xdr.h> // Commented for now
 #endif
 
 harlem::RunOptions HaMolMechMod::run_opt_default;
