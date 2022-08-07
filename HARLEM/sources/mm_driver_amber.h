@@ -584,7 +584,7 @@ public:
 	HaVec_int atm_chiral_frames;   //!< AMOEBA_CHIRAL_FRAME_LIST  (3 X N_chiral)
 	HaVec_int atm_reg_frames;      //!< AMOEBA_FRAME_DEF_LIST     (5 X N_regular)
 
-	int AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* p_templ_atname_to_res_map ) throw (std::exception); //!< Add frame vectors for the atom using Template Atom FF parameters 
+	int AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* p_templ_atname_to_res_map ); //!< Add frame vectors for the atom using Template Atom FF parameters 
 
 	int num_adjust_list;             //!< Length of adjust list
 	HaVec_int atm_adjust_list;       //!< AMOEBA_ADJUST_LIST 

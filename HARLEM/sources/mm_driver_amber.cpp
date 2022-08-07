@@ -8425,7 +8425,7 @@ int AmberMMModel::SetDistConstrData()
 	return TRUE;
 }
 
-int AmberMMModel::AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* p_templ_atname_to_res_map ) throw (std::exception)
+int AmberMMModel::AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* p_templ_atname_to_res_map ) 
 {
 	std::string at_name = aptr->GetName();
 	if( !p_at_ff->HasFrameAtomNames() ) 

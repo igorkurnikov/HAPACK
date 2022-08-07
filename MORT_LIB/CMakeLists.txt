@@ -1,6 +1,8 @@
 PROJECT(MORTLIB)
 #SUBDIRS(pymort)
 
+include_directories(/home/kurnikov/SIM_PY39/include)
+
 SET(CMAKE_CXX_FLAGS  " -fPIC ")
 
 SET(LIB_MORT_SOURCE

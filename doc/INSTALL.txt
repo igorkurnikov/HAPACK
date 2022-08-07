@@ -57,22 +57,22 @@ cd PMEMD_LIB
 make
 cd ..
 --------------------------------------------------------------------------------------------------------------------
-Compilation on Berkeley cluster with anacoda compilers:
+Compilation on Berkeley cluster with conda compilers:
 
-need to make a link  anaconda3/include/GL/glx.h  -> /usr/include/glx.h
-                     anaconda3/include/GL/glxext.h  -> /usr/include/glxext.h
-                     anaconda3/lib/librdmacm.so  -> /usr/lib64/librdmacm.so
-                     anaconda3/lib/libibverbs.so  -> /usr/lib64/libibverbs.so
-                     anaconda3/lib/libudev.so  -> /usr/lib64/libudev.so
+need to make a link  $CONDA_PREFIX/include/GL/glx.h  -> /usr/include/glx.h
+                     $CONDA_PREFIX/include/GL/glxext.h  -> /usr/include/glxext.h
+                     $CONDA_PREFIX/lib/librdmacm.so  -> /usr/lib64/librdmacm.so
+                     $CONDA_PREFIX/lib/libibverbs.so  -> /usr/lib64/libibverbs.so
+                     $CONDA_PREFIX/lib/libudev.so  -> /usr/lib64/libudev.so
 
 hardcoded include dir to  MORT_LIB/CMakeLists.txt
-include_directories( /home/kurnikov/anaconda3/include )
+include_directories( $CONDA_PREFIX/include )
 
-
-need to copy  /lib64/libboost*                to $CONDA_PREFIX/lib
-              /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
-			  /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib
-			  /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
+This seems not needed anymore
+// need to copy  /lib64/libboost*                to $CONDA_PREFIX/lib
+//              /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
+//			  /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib
+//			  /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
 			  
 -------------------------------------------------------------------------------------------------------------------------
 MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:

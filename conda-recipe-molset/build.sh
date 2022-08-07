@@ -37,7 +37,7 @@ elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "CentOS" ]]; then
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
 elif [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "CentOS" ]]; then
   echo "CENTOS OS :  PY_VER = 3.8"
-  cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_4.8_PY39/wx/*    ${SP_DIR}/wx
+  cp -rp ${RECIPE_DIR}/../../wxPython-4.1.1_GCC_12.1_PY39/wx/*    ${SP_DIR}/wx
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_CENTOS_7.7/*  ${PREFIX}/lib
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_CENTOS_7.7/*  ${PREFIX}/bin
 elif [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then
