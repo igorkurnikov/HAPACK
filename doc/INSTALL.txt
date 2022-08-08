@@ -70,9 +70,12 @@ include_directories( $CONDA_PREFIX/include )
 
 This seems not needed anymore
 // need to copy  /lib64/libboost*                to $CONDA_PREFIX/lib
-//              /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
-//			  /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib
-//			  /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
+//               /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
+   			     /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib   - needed to work on nodes
+			     /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
+				 /lib64/libopenblas.so.0         to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
+				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
+				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
 			  
 -------------------------------------------------------------------------------------------------------------------------
 MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:
