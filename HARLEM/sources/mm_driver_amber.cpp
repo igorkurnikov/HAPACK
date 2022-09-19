@@ -6699,12 +6699,7 @@ int MMDriverAmber::SaveAllInpFiles()
 	SaveAmberCrdFile();
     if( p_mm_model->GetRestrAtoms() )
 	{
-		wxString fname_str = amber_constr_crd_file.c_str();
-		wxFileName fname(fname_str);
-		if(!fname.FileExists())
-		{
-			SaveAmberRstFile(amber_constr_crd_file.c_str());
-		}
+		SaveAmberRstFile(amber_constr_crd_file.c_str());
 	}
 	SaveAmberTopFile();
 	to_save_input_files = FALSE;
