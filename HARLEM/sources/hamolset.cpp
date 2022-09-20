@@ -1649,13 +1649,15 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 			for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes())
 			{
 				std::string full_res_name = pres->GetFullName();
-				for(paitr=pres->begin(), aptr=*paitr; paitr != pres->end(); paitr++, aptr=*paitr)
+				AtomIteratorAtomGroup aitr_r(pres);
+				for(aptr= aitr_r.GetFirstAtom(); aptr ; aptr = aitr_r.GetNextAtom() )
 				{
 					sprintf(buf,"%5d ",atid); os << buf;
 					sprintf(buf,"%3d ",aptr->GetElemNo()); os << buf;
 					sprintf(buf,"\"%.4s\" ",aptr->GetName()); os << buf;
 
 					at_id_map[aptr] = atid;
+					
 					atid++;
 
 					HaMolView* pView = GetActiveMolView();
@@ -1720,12 +1722,15 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 			for(; bitr != aptr->Bonds_end(); bitr++)
 			{
 				bptr = (*bitr);
-				mitr = at_id_map.find(bptr->srcatom);
-				if(mitr == at_id_map.end() ) continue;
-				int iat1 = (*mitr).second;
-				mitr = at_id_map.find(bptr->dstatom);
-				if(mitr == at_id_map.end() ) continue;
-				int iat2 = (*mitr).second;
+
+				HaAtom* aptr2 = bptr->dstatom;
+				if (aptr == bptr->dstatom) aptr2 = bptr->srcatom;
+
+				if( at_id_map.count( aptr ) == 0) continue;
+				int iat1 = at_id_map[aptr];
+				if (at_id_map.count(aptr2) == 0) continue;
+				int iat2 = at_id_map[aptr2];
+				
 				if( iat2 < iat1 ) continue;
 
 				sprintf(buf,"%5d %5d  ",iat1,iat2);
