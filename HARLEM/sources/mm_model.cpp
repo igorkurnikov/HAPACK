@@ -2704,7 +2704,7 @@ int MolMechModel::BuildGrpGrpNonBondList(AtomContainer* group1, AtomContainer* g
 	return TRUE;
 }
 
-bool MolMechModel::SetHBondConstraints(double force_const)
+bool MolMechModel::SetHBondRestraints(double force_const)
 {	
 	if(!pmset->HBonds_found) 
 	{

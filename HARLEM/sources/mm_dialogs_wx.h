@@ -88,7 +88,7 @@ protected:
 	void OnEditPeriodicBox(wxCommandEvent& event);
 
 	void OnInitMolMech(wxCommandEvent& event);
-	void OnConstrainHBond(wxCommandEvent& event);
+	void OnRestrainHBonds(wxCommandEvent& event);
 
 	void OnSelChangeFFTypeDefault( wxCommandEvent& event );
 	void OnUpdateElemList(wxCommandEvent& event);

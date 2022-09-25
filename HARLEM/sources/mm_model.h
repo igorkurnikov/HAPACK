@@ -230,7 +230,7 @@ public:
 protected:
 	double atom_restr_const;        //!< force constant for atom position restraints (kcal/mol/Ang^2)
 public:
-	bool SetHBondConstraints(double force_const); //!< put harmonic constraints on the H-Bonds 
+	bool SetHBondRestraints(double force_const); //!< put harmonic constraints on the H-Bonds 
 	int AddHarmConstraint(HaAtom* atom1,HaAtom* atom2, double eq_dist, double force_const); //!< Add Harmonic Constraint
 	int SetHarmConstraint(HaAtom* aptr1,HaAtom* aptr2, double eq_dist, double force_const); //!< Set Harmonic Constraint (Update if already exists)
 	int SetHarmConstraint(const std::string& at_ref1, const::std::string& at_ref2, double eq_dist, double force_const);
