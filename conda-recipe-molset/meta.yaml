@@ -1,4 +1,4 @@
-{% set version = "22.08.06" %}
+{% set version = "22.08.07" %}
 
 package:
   name: molset
