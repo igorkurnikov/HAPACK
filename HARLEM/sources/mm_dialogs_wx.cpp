@@ -86,7 +86,7 @@ MolMechDlgWX::~MolMechDlgWX()
 
 BEGIN_EVENT_TABLE(MolMechDlgWX,wxFrame)
     EVT_BUTTON(IDC_FFPAR_INIT_MOLMECH, MolMechDlgWX::OnInitMolMech)
-	EVT_BUTTON(IDC_CONSTRAIN_SETHBOND, MolMechDlgWX::OnConstrainHBond)
+	EVT_BUTTON(IDC_RESTRAIN_HBONDS, MolMechDlgWX::OnRestrainHBonds)
 	EVT_BUTTON(IDC_MM_CHOOSE_RESTRAINED_ATOMS, MolMechDlgWX::ChooseRestrainedAtoms)
 	EVT_BUTTON(IDC_MM_CHOOSE_MOVING_ATOMS,     MolMechDlgWX::ChooseMovingAtoms)
 	EVT_BUTTON(IDC_MM_CHOOSE_RESTR_REF_CRD,  MolMechDlgWX::ChooseRestrRefCrd)
@@ -1771,9 +1771,9 @@ void MolMechDlgWX::OnInitMolMech(wxCommandEvent& event)
 	TransferDataToWindow();
 }
 
-void MolMechDlgWX::OnConstrainHBond(wxCommandEvent& event) 
+void MolMechDlgWX::OnRestrainHBonds(wxCommandEvent& event) 
 {
-	wxTextCtrl* ptr_ffpar_frccnst= (wxTextCtrl*) FindWindow(IDC_CONSTRAIN_FRCCONST);
+	wxTextCtrl* ptr_ffpar_frccnst= (wxTextCtrl*) FindWindow(IDC_RESTRAIN_HBONDS);
 	wxString str = ptr_ffpar_frccnst->GetValue();
 	double dval;
 	bool bres;
@@ -1781,7 +1781,7 @@ void MolMechDlgWX::OnConstrainHBond(wxCommandEvent& event)
 
 	if(bres)
 	{
-	   ptr_mm_mod->p_mm_model->SetHBondConstraints(dval);
+	   ptr_mm_mod->p_mm_model->SetHBondRestraints(dval);
 	}
 	else
 	{

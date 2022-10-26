@@ -202,9 +202,9 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 		const MMBond& bnd = (const MMBond&) *mbitr;
 		if( bnd.set_type == MolMechModel::SET_SPEC)
 		{
-			os << "<bond set=spec ";
+			os << "<bond set=\"spec\" ";
 
-			sprintf(buf,"r0=%12.6f  fc=%12.6f ", bnd.r0, bnd.fc);
+			sprintf(buf,"r0=\"%12.6f\"  fc=\"%12.6f\" ", bnd.r0, bnd.fc);
 			os << buf << ">" << std::endl;
 
 			const HaAtom* aptr = (const HaAtom*) bnd.pt1;
@@ -227,9 +227,9 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 		const MMValAngle& vang = (const MMValAngle&) *vaitr;
 		if( vang.set_type == MolMechModel::SET_SPEC)
 		{
-			os << "<angle set=spec ";
+			os << "<angle set=\"spec\" ";
 
-			sprintf(buf,"a0=%12.6f  fc=%12.6f ",vang.a0,vang.fc);
+			sprintf(buf,"a0=\"%12.6f\"  fc=\"%12.6f\" ",vang.a0,vang.fc);
 			os << buf << std::endl;
 			os << ">";
 
@@ -2704,7 +2704,7 @@ int MolMechModel::BuildGrpGrpNonBondList(AtomContainer* group1, AtomContainer* g
 	return TRUE;
 }
 
-bool MolMechModel::SetHBondConstraints(double force_const)
+bool MolMechModel::SetHBondRestraints(double force_const)
 {	
 	if(!pmset->HBonds_found) 
 	{

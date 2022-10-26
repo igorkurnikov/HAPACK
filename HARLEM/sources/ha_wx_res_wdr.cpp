@@ -817,7 +817,7 @@ wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
 
     item25->Add( item41, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item45 = new wxButton( parent, IDC_CONSTRAIN_SETHBOND, wxT("Set H-Bonds of Selected Atoms as Restriants"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton *item45 = new wxButton( parent, IDC_RESTRAIN_HBONDS, wxT("Set Distance Restraints for H-bonds"), wxDefaultPosition, wxDefaultSize, 0 );
     item25->Add( item45, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxBoxSizer *item46 = new wxBoxSizer( wxHORIZONTAL );

@@ -118,7 +118,7 @@ wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit = TRUE, bool set_si
 #define IDC_MM_RESTR_FRC_CONST 11069
 #define IDC_MM_LOAD_HARM_CONSTR_FILE 11070
 #define IDC_MM_NUM_HARM_CONSTR 11071
-#define IDC_CONSTRAIN_SETHBOND 11072
+#define IDC_RESTRAIN_HBONDS 11072
 #define IDC_CONSTRAIN_FRCCONST 11073
 #define IDC_MM_SHAKE_METHOD 11074
 wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit = TRUE, bool set_sizer = TRUE );
