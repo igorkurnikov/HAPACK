@@ -48,13 +48,13 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlem_python_tests_1", "ha
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "harlempy", "..\HARLEM\harlempy.pyproj", "{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MD_SCRIPTS_IK", "..\..\InterX_Simulations\MD_SCRIPTS_IK\MD_SCRIPTS_IK.pyproj", "{DA52CB73-6498-4842-83D1-C2FADD29F365}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MD_TOOLS_PY", "..\..\InterX_Simulations\MD_TOOLS_PY\MD_TOOLS_PY.pyproj", "{529B1470-2E52-4CE3-98B0-280B2E7B2D38}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PROT_FOLD_SCRIPTS1", "..\..\InterX_Simulations\PROT_FOLD_SCRIPTS\PROT_FOLD_SCRIPTS1.pyproj", "{8C9373AE-5B91-4F4B-A59B-A8D1BC61D5B5}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "mdtraj", "..\..\..\PROG_SRC\mdtraj\mdtraj.pyproj", "{216279C8-1D8E-4B22-BF8B-30EFF34C8212}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MD_SCRIPTS_IK", "..\..\MD_SCRIPTS_IK\MD_SCRIPTS_IK.pyproj", "{DA52CB73-6498-4842-83D1-C2FADD29F365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -218,12 +218,6 @@ Global
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F5D6BA9D-D3AB-4A71-A8C1-68BD307C4033}.Release|x64.ActiveCfg = Release|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|x64.ActiveCfg = Release|Any CPU
 		{529B1470-2E52-4CE3-98B0-280B2E7B2D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{529B1470-2E52-4CE3-98B0-280B2E7B2D38}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{529B1470-2E52-4CE3-98B0-280B2E7B2D38}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -242,6 +236,12 @@ Global
 		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{216279C8-1D8E-4B22-BF8B-30EFF34C8212}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DA52CB73-6498-4842-83D1-C2FADD29F365}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
