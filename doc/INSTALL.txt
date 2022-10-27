@@ -3,43 +3,34 @@ LINUX:
 UBUNTU(16.04/18.04/20.04/22.04) packages:
 
 sudo apt install gcc g++ python3-pip
-sudo apt install libgtk-3-dev freeglut3 freeglut3-dev  ( may be but  libwebkitgtk-dev libwebkitgtk-3.0-dev  seems not needed on ubuntu 18.04 and 20.04)
-sudo apt install gfortran ( + gfortran-7 for Ubuntu 18.04  ?? )
+sudo apt install libgtk-3-dev freeglut3 freeglut3-dev   
+sudo apt install gfortran 
 sudo apt install automake
 sudo apt install libboost-dev libboost-all-dev
-libgmp-dev
-python3-dev
-zlib1g-dev 
-libopenmpi-dev
-openmpi-bin
-openmpi-common
-libopenblas-dev
-swig 
+sudo apt install libgmp-dev python3-dev zlib1g-dev 
+sudo apt install libopenmpi-dev openmpi-bin openmpi-common
+sudo apt install libopenblas-dev
+sudo apt install swig 
+
+Only for UBUNTU 16.04:
+sudo apt install libwebkitgtk-dev libwebkitgtk-3.0-dev 
+
+Only for UBUNTU 18.04:
+sudo apt install gfortran-7
+
 --------------------------------------------------------------------------------------
-UBUNTU(20.04):
-COMMENTED A LOT OF LINES in gextr.f !!  - restore! 
-
-----------------------------------------------------------------------------------------------
-#cmake CMakeLists.txt -DPYTHONINC=/share/apps/anaconda3/include/python3.7m -DPYTHONLIB=/share/apps/anaconda3/lib -DBOOSTPINC=/usr/include -DBOOSTPLIB=/usr/lib/x86_64-linux-gnu
-#make - it will make mortlib.a   although python bidings will not be finished
-
+configure HAPACK: 
+ 
 libtoolize --force                 --- creates ltmain.sh link and files in ./config    need to delete ltmain.sh  if existed)  check! 
 automake --add-missing             --- creates compile,missing and depcomp links  ( need to delete missing if existed ) - check!
 autoreconf    
 
-------------------------------------------------------------------------------------------
-if we have the error: 
-failed to generate dependencies for the library
-able to run compilation of the shared library with:
-configure --disable-dependency-tracking
-
-Configure HAPACK:
 mkdir BUILD_HARLEM
 cd    BUILD HARLEM
 
 ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
 
-Some Libraries are not still compiled automatically ( TODO ):
+Some Libraries are still not compiled automatically ( TODO ):
 mkdir MORT_LIB
 cd MORT_LIB
 cmake ../../HAPACK/MORT_LIB/
@@ -48,8 +39,18 @@ cd .. ( BUILD_HARLEM dir )
 cd PMEMD_LIB
 make
 cd ..
+
+-------------------------------------------------------------------------------------------------------------------
+Additional compilation flags:
+
+UBUNTU 16.04 ( gcc 5.4.0 )
+CPPFLAGS=-std=c++11  ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+
+UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
+LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+
 --------------------------------------------------------------------------------------------------------------------
-Compilation on Berkeley cluster with conda compilers:
+Compilation on CENTOS 7 (Berkeley cluster) with conda compilers:
 
 need to make a link  $CONDA_PREFIX/include/GL/glx.h  -> /usr/include/glx.h
                      $CONDA_PREFIX/include/GL/glxext.h  -> /usr/include/glxext.h
@@ -69,6 +70,38 @@ This seems not needed anymore
 				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
 				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
 			  
+
+----------------------------------------------------------------------------------------------------------
+wxPython compilation and install:
+
+Unzip: wxPython-4.1.1_FIX_SIZER.tar.gz
+ln -s wxPython-4.1.1_FIX_SIZER Phoenix
+cd Phoenix
+
+python build.py build_wx          - build wxWidgets
+python build.py build_py          - build wxPython
+python build.py bdist_wheel       - build wxPython wheel file in dist subdirectory
+
+for gcc 7.4 im ubuntu 18.04 and waf-2.0.17
+add additional link file to compile python extentions:
+export LDFLAGS="-fno-lto"
+
+Anaconda additional pacakges to make wheel:
+conda install -c conda-forge python-magic
+
+-----------------------------------------------------------------------------------------------------------
+wxPython4 - Phoenix install with Ubuntu wxWidgets.
+UBUNTU 18.04
+sudo apt install make gcc libgtk-3-dev libwebkitgtk-dev libwebkitgtk-3.0-dev libgstreamer-gl1.0-0 freeglut3 freeglut3-dev python-gst-1.0 python3-gst-1.0 libglib2.0-dev ubuntu-restricted-extras libgstreamer-plugins-base1.0-dev
+sudo pip3 install pathlib2
+sudo pip3 install wxpython
+worked on FRIEND!
+
+may be I should install those first:
+sudo apt-get install libwxgtk3.0-dev
+sudo apt-get install wx3.0-examples
+sudo apt-get install wx3.0-doc
+
 -------------------------------------------------------------------------------------------------------------------------
 MKL: Right now is switched off on linux - has libraries not found problem for RMSD calculations:
 currently we are using standard blas and lapack on UBUNTU :
@@ -83,22 +116,11 @@ currently we are using standard blas and lapack on UBUNTU :
 additional flags to configure:
 --with-mkl64=/share/apps/intel/mkl
 
--------------------------------------------------------------------------------------------------------------------
-UBUNTU 16.04 ( gcc 5.4.0 )
-
-CPPFLAGS=-std=c++11  ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
-
-UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
-
-LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
----------------------------------------------------------------------------------------------------------------
-PLPLOT compilation ( if versions coming with LINUX are not working: )
-cmake -DCMAKE_INSTALL_PREFIX=/home/kurnikov/local_GCC_7_4/ -DTEST_DYNDRIVERS=OFF ..
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 // MPI:
 // Problems with OPENMPI on linux:
 // The easiest way to do this is to configure your Open MPI installation with --disable-dlopen.
-//Open MPI uses a bunch of plugins for its functionality. When you dlopen libmpi in a private namespace (like Python does), and then libmpi tries to dlopen its plugins, the plugins can't find the symbols that they need in the main libmpi library (because they're in a private namespace).
+// Open MPI uses a bunch of plugins for its functionality. When you dlopen libmpi in a private namespace (like Python does), and then libmpi tries to dlopen its plugins, the plugins can't find the symbols that they need in the main libmpi library (because they're in a private namespace).
 // The workaround is to build Open MPI with all of its plugins slurped up into the libmpi library itself (i.e., so that Open MPI doesn't have to dlopen its plugins).
 Fixed with explicit dlopen( openmpi.so ) call
 
@@ -136,26 +158,7 @@ c-make-run.sh:MPI_LINK_FLAGS=$(mpicxx --showme:link)
 swig build configure params:
 configure --prefix ${HOME}/local --without-prse 
 ----------------------------------------------------------------------------------
-wxWidgets config on linux - now part of wxPython setup 
-had to comment a couple of asserts in sizer.cpp 
 
-also could do ( but didn't figure out how to do it iin python build.py build_wx )
-./configure --disable-debug_flag
-
-NOGUI:
-
-mkdir wxWidgets/build_nogui:
-
-Igor CMU Linux:
-../configure --disable-gui --disable-shared --prefix=/export/home/igor/local    - 
-
-InterX cluster:
-export CC=/opt/centos/devtoolset-1.1/root/usr/bin/gcc
-export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++
-../configure --disable-gui --disable-shared --prefix=/export/apps/local           - 
-make
-
-----------------------------------------------------------------------------------------
 Atomix hercules workstation (Centos 8):
 Compile and install OpenBlas:
 add to PKG_CONFIG_PATH environment variable the directory with openblas.pc:
@@ -163,54 +166,8 @@ export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:$PKG_CONFIG_PATH
 Set alias pkg-config to pkgconf (new substitution for pkg-config) 
 alias pkg-config=pkgconf
 
----------------------------------------------------------------------------------------------
-MKL library needed to be present:
-
-mkl_sequential.dll
-mkl_core.dll
-mkl_avx.dll    - (mkl_core.dll and mkl_sequential.dll depends on it but never complain....) 
-
-may be for additional functions other MKL libraries are needed
-In the currently used MKL version they are in :
-c:\Program Files (x86)\Intel\Composer XE 2013\redist\ia32\mkl  
------------------------------------------------------------------------------------------------------------
-wxPython4 - Phoenix install:
-UBUNTU 18.04
-sudo apt install make gcc libgtk-3-dev libwebkitgtk-dev libwebkitgtk-3.0-dev libgstreamer-gl1.0-0 freeglut3 freeglut3-dev python-gst-1.0 python3-gst-1.0 libglib2.0-dev ubuntu-restricted-extras libgstreamer-plugins-base1.0-dev
-sudo pip3 install pathlib2
-sudo pip3 install wxpython
-worked on FRIEND!
-
-may be I should install those first:
-sudo apt-get install libwxgtk3.0-dev
-sudo apt-get install wx3.0-examples
-sudo apt-get install wx3.0-doc
 ----------------------------------------------------------------------------------------------------------
-Unzip: wxPython-4.1.1_FIX_SIZER.tar.gz
-ln -s wxPython-4.1.1_FIX_SIZER Phoenix
-cd Phoenix
 
-python build.py build_wx          - build wxWidgets
-python build.py build_py          - build wxPython
-python build.py bdist_wheel       - build wxPython wheel file in dist subdirectory
-
-
-for gcc 7.4 im ubuntu 18.04 and waf-2.0.17
-add additional link file to compile python extentions:
-export LDFLAGS="-fno-lto"
-
-Anaconda additional pacakges to make wheel:
-conda install -c conda-forge python-magic
-
-make wheel file:
-python3 build.py bdist_wheel  
-
-----------------------------------------------------------------------------------------------------------
-Get Autotools ( and other progs: )
-curl -L -O http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
-or
-wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
---------------------------------------------------------------------------------------------------------
 Windows:
 python -m pip install requests
 
@@ -271,17 +228,6 @@ BUILD HARLEM AND MOLSET CONDA PACKAGE:
 conda build ./conda-recipe --output-folder ..\HARLEM_CONDA_CHANNEL
 
 -----------------------------------------------------------------------------------------------
-Not needed any more?:
-sudo apt install libplplot-dev
-sudo apt install libplplotwxwidgets1       ( UBUNTU 18.04 and later )
-sudo apt install plplot12-driver-wxwidgets ( UBUNTU 16.04 -installed with libplplot-dev ?? )sud
-sudo apt install libwxgtk3.0-dev   ( for libplot wxwidgets driver  )
-sudo apt install libshp-dev         ( for libplot shapelib connection   - already installed for UBUNTU 20.04 ) 
-
-
-GAUSSIAN util.a: 
-unpack g98.tar in ../PROG_SRC
-----------------------------------------------------------------------------------------------
 
 
 

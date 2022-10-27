@@ -75,7 +75,10 @@ void StartHarlemApp()
 	HarlemApp::m_HarlemApp = new HarlemApp();
 	HarlemApp::m_HarlemApp->InitFirst();
 	HarlemApp::m_HarlemApp->InitLast();
+	pApp = HarlemApp::m_HarlemApp;
 }
+
+
 
 
 HarlemApp::HarlemApp()
@@ -781,6 +784,10 @@ void HarlemApp::LoadInitFile()
 
 HarlemApp* GetCurApp()
 {
+	if (pApp == NULL)
+	{
+		StartHarlemApp();
+	}
 	return pApp;
 }
 

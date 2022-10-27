@@ -60,7 +60,9 @@ int HaResDB::Init()
 
 	using namespace boost::filesystem;
 
-	directory_iterator ditr_main(pApp->res_db_dir);
+	HarlemApp* pApp_loc = GetCurApp();
+
+	directory_iterator ditr_main(pApp_loc->res_db_dir);
 
     // DIR *dir = opendir(pApp->res_db_dir.c_str());
     PrintLog(" Initialize Residue Database \n");

@@ -4,9 +4,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>work\rdf\calc_rdf_centroid.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
-    <WorkingDirectory>C:\TESTS\MBX_IPI_MD\PIMD_R4</WorkingDirectory>
+    <WorkingDirectory>C:\harlem\examples\MD\BPTI</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>harlempy</Name>
     <RootNamespace>harlempy</RootNamespace>
