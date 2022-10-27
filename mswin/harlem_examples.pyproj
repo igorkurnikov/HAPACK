@@ -56,7 +56,6 @@
     <Compile Include="MC\scan_ene_gly_1.py" />
     <Compile Include="MD\analize_traj_1.py" />
     <Compile Include="MD\BPTI\ha_tmp_script.py" />
-    <Compile Include="MD\BPTI\setup_run_md.py" />
     <Compile Include="MD\BPTI\run_setup_min_md.py" />
     <Compile Include="MD\calc_deltag.py" />
     <Compile Include="MD\MDTRAJ\test_mdtraj_1.py">

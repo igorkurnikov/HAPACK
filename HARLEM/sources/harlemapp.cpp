@@ -72,7 +72,8 @@ HarlemApp* HarlemApp::m_HarlemApp = NULL;
 
 void StartHarlemApp()
 {
-	HarlemApp::m_HarlemApp = new HarlemApp();
+	// HarlemApp::m_HarlemApp = new HarlemApp();
+	HarlemApp::m_HarlemApp = new HarlemAppWX();
 	HarlemApp::m_HarlemApp->InitFirst();
 	HarlemApp::m_HarlemApp->InitLast();
 	pApp = HarlemApp::m_HarlemApp;
