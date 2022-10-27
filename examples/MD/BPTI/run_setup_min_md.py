@@ -40,7 +40,7 @@ mm_mod.Run()                         # Run Molecular Dynamics
 
 # Compute RMSD of CA atoms along the MD trajectory 
 
-trj_anal_mod = mm_mod.GetTrajAnalMod()   # Get MD trajectory analysis module
+trj_anal_mod = mm_mod.GetTrajAnalMod()       # Get MD trajectory analysis module
 rmsd_ag = trj_anal_mod.GetRMSDAgent(True);   # Get an Agent  to compute RMSD along MD trajectory
 pApp.RasMolCmd("define CA_ATOMS *.CA")       # define Atom Group with C-alpha atoms of the protein
 rmsd_ag.SetAtomsFit("CA_ATOMS");

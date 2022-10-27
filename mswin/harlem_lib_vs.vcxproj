@@ -90,7 +90,7 @@
     <TargetExt>.pyd</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
-    <LibraryPath>$(oneMKLLibDir);$(IFORT_COMPILER22)compile\lib\intel64_win\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(oneMKLLibDir);$(IFORT_COMPILER21)compile\lib\intel64_win\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>_molsetc</TargetName>
@@ -121,7 +121,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(oneMKLLibDir);$(IFORT_COMPILER22)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(oneMKLLibDir);$(IFORT_COMPILER21)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
@@ -133,7 +133,7 @@ set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
-set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
+set IFORT_DLL_PATH="$(IFORT_COMPILER21)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
@@ -178,7 +178,7 @@ $(SolutionDir)copy_dependencies.bat
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(IFORT_COMPILER22)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(IFORT_COMPILER21)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
@@ -188,7 +188,7 @@ set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
-set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
+set IFORT_DLL_PATH="$(IFORT_COMPILER21)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
