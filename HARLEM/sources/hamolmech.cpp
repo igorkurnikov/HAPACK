@@ -49,6 +49,7 @@
 #include "mm_traj_anal.h"
 #include "mm_driver_amber.h"
 #include "mm_driver_gromacs.h"
+#include "mm_driver_tinker.h"
 
 #ifndef _MSC_VER
 // #include <tirpc/rpc/rpc.h>
@@ -509,7 +510,7 @@ int HaMolMechMod::UpdateMolInfo()
 		if( /* ext_mm_prog == ext_mm_prog.PMEMD_9 || ext_mm_prog == ext_mm_prog.SANDER_9 || 
 			ext_mm_prog == ext_mm_prog.PMEMD_10 || */ ext_mm_prog == ext_mm_prog.PMEMD_12 || ext_mm_prog == ext_mm_prog.PMEMD_18)
 		{
-			p_amber_driver->LoadAmberRestartFile(p_amber_driver->amber_rst_file.c_str());
+			p_amber_driver->LoadAmberRestartFile( p_amber_driver->amber_rst_file );
 			p_amber_driver->LoadAmberMDInfoFile();
 		}
 	}	
@@ -833,6 +834,14 @@ int HaMolMechMod::CalcEnergy()
 	return TRUE;
 }
 
+void HaMolMechMod::SaveAllInpFiles()
+{
+	if (p_amber_driver)   p_amber_driver->SaveAllInpFiles();
+	//if (p_tinker_driver)  p_tinker_driver->SaveAllInpFiles();   // IGOR_TO_FIX
+	//if (p_gromacs_driver) p_gromacs_driver->SaveAllInpFiles(); 
+}
+
+
 int HaMolMechMod::CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2)
 {
 	if(pApp->mpi_driver->nprocs < 2) 
@@ -945,7 +954,14 @@ double HaMolMechMod::GetUnConstrEne() const
 	return (p_mm_info->pot_ene - p_mm_info->constraints_ene); 
 }
 
-int HaMolMechMod::LoadAmberRestartFile(const std::string& rst_file_name)
+int HaMolMechMod::LoadRestartFile(std::string rst_file_name )
+{
+	int ires = FALSE;
+	if (p_amber_driver) ires = p_amber_driver->LoadAmberRestartFile( rst_file_name );
+	return ires;
+}
+
+int HaMolMechMod::LoadAmberRestartFile(const std::string rst_file_name)
 {
 	return p_amber_driver->LoadAmberRestartFile( rst_file_name.c_str() );
 }

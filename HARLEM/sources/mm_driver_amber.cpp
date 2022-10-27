@@ -6458,10 +6458,12 @@ void MMDriverAmber::PrintMinEneMDOUT(HaVec_double& si_vec,int nstep,double rms, 
 	PrintLogMDOUT(" ");
 }
 
-int MMDriverAmber::LoadAmberRestartFile(const char* rst_file_name)
+int MMDriverAmber::LoadAmberRestartFile(std::string rst_file_name)
 {	
 	PrintLog("MMDriverAmber::LoadAmberRestartFile() \n " );
 	char buf[256];
+
+	if (rst_file_name.empty()) rst_file_name = this->amber_rst_file;
 
 	if( !boost::filesystem::exists( (std::string) rst_file_name ) )
 	{	

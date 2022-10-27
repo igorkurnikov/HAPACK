@@ -104,6 +104,8 @@ public:
 	int CalcEnergy();       //!< Calculate Current MM Energy of the system
 	int CalcEnergySimple(); //!< Simple function to Calculate MM energy of the system ( not fully implemented)
 
+	void SaveAllInpFiles(); //!< Save All Input Files for the Current External MM program
+
 	void PrintEneStr(MMSysInfo& info,std::string& str_out); //!< Print energy components to string
 	void PrintEneStrAccurate(MMSysInfo& info,std::string& str_out); //!< Print accurate energy components to string
 	void PrintLogEne(); //!< Print to log current MM energy and its components
@@ -118,7 +120,8 @@ public:
 	double GetConstrEne() const;  //!< Get Contraints energy
 	double GetUnConstrEne() const;  //!< Get Potential Energy of the system - energy of constraints
 
-	int LoadAmberRestartFile(const std::string& rst_file_name); //!< Load Restart File in AMBER format 	 
+	int LoadRestartFile( std::string rst_file_name = ""); //!< Load Restart file in the format of the current External MM Program ( default: current Restart file name ) 
+	int LoadAmberRestartFile(const std::string rst_file_name = ""); //!< Load Restart File in AMBER format 	 ( default: current Restart file name )
 
 private:
 	int run_internal_flag;      //!< if TRUE run MM calculation internally 

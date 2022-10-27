@@ -53,7 +53,7 @@ public:
 
 	int RunAmberProg(int sync); //!< Run External AMBER (Sander or PMEMD) executable ( if sync == TRUE - no return before AMBER process exited)
 
-	int LoadAmberRestartFile(const char* rst_file_name); //!< Load coordinates from the AMBER restart file
+	int LoadAmberRestartFile(std::string rst_file_name); //!< Load coordinates from the AMBER restart file
 	int LoadAmberMDInfoFile();  //!< Load info from AMBER mdinfo file
 
 // from parallel_dat_mod:

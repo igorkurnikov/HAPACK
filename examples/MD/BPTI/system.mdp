@@ -1,0 +1,36 @@
+;  GROMACS mdp file created by HARLEM
+
+ integrator=sd            ; Molecular Dynamics with Langevin Integrator 
+ dt=0.001         ; time step for integration 
+ nsteps=1000        ; maximum number of steps to integrate 
+ nstcomm=1000       ; frequency for center of mass motion removal 
+ constraints=none    ;   No bonds converted to constraints. 
+
+; MM Run Output control 
+
+ nstlog= 10        ;  number of steps that elapse between writing energies to the log file  
+ nstxout-compressed= 100        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) 
+ nstenergy= 100        ;  number of steps that elapse between writing energies to energy file  
+
+; Pressure Control 
+
+ pbc=xyz         ;  Use periodic boundary conditions in all directions  
+ ref-p= 1    ;  The reference pressure for coupling  
+ tau-p= 1    ;  The time constant for pressure coupling  
+
+; Non-bonded interactions 
+
+ coulombtype=PME             ;  Fast Smooth Particle-Mesh Ewald (SPME) electrostatics  
+ cutoff-scheme=Verlet         ;  Generate a pair list with buffering 
+ rlist=    1.200        ;  Cut-off distance for the short-range neighbor list (nm). 
+ rcoulomb= 1.2        ;  distance for the Coulomb cut-off (nm) 
+ vdwtype=Cut-off         ;  Plain cut-off  
+ rvdw= 1.2        ;  distance for the LJ cut-off (nm) 
+
+; Temperature Control 
+
+ tc-grps= system              ; groups to couple to separate temperature baths  
+ ref-t= 300        ;  reference temperature for coupling (K) 
+ tau-t= 5        ;  time constant for coupling (ps) 
+ gen-vel=yes    ;  Generate velocities in gmx grompp according to a Maxwell distribution 
+ gen-temp= 300
