@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<MolSet::CalcPKs>
+    <ReseduesWithAltStates N="0"></ReseduesWithAltStates>
+    <pKstd N="0"></pKstd>
+    <Inter M="0" N="0">
+
+</Inter>
+    <pKnoIter N="0"></pKnoIter>
+    <Inter_pH7 M="0" N="0">
+
+</Inter_pH7>
+    <alt_pop_pH7 N="0"></alt_pop_pH7>
+    <delt_e_pH7 N="0"></delt_e_pH7>
+    <pKwithIter N="0"></pKwithIter>
+</MolSet::CalcPKs>
