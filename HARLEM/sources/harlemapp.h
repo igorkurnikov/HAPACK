@@ -126,10 +126,10 @@ void StartHarlemApp();
 extern "C" {
 #if defined(HARLEMAPP_CPP)
 	HarlemApp* pApp;
-	HarlemApp* GetCurApp();
+	HarlemApp* GetHarlemApp();
 #else
 	extern HarlemApp* pApp;          //!< pointer to the current HARLEM application instance
-	extern HarlemApp* GetCurApp();   //!< get pointer to the current HARLEM application instance
+	extern HarlemApp* GetHarlemApp();   //!< get pointer to the current HARLEM application instance
 #endif
 }
 

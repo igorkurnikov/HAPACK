@@ -60,7 +60,7 @@ int HaResDB::Init()
 
 	using namespace boost::filesystem;
 
-	HarlemApp* pApp_loc = GetCurApp();
+	HarlemApp* pApp_loc = GetHarlemApp();
 
 	directory_iterator ditr_main(pApp_loc->res_db_dir);
 

@@ -69,7 +69,6 @@ extern "C" __declspec(dllexport) int __stdcall start_harlemappwx(int argc, char 
 }
 #endif
 
-
 const wxEventType wxEVT_HARLEM_APP = wxNewEventType();
 
 BEGIN_EVENT_TABLE( HarlemAppWX,  wxApp)
@@ -148,7 +147,6 @@ void HarlemAppWX::OnExitApp(wxCommandEvent& event)
 	delete this;
 }
 
-#if !defined(HARLEM_PYTHON_NO)
 class PythonThread: public wxThread
 {
 public:
@@ -163,7 +161,6 @@ public:
 		Py_Finalize();
 	}
 };
-#endif
 
 bool HarlemAppWX::OnInit(void)
 {
@@ -308,8 +305,4 @@ int HarlemAppWX::OnRun()
 	return FALSE;
 }
 
-HarlemAppWX* GetAppWX()
-{
-	return (HarlemAppWX*)pApp;
-}
 

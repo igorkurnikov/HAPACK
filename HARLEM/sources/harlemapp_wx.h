@@ -43,14 +43,10 @@ private:
   DECLARE_EVENT_TABLE();
 };
 
-
 extern const wxEventType wxEVT_HARLEM_APP;
 const int HARLEM_APP_EXIT_ID = 20001;
 
-
 DECLARE_APP(HarlemAppWX);
-
-HarlemAppWX* GetAppWX();
 
 
 #endif // !defined(HARLEMAPP_WX_H)

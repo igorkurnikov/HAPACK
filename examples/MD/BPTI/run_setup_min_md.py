@@ -1,7 +1,4 @@
-import os
 from molset import *
-
-cdir = os.getcwd()
 
 mset = MolSet()
 mset.LoadPDBFile("6PTI.pdb")

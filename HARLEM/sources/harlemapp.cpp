@@ -80,7 +80,6 @@ void StartHarlemApp()
 
 
 
-
 HarlemApp::HarlemApp()
 {
 #if defined(HA_NOGUI)
@@ -129,7 +128,6 @@ HarlemApp::HarlemApp()
 
 HarlemApp::~HarlemApp()
 {
-//   PrintLog("HarlemApp::~HarlemApp() pt 1 \n");
    int nm = molset_vec.size();
    if( nm > 0 )
    {
@@ -782,7 +780,7 @@ void HarlemApp::LoadInitFile()
 	}
 }
 
-HarlemApp* GetCurApp()
+HarlemApp* GetHarlemApp()
 {
 	if (pApp == NULL)
 	{
