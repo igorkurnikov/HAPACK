@@ -2,7 +2,9 @@ noinst_LIBRARIES = libpmemd.a
 
 if WITH_GFORTRAN
 #AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -I/opt/mpich/include/f90base  -fPIC
-AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -fPIC -fallow-argument-mismatch -fallow-invalid-boz 
+#AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -fPIC -fallow-argument-mismatch -fallow-invalid-bozi   # for gcc 5 ubuntu 16.04 ??
+AM_FCFLAGS = -ffree-form -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE) -fPIC 
+
 else
 AM_FCFLAGS = -fpe0  -DDIRFRC_COMTRANS -DFFTLOADBAL_2PROC -DINCLUDE_MPIF $(MPI_INCLUDE)  -fPIC
 endif

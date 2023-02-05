@@ -13,7 +13,7 @@ sudo apt install libopenblas-dev
 sudo apt install swig 
 
 Only for UBUNTU 16.04:
-sudo apt install libwebkitgtk-dev libwebkitgtk-3.0-dev 
+sudo apt install libwebkitgtk-dev libwebkitgtk-3.0-dev  
 
 Only for UBUNTU 18.04:
 sudo apt install gfortran-7
@@ -28,7 +28,7 @@ autoreconf
 mkdir BUILD_HARLEM
 cd    BUILD HARLEM
 
-../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+../HAPACK/configure --prefix /usr/local/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
 
 Some Libraries are still not compiled automatically ( TODO ):
 mkdir MORT_LIB
@@ -36,7 +36,7 @@ cd MORT_LIB
 cmake ../../HAPACK/MORT_LIB/
 make
 cd .. ( BUILD_HARLEM dir )
-cd PMEMD_LIB
+cd m_LIB
 make
 cd ..
 
@@ -45,6 +45,9 @@ Additional compilation flags:
 
 UBUNTU 16.04 ( gcc 5.4.0 )
 CPPFLAGS=-std=c++11  ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
+
+remove -allow-argument-mismatch flag for PMEMD_LIB 
+remove -g                       flag for PMEMD_LIB - otherwise  a complain for non-relocatable mpi_argc_.... symbol   
 
 UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
 LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
@@ -81,6 +84,8 @@ cd Phoenix
 python build.py build_wx          - build wxWidgets
 python build.py build_py          - build wxPython
 python build.py bdist_wheel       - build wxPython wheel file in dist subdirectory
+
+for UBUNTU-16.04 on chembeast had to get out of conda ( conda deactivate ) - some conflict with ld in conda environment?
 
 for gcc 7.4 im ubuntu 18.04 and waf-2.0.17
 add additional link file to compile python extentions:
@@ -210,7 +215,7 @@ find_library(LZMA_DEBUG NAMES lzmad PATHS "${CURRENT_INSTALLED_DIR}/debug/lib" N
 find_library(LZMA_DEBUG NAMES lzma PATHS "${CURRENT_INSTALLED_DIR}/debug/lib" NO_DEFAULT_PATH) )
 
 .\vcpkg install python3 
-.\vcpkg install plplot[wxwidgets]:x64-windows   (plplot + wxWidgets)   not needed any more?? 
+.\vcpkg install plot[wxwidgets]:x64-windows   (plplot + wxWidgets)   not needed any more?? 
 .\vcpkg install boost:x64-windows               (boost libraries)
 .\vcpkg install mpir:x64-windows                (muliprecision arithmetics)
 .\vcpkg install msmpi:x64-windows               (Microsoft MPI)  
