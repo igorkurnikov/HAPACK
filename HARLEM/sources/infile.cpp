@@ -1847,6 +1847,7 @@ int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions& opt )
 	}
 	
 	int ires;
+	
 
 	std::string line;
 	std::getline(is,line);
@@ -1865,7 +1866,9 @@ int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions& opt )
 //	    PrintLog(" MolSet::LoadHarlemFile() load file in new XML format \n");
 		ires = LoadXMLStream (is, opt );
 	}
-	
+	std::string prefix = harlem::GetPrefixFromFullName(fname);
+	this->SetName(prefix.c_str());
+
 //	clock_t fin_time = clock();
 //	PrintLog(" MolSet::LoadHarlemFile time = %12.6f sec \n", (fin_time - init_time)/((double)CLOCKS_PER_SEC));
 
