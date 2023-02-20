@@ -1,0 +1,18 @@
+current wxPython 4.1.1 with wxWidgets 3.1.5 ??
+
+had to modify sizer.cpp  commenting several asserts for sizers 
+also commented
+
+wxPython-4.1.1/ext/wxWidgets/include/wx/strvararg.h(484):
+
+assert "(argtype & (wxFormatStringSpecifier<T>::value)) == argtype"  
+
+that gave an error:
+
+failed in wxArgNormalizer(): format specifier doesn't match argument type
+
+commented these asserts ( in addition two more asserts in sizer.cpp ) in: 
+
+wxPython-4.1.1_FIX_SIZER_EXT.tar.gz
+
+
