@@ -421,7 +421,7 @@ const char* xyz_filters = "*.xyz";
 const char* hin_filters = "*.hin";
 const char* gauss_filters = "*.rwf;*.chk";
 const char* harlem_filters = "*.hlm";
-const char* amber_prep_filters = "*.in";
+const char* amber_prep_filters = "*.in;*.prep";
 const char* amber_top_filters = "*.top;*.crd;*.rst";
 const char* amber_off_filters = "*.off;*.lib";
 const char* nrg_filters = "*.nrg";
@@ -436,7 +436,7 @@ void ChooseMolFileDlg::FillFileTypes()
     file_types_ch->Append("TINKER XYZ Format    (*.xyz)",(void*)xyz_filters);
     file_types_ch->Append("Gaussian RWF File Format (*.rwf;*.chk)",(void*)gauss_filters);
 	file_types_ch->Append("HARLEM File Format (*.hlm)",(void*)harlem_filters);
-    file_types_ch->Append("AMBER PREP File Format (*.in)",(void*)amber_prep_filters);
+    file_types_ch->Append("AMBER PREP File Format (*.in;*.prep)",(void*)amber_prep_filters);
 	file_types_ch->Append("AMBER TOP File Format (*.top)",(void*)amber_top_filters);
 	file_types_ch->Append("AMBER OFF File Format (*.off;*.lib)", (void*)amber_off_filters);
 	file_types_ch->Append("ARBALEST File Format (*.hin)",(void*)hin_filters);
