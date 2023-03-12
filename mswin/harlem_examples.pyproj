@@ -62,6 +62,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MD\mg_dist_wrap_cell_2.py" />
+    <Compile Include="MD\PARMED\amb_gmx_conv.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MD\print_tot_ind_dip_1.py" />
     <Compile Include="MD\reduce_traj_1.py" />
     <Compile Include="MD\run_md_1.py" />
@@ -213,6 +216,7 @@
     <Folder Include="MD\MG_WAT_PMF" />
     <Folder Include="MD\MG_WAT_RDF" />
     <Folder Include="MD\MDTRAJ\" />
+    <Folder Include="MD\PARMED\" />
     <Folder Include="MD\PEPT3" />
     <Folder Include="MD\TEST_MD_1_GLY" />
     <Folder Include="MD\TI_METH_CH" />

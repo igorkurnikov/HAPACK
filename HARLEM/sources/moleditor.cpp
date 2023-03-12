@@ -3456,26 +3456,20 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	fclose(solv_file);
 
-	double dist_min_to_prot = 4.0;
+	double dist_min_to_prot = 3.0;
 	double dist_min_to_prot_sq = dist_min_to_prot * dist_min_to_prot;
 
 	this->CenterAtOriginWithRad(pmset);
 
 	double xmin, ymin, zmin, xmax, ymax, zmax;
 	pmset->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
-
-	BoxPartition part_table; // Table of Distributions of atoms into quadrants between minimal and maximal coordinates of atoms of the molecular set
-	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
-	part_table.DistributePointsToCells(*pmset);
-	part_table.SetRegionRad(dist_min_to_prot);
-
+	
 	xmax += solv_buffer_dist;
 	ymax += solv_buffer_dist;
 	zmax += solv_buffer_dist;
 
 	MolSet* solvent = new MolSet();
 	solvent->LoadHarlemFile(solv_fname.c_str());
-
 
     if( !solvent->per_bc->IsSet() )
 	{
@@ -3523,6 +3517,11 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	AtomIteratorAtomGroup aitr_old_atoms(&old_atoms);
 
+	BoxPartition part_table; // Table of Distributions of atoms into quadrants between minimal and maximal coordinates of atoms of the molecular set
+	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
+	part_table.DistributePointsToCells(old_atoms);
+	part_table.SetRegionRad(dist_min_to_prot);
+
 	HaMolecule* pMol = pmset->AddNewMolecule();
 	pMol->SetObjName("Solvent");
 	MoleculesType::iterator mol_itr;
@@ -3553,8 +3552,9 @@ int MolEditor::Solvate(MolSet* pmset)
 				{
 					part_table.GetNeighbors(*aptr_res, close_atoms);
 					AtomIteratorAtomGroup aitr_close(&close_atoms);
-
-					for (aptr = aitr_close.GetFirstAtom(); aptr; aptr = aitr_close.GetNextAtom())
+					
+					for (aptr = aitr_old_atoms.GetFirstAtom(); aptr; aptr = aitr_old_atoms.GetNextAtom()) // IGOR_TMP removed partiton table speed up
+					// for (aptr = aitr_close.GetFirstAtom(); aptr; aptr = aitr_close.GetNextAtom())
 					{
 						if (Vec3D::CalcDistanceSq(aptr, aptr_res) < dist_min_to_prot_sq)
 						{
