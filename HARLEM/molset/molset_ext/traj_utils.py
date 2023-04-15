@@ -36,6 +36,75 @@ def MolSet_crd_from_frame( mset : molset.MolSet, t ):
         at.SetX(float(t.xyz[0,i,0])*10.0)
         at.SetY(float(t.xyz[0,i,1])*10.0)
         at.SetZ(float(t.xyz[0,i,2])*10.0)
+        
+def get_at_idx(top: md.Topology, resi: int, at_name: str):
+    """ 
+    get atom index (0-based) in mdtraj Topology 
+    by residue index (0-based) and atom name 
+    """
+    if( MDTRAJ_IMPORTED == 0 ): return -1
+    at_arr = [at for at in top.residue(resi-1).atoms_by_name(at_name)]
+    if( len(at_arr) == 0 ): return -1
+    return at_arr[0].index
+
+def make_pair_idx( atid_arr ):
+    """ 
+    make atom pair index array  
+    from string array of atom id in RASMOL format: Trp29.CG 
+    
+    return: numpy array atom pair indexes (dtype=int) shape (-1,2)
+    """    
+    pair_idx = np.empty(0,dtype=int)
+    col_names = []
+    for i in range( len(atid_arr)//2 ):
+        atid_1 = atid_arr[2*i]
+        atid_2 = atid_arr[2*i+1]
+        tokens1 = atid_1.split(".")
+        nr1 = int( ''.join(re.findall(r'\d+',tokens1[0])) ) 
+        atn1 = tokens1[1]
+        tokens2 = atid_2.split(".")
+        nr2 = int( ''.join(re.findall(r'\d+',tokens2[0])) )
+        atn2 = tokens2[1]
+        pair_idx = np.append( pair_idx,get_at_idx(top,nr1,atn1) ) 
+        pair_idx = np.append( pair_idx,get_at_idx(top,nr2,atn2) )  
+        col_names.append(atid_1 + " - " + atid_2)
+    pair_idx = np.reshape(pair_idx,(-1,2))
+    return(pair_idx,col_names)
+
+def make_dihedral_idx( atid_arr ):
+    """ 
+    make atom quadruplets index array  
+    from string array of atom id in RASMOL format: Trp29.CG 
+
+    return: numpy array atom pair indexes (dtype=int) shape (-1,4)
+    """   
+    dihedral_idx = np.empty(0,dtype=int)
+    col_names = []
+    for i in range( len(atid_arr)//4 ):
+        atid_1 = atid_arr[4*i]
+        atid_2 = atid_arr[4*i+1]
+        atid_3 = atid_arr[4*i+2]
+        atid_4 = atid_arr[4*i+3]
+        tokens1 = atid_1.split(".")
+        nr1 = int( ''.join(re.findall(r'\d+',tokens1[0])) ) 
+        atn1 = tokens1[1]
+        tokens2 = atid_2.split(".")
+        nr2 = int( ''.join(re.findall(r'\d+',tokens2[0])) )
+        atn2 = tokens2[1]
+        tokens3 = atid_3.split(".")
+        nr3 = int( ''.join(re.findall(r'\d+',tokens3[0])) )
+        atn3 = tokens3[1]
+        tokens4 = atid_4.split(".")
+        nr4 = int( ''.join(re.findall(r'\d+',tokens4[0])) )
+        atn4 = tokens4[1]
+        dihedral_idx = np.append( dihedral_idx,get_at_idx(top,nr1,atn1) ) 
+        dihedral_idx = np.append( dihedral_idx,get_at_idx(top,nr2,atn2) )  
+        dihedral_idx = np.append( dihedral_idx,get_at_idx(top,nr3,atn3) ) 
+        dihedral_idx = np.append( dihedral_idx,get_at_idx(top,nr4,atn4) ) 
+        col_names.append(atid_1 + " - " + atid_2 + " - " + atid_3 + " - " + atid_4)
+    dihedral_idx = np.reshape(dihedral_idx,(-1,4))
+    return(dihedral_idx,col_names)
+
 
 
 
