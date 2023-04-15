@@ -1,3 +1,5 @@
+""" Utilities to interact with RDKIT package """
+
 RDKIT_IMPORTED = 0
 try:
     from rdkit.Chem import rdchem

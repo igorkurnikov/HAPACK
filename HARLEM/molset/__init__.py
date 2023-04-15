@@ -25,10 +25,12 @@ pkg_sub_dir = "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1
 pkg_dir = os.path.join(molset_dir,"..","lib",pkg_sub_dir)
 sys.path.append( pkg_dir )
 
-from molset.molsetc import *      
-from molset.harlempy import start_harlem
-from molset.molset_ext import *
+from .molsetc import *      
 
+__path__.append(os.path.join(os.path.dirname(__file__), "molset_ext"))
+
+from molset.harlempy import start_harlem
+ 
 HaAtom_FillStdAtomTypes()
 HaResidue_InitStdResNames()
 HaResidue_InitResSynonym()

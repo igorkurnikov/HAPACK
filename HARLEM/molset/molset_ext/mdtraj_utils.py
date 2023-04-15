@@ -1,6 +1,10 @@
+"""  Utilities to interact with mdtraj package """
+
 import os
 import shutil
 import tempfile
+import re
+
 NUMPY_IMPORTED = 0
 MDTRAJ_IMPORTED = 0
 try:
@@ -20,6 +24,7 @@ except:
 import molset
 
 def MolSet_to_mdtraj_top( mset : molset.MolSet ):
+    """ Convert MolSet to mdtraj.Topology """
     if( MDTRAJ_IMPORTED == 0 ): return None
     temp_dir = tempfile.mkdtemp(prefix='molset_temp_')
     print("temp_dir =",temp_dir)
@@ -29,7 +34,8 @@ def MolSet_to_mdtraj_top( mset : molset.MolSet ):
     if(os.path.exists(temp_dir)): shutil.rmtree(temp_dir)
     return topology
 
-def MolSet_crd_from_frame( mset : molset.MolSet, t ):
+def MolSet_crd_from_frame( mset : molset.MolSet, t : md.Trajectory ):
+    """ set coordinates of Molset from mdtraj trajectory frame """
     if( MDTRAJ_IMPORTED == 0 ): return None
     print(t.time)
     for i,at in enumerate(mset):
@@ -47,10 +53,11 @@ def get_at_idx(top: md.Topology, resi: int, at_name: str):
     if( len(at_arr) == 0 ): return -1
     return at_arr[0].index
 
-def make_pair_idx( atid_arr ):
+def make_pair_idx( top: md.Topology,  atid_arr : list[str] ):
     """ 
-    make atom pair index array  
-    from string array of atom id in RASMOL format: Trp29.CG 
+    make atom pair index array ( 0-based )  
+    from string array of atom ids in RASMOL format: Trp29.CG 
+    for mdtraj.Topology  
     
     return: numpy array atom pair indexes (dtype=int) shape (-1,2)
     """    
@@ -71,10 +78,11 @@ def make_pair_idx( atid_arr ):
     pair_idx = np.reshape(pair_idx,(-1,2))
     return(pair_idx,col_names)
 
-def make_dihedral_idx( atid_arr ):
+def make_dihedral_idx( top: md.Topology, atid_arr : list[str] ):
     """ 
-    make atom quadruplets index array  
+    make atom quadruplets index array (0-based) 
     from string array of atom id in RASMOL format: Trp29.CG 
+    for mdtraj.Topology  
 
     return: numpy array atom pair indexes (dtype=int) shape (-1,4)
     """   
