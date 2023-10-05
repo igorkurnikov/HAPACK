@@ -748,7 +748,7 @@ int AtomContainer::SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_op
 
 		//if( res_name.size() < 4 ) 
 
-		sprintf(buf, "%5d%-4.4s  %4.4s%5d%8.3f%8.3f%8.3f ", resno, res_name.c_str(), aptr->GetName(), idx, x, y, z);
+		sprintf(buf, "%5d%-4.4s  %4.4s%5d%12.6f%12.6f%12.6f ", resno, res_name.c_str(), aptr->GetName(), idx, x, y, z);
 		sout << buf << std::endl;
 
 		idx++;
