@@ -2417,7 +2417,7 @@ MDTrajectory::MDTrajectory(MolSet* new_pmset)
 	CrdFile=NULL;
 	VelFile=NULL;
 	EneFile=NULL;
-#ifndef _MSC_VER
+#ifdef HAVE_XDR_H
 	xtctrj=NULL;
 #endif
 	format=FormatUnk;
@@ -2582,7 +2582,7 @@ int MDTrajectory::RefreshAllViews()
 
 int MDTrajectory::OpenXTC(const char* filename)
 {
-#ifndef _MSC_VER
+#ifdef HAVE_XDR_H
 	PrintLog("Open GROMACS XTC trajectory (%s)\n",filename);
 	if(xtctrj!=NULL)
 	{
@@ -2604,7 +2604,7 @@ int MDTrajectory::OpenXTC(const char* filename)
 }
 int MDTrajectory::ReadNextFrameXTC()
 {
-#ifndef _MSC_VER
+#ifdef HAVE_XDR_H
 	if(xtctrj==NULL)
 	{
 		PrintLog("One XTC file is not open\n");
@@ -2637,7 +2637,7 @@ int MDTrajectory::ReadNextFrameXTC()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-#ifndef _MSC_VER
+#ifdef HAVE_XDR_H 
 XTCTraj::XTCTraj()
 {
 	XTC_MAGIC=1995;

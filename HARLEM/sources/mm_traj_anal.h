@@ -11,7 +11,9 @@
 
 #include "trajanal.h"
 
-#ifndef _MSC_VER
+#undef HAVE_XDR_H 
+
+#ifdef HAVE_XDR_H
 class XTCTraj;
 #endif
 // In development just suggested interfaces:
@@ -59,14 +61,14 @@ class MDTrajectory
 		int OpenAMBER_CRD(const char* filename);
 		
 		int ReadNextFrameAMBER_CRD();
-#ifndef _MSC_VER
+#ifdef HAVE_XDR_H
 		XTCTraj *xtctrj;
 #endif
 		int OpenXTC(const char* filename);
 		int ReadNextFrameXTC();	
 };
 
-#ifndef _MSC_VER
+#if HAVE_XDR_H
 #include "rpc/xdr.h"
 //class XDR;
 class XTCTraj
