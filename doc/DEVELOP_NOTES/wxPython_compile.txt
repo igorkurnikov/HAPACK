@@ -16,3 +16,15 @@ commented these asserts ( in addition two more asserts in sizer.cpp ) in:
 wxPython-4.1.1_FIX_SIZER_EXT.tar.gz
 
 
+---------------------------------------------------------------------------
+Compile on conda under UBUNTU-20.04 (bcln: /srv/data/transient/kurnikov/CONDA_CMAKE )
+
+conda install -c conda-forge gcc=9
+conda install -c conda-forge gfortran=9
+conda install -c conda-forge gtk3
+
+
+
+
+
+
