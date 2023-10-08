@@ -36,7 +36,7 @@ cd MORT_LIB
 cmake ../../HAPACK/MORT_LIB/
 make
 cd .. ( BUILD_HARLEM dir )
-cd m_LIB
+cd PMEMD_LIB
 make
 cd ..
 
@@ -229,6 +229,8 @@ conda install rdkit
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 BUILD HARLEM AND MOLSET CONDA PACKAGE:
+prep:
+copy MOLSET_BIN_LIBS to HAPACK/..  directory, symbolic link may not work
 
 conda build ./conda-recipe --output-folder ..\HARLEM_CONDA_CHANNEL
 

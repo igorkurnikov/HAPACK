@@ -69,7 +69,7 @@ cp -a ${RECIPE_DIR}/../residues_db/*  ${PREFIX}/opt/harlem/residues_db
 if [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
   pip install wxPython-4.1.1-cp39-cp39-linux_x86_64.whl
 elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
-  pip install wxPython-4.1.1-cp38-cp38m-linux_x86_64.whl
+  pip install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 elif [[ "$PY_VER" = "3.7" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
   pip install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
 else
