@@ -233,7 +233,21 @@ BUILD HARLEM AND MOLSET CONDA PACKAGE:
 prep:
 copy MOLSET_BIN_LIBS to HAPACK/..  directory, symbolic link may not work
 
-conda build ./conda-recipe --output-folder ..\HARLEM_CONDA_CHANNEL
+conda build ./conda-recipe-molset --output-folder ../MOLSET_CONDA_CHANNEL
+conda build ./conda-recipe-harlem --output-folder ../HARLEM_CONDA_CHANNEL
+
+Need to update python-dev package for UBUNTU-20.04 - otherwise there is an PyCMethod_New is not defined error in molset loading
+
+when attempt to install on BCLN:
+library missing:
+libmpi.so.40
+libmpi_mpifh.so.40
+libmpi_cxx.so.40
+libopen_pal.so.40
+libopen_rte.so.40
+libXxf86vm.so.1
+libXtst.so.6 
+libffi.so.7
 
 -----------------------------------------------------------------------------------------------
 
