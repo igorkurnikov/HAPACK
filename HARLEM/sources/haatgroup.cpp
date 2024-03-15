@@ -1091,6 +1091,16 @@ bool HaResidue::SplitResidue()
 	return true;
 }
 
+bool AtomGroup::SwapAtoms(int i1, int i2)
+{
+	int na = this->GetNAtoms();
+	if (i1 < 0 || i2 < 0 || i1 >= na || i2 >= na) return false;
+	HaAtom* pat1 = (*this)[i1];
+	(*this)[i1] = (*this)[i2];
+	(*this)[i2] = pat1;
+	return true;
+}
+
 int AtomGroup::HasSelectedAtoms()
 {
 	AtomIteratorAtomGroup aitr(this);

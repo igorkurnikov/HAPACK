@@ -46,33 +46,25 @@ echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
 echo "Output Dir: %OutputDir%"
 
-
 REM ###########################################################################
 REM Make directories if not exists
 if not exist "%OutputDir%\molset\NUL" (
     mkdir "%OutputDir%\molset"
-) else (
-    echo "%OutputDir%\molset already exists"
-)
+) 
 
 if not exist "%OutputDir%\pnpsll\NUL" (
     mkdir "%OutputDir%\pnpsll"
-) else (
-    echo "%OutputDir%\pnpsll already exists"
-)
+) 
 
 REM ###########################################################################
 echo "Linking PYTHON Directories"
 if not exist "%OutputDir%\DLLs\NUL" (
     mklink /D %OutputDir%\DLLs %PYTHON_HOME_PATH%\DLLs
-) else (
-    echo "%OutputDir%\DLLs already exists"
 )
+
 if not exist "%OutputDir%\Lib\NUL" (
     mklink /D "%OutputDir%\Lib" %PYTHON_HOME_PATH%\Lib
-) else (
-    echo "%OutputDir%\Lib already exists"
-)
+) 
 
 
 if "%IS_DEBUG%" == "Y" (
@@ -179,21 +171,19 @@ REM ###########################################################################
 REM Link DB
 if not exist "%OutputDir%\residues_db\NUL" (
     mklink /D %OutputDir%\residues_db %script_path%\..\residues_db 
-) else (
-    echo "%OutputDir%\residues_db already exists"
-)
+) 
 
 REM ###########################################################################
 echo "Linking molset module python files"
 
 if not exist %OutputDir%\molset\__init__.py (
-	mklink %OutputDir%\molset\__init__.py  %script_path%\..\HARLEM\molset\__init__.py
+    mklink %OutputDir%\molset\__init__.py  %script_path%\..\HARLEM\molset\__init__.py
 )
 if not exist %OutputDir%\molset\harlempy (
-	mklink /D %OutputDir%\molset\harlempy     %script_path%\..\HARLEM\molset\harlempy
+    mklink /D %OutputDir%\molset\harlempy     %script_path%\..\HARLEM\molset\harlempy
 )
 if not exist %OutputDir%\molset\molset_ext (
-	mklink /D %OutputDir%\molset\molset_ext   %script_path%\..\HARLEM\molset\molset_ext
+    mklink /D %OutputDir%\molset\molset_ext   %script_path%\..\HARLEM\molset\molset_ext
 )
 
 
@@ -201,9 +191,7 @@ REM ###########################################################################
 REM Link wxextra
 if not exist "%OutputDir%\wxextra" (
     mklink /D %OutputDir%\wxextra\ %script_path%\..\PNPS\wxextra
-) else (
-    echo "%OutputDir%\wxextra already exists"
-)
+) 
 
 
 

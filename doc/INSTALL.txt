@@ -249,6 +249,22 @@ libXxf86vm.so.1
 libXtst.so.6 
 libffi.so.7
 
+change RPATH for _molsetc.so for specific set of shared libraries as libffi.so 
+first conda install molset 
+then copy $CONDA_PREFIX/lib to $CONDA_PREFIX/lib_molset 
+then install mdtraj and other packages
+
+patchelf --set-rpath '$ORIGIN/../../../../lib_molset'  _molsetc.so
+
+on UBUNTU have to preload libffi lirary - some conflict between system and conda libffi?
+
+upon 
+import molset
+error is
+ImportError: /lib/x86_64-linux-gnu/libwayland-client.so.0: undefined symbol: ffi_type_uint32, version LIBFFI_BASE_7.0
+fixed by:
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7
+
 -----------------------------------------------------------------------------------------------
 
 

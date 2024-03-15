@@ -113,7 +113,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase32ud.lib;wxmsw32ud_core.lib;wxmsw32ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -133,7 +133,7 @@ set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
 set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
-set IFORT_DLL_PATH="$(IFORT_COMPILER21)redist\intel64_win\compiler"
+set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
@@ -168,7 +168,7 @@ $(SolutionDir)copy_dependencies.bat
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase32u.lib;wxmsw32u_core.lib;wxmsw32u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>

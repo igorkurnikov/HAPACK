@@ -157,7 +157,6 @@ public:
 	int SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default) const; //!< Save MolSet in MBX NRG format to std::stream
 	int SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt = save_opt_default ) const;  //!< Save MolSet data in XML format to std::stream
 
-	  
 	ZMatCrd* GetZMat( const harlem::HashMap* popt = NULL); //!< Get Z-Matrix for the molecular set   
 
 protected:

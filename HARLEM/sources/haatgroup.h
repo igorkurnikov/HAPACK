@@ -279,6 +279,8 @@ public:
     const char* GetID() const;           //!< Return Group ID
 	void SetID(const std::string& new_id);  //!< Set ID of the Atom Set
 
+	bool SwapAtoms(int i1, int i2); //!< Swap atoms in the Groups with indexes i1 and i2  (0-based)
+
 	int HasSelectedAtoms(); //!< Check if some of the atoms of the group are selected
 	void SelectAtomsAll();   //!< Select All Atoms in the residue
 
