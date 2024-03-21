@@ -31,6 +31,9 @@ int start_harlem(int argc, char **argv)
 
 	PySys_SetArgv(argc, argv_p);
 
+	PyRun_SimpleString("import os");
+	PyRun_SimpleString("os.environ[\"WXSUPPRESS_SIZER_FLAGS_CHECK\"] = \"1\""); // suppress warnings for CheckSizerFlags - because of wxDesigner files
+
 	PyRun_SimpleString("import molset.harlempy");
 	PyRun_SimpleString("molset.harlempy.start_harlem()");
 

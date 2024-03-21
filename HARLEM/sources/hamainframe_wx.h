@@ -187,7 +187,7 @@ class HaMainFrameWX : public wxMDIParentFrame
 
 private:
 //    DECLARE_CLASS(HaMainFrameWX);
-    mVueFrame *m_TheFrame;//mikola 09/19/2006
+    // mVueFrame *m_TheFrame;//mikola 09/19/2006
     DECLARE_EVENT_TABLE();
 };
 

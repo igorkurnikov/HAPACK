@@ -80,27 +80,27 @@ HaMainFrameWX* GetHaMainFrameWX() { return m_HaMainFrameWX; }
 
 void StartHaMainFrameWX()
 {
-	if (wxTheApp == nullptr) {
-		PrintLog("Can not start HaMainFrameWX wxApp is not started\n");
-	}
-	HaMainFrameWX *m_mainFrame = new HaMainFrameWX();
+    if (wxTheApp == nullptr) {
+        PrintLog("Can not start HaMainFrameWX wxApp is not started\n");
+    }
+    HaMainFrameWX *m_mainFrame = new HaMainFrameWX();
 
-	m_mainFrame->CreateToolBar();
-	MainToolBarFunc(m_mainFrame->GetToolBar());
+    m_mainFrame->CreateToolBar();
+    MainToolBarFunc(m_mainFrame->GetToolBar());
 
-	//   m_mainFrame->Centre(wxBOTH);
-	m_mainFrame->Show(TRUE);
+    //   m_mainFrame->Centre(wxBOTH);
+    m_mainFrame->Show(TRUE);
 
-	wxTheApp->SetTopWindow(m_mainFrame);
+    wxTheApp->SetTopWindow(m_mainFrame);
 
-	MolSet* pmset = GetCurMolSet();
-	if (pmset != NULL)
-	{
-		pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);
-		pmset->canvas_wx->mol_view->InitialTransform();
-		pmset->canvas_wx->mol_view->DefaultRepresentation();
-		pmset->RefreshAllViews();
-	}
+    MolSet* pmset = GetCurMolSet();
+    if (pmset != NULL)
+    {
+        pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);
+        pmset->canvas_wx->mol_view->InitialTransform();
+        pmset->canvas_wx->mol_view->DefaultRepresentation();
+        pmset->RefreshAllViews();
+    }
 }
 
 // For drawing lines in a canvas
@@ -832,36 +832,38 @@ END_EVENT_TABLE()
 HaMainFrameWX::HaMainFrameWX() :
     wxMDIParentFrame(NULL, -1, "HARLEM", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
 {
-		m_HaMainFrameWX = this;
-	int xs = wxSystemSettings::GetMetric(wxSYS_SCREEN_X);
+
+    m_HaMainFrameWX = this;
+    int xs = wxSystemSettings::GetMetric(wxSYS_SCREEN_X);
     int ys = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y);
 
     int xp = MinFun(xs*3/4,1200);
     int yp = MinFun(ys*3/4,900);
 
-	this->SetInitialSize( wxSize(xp, yp) );
+    this->SetInitialSize( wxSize(xp, yp) );
 
-	 wxMenuBar* main_menu_bar = MainMenu();
-	 SetMenuBar(main_menu_bar);    
+    wxMenuBar* main_menu_bar = MainMenu();
+     SetMenuBar(main_menu_bar);    
 
 //	 CreateToolBar();
 //   MainToolBarFunc(this->GetToolBar());
     
-	 wxSize size_w(1000,50);
-	
-	 sash_win = new wxSashLayoutWindow( this, -1, wxDefaultPosition, size_w, wxNO_BORDER | wxSW_3D );
+     wxSize size_w(1000,50);
+    
+     sash_win = new wxSashLayoutWindow( this, -1, wxDefaultPosition, size_w, wxNO_BORDER | wxSW_3D );
 
-	 sash_win->SetDefaultSize( wxSize(1000,100) );
-	 sash_win->SetAlignment(wxLAYOUT_BOTTOM);
-	 sash_win->SetOrientation( wxLAYOUT_HORIZONTAL );
-	 sash_win->SetSashVisible( wxSASH_BOTTOM, true );
-	 
-	 bot_bar_dlg( sash_win, true, true );
-	 sash_win->SetAutoLayout( true );
-	 sash_win->Layout();
+     sash_win->SetDefaultSize( wxSize(1000,100) );
+     sash_win->SetAlignment(wxLAYOUT_BOTTOM);
+     sash_win->SetOrientation( wxLAYOUT_HORIZONTAL );
+     sash_win->SetSashVisible( wxSASH_BOTTOM, true );
+     
+     bot_bar_dlg( sash_win, true, true );
+     sash_win->SetAutoLayout( true );
+     sash_win->Layout();
 
-	 sash_win->Show();
-	 sash_win->Refresh();
+     sash_win->Show();
+     sash_win->Refresh();
+
 
 //     wxGraphs::Parent=this;//<mikola, July 20, 2006
 
@@ -871,7 +873,7 @@ void HaMainFrameWX::OnExecuteCommand( wxCommandEvent &event )
 {
     wxTextCtrl* cmd_txt_edt = (wxTextCtrl*) FindWindow(IDC_CMD_TXT);
     wxString cmd = cmd_txt_edt->GetValue();
-	pApp->cmd_pr.SetCmdLine( cmd.ToStdString() );
+    pApp->cmd_pr.SetCmdLine( cmd.ToStdString() );
     pApp->ExecuteCommand();
 }
 

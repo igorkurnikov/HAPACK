@@ -83,6 +83,7 @@ HarlemAppWX::HarlemAppWX()
 #if !defined(HA_NOGUI)
 	m_mainFrame = NULL;
 	m_cmd_win   = NULL;
+	//wxSizerFlags::DisableConsistencyChecks(); // suppress warnings for CheckSizerFlags - because of wxDesigner files  2 place in the code
 #endif
 }
 

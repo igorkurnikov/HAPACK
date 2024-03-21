@@ -48,21 +48,21 @@ echo "Output Dir: %OutputDir%"
 
 REM ###########################################################################
 REM Make directories if not exists
-if not exist "%OutputDir%\molset\NUL" (
+if not exist "%OutputDir%\molset" (
     mkdir "%OutputDir%\molset"
 ) 
 
-if not exist "%OutputDir%\pnpsll\NUL" (
+if not exist "%OutputDir%\pnpsll" (
     mkdir "%OutputDir%\pnpsll"
 ) 
 
 REM ###########################################################################
 echo "Linking PYTHON Directories"
-if not exist "%OutputDir%\DLLs\NUL" (
+if not exist "%OutputDir%\DLLs" (
     mklink /D %OutputDir%\DLLs %PYTHON_HOME_PATH%\DLLs
 )
 
-if not exist "%OutputDir%\Lib\NUL" (
+if not exist "%OutputDir%\Lib" (
     mklink /D "%OutputDir%\Lib" %PYTHON_HOME_PATH%\Lib
 ) 
 
@@ -103,7 +103,7 @@ REM boost_coroutine   boost_math_c99l  boost_regex             boost_type_erasur
 REM boost_date_time   boost_math_c99   boost_serialization     boost_unit_test_framework ^
 REM boost_fiber       boost_math_tr1f  boost_wserialization    boost_wave ^
 REM boost_filesystem  boost_math_tr1l  boost_stacktrace_noop 
-set BOOST_LIBS=boost_filesystem boost_system
+set BOOST_LIBS= boost_filesystem boost_system
 
 FOR %%G IN (%BOOST_LIBS%) DO (
     xcopy /y /d %VCPKG_DLL_PATH%\%%G%BOOST_SUFFIX% %OutputDir%\molset
@@ -124,7 +124,8 @@ REM OTHERS
 if "%IS_DEBUG%" == "Y" (
     set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll 
 ) else (
-    set OTHER_LIBS=mpir.dll jpeg62.dll freetype.dll libbz2.dll libpng16.dll lzma.dll tiff.dll zlib1.dll
+REM    set OTHER_LIBS=mpir.dll jpeg62.dll freetype.dll libbz2.dll libpng16.dll lzma.dll tiff.dll zlib1.dll
+    set OTHER_LIBS=mpir.dll jpeg62.dll tiff.dll zlib1.dll openblas.dll  
 )
 
 FOR %%G IN (%OTHER_LIBS%) DO (
@@ -169,7 +170,7 @@ xcopy /y /d C:\Windows\System32\msmpi.dll %OutputDir%\molset
 
 REM ###########################################################################
 REM Link DB
-if not exist "%OutputDir%\residues_db\NUL" (
+if not exist "%OutputDir%\residues_db" (
     mklink /D %OutputDir%\residues_db %script_path%\..\residues_db 
 ) 
 
@@ -192,6 +193,8 @@ REM Link wxextra
 if not exist "%OutputDir%\wxextra" (
     mklink /D %OutputDir%\wxextra\ %script_path%\..\PNPS\wxextra
 ) 
+
+echo "Done library copying and linking"
 
 
 
