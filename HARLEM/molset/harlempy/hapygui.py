@@ -18,6 +18,9 @@ def GetMainMenu():
     pyMainFrame=GetMainFrame()
     return pyMainFrame.GetMenuBar()
 
+def GetFileMenu():
+    pyMainMenu=GetMainMenu()
+    return pyMainMenu.GetMenu(pyMainMenu.FindMenu("File"))
 
 def GetEditMenu():
     pyMainMenu=GetMainMenu()
