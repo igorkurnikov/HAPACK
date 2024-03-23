@@ -879,18 +879,26 @@ void HaMainFrameWX::OnExecuteCommand( wxCommandEvent &event )
 
 void HaMainFrameWX::OnClose(wxCloseEvent& event)
 {
-	if( pApp->mpi_driver->nprocs > 1 )
-	{
-		std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_HARLEM_APP, HARLEM_APP_EXIT_ID);
-	    pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
-	}
-//	this->DestroyChildren();
-	this->Destroy();
-	if (HarlemApp::m_HarlemApp)
-	{
-		delete HarlemApp::m_HarlemApp;
-		HarlemApp::m_HarlemApp = NULL;
-	}
+    if( pApp->mpi_driver->nprocs > 1 )
+    {
+        std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_HARLEM_APP, HARLEM_APP_EXIT_ID);
+        pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
+    }
+    // wxMDIParentFrame::Close(true);
+    // this->DestroyChildren();
+    this->Destroy();
+    
+	/* IGOR TMP 
+    if (HarlemApp::m_HarlemApp)
+    {
+        delete HarlemApp::m_HarlemApp;
+        HarlemApp::m_HarlemApp = NULL;
+    }
+	*/
+
+	// Py_FinalizeEx(); // IGOR TMP
+    
+    //PyRun_SimpleString("exit(0)");
 }
 
 // WDR: handler implementations for HaMainFrameWX
