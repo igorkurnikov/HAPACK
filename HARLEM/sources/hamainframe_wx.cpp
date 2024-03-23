@@ -83,6 +83,7 @@ void StartHaMainFrameWX()
 {
     if (wxTheApp == nullptr) {
         PrintLog("Can not start HaMainFrameWX wxApp is not started\n");
+		exit(1);
     }
     HaMainFrameWX *m_mainFrame = new HaMainFrameWX();
 
