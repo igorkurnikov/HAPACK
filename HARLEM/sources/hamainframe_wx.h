@@ -193,6 +193,10 @@ private:
 
 HaMainFrameWX* GetHaMainFrameWX();
 
+// put here wxEvent ID used to commpunicate to MPI threads of HARLEM - have to switch to non wx messages
+extern const wxEventType wxEVT_HARLEM_APP;   
+const int HARLEM_APP_EXIT_ID = 20001;
+
 //! HaMainFrameWX starter for starting GUI from python
 void StartHaMainFrameWX();
 

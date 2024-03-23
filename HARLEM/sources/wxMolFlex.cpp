@@ -21,7 +21,6 @@
 #include <wx/glcanvas.h>
 #endif
 
-#include "harlemapp_wx.h"
 #include "ctrl_wx.h"
 #include "ha_wx_aux_1.h"
 #include "mm_dialogs_wx.h"

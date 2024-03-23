@@ -25,7 +25,6 @@
 #include "canvas3d.h"
 #include "dialogs_wx_1.h"
 #include "hamainframe_wx.h"
-#include "harlemapp_wx.h"
 
 #include "hachart_wx.h"
 #include "hachart.h"

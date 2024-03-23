@@ -17,7 +17,6 @@
 #include "hastring.h"
 
 #include "harlemapp.h"
-#include "harlemapp_wx.h"
 #include "hamolset.h"
 #include "hampi.h"
 

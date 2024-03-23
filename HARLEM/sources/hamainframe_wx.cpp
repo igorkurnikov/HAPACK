@@ -57,7 +57,6 @@
 #include "qc_dialogs_wx.h"
 #include "wx_prot_redox_dlg.h"
 #include "edit_mut_map_dlg_wx.h"
-#include "harlemapp_wx.h"
 #include "hamolmech.h"
 #include "mm_driver_amber.h"
 
@@ -77,6 +76,8 @@
 
 HaMainFrameWX *m_HaMainFrameWX = nullptr;
 HaMainFrameWX* GetHaMainFrameWX() { return m_HaMainFrameWX; }
+
+const wxEventType wxEVT_HARLEM_APP = wxNewEventType();
 
 void StartHaMainFrameWX()
 {
@@ -863,7 +864,6 @@ HaMainFrameWX::HaMainFrameWX() :
 
      sash_win->Show();
      sash_win->Refresh();
-
 
 //     wxGraphs::Parent=this;//<mikola, July 20, 2006
 
@@ -2989,11 +2989,9 @@ void HaLogWindow::OnFrameDelete(wxFrame* WXUNUSED(frame))
 
 int HarlemApp::RedirectIOLogWindow()
 {
-//	HarlemAppWX* pApp_wx = (HarlemAppWX*)this;
 	wxLog* p_log = new wxLogWindow(NULL,"HARLEM LOG WINDOW");
 	HaMainFrameWX* frame_main = GetHaMainFrameWX();
 	// wxLog* p_log = new HaLogWindow(frame_main);
-	// wxLog* p_log = new HaLogWindow(pApp_wx->GetMainFrame());
 	wxLog::SetActiveTarget(p_log);
 	wxLog::EnableLogging(true);
 	return TRUE;

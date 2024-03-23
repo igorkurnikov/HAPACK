@@ -315,7 +315,6 @@ $(SolutionDir)copy_dependencies.bat
     </ClCompile>
     <ClCompile Include="..\HARLEM\sources\hampi.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
-    <ClCompile Include="..\HARLEM\sources\harlemapp_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\hasvnrev.cpp" />
     <ClCompile Include="..\HARLEM\sources\fminbr.cpp" />
     <ClCompile Include="..\HARLEM\sources\gmathc.c" />
@@ -428,7 +427,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\tokens.h" />
     <ClInclude Include="..\HARLEM\sources\hampi.h" />
     <ClInclude Include="..\HARLEM\sources\harlemapp.h" />
-    <ClInclude Include="..\HARLEM\sources\harlemapp_wx.h" />
     <ClInclude Include="..\HARLEM\sources\hasvnrev.h" />
     <ClInclude Include="..\HARLEM\sources\cg_sngl.h" />
     <ClInclude Include="..\HARLEM\sources\fmat.h" />

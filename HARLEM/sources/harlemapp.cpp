@@ -38,7 +38,6 @@
 
 #include "hampi.h"
 #include "harlemapp.h"
-#include "harlemapp_wx.h"
 #include "hamolview.h"
 #include "hamolecule.h"
 #include "hastring.h"
@@ -73,7 +72,6 @@ HarlemApp* HarlemApp::m_HarlemApp = NULL;
 void StartHarlemApp()
 {
 	HarlemApp::m_HarlemApp = new HarlemApp();
-	// HarlemApp::m_HarlemApp = new HarlemAppWX();
 	HarlemApp::m_HarlemApp->InitFirst();
 	HarlemApp::m_HarlemApp->InitLast();
 	pApp = HarlemApp::m_HarlemApp;
@@ -247,7 +245,7 @@ int HarlemApp::InitFirst()
 		int result = pmset->FetchFile(FileFormat,finp_name.c_str());
 		if(!result)
 		{
-			PrintLog(" HarlemAppWX::OnInit() ");
+			PrintLog(" HarlemApp::InitFirst() ");
 			PrintLog(" Error loading file %s \n",finp_name.c_str());
 		}
 	}

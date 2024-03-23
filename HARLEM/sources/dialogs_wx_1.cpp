@@ -38,7 +38,6 @@
 
 #include "rapidxml.hpp"
 
-#include "harlemapp_wx.h"
 #include "hamainframe_wx.h"
 #include "ctrl_wx.h"
 #include "ha_wx_aux_1.h"
