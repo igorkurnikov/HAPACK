@@ -53,6 +53,30 @@ def get_at_idx(top: md.Topology, resi: int, at_name: str):
     if( len(at_arr) == 0 ): return -1
     return at_arr[0].index
 
+def get_atidx_mdtraj(top : mdtraj.Topology, atid : str):
+    tokens = atid.split('.')
+    resid_f = tokens[0]
+    atname = tokens[1]
+    match = re.search(r'\d+', resid_f)
+    resid = int(match.group()) - 1
+    print(f"resid = {resid}  atname = {atname}")
+    at_idx = top.select(f"resid {resid} and name {atname}")[0]
+    return at_idx
+
+def get_atom_pair_idx_mdtraj(top, atpair_str: str):
+    tokens = atpair_str.strip().split(" ")
+    at_idx_0 = get_atidx_mdtraj(top,tokens[0])
+    at_idx_1 = get_atidx_mdtraj(top,tokens[1])
+    return([at_idx_0,at_idx_1])
+    
+def get_dist_at_pairs( trj, atpair_str_list ):
+    atom_pairs = []
+    for s in atpair_str_list:
+        at_pair = get_atom_pair_idx_mdtraj(trj.top,s )
+        atom_pairs.append(at_pair)
+    distances = mdtraj.compute_distances(trj,atom_pairs)*10.0
+    return distances
+
 def make_pair_idx( top: md.Topology,  atid_arr : list[str] ):
     """ 
     make atom pair index array ( 0-based )  

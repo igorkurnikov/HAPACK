@@ -51,6 +51,9 @@
     <Compile Include="molset\harlempy\wxexamples\__init__.py" />
     <Compile Include="molset\harlempy\__init__.py" />
     <Compile Include="molset\harlempy\__main__.py" />
+    <Compile Include="molset\molset_ext\mdtraj_utils.py" />
+    <Compile Include="molset\molset_ext\test_mdtraj.py" />
+    <Compile Include="molset\molset_ext\xyzipifile.py" />
     <Compile Include="work\mdtraj_mod\formats\xyzfile_ipi.py" />
     <Compile Include="work\mdtraj_mod\formats\__init__.py" />
     <Compile Include="work\mdtraj_mod\__init__.py" />
@@ -62,13 +65,7 @@
     <Compile Include="molset\molset_ext\rdkit_utils.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="molset\molset_ext\test_traj.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="molset\molset_ext\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="molset\molset_ext\traj_utils.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="molset\__init__.py" />

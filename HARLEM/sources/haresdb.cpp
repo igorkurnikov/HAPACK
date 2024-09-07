@@ -12,6 +12,7 @@
 
 #include "tinyxml.h"
 
+//#include <filesystem>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
@@ -58,15 +59,16 @@ int HaResDB::Init()
 	std::string db_file_name;
 	FILE* fp;
 
-	using namespace boost::filesystem;
+	namespace bf = boost::filesystem;
+	//namespace bf = std::filesystem;   // for C++17 - needs to convert at some time
 
 	HarlemApp* pApp_loc = GetHarlemApp();
 
-	directory_iterator ditr_main(pApp_loc->res_db_dir);
+	bf::directory_iterator ditr_main(pApp_loc->res_db_dir);
 
     // DIR *dir = opendir(pApp->res_db_dir.c_str());
     PrintLog(" Initialize Residue Database \n");
-	for (; ditr_main != directory_iterator(); ditr_main++)
+	for (; ditr_main != bf::directory_iterator(); ditr_main++)
 	{
 		std::string file_name = ditr_main->path().filename().string();
 		//		PrintLog(" file_name = %s \n",file_name.c_str() );
@@ -81,17 +83,27 @@ int HaResDB::Init()
 
 	std::sort(res_db_files.begin(),res_db_files.end(),sort_fn);
 
-	directory_iterator ditr( current_path() );
-	for( ; ditr != directory_iterator(); ditr++)
-	{
-		std::string file_name = ditr->path().filename().string();
-//		PrintLog(" file_name = %s \n",file_name.c_str() );
-		if( boost::starts_with(file_name,"res_") )
+	bf::path cur_path = bf::current_path();
+
+	try {
+		bf::directory_iterator ditr(cur_path);
+
+		for (; ditr != bf::directory_iterator(); ditr++)
 		{
-			std::string full_name = "./" + file_name;
-			res_db_files.push_back(full_name);
-			PrintLog(" Add residue template file %s  in the working directory \n", file_name.c_str());
+			std::string file_name = ditr->path().filename().string();
+			//		PrintLog(" file_name = %s \n",file_name.c_str() );
+			if (boost::starts_with(file_name, "res_"))
+			{
+				std::string full_name = "./" + file_name;
+				res_db_files.push_back(full_name);
+				PrintLog(" Add residue template file %s  in the working directory \n", file_name.c_str());
+			}
 		}
+	}
+	catch (bf::filesystem_error& ex)
+	{
+		std::string error_str = ex.what();
+		PrintLog("error_str.c_str() \n");
 	}
 
 	for(sitr = res_db_files.begin(); sitr != res_db_files.end(); sitr++)
