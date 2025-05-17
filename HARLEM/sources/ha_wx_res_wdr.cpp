@@ -5018,6 +5018,7 @@ wxMenuBar *MainMenu()
     item5->Append( IDM_CLEAR_PICKED_WX, wxT("Clear Picked Atoms"), wxT("") );
     item5->Append( IDM_SEL_ATOMS_IN_BOUND_BOX, wxT("Select Atoms Within Boundary Box"), wxT("") );
     item5->Append( IDM_REVERT_SELECTION, wxT("Revert Atom Selection"), wxT("") );
+    item5->Append( IDM_EXPAND_SELECTION_BONDED, wxT("Expand Atom Selection with Bonded Atoms"), wxT("") );
     item2->Append( ID_MENU, wxT("Pick and Select"), item5 );
 
     

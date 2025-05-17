@@ -2787,6 +2787,50 @@ void MolSet::RevertAtomSelection()
 	}
 }
 
+void MolSet::ExpandAtomSelectionBonded()
+{
+	AtomIteratorMolSet aitr(this);
+	HaAtom* aptr;
+	
+	std::set<HaAtom*> selected_atoms;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		if (aptr->Selected())
+		{
+			selected_atoms.insert(aptr);
+		}
+	}
+
+	for (int i = 0; i < 1000; i++)
+	{
+		list<HaAtom*> add_atoms;
+		AtomGroup bonded_atoms;
+		for (HaAtom* aptr : selected_atoms) {
+			aptr->GetBondedAtoms(bonded_atoms);
+			for ( HaAtom* aptr_b: bonded_atoms )
+			{
+				if ( selected_atoms.find(aptr_b) == selected_atoms.end() )
+				{
+					add_atoms.push_back(aptr_b);
+				}
+			}
+		}
+		if (add_atoms.size() > 0)
+		{
+			for (HaAtom* aptr : add_atoms)
+				selected_atoms.insert(aptr);
+		}
+		else
+		{
+			break;
+		}
+	}
+	for (HaAtom* aptr : selected_atoms)
+		aptr->Select();
+	DisplaySelectCount();
+}
+
 BondIteratorMolSet MolSet::GetBondIterator()
 {
 	BondIteratorMolSet bitr(this);

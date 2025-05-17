@@ -86,6 +86,7 @@ class HaMainFrameWX : public wxMDIParentFrame
     void OnClearPicked ( wxCommandEvent &event );
 	void OnSelAtomsInBoundBox ( wxCommandEvent &event );
 	void OnRevertAtomSelection ( wxCommandEvent &event );
+    void OnExpandAtomSelectionBonded(wxCommandEvent& event);
     void DoNuclAcidDialog ( wxCommandEvent &event );
 	void OnDescribeSecStruct ( wxCommandEvent &event );
 	void OnPrintHBonds ( wxCommandEvent &event );

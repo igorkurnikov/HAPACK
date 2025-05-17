@@ -720,6 +720,7 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
     EVT_MENU( IDM_CLEAR_PICKED_WX,        HaMainFrameWX::OnClearPicked )
 	EVT_MENU( IDM_SEL_ATOMS_IN_BOUND_BOX, HaMainFrameWX::OnSelAtomsInBoundBox )
 	EVT_MENU( IDM_REVERT_SELECTION,       HaMainFrameWX::OnRevertAtomSelection )
+	EVT_MENU( IDM_EXPAND_SELECTION_BONDED, HaMainFrameWX::OnExpandAtomSelectionBonded )
     EVT_MENU( IDM_NUCL_ACID_WX,           HaMainFrameWX::DoNuclAcidDialog )
 	EVT_MENU( IDM_DESCRIBE_SEC_STRUCT,    HaMainFrameWX::OnDescribeSecStruct )
 	EVT_MENU( IDM_PRINT_HBONDS,           HaMainFrameWX::OnPrintHBonds )
@@ -1351,8 +1352,7 @@ void HaMainFrameWX::OnAddPolarHydrogens(wxCommandEvent &event)
 	
 }
 
-void
-HaMainFrameWX::OnAddHHybrid(wxCommandEvent &event)
+void HaMainFrameWX::OnAddHHybrid(wxCommandEvent &event)
 {
 	MolSet* pmset = GetCurMolSet();
 	MolEditor mol_editor;
@@ -1398,8 +1398,7 @@ void HaMainFrameWX::OnDelOvlpMols(wxCommandEvent &event)
 	pmset->RefreshAllViews(RFRefresh | RFApply);
 }
 
-void
-HaMainFrameWX::DoBuildFilmDialog(wxCommandEvent &event)
+void HaMainFrameWX::DoBuildFilmDialog(wxCommandEvent &event)
 {
 	if(BuildFilmDlgWX::dlg_open) return;
 	MolSet* pmset = GetCurMolSet(); 
@@ -1408,8 +1407,7 @@ HaMainFrameWX::DoBuildFilmDialog(wxCommandEvent &event)
 	ptr_build_film_dlg->Show(TRUE);
 }
 
-void
-HaMainFrameWX::DoEditFragmDialog(wxCommandEvent &event)
+void HaMainFrameWX::DoEditFragmDialog(wxCommandEvent &event)
 {
 	if(EditFragmDlgWX::dlg_open) return;
 
@@ -1442,24 +1440,28 @@ void HaMainFrameWX::OnRevertAtomSelection ( wxCommandEvent &event )
 	pmset->RevertAtomSelection();
 }
 
-void
-HaMainFrameWX::OnDescribeSecStruct(wxCommandEvent &event)
+void HaMainFrameWX::OnExpandAtomSelectionBonded(wxCommandEvent& event)
+{
+	MolSet* pmset = GetCurMolSet();
+	if (pmset == NULL) return;
+	pmset->ExpandAtomSelectionBonded();
+}
+
+void HaMainFrameWX::OnDescribeSecStruct(wxCommandEvent &event)
 {
 	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->DescribeSecStruct();
 }
 
-void
-HaMainFrameWX::OnPrintHBonds(wxCommandEvent &event)
+void HaMainFrameWX::OnPrintHBonds(wxCommandEvent &event)
 {
 	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
 	pmset->PrintHBonds();
 }
 
-void
-HaMainFrameWX::OnSetAlphaHelix(wxCommandEvent &event)
+void HaMainFrameWX::OnSetAlphaHelix(wxCommandEvent &event)
 {
 	MolSet* pmset = GetCurMolSet(); 
 	if(pmset == NULL) return;
@@ -1468,8 +1470,7 @@ HaMainFrameWX::OnSetAlphaHelix(wxCommandEvent &event)
 	pmset->RefreshAllViews(RFApply | RFRefresh);
 }
 
-void
-HaMainFrameWX::DoNuclAcidDialog(wxCommandEvent &event)
+void HaMainFrameWX::DoNuclAcidDialog(wxCommandEvent &event)
 {
 	MolSet* pmset = GetCurMolSet(); 
 	if( NuclAcidDlgWX::dlg_open) return;

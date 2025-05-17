@@ -240,6 +240,7 @@ public:
 	void SelectAtomsInBoundaryBox();   //!< Select Atoms within Boundary Box
 	void UnSelectAtomsAll();  //!< Unselest all atoms in the set
 	void RevertAtomSelection();  //!< Select All Unselected atoms and UnSelect all Selected Atoms
+	void ExpandAtomSelectionBonded(); //!< Expand Atom Selection with atoms reachable through bonds
 	void DisplaySelectCount();         //!< Print the number of selected atoms
 	AtomGroup GetSelectedAtoms();  //!< GetSelectedAtoms as AtomGroup
 //@}
