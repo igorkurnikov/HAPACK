@@ -3583,21 +3583,12 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CB"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CD1")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD11") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD12") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD13") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CD2")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD21") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD22") );
@@ -3613,9 +3604,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CB"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("OG") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG") );
 			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
@@ -3628,16 +3616,10 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("HA"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("CB"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG1")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG11") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG12") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG13") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG2")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG21") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG22") );
@@ -3653,14 +3635,8 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("HA"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("CB"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("OG1")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG1") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG2")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG21") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG22") );
@@ -3682,9 +3658,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG2") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG3") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CD")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD2") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD3") );
@@ -3694,9 +3667,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom( group->GetAtomByName("CE")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HE2") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HE3") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("NZ")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HZ1") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HZ2") );
@@ -3734,16 +3704,10 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG1")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG12") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG13") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CG2")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG21") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG22") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HG23") );
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CD1")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD11") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("HD12") );
@@ -3784,9 +3748,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-			
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("CD"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("OE1"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("OE2"));
@@ -3808,9 +3769,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("CD"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HD2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HD3"));
@@ -3832,9 +3790,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("CD"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HD2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HD3"));
@@ -3899,9 +3854,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CE2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HE2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("CZ"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-			
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("OH"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HH"));
 			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
@@ -3921,9 +3873,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom( group->GetAtomByName("CD")  );
 			gcur_ptr->InsertAtom( group->GetAtomByName("OE1") );
 			gcur_ptr->InsertAtom( group->GetAtomByName("NE2"));
@@ -3963,9 +3912,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CB"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HB3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("SG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG"));
 			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
@@ -3985,9 +3931,6 @@ bool MolSet::SetStdChemGroups()
 			gcur_ptr->InsertAtom(group->GetAtomByName("CG"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG2"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HG3"));
-			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
-
-			gcur_ptr=AddBlankChemGroup();
 			gcur_ptr->InsertAtom(group->GetAtomByName("SD"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("CE"));
 			gcur_ptr->InsertAtom(group->GetAtomByName("HE1"));
