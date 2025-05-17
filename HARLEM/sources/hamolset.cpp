@@ -3523,6 +3523,7 @@ bool MolSet::SetStdChemGroups()
 				gcur_ptr=AddBlankChemGroup();
 				gcur_ptr->InsertAtom(group->GetAtomByName("C"));
 				gcur_ptr->InsertAtom(group->GetAtomByName("O"));
+				gcur_ptr->InsertAtom(group->GetAtomByName("OXT"));
 				if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
 			}
 			gcur_ptr=AddBlankChemGroup();
@@ -3533,10 +3534,15 @@ bool MolSet::SetStdChemGroups()
 			res_prev= group->GetPrevResInChain();
 			bool result2=false;
 			if(res_prev != NULL) result2=group->IsBonded(res_prev);
- 			if(res_prev && res_prev->IsProtein()   && result2 )
+ 			if(res_prev && res_prev->IsProtein() && result2 )
 			{
 				gcur_ptr->InsertAtom(res_prev->GetAtomByName("C"));
 				gcur_ptr->InsertAtom(res_prev->GetAtomByName("O"));
+			}
+			else
+			{
+				gcur_ptr->InsertAtom(group->GetAtomByName("H2"));
+				gcur_ptr->InsertAtom(group->GetAtomByName("H3"));
 			}
 			if(gcur_ptr->size() == 0) DeleteChemGroup(gcur_ptr->GetID());
 		}

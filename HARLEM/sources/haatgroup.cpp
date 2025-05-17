@@ -104,6 +104,7 @@ void HaResidue::InitStdResNames()
 	RegisterResName("NAD");
 	RegisterResName("COA");
 	RegisterResName("NAP");
+	RegisterResName("TRM");
 }
 
 void HaResidue::InitResSynonym()

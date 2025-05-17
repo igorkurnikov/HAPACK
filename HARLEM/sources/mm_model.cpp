@@ -320,6 +320,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 	{
 		std::string res_fname = pres->GetFullName();
 	
+		if (res_fname == "TRM") continue; //  Termination groups are treated separately
 		HaResidue*  p_res_templ = p_res_db->GetTemplateForResidue( res_fname );
 		if( p_res_templ == NULL )
 		{
@@ -417,6 +418,55 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			}
 		}
 	}
+
+	// PrintLog("Set FF parameters for TRM residues \n");
+
+	for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes()) // set parameters for TRM residues
+	{
+		std::string res_fname = pres->GetFullName();
+
+		if (res_fname != "TRM") continue;
+		// PrintLog("Set FF parameters for TRM residue %s \n", pres->GetRef().c_str() );
+		for (HaAtom* aptr : *pres)
+		{
+			// PrintLog("Set FF parameters for atom %s \n", aptr->GetRef().c_str());
+			if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
+			{
+				AtomGroup bonded_atoms;
+				if (aptr->IsHydrogen())
+				{
+					aptr->GetBondedAtoms(bonded_atoms);
+					if (bonded_atoms.size() != 1)
+					{
+						PrintLog("TRM atom %s has humber of bonds not equal 1 \n", aptr->GetRef().c_str());
+						continue;
+					}
+						
+					HaAtom* aptr_host = bonded_atoms[0];
+					std::string host_ff_s = aptr_host->GetFFSymbol();
+					if (host_ff_s == "C2") aptr->SetFFSymbol("HC2");
+					else if (host_ff_s == "CA") aptr->SetFFSymbol("HCA");
+					else if (host_ff_s == "NAM") aptr->SetFFSymbol("HNAM");
+					else if (host_ff_s == "CAM=") aptr->SetFFSymbol("C2"); // may be need a special atom type for terminating hydrogen
+					else
+					{
+						PrintLog("Can not set ARROW type for TRM atom: %s  bonded to atom with FF symbol %s \n", aptr->GetRef().c_str(), host_ff_s);
+					}
+				}
+				
+			}
+		}
+	}
+
+	for (HaAtom* aptr : Atoms)
+	{
+		std::string ff_s = aptr->GetFFSymbol();
+		if (ff_s.empty())
+		{
+			PrintLog("No FF symbol was set for Atom %s \n", aptr->GetRef().c_str());
+		}
+	}
+
 	if( ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0 )
 	{
 		to_init_mm_model = FALSE;
