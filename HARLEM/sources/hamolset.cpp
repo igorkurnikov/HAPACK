@@ -4798,12 +4798,10 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 // First cycle on Atomic Groups and include into selected all atoms
 // in partially selected groups
 	
-	ChemGroupsType::iterator gitr;
-	for(gitr=ChemGroups.begin(); gitr != ChemGroups.end();gitr++)
+	for(AtomGroup& chem_group: this->ChemGroups)
 	{
 		int include=0;
-		AtomIteratorAtomGroup aitr_chem_group(&(*gitr));
-		for( aptr= aitr_chem_group.GetFirstAtom(); aptr; aptr= aitr_chem_group.GetNextAtom())
+		for( HaAtom* aptr: chem_group )
 		{
 			if(aptr->Selected())
 			{
@@ -4813,7 +4811,43 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 		}
 		if(!include) continue;
 
-		for( aptr= aitr_chem_group.GetFirstAtom(); aptr; aptr= aitr_chem_group.GetNextAtom())
+		for( HaAtom* aptr : chem_group )
+		{
+			aptr->Select();
+		}
+	}
+
+	auto ritr = this->GetResidueIterator(); // for AA: Select CA atom is N and C atoms selected
+	for (HaResidue* rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes())
+	{
+		if (!rptr->IsAmino()) continue;
+		HaAtom* aptr_c = rptr->GetAtomByName("C");
+		HaAtom* aptr_n = rptr->GetAtomByName("N");
+		HaAtom* aptr_ca = rptr->GetAtomByName("CA");
+
+		if (aptr_c && aptr_n && aptr_ca )
+		{
+			if (aptr_c->Selected() && aptr_n->Selected() && !aptr_ca->Selected())
+			{
+				aptr_ca->Select();
+			}
+		}
+	}
+
+	for (AtomGroup& chem_group : this->ChemGroups)  // Do again inclusion cycle for Chemical groups
+	{
+		int include = 0;
+		for (HaAtom* aptr : chem_group)
+		{
+			if (aptr->Selected())
+			{
+				include = 1;
+				break;
+			}
+		}
+		if (!include) continue;
+
+		for (HaAtom* aptr : chem_group)
 		{
 			aptr->Select();
 		}
@@ -4889,16 +4923,16 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 
 	// Copy Atomic Groups:
 
-	for(gitr=ChemGroups.begin(); gitr != ChemGroups.end();gitr++)
+	for(ChemGroup& chem_group : this->ChemGroups)
 	{
-		AtomIteratorAtomGroup aitr_chem_group(&(*gitr));
-		aptr = aitr_chem_group.GetFirstAtom();
+		if (chem_group.empty()) continue;
+		aptr = chem_group[0];
 		if(aptr == NULL || !aptr->Selected()) continue;
 
-		ChemGroup* fpgrp= pfrag->AddBlankChemGroup((*gitr).GetID());
-		fpgrp->SetProtect((*gitr).GetProtect());
+		ChemGroup* fpgrp= pfrag->AddBlankChemGroup(chem_group.GetID());
+		fpgrp->SetProtect(chem_group.GetProtect());
 
-		for( aptr= aitr_chem_group.GetFirstAtom(); aptr; aptr= aitr_chem_group.GetNextAtom())
+		for( HaAtom* aptr : chem_group )
 		{
 			pMol=aptr->GetHostMol();
 			std::string mol_name = pMol->GetObjName();
