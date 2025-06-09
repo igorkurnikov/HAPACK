@@ -878,6 +878,7 @@ protected:
 	void OnSortGrpIdx(wxCommandEvent& event);
 	void OnStdGroups(wxCommandEvent& event);
 	void OnStdProteinGroups(wxCommandEvent& event);
+	void OnCheckChemGroups(wxCommandEvent& event);
 	void OnRenumberGrp(wxCommandEvent& event);
 	void OnChangeSelGroup2(wxCommandEvent& event);
 	void OnChangeSelGroup();

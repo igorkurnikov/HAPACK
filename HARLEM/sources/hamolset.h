@@ -253,7 +253,7 @@ public:
 
     void CreateHydrogenBond(HaAtom* src, HaAtom* dst, int energy, int offset);
 
-	HaBond*  AddBond( HaAtom* src, HaAtom* dst ); //!< Create a covalent bond
+	HaBond* AddBond( HaAtom* src, HaAtom* dst ); //!< Create a covalent bond
     bool DeleteBond(HaAtom* src, HaAtom* dst);    //!< Delete Covalent bond between atoms
 
 	void ClearBackbone();  //!< Clear Backbone bonds
@@ -261,6 +261,9 @@ public:
 	set<HaHBond, less<HaHBond> > HBonds;        //!< Hydrogen Bonds of the molecular set
 	std::vector<HaBond*>  Bonds;    //!< Valence bonds of the molecular set
 	std::vector<HaBond*>  BackboneBonds; //!< Backbone Bonds in the molecular set 
+
+	AtomIteratorMolSet begin();   //!< Start iterator for Atoms
+	AtomIteratorMolSet end();     //!< End   iterator for Atoms
 
 	bool SSBonds_found;  //!< flag to show if SS-bonds have been found 	
 	bool HBonds_found;   //!< flag to show if H-bonds  have been found
@@ -339,6 +342,7 @@ public:
 	bool SortAtomGroupByIdx(AtomGroup* p_atgrp); //!< Sort Atom Group By Atom Index 
 
 	bool SetStdProteinGroups();  //!< Set Standard Protein Groups for the molecular set
+	bool CheckChemGroups(); //!< Check if Chemical Groups do not overlap and completely partition the molecular set   
 
 	bool IsDimer();  //!< Check if the molset is the dimer (consist of two submolecule )
 	HaAtomVector GetAtomsSubMol( int idx ); //!< Get Atoms of the submolecule of the dimer or multimer  with the index idx (0-based) 
@@ -492,7 +496,6 @@ typedef vector<HaMolecule*> MoleculesType;
 class AtomIteratorMolecule;
 class AtomIteratorMolecule_const;
 
-
 class AtomIteratorMolSet: public AtomIterator
 //! Atom iterator class to browse atoms of the molecular set
 {
@@ -501,13 +504,28 @@ public:
 	AtomIteratorMolSet(const AtomIteratorMolSet& ref);
 	virtual ~AtomIteratorMolSet();
 	
+	using iterator_category = std::forward_iterator_tag;
+	using value_type = HaAtom*;
+	using difference_type = std::ptrdiff_t;
+	using pointer = std::vector<HaAtom*>::iterator;
+	using reference = HaAtom*&;
+
 // Implementation of AtomIterator functions 
 
 	virtual PointIterator* clone() const; //!<  Create a copy of the iterator with the same state (from PointIterator )
 	virtual HaAtom* GetFirstAtom(); //!< Return the first atom of the Molecular Set (=NULL if no atoms) 
 	virtual HaAtom* GetNextAtom();  //!< Return Next atom in the sequence (=NULL if no more atoms)
-	
-	HaAtom* operator *() { return *aitr_res; }
+
+	reference operator*() const noexcept;
+	pointer operator->();
+	 
+	AtomIteratorMolSet& operator++();
+
+	bool operator==(const AtomIteratorMolSet& other) const;
+	bool operator!=(const AtomIteratorMolSet& other);
+
+	void SetToEnd(); //!< Set iterator to the end of the sequence
+	bool IsAtEnd() const;  //!< Check if interator point to the sequence end
 
 #if defined(SWIG) 
 %exception {
@@ -519,7 +537,7 @@ try {
 	}
 }
 #endif
-	HaAtom* next(); //!<  Return next atom in the sequence (first on the first call). Throw std::out_of_range() if no more atoms (Python compatibility)
+	HaAtom* next (); //!<  Return next atom in the sequence (first on the first call). Throw std::out_of_range() if no more atoms (Python compatibility)
 #if defined(SWIG)
 %exception;
 #endif
@@ -530,6 +548,7 @@ protected:
 	std::vector<HaAtom*>::iterator aitr_res_end;
 	ResidueIteratorMolSet* pritr;
 	bool first_called; //!< flag to indicate that iterator was already called at least one time
+	MolSet* pmset;
 };
 
 
@@ -541,9 +560,29 @@ public:
 	AtomIteratorMolSet_const(const AtomIteratorMolSet_const& ref);
 	virtual ~AtomIteratorMolSet_const();
 
+	using iterator_category = std::forward_iterator_tag;
+	using value_type = HaAtom;
+	using difference_type = std::ptrdiff_t;
+	using pointer = vector<HaAtom*>::const_iterator;
+	using reference = const HaAtom*;
+
 	virtual PointIterator_const* clone() const; //!<  Create a copy of the iterator with the same state (from PointIterator_const )
 	virtual const HaAtom* GetFirstAtom(); //!< Return the first atom of the Molecular Set (=NULL if no atoms) 
 	virtual const HaAtom* GetNextAtom();  //!< Return Next atom in the sequence (=NULL if no more atoms)
+
+	reference operator*() const noexcept { return *aitr_res; }
+	pointer operator->() { return aitr_res; }
+
+	AtomIteratorMolSet_const& operator++() { GetNextAtom(); return(*this); }
+
+	friend bool operator==(const AtomIteratorMolSet_const& a, const AtomIteratorMolSet_const& b) {
+		return a.aitr_res == b.aitr_res;
+	}
+
+	friend bool operator!=(const AtomIteratorMolSet_const& a, const AtomIteratorMolSet_const& b) {
+		return a.aitr_res != b.aitr_res;
+	}
+
 	
 protected:
     vector<HaAtom*>::const_iterator aitr_res;
@@ -559,7 +598,24 @@ public:
 	ResidueIteratorMolSet(MolSet* new_pmset);
 	ResidueIteratorMolSet(const ResidueIteratorMolSet& ritr_ref);
 	virtual ~ResidueIteratorMolSet();
-	
+
+	using iterator_category = std::forward_iterator_tag;
+	using value_type = HaResidue*;
+	using difference_type = std::ptrdiff_t;
+	using pointer = HaResidue**;
+	using reference = HaResidue*&;
+
+	HaResidue* operator*() const;
+	ResidueIteratorMolSet& operator++();
+
+	bool operator==(const ResidueIteratorMolSet& other) const;
+	bool operator!=(const ResidueIteratorMolSet& other) const;
+
+	ResidueIteratorMolSet begin();
+	ResidueIteratorMolSet end();
+	void SetToEnd(); //! Set iterator to point to the sequence end
+	bool IsAtEnd() const;  //!< Check if interator point to the sequence end
+
 //	ResidueIteratorMolSet* clone(); //!< Create a copy of the iterator with the same state
 	HaResidue* GetFirstRes(); //!< Return the first residue of the molecular Set (=NULL if no atoms) 
 	HaResidue* GetNextRes();  //!< Return next residue in the molecular set (=NULL if no more atoms)
@@ -590,6 +646,7 @@ protected:
 
 	MoleculesType::iterator mol_itr_begin;
 	MoleculesType::iterator mol_itr_end;
+	MolSet* pmset; 
 
 	int first_called;
 };

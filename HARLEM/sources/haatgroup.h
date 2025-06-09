@@ -211,6 +211,18 @@ public:
 	AtomIteratorAtomGroup(AtomGroup* new_p_at_group);
 	virtual ~AtomIteratorAtomGroup();
 	
+	//using iterator_category = std::forward_iterator_tag;
+	//using value_type = HaAtom*;
+	//using difference_type = std::ptrdiff_t;
+	//using pointer = std::vector<HaAtom*>::iterator;
+	//using reference = HaAtom*&;
+
+	//reference operator*() const noexcept;
+	//pointer operator->();
+	//AtomIteratorAtomGroup& operator++();
+	//bool operator==(const AtomIteratorAtomGroup& other) const;
+	//bool operator!=(const AtomIteratorAtomGroup& other);
+
 	HaAtom* GetFirstAtom(); //!< Return the first atom of the Atom Group (=NULL if no atoms) 
 	HaAtom* GetNextAtom();  //!< Return Next atom in the sequence (=NULL if no more atoms)
 	
@@ -265,6 +277,9 @@ public:
 	int DeleteAtoms(const PtrSet& ptr_set); //!< Delete Atoms from the Group that belong to ptr_set; return the number of atoms deleted
 	int DelSelAtoms(); //!< Delete Selected Atoms from the Atom Group, return number of atoms deleted
 
+	void SetGroupType(std::string new_type) { type = new_type; }
+	std::string GetGroupType() const { return type; }
+
 // Manipulation of Atom Group using Atom expressions:
 
 	void SetFromExpr(AtomExpr* expr, MolSet* pmset );       //!< Build Atom Group from expression 
@@ -285,7 +300,8 @@ public:
 	void SelectAtomsAll();   //!< Select All Atoms in the residue
 
 protected:
-	std::string id;	
+	std::string id;
+	std::string type; // Type of the group 
 };
 
 class MolSet;

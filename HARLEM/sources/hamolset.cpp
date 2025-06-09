@@ -4258,7 +4258,6 @@ bool MolSet::SetStdChemGroups()
 		}
 	}
 	return true;
-
 }
 
 bool MolSet::SetStdProteinGroups()
@@ -4281,35 +4280,49 @@ bool MolSet::SetStdProteinGroups()
 		PrintLog("Process residue %d \n", rptr->GetSerNo());
 		if (!rptr->IsAmino()) continue;
 
-		HaResidue* res_next = rptr->GetNextResInChain();
-		bool is_bonded_next = false;
-		if( res_next ) is_bonded_next = rptr->IsBonded(res_next);
-		HaResidue* res_prev = rptr->GetPrevResInChain();
+		HaResidue* pres_next = rptr->GetNextResInChain();
+		if (pres_next) {
+			if (!rptr->IsBonded(pres_next)) pres_next = NULL;
+		}
+
+		HaResidue* pres_prev = rptr->GetPrevResInChain();
 		bool is_bonded_prev = false;
-		is_bonded_prev = rptr->IsBonded(res_prev);
+		is_bonded_prev = rptr->IsBonded(pres_prev);
+		if (!is_bonded_prev) pres_prev = NULL;
 
 		std::string grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo()) + (std::string)"_SC";
 
 		// Side chain
 		group = this->AddAtomGroup(grp_name.c_str());
+		group->SetGroupType("CHEM_GROUP"); 
 		AtomIteratorAtomGroup aitr(rptr);
 		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
 			std::string at_name = aptr->GetName();
-			bool bb_atom = false;
-			for (std::string atn : at_names_bb)
-			{
-				if (atn == at_name) bb_atom = true;
-			}
-			if (bb_atom) continue;
+			bool is_bb_atom = std::find(at_names_bb.begin(), at_names_bb.end(), at_name) != at_names_bb.end();
+			if (is_bb_atom) continue;
 			group->InsertAtom(aptr);
 		}
 
 		if (group->GetNAtoms() == 0) this->DeleteAtomGroupPtr(group);
 
 		// Peptide backbone 
-		grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo()) + (std::string)"_BB";
+		grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo());
+		if (this->GetNChains() > 1)
+		{
+			std::string chain_id = std::string{rptr->GetHostChain()->ident};
+			if (chain_id == " ") chain_id = "";
+			grp_name += chain_id;
+		}
+		if (pres_next) {
+			grp_name += std::string("_") + (std::string)pres_next->GetName() + std::to_string(pres_next->GetSerNo()) + (std::string)"_BB";
+		}
+		else
+		{
+			grp_name += (std::string)"_CT";
+		}
 		group = this->AddAtomGroup(grp_name.c_str());
+		group->SetGroupType("CHEM_GROUP");
 
 		for (std::string atn : at_names_bb_left)
 		{
@@ -4318,13 +4331,13 @@ bool MolSet::SetStdProteinGroups()
 			group->InsertAtom(aptr);
 		}
 
-		if (res_next && res_next->IsAmino() && is_bonded_next)
+		if (pres_next && pres_next->IsAmino())
 		{
-			if (res_next->IsProline())
+			if (pres_next->IsProline())
 			{
 				for (std::string atn : at_names_bb_right_pro)
 				{
-					aptr = res_next->GetAtomByName(atn);
+					aptr = pres_next->GetAtomByName(atn);
 					if (!aptr) continue;
 					group->InsertAtom(aptr);
 				}
@@ -4333,7 +4346,7 @@ bool MolSet::SetStdProteinGroups()
 			{
 				for (std::string atn : at_names_bb_right)
 				{
-					aptr = res_next->GetAtomByName(atn);
+					aptr = pres_next->GetAtomByName(atn);
 					if (!aptr) continue;
 					group->InsertAtom(aptr);
 				}
@@ -4343,10 +4356,11 @@ bool MolSet::SetStdProteinGroups()
 		if (group->GetNAtoms() == 0) this->DeleteAtomGroupPtr(group);
 
 		// N-terminal
-		if(!res_prev)
+		if(!pres_prev)
 		{
 			grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo()) + (std::string)"_NT";
 			group = this->AddAtomGroup(grp_name.c_str());
+			group->SetGroupType("CHEM_GROUP");
 
 			for (std::string atn : at_names_n_term)
 			{
@@ -4356,9 +4370,44 @@ bool MolSet::SetStdProteinGroups()
 			}
 			if (group->GetNAtoms() == 0) this->DeleteAtomGroupPtr(group);
 		}
+	}
+	return true;
+}
 
+bool MolSet::CheckChemGroups()
+{
+	std::map<HaAtom*, std::list<AtomGroup*>> atom_grp_map;
+	for( HaAtom* aptr: *this)
+	{
+		atom_grp_map[aptr] = {};
 	}
 
+	for (AtomGroup& group : NamedAtomGroups)
+	{
+		if (group.GetGroupType() != "CHEM_GROUP") continue;
+		for (HaAtom* aptr : group) 
+			atom_grp_map[aptr].push_back(&group);
+	}
+
+	for (auto& pair : atom_grp_map)
+	{
+		HaAtom* aptr = pair.first;
+		std::list<AtomGroup*>& groups = pair.second;
+
+		if (groups.size() == 0)
+		{
+			PrintLog("Atom %s does not belong to any Chemical Groups \n ", aptr->GetRef().c_str());
+		}
+		else if (groups.size() > 1)
+		{
+			PrintLog("Atom %s belongs to more than 1 Chemical Groups: ", aptr->GetRef().c_str());
+			for (AtomGroup* pgrp : groups)
+			{
+				PrintLog("  %s  ", pgrp->GetID());
+			}
+			PrintLog("\n");
+		}
+	}
 	return true;
 }
 
@@ -6602,11 +6651,12 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 }
 
 
-AtomIteratorMolSet::AtomIteratorMolSet(MolSet* pmset_new)
+AtomIteratorMolSet::AtomIteratorMolSet(MolSet* pmset)
 {
-	pritr = new ResidueIteratorMolSet(pmset_new);	
+	pritr = new ResidueIteratorMolSet(pmset);
 	GetFirstAtom();
 	first_called = false;
+	this->pmset = pmset;
 }
 
 AtomIteratorMolSet::AtomIteratorMolSet(const AtomIteratorMolSet& ref)
@@ -6615,6 +6665,7 @@ AtomIteratorMolSet::AtomIteratorMolSet(const AtomIteratorMolSet& ref)
 	aitr_res      = ref.aitr_res;
 	aitr_res_end  = ref.aitr_res_end;
 	first_called  = ref.first_called;
+	pmset = ref.pmset;
 }
 
 
@@ -6639,6 +6690,7 @@ HaAtom* AtomIteratorMolSet::GetFirstAtom()
 	   aitr_res_end = pres->end(); 
 	   return (*aitr_res);
    }
+   pritr->SetToEnd();
    return NULL;
 }
 
@@ -6654,7 +6706,43 @@ inline HaAtom* AtomIteratorMolSet::GetNextAtom()
 		aitr_res_end = pres->end();
 		if( aitr_res != aitr_res_end ) return (*aitr_res);
 	}
+	pritr->SetToEnd();
 	return NULL;
+}
+
+AtomIteratorMolSet::reference AtomIteratorMolSet::operator*() const noexcept {
+	return *aitr_res;
+}
+
+AtomIteratorMolSet::pointer AtomIteratorMolSet::operator->() {
+	return aitr_res;
+}
+
+AtomIteratorMolSet& AtomIteratorMolSet::operator++() {
+	GetNextAtom();
+	return(*this);
+}
+
+bool AtomIteratorMolSet::operator==(const AtomIteratorMolSet& other) const 
+{
+	if (this->pritr->IsAtEnd() ) return other.IsAtEnd();
+	if (other.IsAtEnd()) return false;
+	return this->aitr_res == other.aitr_res;
+}
+
+bool AtomIteratorMolSet::operator!=(const AtomIteratorMolSet& other) 
+{
+	return !(*this == other);
+}
+
+void AtomIteratorMolSet::SetToEnd()
+{
+	pritr->SetToEnd();
+}
+
+bool AtomIteratorMolSet::IsAtEnd() const
+{
+	return this->pritr->IsAtEnd();
 }
 
 AtomIteratorMolSet AtomIteratorMolSet::__iter__() const
@@ -6735,17 +6823,17 @@ const HaAtom* AtomIteratorMolSet_const::GetNextAtom()
 
 ResidueIteratorMolSet::ResidueIteratorMolSet(MolSet* pmset)
 {
+	this->pmset = pmset;
 	mol_itr_begin = pmset->HostMolecules.begin();
-	mol_itr_end   = pmset->HostMolecules.end();
+	mol_itr_end = pmset->HostMolecules.end();
 
 	mol_itr = mol_itr_begin;
-	
-	if( mol_itr != mol_itr_end )
+	if (mol_itr != mol_itr_end)
 	{
-        ch_itr = (*mol_itr)->Chains.begin(); 
-		if( ch_itr != (*mol_itr)->Chains.end() )
+		ch_itr = (*mol_itr)->Chains.begin();
+		if (ch_itr != (*mol_itr)->Chains.end())
 		{
-           res_itr = (*ch_itr).res_arr.begin();
+			res_itr = (*ch_itr).res_arr.begin();
 		}
 	}
 	first_called = 0;
@@ -6753,6 +6841,7 @@ ResidueIteratorMolSet::ResidueIteratorMolSet(MolSet* pmset)
 
 ResidueIteratorMolSet::ResidueIteratorMolSet(const ResidueIteratorMolSet& ref)
 {
+	pmset = ref.pmset;
 	res_itr     = ref.res_itr;
 	ch_itr      = ref.ch_itr;
 	mol_itr     = ref.mol_itr;
@@ -6760,12 +6849,51 @@ ResidueIteratorMolSet::ResidueIteratorMolSet(const ResidueIteratorMolSet& ref)
 	mol_itr_begin = ref.mol_itr_begin;
 	mol_itr_end   = ref.mol_itr_end;
 
-	first_called = 0;
+	first_called = ref.first_called;
 }
 
 ResidueIteratorMolSet::~ResidueIteratorMolSet()
 {
 
+}
+
+void ResidueIteratorMolSet::SetToEnd()
+{
+	mol_itr = mol_itr_end;
+}
+
+bool ResidueIteratorMolSet::IsAtEnd() const
+{
+	return mol_itr == mol_itr_end;
+}
+
+HaResidue* ResidueIteratorMolSet::operator*() const { return *res_itr; }
+
+ResidueIteratorMolSet& ResidueIteratorMolSet::operator++() {
+	GetNextRes();
+	return *this;
+}
+
+bool ResidueIteratorMolSet::operator==(const ResidueIteratorMolSet& other) const {
+	if (this->mol_itr != other.mol_itr) return false;
+	if (this->IsAtEnd()) return other.IsAtEnd();
+	if (this->mol_itr != other.mol_itr) return false;
+	if (this->ch_itr != other.ch_itr) return false;
+	return this->res_itr == other.res_itr;
+}
+
+bool ResidueIteratorMolSet::operator!=(const ResidueIteratorMolSet& other) const { 
+	return !(*this == other); 
+}
+
+ResidueIteratorMolSet ResidueIteratorMolSet::begin() {
+	return ResidueIteratorMolSet(this->pmset);
+}
+
+ResidueIteratorMolSet ResidueIteratorMolSet::end() {
+	ResidueIteratorMolSet ritr = ResidueIteratorMolSet(this->pmset);
+	ritr.SetToEnd();
+	return ritr;
 }
 
 HaResidue* ResidueIteratorMolSet::GetFirstRes()
@@ -7279,6 +7407,17 @@ void MolSet::ClearBackbone()
 	BackboneBonds.clear();
 }
 
+AtomIteratorMolSet MolSet::begin() 
+{
+	return AtomIteratorMolSet(this);
+}
+
+AtomIteratorMolSet MolSet::end() 
+{ 
+	AtomIteratorMolSet aitr(this);
+	aitr.SetToEnd();
+	return aitr;
+}
 
 void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 {

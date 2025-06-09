@@ -1548,7 +1548,6 @@ AtomIteratorGen::AtomIteratorGen( AtomContainer* pat_cont_new)
 	pat_cont = pat_cont_new;
 	pat_itr  = pat_cont->GetAtomIteratorPtr();
 	first_called = 0;
-
 }
 
 AtomIteratorGen::AtomIteratorGen( const AtomIteratorGen& ref)
@@ -1608,6 +1607,7 @@ AtomIteratorAtomGroup::~AtomIteratorAtomGroup()
 {
 	
 }
+
 
 HaAtom* AtomIteratorAtomGroup::GetFirstAtom()
 {
