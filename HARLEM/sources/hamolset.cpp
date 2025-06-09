@@ -4262,22 +4262,15 @@ bool MolSet::SetStdChemGroups()
 
 bool MolSet::SetStdProteinGroups()
 {
-	HaResidue* rptr;
-
-	HaChain* chain;
-	AtomGroup* group;
-	HaAtom* aptr;
-
-	const std::vector<std::string> at_names_bb = { "CA","HA","HA1","HA2","HA3","N","H","C","O","OXT","H1","H2","H3" };
-	const std::vector<std::string> at_names_bb_left = { "CA","HA","HA1","HA2","HA3","C","O","OXT" };
-	const std::vector<std::string> at_names_bb_right = { "CA","HA","HA1","HA2","HA3","N","H","H1","H2","H3" };
-	const std::vector<std::string> at_names_bb_right_pro = { "CA","HA","HA1","HA2","HA3","N","CD","HD1","HD2","HD3" };
-	const std::vector<std::string> at_names_n_term = { "CA","HA","HA1","HA2","HA3","N","H","H1","H2","H3" };
+	const std::set<std::string> at_names_bb = { "N","H","C","O","OXT","H1","H2","H3" };
+	const std::set<std::string> at_names_bb_left = { "C","O","OXT" };
+	const std::set<std::string> at_names_bb_right = { "N","H","H1","H2","H3" };
+	const std::set<std::string> at_names_bb_pro = { "N","CD","HD1","HD2","HD3" };
+	const std::set<std::string> at_names_n_term = { "N","H","H1","H2","H3" };
 
 	ResidueIteratorMolSet ritr(this);
-	for (rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes())
+	for (HaResidue* rptr : ritr)
 	{
-		PrintLog("Process residue %d \n", rptr->GetSerNo());
 		if (!rptr->IsAmino()) continue;
 
 		HaResidue* pres_next = rptr->GetNextResInChain();
@@ -4290,30 +4283,31 @@ bool MolSet::SetStdProteinGroups()
 		is_bonded_prev = rptr->IsBonded(pres_prev);
 		if (!is_bonded_prev) pres_prev = NULL;
 
-		std::string grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo()) + (std::string)"_SC";
+		std::string base_grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo());
+		if (this->GetNChains() > 1)
+		{
+			std::string chain_id = std::string{ rptr->GetHostChain()->ident };
+			if (chain_id == " ") chain_id = "";
+			base_grp_name += chain_id;
+		}
+		std::string grp_name = base_grp_name  + (std::string)"_SC";
 
 		// Side chain
-		group = this->AddAtomGroup(grp_name.c_str());
+		AtomGroup* group = this->AddAtomGroup(grp_name.c_str());
 		group->SetGroupType("CHEM_GROUP"); 
-		AtomIteratorAtomGroup aitr(rptr);
-		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+
+		for( HaAtom* aptr : *rptr)
 		{
 			std::string at_name = aptr->GetName();
-			bool is_bb_atom = std::find(at_names_bb.begin(), at_names_bb.end(), at_name) != at_names_bb.end();
-			if (is_bb_atom) continue;
+			if (at_names_bb.count(at_name) > 0) continue;
+			if (rptr->IsProline() && at_names_bb_pro.count(at_name) > 0) continue;
 			group->InsertAtom(aptr);
 		}
 
 		if (group->GetNAtoms() == 0) this->DeleteAtomGroupPtr(group);
 
 		// Peptide backbone 
-		grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo());
-		if (this->GetNChains() > 1)
-		{
-			std::string chain_id = std::string{rptr->GetHostChain()->ident};
-			if (chain_id == " ") chain_id = "";
-			grp_name += chain_id;
-		}
+		grp_name = base_grp_name;
 		if (pres_next) {
 			grp_name += std::string("_") + (std::string)pres_next->GetName() + std::to_string(pres_next->GetSerNo()) + (std::string)"_BB";
 		}
@@ -4326,7 +4320,7 @@ bool MolSet::SetStdProteinGroups()
 
 		for (std::string atn : at_names_bb_left)
 		{
-			aptr = rptr->GetAtomByName(atn);
+			HaAtom* aptr = rptr->GetAtomByName(atn);
 			if (!aptr) continue;
 			group->InsertAtom(aptr);
 		}
@@ -4335,9 +4329,9 @@ bool MolSet::SetStdProteinGroups()
 		{
 			if (pres_next->IsProline())
 			{
-				for (std::string atn : at_names_bb_right_pro)
+				for (std::string atn : at_names_bb_pro)
 				{
-					aptr = pres_next->GetAtomByName(atn);
+					HaAtom* aptr = pres_next->GetAtomByName(atn);
 					if (!aptr) continue;
 					group->InsertAtom(aptr);
 				}
@@ -4346,25 +4340,24 @@ bool MolSet::SetStdProteinGroups()
 			{
 				for (std::string atn : at_names_bb_right)
 				{
-					aptr = pres_next->GetAtomByName(atn);
+					HaAtom* aptr = pres_next->GetAtomByName(atn);
 					if (!aptr) continue;
 					group->InsertAtom(aptr);
 				}
 			}
 		}
-
 		if (group->GetNAtoms() == 0) this->DeleteAtomGroupPtr(group);
 
 		// N-terminal
 		if(!pres_prev)
 		{
-			grp_name = (std::string)rptr->GetName() + std::to_string(rptr->GetSerNo()) + (std::string)"_NT";
+			grp_name = base_grp_name + (std::string)"_NT";
 			group = this->AddAtomGroup(grp_name.c_str());
 			group->SetGroupType("CHEM_GROUP");
 
 			for (std::string atn : at_names_n_term)
 			{
-				aptr = rptr->GetAtomByName(atn);
+				HaAtom* aptr = rptr->GetAtomByName(atn);
 				if (!aptr) continue;
 				group->InsertAtom(aptr);
 			}
@@ -4389,6 +4382,7 @@ bool MolSet::CheckChemGroups()
 			atom_grp_map[aptr].push_back(&group);
 	}
 
+	bool valid_partition = true;
 	for (auto& pair : atom_grp_map)
 	{
 		HaAtom* aptr = pair.first;
@@ -4396,10 +4390,12 @@ bool MolSet::CheckChemGroups()
 
 		if (groups.size() == 0)
 		{
+			valid_partition = false;
 			PrintLog("Atom %s does not belong to any Chemical Groups \n ", aptr->GetRef().c_str());
 		}
 		else if (groups.size() > 1)
 		{
+			valid_partition = false;
 			PrintLog("Atom %s belongs to more than 1 Chemical Groups: ", aptr->GetRef().c_str());
 			for (AtomGroup* pgrp : groups)
 			{
@@ -4408,6 +4404,11 @@ bool MolSet::CheckChemGroups()
 			PrintLog("\n");
 		}
 	}
+	if (valid_partition)
+	{
+		PrintLog("All atoms of the system are partitioned into disjoint chemical groups \n");
+	}
+
 	return true;
 }
 
