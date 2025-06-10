@@ -456,6 +456,13 @@ int HaAtom::GetBondedAtoms(AtomGroup& bonded_atoms_out)
 	return( bonded_atoms_out.size() );
 }
 
+AtomGroup HaAtom::GetBondedAtoms()
+{
+	AtomGroup group;
+	this->GetBondedAtoms(group);
+	return group;
+}
+
 //int HaAtom::GetBonds(std::vector<HaBond*>& bonds_out )
 //{
 //	bonds_out = (*p_bonds);
@@ -755,14 +762,19 @@ int HaAtom::Selected() const
 	return (flag & SelectFlag);
 }
 
-bool
-HaAtom::IsDrawSphere() const
+void HaAtom::SelectBondedHydrogens()
+{
+	AtomGroup bonded_atoms = this->GetBondedAtoms();
+	for (HaAtom* aptr : bonded_atoms)
+		if (aptr->IsHydrogen()) aptr->Select();
+}
+
+bool HaAtom::IsDrawSphere() const
 {
 	return ( (flag & SphereFlag) != 0);
 }
 
-void
-HaAtom::SetDrawSphere(bool set_mode)
+void HaAtom::SetDrawSphere(bool set_mode)
 {
 	if(set_mode)
 		flag |= SphereFlag;
@@ -1531,7 +1543,7 @@ TiXmlElement* HaAtom::AddXml(TiXmlElement* parent_element, const char* name, int
 	atom_element->SetDoubleAttribute("x", this->GetX());
 	atom_element->SetDoubleAttribute("y", this->GetY());
 	atom_element->SetDoubleAttribute("z", this->GetZ());
-    atom_element->SetAttribute("idi", (int) this );
+    atom_element->SetAttribute("idi", reinterpret_cast<std::uintptr_t>(this) );
 
 	parent_element->LinkEndChild(atom_element);
 

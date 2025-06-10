@@ -73,6 +73,7 @@ public:
   virtual void Select();                     //!< Select atom
   virtual void UnSelect();                   //!< Unselect atom
   virtual int Selected() const;              //!< Check if atom is selected
+  void SelectBondedHydrogens();              //!< Select Hydrogens bonded to the atom
 
   bool IsDrawSphere() const;
   void SetDrawSphere(bool set_mode);
@@ -135,6 +136,7 @@ public:
   //int GetBonds(std::vector<HaBond*>& bond_arr);              //!< get Covalent bonds of the atom
   //int GetBonds(std::vector<const HaBond*>& bond_arr) const;  //!< get Covalent bonds of the atom (const version) 
   int GetBondedAtoms(AtomGroup& bonded_atoms); //!< get atoms bonded to the given atom
+  AtomGroup GetBondedAtoms();                  //!< get atoms bonded to the given atom
   int GetHBondAcc(AtomGroup& hbonded_acc_atoms); //!< get hydrogen bond acceptor atoms H-bonded to the given H-Bond donor atom
   bool IsBonded(HaAtom& at2);
   

@@ -1102,23 +1102,18 @@ bool AtomGroup::SwapAtoms(int i1, int i2)
 	return true;
 }
 
-int AtomGroup::HasSelectedAtoms()
+bool AtomGroup::HasSelectedAtoms()
 {
-	AtomIteratorAtomGroup aitr(this);
-	HaAtom* aptr;
-	
-	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	for(HaAtom* aptr : *this)
 	{
-		if(aptr->Selected()) return TRUE;
+		if(aptr->Selected()) return true;
 	}
-	return FALSE;
+	return false;
 }
 
 void AtomGroup::SelectAtomsAll()
 {
-	AtomIteratorAtomGroup aitr(this);
-	HaAtom* aptr;	
-	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	for(HaAtom* aptr : *this)
 	{
 		aptr->Select();
 	}

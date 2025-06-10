@@ -4854,76 +4854,38 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 // First cycle on Atomic Groups and include into selected all atoms
 // in partially selected groups
 	
-	for(AtomGroup& chem_group: this->ChemGroups)
+	for(AtomGroup& group: this->NamedAtomGroups)
 	{
-		int include=0;
-		for( HaAtom* aptr: chem_group )
-		{
-			if(aptr->Selected())
-			{
-				include=1;
-				break;
-			}
-		}
-		if(!include) continue;
-
-		for( HaAtom* aptr : chem_group )
-		{
-			aptr->Select();
-		}
+		if (group.GetGroupType() != "CHEM_GROUP") continue;
+		if (group.HasSelectedAtoms()) group.SelectAtomsAll();
 	}
 
 	auto ritr = this->GetResidueIterator(); // for AA: Select CA atom is N and C atoms selected
-	for (HaResidue* rptr = ritr.GetFirstRes(); rptr; rptr = ritr.GetNextRes())
+	for (HaResidue* rptr : ritr)
 	{
 		if (!rptr->IsAmino()) continue;
 		HaAtom* aptr_c = rptr->GetAtomByName("C");
 		HaAtom* aptr_n = rptr->GetAtomByName("N");
 		HaAtom* aptr_ca = rptr->GetAtomByName("CA");
 
-		if (aptr_c && aptr_n && aptr_ca )
+		if (aptr_ca)
 		{
-			if (aptr_c->Selected() && aptr_n->Selected() && !aptr_ca->Selected())
+			if (aptr_c && aptr_c->Selected() || aptr_n && aptr_n->Selected())
 			{
 				aptr_ca->Select();
 			}
 		}
 	}
 
-	for (AtomGroup& chem_group : this->ChemGroups)  // Do again inclusion cycle for Chemical groups
-	{
-		int include = 0;
-		for (HaAtom* aptr : chem_group)
-		{
-			if (aptr->Selected())
-			{
-				include = 1;
-				break;
-			}
-		}
-		if (!include) continue;
-
-		for (HaAtom* aptr : chem_group)
-		{
-			aptr->Select();
-		}
-	}
-
 // cycle on all heavy atoms and include all hydrogen bound to these atoms:
 
-	AtomIteratorMolSet aitr(this);
-	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	for( HaAtom* aptr : *this)
 	{
 		if( !aptr->Selected() ) continue;
 		if( aptr->IsHydrogen() ) continue;
-		AtomGroup bonded_atoms;
-		aptr->GetBondedAtoms( bonded_atoms );
-		AtomIteratorAtomGroup aitr_b( &bonded_atoms );
-		HaAtom* aptr_b;
-		for( aptr_b = aitr_b.GetFirstAtom(); aptr_b; aptr_b = aitr_b.GetNextAtom())
-		{
-			if( aptr_b->IsHydrogen()) aptr_b->Select();
-		}
+		AtomGroup bonded_atoms = aptr->GetBondedAtoms();
+		for (HaAtom* aptr_b : bonded_atoms)
+			if (aptr_b->IsHydrogen()) aptr_b->Select();
 	}
 
 	AtomAtomMap frag_at_map;
@@ -4979,15 +4941,13 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 
 	// Copy Atomic Groups:
 
-	for(ChemGroup& chem_group : this->ChemGroups)
+	for(AtomGroup& chem_group : this->NamedAtomGroups )
 	{
+		if (chem_group.GetGroupType() != "CHEM_GROUP") continue;
 		if (chem_group.empty()) continue;
-		aptr = chem_group[0];
-		if(aptr == NULL || !aptr->Selected()) continue;
+		if( !chem_group.HasSelectedAtoms()) continue;
 
-		ChemGroup* fpgrp= pfrag->AddBlankChemGroup(chem_group.GetID());
-		fpgrp->SetProtect(chem_group.GetProtect());
-
+		AtomGroup* fpgrp = pfrag->AddAtomGroup(chem_group.GetID());
 		for( HaAtom* aptr : chem_group )
 		{
 			pMol=aptr->GetHostMol();
@@ -5115,24 +5075,26 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 		}	
 	}
 
+	// Commented Setting of QCHEM parapmeters for now - too specialized
+	// 
 	// Set QChem Parameters: Basis Set and Local Active Orb Basis Set:
-	HaQCMod* ptr_qc_mod= GetQCMod(false);
+	// HaQCMod* ptr_qc_mod= GetQCMod(false);
 
-	if(ptr_qc_mod != NULL)
-	{
-		HaQCMod* ptr_qc_mod_frag= pfrag->GetQCMod(true);
+	//if(ptr_qc_mod != NULL)
+	//{
+	//	HaQCMod* ptr_qc_mod_frag= pfrag->GetQCMod(true);
 
-		const std::string bname(ptr_qc_mod->GetBasName());
-		if(!bname.empty())
-		{
-			ptr_qc_mod_frag->InitBasis( bname.c_str() );
-		}
-		const std::string lo_set_id(ptr_qc_mod->GetLocOrbSetID());
-		if(!lo_set_id.empty())
-		{
-			ptr_qc_mod_frag->InitLocOrb(lo_set_id.c_str());
-		}
-	}
+	//	const std::string bname(ptr_qc_mod->GetBasName());
+	//	if(!bname.empty())
+	//	{
+	//		ptr_qc_mod_frag->InitBasis( bname.c_str() );
+	//	}
+	//	const std::string lo_set_id(ptr_qc_mod->GetLocOrbSetID());
+	//	if(!lo_set_id.empty())
+	//	{
+	//		ptr_qc_mod_frag->InitLocOrb(lo_set_id.c_str());
+	//	}
+	//}
 	return pfrag;
 }
 
