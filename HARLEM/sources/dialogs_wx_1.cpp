@@ -1077,6 +1077,9 @@ void SolvateDlgWX::OnInitDialog(wxInitDialogEvent& event)
 	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_SOLV_BUF);
 	edit_ctrl->SetValidator( wxDoubleValidator(&p_mol_editor->solv_buffer_dist, "%6.1f") );
 
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MIN_SOLUTE_SOLV_DIST);
+	edit_ctrl->SetValidator(wxDoubleValidator(&p_mol_editor->min_solute_solv_dist, "%6.1f"));
+
 	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_NUM_NA);
 	edit_ctrl->SetValidator(wxGenericValidator(&p_mol_editor->num_na_add));
 

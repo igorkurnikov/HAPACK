@@ -48,6 +48,7 @@ void MolEditor::Init()
 
 	solv_name = "water";
     solv_buffer_dist = 6.0;
+	min_solute_solv_dist = 3.0;
 
 	num_na_add = 0;
 	num_cl_add = 0;
@@ -3456,18 +3457,29 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	fclose(solv_file);
 
-	double dist_min_to_prot = 3.0;
-	double dist_min_to_prot_sq = dist_min_to_prot * dist_min_to_prot;
+	
 
-	this->CenterAtOriginWithRad(pmset);
-
+	double a, b, c;
 	double xmin, ymin, zmin, xmax, ymax, zmax;
+	if (!pmset->per_bc->IsSet())
+	{
+		pmset->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
+
+		a = xmax - xmin + 2 * solv_buffer_dist;
+		b = ymax - ymin + 2 * solv_buffer_dist;
+		c = zmax - zmin + 2 * solv_buffer_dist;
+
+		PrintLog("MolEditor::Solvate() set PBOX to = %7.3f %7.3f %7.3f Ang \n", a, b, c);
+
+		pmset->per_bc->SetBox(a, b, c);
+	}
+	a = pmset->per_bc->GetA();
+	b = pmset->per_bc->GetB();
+	c = pmset->per_bc->GetC();
+
+	this->CenterMolInPBox(pmset);
 	pmset->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
 	
-	xmax += solv_buffer_dist;
-	ymax += solv_buffer_dist;
-	zmax += solv_buffer_dist;
-
 	MolSet* solvent = new MolSet();
 	solvent->LoadHarlemFile(solv_fname.c_str());
 
@@ -3480,10 +3492,12 @@ int MolEditor::Solvate(MolSet* pmset)
 
 		return False;		
 	}
+	
+	// this->WrapToUnitCell(solvent, solvent->per_bc);
 
-	int nx = (int)((2.0*xmax)/solvent->per_bc->GetA()); nx++;
-	int ny = (int)((2.0*ymax)/solvent->per_bc->GetB()); ny++;
-	int nz = (int)((2.0*zmax)/solvent->per_bc->GetC()); nz++;
+	int nx = (int)((a)/solvent->per_bc->GetA()); nx++;
+	int ny = (int)((a)/solvent->per_bc->GetB()); ny++;
+	int nz = (int)((a)/solvent->per_bc->GetC()); nz++;
 
 	if( nx > 1 || ny > 1 || nz > 1)
  	{
@@ -3496,31 +3510,18 @@ int MolEditor::Solvate(MolSet* pmset)
 	AtomGroup old_atoms;
 	HaAtom* aptr;
 
-	Vec3D tr;
-
-	double a = solvent->per_bc->GetA();
-	double b = solvent->per_bc->GetB();
-	double c = solvent->per_bc->GetC();
-
-	int i;
-	for( i = 0; i < 3; i++)
-	{
-		tr[i] =   0.5*solvent->per_bc->ucell[0][i]; 
-		tr[i] +=  0.5*solvent->per_bc->ucell[1][i];
-		tr[i] +=  0.5*solvent->per_bc->ucell[2][i];
-	}
-
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		aptr->SetCoordFrom((Vec3D)(*aptr) + tr );
 		old_atoms.InsertAtom(aptr);
 	}
 	AtomIteratorAtomGroup aitr_old_atoms(&old_atoms);
 
+	double min_solute_solv_dist_sq = this->min_solute_solv_dist * this->min_solute_solv_dist;
+
 	BoxPartition part_table; // Table of Distributions of atoms into quadrants between minimal and maximal coordinates of atoms of the molecular set
 	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
 	part_table.DistributePointsToCells(old_atoms);
-	part_table.SetRegionRad(dist_min_to_prot);
+	part_table.SetRegionRad(this->min_solute_solv_dist);
 
 	HaMolecule* pMol = pmset->AddNewMolecule();
 	pMol->SetObjName("Solvent");
@@ -3544,19 +3545,26 @@ int MolEditor::Solvate(MolSet* pmset)
 			ResidueIteratorChain ritr_ch(chain);
 			for(group = ritr_ch.GetFirstRes();group; group = ritr_ch.GetNextRes())
 			{
+				if (group->GetNAtoms() == 0) continue;
 				bool overlap = false;
 				AtomIteratorAtomGroup aitr_res(group);
 				
 				HaAtom* aptr_res;
+				double x_avg = 0.0, y_avg = 0.0, z_avg = 0.0;
+				
 				for (aptr_res = aitr_res.GetFirstAtom(); aptr_res; aptr_res = aitr_res.GetNextAtom())
 				{
+					x_avg += aptr_res->GetX();
+					y_avg += aptr_res->GetY();
+					z_avg += aptr_res->GetZ();
+
 					part_table.GetNeighbors(*aptr_res, close_atoms);
 					AtomIteratorAtomGroup aitr_close(&close_atoms);
 					
 					for (aptr = aitr_old_atoms.GetFirstAtom(); aptr; aptr = aitr_old_atoms.GetNextAtom()) // IGOR_TMP removed partiton table speed up
 					// for (aptr = aitr_close.GetFirstAtom(); aptr; aptr = aitr_close.GetNextAtom())
 					{
-						if (Vec3D::CalcDistanceSq(aptr, aptr_res) < dist_min_to_prot_sq)
+						if (Vec3D::CalcDistanceSq(aptr, aptr_res) < min_solute_solv_dist_sq)
 						{
 							overlap = true;
 							break;
@@ -3565,6 +3573,13 @@ int MolEditor::Solvate(MolSet* pmset)
 					if (overlap) break;
 				}
 				if(overlap) continue;
+
+				x_avg = x_avg / group->GetNAtoms();
+				y_avg = y_avg / group->GetNAtoms();
+				z_avg = z_avg / group->GetNAtoms();
+
+				if (x_avg < 0.0 || y_avg < 0.0 || z_avg < 0.0) continue;
+				if (x_avg > a || y_avg > b || z_avg > c) continue;
 
 				nres++;
 				HaResidue* new_res = chain_cur->AddResidue(nres);
@@ -3607,7 +3622,7 @@ int MolEditor::Solvate(MolSet* pmset)
 		}
 	}
  
-	pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
+	// pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
     delete solvent;
 
 	HaMolView* pview = pmset->GetActiveMolView();

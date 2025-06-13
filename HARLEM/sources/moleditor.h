@@ -97,8 +97,9 @@ public:
 	bool AddElectrSurf(MolSet* pmset, int add_surf_below_flag, int add_surf_top_flag, int add_atom_top_flag,
 		               int add_atom_below_flag); //!< Add molecular surface or a single donor/acceptor atom  to the structure
 
-	std::string solv_name;   //!< Solvent to solvate molecular set
-	double solv_buffer_dist; //!< thickness of the solvent buffer around the solute 
+	std::string solv_name;       //!< Solvent to solvate molecular set
+	double solv_buffer_dist;     //!< thickness of the solvent buffer around the solute 
+	double min_solute_solv_dist; //!< minimal distance of added solvent molecules to the solute
 	int num_na_add;  //!< Number of sodium ions to add
 	int num_cl_add;  //!< Number of chloride ions to add
 };
