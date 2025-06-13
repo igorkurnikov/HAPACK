@@ -126,7 +126,7 @@ public:
 private:
 	int run_internal_flag;      //!< if TRUE run MM calculation internally 
 	MMRunType run_type;         //!< Molecular Mechanics run type 
-	MMExternalProg ext_mm_prog; //!< xternal MM Program to be used to run MM simulations
+	MMExternalProg ext_mm_prog; //!< External MM Program to be used to run MM simulations
 
 	static harlem::RunOptions run_opt_default;
 

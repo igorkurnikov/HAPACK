@@ -3232,8 +3232,7 @@ EditFragmDlgWX::TransferDataToWindow()
 	return wxFrame::TransferDataToWindow();
 }
 
-bool
-EditFragmDlgWX::TransferDataFromWindow()
+bool EditFragmDlgWX::TransferDataFromWindow()
 {
 	return wxFrame::TransferDataFromWindow();;
 }

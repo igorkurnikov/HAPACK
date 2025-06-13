@@ -145,40 +145,25 @@ void  MolMechDlgWX::OnInitDialog()
 {
 	wxTextCtrl* edit_ctrl;
 	wxStaticText* stext_ctrl;
-	wxChoice*     choice_ctrl;
+	wxChoice* choice_ctrl;
 
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_AMBER_RUN_FILE); 
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_run_file) );
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_AMBER_RUN_FILE);
 	ext_prog_controls.push_back(edit_ctrl);
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_LOG_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_out_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_INP_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_inp_file) );
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_LOG_FILE);
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INP_FILE);
 	ext_prog_controls.push_back(edit_ctrl);
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_TOP_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_top_file) );
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_TOP_FILE);
 	ext_prog_controls.push_back(edit_ctrl);
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_INIT_CRD_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_crd_file) );
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INIT_CRD_FILE);
 	ext_prog_controls.push_back(edit_ctrl);
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_CONSTR_CRD_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_constr_crd_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_RESTART_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_rst_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_CRD_TRAJ_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_coord_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_CRD_TRAJ_FILE_2);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_coord_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_VEL_TRAJ_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_vel_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_VEL_TRAJ_FILE_2);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_vel_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_ENE_TRAJ_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_ene_file) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_CONSTR_TRAJ_FILE);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->constr_trj_fname) );
-	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_ENE_TRAJ_FILE_2);
-	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_amber_driver->amber_trj_ene_file) );
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_CRD_FILE);
+	ext_prog_controls.push_back(edit_ctrl);
+
 	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_TRAJ_SCRIPT);
 	edit_ctrl->SetValidator( StdStringValidator(&ptr_mm_mod->p_traj_anal_mod->traj_script) );
 	edit_ctrl = (wxTextCtrl*) FindWindow(IDC_MM_MAX_COMP_CYCLES);	      ene_min_controls.push_back(edit_ctrl);
@@ -277,7 +262,8 @@ void  MolMechDlgWX::OnInitDialog()
 
 	choice_ctrl_ext_prog = (wxChoice*) FindWindow( IDC_MM_EXT_PROG );  ext_prog_controls.push_back(choice_ctrl_ext_prog);
 	choice_ctrl_ext_prog->SetValidator( HaEnumValidator(&ptr_mm_mod->ext_mm_prog) );
-	
+	choice_ctrl_ext_prog->Bind(wxEVT_CHOICE, &MolMechDlgWX::OnChangeExternalProg, this);
+
 	btn_save_inp_files  = (wxButton*) FindWindow( IDC_SAVE_EXT_PROG_INP );
 	ext_prog_controls.push_back(btn_save_inp_files);
 	btn_mm_run_calc     = (wxButton*) FindWindow( IDC_MM_RUN_CALC );
@@ -403,6 +389,8 @@ bool MolMechDlgWX::TransferDataToWindow()
 {
 	int itemp;
 
+	TransferExternalProgFileNames(true);
+
 	wxTextCtrl* edit_ctrl = (wxTextCtrl*) FindWindow( IDC_MM_MOVING_ATOMS);
 	if( edit_ctrl == NULL ) return false;
 	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->moving_atoms.c_str());
@@ -451,6 +439,8 @@ bool MolMechDlgWX::TransferDataFromWindow()
 	wxString str;
 	int itemp;
 	double dval;
+
+	TransferExternalProgFileNames(false);
 
 	wxTextCtrl* edit_ctrl = (wxTextCtrl*) FindWindow( IDC_MM_MOVING_ATOMS);
 	str = edit_ctrl->GetValue();
@@ -866,7 +856,6 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 				btn_mm_run_calc->Enable();
 			}
 		}
-
 	}
 }
 
@@ -994,6 +983,148 @@ void MolMechDlgWX::OnChooseMDAnalScript(wxCommandEvent& event)
 	}
 }
 
+void MolMechDlgWX::TransferExternalProgFileNames(bool to_window)
+{
+	// SANDER_12 = 5, PMEMD_12 = 6, PMEMD_18 = 7, TINKER_51 = 8, GROMACS_51 = 9
+
+	wxTextCtrl* edit_ctrl;
+	wxChoice* choice_ctrl;
+
+	if (ptr_mm_mod->ext_mm_prog == MMExternalProg::SANDER_12 || ptr_mm_mod->ext_mm_prog ==  MMExternalProg::PMEMD_12 || ptr_mm_mod->ext_mm_prog ==  MMExternalProg::PMEMD_18)
+	{
+		MMDriverAmber* p_amber_driver = ptr_mm_mod->p_amber_driver;
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_AMBER_RUN_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_run_file);
+		else p_amber_driver->amber_run_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_LOG_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_out_file);
+		else p_amber_driver->amber_out_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INP_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_inp_file);
+		else p_amber_driver->amber_inp_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_TOP_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_top_file);
+		else p_amber_driver->amber_top_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INIT_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_crd_file);
+		else p_amber_driver->amber_crd_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_constr_crd_file);
+		else p_amber_driver->amber_constr_crd_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_RESTART_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_rst_file);
+		else p_amber_driver->amber_rst_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_coord_file);
+		else p_amber_driver->amber_trj_coord_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_coord_file);
+		else p_amber_driver->amber_trj_coord_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_vel_file);
+		else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_vel_file);
+		else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_ene_file);
+		else p_amber_driver->amber_trj_ene_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue(p_amber_driver->amber_trj_ene_file);
+		else p_amber_driver->amber_trj_ene_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(ptr_mm_mod->constr_trj_fname);
+		else ptr_mm_mod->constr_trj_fname = edit_ctrl->GetValue().ToStdString();
+	}
+
+	if (ptr_mm_mod->ext_mm_prog == MMExternalProg::GROMACS_51 )
+	{
+		MMDriverGromacs* p_gromacs_driver = ptr_mm_mod->p_gromacs_driver;
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_AMBER_RUN_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->amber_run_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_LOG_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->amber_out_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INP_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->inp_fname);
+		else p_gromacs_driver->inp_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_TOP_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->top_fname);
+		else p_gromacs_driver->top_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INIT_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->init_crd_fname);
+		else p_gromacs_driver->init_crd_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->restr_crd_fname);
+		else p_gromacs_driver->restr_crd_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_RESTART_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_rst_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->trj_fname);
+		else p_gromacs_driver->trj_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->trj_fname);
+		else p_gromacs_driver->trj_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->ene_fname);
+		else p_gromacs_driver->ene_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->ene_fname);
+		else p_gromacs_driver->ene_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else ptr_mm_mod->constr_trj_fname = edit_ctrl->GetValue().ToStdString();
+	}
+};
+
+void MolMechDlgWX::OnChangeExternalProg(wxCommandEvent& event)
+{
+	int selection = event.GetSelection();
+	std::string choiceText = event.GetString().ToStdString();
+	PrintLog("%s\n", choiceText.c_str());
+
+	ptr_mm_mod->ext_mm_prog.SetWithLabel(choiceText.c_str());
+
+	TransferExtProgDataToWindow();
+	TransferExternalProgFileNames(true);
+}
+
 void MolMechDlgWX::OnSaveExtProgInp(wxCommandEvent& event) 
 {
 	TransferDataFromWindow();
@@ -1015,7 +1146,6 @@ void MolMechDlgWX::OnSaveExtProgInp(wxCommandEvent& event)
 	{
 		ptr_mm_mod->p_gromacs_driver->SaveAllInpFiles();
 	}
-
 
 	TransferExtProgDataToWindow();
 }

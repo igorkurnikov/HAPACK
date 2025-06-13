@@ -25,6 +25,8 @@ MMDriverGromacs::MMDriverGromacs(HaMolMechMod* p_mm_mod_new)
 	p_mm_mod = p_mm_mod_new;
 	p_mm_model    = p_mm_mod->p_mm_model;
 	pmset = p_mm_mod->GetMolSet();
+	std::string prefix = pmset->GetName() + std::string("_gmx");
+	this->SetFileNamesWithPrefix(prefix);
 
 	to_save_input_files = TRUE;
 }
@@ -34,39 +36,51 @@ MMDriverGromacs::~MMDriverGromacs()
 
 }
 
+void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
+{
+	inp_fname = prefix + ".mdp";
+	top_fname = prefix + ".top";
+	init_crd_fname = prefix + "_init.gro";
+	restr_crd_fname = prefix + "_restr.gro";
+	trj_fname = prefix + ".trr";
+	ene_fname = prefix + ".ene";
+}
+
 int MMDriverGromacs::SaveAllInpFiles()
 {	
-	PrintLog("Save GROMACS mdp file \n");
+	PrintLog("Save GROMACS mdp file %s\n", inp_fname.c_str());
 	SaveMdpFile();
-	PrintLog("Save GROMACS top file \n");
+	PrintLog("Save GROMACS top file %s\n", top_fname.c_str());
 	SaveGromacsTopFile();
-	PrintLog("Save GROMACS gro file \n");
-	pmset->SaveGROFile("system.gro");
+	PrintLog("Save GROMACS Init Crd file \n", init_crd_fname.c_str());
+	pmset->SaveGROFile(init_crd_fname.c_str());
+	PrintLog("Save GROMACS Restr Crd file \n", restr_crd_fname.c_str());
+	pmset->SaveGROFile(restr_crd_fname.c_str());
 	to_save_input_files = FALSE;
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveMdpFile(const std::string& mdp_fname)
+int MMDriverGromacs::SaveMdpFile()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os(mdp_fname);
+	std::ofstream os(this->inp_fname);
 	if (os.fail())
 	{
 		PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
-		PrintLog("Can't create file %s \n", mdp_fname.c_str());
+		PrintLog("Can't create file %s \n", this->inp_fname.c_str());
 		return FALSE;
 	}
 	return SaveMdpToStream(os);
 }
 
-int MMDriverGromacs::SaveGromacsTopFile( const std::string& top_fname )
+int MMDriverGromacs::SaveGromacsTopFile()
 {
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os( top_fname );
+	std::ofstream os( this->top_fname );
 	if(os.fail()) 
 	{
 		PrintLog("Error in MMDriverGromacs::SaveTopFile() \n");
-		PrintLog("Can't create file %s \n", top_fname.c_str() );
+		PrintLog("Can't create file %s \n", this->top_fname.c_str() );
 		return FALSE;
 	}
 	return SaveGromacsTopToStream(os);

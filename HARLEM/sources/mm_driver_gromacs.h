@@ -22,9 +22,11 @@ public:
 
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Gromacs 
+
+	void SetFileNamesWithPrefix(std::string prefix); //!< Set GROMACS input and output file names with prefix
 	
-	int SaveMdpFile( const std::string& mdp_fname = "system.mdp" );   //!< Save MM run parameters in GROMACS MDP format to File
-	int SaveGromacsTopFile( const std::string& top_fname = "system.top" );  //!< Save Molecular System Topology in GROMACS format to File
+	int SaveMdpFile();   //!< Save MM run parameters in GROMACS MDP format to File
+	int SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
@@ -35,6 +37,14 @@ public:
 	int SavePairsToStream(std::ostream& os);     //!< Save [ pairs ] section of GROMACS topology  ( pairs of atoms with 1-4 intramolecular interactions )
 	int SaveAnglesToStream(std::ostream& os);    //!< Save [ angles ] section of GROMACS topology
 	int SaveDihedralsToStream(std::ostream& os); //!< Save [ dihedrals ] (proper & improper) section of GROMACS topology
+
+	std::string inp_fname;
+	std::string top_fname;
+	std::string init_crd_fname;
+	std::string restr_crd_fname;
+	std::string trj_fname;
+	std::string ene_fname;
+
 
 protected:
 

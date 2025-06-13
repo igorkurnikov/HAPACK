@@ -45,6 +45,7 @@ protected:
    void TransferAtomSuperimposeDataToWindow();   //!< Set Dialog controls from RMSDAgent parameters
    void TransferAtomSuperimposeDataFromWindow(); //!< Set RMSDAgent parameters from Dialog controls
    void TransferExtProgDataToWindow();
+   void TransferExternalProgFileNames(bool to_window); //!< Set External MD Program file names to/from Window
    void TransferRunTypeDataToWindow(); //!< Set Dialog elements corresponding to the chosen run_type
 
 public:
@@ -52,6 +53,8 @@ public:
 protected:
 // WDR: handler declarations for MolMechDlgWX 
     void OnChangeSelElem(wxCommandEvent& event);
+	void OnChangeExternalProg(wxCommandEvent& event);
+
 	void OnSaveExtProgInp(wxCommandEvent& event);
 	void OnRunMMCalc(wxCommandEvent& event);
 	void OnAmberLoadRestart(wxCommandEvent& event);
