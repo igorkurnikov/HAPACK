@@ -615,7 +615,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
-				if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
+				//if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
+				if (save_res_info) os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
 				const HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);
@@ -691,7 +692,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						}
 					}
 				} // end atom
-				if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
+				//if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
+				if (save_res_info)  os << "endres " << ires << std::endl;
 //				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << std::endl;
 			} //  end res
 		} // end chain
@@ -4998,7 +5000,10 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 
 	AssociateFragment(pfrag);
 
-	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
+	std::map<HaResidue*, int> fres_num_h_trm; // Map of fragment residue -> number of terminating hydrogens 
+
+	// Adding Hydrogen atoms terminating broken bond
+	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())  
 	{
 		if( (bptr->srcatom->Selected() && !bptr->dstatom->Selected()) || (!bptr->srcatom->Selected() && bptr->dstatom->Selected()))
 		// if one of the bonded atoms belongs to the fragment and another does not   
@@ -5017,6 +5022,12 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 				aptr1=bptr->dstatom;
 				aptr2=bptr->srcatom;
 			}
+
+			std::string atn_1 = aptr1->GetName();
+			std::string atn_2 = aptr2->GetName();
+			
+			if (atn_1 == "SG" && atn_2 == "SG") continue; // no termination Hydrogen for S-S bond breaking
+
 			pMol  = bptr->srcatom->GetHostMol();
 			pfMol = pfrag->GetMolByName(pMol->GetObjName());
 			
@@ -5025,25 +5036,28 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 				continue;
 
 			faptr1 = (*mitr).second;
-			pch_cur = faptr1->GetHostChain();
+			//pch_cur = faptr1->GetHostChain();
+			HaResidue* pfres = faptr1->GetHostRes();
 		
-			int res_serno= pch_cur->GetUniqResSerNo(1);
-			HaResidue* pfres = pch_cur->AddResidue(res_serno);
-			pfres->SetName("TRM");
+			//int res_serno= pch_cur->GetUniqResSerNo(1);
+			//HaResidue* pfres = pch_cur->AddResidue(res_serno);
+			//pfres->SetName("TRM");
 
 			faptr2 = pfres->AddNewAtom();
-         
-			char buf[256];
-	        sprintf(buf,"%d",igid_trm);
-
-			ChemGroup* fpgrp= pfrag->AddBlankChemGroup(buf);
-			igid_trm++;
-		    fpgrp->SetProtect(1.0);
-			fpgrp->InsertAtom(faptr2);
-
 			HaAtom::SetCoordSubstH(aptr1,aptr2,faptr2);
-			pfrag->AddBond(faptr1,faptr2);
+			if (fres_num_h_trm.count(pfres) == 0)
+			{
+				faptr2->SetName("HTM1");
+				fres_num_h_trm[pfres] = 1;
+			}
+			else
+			{
+				fres_num_h_trm[pfres] += 1;
+				std::string hat_name = "HTM" + std::to_string(fres_num_h_trm[pfres]);
+				faptr2->SetName(hat_name);
+			}
 
+			pfrag->AddBond(faptr1,faptr2);
 // Add sync rules for the added atom:
 			AtomMapping* pat_map = static_cast<AtomMapping*>( this->frag_atom_maps[pfrag] );
 			if (pat_map)
@@ -5074,7 +5088,7 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 			}
 		}	
 	}
-
+	
 	// Commented Setting of QCHEM parapmeters for now - too specialized
 	// 
 	// Set QChem Parameters: Basis Set and Local Active Orb Basis Set:

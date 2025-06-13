@@ -5413,7 +5413,7 @@ wxMenuBar *mm_menu()
     item0->Append( item1, wxT("Force Field") );
     
     wxMenu* item2 = new wxMenu;
-    item2->Append( IDM_SAVE_ATOM_IND_RESTR_ARB, wxT("Save Atom Individual Restr ARBALEST FORM"), wxT("") );
+    item2->Append( IDM_SAVE_ATOM_IND_RESTR_ARB, wxT("Save Atom Positional Restraints in ARBALEST FORMAT"), wxT("") );
     item0->Append( item2, wxT("ARBALEST UTILS") );
     
     return item0;

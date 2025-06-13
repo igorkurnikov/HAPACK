@@ -725,6 +725,11 @@ void HaAtom::FillStdAtomTypes()
 	RegisterAtName("O2");   // 26
 	RegisterAtName("O4");   // 27
 	RegisterAtName("O6");   // 28 21-28 Nucleic Acid H-Bonding
+	RegisterAtName("HTM1");   // Terminal Haydrogens
+	RegisterAtName("HTM2");   // Terminal Haydrogens
+	RegisterAtName("HTM3");   // Terminal Haydrogens
+	RegisterAtName("HTM4");   // Terminal Haydrogens
+	RegisterAtName("HTM5");   // Terminal Haydrogens
 }
 
 bool HaAtom::IsSameName(const HaAtom* aptr_ref) const

@@ -1631,55 +1631,55 @@ void AmberMMModel::FindResMolPartition()
 	
 	HaAtom* aptr_add = NULL;
 
-	for( pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes() )
+	ChainIteratorMolSet ch_itr(pmset);
+	
+	for (HaChain* p_ch = ch_itr.GetFirstChain(); p_ch; p_ch = ch_itr.GetNextChain())
 	{
-		int na_res = pres->size();
-		if( na_res == 0) continue;
-		
-		if( na_res == 1 && aptr_add == NULL )
+		ResidueIteratorChain ritr_ch(p_ch);
+		int n_h_res = 0; // Number of isolated H atom residues
+		for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes() )
 		{
+			int na_res = pres->size();
+			if ( na_res == 0 ) continue; 
 			HaAtom* aptr = (*pres)[0];
-			if( aptr->GetElemNo() == 1 ) // PMEMD do not support residues consisting of one hydrogen atom
+			// Commented fro now fixing 1 hydrogen residues PMEMD issue - may be it doesn't exist anymore
+			//if ( na_res == 1 && aptr->IsHydrogen() ) // combine residues consisting of one hydrogen atom into a single AMBER residue 
+			//{                                        // PMEMD does not support residues consisting of one hydrogen atom
+			//	n_h_res = 0;
+			//	continue;
+			//}
+			
+			res_labels.push_back(pres->GetName());
+			std::string& last_lbl = res_labels.back();
+			if (last_lbl == "HOH") last_lbl = "WAT";
+			len = last_lbl.size();
+			idiff = 4 - len;
+			if (idiff > 0)
 			{
-				aptr_add = aptr;
-				if( prev_res == NULL ) // If previous residue does not exist add hydrogen atoms to the next residue
-				{
-					continue;
-				}
-				if( prev_res->IsBonded(pres) ) // If hydrogen atom is bonded to atoms in the previous residue add it to the previous residue
-				{
-					fat++;
-					int last_idx = amber_residues.size() - 1;
-					nat_amber_residues[last_idx]++;
-					aptr_add = NULL;
-					continue;
-				}
+				for (j = 0; j < idiff; j++)
+					last_lbl += ' ';
 			}
+			gbl_res_atms.push_back(fat);   
+			amber_residues.push_back(pres);
+
+			int nat_curr_amber_res = pres->size();
+			if (n_h_res > 0) nat_curr_amber_res += n_h_res;  // Adding single H residues to the current residue
+			if (max_res_size < nat_curr_amber_res) max_res_size = nat_curr_amber_res;
+
+			fat += nat_curr_amber_res;
+			nat_amber_residues.push_back(nat_curr_amber_res);
+			n_h_res = 0;
 		}
-		
-		res_labels.push_back(pres->GetName());
-		std::string& last_lbl = res_labels.back();
-		if( last_lbl == "HOH") last_lbl = "WAT";
-		len = last_lbl.size();
-		idiff = 4 - len;
-		if( idiff > 0) 
+		if (n_h_res > 0)
 		{
-			for(j = 0; j < idiff; j++)
-				last_lbl += ' '; 
+			int nat_curr_amber_res = n_h_res; // Creating an AMBER residue from single H residues 
+			if (max_res_size < nat_curr_amber_res) max_res_size = nat_curr_amber_res;
+			fat += nat_curr_amber_res;
+			nat_amber_residues.push_back(nat_curr_amber_res);
+			n_h_res = 0;
 		}
-
-		gbl_res_atms.push_back(fat);   // 
-		amber_residues.push_back(pres);
-
-		int nat_curr_amber_res = pres->size();
-		if(aptr_add)  nat_curr_amber_res++;
-		if( max_res_size < nat_curr_amber_res ) max_res_size = nat_curr_amber_res;
-
-		fat += nat_curr_amber_res;
-		nat_amber_residues.push_back(nat_curr_amber_res);
-		aptr_add = NULL;
-		prev_res = pres;
 	}
+
 	nres = gbl_res_atms.size();
 	gbl_res_atms.push_back(natom+1);
 
@@ -1693,15 +1693,15 @@ void AmberMMModel::FindResMolPartition()
 	int na = p_mm_model->Atoms.size();
 	if(na == 0) return;
 
-	vector<AtomGroup> res_conn(na); // array of atoms in the residue the current atom belongs to 
+	std::vector<AtomGroup> res_conn(na); // array of atoms in the residue the current atom is connected to 
 
 	int ir;
 	for(ir = 0; ir < gbl_res_atms.size() - 1; ir++)
 	{
-		for(i = gbl_res_atms[ir] - 1; i < gbl_res_atms[ir+1] - 1; i++)
+		for(i = gbl_res_atms[ir] - 1; i < gbl_res_atms[ir+1] - 1; i++) // cycle over atoms of AMBER residues  ( gbl_res_atms[ir]  index of the first atom the the residues (1-based)
 		{
 			HaAtom* aptr1 = p_mm_model->Atoms[i];
-			for(j = gbl_res_atms[ir] - 1; j < gbl_res_atms[ir+1] - 1; j++)
+			for(j = gbl_res_atms[ir] - 1; j < gbl_res_atms[ir+1] - 1; j++) 
 			{
 				if( i == j) continue;
 				HaAtom* aptr2 = p_mm_model->Atoms[j];
