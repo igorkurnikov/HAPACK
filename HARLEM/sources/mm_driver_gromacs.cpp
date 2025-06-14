@@ -138,8 +138,8 @@ int MMDriverGromacs::SaveRunFile()
 		return FALSE;
 	}
 	os << "#!/bin/sh -f \n";
-	os << boost::format("gmx grompp -f %s -p %s -c %s -o %s -maxwarn 2 ") %
-		inp_fname % top_fname % init_crd_fname % tpr_fname << " \n";
+	os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
+		inp_fname % top_fname % init_crd_fname % restr_crd_fname % tpr_fname << " \n";
 	os << boost::format("gmx mdrun -s %s ") % tpr_fname << " \n";
 	
 	return TRUE;
@@ -403,6 +403,12 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 	else if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_10)  ffdb_prefix = "amber03.ff";  // TMP IGOR
 	else ffdb_prefix = "amber99sb.ff";
 
+	AtomGroup* p_restr_atoms = p_mm_model->GetRestrAtoms();
+	std::set<HaAtom*> restr_atoms_set;
+	if (p_restr_atoms)
+		for (HaAtom* aptr : *p_restr_atoms)
+			restr_atoms_set.insert(aptr);
+
 	std::set<std::string> gmx_mol_defined;
 
 	for (std::string ss : this->std_gmx_mols)
@@ -435,8 +441,10 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 			{
 				AtomIntMap at_idx_map;
 				int idx = 0;
+				bool has_restr_atoms = false;
 				for (HaAtom* aptr : group)
 				{
+					if (restr_atoms_set.count(aptr) > 0) has_restr_atoms = true;
 					at_idx_map[aptr] = idx;
 					++idx;
 				}
@@ -452,6 +460,36 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 				Save14PairsToStream(os, group, at_idx_map);
 				SaveAnglesToStream(os, group, at_idx_map);
 				SaveDihedralsToStream(os, group, at_idx_map);
+
+				if (has_restr_atoms)
+				{
+					std::string fname_restr = grp_id + "_restr.itp";
+					PrintLog("Save GROMACS position restraints file %s \n", fname_restr.c_str());
+
+					os << "#include \"" << fname_restr << "\" \n\n";
+
+					std::ofstream os_restr(fname_restr, std::ios::binary);
+					if (os_restr.fail())
+					{
+						PrintLog("Error in %s %d \n", __FILE__,__LINE__);
+						PrintLog("Can't create file %s \n", fname_restr.c_str());
+						return FALSE;
+					}
+					os_restr << "; position restraints for Molecule " << grp_id << "\n\n";
+					os_restr << "[position_restraints] \n";
+					os_restr << ";  i funct       fcx        fcy        fcz  \n";
+					int funct_restr = 1;
+					double k_restr = 1000.0;
+					for (HaAtom* aptr : group)
+					{
+						if (restr_atoms_set.count(aptr) > 0)
+						{
+							int idx_at = at_idx_map[aptr] + 1;
+							os_restr << boost::format(" %6d %4d  %10.3f %10.3f %10.3f ") % idx_at % funct_restr % k_restr % k_restr % k_restr << "\n";
+						}	
+					}
+					os_restr << " \n";
+				}
 
 				gmx_mol_defined.insert(grp_id);
 			}
