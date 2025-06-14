@@ -1056,8 +1056,8 @@ void MolMechDlgWX::TransferExternalProgFileNames(bool to_window)
 		MMDriverGromacs* p_gromacs_driver = ptr_mm_mod->p_gromacs_driver;
 
 		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_AMBER_RUN_FILE);
-		if (to_window) edit_ctrl->SetValue("");
-		//else p_gromacs_driver->amber_run_file = edit_ctrl->GetValue().ToStdString();
+		if (to_window) edit_ctrl->SetValue(p_gromacs_driver->run_fname); 
+		else p_gromacs_driver->run_fname = edit_ctrl->GetValue().ToStdString();
 
 		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_LOG_FILE);
 		if (to_window) edit_ctrl->SetValue("");

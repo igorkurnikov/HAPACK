@@ -27,8 +27,9 @@ public:
 
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set GROMACS input and output file names with prefix
 	
-	int SaveMdpFile();   //!< Save MM run parameters in GROMACS MDP format to File
+	int SaveMdpFile();     //!< Save MM run parameters in GROMACS MDP format to File
 	int SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
+	int SaveRunFile();     //!< Save GROMACS Run script
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
@@ -46,6 +47,8 @@ public:
 	std::string restr_crd_fname;
 	std::string trj_fname;
 	std::string ene_fname;
+	std::string run_fname;
+	std::string tpr_fname;
 
 	static std::set<std::string> std_gmx_mols;
 

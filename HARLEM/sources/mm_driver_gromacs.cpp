@@ -37,7 +37,7 @@ MMDriverGromacs::~MMDriverGromacs()
 
 }
 
-std::set<std::string> MMDriverGromacs::std_gmx_mols = { "HOH","WAT","SOL","NA+","CL-","MG2+" };
+std::set<std::string> MMDriverGromacs::std_gmx_mols = { "HOH","WAT","SOL","NA","CL","MG","NA+","CL-","MG2+"};
 
 void MMDriverGromacs::PartitionAtomsToMolecules()
 {
@@ -49,8 +49,12 @@ void MMDriverGromacs::PartitionAtomsToMolecules()
 		HaMolecule* p_mol = p_ch->GetHostMol();
 
 		std::string ch_str(1, p_ch->ident);
-		if (ch_str == " ") ch_str = "0";
-		std::string mol_name_gmx = p_mol->GetName() + std::string("_") + ch_str;
+		std::string mol_name_gmx = p_mol->GetName();
+		if (p_mol->GetNChains() > 0)
+		{
+			if (ch_str == " ") ch_str = "0";
+			mol_name_gmx = p_mol->GetName() + std::string("_") + ch_str;
+		}
 
 		gmx_mol_partition.push_back(AtomGroup());
 		AtomGroup* p_gmx_mol = &gmx_mol_partition.back();
@@ -65,7 +69,7 @@ void MMDriverGromacs::PartitionAtomsToMolecules()
 			}
 
 			std::string res_name = pres->GetName();
-			if (std_gmx_mols.count(res_name) > 1)
+			if (std_gmx_mols.count(res_name) > 0)
 			{
 				p_gmx_mol->SetID(res_name);
 				gmx_mol_partition.push_back(AtomGroup());
@@ -76,6 +80,10 @@ void MMDriverGromacs::PartitionAtomsToMolecules()
 
 		if (p_gmx_mol->size() == 0) gmx_mol_partition.pop_back();
 	}
+	//PrintLog(" System partition into GROMACS molecules: \n");
+	//for (AtomGroup& group : gmx_mol_partition)
+	//	PrintLog(" %s : %6d atoms \n", group.GetID(), group.size() );
+
 }
 
 void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
@@ -86,6 +94,8 @@ void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 	restr_crd_fname = prefix + "_restr.gro";
 	trj_fname = prefix + ".trr";
 	ene_fname = prefix + ".ene";
+	run_fname = prefix + ".sh";
+	tpr_fname = prefix + ".tpr";
 }
 
 int MMDriverGromacs::SaveAllInpFiles()
@@ -98,6 +108,8 @@ int MMDriverGromacs::SaveAllInpFiles()
 	pmset->SaveGROFile(init_crd_fname.c_str());
 	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname.c_str());
 	pmset->SaveGROFile(restr_crd_fname.c_str());
+	PrintLog("Save GROMACS run file %s\n", run_fname.c_str());
+	SaveRunFile();
 	to_save_input_files = FALSE;
 	return TRUE;
 }
@@ -105,7 +117,7 @@ int MMDriverGromacs::SaveAllInpFiles()
 int MMDriverGromacs::SaveMdpFile()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os(this->inp_fname);
+	std::ofstream os(this->inp_fname, std::ios::binary);
 	if (os.fail())
 	{
 		PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
@@ -115,13 +127,31 @@ int MMDriverGromacs::SaveMdpFile()
 	return SaveMdpToStream(os);
 }
 
+int MMDriverGromacs::SaveRunFile()
+{
+	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
+	std::ofstream os(this->run_fname, std::ios::binary);
+	if (os.fail())
+	{
+		PrintLog("Error in MMDriverGromacs::SaveRunFile() \n");
+		PrintLog("Can't create file %s \n", this->run_fname.c_str());
+		return FALSE;
+	}
+	os << "#!/bin/sh -f \n";
+	os << boost::format("gmx grompp -f %s -p %s -c %s -o %s -maxwarn 2 ") %
+		inp_fname % top_fname % init_crd_fname % tpr_fname << " \n";
+	os << boost::format("gmx mdrun -s %s ") % tpr_fname << " \n";
+	
+	return TRUE;
+}
+
 int MMDriverGromacs::SaveGromacsTopFile()
 {
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
 
 	PartitionAtomsToMolecules();
 
-	std::ofstream os( this->top_fname );
+	std::ofstream os( this->top_fname, std::ios::binary);
 	if(os.fail()) 
 	{
 		PrintLog("Error in MMDriverGromacs::SaveTopFile() \n");
@@ -138,48 +168,48 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 
 	try
 	{
-		os << ";  GROMACS mdp file created by HARLEM" << std::endl << std::endl;
+		os << ";  GROMACS mdp file created by HARLEM\n\n";
 
 		if (p_mm_mod->run_type == p_mm_mod->run_type.MIN_RUN)
 		{
 			if (p_mm_mod->min_type.value() == p_mm_mod->min_type.STEEPEST_DESCENT)
 			{
-				os << " integrator=steep          ; Steepest Decent minimization " << std::endl;
+				os << " integrator=steep          ; Steepest Decent minimization \n";
 			}
 			else if (p_mm_mod->min_type.value() == p_mm_mod->min_type.CONJ_GRAD)
 			{
-				os << " integrator=cg            ; Conjugate Gradient minimization " << std::endl;
-				os << " nstcgsteep= " << p_mm_mod->num_steep_descent_steps << "        ; frequency of performing 1 steepest descent step while doing conjugate gradient energy minimization " << std::endl;
+				os << " integrator=cg            ; Conjugate Gradient minimization \n";
+				os << " nstcgsteep= " << p_mm_mod->num_steep_descent_steps << "        ; frequency of performing 1 steepest descent step while doing conjugate gradient energy minimization \n";
 
 			}
 			else
 			{
-				os << " integrator=steep " << std::endl;
+				os << " integrator=steep \n";
 			}
-			os << " emstep= " << p_mm_mod->init_min_step << "       ; initial step-size  " << std::endl;
-			os << " emtol= " << p_mm_mod->grad_cnvrg_val << "       ; Gradient convergence tolerance   " << std::endl;
-			os << " nsteps= " << p_mm_mod->max_num_minim_steps << "       ; Maximum number of minimization steps " << std::endl;
+			os << " emstep= " << p_mm_mod->init_min_step << "       ; initial step-size  \n";
+			os << " emtol= " << p_mm_mod->grad_cnvrg_val << "       ; Gradient convergence tolerance   \n";
+			os << " nsteps= " << p_mm_mod->max_num_minim_steps << "       ; Maximum number of minimization steps \n";
 		}
 		else if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 		{
 			if (p_mm_mod->temp_control_method.CONST_TEMP_LANGEVIN)
 			{
-				os << " integrator=sd            ; Molecular Dynamics with Langevin Integrator " << std::endl;
+				os << " integrator=sd            ; Molecular Dynamics with Langevin Integrator \n";
 			}
 			else
 			{
-				os << " integrator=md            ; Molecular Dynamics with leap-frog allgorithm " << std::endl;
+				os << " integrator=md            ; Molecular Dynamics with leap-frog allgorithm \n";
 			}
 
-			os << " dt=" << p_mm_mod->md_time_step << "         ; time step for integration " << std::endl;
+			os << " dt=" << p_mm_mod->md_time_step << "         ; time step for integration \n";
 			if (fabs(p_mm_mod->start_time) > 0.0000001)
 			{
-				os << " tinit=" << p_mm_mod->start_time << "        ; starting time for your run (ps)  " << std::endl;
+				os << " tinit=" << p_mm_mod->start_time << "        ; starting time for your run (ps)  \n";
 			}
-			os << " nsteps=" << p_mm_mod->num_md_steps  << "        ; maximum number of steps to integrate " << std::endl;
+			os << " nsteps=" << p_mm_mod->num_md_steps  << "        ; maximum number of steps to integrate \n";
 			if (p_mm_mod->remove_rb_motion_freq != 100)
 			{
-				os << " nstcomm=" << p_mm_mod->remove_rb_motion_freq << "       ; frequency for center of mass motion removal " << std::endl;
+				os << " nstcomm=" << p_mm_mod->remove_rb_motion_freq << "       ; frequency for center of mass motion removal \n";
 			}
 		}
 		else
@@ -191,18 +221,18 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 
 		if (p_mm_mod->shake_constr == p_mm_mod->shake_constr.NO_SHAKE)
 		{
-			os << " constraints=none " << "   ;   No bonds converted to constraints. " << std::endl;
+			os << " constraints=none " << "   ;   No bonds converted to constraints. \n";
 		}
 		else if (p_mm_mod->shake_constr == p_mm_mod->shake_constr.H_ATOM_SHAKE)
 		{
-			os << " constraints=h-bonds " << "   ;  Convert the bonds with H-atoms to constraints. " << std::endl;
-			os << " constraint-algorithm=LINCS " << "   ;  LINear Constraint Solver. The accuracy in set with lincs-order,  " << std::endl;
-			os << " lincs-order=6 " << "   ; Highest order in the expansion of the constraint coupling matrix " << std::endl;
+			os << " constraints=h-bonds " << "   ;  Convert the bonds with H-atoms to constraints. \n";
+			os << " constraint-algorithm=LINCS " << "   ;  LINear Constraint Solver. The accuracy in set with lincs-order,  \n";
+			os << " lincs-order=6 " << "   ; Highest order in the expansion of the constraint coupling matrix \n";
 		}
 		else if (p_mm_mod->shake_constr == p_mm_mod->shake_constr.ALL_BOND_SHAKE)
 		{
 			os << " constraints=all-bonds " << "   ; Convert all bonds to constraints. " << std::endl;
-			os << " constraint-algorithm=LINCS " << "   ;  LINear Constraint Solver. The accuracy in set with lincs-order,  " << std::endl;
+			os << " constraint-algorithm=LINCS " << "   ;  LINear Constraint Solver. The accuracy in set with lincs-order,  \n";
 		}
 		else
 		{
@@ -212,53 +242,53 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 
 
 		// Print out control:
-		os << std::endl << "; MM Run Output control " << std::endl << std::endl;
+		os << std::endl << "; MM Run Output control \n\n";
 
 		if (p_mm_mod->wrt_log_freq != 1000)
 		{
-			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  " << std::endl;
+			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
 		}
 		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)
 		{
 			if (p_mm_mod->wrt_coord_freq > 0)
 			{
-				os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) " << std::endl;
+				os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
 			}
 		}
 		else
 		{
 			if (p_mm_mod->wrt_coord_freq > 0)
 			{
-				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) " << std::endl;
+				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) \n";
 			}
 		}
 		if (p_mm_mod->wrt_vel_freq > 0)
 		{
-			os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  " << std::endl;
+			os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  \n";
 		}
 		if( p_mm_mod->wrt_ener_freq != 1000 )
 		{ 
-			os << " nstenergy= " << p_mm_mod->wrt_ener_freq   << "        ;  number of steps that elapse between writing energies to energy file  " << std::endl;
+			os << " nstenergy= " << p_mm_mod->wrt_ener_freq   << "        ;  number of steps that elapse between writing energies to energy file  \n";
 		}
 
 		// fprintf(fp, " ntwr=%d, ", p_mm_mod->wrt_rstrt_freq);
 		// fprintf(fp, " ntwprt=%d, ", p_mm_mod->limit_wrt_atoms);
 		// fprintf(fp, " ntf=%d, ", p_mm_model->omit_interactions.value());
 
-		os << std::endl << "; Pressure Control " << std::endl << std::endl;
+		os << std::endl << "; Pressure Control \n\n";
 
 		if ( p_mm_mod->period_bcond == p_mm_mod->period_bcond.NO_PERIODICITY )
 		{
-			os << " pbc=no " << "        ;  Use no periodic boundary conditions, ignore the box  " << std::endl;
+			os << " pbc=no " << "        ;  Use no periodic boundary conditions, ignore the box  \n";
 		}
 		else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES || p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL)
 		{
-			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  " << std::endl;
+			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  \n";
 			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 			{
 				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING)
 				{
-					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  " << std::endl;
+					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  \n";
 				}
 				else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES)
 				{
@@ -267,11 +297,11 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 					if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
 					{
 						// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
-						os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  " << std::endl;
-						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  " << std::endl;
+						os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  \n";
+						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  \n";
 						if (fabs(p_mm_mod->compressibility - 44.6) > 1.0)
 						{
-							os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  " << std::endl;
+							os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  \n";
 						}
 					}
 					else
@@ -286,17 +316,17 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			}
 		}
 
-		os << std::endl << "; Non-bonded interactions " << std::endl << std::endl;
+		os << std::endl << "; Non-bonded interactions \n\n";
  		if (p_mm_model->electr_method == p_mm_model->electr_method.PME_METHOD )
 		{
-			os << " coulombtype=PME " << "            ;  Fast Smooth Particle-Mesh Ewald (SPME) electrostatics  " << std::endl;
+			os << " coulombtype=PME " << "            ;  Fast Smooth Particle-Mesh Ewald (SPME) electrostatics  \n";
 		}
 		else if (p_mm_model->electr_method == p_mm_model->electr_method.SCREENED_COULOMB )
 		{
-			os << " coulombtype=Cut-off " << "        ; Plain cut-off with pair list radius rlist and Coulomb cut-off rcoulomb  " << std::endl;
+			os << " coulombtype=Cut-off " << "        ; Plain cut-off with pair list radius rlist and Coulomb cut-off rcoulomb  \n";
 			if (fabs(p_mm_model->diel_const - 1.0) > 0.00001)
 			{
-				os << " epsilon-r= " << p_mm_model->diel_const << "        ; The relative dielectric constant  " << std::endl;
+				os << " epsilon-r= " << p_mm_model->diel_const << "        ; The relative dielectric constant  \n";
 			}
 		}
 		else
@@ -304,31 +334,31 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			throw std::runtime_error((std::string)("Electrostatics method ") + p_mm_model->electr_method.label() + " is not supported in GROMACS ");
 		}
 
-		os << " cutoff-scheme=Verlet " << "        ;  Generate a pair list with buffering " << std::endl;
-		os << " rlist= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  Cut-off distance for the short-range neighbor list (nm). " << std::endl;
+		os << " cutoff-scheme=Verlet " << "        ;  Generate a pair list with buffering \n";
+		os << " rlist= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  Cut-off distance for the short-range neighbor list (nm). \n";
 
-		os << " rcoulomb= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the Coulomb cut-off (nm) " << std::endl;
+		os << " rcoulomb= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the Coulomb cut-off (nm) \n";
 		os << " vdwtype=Cut-off " << "        ;  Plain cut-off  " << std::endl;
-		os << " rvdw= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) " << std::endl;
+		os << " rvdw= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) \n";
 
 		// temperature regulation:
 		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 		{
-			os << std::endl << "; Temperature Control " << std::endl << std::endl;
+			os << "\n; Temperature Control \n\n";
 
 			if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_ENE_MD)
 			{
-				os << " tcoupl=no " << "        ;  No temperature coupling." << std::endl;
+				os << " tcoupl=no " << "        ;  No temperature coupling.\n";
 			}
 			else if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_LANGEVIN || p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN)
 			{
 				if (p_mm_mod->temp_control_method == p_mm_mod->temp_control_method.CONST_TEMP_BERENDSEN)
 				{
-					os << " tcoupl=berendsen " << "        ;  Temperature coupling with a Berendsen thermostat." << std::endl;
+					os << " tcoupl=berendsen " << "        ;  Temperature coupling with a Berendsen thermostat.\n";
 				}
-				os << " tc-grps= system" << "              ; groups to couple to separate temperature baths  " << std::endl;
-				os << " ref-t= " << p_mm_mod->ref_temp << "        ;  reference temperature for coupling (K) " << std::endl;
-				os << " tau-t= " << p_mm_mod->langevin_dump_const << "        ;  time constant for coupling (ps) " << std::endl;
+				os << " tc-grps= system" << "              ; groups to couple to separate temperature baths  \n";
+				os << " ref-t= " << p_mm_mod->ref_temp << "        ;  reference temperature for coupling (K) \n";
+				os << " tau-t= " << p_mm_mod->langevin_dump_const << "        ;  time constant for coupling (ps) \n";
 			}
 			else
 			{
@@ -337,8 +367,8 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 
 			if (fabs(p_mm_mod->init_temp - 0.0) > 0.00001)
 			{
-				os << " gen-vel=yes " << "   ;  Generate velocities in gmx grompp according to a Maxwell distribution " << std::endl;
-				os << " gen-temp= " << p_mm_mod->init_temp << std::endl;
+				os << " gen-vel=yes " << "   ;  Generate velocities in gmx grompp according to a Maxwell distribution \n";
+				os << " gen-temp= " << p_mm_mod->init_temp << "\n";
 			}
 		}
 
@@ -393,67 +423,63 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 		for (AtomGroup& group : this->gmx_mol_partition)
 		{
 			std::string grp_id = group.GetID();
-			if (gmx_mol_defined.count(grp_id) > 0)
+			if (grp_id == "HOH" || grp_id == "WAT") grp_id = "SOL";
+
+			if (!last_group.empty() && grp_id == last_group)
 			{
-				if (grp_id == last_group)
-				{
-					last_group_count++;
-					continue;
-				}
+				last_group_count++;
 				continue;
 			}
-			if (!last_group.empty())
-				system_mol_list.push_back((boost::format("%12s %6d") % last_group % last_group_count).str());
-			last_group = grp_id;
-			last_group_count = 1;
-
-			// save GROMACS molecule definition
 			
-			AtomIntMap at_idx_map;
-			int idx = 0;
-			for (HaAtom* aptr : group)
+			if (gmx_mol_defined.count(grp_id) == 0)  // Save description for a new GROMACS molecule 
 			{
-				at_idx_map[aptr] = idx;
-				++idx;
+				AtomIntMap at_idx_map;
+				int idx = 0;
+				for (HaAtom* aptr : group)
+				{
+					at_idx_map[aptr] = idx;
+					++idx;
+				}
+
+				os << "  \n";
+				os << "[ moleculetype ]\n";
+				os << ";name            nrexcl \n";
+				os << " " << grp_id << "           3 \n";
+				os << "  \n";
+
+				SaveAtomsToStream(os, group, at_idx_map);
+				SaveBondsToStream(os, group, at_idx_map);
+				Save14PairsToStream(os, group, at_idx_map);
+				SaveAnglesToStream(os, group, at_idx_map);
+				SaveDihedralsToStream(os, group, at_idx_map);
+
+				gmx_mol_defined.insert(grp_id);
 			}
 
-			os << "  " << std::endl;
-			os << "[ moleculetype ]" << std::endl;
-			os << ";name            nrexcl" << std::endl;
-			os << " " << grp_id << "           3 " << std::endl;
-			os << "  " << std::endl;
-
-			SaveAtomsToStream(os, group, at_idx_map);
-			SaveBondsToStream(os, group, at_idx_map);
-			Save14PairsToStream(os, group, at_idx_map);
-			SaveAnglesToStream(os, group, at_idx_map);
-			SaveDihedralsToStream(os, group, at_idx_map);
-
-			gmx_mol_defined.insert(grp_id);
-
+			if (!last_group.empty())
+				system_mol_list.push_back((boost::format("%-30s %-6d") % last_group % last_group_count).str());
 			last_group = grp_id;
 			last_group_count = 1;
 		}
 
 		if (!last_group.empty()) 
-			system_mol_list.push_back((boost::format("%12s %6d") % last_group % last_group_count).str());
+			system_mol_list.push_back((boost::format("%-30s %-6d") % last_group % last_group_count).str());
 
-		os << std::endl << "; Include water topology " << std::endl;
-		os << "#include \"" << ffdb_prefix << "/tip3p.itp\" " << std::endl;
+		os << "\n" << "; Include water topology \n";
+		os << "#include \"" << ffdb_prefix << "/tip3p.itp\" \n";
 
-		os << std::endl << "; Include topology for ions" << std::endl;
-		os << "#include \"" << ffdb_prefix << "/ions.itp\" " << std::endl;
+		os << "\n" << "; Include topology for ions \n";
+		os << "#include \"" << ffdb_prefix << "/ions.itp\" \n";
 
-		os << std::endl << "[ system ]" << std::endl;
-		os << "; Name " << std::endl;
-		os << "System" << std::endl;
+		os << "\n" << "[ system ]\n";
+		os << "; Name \n";
+		os << pmset->GetName() << "  \n";
 
-		os << std::endl << "[ molecules ]" << std::endl;
-		os << "; Compound        #mols" << std::endl;
+		os << std::endl << "[ molecules ] \n";
+		os << "; Compound        #mols \n" ;
 		for (std::string mol_str : system_mol_list)
-			os << mol_str << std::endl;
-		os << "  ";
-
+			os << mol_str << "  \n";
+		os << "  \n";
 	}
 	catch( const std::exception& ex )
 	{

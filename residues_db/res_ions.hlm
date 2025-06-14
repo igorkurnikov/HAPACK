@@ -5,37 +5,93 @@
 <chain  id=" " />
 <res name="LI"  no="1" /> 
   <atom>    1    LI  3      0.000000000      0.000000000      0.000000000 </atom>
+
+<molecule name="LI+" />  
+<chain  id=" " />
+<res name="LI+"  no="1" /> 
+  <atom>    2    LI+  3      0.000000000      0.000000000      0.000000000 </atom>
+  
 <molecule name="NA" />
 <chain  id=" " />
 <res name="NA"  no="1" /> 
-  <atom>    2    NA  11      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    3    NA  11      0.000000000      0.000000000      0.000000000 </atom>
+
+<molecule name="NA+" />
+<chain  id=" " />
+<res name="NA+"  no="1" /> 
+  <atom>    4    NA+  11      0.000000000      0.000000000      0.000000000 </atom>
+
 <molecule name="K" />
 <chain  id=" " />
 <res name="K"  no="1" /> 
-  <atom>    3    K  19      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    5    K  19      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="K+" />
+<chain  id=" " />
+<res name="K+"  no="1" /> 
+  <atom>    6    K+  19      0.000000000      0.000000000      0.000000000 </atom>
+
+
 <molecule name="RB" />
 <chain  id=" " />
 <res name="RB"  no="1" /> 
-  <atom>    4    RB  37      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    7    RB  37      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="RB+" />
+<chain  id=" " />
+<res name="RB+"  no="1" /> 
+  <atom>    8    RB+  37      0.000000000      0.000000000      0.000000000 </atom>
+
+
 <molecule name="CS" />
 <chain  id=" " />
 <res name="CS"  no="1" /> 
-  <atom>    5    CS  55      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    9    CS  55      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="CS+" />
+<chain  id=" " />
+<res name="CS+"  no="1" /> 
+  <atom>    10    CS+  55      0.000000000      0.000000000      0.000000000 </atom>
+
 <molecule name="F" />
 <chain  id=" " />
 <res name="F"  no="1" /> 
-  <atom>    6    F  9      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    11    F  9      0.000000000      0.000000000      0.000000000 </atom>
+
+<molecule name="F-" />
+<chain  id=" " />
+<res name="F-"  no="1" /> 
+  <atom>    12    F-  9      0.000000000      0.000000000      0.000000000 </atom>
+
 <molecule name="CL" />
 <chain  id=" " />
 <res name="CL"  no="1" /> 
-  <atom>    7    CL  17      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    13    CL  17      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="CL-" />
+<chain  id=" " />
+<res name="CL-"  no="1" /> 
+  <atom>    14   CL-  17      0.000000000      0.000000000      0.000000000 </atom>
+  
 <molecule name="BR" />
 <chain  id=" " />
 <res name="BR"  no="1" /> 
-  <atom>    8    BR  35      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    15    BR  35      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="BR-" />
+<chain  id=" " />
+<res name="BR-"  no="1" /> 
+  <atom>    16    BR-  35      0.000000000      0.000000000      0.000000000 </atom>
+  
 <molecule name="I" />
 <chain  id=" " />
 <res name="I"  no="1" /> 
-  <atom>    9    I  53      0.000000000      0.000000000      0.000000000 </atom>
+  <atom>    17    I  53      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="I-" />
+<chain  id=" " />
+<res name="I-"  no="1" /> 
+  <atom>    18    I-  53      0.000000000      0.000000000      0.000000000 </atom>
+
 </molset>
 </HARLEM_DATA>

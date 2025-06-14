@@ -4123,19 +4123,19 @@ void MolEditor::AddIons(MolSet* pmset, int n_na, int n_cl)
 	HaMolecule* p_mol_templ = p_res_db->GetMolByName("NA");
 	if (p_mol_templ == NULL)
 	{
-		PrintLog("Error in MolEditor::AddIons():  Can not find the template for Na+ \n");
+		PrintLog("Error in MolEditor::AddIons():  Can not find the template for NA \n");
 		return;
 	}
 	HaResidue* p_res_templ = p_mol_templ->GetFirstChain()->GetFirstRes();
 	if (p_mol_templ == NULL)
 	{
-		PrintLog("Error in MolEditor::AddIons():  Residue template for Na+ is empty \n");
+		PrintLog("Error in MolEditor::AddIons():  Residue template for NA is empty \n");
 		return;
 	}
 	HaAtom* p_at_templ = p_res_templ->GetAtomByIdx(0);
 	if (p_at_templ == NULL )
 	{
-		PrintLog("Error in MolEditor::AddIons():  Atom template for Na+ is empty \n");
+		PrintLog("Error in MolEditor::AddIons():  Atom template for NA is empty \n");
 		return;
 	}
 
@@ -4165,19 +4165,19 @@ void MolEditor::AddIons(MolSet* pmset, int n_na, int n_cl)
 	p_mol_templ = p_res_db->GetMolByName("CL");
 	if (p_mol_templ == NULL)
 	{
-		PrintLog("Error in MolEditor::AddIons():  Can not find the template for CL- \n");
+		PrintLog("Error in MolEditor::AddIons():  Can not find the template for CL \n");
 		return;
 	}
 	p_res_templ = p_mol_templ->GetFirstChain()->GetFirstRes();
 	if (p_mol_templ == NULL)
 	{
-		PrintLog("Error in MolEditor::AddIons():  Residue template for CL- is empty \n");
+		PrintLog("Error in MolEditor::AddIons():  Residue template for CL is empty \n");
 		return;
 	}
 	p_at_templ = p_res_templ->GetAtomByIdx(0);
 	if (p_at_templ == NULL )
 	{
-		PrintLog("Error in MolEditor::AddIons():  Atom template for CL- is empty \n");
+		PrintLog("Error in MolEditor::AddIons():  Atom template for CL is empty \n");
 		return;
 	}
 
