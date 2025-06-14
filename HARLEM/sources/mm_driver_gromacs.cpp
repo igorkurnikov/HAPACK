@@ -14,6 +14,7 @@
 #include <boost/format.hpp>
 
 #include "harlemapp.h"
+#include "hamolecule.h"
 #include "hamolset.h"
 #include "hamolmech.h"
 #include "mm_elements.h"
@@ -36,6 +37,47 @@ MMDriverGromacs::~MMDriverGromacs()
 
 }
 
+std::set<std::string> MMDriverGromacs::std_gmx_mols = { "HOH","WAT","SOL","NA+","CL-","MG2+" };
+
+void MMDriverGromacs::PartitionAtomsToMolecules()
+{
+	gmx_mol_partition.clear();
+
+	ChainIteratorMolSet ch_itr(this->pmset);
+	for (HaChain* p_ch = ch_itr.GetFirstChain(); p_ch; p_ch = ch_itr.GetNextChain())
+	{
+		HaMolecule* p_mol = p_ch->GetHostMol();
+
+		std::string ch_str(1, p_ch->ident);
+		if (ch_str == " ") ch_str = "0";
+		std::string mol_name_gmx = p_mol->GetName() + std::string("_") + ch_str;
+
+		gmx_mol_partition.push_back(AtomGroup());
+		AtomGroup* p_gmx_mol = &gmx_mol_partition.back();
+		p_gmx_mol->SetID(mol_name_gmx);
+
+		ResidueIteratorChain ritr_ch(p_ch);
+		for (HaResidue* pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes())
+		{	
+			for (HaAtom* aptr: *pres)
+			{
+				p_gmx_mol->push_back(aptr);
+			}
+
+			std::string res_name = pres->GetName();
+			if (std_gmx_mols.count(res_name) > 1)
+			{
+				p_gmx_mol->SetID(res_name);
+				gmx_mol_partition.push_back(AtomGroup());
+				p_gmx_mol = &gmx_mol_partition.back();
+				p_gmx_mol->SetID(mol_name_gmx);
+			}
+		}
+
+		if (p_gmx_mol->size() == 0) gmx_mol_partition.pop_back();
+	}
+}
+
 void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 {
 	inp_fname = prefix + ".mdp";
@@ -52,9 +94,9 @@ int MMDriverGromacs::SaveAllInpFiles()
 	SaveMdpFile();
 	PrintLog("Save GROMACS top file %s\n", top_fname.c_str());
 	SaveGromacsTopFile();
-	PrintLog("Save GROMACS Init Crd file \n", init_crd_fname.c_str());
+	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname.c_str());
 	pmset->SaveGROFile(init_crd_fname.c_str());
-	PrintLog("Save GROMACS Restr Crd file \n", restr_crd_fname.c_str());
+	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname.c_str());
 	pmset->SaveGROFile(restr_crd_fname.c_str());
 	to_save_input_files = FALSE;
 	return TRUE;
@@ -76,6 +118,9 @@ int MMDriverGromacs::SaveMdpFile()
 int MMDriverGromacs::SaveGromacsTopFile()
 {
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
+
+	PartitionAtomsToMolecules();
+
 	std::ofstream os( this->top_fname );
 	if(os.fail()) 
 	{
@@ -328,26 +373,70 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 	else if (p_mm_model->ff_type == p_mm_model->ff_type.AMBER_10)  ffdb_prefix = "amber03.ff";  // TMP IGOR
 	else ffdb_prefix = "amber99sb.ff";
 
+	std::set<std::string> gmx_mol_defined;
+
+	for (std::string ss : this->std_gmx_mols)
+		gmx_mol_defined.insert(ss);
+
+	std::list<std::string> system_mol_list;  // list of molecules of the system  and their counts  
+
 	try
 	{
-		AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(TRUE);
 		os << "; GROMACS top created by HARLEM" << std::endl;
 		os << std::endl;
 
 		os << "#include \"" << ffdb_prefix << "/forcefield.itp\" " << std::endl;
+		
+		std::string last_group = "";
+		int last_group_count = 0;
 
-		// SaveAtomTypesToStream(os); // TEMP IGOR 
+		for (AtomGroup& group : this->gmx_mol_partition)
+		{
+			std::string grp_id = group.GetID();
+			if (gmx_mol_defined.count(grp_id) > 0)
+			{
+				if (grp_id == last_group)
+				{
+					last_group_count++;
+					continue;
+				}
+				continue;
+			}
+			if (!last_group.empty())
+				system_mol_list.push_back((boost::format("%12s %6d") % last_group % last_group_count).str());
+			last_group = grp_id;
+			last_group_count = 1;
 
-		os << "[ moleculetype ]" << std::endl;
-		os << ";name            nrexcl" << std::endl;
-		os << " MOL            3 " << std::endl;
-		os << "  " << std::endl;
+			// save GROMACS molecule definition
+			
+			AtomIntMap at_idx_map;
+			int idx = 0;
+			for (HaAtom* aptr : group)
+			{
+				at_idx_map[aptr] = idx;
+				++idx;
+			}
 
-		SaveAtomsToStream(os);
-		SaveBondsToStream(os);
-		SavePairsToStream(os);
-		SaveAnglesToStream(os);
-		SaveDihedralsToStream(os);
+			os << "  " << std::endl;
+			os << "[ moleculetype ]" << std::endl;
+			os << ";name            nrexcl" << std::endl;
+			os << " " << grp_id << "           3 " << std::endl;
+			os << "  " << std::endl;
+
+			SaveAtomsToStream(os, group, at_idx_map);
+			SaveBondsToStream(os, group, at_idx_map);
+			Save14PairsToStream(os, group, at_idx_map);
+			SaveAnglesToStream(os, group, at_idx_map);
+			SaveDihedralsToStream(os, group, at_idx_map);
+
+			gmx_mol_defined.insert(grp_id);
+
+			last_group = grp_id;
+			last_group_count = 1;
+		}
+
+		if (!last_group.empty()) 
+			system_mol_list.push_back((boost::format("%12s %6d") % last_group % last_group_count).str());
 
 		os << std::endl << "; Include water topology " << std::endl;
 		os << "#include \"" << ffdb_prefix << "/tip3p.itp\" " << std::endl;
@@ -361,7 +450,9 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 
 		os << std::endl << "[ molecules ]" << std::endl;
 		os << "; Compound        #mols" << std::endl;
-		os << "MOL             1 " << std::endl << std::endl;
+		for (std::string mol_str : system_mol_list)
+			os << mol_str << std::endl;
+		os << "  ";
 
 	}
 	catch( const std::exception& ex )
@@ -405,16 +496,15 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 		return TRUE;
 }
 
-int MMDriverGromacs::SaveAtomsToStream(std::ostream& os)
+int MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	char buf[256];
 		
 	os << "[ atoms ]" << std::endl;
 	os << ";   nr  type   resi  res  atom    cgnr     charge      mass       ; qtot   bond_type" << std::endl;
 	double qtot = 0.0;
-	for( int i = 0; i < p_mm_model->Atoms.size(); i++)
+	for( HaAtom* aptr: group )
 	{
-		HaAtom* aptr = p_mm_model->Atoms[i];
 		std::string atn = aptr->GetName();
 		double ch = aptr->GetCharge();
 		double mass = aptr->GetMass();
@@ -423,7 +513,8 @@ int MMDriverGromacs::SaveAtomsToStream(std::ostream& os)
 		std::string res_name = pres->GetName();
 		int resi = pres->GetSerNo();
 		qtot += ch;
-		sprintf(buf,"%6d %5s%6d %5s %5s %6d %12.6f %12.6f ; qtot %7.3f ",i+1,ff_s.c_str(),resi,res_name.c_str(),atn.c_str(),i+1,ch,mass,qtot);
+		int idx = at_idx_map[aptr] + 1;
+		sprintf(buf,"%6d %5s%6d %5s %5s %6d %12.6f %12.6f ; qtot %7.3f ",idx,ff_s.c_str(),resi,res_name.c_str(),atn.c_str(),idx,ch,mass,qtot);
 		os << buf << std::endl;
 	}
 	os << "  " << std::endl;
@@ -431,10 +522,9 @@ int MMDriverGromacs::SaveAtomsToStream(std::ostream& os)
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveBondsToStream(std::ostream& os)
+int MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	char buf[256];
-	AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(0);
 	os << "[ bonds ]" << std::endl;
 	os << ";   ai     aj funct   r             k   " << std::endl;
 
@@ -464,10 +554,9 @@ int MMDriverGromacs::SaveBondsToStream(std::ostream& os)
 	return TRUE;
 }
 
-int MMDriverGromacs::SavePairsToStream(std::ostream& os)
+int MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	char buf[256];
-	AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(0);
 	os << "[ pairs ]" << std::endl;
 	os << ";   ai     aj    funct" << std::endl;
 
@@ -493,10 +582,9 @@ int MMDriverGromacs::SavePairsToStream(std::ostream& os)
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveAnglesToStream(std::ostream& os)
+int MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	char buf[256];
-	AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(0);
 	os << "[ angles ]" << std::endl;
 	os << ";   ai     aj     ak    funct   theta         cth " << std::endl;
 
@@ -531,10 +619,9 @@ int MMDriverGromacs::SaveAnglesToStream(std::ostream& os)
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveDihedralsToStream(std::ostream& os)
+int MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	char buf[256];
-	AtomIntMap& at_idx_map = p_mm_model->GetAtIdxMap(0);
 	
 	os << "[ dihedrals ] ; proper " << std::endl;
 	os << ";    i      j      k      l   func   phase     kd      pn" << std::endl;

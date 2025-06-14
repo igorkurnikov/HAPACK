@@ -151,7 +151,7 @@ int MMForceField::Init()
 		for(i = 0; i < tinker_param_files.size(); i++)
 		{
 			file_name = tinker_param_files[i];
-			PrintLog(" Force field parameter file (TINKER FORMAT) = %s \n",file_name.c_str());
+			//PrintLog(" Force field parameter file (TINKER FORMAT) = %s \n",file_name.c_str());
 
 			bool file_exists = ::wxFileExists(file_name.c_str());
 			if( !file_exists ) throw std::runtime_error(" Parameter file " + file_name + " doesn't exist ");

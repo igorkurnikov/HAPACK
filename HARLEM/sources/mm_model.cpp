@@ -348,7 +348,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				pt_to_templ_map[aptr] = NULL;
 				std::string at_name = aptr->GetName();
 
-				if (at_name.size() == 4 && at_name.compare(0,3,"HTM") ) // special rules for Terminating hydrogens
+				if (at_name.size() == 4 && at_name.compare(0,3,"HTM") == 0 ) // special rules for Terminating hydrogens
 				{
 					if (aptr->IsHydrogen())
 					{
@@ -482,7 +482,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 				catch( const std::exception& ex )
 				{
-					PrintLog(" Error reading improper angles from residue FF template %s \n", res_fname.c_str());
+					PrintLog(" Warning: reading improper angles from residue FF template %s \n", res_fname.c_str());
 					PrintLog("%s\n", ex.what());
 				}
 			}

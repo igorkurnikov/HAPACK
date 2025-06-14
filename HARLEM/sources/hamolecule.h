@@ -73,7 +73,6 @@ public:
 protected:
 	MolSet* phost_mset;
 
-	std::string mol_name;
 	int serno; 
 
 public:

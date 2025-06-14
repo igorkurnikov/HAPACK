@@ -53,7 +53,7 @@ Object3D(Mol_ref)
 
 std::string HaMolecule::GetName() const 
 { 
-	return mol_name; 
+	return this->GetObjName();
 }
 
 int HaMolecule::GetSerNo() const
@@ -63,6 +63,7 @@ int HaMolecule::GetSerNo() const
 
 std::string HaMolecule::GetRef() const
 {
+	std::string mol_name = this->GetName();
 	std::string mol_ref = mol_name;
 	const MolSet* pmset = this->GetHostMolSet();
 	if (pmset->name_mol_map.count(mol_name) > 2)
