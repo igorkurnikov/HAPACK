@@ -5228,11 +5228,11 @@ wxFrame( parent, -1, "Edit Residue Parameters")
 	wxColour back_colour = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
  	SetBackgroundColour(back_colour);
 
-	wxMenuBar* res_params_menu_bar = res_params_menu();
+	res_params_menu_bar = res_params_menu();
     this->SetMenuBar(res_params_menu_bar);    
 
 	res_params_dlg(this,TRUE);
-	m_residue_lctrl = (wxGrid*) FindWindow( IDC_RESIDUE_LIST );
+	residue_grid = (wxGrid*) FindWindow( IDC_RESIDUE_LIST );
 	OnInitDialog();     
 }
 
@@ -5255,8 +5255,22 @@ void ResidueParamsDlgWX::OnInitDialog()
 	check_ctrl = (wxCheckBox*) FindWindow(IDC_EDTRES_CHAIN);
 	check_ctrl->SetValidator( wxGenericValidator(&chain_name_flag) );
 
-	wxTextCtrl* p_renum_start_n = (wxTextCtrl*) FindWindow(IDC_RESPAR_RENUM_START_NUM);
+	residue_grid->Bind(wxEVT_GRID_SELECT_CELL, &ResidueParamsDlgWX::OnSelectResidueRow, this);
+
+	p_renum_start_n = (wxTextCtrl*) FindWindow(IDC_RESPAR_RENUM_START_NUM);
 	p_renum_start_n->SetValue("1");
+
+	p_sel_res_text = (wxTextCtrl*)FindWindow(IDC_RESPAR_SELECTED_RES);
+	p_sel_res_text->SetValue("");
+
+	p_mut_res_type_text = (wxTextCtrl*)FindWindow(IDC_RESPAR_MUTATED_RES_TYPE);
+	p_mut_res_type_text->SetValue("");
+
+	p_mutate_res_btn = (wxButton*)FindWindow(IDC_RESPAR_MUTATE_RES);
+	p_mutate_res_btn->Bind(wxEVT_BUTTON, &ResidueParamsDlgWX::OnMutateResidue, this);
+
+	p_set_transform_res_btn = (wxButton*)FindWindow(IDC_RESPAR_SET_TRANSFORMATION);
+	p_set_transform_res_btn->Bind(wxEVT_BUTTON, &ResidueParamsDlgWX::OnSetTransformation, this);
 	
 	SetColumns();	
 	TransferDataToWindow();
@@ -5289,46 +5303,46 @@ void ResidueParamsDlgWX::SetColumns()
     	
 	int tot_width = 550;
 	int height = 400;
-	m_residue_lctrl->GetClientSize(&tot_width, &height);
+	residue_grid->GetClientSize(&tot_width, &height);
 
 	if(num_cols == 0) num_cols = 1;
 	int col_width = (tot_width*2 /3)/num_cols;
 
 	int icol = -1;
-	m_residue_lctrl->SetColLabelSize(21);
+	residue_grid->SetColLabelSize(21);
     
-	int ncol_act = m_residue_lctrl->GetNumberCols();
+	int ncol_act = residue_grid->GetNumberCols();
 	if(ncol_act != num_cols)
 	{
-		m_residue_lctrl->DeleteCols(0,ncol_act);
-		m_residue_lctrl->InsertCols(0,num_cols);
+		residue_grid->DeleteCols(0,ncol_act);
+		residue_grid->InsertCols(0,num_cols);
 	}
 
 	if( res_name_flag  )
 	{
 		icol++;
-		m_residue_lctrl->SetColLabelValue(icol, "Name");
+		residue_grid->SetColLabelValue(icol, "Name");
 		n_res_name = icol;
 	}
 
 	if( res_name_modifier_flag )
 	{
 		icol++;
-		m_residue_lctrl->SetColLabelValue(icol, "Modifier");
+		residue_grid->SetColLabelValue(icol, "Modifier");
 		n_res_name_modifier = icol;
 	}
 
 	if( res_num_flag  )
 	{
 		icol++;
-		m_residue_lctrl->SetColLabelValue(icol, "Num");
+		residue_grid->SetColLabelValue(icol, "Num");
 		n_res_num = icol;
 	}
 
 	if( chain_name_flag  )
 	{
 		icol++;
-		m_residue_lctrl->SetColLabelValue(icol, "Ch");
+		residue_grid->SetColLabelValue(icol, "Ch");
 		n_chain_name = icol;
 	}
 }
@@ -5337,7 +5351,7 @@ void ResidueParamsDlgWX::FillResidueList()
 {
 	char buf[256];
 
-	m_residue_lctrl->ClearGrid();
+	residue_grid->ClearGrid();
 
 	if(pmset == NULL) return;
 	
@@ -5351,15 +5365,15 @@ void ResidueParamsDlgWX::FillResidueList()
 		nres_sel++;
 	}
 
-	int ncol = m_residue_lctrl->GetNumberCols();
-	int nrow = m_residue_lctrl->GetNumberRows();
+	int ncol = residue_grid->GetNumberCols();
+	int nrow = residue_grid->GetNumberRows();
 
 	int nv = res_ptrs.size();
 
 	if(nrow != nres_sel || nv != nres_sel)
 	{
-		if( nrow > 0) m_residue_lctrl->DeleteRows(0, nrow);
-        m_residue_lctrl->AppendRows(nres_sel);
+		if( nrow > 0) residue_grid->DeleteRows(0, nrow);
+        residue_grid->AppendRows(nres_sel);
 		res_ptrs.resize(nres_sel);
 	}
 
@@ -5377,42 +5391,53 @@ void ResidueParamsDlgWX::FillResidueList()
 		int len = strlen(buf);
 		if(len > max_lbl) max_lbl = len;
 	
-		m_residue_lctrl->SetRowLabelValue(itm, buf); 
+		residue_grid->SetRowLabelValue(itm, buf); 
 
 		if( n_res_name >= 0 )
 		{
 			sprintf(buf,"%s",pres->GetName());
-			m_residue_lctrl->SetCellValue(itm, n_res_name, buf); 
+			residue_grid->SetCellValue(itm, n_res_name, buf); 
 		}
 
 		if( n_res_name_modifier >= 0 )
 		{
 			sprintf(buf,"%s", pres->NameModifier.c_str() );
-			m_residue_lctrl->SetCellValue(itm, n_res_name_modifier, buf); 
+			residue_grid->SetCellValue(itm, n_res_name_modifier, buf); 
 		}
 
 		if( n_res_num >= 0 )
 		{
 			sprintf(buf,"%d", pres->GetSerNo() );
-			m_residue_lctrl->SetCellValue(itm, n_res_num, buf); 
+			residue_grid->SetCellValue(itm, n_res_num, buf); 
 		}
 
 		if( n_chain_name >= 0 )
 		{
 			HaChain* chain = pres->GetHostChain();
 			sprintf(buf,"%c",chain->ident);
-			m_residue_lctrl->SetCellValue(itm, n_chain_name, buf); 
+			residue_grid->SetCellValue(itm, n_chain_name, buf); 
 		}
 	}
-	m_residue_lctrl->SetRowLabelSize((int)(max_lbl*8.5));
-	m_residue_lctrl->AutoSizeColumns();
+	residue_grid->SetRowLabelSize((int)(max_lbl*8.5));
+	residue_grid->AutoSizeColumns();
 }
 
 bool ResidueParamsDlgWX::TransferDataToWindow()
 {
 	FillResidueList();
-	return wxFrame::TransferDataToWindow();
 
+	pres_sel = this->GetSelectedResidue();
+
+	if (pres_sel)
+	{
+		this->p_sel_res_text->SetValue(pres_sel->GetRef());
+	}
+	else
+	{
+		this->p_sel_res_text->SetValue("");
+	}
+
+	return wxFrame::TransferDataToWindow();
 }
 
 BEGIN_EVENT_TABLE(ResidueParamsDlgWX, wxFrame)
@@ -5441,6 +5466,25 @@ void ResidueParamsDlgWX::OnUpdateResidueList(wxCommandEvent& event)
 	FillResidueList();
 }
 
+HaResidue* ResidueParamsDlgWX::GetSelectedResidue()
+{
+	int nv = res_ptrs.size();
+	int irow_selected = -1;
+
+	wxArrayInt selectedRows = residue_grid->GetSelectedRows();
+	for (int i = 0; i < selectedRows.size(); ++i) {
+		irow_selected = selectedRows[i];
+		break;
+	}
+
+	if (irow_selected >= 0)
+	{
+		HaResidue* pres_sel = (HaResidue*)res_ptrs[irow_selected];
+		return pres_sel;
+	}
+	return nullptr;
+}
+
 void ResidueParamsDlgWX::OnResidueRenumber(wxCommandEvent& event)
 {
 	wxTextCtrl* p_renum_start_n = (wxTextCtrl*) FindWindow(IDC_RESPAR_RENUM_START_NUM);
@@ -5457,6 +5501,41 @@ void ResidueParamsDlgWX::OnResidueRenumber(wxCommandEvent& event)
 	}
 	FillResidueList();
 }
+
+void ResidueParamsDlgWX::OnMutateResidue(wxCommandEvent& event)
+{
+	HaResidue* p_res_sel = this->GetSelectedResidue();
+	if (!pres_sel)
+	{
+		PrintLog("No Residue Selected \n");
+	}
+	std::string mut_res_type = p_mut_res_type_text->GetValue();
+	if (!mut_res_type.empty())
+	{
+		PrintLog("Mutate Residue %s to type: %s \n", pres_sel->GetRef(), mut_res_type.c_str() );
+		p_res_sel->MutateTo(mut_res_type);
+	}
+	TransferDataToWindow();
+}
+
+void ResidueParamsDlgWX::OnSetTransformation(wxCommandEvent& event)
+{
+	PrintLog("ResidueParamsDlgWX::OnSetTransformation() \n");
+	HaResidue* p_res_sel = this->GetSelectedResidue();
+	if (!pres_sel)
+	{
+		PrintLog("No Residue Selected \n");
+		return;
+	}
+	std::string mut_res_type = p_mut_res_type_text->GetValue();
+	if (!mut_res_type.empty())
+	{
+		PrintLog("Set Alchemical Transformation for Residue %s to type: %s \n", pres_sel->GetRef().c_str(), mut_res_type.c_str());
+		p_res_sel->SetAlchemicalTransformation(mut_res_type);
+	}
+	TransferDataToWindow();
+}
+
 
 void ResidueParamsDlgWX::OnCloseBtn(wxCommandEvent& event)
 {
@@ -5484,26 +5563,16 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 	int icol = event.GetCol();
 	int irow = event.GetRow();
 	
-    wxString str_val = m_residue_lctrl->GetCellValue(irow,icol);
+    wxString str_val = residue_grid->GetCellValue(irow,icol);
 
 	str_val.Strip(wxString::both);
 	
 	char buf[256];
 	char buf2[256];
-	HaResidue* pres;
 
 	if(pmset == NULL) return;
     
-	wxString res_id = m_residue_lctrl->GetRowLabelValue(irow);
-//	pres = pmset->GetResByRef(res_id.c_str());
-	pres = (HaResidue*) res_ptrs[irow];
-
-	if(pres == NULL)
-	{
-		sprintf(buf2," Can't find residue with Ref %s",res_id.ToStdString().c_str());
-		PrintMessage(buf2);
-		return;
-	}
+	HaResidue* pres = (HaResidue*) res_ptrs[irow];
 
 	if(icol == n_res_name)
 	{
@@ -5512,13 +5581,13 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 			sprintf(buf," Invalid Input for residue name: %s ", str_val.ToStdString().c_str());
 			PrintMessage(buf);
 			sprintf(buf,"%s",pres->GetName());
-			m_residue_lctrl->SetCellValue(irow, icol, buf);
+			residue_grid->SetCellValue(irow, icol, buf);
 		}
 		else
 		{
 			pres->SetName( str_val.ToStdString() );
 			pres->FillRef(buf);
-			m_residue_lctrl->SetRowLabelValue(irow, buf); 
+			residue_grid->SetRowLabelValue(irow, buf); 
 		}
 	}
 	if(icol == n_res_name_modifier)
@@ -5527,7 +5596,7 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 //		if(str_val.IsEmpty())
 //		{
 //			sprintf(buf,"%s", pres->NameModifier.c_str());
-//			m_residue_lctrl->SetCellValue(irow, icol, buf); 
+//			residue_grid->SetCellValue(irow, icol, buf); 
 //		}
 //		else
 //		{
@@ -5542,7 +5611,7 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 			sprintf(buf," Invalid Input for Residue Number: %s ", str_val.ToStdString().c_str());
 			PrintMessage(buf);
 			sprintf(buf,"%d", pres->GetSerNo());
-			m_residue_lctrl->SetCellValue(irow, icol, buf);
+			residue_grid->SetCellValue(irow, icol, buf);
 		}
 		else
 		{
@@ -5556,6 +5625,25 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 	if(icol == n_chain_name)
 	{
 		
+	}
+}
+
+void ResidueParamsDlgWX::OnSelectResidueRow(wxGridEvent& event)
+{
+	int irow_selected = event.GetRow();
+
+	pres_sel = nullptr;
+	if (irow_selected >= 0 && irow_selected < res_ptrs.size())
+	{
+		pres_sel = (HaResidue*)res_ptrs[irow_selected];
+	}
+	if (pres_sel)
+	{
+		p_sel_res_text->SetValue(pres_sel->GetRef());
+	}
+	else
+	{
+		p_sel_res_text->SetValue("");
 	}
 }
 

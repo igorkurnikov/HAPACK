@@ -121,8 +121,8 @@ public:
 
   void SetHostRes(HaResidue* new_phost_res);
 
-  typedef std::vector<HaBond*>::iterator BondIterator;
-  typedef std::vector<HaBond*>::const_iterator BondIterator_const;
+  using BondIterator = std::vector<HaBond*>::iterator;
+  using BondIterator_const = std::vector<HaBond*>::const_iterator;
 
   BondIterator Bonds_begin() { return p_bonds->begin(); }
   BondIterator Bonds_end()   { return p_bonds->end();   }

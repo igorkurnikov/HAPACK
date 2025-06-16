@@ -2809,56 +2809,68 @@ wxSizer *res_params_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     item1->CreateGrid( 10, 10, wxGrid::wxGridSelectCells );
     item0->Add( item1, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item2 = new wxStaticText( parent, ID_TEXT, wxT("Properties Displayed:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item2, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxBoxSizer *item3 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item3 = new wxBoxSizer( wxVERTICAL );
 
-    wxBoxSizer *item4 = new wxBoxSizer( wxVERTICAL );
+    wxStaticText *item4 = new wxStaticText( parent, ID_TEXT, wxT("Properties Displayed:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item4, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxCheckBox *item5 = new wxCheckBox( parent, IDC_EDTRES_NAME, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
-    item4->Add( item5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item3->Add( item5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxCheckBox *item6 = new wxCheckBox( parent, IDC_EDTRES_MODIFIER, wxT("Name Modifier"), wxDefaultPosition, wxDefaultSize, 0 );
-    item4->Add( item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item3->Add( item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxCheckBox *item7 = new wxCheckBox( parent, IDC_EDTRES_RES_NUM, wxT("Res Number"), wxDefaultPosition, wxDefaultSize, 0 );
-    item4->Add( item7, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item3->Add( item7, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxCheckBox *item8 = new wxCheckBox( parent, IDC_EDTRES_CHAIN, wxT("Chain Symbol"), wxDefaultPosition, wxDefaultSize, 0 );
-    item4->Add( item8, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item3->Add( item8, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    item3->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
+    item2->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxBoxSizer *item9 = new wxBoxSizer( wxVERTICAL );
 
-    wxButton *item10 = new wxButton( parent, IDC_EDTRES_UPDATE_RESLIST, wxT("Update Residue List"), wxDefaultPosition, wxDefaultSize, 0 );
-    item9->Add( item10, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxBoxSizer *item10 = new wxBoxSizer( wxHORIZONTAL );
 
-    item3->Add( item9, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    wxButton *item11 = new wxButton( parent, IDC_EDTRES_UPDATE_RESLIST, wxT("Update Residue List"), wxDefaultPosition, wxDefaultSize, 0 );
+    item10->Add( item11, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    wxBoxSizer *item11 = new wxBoxSizer( wxVERTICAL );
+    wxButton *item12 = new wxButton( parent, IDC_RESPAR_RENUM, wxT("Renumber Residue Selection Starting Num:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item10->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item12 = new wxBoxSizer( wxHORIZONTAL );
+    wxTextCtrl *item13 = new wxTextCtrl( parent, IDC_RESPAR_RENUM_START_NUM, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item10->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxButton *item13 = new wxButton( parent, IDC_RESPAR_RENUM, wxT("Renumber Residue Selection Starting Num:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item12->Add( item13, 0, wxALIGN_CENTER|wxALL, 5 );
+    item9->Add( item10, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    wxTextCtrl *item14 = new wxTextCtrl( parent, IDC_RESPAR_RENUM_START_NUM, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
-    item12->Add( item14, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxBoxSizer *item14 = new wxBoxSizer( wxHORIZONTAL );
 
-    item11->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxStaticText *item15 = new wxStaticText( parent, ID_TEXT, wxT("Selected Residue: "), wxDefaultPosition, wxDefaultSize, 0 );
+    item14->Add( item15, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item3->Add( item11, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    wxTextCtrl *item16 = new wxTextCtrl( parent, IDC_RESPAR_SELECTED_RES, wxT(""), wxDefaultPosition, wxSize(300,-1), 0 );
+    item14->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item9->Add( item14, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    wxBoxSizer *item15 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item17 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxButton *item16 = new wxButton( parent, IDC_CLOSE, wxT("Close"), wxDefaultPosition, wxDefaultSize, 0 );
-    item15->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxButton *item18 = new wxButton( parent, IDC_RESPAR_MUTATE_RES, wxT("Mutate In Place to: "), wxDefaultPosition, wxDefaultSize, 0 );
+    item17->Add( item18, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item15, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxButton *item19 = new wxButton( parent, IDC_RESPAR_SET_TRANSFORMATION, wxT("Set Alchemical Transformation to:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item17->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item20 = new wxTextCtrl( parent, IDC_RESPAR_MUTATED_RES_TYPE, wxT(""), wxDefaultPosition, wxSize(120,-1), 0 );
+    item17->Add( item20, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item9->Add( item17, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item2->Add( item9, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 0 );
+
+    item0->Add( item2, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     if (set_sizer)
     {

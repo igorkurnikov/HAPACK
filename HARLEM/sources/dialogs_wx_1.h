@@ -25,6 +25,7 @@ class HaQCMod;
 class HaMolView;
 class Object3D;
 class MolSet;
+class HaResidue;
 class MolEditor;
 class HaMolMechMod;
 class ElectrostMod;
@@ -748,13 +749,23 @@ public:
 	void OnInitDialog();
 
 protected:
-	MolSet* pmset;
-	wxGrid* m_residue_lctrl;
-	VecPtr  res_ptrs;
-	MolEditor* p_mol_editor;
-	
+	MolSet* pmset = nullptr;
+	wxGrid* residue_grid = nullptr;
+	VecPtr res_ptrs;
+	HaResidue* pres_sel = nullptr;
+	MolEditor* p_mol_editor = nullptr;
+
+
+	wxMenuBar* res_params_menu_bar;
+	wxTextCtrl* p_renum_start_n = nullptr;
+	wxTextCtrl* p_sel_res_text = nullptr;
+	wxTextCtrl* p_mut_res_type_text = nullptr;
+	wxButton* p_mutate_res_btn = nullptr;
+	wxButton* p_set_transform_res_btn = nullptr;
+
 	void SetColumns();
 	void FillResidueList();
+	HaResidue* GetSelectedResidue(); //!< Get Selected Residue on the Grid
 
 // WDR: handler declarations for ResidueParamsDlgWX 
 	void OnChangeProp(wxCommandEvent& event);
@@ -771,7 +782,10 @@ protected:
 	void OnConvertWaterFastAmber(wxCommandEvent& event);
 	void OnUpdateResidueList(wxCommandEvent& event);
 	void OnResidueRenumber(wxCommandEvent& event);
+	void OnMutateResidue(wxCommandEvent& event);
+	void OnSetTransformation(wxCommandEvent& event);
 	void OnEndLabelEdit(wxGridEvent& event);
+	void OnSelectResidueRow(wxGridEvent& event);
 
 private:
 	DECLARE_EVENT_TABLE()

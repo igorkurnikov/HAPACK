@@ -16,6 +16,7 @@
 #include <mpi.h>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/format.hpp>
 
 #include "rapidxml.hpp"
 
@@ -1253,6 +1254,31 @@ bool HaResidue::IsTerm() const
 	return( stricmp_trunc( GetName(), "TRM") == 0 );
 }
 
+bool HaResidue::HasTransformationInfo() const
+{ 
+	return p_res_transform.use_count() > 0 && p_res_transform->IsSet();
+}
+
+bool HaResidue::MutateTo(std::string res_name_mutate) noexcept
+{
+	PrintLog("HaResidue::MutateTo() %s to %s \n", this->GetRef(), res_name_mutate.c_str());
+	return false;
+}
+
+bool HaResidue::SetAlchemicalTransformation(std::string res_name_transformed)
+{
+	std::shared_ptr<AlchemicalTransformation> p_transform = std::make_shared<AlchemicalTransformation>(this);
+	const bool res = p_transform->SetTransformation(res_name_transformed);
+	if (res)
+	{
+		p_res_transform = p_transform;
+		return true;
+	}
+	return false;
+}
+
+
+
 int HaResidue::CalcStdCrdSys(int fit_std_geom)
 {
 	if(this->IsNucleo())
@@ -2142,7 +2168,6 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 
 		int residue_complete = TRUE;
 
-
 		// Fill nodes array for Non-proxy atoms that can not be resolved by atom names 
 
 		AtomIteratorMolecule aitr_templ(res_templ);
@@ -2246,6 +2271,135 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 		return FALSE;
 	}
 	return TRUE;
+}
+
+bool HaResidue::SetMissingCoordsWithTemplate(AtomSet& atoms_missing, AtomSet& atoms_known, AtomAtomMap& atom_template_map)
+{	
+	// Consistency checks:
+	for (HaAtom* aptr : atoms_missing)
+	{
+		if (atoms_known.count(aptr) > 0)
+		{
+			PrintLog("Error in HaResidue::SetMissingCoordsWithTemplate(): Atom %s listed both missing and know coordinates \n",
+				aptr->GetRef().c_str());
+			return false;
+		}
+		if (atom_template_map.count(aptr) == 0)
+		{
+			PrintLog("Warning: HaResidue::SetMissingCoordsWithTemplate(): Atom %s with missing coordinates doesn't have a template \n",
+				aptr->GetRef().c_str());
+		}
+	}
+
+	for (HaAtom* aptr : atoms_known)
+	{
+		if (atoms_missing.count(aptr) > 0)
+		{
+			PrintLog("Error in HaResidue::SetMissingCoordsWithTemplate(): Atom %s listed both missing and know coordinates \n",
+				aptr->GetRef().c_str());
+			return false;
+		}
+		if (atom_template_map.count(aptr) == 0)
+		{
+			PrintLog("Warning: HaResidue::SetMissingCoordsWithTemplate(): Atom %s with known coordinates doesn't have a template \n",
+				aptr->GetRef().c_str());
+		}
+	}
+
+	int n_iter = 0; 
+	int n_iter_max = 1000;
+	while (atoms_missing.size() > 0 && n_iter < n_iter_max)
+	{
+		n_iter++;
+		for (HaAtom* aptr_m : atoms_missing)
+		{
+			AtomGroup bonded_atoms_1 = aptr_m->GetBondedAtoms();
+			HaAtom* aptr1 = NULL; 
+			HaAtom* aptr2 = NULL;
+			HaAtom* aptr3 = NULL;
+
+			bool crd_set = false;
+
+			for (HaAtom* aptr_b1 : bonded_atoms_1)
+			{
+				if (aptr_b1->IsHydrogen()) continue;
+				if (atoms_missing.count(aptr_b1) > 0) continue;
+				if (atom_template_map.count(0)) continue;
+
+				HaAtom* aptr1 = aptr_b1;
+
+				AtomGroup bonded_atoms_2 = aptr1->GetBondedAtoms();
+				for (HaAtom* aptr_b2 : bonded_atoms_2)
+				{
+					if (atoms_known.count(aptr_b2) > 0 && atom_template_map.count(aptr_b2) > 0 && aptr2 == NULL)
+					{
+						aptr2 = aptr_b2;
+						continue;
+					}
+					if (atoms_known.count(aptr_b2) > 0 && atom_template_map.count(aptr_b2) > 0)
+					{
+						aptr3 = aptr_b2;
+						break;
+					}
+				}
+				if (aptr2 == NULL) continue;
+				if (aptr3) break;
+
+				AtomGroup bonded_atoms_3 = aptr2->GetBondedAtoms();
+				for (HaAtom* aptr_b3 : bonded_atoms_3)
+				{
+					if (aptr_b3 == aptr1) continue;
+					if (atoms_missing.count(aptr_b3) > 0) continue;
+					if (atom_template_map.count(aptr_b3) == 0) continue;
+					aptr3 = aptr_b3;
+					break;
+				}
+				if (aptr1 && aptr2 && aptr3) break;
+			}
+			if (aptr1 && aptr2 && aptr3)
+			{
+				HaAtom* aptr_m_templ = atom_template_map[aptr_m];
+				HaAtom* aptr_1_templ = atom_template_map[aptr1];
+				HaAtom* aptr_2_templ = atom_template_map[aptr2];
+				HaAtom* aptr_3_templ = atom_template_map[aptr3];
+
+				double dist = Vec3D::CalcDistance(aptr_m_templ, aptr_1_templ);
+				double val_angle = Vec3D::CalcAngle(aptr_m_templ, aptr_1_templ, aptr_2_templ);
+				double dih_angle = Vec3D::CalcTorsion(aptr_m_templ, aptr_1_templ, aptr_2_templ, aptr_3_templ);
+
+				PrintLog("HaResidue::SetMissingCoordsWithTemplate()  Setting Coordinates for atom %s", aptr_m->GetRef());
+
+				Vec3D::SetAtomPos(aptr_m, aptr1, aptr2, aptr3, dist, val_angle, dih_angle);
+				atoms_missing.erase(aptr_m);
+				atoms_known.insert(aptr_m);
+				crd_set = true;
+				break;
+			}
+			if (crd_set) break; // Start a new cycle on missing atoms if one missing atom coordinates are set
+		}
+	}
+	if (atoms_missing.size() > 0)
+	{
+		PrintLog("SetMissingCoordsWithTemplate() after %d iterations cannot set coordinates for %d missing atoms: \n", n_iter_max, atoms_missing.size());
+		for (HaAtom* aptr : atoms_missing)
+		{
+			PrintLog("%s ", aptr->GetRef().c_str()); 
+			
+			if (atom_template_map.count(0) > 0)
+			{
+				HaAtom* aptr_templ = atom_template_map[aptr];
+				PrintLog(" corresponding to the template atom %s ", aptr_templ->GetRef().c_str());
+				
+			}
+			else
+			{
+				PrintLog(" With No Template Atom ");
+			}
+			PrintLog("\n");
+		}
+		return false;
+	}
+	return false;
 }
 
 int HaResidue::AddWaterHydrogens()
@@ -2421,6 +2575,136 @@ int HaResidue::AddMissingAtoms_2( HaResidue* prtempl, ADD_ATOM_TYPE atom_type)
 		if(residue_complete) return TRUE;
 	}
 	return TRUE;
+}
+
+bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
+{
+	std::string res_name_a = p_res_a->GetFullName();
+	res_name_b = alt_res_name;
+
+	// std::map<std::string, std::string> at_name_map_a_b = this->GetAtomNameMap(res_name_a, res_name_b);
+
+	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
+	HaResidue* p_res_templ_a = p_res_db->GetTemplateForResidue(res_name_a);
+	HaResidue* p_res_templ_b = p_res_db->GetTemplateForResidue(res_name_b);
+
+	if (p_res_templ_a == NULL )
+	{
+		PrintLog("AlchemicalTransformation::SetTransformation() No Residue Template for %s", res_name_a.c_str());
+		is_set = false;
+		return false;
+	}
+
+	if (p_res_templ_b == NULL)
+	{
+		PrintLog("AlchemicalTransformation::SetTransformation() No Residue Template for %s", res_name_b.c_str());
+		is_set = false;
+		return false;
+	}
+
+	if (!p_res_templ_a->IsAmino() )
+	{
+		PrintLog("AlchemicalTransformation::SetTransformation() residue %s is not Amino Acid", res_name_a.c_str());
+		is_set = false;
+		return false;
+	}
+
+	if (!p_res_templ_b->IsAmino())
+	{
+		PrintLog("AlchemicalTransformation::SetTransformation() residue %s is not Amino Acid", res_name_b.c_str());
+		is_set = false;
+		return false;
+	}
+
+	AtomAtomMap atom_templ_b_to_atom_res_map; // Map of Residue B template atoms to Current Residue atoms (including dummy) 
+	AtomAtomMap atom_res_to_atom_templ_b_map; // Map of Current Residue atoms (including dummy) to Residue B template atoms 
+
+	int i_dummy_b = 0; //!< Index of Dummy Atoms in Residue B
+	for (HaAtom* aptr : *p_res_a)
+	{
+		atoms_a.insert(aptr);
+		std::string atn_a = aptr->GetName(); 
+		HaAtom* aptr_templ_b = p_res_templ_b->GetAtomByName(atn_a);
+		if (aptr_templ_b)
+		{
+			atoms_b.insert(aptr);
+			at_names_b[aptr] = atn_a;
+			at_elem_b[aptr] = aptr_templ_b->GetElemNo();
+			atom_templ_b_to_atom_res_map[aptr_templ_b] = aptr;
+			atom_res_to_atom_templ_b_map[aptr] = aptr_templ_b;
+		}
+		else
+		{
+			dummy_b.insert(aptr);
+			i_dummy_b++;
+			std::string atn_b = (boost::format("DB%d") % i_dummy_b).str();
+			at_names_b[aptr] = atn_b;
+			at_elem_b[aptr] = 99;
+		}
+	}
+
+	int i_dummy_a = 0; //!< Index of Dummy Atoms in Residue A
+	for (HaAtom* aptr_b_templ : *p_res_templ_b)
+	{
+		if (atom_templ_b_to_atom_res_map.count(aptr_b_templ) > 0) continue;
+
+		std::string atn_b = aptr_b_templ->GetName();
+		HaAtom* aptr_add = p_res_a->AddNewAtom();
+		at_names_b[aptr_add] = atn_b;
+		at_elem_b[aptr_add] = aptr_b_templ->GetElemNo();
+		atom_templ_b_to_atom_res_map[aptr_b_templ] = aptr_add;
+		atom_res_to_atom_templ_b_map[aptr_add] = aptr_b_templ;
+
+		i_dummy_a++;
+		std::string atn_a = (boost::format("DA%d") % i_dummy_a).str();
+		aptr_add->SetName(atn_a);
+		aptr_add->SetElemNo(99);
+		at_names_b[aptr_add] = atn_b;
+		atoms_b.insert(aptr_add);
+		dummy_a.insert(aptr_add);
+	}
+	
+	bonds_b.clear();
+	std::set<HaAtom*> processed_template_atoms;
+	MolSet* pmset = p_res_a->GetHostMolSet();
+	for (HaAtom* aptr_b_templ : *p_res_templ_b)
+	{
+		HaAtom::BondIterator bitr = aptr_b_templ->Bonds_begin();
+		HaAtom::BondIterator bitr_end = aptr_b_templ->Bonds_end();
+		for (; bitr != bitr_end; bitr++)
+		{
+			HaBond* pbnd_templ = *bitr;
+			HaAtom* pat1_templ = pbnd_templ->GetFirstAtom();
+			HaAtom* pat2_templ = pbnd_templ->GetSecondAtom();
+			if (processed_template_atoms.count(pat1_templ) > 0 || processed_template_atoms.count(pat2_templ)) continue;
+			HaAtom* pat1_b = atom_templ_b_to_atom_res_map[pat1_templ];
+			HaAtom* pat2_b = atom_templ_b_to_atom_res_map[pat2_templ];
+			if (!pat1_b)
+			{
+				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat1_templ->GetRef().c_str());
+				continue;
+			}
+			if (!pat2_b)
+			{
+				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat2_templ->GetRef().c_str());
+				continue;
+			}
+			HaBond bnd(pat1_b, pat2_b);
+			bnd.SetParamFrom(*pbnd_templ);
+			bonds_b.push_back(bnd);
+			if (dummy_a.count(pat1_b) > 0 || dummy_a.count(pat2_b))
+			{
+				HaBond* pbnd_a = pmset->AddBond(pat1_b, pat2_b);
+				pbnd_a->SetParamFrom(*pbnd_templ);
+			}
+		}
+		processed_template_atoms.insert(aptr_b_templ);
+	}
+
+	HaResidue::SetMissingCoordsWithTemplate(dummy_a, atoms_a, atom_res_to_atom_templ_b_map);
+
+	this->is_set = true;
+	return true;
 }
 
 HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4, 

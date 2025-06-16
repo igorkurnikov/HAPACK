@@ -352,8 +352,9 @@ enum ADD_ATOM_TYPE
 };
 
 class ForceFieldType;
-typedef AtomIteratorAtomGroup AtomIteratorResidue;
-typedef std::list<AtomGroup> AtomGroupList;
+using AtomIteratorResidue=AtomIteratorAtomGroup;
+using AtomGroupList=std::list<AtomGroup>;
+class AlchemicalTransformation;
 
 //!  Class to define Residue in a polymer or biopolymer chain   
 class HaResidue : public AtomGroup
@@ -419,6 +420,7 @@ public:
 	
 	int AddMissingAtoms(ADD_ATOM_TYPE atom_type ); //!< Add Atoms to the residue based on the residue template in DB
 	int AddWaterHydrogens();                      //!< Add Hydrogens to a water molecule residue
+	static bool SetMissingCoordsWithTemplate(AtomSet& atoms_missing, AtomSet& atoms_set, AtomAtomMap& atom_template_map);
 
 protected:
 	int AddMissingAtoms_2(HaResidue* prtempl, ADD_ATOM_TYPE atom_type);
@@ -450,6 +452,11 @@ public:
 	bool IsThymine()     const;
 	bool IsCoenzyme()    const;
 	bool IsTerm()        const;
+
+	bool HasTransformationInfo() const; //!< Alchemical Transformation Info is set for the residue
+	bool MutateTo(std::string res_name_mutated) noexcept; //!< Mutate Residue to another type
+	bool SetAlchemicalTransformation(std::string res_name_transformed); //!< Set Alchemical Transformation for the residue 
+	std::shared_ptr<AlchemicalTransformation> p_res_transform;  //!< Alchemical Transformation Info for the residue
 
 	int CalcStdCrdSys(int fit_std_geom = FALSE); //!< Calculate standard coordinate system
 
@@ -484,6 +491,32 @@ public:
 
 protected:
 	void Clear();	
+};
+
+class AlchemicalTransformation
+//!< Alchemical Residue Mutation 
+{
+public:
+	AlchemicalTransformation(HaResidue* p_res) : p_res_a(p_res), is_set(false) {}
+	virtual ~AlchemicalTransformation() {}
+
+	bool SetTransformation(std::string alt_res_name); //!< Set Residue Mutation 
+	bool IsSet() { return is_set; } //!< Check if the Mutation is Set
+
+	std::string res_name_b;
+	std::set<HaAtom*> atoms_a;
+	std::set<HaAtom*> atoms_b;
+	std::set<HaAtom*> dummy_a;
+	std::set<HaAtom*> dummy_b;
+
+	std::map<HaAtom*, std::string> at_names_b;
+	std::map<HaAtom*, int> at_elem_b;
+	std::vector<HaBond> bonds_b;
+
+protected:
+	HaResidue* p_res_a;
+	bool is_set;
+
 };
 
 class AtomIteratorChain : public AtomIterator
