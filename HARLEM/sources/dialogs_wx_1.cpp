@@ -5521,7 +5521,7 @@ void ResidueParamsDlgWX::OnMutateResidue(wxCommandEvent& event)
 void ResidueParamsDlgWX::OnSetTransformation(wxCommandEvent& event)
 {
 	PrintLog("ResidueParamsDlgWX::OnSetTransformation() \n");
-	HaResidue* p_res_sel = this->GetSelectedResidue();
+	pres_sel = this->GetSelectedResidue();
 	if (!pres_sel)
 	{
 		PrintLog("No Residue Selected \n");
@@ -5531,7 +5531,7 @@ void ResidueParamsDlgWX::OnSetTransformation(wxCommandEvent& event)
 	if (!mut_res_type.empty())
 	{
 		PrintLog("Set Alchemical Transformation for Residue %s to type: %s \n", pres_sel->GetRef().c_str(), mut_res_type.c_str());
-		p_res_sel->SetAlchemicalTransformation(mut_res_type);
+		pres_sel->SetAlchemicalTransformation(mut_res_type);
 	}
 	TransferDataToWindow();
 }
