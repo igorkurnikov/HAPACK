@@ -730,20 +730,7 @@ public:
 
 	static int dlg_open;
 
-	static bool	res_name_flag;
-	static bool	res_num_flag;
-	static bool	res_name_modifier_flag;
-	static bool	chain_name_flag;
-
 	static int ResetEditFlags();
-
-// Column numbers of Residue Properties:
-
-	int n_res_name;
-	int n_res_name_modifier;
-	int n_res_num;
-	int n_chain_name;
-	
 	virtual bool TransferDataToWindow();
 
 	void OnInitDialog();
@@ -755,8 +742,22 @@ protected:
 	HaResidue* pres_sel = nullptr;
 	MolEditor* p_mol_editor = nullptr;
 
-
 	wxMenuBar* res_params_menu_bar;
+	
+	wxCheckBox* res_name_check = nullptr;
+	wxCheckBox* res_name_modifier_check = nullptr;
+	wxCheckBox* res_num_check = nullptr;
+	wxCheckBox* chain_check = nullptr;
+	wxCheckBox* mutation_check = nullptr;
+
+	// Column numbers of Residue Properties:
+
+	int n_res_name;
+	int n_res_name_modifier;
+	int n_res_num;
+	int n_chain_name;
+	int n_mutation;
+	
 	wxTextCtrl* p_renum_start_n = nullptr;
 	wxTextCtrl* p_sel_res_text = nullptr;
 	wxTextCtrl* p_mut_res_type_text = nullptr;
@@ -764,7 +765,7 @@ protected:
 	wxButton* p_set_transform_res_btn = nullptr;
 
 	void SetColumns();
-	void FillResidueList();
+	void FillResidueGrid();
 	HaResidue* GetSelectedResidue(); //!< Get Selected Residue on the Grid
 
 // WDR: handler declarations for ResidueParamsDlgWX 

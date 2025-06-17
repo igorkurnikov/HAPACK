@@ -112,6 +112,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/format.hpp>
 
 CmdTextCtrl::CmdTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value,
 		const wxPoint& pos,const wxSize& size, long style, const wxValidator& validator,
@@ -5209,10 +5210,6 @@ void AtomParamsDlgWX::OnSetAtCrdFromZMat(wxCommandEvent& event)
 // ResidueParamsDlgWX dialog
 
 int   ResidueParamsDlgWX::dlg_open = FALSE;
-bool  ResidueParamsDlgWX::res_name_flag = true;
-bool  ResidueParamsDlgWX::res_name_modifier_flag = true;
-bool  ResidueParamsDlgWX::res_num_flag = true;
-bool  ResidueParamsDlgWX::chain_name_flag = true;
 
 ResidueParamsDlgWX::ResidueParamsDlgWX(MolSet* new_pmset, wxWindow* parent):
 wxFrame( parent, -1, "Edit Residue Parameters")
@@ -5224,6 +5221,7 @@ wxFrame( parent, -1, "Edit Residue Parameters")
 	n_res_name_modifier = -1;
 	n_res_num = -1;
 	n_chain_name = -1;
+	n_mutation = -1;
 	
 	wxColour back_colour = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
  	SetBackgroundColour(back_colour);
@@ -5245,15 +5243,21 @@ ResidueParamsDlgWX::~ResidueParamsDlgWX()
 void ResidueParamsDlgWX::OnInitDialog()
 {
 	wxCheckBox* check_ctrl;
-	
-	check_ctrl = (wxCheckBox*) FindWindow(IDC_EDTRES_NAME);
-	check_ctrl->SetValidator( wxGenericValidator(&res_name_flag) );
-	check_ctrl = (wxCheckBox*) FindWindow(IDC_EDTRES_MODIFIER);
-	check_ctrl->SetValidator( wxGenericValidator(&res_name_modifier_flag) );
-	check_ctrl = (wxCheckBox*) FindWindow(IDC_EDTRES_RES_NUM);
-	check_ctrl->SetValidator( wxGenericValidator(&res_num_flag) );
-	check_ctrl = (wxCheckBox*) FindWindow(IDC_EDTRES_CHAIN);
-	check_ctrl->SetValidator( wxGenericValidator(&chain_name_flag) );
+
+	res_name_check = (wxCheckBox*) FindWindow(IDC_EDTRES_NAME);
+	res_name_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp,this);
+
+	res_name_modifier_check = (wxCheckBox*) FindWindow(IDC_EDTRES_MODIFIER);
+	res_name_modifier_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+
+	res_num_check = (wxCheckBox*) FindWindow(IDC_EDTRES_RES_NUM);
+	res_num_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+
+	chain_check = (wxCheckBox*) FindWindow(IDC_EDTRES_CHAIN);
+	chain_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+
+	mutation_check = (wxCheckBox*)FindWindow(IDC_EDTRES_MUT_RES);
+	mutation_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
 
 	residue_grid->Bind(wxEVT_GRID_SELECT_CELL, &ResidueParamsDlgWX::OnSelectResidueRow, this);
 
@@ -5277,29 +5281,21 @@ void ResidueParamsDlgWX::OnInitDialog()
 	dlg_open = TRUE;
 }
 
-int ResidueParamsDlgWX::ResetEditFlags()
-{
-    res_name_flag = true;
-	res_num_flag = true;
-    res_name_modifier_flag = true;
-    chain_name_flag = true;
-    
-	return TRUE;
-}
-
 void ResidueParamsDlgWX::SetColumns()
 {
 	n_res_name = -1;
 	n_res_name_modifier = -1;
 	n_chain_name = -1;
 	n_res_num = -1;
+	n_mutation = -1;
 	
 	int num_cols = 0;
 
-    if(res_name_flag) num_cols += 1;
-    if(res_name_modifier_flag) num_cols += 1;
-	if(res_num_flag) num_cols += 1;
-    if(chain_name_flag) num_cols += 1; 
+    if(res_name_check->IsChecked() ) num_cols += 1;
+    if(res_name_modifier_check->IsChecked()) num_cols += 1;
+	if(res_num_check->IsChecked()) num_cols += 1;
+    if(chain_check->IsChecked() ) num_cols += 1; 
+	if(mutation_check->IsChecked()) num_cols += 1;
     	
 	int tot_width = 550;
 	int height = 400;
@@ -5318,57 +5314,61 @@ void ResidueParamsDlgWX::SetColumns()
 		residue_grid->InsertCols(0,num_cols);
 	}
 
-	if( res_name_flag  )
+	if(res_name_check->IsChecked())
 	{
 		icol++;
 		residue_grid->SetColLabelValue(icol, "Name");
 		n_res_name = icol;
 	}
 
-	if( res_name_modifier_flag )
+	if(res_name_modifier_check->IsChecked())
 	{
 		icol++;
 		residue_grid->SetColLabelValue(icol, "Modifier");
 		n_res_name_modifier = icol;
 	}
 
-	if( res_num_flag  )
+	if(res_num_check->IsChecked())
 	{
 		icol++;
 		residue_grid->SetColLabelValue(icol, "Num");
 		n_res_num = icol;
 	}
 
-	if( chain_name_flag  )
+	if(chain_check->IsChecked() )
 	{
 		icol++;
 		residue_grid->SetColLabelValue(icol, "Ch");
 		n_chain_name = icol;
 	}
+
+	if (mutation_check->IsChecked())
+	{
+		icol++;
+		residue_grid->SetColLabelValue(icol, "Mut");
+		n_mutation = icol;
+	}
 }
 
-void ResidueParamsDlgWX::FillResidueList()
+void ResidueParamsDlgWX::FillResidueGrid()
 {
-	char buf[256];
-
 	residue_grid->ClearGrid();
 
 	if(pmset == NULL) return;
 	
-	HaResidue* pres;
 	int nres_sel = 0;
 
 	MolSet::ResidueIterator ritr(pmset);
-	for(pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	for(HaResidue* pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
 	{
 		if(!pres->HasSelectedAtoms()) continue;
 		nres_sel++;
 	}
 
-	int ncol = residue_grid->GetNumberCols();
-	int nrow = residue_grid->GetNumberRows();
+	const int ncol = residue_grid->GetNumberCols();
+	const int nrow = residue_grid->GetNumberRows();
 
-	int nv = res_ptrs.size();
+	const int nv = res_ptrs.size();
 
 	if(nrow != nres_sel || nv != nres_sel)
 	{
@@ -5380,42 +5380,51 @@ void ResidueParamsDlgWX::FillResidueList()
 	int itm = -1;
 	int max_lbl = 0;
 
-	for(pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	for(HaResidue* pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
 	{
 		if(!pres->HasSelectedAtoms()) continue;
 		itm++;
 
-		pres->FillRef(buf);
+		std::string rref = pres->GetRef();
 		res_ptrs[itm] = (void*) pres;
 
-		int len = strlen(buf);
-		if(len > max_lbl) max_lbl = len;
+		if(rref.size() > max_lbl) max_lbl = rref.size();
 	
-		residue_grid->SetRowLabelValue(itm, buf); 
+		residue_grid->SetRowLabelValue(itm, rref); 
 
 		if( n_res_name >= 0 )
 		{
-			sprintf(buf,"%s",pres->GetName());
-			residue_grid->SetCellValue(itm, n_res_name, buf); 
+			std::string ss = (boost::format("%s") % pres->GetName()).str();
+			residue_grid->SetCellValue(itm, n_res_name, ss); 
 		}
 
 		if( n_res_name_modifier >= 0 )
 		{
-			sprintf(buf,"%s", pres->NameModifier.c_str() );
-			residue_grid->SetCellValue(itm, n_res_name_modifier, buf); 
+			std::string ss = (boost::format("%s") % pres->NameModifier).str();
+			residue_grid->SetCellValue(itm, n_res_name_modifier, ss); 
 		}
 
 		if( n_res_num >= 0 )
 		{
-			sprintf(buf,"%d", pres->GetSerNo() );
-			residue_grid->SetCellValue(itm, n_res_num, buf); 
+			std::string ss = (boost::format("%d") % pres->GetSerNo()).str();
+			residue_grid->SetCellValue(itm, n_res_num, ss); 
 		}
 
 		if( n_chain_name >= 0 )
 		{
 			HaChain* chain = pres->GetHostChain();
-			sprintf(buf,"%c",chain->ident);
-			residue_grid->SetCellValue(itm, n_chain_name, buf); 
+			std::string ss = (boost::format("%c") % chain->ident).str();
+			residue_grid->SetCellValue(itm, n_chain_name, ss); 
+		}
+
+		if (n_mutation >= 0)
+		{
+			std::string ss;
+			if (pres->IsAlchemicalTransformationSet())
+			{
+				ss = (boost::format("%s") % pres->p_res_transform->res_name_b).str();
+			}
+			residue_grid->SetCellValue(itm, n_chain_name, ss);
 		}
 	}
 	residue_grid->SetRowLabelSize((int)(max_lbl*8.5));
@@ -5424,7 +5433,7 @@ void ResidueParamsDlgWX::FillResidueList()
 
 bool ResidueParamsDlgWX::TransferDataToWindow()
 {
-	FillResidueList();
+	FillResidueGrid();
 
 	pres_sel = this->GetSelectedResidue();
 
@@ -5441,10 +5450,6 @@ bool ResidueParamsDlgWX::TransferDataToWindow()
 }
 
 BEGIN_EVENT_TABLE(ResidueParamsDlgWX, wxFrame)
-    EVT_CHECKBOX(IDC_EDTRES_NAME, ResidueParamsDlgWX::OnChangeProp)
-	EVT_CHECKBOX(IDC_EDTRES_RES_NUM, ResidueParamsDlgWX::OnChangeProp)
-	EVT_CHECKBOX(IDC_EDTRES_MODIFIER, ResidueParamsDlgWX::OnChangeProp)
-	EVT_CHECKBOX(IDC_EDTRES_CHAIN, ResidueParamsDlgWX::OnChangeProp)
 	EVT_BUTTON(IDC_EDTRES_UPDATE_RESLIST, ResidueParamsDlgWX::OnUpdateResidueList)
 	EVT_BUTTON(IDC_RESPAR_RENUM, ResidueParamsDlgWX::OnResidueRenumber)
 	EVT_BUTTON(IDC_CLOSE, ResidueParamsDlgWX::OnCloseBtn)
@@ -5463,7 +5468,7 @@ END_EVENT_TABLE()
 
 void ResidueParamsDlgWX::OnUpdateResidueList(wxCommandEvent& event)
 {
-	FillResidueList();
+	FillResidueGrid();
 }
 
 HaResidue* ResidueParamsDlgWX::GetSelectedResidue()
@@ -5499,7 +5504,7 @@ void ResidueParamsDlgWX::OnResidueRenumber(wxCommandEvent& event)
 		PrintLog("Invalid Starting Number for Residue Renumbering\n");
 		p_renum_start_n->SetValue("1");
 	}
-	FillResidueList();
+	FillResidueGrid();
 }
 
 void ResidueParamsDlgWX::OnMutateResidue(wxCommandEvent& event)
@@ -5553,7 +5558,7 @@ void ResidueParamsDlgWX::OnChangeProp(wxCommandEvent& event)
 {
 	TransferDataFromWindow();
 	SetColumns();
-	FillResidueList();
+	FillResidueGrid();
 }
 
 void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
