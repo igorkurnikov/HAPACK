@@ -9,8 +9,8 @@
 #ifndef HAATGROUP_H
 #define HAATGROUP_H
 
-
 #include "haio.h"
+#include <mutex>
 #include "tinyxml.h"
 #include "rapidxml.hpp"
 #include "haconst.h"
@@ -414,8 +414,8 @@ public:
     int SetStdCharges();     //!< Set atomic charges corresponding to the template of the residue
 	int InterpolResParams(const char* res_name_1, const char* res_name_2, double weight_1); //!< Make the residue parameters intermediate between two templates 
 
-	HaResidue* GetTemplate(); //!< Get template corresponding to a current residue full name
-	int CheckStruct(); //!< Check if the structure of the residue correspond to a template
+	HaResidue* GetTemplate(); //!< Get Residue Template for the residue 
+	bool CheckStruct(); //!< Check if the structure of the residue correspond to its template
 	int CheckStructMortLib(const ForceFieldType& ff_type); //!< Check the structure of the residue against residue database in Mort Library Format
 	
 	int AddMissingAtoms(ADD_ATOM_TYPE atom_type ); //!< Add Atoms to the residue based on the residue template in DB
@@ -453,7 +453,7 @@ public:
 	bool IsCoenzyme()    const;
 	bool IsTerm()        const;
 
-	bool HasTransformationInfo() const; //!< Alchemical Transformation Info is set for the residue
+	bool IsAlchemicalTransformationSet() const; //!< Alchemical Transformation Info is set for the residue
 	bool MutateTo(std::string res_name_mutated) noexcept; //!< Mutate Residue to another type
 	bool SetAlchemicalTransformation(std::string res_name_transformed); //!< Set Alchemical Transformation for the residue 
 	std::shared_ptr<AlchemicalTransformation> p_res_transform;  //!< Alchemical Transformation Info for the residue
@@ -483,6 +483,7 @@ public:
 	static int RegisterResName( const std::string& res_name); //!< return Reference number of the residue name
 	static void InitStdResNames(); //!< Initialize standard residue names
 	static void InitResSynonym(); //!< Initialize standard residue name synonyms
+	static std::mutex& getMutex(); //!< Get mutex for setting/getting residue names
 
 	static std::vector<std::string> ResNames;               //!< table of Residue Names 
 	static StrIntMap res_name_refno_map;       //!< map of residue names to ref_no 

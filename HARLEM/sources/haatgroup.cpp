@@ -12,6 +12,7 @@
 #include <float.h>
 #include <math.h>
 #include <stdexcept>
+#include <mutex>
 
 #include <mpi.h>
 
@@ -31,12 +32,18 @@
 
 int HaResidue::RegisterResName( const std::string& res_name)
 {
+	std::lock_guard<std::mutex>  lock(getMutex());
 	StrIntMap::iterator itr = res_name_refno_map.find(res_name);
 	if( itr != res_name_refno_map.end() ) return (*itr).second;
 	ResNames.push_back(res_name);
 	int refno = ResNames.size() - 1;
 	res_name_refno_map[res_name] = refno;
 	return refno;
+}
+
+std::mutex& HaResidue::getMutex() {
+	static std::mutex m;
+	return m;
 }
 
 void HaResidue::InitStdResNames()
@@ -1255,7 +1262,7 @@ bool HaResidue::IsTerm() const
 	return( stricmp_trunc( GetName(), "TRM") == 0 );
 }
 
-bool HaResidue::HasTransformationInfo() const
+bool HaResidue::IsAlchemicalTransformationSet() const
 { 
 	return p_res_transform.use_count() > 0 && p_res_transform->IsSet();
 }
@@ -1454,7 +1461,7 @@ HaResidue* HaResidue::GetTemplate()
 	return res_templ;
 }
 
-int HaResidue::CheckStruct()
+bool HaResidue::CheckStruct()
 {
 	if( MMForceField::ff_type_default == ForceFieldType::AMOEBA)
 	{
@@ -2595,8 +2602,14 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 	// std::map<std::string, std::string> at_name_map_a_b = this->GetAtomNameMap(res_name_a, res_name_b);
 
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
-	HaResidue* p_res_templ_a = p_res_db->GetTemplateForResidue(res_name_a_full);
+	HaResidue* p_res_templ_a = p_res_a->GetTemplate();
 	HaResidue* p_res_templ_b = p_res_db->GetTemplateForResidue(res_name_b);
+
+	if (!p_res_a->CheckStruct())
+	{
+		PrintLog("Can not set Achemical Transformation: \n Residue %s does not match its template ", p_res_a->GetRef().c_str());
+		return false;
+	}
 
 	MolSet* pmset = p_res_a->GetHostMolSet();
 	HaMolView* pView = pmset->GetActiveMolView();
@@ -2643,7 +2656,11 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 		{
 			aptr_templ_b = p_res_templ_b->GetAtomByName("HA");
 		}
-
+		if ( atn_a == "HA" && res_name_b == "GLY" && res_name_a != "GLY" )
+		{
+			aptr_templ_b = p_res_templ_b->GetAtomByName("HA2");
+		}
+		 
 		if (aptr_templ_b)
 		{
 			atoms_b.insert(aptr);
@@ -2723,7 +2740,7 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 
 	HaResidue::SetMissingCoordsWithTemplate(dummy_a, atoms_a, atom_res_to_atom_templ_b_map);
 
-	pmset->RefreshAllViews( RFRefresh | RFColour);
+	pmset->RefreshAllViews( RFRefresh | RFColour | RFApply );
 
 	this->is_set = true;
 	return true;
