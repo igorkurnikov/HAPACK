@@ -25,6 +25,7 @@ namespace mort
 	class molecule_t;
 };
 
+
 class MolMechModel
 {
 public:
@@ -56,29 +57,36 @@ public:
 
 	int GetNA() const { return Atoms.size(); } //!< Get Number of Atoms
 
-	vector<HaAtom*> Atoms;                        //!<  Atoms 
-	set<MMBond, less<MMBond> > MBonds;            //!<  Valence Bonds
-	set<MMValAngle, less<MMValAngle> > ValAngles; //!<  Valence angles
-	vector<MMDihedral>   Dihedrals;               //!<  Dihedrals
-	vector<MMDihedral>   ImprDihedrals;           //!<  Improper dihedral angles
+	vector<HaAtom*> Atoms;                              //!<  Atoms 
+	set<MMBond>  MBonds;                  //!<  Valence Bonds
+	set<MMValAngle>   ValAngles;      //!<  Valence angles
+	vector<shared_ptr<MMDihedral>> Dihedrals;      //!<  Dihedrals
+	vector<shared_ptr<MMDihedral>> ImprDihedrals;  //!<  Improper dihedral angles
+
+	map<HaAtom*,shared_ptr<AtomFFParam>> atom_mut_params;  //! Atom parameters for mutated state (state B) of the system
+
+	set<MMBond> MBonds_mut;                  //!<  Valence Bonds for Mutated State
+	set<MMValAngle> ValAngles_mut;       //!<  Valence angles for Mutated State
+	vector<shared_ptr<MMDihedral>> Dihedrals_mut;      //!<  Dihedrals for Mutated State
+	vector<shared_ptr<MMDihedral>> ImprDihedrals_mut;  //!<  Improper dihedral angles for Mutated State
 		
 	vector<AtomSet> excluded_atom_list;    //!< Excluded atom list: atoms for which non-bonded calculations are not computed 
 	vector<AtomSet> nonbond_contact_list;  //!< Non-bonded contacts lists: atoms for which non-bonded interactions are computed
 
+	vector<AtomSet> excluded_atom_list_mut;    //!< Excluded atom list for the mutated state : atoms for which non-bonded calculations are not computed 
+	vector<AtomSet> nonbond_contact_list_mut;  //!< Non-bonded contacts lists for the mutated state: atoms for which non-bonded interactions are computed
+
 	AtomIntMap& GetAtIdxMap(int recalc = FALSE); //!< Get a map of HaAtom* to indexes in Atoms array ( 0-based ). Optionally recalculate. 
 	AtomIntMap  at_idx_map; //!< Map of HaAtom* to indexes in Atoms array
 
-	MMBond*     GetMMBond(HaAtom* pt1, HaAtom* pt2); //!< get bond between atoms
-	MMValAngle* GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3); //!< get valence angle between Atoms
-	MMDihedral* GetDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3,HaAtom* pt4); //!< get dihedral angle for atoms
-	MMDihedral* GetImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4); //!< get dihedral angle for atoms
+	MMBond*     GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state = false);                  //!< get valence bond between atoms
+	MMValAngle* GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, bool mutated_state = false);   //!< get valence angle between Atoms
+	shared_ptr<MMDihedral> GetDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state = false);     //!< get dihedral angle for atoms
+	shared_ptr<MMDihedral> GetImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state = false); //!< get dihedral angle for atoms
 
-	int SetMMBond(HaAtom* pt1,HaAtom* pt2,double r0,double fc,int set_type = NOT_SET); //!< Set valence bond 
-	int SetValAngle(HaAtom* pt1,HaAtom* pt2,HaAtom* pt3,double a0,double fc,int set_type = NOT_SET); //!< Set valence angle
-	MMDihedral* AddImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4);   //!< Add improper angle
-
-	//! map of Improper angles arranged by the residue of the 3rd atom
-	multimap<unsigned long, unsigned long, less<unsigned long> > res_impr_dih_map; 
+	int SetMMBond(HaAtom* pt1,HaAtom* pt2,double r0,double fc,int set_type = NOT_SET, bool mutated_state = false );              //!< Set valence bond 
+	int SetValAngle(HaAtom* pt1,HaAtom* pt2,HaAtom* pt3,double a0,double fc,int set_type = NOT_SET, bool mutated_state = false); //!< Set valence angle
+	shared_ptr<MMDihedral> AddImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state = false); //!< Add improper angle
 
 	void SetUseMortLib( int set_par ); //!< Set Parameters of the model Using MORT library 
 
@@ -93,16 +101,12 @@ public:
 	int SetStdValParams();       //!< Set Standard parameters for valence bonds, angles and dihedrals
 	int SetStdVdWParams();       //!< Set Standard Van-der-Waals parameters
 
-	int  AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIntMap& atoms_idx); //!< Add Atoms to excluded atom list taking into account atom order
+	int  AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIntMap& atoms_idx, bool mutated_state = false); //!< Add Atoms to excluded atom list taking into account atom order
 	bool BuildExcludedAtomList();   //!< Build the excluded atom list 
 	bool BuildNonBondContactList();  //!< Build the non-bonded contact list
         
-	int BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* group2); //!< Build a non-bonded excluded atom list for atoms that belong to two groups
+	int BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* group2); //!< Build a non-bonded exclusion atom list for atoms that belong to two groups
 	int BuildGrpGrpNonBondList(AtomContainer* group1, AtomContainer* group2);  //!< Build a non-bonded contact list for atoms that belong to two groups
-	
-	int GetResImprAngles(HaResidue* pres, list<MMDihedral*>& res_idih_list); //!< Get all improper angles with a third atom which belong to the 
-	                                                                         //!< certain residue
-	                                                                         //!< return the number of improper dihedrals found
 
 	int Set14interDihFlags(); //!< Set flags for dihedrals not to calculate 1-4 interactions for atoms participating in bonds or valence angles or several dihedrals
 	

@@ -1,4 +1,4 @@
-/*! \file mm_model.cpp
+﻿/*! \file mm_model.cpp
 
     Classes to setup Molecular Mechanics Model
  
@@ -162,12 +162,11 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 		
 	char buf[256];
 
-	vector<MMDihedral>::const_iterator iditr;
 	if( !ImprDihedrals.empty())
 	{
-		for(iditr = ImprDihedrals.begin(); iditr != ImprDihedrals.end(); iditr++)
+		for(shared_ptr<MMDihedral> ps_dih : ImprDihedrals )
 		{
-			const MMDihedral& impr_dihedral = *iditr;
+			const MMDihedral& impr_dihedral = *ps_dih;
 			if( impr_dihedral.pt1 == NULL || impr_dihedral.pt2 == NULL || 
 				impr_dihedral.pt3 == NULL || impr_dihedral.pt4 == NULL )
 			{
@@ -260,6 +259,59 @@ int MolMechModel::IsAmoebaFF() const
 }
 
 
+template<typename T>
+using FourPtrs = std::array<T*, 4>;
+
+// Helper: return a canonical copy (the smaller of a and reverse(a))
+template<typename T>
+FourPtrs<T> canonical(const FourPtrs<T>& a) {
+	FourPtrs<T> rev = a;
+	std::reverse(rev.begin(), rev.end());
+	// choose lexicographically smaller
+	if (std::lexicographical_compare(rev.begin(), rev.end(),
+		a.begin(), a.end()))
+		return rev;
+	else
+		return a;
+}
+
+// Hash functor that hashes the canonical form
+template<typename T>
+struct FourPtrsHash {
+	std::size_t operator()(FourPtrs<T> const& a_) const noexcept {
+		FourPtrs<T> a = canonical(a_);
+		std::size_t seed = 0;
+		std::hash<T*> hasher;
+		for (T* p : a) {
+			// boost‐style mix
+			seed ^= hasher(p)
+				+ 0x9e3779b9
+				+ (seed << 6)
+				+ (seed >> 2);
+		}
+		return seed;
+	}
+};
+
+// Equality allows either direct or reverse match
+template<typename T>
+struct FourPtrsEq {
+	bool operator()(FourPtrs<T> const& x,
+		FourPtrs<T> const& y) const noexcept
+	{
+		// exact match?
+		if (x == y) return true;
+		// reverse match?
+		for (int i = 0; i < 4; ++i)
+			if (x[i] != y[3 - i]) return false;
+		return true;
+	}
+};
+
+
+using FourAtoms = FourPtrs<HaAtom*>;
+
+
 int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 {
 	int ires;
@@ -274,13 +326,10 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 	}
 	ff_type = p_ff->GetFFType();
 
-	HaAtom* aptr;
-	AtomIteratorMolSet aitr(pmset);
-	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
+	for(HaAtom* aptr : *pmset)
 	{
 		Atoms.push_back(aptr);
 	}
-
 
 	if( ff_type == ForceFieldType::AMOEBA ) // TMP IGOR should consider to turn it off
 	{
@@ -311,183 +360,272 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 // Map atoms to their conterparts in the residue templates
 
-	AtomAtomMap pt_to_templ_map;
+	AtomAtomMap pt_to_templ_map;        // Map Atoms to Atom Templates 
+	AtomAtomMap pt_to_mut_templ_map;    // Map Atoms to Mutated Atom Templates 
+
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB(); 
 
 	ResidueIteratorMolSet ritr(pmset);
-	HaResidue* pres;
-
-	for(pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	for (HaResidue* pres : ritr)
 	{
 		std::string res_fname = pres->GetFullName();
-	
 		// if (res_fname == "TRM") continue; //  Termination groups are treated separately
-		HaResidue*  p_res_templ = p_res_db->GetTemplateForResidue( res_fname );
-		if( p_res_templ == NULL )
+		HaResidue* p_res_templ = p_res_db->GetTemplateForResidue(res_fname);
+		if (p_res_templ == NULL)
 		{
 			PrintLog(" Can't find residue template %s for residue %s\n",
-					   res_fname.c_str(),pres->GetRef().c_str() );
+				res_fname.c_str(), pres->GetRef().c_str());
 			PrintLog(" No atom FF parameters will be set for atoms of the residue \n");
 			continue;
 		}
-			
-		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate( res_fname );
-		if( p_res_ff_templ == NULL )
+
+		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate(res_fname);
+		if (p_res_ff_templ == NULL)
 		{
 			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n",
-					      p_ff->GetFFType().label(),res_fname.c_str());
-			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n",pres->GetFullName().c_str(), pres->GetRef().c_str());
+				p_ff->GetFFType().label(), res_fname.c_str());
+			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", pres->GetFullName().c_str(), pres->GetRef().c_str());
 		}
 
-		AtomIteratorAtomGroup aitr_r(pres);
-		HaAtom* aptr;
-		for( aptr = aitr_r.GetFirstAtom(); aptr; aptr = aitr_r.GetNextAtom() )
+		std::string res_mut_fname;
+		HaResidue* p_res_mut_templ = nullptr;
+		ResFFTemplate* p_res_mut_ff_templ = nullptr;
+
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			res_mut_fname = pres->p_res_transform->res_name_b;
+			p_res_mut_templ = p_res_db->GetTemplateForResidue(res_mut_fname);
+			if (p_res_mut_templ)
+			{
+				PrintLog(" Can't find mutated residue template %s for residue %s\n",
+					res_fname.c_str(), pres->GetRef().c_str());
+				PrintLog(" No atom FF parameters will be set for atoms of the mutated residue \n");
+			}
+
+			p_res_mut_ff_templ = p_ff->GetResidueTemplate(res_mut_fname);
+			if (p_res_mut_ff_templ)
+			{
+				PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n",
+					p_ff->GetFFType().label(), res_mut_fname.c_str());
+				PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", res_mut_fname.c_str(), pres->GetRef().c_str());
+			}
+		}
+
+		for (HaAtom* aptr : *pres)
 		{
 			try
 			{
 				pt_to_templ_map[aptr] = NULL;
 				std::string at_name = aptr->GetName();
 
-				if (at_name.size() == 4 && at_name.compare(0,3,"HTM") == 0 ) // special rules for Terminating hydrogens
+				HaAtom* atempl = p_res_templ->GetAtomByName(at_name);
+
+				if (atempl == NULL)
 				{
-					if (aptr->IsHydrogen())
+					if (at_name.size() == 4 && at_name.compare(0, 3, "HTM") == 0) // special rules for Terminating hydrogens
 					{
-						AtomGroup bonded_atoms = aptr->GetBondedAtoms();
-						if (bonded_atoms.size() != 1)
+						if (aptr->IsHydrogen())
 						{
-							throw std::runtime_error((boost::format("TRM hydgroden atom %s has humber of bonds not equal 1 \n") % aptr->GetRef()).str());
-						}
-
-						HaAtom* aptr_host = bonded_atoms[0];
-
-						aptr_host->GetBondedAtoms(bonded_atoms);
-
-						if (bonded_atoms.size() != 4)
-						{
-							throw std::runtime_error(
-								(boost::format("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon)") %
-									aptr_host->GetRef() % aptr->GetRef() % bonded_atoms.size()).str());
-						}
-
-						if (aptr_host->GetElemNo() != 6)
-						{
-							throw std::runtime_error(
-								(boost::format("Atom %s bonded to TRM atom %s is not carbon \n") %
-									aptr_host->GetRef() % aptr->GetRef()).str());
-						}
-
-						if (ff_type == ForceFieldType::AMBER_94 || ff_type == ForceFieldType::AMBER_99_SB || ff_type == ForceFieldType::AMBER_99_BSC0 ||
-							ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_10)
-						{
-							aptr->SetFFSymbol("H1");
-						}
-						else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
-						{
-							int num_hydrogens = 0;
-							for (HaAtom* aptr_b : bonded_atoms)
+							AtomGroup bonded_atoms = aptr->GetBondedAtoms();
+							if (bonded_atoms.size() != 1)
 							{
-								if (aptr_b->IsHydrogen()) num_hydrogens++;
+								throw std::runtime_error((boost::format("TRM hydgroden atom %s has humber of bonds not equal 1 \n") % aptr->GetRef()).str());
 							}
 
-							if (num_hydrogens == 2)
+							HaAtom* aptr_host = bonded_atoms[0];
+
+							aptr_host->GetBondedAtoms(bonded_atoms);
+
+							if (bonded_atoms.size() != 4)
 							{
-								aptr_host->SetFFSymbol("C2");
+								throw std::runtime_error(
+									(boost::format("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon)") %
+										aptr_host->GetRef() % aptr->GetRef() % bonded_atoms.size()).str());
+							}
+
+							if (aptr_host->GetElemNo() != 6)
+							{
+								throw std::runtime_error(
+									(boost::format("Atom %s bonded to TRM atom %s is not carbon \n") %
+										aptr_host->GetRef() % aptr->GetRef()).str());
+							}
+
+							if (ff_type == ForceFieldType::AMBER_94 || ff_type == ForceFieldType::AMBER_99_SB || ff_type == ForceFieldType::AMBER_99_BSC0 ||
+								ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_10)
+							{
+								aptr->SetFFSymbol("H1");
+							}
+							else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
+							{
+								int num_hydrogens = 0;
 								for (HaAtom* aptr_b : bonded_atoms)
-									if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC2");
-							}
+								{
+									if (aptr_b->IsHydrogen()) num_hydrogens++;
+								}
 
-							if (num_hydrogens == 3)
-							{
-								aptr_host->SetFFSymbol("C3");
-								for (HaAtom* aptr_b : bonded_atoms)
-									if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
+								if (num_hydrogens == 2)
+								{
+									aptr_host->SetFFSymbol("C2");
+									for (HaAtom* aptr_b : bonded_atoms)
+										if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC2");
+								}
+
+								if (num_hydrogens == 3)
+								{
+									aptr_host->SetFFSymbol("C3");
+									for (HaAtom* aptr_b : bonded_atoms)
+										if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
+								}
+								//std::string host_ff_s = aptr_host->GetFFSymbol();
+								//if (host_ff_s == "C2") aptr->SetFFSymbol("HC2");
+								//else if (host_ff_s == "CA") aptr->SetFFSymbol("HCA");
+								//else if (host_ff_s == "NAM") aptr->SetFFSymbol("HNAM");
+								//else if (host_ff_s == "CAM=") aptr->SetFFSymbol("C2"); // may be need a special atom type for terminating hydrogen
 							}
-							//std::string host_ff_s = aptr_host->GetFFSymbol();
-							//if (host_ff_s == "C2") aptr->SetFFSymbol("HC2");
-							//else if (host_ff_s == "CA") aptr->SetFFSymbol("HCA");
-							//else if (host_ff_s == "NAM") aptr->SetFFSymbol("HNAM");
-							//else if (host_ff_s == "CAM=") aptr->SetFFSymbol("C2"); // may be need a special atom type for terminating hydrogen
 						}
+						throw std::runtime_error((boost::format("Termination Atom %s is not Hydrogen \n") % aptr->GetRef() % aptr->GetRef()).str());
+					} // if Terminating hydrogens
+					else if (at_name.size() > 1 && at_name.compare(0, 2, "DA") == 0) // special rules for Dummy atoms in Mutating residues
+					{
+						aptr->SetFFSymbol("DU");
+						aptr->SetCharge(0);
+						aptr->SetMass(4.0);
 					}
 					else
 					{
-						throw std::runtime_error((boost::format("Termination Atom %s is not Hydrogen \n") % aptr->GetRef() % aptr->GetRef()).str());
+						throw std::runtime_error(" Atom is not found in residue template and not covered by special rules");
 					}
-					continue;
 				}
 
-				HaAtom* atempl = p_res_templ->GetAtomByName(at_name);
-				if(atempl == NULL) throw std::runtime_error(" No Atom with name " + (const std::string&) aptr->GetName() + " in residue template " + res_fname ); 
 				pt_to_templ_map[aptr] = atempl;
 
-				double charge       = atempl->GetCharge();
-				double mass         = atempl->GetMass();
-				std::string ff_symb = atempl->GetFFSymbol();
-
-				if( p_res_ff_templ != NULL )
+				HaAtom* atempl_mut = nullptr;
+				std::string at_name_mut;
+				if (pres->IsAlchemicalTransformationSet() && p_res_mut_templ)
 				{
-					AtomFFParam* p_at_ff = p_res_ff_templ->GetAtomFFParam( aptr->GetName() );
-					if(p_at_ff == NULL) throw std::runtime_error(" Can't find atom force field paramters in residue template ");
-
-					charge  = p_at_ff->GetCharge();
-					ff_symb = p_at_ff->ff_symbol;
+					at_name_mut = pres->p_res_transform->at_names_b[aptr];
+					atempl_mut = p_res_mut_templ->GetAtomByName(at_name);
+					if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
 				}
 
-				//		Set to always overwrite charges, FF symbols and masses of atoms
-				//      when set FF ( need to change to allow custom charges and force field parameters )
+				double charge = atempl->GetCharge();
+				double mass = atempl->GetMass();
+				std::string ff_symb = atempl->GetFFSymbol();
 
-				//		if(aptr->FFSymbol.empty() ) aptr->SetFFSymbol( atempl->GetFFSymbol() );
-				aptr->SetFFSymbol( ff_symb );
+				if (p_res_ff_templ != NULL)
+				{
+					AtomFFParam* p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
+					if (p_at_ff == NULL) throw std::runtime_error(" Can't find atom force field paramters in residue template ");
 
-				//		if( fabs( aptr->GetCharge() ) < DBL_EPSILON )  aptr->SetCharge( atempl->GetCharge() );
-				aptr->SetCharge( charge );
+					charge = p_at_ff->GetCharge();
+					ff_symb = p_at_ff->ff_symbol;
+				}
+				aptr->SetFFSymbol(ff_symb);
+				aptr->SetCharge(charge);
+				aptr->SetMass(mass);
 
-				//		if( fabs( aptr->GetMass() - 1.0) < DBL_EPSILON )  aptr->SetMass( atempl->GetMass() );
-				aptr->SetMass( mass );
+				if (pres->IsAlchemicalTransformationSet() && atempl_mut)
+				{
+					std::shared_ptr<AtomFFParam> at_mut_params = std::make_shared<AtomFFParam>();
+					at_mut_params->charge = atempl_mut->GetCharge();
+					at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+
+					if (p_res_mut_ff_templ != NULL)
+					{
+						AtomFFParam* p_at_mut_ff = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
+						if (p_at_mut_ff)
+						{
+							at_mut_params->charge = p_at_mut_ff->GetCharge();
+							at_mut_params->ff_symbol = p_at_mut_ff->ff_symbol;
+						}
+					}
+					atom_mut_params[aptr] = at_mut_params;
+				}
 			}
-			catch( const std::exception& ex )
+			catch (const std::exception& ex)
 			{
 				PrintLog(" Error in MolMechModel::InitModel() setting ff parameters for atom %s \n", aptr->GetRef().c_str());
-				PrintLog(" %s\n",ex.what());
+				PrintLog(" %s\n", ex.what());
 			}
-		}
-		
-		if( p_res_ff_templ )
+		} // cycle on Atoms
+
+		if (p_res_ff_templ)  // Add improper Angles 
 		{
 			int n_impr = p_res_ff_templ->improper_dihedrals.size();
 			int i;
-			for( i = 0; i < n_impr; i++ )
+			for (i = 0; i < n_impr; i++)
 			{
-				try
+				if (p_res_ff_templ->improper_dihedrals[i].size() != 4)
 				{
-					if( p_res_ff_templ->improper_dihedrals[i].size() != 4 ) throw std::runtime_error(" Improper angle templates have number of atoms not equal 4 ");
-				
-					std::string at_ref = p_res_ff_templ->improper_dihedrals[i][0];
-					HaAtom* aptr1 = pres->GetAtomByName( at_ref );
-					if( aptr1 == NULL ) throw std::runtime_error(" Can't map atom " + at_ref );
-
-					at_ref = p_res_ff_templ->improper_dihedrals[i][1];
-					HaAtom* aptr2 = pres->GetAtomByName( at_ref );
-					if( aptr2 == NULL ) throw std::runtime_error(" Can't map atom " + at_ref );
-					
-					at_ref = p_res_ff_templ->improper_dihedrals[i][2];
-					HaAtom* aptr3 = pres->GetAtomByName( at_ref );
-					if( aptr3 == NULL ) throw std::runtime_error(" Can't map atom " + at_ref );
-
-					at_ref = p_res_ff_templ->improper_dihedrals[i][3];
-					HaAtom* aptr4 = pres->GetAtomByName( at_ref );
-					if( aptr4 == NULL ) throw std::runtime_error(" Can't map atom " + at_ref );
-					
-					AddImprDihedral(aptr1,aptr2,aptr3,aptr4);
+					PrintLog(" Improper angle templates have number of atoms not equal 4 \n");
+					continue;
 				}
-				catch( const std::exception& ex )
+				std::string at_ref = p_res_ff_templ->improper_dihedrals[i][0];
+				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());
+
+				at_ref = p_res_ff_templ->improper_dihedrals[i][1];
+				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());;
+
+				at_ref = p_res_ff_templ->improper_dihedrals[i][2];
+				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
+				if (aptr3 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+
+				at_ref = p_res_ff_templ->improper_dihedrals[i][3];
+				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
+				if (aptr4 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+
+				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{
-					PrintLog(" Warning: reading improper angles from residue FF template %s \n", res_fname.c_str());
-					PrintLog("%s\n", ex.what());
+					AddImprDihedral(aptr1, aptr2, aptr3, aptr4, false);
+				}
+				else
+				{
+					PrintLog(" Warning: failed to set and improper angle from residue FF template %s \n", res_fname.c_str());
 				}
 			}
 		}
-	}
+
+		if (pres->IsAlchemicalTransformationSet() && p_res_mut_ff_templ)
+		{
+			int n_impr = p_res_mut_ff_templ->improper_dihedrals.size();
+			int i;
+			for (i = 0; i < n_impr; i++)
+			{
+				if (p_res_ff_templ->improper_dihedrals[i].size() != 4)
+				{
+					PrintLog(" Improper angle templates have number of atoms not equal 4 \n");
+					continue;
+				}
+				std::string at_ref = p_res_mut_ff_templ->improper_dihedrals[i][0];
+				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());
+
+				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][1];
+				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());;
+
+				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][2];
+				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
+				if (aptr3 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+
+				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][3];
+				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
+				if (aptr4 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+
+				if (aptr1 && aptr2 && aptr3 && aptr4)
+				{
+					AddImprDihedral(aptr1, aptr2, aptr3, aptr4, true);
+				}
+				else
+				{
+					PrintLog(" Warning: failed to set and improper angle from mutated residue FF template %s \n", res_mut_fname.c_str());
+				}
+			}
+		}
+	} // Cycle on residues
+
 
 	for (HaAtom* aptr : Atoms)
 	{
@@ -498,62 +636,79 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		}
 	}
 
-	if( ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0 )
+	if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
 	{
 		to_init_mm_model = FALSE;
 		return TRUE;
 	}
 
-	map<HaAtom*, list<HaAtom*>, less<HaAtom*> > conn_graph;
-	
+	map<HaAtom*, list<HaAtom*>> conn_graph;      // Atom connection graph for the main state
+	map<HaAtom*, list<HaAtom*>> conn_graph_mut;  // Atom connection graph for the mutated state
+
 	HaBond* bptr;
 	BondIteratorMolSet bitr(pmset);
-	for(bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())
+	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())   // Set MM Bonds
 	{
-		std::string ff_s1 =  bptr->srcatom->GetFFSymbol();
-		std::string ff_s2 =  bptr->dstatom->GetFFSymbol();
+		std::string ff_s1 = bptr->srcatom->GetFFSymbol();
+		std::string ff_s2 = bptr->dstatom->GetFFSymbol();
 		boost::to_upper(ff_s1);
 		boost::to_upper(ff_s2);
 
-		if( ff_s1 == "DH" || ff_s2 == "DH"  ) continue; // ignore dummy hydrogens
-		if( ff_s1 == "DC" || ff_s2 == "DC" ) continue; // ignore dummy carbons
-		if( ff_s1 == "DN" || ff_s2 == "DN" ) continue; // ignore dummy nitrogens
-		if( ff_s1 == "DO" || ff_s2 == "DO"  ) continue; // ignore dummy oxygens
+		if (ff_s1 == "DH" || ff_s2 == "DH") continue; // ignore dummy hydrogens
+		if (ff_s1 == "DC" || ff_s2 == "DC") continue; // ignore dummy carbons
+		if (ff_s1 == "DN" || ff_s2 == "DN") continue; // ignore dummy nitrogens
+		if (ff_s1 == "DO" || ff_s2 == "DO") continue; // ignore dummy oxygens
 
-		SetMMBond(bptr->srcatom,bptr->dstatom,0.0,0.0,NOT_SET);
-		
+		SetMMBond(bptr->srcatom, bptr->dstatom, 0.0, 0.0, NOT_SET);
+
 		conn_graph[bptr->srcatom].push_back(bptr->dstatom);
 		conn_graph[bptr->dstatom].push_back(bptr->srcatom);
+	}
+
+	for (HaResidue* pres : ritr)   // Set MM Bonds for the Mutated state
+	{
+		for (HaAtom* aptr : *pres)
+		{
+			if (pres->IsAlchemicalTransformationSet())
+			{
+				for (HaBond& bnd : pres->p_res_transform->bonds_b)
+				{
+					SetMMBond(bptr->srcatom, bptr->dstatom, 0.0, 0.0, NOT_SET, true);
+
+					conn_graph[bnd.srcatom].push_back(bnd.dstatom);
+					conn_graph[bnd.dstatom].push_back(bnd.srcatom);
+				}
+			}
+		}
 	}
 
 	// FAST WATER:
 	if (ff_type == ForceFieldType::AMOEBA || ff_type == ForceFieldType::AMBER_10 || ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_99_BSC0 ||
 		ff_type == ForceFieldType::AMBER_99_SB)
 	{
-		for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+		for (HaResidue* pres : ritr )
 		{
 			if (pres->IsWater())
 			{
-				HaAtom* ph1 = NULL;
-				HaAtom* ph2 = NULL;
-				AtomIteratorAtomGroup aitr_r(pres);
-				for (aptr = aitr_r.GetFirstAtom(); aptr; aptr = aitr_r.GetNextAtom())
+				HaAtom* ph1 = nullptr;
+				HaAtom* ph2 = nullptr;
+				for (HaAtom* aptr : *pres )
 				{
 					if (aptr->IsHydrogen())
 					{
-						if (ph1 == NULL)
+						if (ph1 == nullptr)
 						{
 							ph1 = aptr;
 							continue;
 						}
-						if (ph2 == NULL)
+						if (ph2 == nullptr)
 						{
 							ph2 = aptr;
 							continue;
 						}
 					}
 				}
-				if (ph1 != NULL & ph2 != NULL)
+				if (ph1 != nullptr & ph2 != nullptr)
 				{
 					auto itr = std::find(conn_graph[ph1].begin(), conn_graph[ph1].end(), ph2);
 					if (itr != conn_graph[ph1].end()) continue; // H1 - H2 bond in water in already present 
@@ -565,103 +720,68 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		}
 	}
 
-// Fill Arrays of Valence Angles and Dihedrals
-	
-	std::vector<HaAtom*>::iterator pitr;
-	for(pitr = Atoms.begin(); pitr != Atoms.end(); pitr++)
+	for(HaAtom* pt: Atoms) // Fill Arrays of Valence Angles and Dihedrals
 	{
-		HaAtom* pt = *pitr;
-		list<HaAtom*>::iterator itr1, itr2, itr3;
+		list<HaAtom*>::iterator itr1;
 		for( itr1 = conn_graph[pt].begin(); itr1 != conn_graph[pt].end(); itr1++) 
 		{
 			HaAtom* pt1 = *itr1;
+			list<HaAtom*>::iterator itr2;
 			for( itr2 = conn_graph[pt].begin() ; itr2 != itr1; itr2++)
 			{
 				HaAtom* pt2 = *itr2;
 				SetValAngle(pt1,pt,pt2,0.0,0.0,NOT_SET);
 				if( pt2 > pt )
 				{
-					for( itr3 = conn_graph[pt2].begin(); itr3 != conn_graph[pt2].end(); itr3++)
+					for(HaAtom* pt3 : conn_graph[pt2] )
 					{
-						HaAtom* pt3 = *itr3;
 						if( pt3 == pt || pt3 == pt1 ) continue;
-						Dihedrals.push_back(MMDihedral(pt1,pt,pt2,pt3));
+						Dihedrals.push_back(std::make_shared<MMDihedral>(pt1,pt,pt2,pt3));
 					}
 				}
 				if(pt1 > pt)
 				{
-					for( itr3 = conn_graph[pt1].begin(); itr3 != conn_graph[pt1].end(); itr3++)
+					for(HaAtom* pt3 : conn_graph[pt1])
 					{
-						HaAtom* pt3 = *itr3;
 						if( pt3 == pt || pt3 == pt2 ) continue;
-						Dihedrals.push_back(MMDihedral(pt3,pt1,pt,pt2));
+						Dihedrals.push_back(std::make_shared<MMDihedral>(pt3,pt1,pt,pt2));
 					}
 				}
 			}
 		}
 	}
-	
-	//HaChain* chain;
-	//vector<HaMolecule*>::iterator mol_itr;
-	//ResidueIteratorMolSet ritr(pmset);
-	//for(pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
-	//{
-	//	std::string res_full_name = pres->GetFullName();
-	//	HaResidue* prtempl = p_res_db->GetTemplateForResidue(res_full_name.c_str());
-	//	if( prtempl == NULL)
-	//		continue;
-	//	HaMolMechMod* templ_mm_mod = p_res_db->GetMolMechMod(true);
-	//	list<MMDihedral*> idlist, idlist_templ;
- //   	int ntempl_dih = templ_mm_mod->p_mm_model->GetResImprAngles(prtempl,idlist_templ);
-	//	if( ntempl_dih == 0)
-	//		continue;
 
-	//	int ndih = GetResImprAngles(pres,idlist);
+	for (HaAtom* pt : Atoms) // Fill Arrays of Valence Angles and Dihedrals for the mutated state
+	{
+		list<HaAtom*>::iterator itr1;
+		for (itr1 = conn_graph_mut[pt].begin(); itr1 != conn_graph_mut[pt].end(); itr1++)
+		{
+			HaAtom* pt1 = *itr1;
+			list<HaAtom*>::iterator itr2;
+			for (itr2 = conn_graph_mut[pt].begin(); itr2 != itr1; itr2++)
+			{
+				HaAtom* pt2 = *itr2;
+				SetValAngle(pt1, pt, pt2, 0.0, 0.0, NOT_SET, true);
+				if (pt2 > pt)
+				{
+					for (HaAtom* pt3 : conn_graph_mut[pt2])
+					{
+						if (pt3 == pt || pt3 == pt1) continue;
+						Dihedrals_mut.push_back(std::make_shared<MMDihedral>(pt1, pt, pt2, pt3));
+					}
+				}
+				if (pt1 > pt)
+				{
+					for (HaAtom* pt3 : conn_graph_mut[pt1])
+					{
+						if (pt3 == pt || pt3 == pt2) continue;
+						Dihedrals_mut.push_back(std::make_shared<MMDihedral>(pt3, pt1, pt, pt2));
+					}
+				}
+			}
+		}
+	}
 
-	//	AtomAtomMap res_to_templ_map;
-	//	AtomAtomMap templ_to_res_map;
-
-	//	int ires = p_res_db->GetTemplResAtomMaps( pres, res_to_templ_map, templ_to_res_map);
-	//	if(!ires) continue;
-
-	//	list<MMDihedral*>::iterator ditr1, ditr2;
-	//	for( ditr1 = idlist_templ.begin(); ditr1 != idlist_templ.end(); ditr1++)
-	//	{
-	//		MMDihedral* templ_dih = (*ditr1);
-
-	//		HaAtom* atempl1 = templ_dih->pt1;
-	//		HaAtom* atempl2 = templ_dih->pt2;
-	//		HaAtom* atempl3 = templ_dih->pt3;
-	//		HaAtom* atempl4 = templ_dih->pt4;
-
-	//		HaAtom* aptr1 = templ_to_res_map[atempl1];
-	//		HaAtom* aptr2 = templ_to_res_map[atempl2];
-	//		HaAtom* aptr3 = templ_to_res_map[atempl3];
-	//		HaAtom* aptr4 = templ_to_res_map[atempl4];
-
-	//		if( aptr1 == NULL || aptr2 == NULL || aptr3 == NULL || aptr4 == NULL )
-	//			continue;
-
-	//		if( ndih > 0 )
-	//		{
-	//			bool dih_exist = false;
-	//			for( ditr2 = idlist.begin(); ditr2 != idlist.end(); ditr2++)
-	//			{
-	//				MMDihedral* dih = *ditr2;
-
-	//				if( dih->pt1 == aptr1 && dih->pt2 == aptr2 &&
-	//					dih->pt3 == aptr3 && dih->pt4 == aptr4 )
-	//				{
-	//					dih_exist = true;
-	//					break;
-	//				}
-	//			}
-	//			if( dih_exist ) continue;
-	//		}
-	//		AddImprDihedral(aptr1,aptr2,aptr3,aptr4);
-	//	}
-	//}
-	
 	Set14interDihFlags();
 	BuildExcludedAtomList();
 //	if(build_nb_contact_list_flag)
@@ -729,7 +849,7 @@ AtomIntMap& MolMechModel::GetAtIdxMap(int recalc)
 	return at_idx_map;
 }
 
-MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2)
+MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL) return NULL;
 
@@ -746,22 +866,26 @@ MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2)
 		bnd.pt2 = pt2;
 	}
 
-	set<MMBond, less<MMBond> >::iterator itr = MBonds.find(bnd);
+	set<MMBond>::iterator itr;
 	
-	if(itr != MBonds.end())
+	if (mutated_state)
 	{
-		return (MMBond*)&(*itr);
+		itr = MBonds_mut.find(bnd);
+		if(itr == MBonds_mut.end()) return nullptr;
 	}
-
-	return NULL;
-
+	else
+	{
+		itr = MBonds.find(bnd);
+		if(itr == MBonds.end()) return nullptr;
+	}
+	return (MMBond*)&(*itr);
 }
 
-MMValAngle* MolMechModel::GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3)
+MMValAngle* MolMechModel::GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL || pt3 == NULL) return NULL;
 
-    MMValAngle va;
+	MMValAngle va;
 
 	if( pt1 < pt3)
 	{
@@ -776,75 +900,94 @@ MMValAngle* MolMechModel::GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3)
 		va.pt3 = pt1;
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator itr = ValAngles.find(va);
-	
-	if(itr != ValAngles.end())
+	set<MMValAngle>::iterator itr;
+	if (mutated_state)
 	{
-		return (MMValAngle*) &(*itr);
+		itr = ValAngles_mut.find(va);
+		if (itr == ValAngles_mut.end()) return nullptr;
 	}
-
-	return NULL;
+	else
+	{
+		itr = ValAngles.find(va);
+		if (itr == ValAngles.end()) return nullptr;
+	}
+	return (MMValAngle*)&(*itr);
 }
 
-MMDihedral* MolMechModel::GetDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4)
+std::shared_ptr<MMDihedral> MolMechModel::GetDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state )
 {
-	if( pt1 == NULL || pt2 == NULL || pt3 == NULL || pt4 == NULL) return NULL;
+	if( pt1 == nullptr || pt2 == nullptr || pt3 == nullptr || pt4 == nullptr) return nullptr;
 
-	vector<MMDihedral>::iterator itr = Dihedrals.begin();
-
-	for( ; itr != Dihedrals.end(); itr++)
+	auto itr = Dihedrals.begin();
+	auto itr_end = Dihedrals.end();
+	if (mutated_state)
 	{
-		MMDihedral& dih = *itr;
+		itr = Dihedrals_mut.begin();
+		itr_end = Dihedrals_mut.end();
+	}
+
+	for(; itr != itr_end; itr++)
+	{
+		MMDihedral& dih = *(*itr);
 		
-		if( (dih.pt1 == pt1 && dih.pt2 == pt2 && dih.pt3 == pt3 && dih.pt4 == pt4) ||
+		if( (dih.pt1 == pt1 && dih.pt2 == pt2 && dih.pt3 == pt3 && dih.pt4 == pt4) || 
 			(dih.pt1 == pt4 && dih.pt3 == pt2 && dih.pt3 == pt2 && dih.pt4 == pt1) )
 		{
-			return &dih;
+			return *itr;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-MMDihedral* MolMechModel::GetImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4)
+std::shared_ptr<MMDihedral> MolMechModel::GetImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutate_state ) 
 {
-	if( pt1 == NULL || pt2 == NULL || pt3 == NULL || pt4 == NULL) return NULL;
+	if( pt1 == nullptr || pt2 == nullptr || pt3 == nullptr || pt4 == nullptr) return nullptr;
 
-	vector<MMDihedral>::iterator itr = ImprDihedrals.begin();
-
-	for( ; itr != ImprDihedrals.end(); itr++)
+	auto itr = ImprDihedrals.begin();
+	auto itr_end = ImprDihedrals.end();
+	if (mutate_state)
 	{
-		MMDihedral& dih = *itr;
+		itr = ImprDihedrals_mut.begin();
+		itr_end = ImprDihedrals_mut.end();
+	}
+
+	for( ; itr != itr_end; itr++)
+	{
+		MMDihedral& dih = *(*itr);
 		
 		if( dih.pt1 == pt1 && dih.pt2 == pt2 && dih.pt3 == pt3 && dih.pt4 == pt4 )
 		{
-			return &dih;
+			return *itr;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-MMDihedral* MolMechModel::AddImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4)
+std::shared_ptr<MMDihedral> MolMechModel::AddImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state )
 {
-	if( pt1 == NULL || pt2 == NULL || pt3 == NULL || pt4 == NULL)
+	if( pt1 == nullptr || pt2 == nullptr || pt3 == nullptr || pt4 == nullptr)
 	{
 		ErrorInMod("MolMechModel::AddImprDihedral()",
 			       " One of the pointers to HaAtom is NULL");
-		return NULL;
+		return nullptr;
 	}
-	ImprDihedrals.push_back(MMDihedral(pt1, pt2, pt3, pt4, true));	MMDihedral* ptr_dih = &ImprDihedrals.back();
 
-	int idx = ImprDihedrals.size() - 1;
-
-	HaAtom* aptr = (HaAtom*) pt3;
-	HaResidue* pres = aptr->GetHostRes();
-
-	multimap<unsigned long, unsigned long, less<unsigned long> >::value_type p((unsigned long)pres, idx);
-	res_impr_dih_map.insert(p);
+	std::shared_ptr<MMDihedral> ps_dih;
+	if (mutated_state)
+	{
+		ImprDihedrals_mut.push_back(std::make_shared<MMDihedral>(pt1, pt2, pt3, pt4, true));
+		ps_dih = ImprDihedrals_mut.back();
+	}
+	else
+	{
+		ImprDihedrals.push_back(std::make_shared<MMDihedral>(pt1, pt2, pt3, pt4, true));
+		ps_dih = ImprDihedrals.back();
+	}
 	
-	return( ptr_dih );
+	return( ps_dih );
 }
 
-int MolMechModel::SetMMBond(HaAtom* pt1, HaAtom* pt2, double r0, double fc, int set_type)
+int MolMechModel::SetMMBond(HaAtom* pt1, HaAtom* pt2, double r0, double fc, int set_type, bool mutated_state )
 {
 	if( pt1 == NULL || pt2 == NULL  )
 	{
@@ -882,7 +1025,7 @@ int MolMechModel::SetMMBond(HaAtom* pt1, HaAtom* pt2, double r0, double fc, int 
 	return TRUE;
 }
 
-int MolMechModel::SetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, double a0, double fc, int set_type)
+int MolMechModel::SetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, double a0, double fc, int set_type, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL || pt3 == NULL )
 	{
@@ -928,48 +1071,13 @@ int MolMechModel::SetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, double a0, 
 	return TRUE;
 }
 
-int MolMechModel::GetResImprAngles( HaResidue* pres, list<MMDihedral*>& res_idih_list )
-{
-	res_idih_list.clear();
-	if( pres == NULL)
-	{
-		PrintLog("Error in HaMolMech::GetResImprAngles() \n");
-		PrintLog(" The pointer to the residue is NULL \n");
-		return FALSE;
-	}
-	multimap<unsigned long, unsigned long, less<unsigned long> >::iterator ditr1, ditr2, itrend;
-	ditr1 = res_impr_dih_map.lower_bound( (unsigned long) pres );
-	ditr2 = res_impr_dih_map.upper_bound( (unsigned long) pres );
-	int icount = res_impr_dih_map.count( (unsigned long) pres );
-
-	itrend = res_impr_dih_map.end();
-
-	if(ditr1 == itrend)
-	{
-		return 0;
-	}
-
-    icount = 0;
-
-	for(; ditr1 != ditr2; ditr1++)
-	{
-		MMDihedral* ptr_idih = &ImprDihedrals[(*ditr1).second];
-		res_idih_list.push_back( ptr_idih);
-		icount++;
-	}
-	return icount;
-}
-
 int MolMechModel::Set14interDihFlags()
 {
 	AtomAtomMultiMap forbid_14_map;
+	AtomAtomMultiMap forbid_14_map_mut;
 	
-	set<MMBond, less<MMBond> >::iterator bitr;
-
-	for(bitr = MBonds.begin(); bitr != MBonds.end(); bitr++)
+	for(const MMBond& bnd : MBonds)
 	{
-		MMBond& bnd = (MMBond&)(*bitr);
-
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 		AtomAtomMultiMap::value_type p(pt1,pt2);
@@ -978,22 +1086,41 @@ int MolMechModel::Set14interDihFlags()
 		forbid_14_map.insert(p2);
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator vitr;
-	for( vitr = ValAngles.begin(); vitr != ValAngles.end(); vitr++)
+	for (const MMBond& bnd : MBonds_mut)
 	{
-		HaAtom* pt1 = (*vitr).pt1;
-		HaAtom* pt3 = (*vitr).pt3;
+		HaAtom* pt1 = bnd.pt1;
+		HaAtom* pt2 = bnd.pt2;
+		AtomAtomMultiMap::value_type p(pt1, pt2);
+		forbid_14_map_mut.insert(p);
+		AtomAtomMultiMap::value_type p2(pt2, pt1);
+		forbid_14_map_mut.insert(p2);
+	}
+
+	for( const MMValAngle& va : ValAngles)
+	{
+		HaAtom* pt1 = va.pt1;
+		HaAtom* pt3 = va.pt3;
 		AtomAtomMultiMap::value_type p(pt1,pt3);
 		forbid_14_map.insert(p);
 		AtomAtomMultiMap::value_type p2(pt3,pt1);
 		forbid_14_map.insert(p2);
 	}
 
-	vector<MMDihedral>::iterator ditr;
-	for( ditr = Dihedrals.begin(); ditr != Dihedrals.end(); ditr++)
+	for (const MMValAngle& va : ValAngles_mut)
 	{
-		HaAtom* pt1 = (*ditr).pt1;
-		HaAtom* pt4 = (*ditr).pt4;
+		HaAtom* pt1 = va.pt1;
+		HaAtom* pt3 = va.pt3;
+		AtomAtomMultiMap::value_type p(pt1, pt3);
+		forbid_14_map_mut.insert(p);
+		AtomAtomMultiMap::value_type p2(pt3, pt1);
+		forbid_14_map_mut.insert(p2);
+	}
+
+	for( shared_ptr<MMDihedral> sp_dih : Dihedrals)
+	{
+		HaAtom* pt1 = sp_dih->pt1;
+		HaAtom* pt4 = sp_dih->pt4;
+
 		AtomAtomMultiMap::iterator ditr1, ditr2;
 		ditr1 = forbid_14_map.lower_bound(pt1);
 		ditr2 = forbid_14_map.upper_bound(pt1);
@@ -1007,9 +1134,9 @@ int MolMechModel::Set14interDihFlags()
 				break;
 			}
 		}
-		if( do_14 )
+		if( do_14 ) // only one dihedral with given 1-4 atom pair will have calc_14 flag set to true
 		{
-			(*ditr).calc_14 = true;
+			sp_dih->calc_14 = true;
 			AtomAtomMultiMap::value_type p(pt1,pt4);
 			forbid_14_map.insert(p);
 			AtomAtomMultiMap::value_type p2(pt4,pt1);
@@ -1017,7 +1144,39 @@ int MolMechModel::Set14interDihFlags()
 		}
 		else
 		{
-			(*ditr).calc_14 = false;
+			sp_dih->calc_14 = false;
+		}
+	}
+
+	for (shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
+	{
+		HaAtom* pt1 = sp_dih->pt1;
+		HaAtom* pt4 = sp_dih->pt4;
+
+		AtomAtomMultiMap::iterator ditr1, ditr2;
+		ditr1 = forbid_14_map_mut.lower_bound(pt1);
+		ditr2 = forbid_14_map_mut.upper_bound(pt1);
+
+		bool do_14 = true;
+		for (; ditr1 != ditr2; ditr1++)
+		{
+			if ((*ditr1).second == pt4)
+			{
+				do_14 = false;
+				break;
+			}
+		}
+		if (do_14) // only one dihedral with given 1-4 atom pair will have calc_14 flag set to true
+		{
+			sp_dih->calc_14 = true;
+			AtomAtomMultiMap::value_type p(pt1, pt4);
+			forbid_14_map_mut.insert(p);
+			AtomAtomMultiMap::value_type p2(pt4, pt1);
+			forbid_14_map_mut.insert(p2);
+		}
+		else
+		{
+			sp_dih->calc_14 = false;
 		}
 	}
 	return True;
@@ -1114,8 +1273,7 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 
 	PrintLog("Set OPEP Dihedral Angles params \n");
 
-	vector<MMDihedral>::iterator daitr;
-	for( daitr = Dihedrals.begin(); daitr != Dihedrals.end(); daitr++)
+	for( shared_ptr<MMDihedral> daitr : Dihedrals)
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;
@@ -1431,8 +1589,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Dihedral Angles params \n");
 
-	vector<MMDihedral>::iterator daitr;
-	for( daitr = Dihedrals.begin(); daitr != Dihedrals.end(); daitr++)
+	for( shared_ptr<MMDihedral> daitr : Dihedrals )
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;
@@ -2363,9 +2520,8 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 	
-	vector<MMDihedral>::iterator lditr;
 
-	for( lditr = Dihedrals.begin(); lditr != Dihedrals.end(); lditr++)
+	for( shared_ptr<MMDihedral> lditr : Dihedrals )
 	{
 		MMDihedral& dih = *lditr;
 
@@ -2421,7 +2577,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for( lditr = ImprDihedrals.begin(); lditr != ImprDihedrals.end(); lditr++)
+	for( shared_ptr<MMDihedral> lditr : ImprDihedrals)
 	{
 		MMDihedral& dih = *lditr;
 		
@@ -2509,7 +2665,7 @@ int MolMechModel::SetStdVdWParams()
 	return TRUE;
 }	
 
-int MolMechModel::AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIntMap& atoms_idx)
+int MolMechModel::AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIntMap& atoms_idx, bool mutated_state )
 {
 	if( aptr1== NULL || aptr2 == NULL) return FALSE;
 
@@ -2519,8 +2675,16 @@ int MolMechModel::AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIn
 	int ipt1 = atoms_idx[aptr1];
 	int ipt2 = atoms_idx[aptr2];
 			
-	if( ipt2 > ipt1 ) excluded_atom_list[ipt1].insert(aptr2);
-	if( ipt1 > ipt2 ) excluded_atom_list[ipt2].insert(aptr1);
+	if (mutated_state)
+	{
+		if (ipt2 > ipt1) excluded_atom_list_mut[ipt1].insert(aptr2);
+		if (ipt1 > ipt2) excluded_atom_list_mut[ipt2].insert(aptr1);
+	}
+	else
+	{
+		if (ipt2 > ipt1) excluded_atom_list[ipt1].insert(aptr2);
+		if (ipt1 > ipt2) excluded_atom_list[ipt2].insert(aptr1);
+	}
 
 	return TRUE;
 }
@@ -2529,10 +2693,13 @@ int MolMechModel::AddAtomsToExcludedAtomList(HaAtom* aptr1, HaAtom* aptr2, PtrIn
 bool MolMechModel::BuildExcludedAtomList()
 {
 	excluded_atom_list.clear();
-
+	excluded_atom_list_mut.clear();
+	
 	int nn = Atoms.size();
-	set<HaAtom*, less<HaAtom*> > tmp_set;
+	set<HaAtom*> tmp_set;
+
 	excluded_atom_list.resize(nn,tmp_set);
+	excluded_atom_list_mut.resize(nn, tmp_set);
 
 	PtrIntMap pt_indx_map;
 	
@@ -2541,42 +2708,51 @@ bool MolMechModel::BuildExcludedAtomList()
 	{
 		pt_indx_map[ Atoms[i] ] = i;
 	}
+
 // include into the excluded list atoms separated by one, two or
 // three bonds
 // 
-
-	set<MMBond, less<MMBond> >::iterator mbitr;
-
-	for(mbitr = MBonds.begin(); mbitr != MBonds.end(); mbitr++ )
+	for(const MMBond& bond : MBonds )
 	{
-		MMBond& bond = (MMBond&) *mbitr;
-
-		AddAtomsToExcludedAtomList(bond.pt1, bond.pt2,pt_indx_map);
+		AddAtomsToExcludedAtomList(bond.pt1, bond.pt2, pt_indx_map);
 	}
-	
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr;
-
-	for( vaitr = ValAngles.begin(); vaitr != ValAngles.end(); vaitr++)
+	for (const MMBond& bond : MBonds_mut)
 	{
-		MMValAngle& vang = (MMValAngle&) *vaitr;
+		AddAtomsToExcludedAtomList(bond.pt1, bond.pt2, pt_indx_map, true);
+	}
 
+	for(const MMValAngle& vang : ValAngles)
+	{
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt2,pt_indx_map);
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt3,pt_indx_map);
 		AddAtomsToExcludedAtomList(vang.pt2, vang.pt3,pt_indx_map);
 	}
-	
-	vector<MMDihedral>::iterator ditr;
-	
-	for(ditr = Dihedrals.begin(); ditr != Dihedrals.end(); ditr++ )
+
+	for (const MMValAngle& vang : ValAngles_mut)
 	{
-		MMDihedral& dang = *ditr;
+		AddAtomsToExcludedAtomList(vang.pt1, vang.pt2, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(vang.pt1, vang.pt3, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(vang.pt2, vang.pt3, pt_indx_map, true);
+	}
 		
-		AddAtomsToExcludedAtomList(dang.pt1, dang.pt2,pt_indx_map);
-		AddAtomsToExcludedAtomList(dang.pt1, dang.pt3,pt_indx_map);
-		AddAtomsToExcludedAtomList(dang.pt1, dang.pt4,pt_indx_map);
-		AddAtomsToExcludedAtomList(dang.pt2, dang.pt3,pt_indx_map);
-		AddAtomsToExcludedAtomList(dang.pt2, dang.pt4,pt_indx_map);
-		AddAtomsToExcludedAtomList(dang.pt3, dang.pt4,pt_indx_map);
+	for( shared_ptr<MMDihedral> sp_dih: Dihedrals)
+	{	
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt2,pt_indx_map);
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt3,pt_indx_map);
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt4,pt_indx_map);
+		AddAtomsToExcludedAtomList(sp_dih->pt2, sp_dih->pt3,pt_indx_map);
+		AddAtomsToExcludedAtomList(sp_dih->pt2, sp_dih->pt4,pt_indx_map);
+		AddAtomsToExcludedAtomList(sp_dih->pt3, sp_dih->pt4,pt_indx_map);
+	}
+
+	for (shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
+	{
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt2, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt3, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt4, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(sp_dih->pt2, sp_dih->pt3, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(sp_dih->pt2, sp_dih->pt4, pt_indx_map, true);
+		AddAtomsToExcludedAtomList(sp_dih->pt3, sp_dih->pt4, pt_indx_map, true);
 	}
 
 	vector<AtomContact>::iterator vdw_itr;
@@ -2597,6 +2773,8 @@ bool MolMechModel::BuildExcludedAtomList()
 bool MolMechModel::BuildNonBondContactList()
 {
 	nonbond_contact_list.clear();
+	nonbond_contact_list_mut.clear();
+
 	int i,j;
 	int nn = Atoms.size();
 
@@ -2607,8 +2785,17 @@ bool MolMechModel::BuildNonBondContactList()
 		return false;
 	}
 
+	if (excluded_atom_list_mut.size() != nn)
+	{
+		ErrorInMod("MolMechModel::BuildNonBondContactList()",
+			"The size of mutated state excluded atom list is not equal to the number of Atoms");
+		return false;
+	}
+
 	double cut2= nb_cut_dist * nb_cut_dist;
 	nonbond_contact_list.resize(nn);
+	nonbond_contact_list_mut.resize(nn);
+
 	for(i = 0 ; i < nn-1; i++)
 	{
 		HaAtom* pt = Atoms[i];
@@ -2616,7 +2803,8 @@ bool MolMechModel::BuildNonBondContactList()
 		double y1 = pt->GetY();
 		double z1 = pt->GetZ();
 
-        set<HaAtom*, less<HaAtom*> >& pt_nonb_contact_list = nonbond_contact_list[i];
+        set<HaAtom*>& pt_nonb_contact_list = nonbond_contact_list[i];
+		set<HaAtom*>& pt_nonb_contact_list_mut = nonbond_contact_list_mut[i];
 		for(j = i+1; j < nn; j++)
 		{
 			HaAtom* pt2 = Atoms[j];
@@ -2634,14 +2822,16 @@ bool MolMechModel::BuildNonBondContactList()
 				continue;
 
 			pt_nonb_contact_list.insert(pt2);
+			pt_nonb_contact_list_mut.insert(pt2);
 		}
 
-		set<HaAtom*, less<HaAtom*> >::iterator si_itr;
-
-		for(si_itr =  excluded_atom_list[i].begin();
-			si_itr != excluded_atom_list[i].end(); si_itr++)
+		for(HaAtom* aptr: excluded_atom_list[i])
 		{
-			pt_nonb_contact_list.erase(*si_itr);
+			pt_nonb_contact_list.erase(aptr);
+		}
+		for (HaAtom* aptr : excluded_atom_list_mut[i])
+		{
+			pt_nonb_contact_list_mut.erase(aptr);
 		}
 	}
 	return true;

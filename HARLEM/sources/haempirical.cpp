@@ -6872,8 +6872,7 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 
 	PrintLog("Set OPEP Dihedral Angles params \n");
 
-	vector<MMDihedral>::iterator daitr;
-	for( daitr = MolMechModule->p_mm_model->Dihedrals.begin(); daitr != MolMechModule->p_mm_model->Dihedrals.end(); daitr++)
+	for( shared_ptr<MMDihedral> daitr : MolMechModule->p_mm_model->Dihedrals)
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;

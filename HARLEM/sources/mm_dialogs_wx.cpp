@@ -1482,7 +1482,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
           nel = ptr_mm_mod->p_mm_model->Dihedrals.size();
 		  for( i=0; i < nel; i++)
 		  {
-			  MMDihedral* pdih = &ptr_mm_mod->p_mm_model->Dihedrals[i];
+			  MMDihedral* pdih = ptr_mm_mod->p_mm_model->Dihedrals[i].get();
 			  if(pdih->pt2->Selected() && pdih->pt3->Selected())
 			  {
 				  mref = HaAtom::ATOMREF_FULL;
@@ -1495,7 +1495,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
                   mref = adjust_ref_mode(pdih->pt3,pdih->pt4);
 				  pdih->pt4->FillRef(buf,mref); rec += buf; 
 				  elem_list->Append(rec.c_str());
-				  elem_list->SetClientData( idx , (void*)pdih );
+				  elem_list->SetClientData( idx , (void*) pdih );
 				  idx++;
 			  }
 		  }
@@ -1507,7 +1507,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 		  int idx = 0;
 		  for( i=0; i < nel; i++)
 		  {
-			  MMDihedral* pdih = &ptr_mm_mod->p_mm_model->ImprDihedrals[i];
+			  MMDihedral* pdih = ptr_mm_mod->p_mm_model->ImprDihedrals[i].get();
 			  if(pdih->pt2->Selected() || pdih->pt3->Selected())
 			  {
 				  mref = HaAtom::ATOMREF_FULL;

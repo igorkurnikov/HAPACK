@@ -1034,9 +1034,7 @@ int HaMolMechMod::CalcEnergySimple()
 		}
 	}
 
-	vector<MMDihedral>::iterator ditr;
-
-	for( ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end(); ditr++)
+	for( shared_ptr<MMDihedral>ditr : p_mm_model->Dihedrals )
 	{
 		pt1 = (*ditr).pt1;
 		pt2 = (*ditr).pt4;
@@ -1400,11 +1398,11 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			vitr++;
 	}
 
-	vector<MMDihedral>::iterator ditr;
-	for( ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end(); )
+	
+	for( auto ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end();)
 	{
-		if( pt_set.IsMember( (*ditr).pt1 ) || pt_set.IsMember( (*ditr).pt2 ) ||
-			pt_set.IsMember( (*ditr).pt3 ) || pt_set.IsMember( (*ditr).pt4 ) )
+		if( pt_set.IsMember( (*ditr)->pt1 ) || pt_set.IsMember( (*ditr)->pt2 ) ||
+			pt_set.IsMember( (*ditr)->pt3 ) || pt_set.IsMember( (*ditr)->pt4 ) )
 		{
 			ditr = p_mm_model->Dihedrals.erase( ditr );
 		}
@@ -1412,10 +1410,10 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			ditr++;
 	}
 
-	for( ditr = p_mm_model->ImprDihedrals.begin(); ditr != p_mm_model->ImprDihedrals.end(); )
+	for( auto ditr = p_mm_model->ImprDihedrals.begin(); ditr != p_mm_model->ImprDihedrals.end(); )
 	{
-		if( pt_set.IsMember( (*ditr).pt1 ) || pt_set.IsMember( (*ditr).pt2 ) ||
-			pt_set.IsMember( (*ditr).pt3 ) || pt_set.IsMember( (*ditr).pt4 ) )
+		if( pt_set.IsMember( (*ditr)->pt1 ) || pt_set.IsMember( (*ditr)->pt2 ) ||
+			pt_set.IsMember( (*ditr)->pt3 ) || pt_set.IsMember( (*ditr)->pt4 ) )
 		{
 			ditr = p_mm_model->ImprDihedrals.erase( ditr );
 		}

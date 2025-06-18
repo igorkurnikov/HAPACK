@@ -5246,18 +5246,23 @@ void ResidueParamsDlgWX::OnInitDialog()
 
 	res_name_check = (wxCheckBox*) FindWindow(IDC_EDTRES_NAME);
 	res_name_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp,this);
+	res_name_check->SetValue(true);
 
 	res_name_modifier_check = (wxCheckBox*) FindWindow(IDC_EDTRES_MODIFIER);
 	res_name_modifier_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+	res_name_modifier_check->SetValue(true);
 
 	res_num_check = (wxCheckBox*) FindWindow(IDC_EDTRES_RES_NUM);
 	res_num_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+	res_num_check->SetValue(true);
 
 	chain_check = (wxCheckBox*) FindWindow(IDC_EDTRES_CHAIN);
 	chain_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+	chain_check->SetValue(true);
 
 	mutation_check = (wxCheckBox*)FindWindow(IDC_EDTRES_MUT_RES);
 	mutation_check->Bind(wxEVT_CHECKBOX, &ResidueParamsDlgWX::OnChangeProp, this);
+	mutation_check->SetValue(true);
 
 	residue_grid->Bind(wxEVT_GRID_SELECT_CELL, &ResidueParamsDlgWX::OnSelectResidueRow, this);
 
@@ -5394,13 +5399,13 @@ void ResidueParamsDlgWX::FillResidueGrid()
 
 		if( n_res_name >= 0 )
 		{
-			std::string ss = (boost::format("%s") % pres->GetName()).str();
+			std::string ss = pres->GetName();
 			residue_grid->SetCellValue(itm, n_res_name, ss); 
 		}
 
 		if( n_res_name_modifier >= 0 )
 		{
-			std::string ss = (boost::format("%s") % pres->NameModifier).str();
+			std::string ss = pres->NameModifier;
 			residue_grid->SetCellValue(itm, n_res_name_modifier, ss); 
 		}
 
@@ -5413,7 +5418,7 @@ void ResidueParamsDlgWX::FillResidueGrid()
 		if( n_chain_name >= 0 )
 		{
 			HaChain* chain = pres->GetHostChain();
-			std::string ss = (boost::format("%c") % chain->ident).str();
+			std::string ss = std::string(1, chain->ident);
 			residue_grid->SetCellValue(itm, n_chain_name, ss); 
 		}
 
@@ -5422,9 +5427,9 @@ void ResidueParamsDlgWX::FillResidueGrid()
 			std::string ss;
 			if (pres->IsAlchemicalTransformationSet())
 			{
-				ss = (boost::format("%s") % pres->p_res_transform->res_name_b).str();
+				ss = pres->p_res_transform->res_name_b;
 			}
-			residue_grid->SetCellValue(itm, n_chain_name, ss);
+			residue_grid->SetCellValue(itm, n_mutation, ss);
 		}
 	}
 	residue_grid->SetRowLabelSize((int)(max_lbl*8.5));
@@ -5597,16 +5602,7 @@ void ResidueParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 	}
 	if(icol == n_res_name_modifier)
 	{
-
-//		if(str_val.IsEmpty())
-//		{
-//			sprintf(buf,"%s", pres->NameModifier.c_str());
-//			residue_grid->SetCellValue(irow, icol, buf); 
-//		}
-//		else
-//		{
-			pres->SetNameModifier( str_val.ToStdString() );
-//		}
+		pres->SetNameModifier( str_val.ToStdString() );
 	}
 
 	if(icol == n_res_num)

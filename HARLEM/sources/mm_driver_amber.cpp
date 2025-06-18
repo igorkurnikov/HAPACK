@@ -7039,8 +7039,7 @@ int AmberMMModel::UpdateAmberData()
 
 	map<HaVec_double, int, less<HaVec_double> >::iterator ditr;
 
-	vector<MMDihedral>::iterator lditr;
-	vector<MMDihedral> *dih_list;
+	vector<shared_ptr<MMDihedral>> *dih_list;
 
 	for(int im= 0 ; im < 2; im++)
 	{
@@ -7048,7 +7047,7 @@ int AmberMMModel::UpdateAmberData()
 		if( im == 1)
 			dih_list = &p_mm_model->ImprDihedrals;
 
-		for( lditr = dih_list->begin(); lditr != dih_list->end(); lditr++)
+		for( shared_ptr<MMDihedral> lditr : *dih_list)
 		{
 			MMDihedral& dang = *lditr;
 			int nt = dang.GetNTerms();

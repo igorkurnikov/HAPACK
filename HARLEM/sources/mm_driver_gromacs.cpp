@@ -624,8 +624,7 @@ int MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, Ato
 	os << "[ pairs ]" << std::endl;
 	os << ";   ai     aj    funct" << std::endl;
 
-	vector<MMDihedral>::iterator ditr;
-	for( ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end(); ditr++)
+	for( shared_ptr<MMDihedral> ditr : p_mm_model->Dihedrals)
 	{
 		HaAtom* aptr1 = (HaAtom*) (*ditr).pt1;
 		HaAtom* aptr2 = (HaAtom*) (*ditr).pt4;
@@ -691,8 +690,7 @@ int MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, A
 	os << ";    i      j      k      l   func   phase     kd      pn" << std::endl;
 
 	int i;
-	std::vector<MMDihedral>::iterator ditr;		
-	for(ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end(); ditr++)
+	for( shared_ptr<MMDihedral> ditr : p_mm_model->Dihedrals)
 	{
 		MMDihedral& dih = (MMDihedral&)(*ditr);
 		
@@ -733,7 +731,7 @@ int MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, A
 	os << "[ dihedrals ] ; improper " << std::endl;		
 	os << ";    i      j      k      l   func   phase     kd      pn" << std::endl;
 	
-	for(ditr = p_mm_model->ImprDihedrals.begin(); ditr != p_mm_model->ImprDihedrals.end(); ditr++)
+	for(shared_ptr<MMDihedral> ditr : p_mm_model->ImprDihedrals )
 	{
 		MMDihedral& dih = (MMDihedral&)(*ditr);
 		

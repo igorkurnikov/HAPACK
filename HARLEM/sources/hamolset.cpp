@@ -1873,7 +1873,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		if( !p_mm_model->ImprDihedrals.empty())
 		{
 			os << "IMPROPER ANGLES" << std::endl;
-			for(iditr = p_mm_model->ImprDihedrals.begin(); iditr != p_mm_model->ImprDihedrals.end(); iditr++)
+			for(shared_ptr<MMDihedral> iditr : p_mm_model->ImprDihedrals )
 			{
 				MMDihedral& impr_dihedral = *iditr;
 				if( impr_dihedral.pt1 == NULL || impr_dihedral.pt2 == NULL || 
