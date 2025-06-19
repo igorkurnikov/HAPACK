@@ -35,11 +35,11 @@ public:
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
 
 	int SaveAtomTypesToStream(std::ostream& os);  //!< Save [ atomtypes ] section of GROMACS topology
-	int SaveAtomsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ atoms ] section of GROMACS topology 
-	int SaveBondsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ bonds ] section of GROMACS topology
-	int Save14PairsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ pairs ] section of GROMACS topology  ( pairs of atoms with 1-4 intramolecular interactions )
-	int SaveAnglesToStream   (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ angles ] section of GROMACS topology
-	int SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ dihedrals ] (proper & improper) section of GROMACS topology
+	bool SaveAtomsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ atoms ] section of GROMACS topology 
+	bool SaveBondsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ bonds ] section of GROMACS topology
+	bool Save14PairsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ pairs ] section of GROMACS topology  ( pairs of atoms with 1-4 intramolecular interactions )
+	bool SaveAnglesToStream   (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ angles ] section of GROMACS topology
+	bool SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ dihedrals ] (proper & improper) section of GROMACS topology
 
 	std::string inp_fname;
 	std::string top_fname;

@@ -560,13 +560,22 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 		return TRUE;
 }
 
-int MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
-{
-	char buf[256];
-		
-	os << "[ atoms ]" << std::endl;
-	os << ";   nr  type   resi  res  atom    cgnr     charge      mass       ; qtot   bond_type" << std::endl;
+bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
+{		
+	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+
+	os << "[ atoms ]\n";
+	if (has_mut_atoms)
+	{
+		os << ";   nr       type  resnr residue  atom   cgnr     charge       mass              typeB    chargeB     massB \n";
+	}
+	else
+	{
+		os << ";   nr  type   resi  res  atom    cgnr     charge      mass       ; qtot   bond_type \n";
+	}
+
 	double qtot = 0.0;
+	double qtot_mut = 0.0;
 	for( HaAtom* aptr: group )
 	{
 		std::string atn = aptr->GetName();
@@ -577,22 +586,51 @@ int MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomI
 		std::string res_name = pres->GetName();
 		int resi = pres->GetSerNo();
 		qtot += ch;
-		int idx = at_idx_map[aptr] + 1;
-		sprintf(buf,"%6d %5s%6d %5s %5s %6d %12.6f %12.6f ; qtot %7.3f ",idx,ff_s.c_str(),resi,res_name.c_str(),atn.c_str(),idx,ch,mass,qtot);
-		os << buf << std::endl;
-	}
-	os << "  " << std::endl;
 
+		std::string ff_s_mut = ff_s;
+		double ch_mut = ch;
+		double mass_mut = mass;
+		
+		if (p_mm_model->atom_mut_params.count(aptr) > 0)
+		{
+			ff_s_mut = p_mm_model->atom_mut_params[aptr]->ff_symbol;
+			ch_mut   = p_mm_model->atom_mut_params[aptr]->GetCharge();
+			//mass_mut = p_mm_model->atom_mut_params[aptr]  //  IGOR_TMP FIX!
+		}
+		qtot_mut += ch_mut;
+
+		int idx = at_idx_map[aptr] + 1;
+		os << boost::format("%6d %5s %6d %5s %5s %6d %12.6f %12.6f ") % idx % ff_s % resi % res_name % atn % idx % ch % mass;
+		if (has_mut_atoms)
+		{
+			os << boost::format("%5s %12.6f %12.6f ") % ff_s_mut % ch_mut % mass_mut;
+		}
+		os << boost::format("; qtot %7.3f ") % qtot;
+		if (has_mut_atoms)
+		{
+			os << boost::format("; qtot_mut %7.3f ") % qtot_mut;
+		}
+		os << "\n";
+	}
+	os << "  " << "\n";
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
+bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	char buf[256];
-	os << "[ bonds ]" << std::endl;
-	os << ";   ai     aj funct   r             k   " << std::endl;
+	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
 
-	set<MMBond, less<MMBond> >::iterator mbitr = p_mm_model->MBonds.begin();
+	os << "[ bonds ]\n";
+	if(has_mut_atoms)
+	{ 
+		os << ";   ai     aj funct   r1            k1    r2            k2\n";
+	}
+	else
+	{
+		os << ";   ai     aj funct   r             k   \n";
+	}
+
+	set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
 	for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
 	{
 		MMBond& bnd = (MMBond&) *mbitr;		
@@ -602,54 +640,108 @@ int MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomI
 		if( at_idx_map.count(aptr1) == 0 ) continue;
 		if( at_idx_map.count(aptr2) == 0 ) continue;
 
-		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
-		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
+		const int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
+		const int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
 
-		double r0 = bnd.r0 * 0.1; // Ang -> nm
-		double fc = bnd.fc*4.184*4.184*100; // kcal/mol/Ang^2  ->kJ/nm^2
+		const double r0 = bnd.r0 * 0.1; // Ang -> nm
+		const double fc = bnd.fc*4.184*4.184*100; // kcal/mol/Ang^2  ->kJ/nm^2
 
 		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 
-		sprintf(buf,"%6d  %6d   1 %14.4e%14.4e ; %s - %s ",idx1,idx2, r0,fc, at_lbl_1.c_str(), at_lbl_2.c_str());
-		os << buf << std::endl;
+		os << boost::format("%6d  %6d   1 %14.4e%14.4e ") % idx1 % idx2 % r0 % fc;
+		if (has_mut_atoms)
+		{
+			auto mbitr_mut = p_mm_model->MBonds_mut.find(bnd);
+			if (mbitr_mut != p_mm_model->MBonds_mut.end())
+			{
+				const double r0_m = mbitr_mut->r0 * 0.1; // Ang -> nm
+				const double fc_m = mbitr_mut->fc * 4.184 * 4.184 * 100; // kcal/mol/Ang^2  ->kJ/nm^2
+				os << boost::format(" %14.4e%14.4e ") % r0_m % fc_m;
+			}
+			else
+			{
+				os << boost::format(" %14.4e%14.4e ") % r0 % fc;
+			}
+		}
+		os << boost::format("; %s - %s \n") % at_lbl_1, at_lbl_2;
 	}
-	os << "  " << std::endl;
-	return TRUE;
-}
 
-int MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
-{
-	char buf[256];
-	os << "[ pairs ]" << std::endl;
-	os << ";   ai     aj    funct" << std::endl;
-
-	for( shared_ptr<MMDihedral> ditr : p_mm_model->Dihedrals)
+	if (has_mut_atoms)
 	{
-		HaAtom* aptr1 = (HaAtom*) (*ditr).pt1;
-		HaAtom* aptr2 = (HaAtom*) (*ditr).pt4;
+		for (; mbitr != p_mm_model->MBonds_mut.end(); mbitr++)  // Mutated bonds not found in p_mm_model->MBonds
+		{
+			MMBond& bnd_m = (MMBond&)*mbitr;
+			HaAtom* aptr1 = (HaAtom*)bnd_m.pt1;
+			HaAtom* aptr2 = (HaAtom*)bnd_m.pt2;
 
-		if( at_idx_map.count(aptr1) == 0 ) continue;
-		if( at_idx_map.count(aptr2) == 0 ) continue;
+			if (at_idx_map.count(aptr1) == 0) continue;
+			if (at_idx_map.count(aptr2) == 0) continue;
 
-		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
-		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
+			const int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
+			const int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
 
-		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+			const double r0 = bnd_m.r0 * 0.1; // Ang -> nm
+			const double fc = bnd_m.fc * 4.184 * 4.184 * 100; // kcal/mol/Ang^2  ->kJ/nm^2
 
-		sprintf(buf,"%6d  %6d  1 ; %s - %s ",idx1,idx2, at_lbl_1.c_str(), at_lbl_2.c_str());
-		os << buf << std::endl;
+			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+
+			os << boost::format("%6d  %6d   1 %14.4e%14.4e %14.4e%14.4e") % idx1 % idx2 % r0 % fc % r0 % fc;
+			os << boost::format("; %s - %s \n") % at_lbl_1, at_lbl_2;
+		}
 	}
-	os << "  " << std::endl;
-	return TRUE;
+
+	os << "  \n";
+	return true;
 }
 
-int MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
+bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	char buf[256];
-	os << "[ angles ]" << std::endl;
-	os << ";   ai     aj     ak    funct   theta         cth " << std::endl;
+	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	int im = -1;
+	for (auto* p_dih_list : {&(p_mm_model->Dihedrals), &(p_mm_model->Dihedrals_mut)} )
+	{
+		im++;
+		if (im == 1 && !has_mut_atoms) continue;
+
+		os << "[ pairs ]\n";
+		os << ";   ai     aj    funct\n";
+
+		for (shared_ptr<MMDihedral> ditr : *p_dih_list )
+		{
+			HaAtom* aptr1 = ditr->pt1;
+			HaAtom* aptr2 = ditr->pt4;
+
+			if (at_idx_map.count(aptr1) == 0) continue;
+			if (at_idx_map.count(aptr2) == 0) continue;
+
+			int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
+			int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
+
+			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+
+			os << boost::format("%6d  %6d  1 ; %s - %s \n") % idx1 % idx2 % at_lbl_1 % at_lbl_2;
+		}
+		os << " \n";
+	}
+	return true;
+}
+
+bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
+{
+	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+
+	os << "[ angles ] \n";
+	if (has_mut_atoms)
+	{
+		os << ";   ai     aj     ak    funct   theta1        k1    theta2    k2\n";
+	}
+	else
+	{
+		os << ";   ai     aj     ak    funct   theta         k \n";
+	}
 
 	set<MMValAngle, less<MMValAngle> >::iterator vaitr = p_mm_model->ValAngles.begin();
 	for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
@@ -675,99 +767,209 @@ int MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Atom
 		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
 
-		sprintf(buf,"%6d %6d %6d  1  %14.4e%14.4e; %s - %s - %s ",idx1,idx2,idx3, a0,fc,at_lbl_1.c_str(), at_lbl_2.c_str(),at_lbl_3.c_str());
-		os << buf << std::endl;
-	}
-	os << "  " << std::endl;
-	return TRUE;
-}
-
-int MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
-{
-	char buf[256];
-	
-	os << "[ dihedrals ] ; proper " << std::endl;
-	os << ";    i      j      k      l   func   phase     kd      pn" << std::endl;
-
-	int i;
-	for( shared_ptr<MMDihedral> ditr : p_mm_model->Dihedrals)
-	{
-		MMDihedral& dih = (MMDihedral&)(*ditr);
-		
-		std::vector<double> pk = dih.pk;
-		std::vector<double> pn = dih.pn;
-		std::vector<double> phase = dih.phase;
-
-		HaAtom* aptr1 = (HaAtom*) dih.pt1;
-		HaAtom* aptr2 = (HaAtom*) dih.pt2;
-		HaAtom* aptr3 = (HaAtom*) dih.pt3;
-		HaAtom* aptr4 = (HaAtom*) dih.pt4;
-
-		if( at_idx_map.count(aptr1) == 0 ) continue;
-		if( at_idx_map.count(aptr2) == 0 ) continue;
-		if( at_idx_map.count(aptr3) == 0 ) continue;
-		if( at_idx_map.count(aptr4) == 0 ) continue;
-
-		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
-		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
-		int idx3 = at_idx_map[aptr3]+1;  // convert to 1-based index
-		int idx4 = at_idx_map[aptr4]+1;  // convert to 1-based index
-
-		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_4 = aptr4->GetRef(HaAtom::ATOMREF_STD);
-
-		for( i = 0; i < pk.size(); i++)
+		os << boost::format("%6d %6d %6d  1 %14.4e%14.4e ") % idx1 % idx2 % idx3 % a0 % fc;
+		if (has_mut_atoms)
 		{
-			pk[i] *= 4.184;
-			sprintf(buf,"%6d %6d %6d %6d   1  %14.4e%14.4e %2.0f  ; %s - %s - %s - %s ",idx1,idx2,idx3,idx4, phase[i], pk[i], pn[i], 
-				at_lbl_1.c_str(), at_lbl_2.c_str(),at_lbl_3.c_str(),at_lbl_4.c_str());
-			os << buf << std::endl;
+			auto vitr_mut = p_mm_model->ValAngles_mut.find(ang);
+			if (vitr_mut != p_mm_model->ValAngles_mut.end())
+			{
+				const double a0_m = vitr_mut->a0; // degrees
+				const double fc_m = vitr_mut->fc * 4.184; // kJ/rad^2  ??
+				os << boost::format(" %14.4e%14.4e ") % a0_m % fc_m;
+			}
+			else
+			{
+				os << boost::format(" %14.4e%14.4e ") % a0 % fc;
+			}
+		}
+		os << boost::format("; %s - %s - %s \n") % at_lbl_1, at_lbl_2, at_lbl_3;
+	}
+
+	if (has_mut_atoms)
+	{
+		for (; vaitr != p_mm_model->ValAngles_mut.end(); vaitr++)  // Mutated Valence Angles not found in p_mm_model->ValAngles
+		{
+			MMValAngle& ang_m = (MMValAngle&)(*vaitr);
+
+			double a0 = ang_m.a0;
+			double fc = ang_m.fc * 4.184;
+
+			HaAtom* aptr1 = (HaAtom*)ang_m.pt1;
+			HaAtom* aptr2 = (HaAtom*)ang_m.pt2;
+			HaAtom* aptr3 = (HaAtom*)ang_m.pt3;
+
+			if (at_idx_map.count(aptr1) == 0) continue;
+			if (at_idx_map.count(aptr2) == 0) continue;
+			if (at_idx_map.count(aptr3) == 0) continue;
+
+			const int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
+			const int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
+			const int idx3 = at_idx_map[aptr3] + 1;  // convert to 1-based index
+
+			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
+
+			os << boost::format("%6d %6d %6d  1 %14.4e%14.4e %14.4e%14.4e") % idx1 % idx2 % idx3 % a0 % fc % a0 % fc; 
+			os << boost::format("; %s - %s - %s \n") % at_lbl_1, at_lbl_2, at_lbl_3;
 		}
 	}
+	os << "  \n";
+
+	return true;
+}
+
+bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
+{
+	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+
+	os << "[ dihedrals ] ; proper dihedrals \n";
+	if (has_mut_atoms)
+	{
+		os << ";    i      j      k      l   func   phase     kd      pn   phase2     kd2      pn2";
+	}
+	else
+	{
+		os << ";    i      j      k      l   func   phase     kd      pn \n";
+	}
+
+	bool mutated_state = false;
+	for (auto* p_dih_list : { &(p_mm_model->Dihedrals),&(p_mm_model->Dihedrals_mut) })
+	{
+		for (shared_ptr<MMDihedral> ditr : *(p_dih_list))
+		{
+			MMDihedral& dih = (MMDihedral&)(*ditr);
+
+			std::vector<double> pk = dih.pk;
+			std::vector<double> pn = dih.pn;
+			std::vector<double> phase = dih.phase;
+
+			HaAtom* aptr1 = (HaAtom*)dih.pt1;
+			HaAtom* aptr2 = (HaAtom*)dih.pt2;
+			HaAtom* aptr3 = (HaAtom*)dih.pt3;
+			HaAtom* aptr4 = (HaAtom*)dih.pt4;
+
+			if (at_idx_map.count(aptr1) == 0) continue;
+			if (at_idx_map.count(aptr2) == 0) continue;
+			if (at_idx_map.count(aptr3) == 0) continue;
+			if (at_idx_map.count(aptr4) == 0) continue;
+
+			int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
+			int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
+			int idx3 = at_idx_map[aptr3] + 1;  // convert to 1-based index
+			int idx4 = at_idx_map[aptr4] + 1;  // convert to 1-based index
+
+			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_4 = aptr4->GetRef(HaAtom::ATOMREF_STD);
+
+			for (int i = 0; i < pk.size(); i++)
+			{
+				pk[i] *= 4.184;
+
+				os << boost::format("%6d %6d %6d %6d   1 ") % idx1 % idx2 % idx3 % idx4;
+				if (mutated_state)
+				{
+					double phase1 = 0.0;
+					double pk1 = 0.0;
+					double pn1 = 1.0;
+					os << boost::format(" %14.4e %14.4e %2.0f") % phase1 % pk1 % pn1;
+					if (has_mut_atoms)
+					{
+						os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					}
+				}
+				else
+				{
+					os << boost::format( " %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					if (has_mut_atoms)
+					{
+						double phase_mut = 0.0;
+						double pk_mut = 0.0;
+						double pn_mut = 1.0;
+						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
+					}				}
+				os << boost::format("; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+			}
+		}
+		mutated_state = true;
+	}
 	os << "  " << std::endl;
 
-	os << "[ dihedrals ] ; improper " << std::endl;		
-	os << ";    i      j      k      l   func   phase     kd      pn" << std::endl;
-	
-	for(shared_ptr<MMDihedral> ditr : p_mm_model->ImprDihedrals )
+	os << "[ dihedrals ] ; improper dihedrals \n";
+	if (has_mut_atoms)
 	{
-		MMDihedral& dih = (MMDihedral&)(*ditr);
-		
-		std::vector<double> pk = dih.pk;
-		std::vector<double> pn = dih.pn;
-		std::vector<double> phase = dih.phase;
-
-		HaAtom* aptr1 = (HaAtom*) dih.pt1;
-		HaAtom* aptr2 = (HaAtom*) dih.pt2;
-		HaAtom* aptr3 = (HaAtom*) dih.pt3;
-		HaAtom* aptr4 = (HaAtom*) dih.pt4;
-
-		if( at_idx_map.count(aptr1) == 0 ) continue;
-		if( at_idx_map.count(aptr2) == 0 ) continue;
-		if( at_idx_map.count(aptr3) == 0 ) continue;
-		if( at_idx_map.count(aptr4) == 0 ) continue;
-
-		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
-		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
-		int idx3 = at_idx_map[aptr3]+1;  // convert to 1-based index
-		int idx4 = at_idx_map[aptr4]+1;  // convert to 1-based index
-
-		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
-		std::string at_lbl_4 = aptr4->GetRef(HaAtom::ATOMREF_STD);
-
-		for( i = 0; i < pk.size(); i++)
-		{
-			pk[i] *= 4.184;
-			sprintf(buf,"%6d %6d %6d %6d   1  %14.4e%14.4e %2.0f  ; %s - %s - %s - %s ",idx1,idx2,idx3,idx4, phase[i], pk[i], pn[i], 
-				at_lbl_1.c_str(), at_lbl_2.c_str(),at_lbl_3.c_str(),at_lbl_4.c_str());
-			os << buf << std::endl;
-		}	
+		os << ";    i      j      k      l   func   phase     kd      pn  phase2     kd2      pn2 \n";
 	}
-			
+	else
+	{
+		os << ";    i      j      k      l   func   phase     kd      pn \n";
+	}
+	
+	mutated_state = false;
+	for (auto* p_dih_list : { &(p_mm_model->ImprDihedrals),&(p_mm_model->ImprDihedrals_mut) })
+	{
+		for (shared_ptr<MMDihedral> ditr : (*p_dih_list))
+		{
+			MMDihedral& dih = (MMDihedral&)(*ditr);
+
+			std::vector<double> pk = dih.pk;
+			std::vector<double> pn = dih.pn;
+			std::vector<double> phase = dih.phase;
+
+			HaAtom* aptr1 = (HaAtom*)dih.pt1;
+			HaAtom* aptr2 = (HaAtom*)dih.pt2;
+			HaAtom* aptr3 = (HaAtom*)dih.pt3;
+			HaAtom* aptr4 = (HaAtom*)dih.pt4;
+
+			if (at_idx_map.count(aptr1) == 0) continue;
+			if (at_idx_map.count(aptr2) == 0) continue;
+			if (at_idx_map.count(aptr3) == 0) continue;
+			if (at_idx_map.count(aptr4) == 0) continue;
+
+			int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
+			int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
+			int idx3 = at_idx_map[aptr3] + 1;  // convert to 1-based index
+			int idx4 = at_idx_map[aptr4] + 1;  // convert to 1-based index
+
+			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
+			std::string at_lbl_4 = aptr4->GetRef(HaAtom::ATOMREF_STD);
+
+			for (int i = 0; i < pk.size(); i++)
+			{
+				pk[i] *= 4.184;
+
+				os << boost::format("%6d %6d %6d %6d   1 ") % idx1 % idx2 % idx3 % idx4;
+				if (mutated_state)
+				{
+					double phase1 = 0.0;
+					double pk1 = 0.0;
+					double pn1 = 1.0;
+					os << boost::format(" %14.4e %14.4e %2.0f") % phase1 % pk1 % pn1;
+					if (has_mut_atoms)
+					{
+						os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					}
+				}
+				else
+				{
+					os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					if (has_mut_atoms)
+					{
+						double phase_mut = 0.0;
+						double pk_mut = 0.0;
+						double pn_mut = 1.0;
+						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
+					}
+				}
+				os << boost::format("; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+			}
+		}
+		mutated_state = true;
+	}
 	os << "  " << std::endl;
 	return TRUE;
 }
