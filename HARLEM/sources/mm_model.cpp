@@ -395,19 +395,19 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		{
 			res_mut_fname = pres->p_res_transform->res_name_b;
 			p_res_mut_templ = p_res_db->GetTemplateForResidue(res_mut_fname);
-			if (p_res_mut_templ)
+			if (!p_res_mut_templ)
 			{
 				PrintLog(" Can't find mutated residue template %s for residue %s\n",
-					res_fname.c_str(), pres->GetRef().c_str());
-				PrintLog(" No atom FF parameters will be set for atoms of the mutated residue \n");
+					res_mut_fname.c_str(), pres->GetRef().c_str());
+				PrintLog(" the mutated state of the residue will not be set\n");
 			}
 
 			p_res_mut_ff_templ = p_ff->GetResidueTemplate(res_mut_fname);
-			if (p_res_mut_ff_templ)
+			if (p_res_mut_templ && !p_res_mut_ff_templ)
 			{
-				PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n",
+				PrintLog(" Force field %s doesn't have specific parameters for residue name %s\n",
 					p_ff->GetFFType().label(), res_mut_fname.c_str());
-				PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", res_mut_fname.c_str(), pres->GetRef().c_str());
+				PrintLog(" FF parameters for mutated state of residue: %s will be set from residue template: %s \n", pres->GetRef().c_str(), res_mut_fname.c_str() );
 			}
 		}
 
@@ -483,7 +483,10 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 								//else if (host_ff_s == "CAM=") aptr->SetFFSymbol("C2"); // may be need a special atom type for terminating hydrogen
 							}
 						}
-						throw std::runtime_error((boost::format("Termination Atom %s is not Hydrogen \n") % aptr->GetRef() % aptr->GetRef()).str());
+						else
+						{
+							throw std::runtime_error((boost::format("Termination Atom %s is not Hydrogen \n") % aptr->GetRef()).str());
+						}
 					} // if Terminating hydrogens
 					else if (at_name.size() > 1 && at_name.compare(0, 2, "DA") == 0) // special rules for Dummy atoms in Mutating residues
 					{
@@ -508,17 +511,23 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 					if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
 				}
 
-				double charge = atempl->GetCharge();
-				double mass = atempl->GetMass();
-				std::string ff_symb = atempl->GetFFSymbol();
 
-				if (p_res_ff_templ != NULL)
+				double charge = atempl ? atempl->GetCharge() : 0.0;
+				double mass = atempl ? atempl->GetMass() : 4.0;
+				std::string ff_symb = atempl ? atempl->GetFFSymbol() : "DU";
+
+				if (atempl && p_res_ff_templ != NULL)
 				{
 					AtomFFParam* p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
-					if (p_at_ff == NULL) throw std::runtime_error(" Can't find atom force field paramters in residue template ");
-
-					charge = p_at_ff->GetCharge();
-					ff_symb = p_at_ff->ff_symbol;
+					if (p_at_ff != NULL)
+					{
+						charge = p_at_ff->GetCharge();
+						ff_symb = p_at_ff->ff_symbol;
+					}
+					else
+					{
+						PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef().c_str(), p_res_ff_templ->GetFullName().c_str());
+					}
 				}
 				aptr->SetFFSymbol(ff_symb);
 				aptr->SetCharge(charge);
@@ -555,26 +564,21 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			int i;
 			for (i = 0; i < n_impr; i++)
 			{
-				if (p_res_ff_templ->improper_dihedrals[i].size() != 4)
-				{
-					PrintLog(" Improper angle templates have number of atoms not equal 4 \n");
-					continue;
-				}
 				std::string at_ref = p_res_ff_templ->improper_dihedrals[i][0];
 				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
-				if (aptr1 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][1];
 				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
-				if (aptr2 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());;
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());;
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][2];
 				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
-				if (aptr3 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+				if (aptr3 == NULL) PrintLog(" Can't map atom \n", at_ref.c_str());
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][3];
 				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
-				if (aptr4 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+				if (aptr4 == NULL) PrintLog(" Can't map atom \n", at_ref.c_str());
 
 				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{
@@ -589,7 +593,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 		if (pres->IsAlchemicalTransformationSet() && p_res_mut_ff_templ)
 		{
-			int n_impr = p_res_mut_ff_templ->improper_dihedrals.size();
+			const int n_impr = p_res_mut_ff_templ->improper_dihedrals.size();
 			int i;
 			for (i = 0; i < n_impr; i++)
 			{
@@ -600,19 +604,19 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 				std::string at_ref = p_res_mut_ff_templ->improper_dihedrals[i][0];
 				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
-				if (aptr1 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][1];
 				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
-				if (aptr2 == NULL) PrintLog(" Can't map atom %s", at_ref.c_str());;
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());;
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][2];
 				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
-				if (aptr3 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+				if (aptr3 == NULL) PrintLog(" Can't map atom %s\n", at_ref.c_str());
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][3];
 				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
-				if (aptr4 == NULL) PrintLog(" Can't map atom ", at_ref.c_str());
+				if (aptr4 == NULL) PrintLog(" Can't map atom %s\n", at_ref.c_str());
 
 				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{
@@ -642,12 +646,11 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		return TRUE;
 	}
 
-	map<HaAtom*, list<HaAtom*>> conn_graph;      // Atom connection graph for the main state
-	map<HaAtom*, list<HaAtom*>> conn_graph_mut;  // Atom connection graph for the mutated state
+	map<HaAtom*, set<HaAtom*>> conn_graph;      // Atom connection graph for the main state
+	map<HaAtom*, set<HaAtom*>> conn_graph_mut;  // Atom connection graph for the mutated state
 
-	HaBond* bptr;
 	BondIteratorMolSet bitr(pmset);
-	for (bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())   // Set MM Bonds
+	for (HaBond* bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())   // Set MM Bonds
 	{
 		std::string ff_s1 = bptr->srcatom->GetFFSymbol();
 		std::string ff_s2 = bptr->dstatom->GetFFSymbol();
@@ -659,10 +662,21 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		if (ff_s1 == "DN" || ff_s2 == "DN") continue; // ignore dummy nitrogens
 		if (ff_s1 == "DO" || ff_s2 == "DO") continue; // ignore dummy oxygens
 
+
+		if (bptr->srcatom == bptr->dstatom)
+		{
+			PrintLog("A bond has the same source and destination atoms %s - %s ", bptr->srcatom->GetRef().c_str(), bptr->dstatom->GetRef().c_str());
+			continue;
+		}
+		if (conn_graph[bptr->srcatom].count(bptr->dstatom) > 0)
+		{
+			PrintLog("MolMechModel::InitModel() Atoms %s %s are already connected \n", bptr->srcatom->GetRef().c_str(), bptr->dstatom->GetRef().c_str());
+		}
+
 		SetMMBond(bptr->srcatom, bptr->dstatom, 0.0, 0.0, NOT_SET);
 
-		conn_graph[bptr->srcatom].push_back(bptr->dstatom);
-		conn_graph[bptr->dstatom].push_back(bptr->srcatom);
+		conn_graph[bptr->srcatom].insert(bptr->dstatom);
+		conn_graph[bptr->dstatom].insert(bptr->srcatom);
 	}
 
 	for (HaResidue* pres : ritr)   // Set MM Bonds for the Mutated state
@@ -673,10 +687,10 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			{
 				for (HaBond& bnd : pres->p_res_transform->bonds_b)
 				{
-					SetMMBond(bptr->srcatom, bptr->dstatom, 0.0, 0.0, NOT_SET, true);
+					SetMMBond(bnd.srcatom, bnd.dstatom, 0.0, 0.0, NOT_SET, true);
 
-					conn_graph[bnd.srcatom].push_back(bnd.dstatom);
-					conn_graph[bnd.dstatom].push_back(bnd.srcatom);
+					conn_graph_mut[bnd.srcatom].insert(bnd.dstatom);
+					conn_graph_mut[bnd.dstatom].insert(bnd.srcatom);
 				}
 			}
 		}
@@ -710,11 +724,10 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 				if (ph1 != nullptr & ph2 != nullptr)
 				{
-					auto itr = std::find(conn_graph[ph1].begin(), conn_graph[ph1].end(), ph2);
-					if (itr != conn_graph[ph1].end()) continue; // H1 - H2 bond in water in already present 
+					if (conn_graph[ph1].count(ph2) > 0) continue; // H1 - H2 bond in water in already present  
 					SetMMBond(ph1, ph2, 0.0, 0.0, NOT_SET);
-					conn_graph[ph1].push_back(ph2);
-					conn_graph[ph2].push_back(ph1);
+					conn_graph[ph1].insert(ph2);
+					conn_graph[ph2].insert(ph1);
 				}
 			}
 		}
@@ -722,11 +735,11 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 	for(HaAtom* pt: Atoms) // Fill Arrays of Valence Angles and Dihedrals
 	{
-		list<HaAtom*>::iterator itr1;
+		set<HaAtom*>::iterator itr1;
 		for( itr1 = conn_graph[pt].begin(); itr1 != conn_graph[pt].end(); itr1++) 
 		{
 			HaAtom* pt1 = *itr1;
-			list<HaAtom*>::iterator itr2;
+			set<HaAtom*>::iterator itr2;
 			for( itr2 = conn_graph[pt].begin() ; itr2 != itr1; itr2++)
 			{
 				HaAtom* pt2 = *itr2;
@@ -753,11 +766,11 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 	for (HaAtom* pt : Atoms) // Fill Arrays of Valence Angles and Dihedrals for the mutated state
 	{
-		list<HaAtom*>::iterator itr1;
+		set<HaAtom*>::iterator itr1;
 		for (itr1 = conn_graph_mut[pt].begin(); itr1 != conn_graph_mut[pt].end(); itr1++)
 		{
 			HaAtom* pt1 = *itr1;
-			list<HaAtom*>::iterator itr2;
+			set<HaAtom*>::iterator itr2;
 			for (itr2 = conn_graph_mut[pt].begin(); itr2 != itr1; itr2++)
 			{
 				HaAtom* pt2 = *itr2;
@@ -2432,6 +2445,17 @@ int MolMechModel::SetDistConstrFromFile( const char* constr_file_name )
 	return TRUE;
 }
 
+std::string MolMechModel::GetFFSymbolFromMolStruct(HaAtom* aptr)
+{
+	std::string ff_name = "DU";
+	AtomGroup bonded_atoms = aptr->GetBondedAtoms();
+	if (bonded_atoms.size() == 1) // so far only set rules for atoms with  one neighbor
+	{
+		HaAtom* aptr_host = bonded_atoms[0];
+		if (aptr_host->GetFFSymbol() == "CT") ff_name = "HT";
+	}
+	return ff_name;  
+}
 
 int MolMechModel::SetStdValParams()
 {
@@ -2443,11 +2467,6 @@ int MolMechModel::SetStdValParams()
 		return FALSE;
 	}
 
-	char buf1[256];
-	char buf2[256];
-	char buf3[256];
-	char buf4[256];
-
 	set<MMBond>::iterator mbitr = MBonds.begin();
 	for(; mbitr != MBonds.end(); mbitr++)
 	{
@@ -2455,9 +2474,15 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 
-		if( bnd.set_type <= SET_FF_FIELD)
+		if( bnd.set_type < SET_FF_FIELD)
 		{
-			HaVec_double bpar = p_ff->FindBondParamFromSymbol(pt1->GetFFSymbol(),pt2->GetFFSymbol());
+			std::string at1_ff_s = pt1->GetFFSymbol();
+			std::string at2_ff_s = pt2->GetFFSymbol();
+
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+
+			HaVec_double bpar = p_ff->FindBondParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str());
 			if( bpar.size() > 1 )
 			{
 				bnd.r0 = bpar[0];
@@ -2465,13 +2490,10 @@ int MolMechModel::SetStdValParams()
 				bnd.set_type = SET_FF_FIELD;
 				continue;
 			}
-				
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
 		
 			PrintLog("Can't find Force field parameters for a bond between atoms \n %s %s \n with FF symbols %s %s \n",
-				buf1, buf2, pt1->GetFFSymbol(),pt2->GetFFSymbol() );
-			PrintLog("Set Standard Parameters For the bond \n");
+				pt1->GetRef().c_str(),pt2->GetRef().c_str(), pt1->GetFFSymbol(), pt2->GetFFSymbol() );
+			PrintLog("Set Default Parameters For the bond based on Current Geometry \n");
 		
 			double mbdist = Vec3D::CalcDistance(pt1,pt2,ANGSTROM_U);
 
@@ -2481,19 +2503,23 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
+	mbitr = MBonds_mut.begin();
 	for (; mbitr != MBonds_mut.end(); mbitr++)
 	{
 		MMBond& bnd = (MMBond&)(*mbitr);
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 
-		if (bnd.set_type <= SET_FF_FIELD)
+		if (bnd.set_type < SET_FF_FIELD)
 		{
 			std::string at1_ff_s = pt1->GetFFSymbol();
 			std::string at2_ff_s = pt2->GetFFSymbol();
 
 			if( atom_mut_params.count(pt1) > 0 ) at1_ff_s = atom_mut_params[pt1]->ff_symbol;
-			if (atom_mut_params.count(pt2) > 0)  at2_ff_s = atom_mut_params[pt2]->ff_symbol;
+			if( atom_mut_params.count(pt2) > 0 ) at2_ff_s = atom_mut_params[pt2]->ff_symbol;
+
+			if (at1_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 
 			HaVec_double bpar = p_ff->FindBondParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str());
 			if (bpar.size() > 1)
@@ -2504,11 +2530,8 @@ int MolMechModel::SetStdValParams()
 				continue;
 			}
 
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-
 			PrintLog("Can't find Force field parameters for a bond between mutated atoms \n %s %s \n with FF symbols %s %s \n",
-				buf1, buf2, at1_ff_s.c_str(), at2_ff_s.c_str());
+				pt1->GetRef().c_str(), pt2->GetRef().c_str(), at1_ff_s.c_str(), at2_ff_s.c_str());
 			PrintLog("Set Standard Parameters For the bond \n");
 
 			double mbdist = Vec3D::CalcDistance(pt1, pt2, ANGSTROM_U);
@@ -2527,10 +2550,18 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt2 = va.pt2;
 		HaAtom* pt3 = va.pt3;
 		
-		if( va.set_type <= SET_FF_FIELD)
+		if( va.set_type < SET_FF_FIELD)
 		{
+			std::string at1_ff_s = pt1->GetFFSymbol();
+			std::string at2_ff_s = pt2->GetFFSymbol();
+			std::string at3_ff_s = pt3->GetFFSymbol();
+
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
+
 			HaVec_double vpar(2);
-			vpar = p_ff->FindValAngleParamFromSymbol(pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol());
+			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s.c_str(),at2_ff_s.c_str(), at2_ff_s.c_str());
 			if( vpar.size() > 1)
 			{
 				va.a0 = vpar[0];
@@ -2539,12 +2570,8 @@ int MolMechModel::SetStdValParams()
 				continue;
 			}
 			
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-			
 			PrintLog("Can't find Force field parameters for a val angle between atoms \n %s %s %s \n with FF symbols %s %s %s \n",
-				buf1, buf2, buf3,
+				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(),
 				pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol() );
 			PrintLog("Set Standard Parameters For the Valence Angle \n");
 			
@@ -2556,6 +2583,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
+	vitr = ValAngles_mut.begin();
 	for (; vitr != ValAngles_mut.end(); vitr++)
 	{
 		MMValAngle& va = (MMValAngle&)(*vitr);
@@ -2563,7 +2591,7 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt2 = va.pt2;
 		HaAtom* pt3 = va.pt3;
 
-		if (va.set_type <= SET_FF_FIELD)
+		if (va.set_type < SET_FF_FIELD)
 		{
 			std::string at1_ff_s = pt1->GetFFSymbol();
 			std::string at2_ff_s = pt2->GetFFSymbol();
@@ -2572,6 +2600,10 @@ int MolMechModel::SetStdValParams()
 			if (atom_mut_params.count(pt1) > 0)  at1_ff_s = atom_mut_params[pt1]->ff_symbol;
 			if (atom_mut_params.count(pt2) > 0)  at2_ff_s = atom_mut_params[pt2]->ff_symbol;
 			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
+
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 
 			HaVec_double vpar(2);
 			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str());
@@ -2583,12 +2615,8 @@ int MolMechModel::SetStdValParams()
 				continue;
 			}
 
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-
 			PrintLog("Can't find Force field parameters (mutated state ) for a val angle between atoms \n %s %s %s \n with FF symbols %s %s %s \n",
-				buf1, buf2, buf3,
+				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(),
 				at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str());
 			PrintLog("Set Standard Parameters For the Valence Angle \n");
 
@@ -2612,38 +2640,29 @@ int MolMechModel::SetStdValParams()
 		if( dih.set_type <= SET_FF_FIELD)
 		{
 			dih.ClearParams();
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol(),pt4->GetFFSymbol());
+
+			std::string at1_ff_s = pt1->GetFFSymbol();
+			std::string at2_ff_s = pt2->GetFFSymbol();
+			std::string at3_ff_s = pt3->GetFFSymbol();
+			std::string at4_ff_s = pt4->GetFFSymbol();
+
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
+			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
+
+			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
 			if(dpar.size() > 1 )
 			{
-				//std::string ats1 = pt1->GetFFSymbol(); boost::trim(ats1);
-				//std::string ats2 = pt2->GetFFSymbol(); boost::trim(ats2);
-				//std::string ats3 = pt3->GetFFSymbol(); boost::trim(ats3);
-				//std::string ats4 = pt4->GetFFSymbol(); boost::trim(ats4);
-				//std::string dih_str = ats1 + "-" + ats2 + "-" + ats3 + "-" + ats4;
-
-				//if( dih_str == "H-N-C-O" )
-				//{
-				//	PrintLog(" Components of H-N-C-O dihedral : \n");
-				//}
-
 				int nt = dpar.size()/4;
 				int it;
 				for( it = 0; it < nt; it++)
 				{
-					//if( dih_str == "H-N-C-O")
-					//{
-					//	PrintLog(" comp %d = %12.6f %12.6f %12.6f %12.6f \n", it, dpar[it*4],dpar[it*4+1],dpar[it*4+2],dpar[it*4+3]);		
-					//}
 					dih.AddTerm(dpar[it*4],dpar[it*4+1],dpar[it*4+2],dpar[it*4+3]);
  				}
 				dih.set_type = SET_FF_FIELD;
 				continue;
 			}
-
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-			pt4->FillRef(buf4);
 
 //	IGOR TMP		PrintLog("Can't find Force field parameters for a Dihedral angle between atoms \n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
 //					  buf1, buf2, buf3, buf4,
@@ -2665,7 +2684,7 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt3 = dih.pt3;
 		HaAtom* pt4 = dih.pt4;
 
-		if (dih.set_type <= SET_FF_FIELD)
+		if (dih.set_type < SET_FF_FIELD)
 		{
 			dih.ClearParams();
 
@@ -2679,38 +2698,23 @@ int MolMechModel::SetStdValParams()
 			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
 			if (atom_mut_params.count(pt4) > 0)  at4_ff_s = atom_mut_params[pt4]->ff_symbol;
 
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
+			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
+
 			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
 			if (dpar.size() > 1)
 			{
-				//std::string ats1 = pt1->GetFFSymbol(); boost::trim(ats1);
-				//std::string ats2 = pt2->GetFFSymbol(); boost::trim(ats2);
-				//std::string ats3 = pt3->GetFFSymbol(); boost::trim(ats3);
-				//std::string ats4 = pt4->GetFFSymbol(); boost::trim(ats4);
-				//std::string dih_str = ats1 + "-" + ats2 + "-" + ats3 + "-" + ats4;
-
-				//if( dih_str == "H-N-C-O" )
-				//{
-				//	PrintLog(" Components of H-N-C-O dihedral : \n");
-				//}
-
 				int nt = dpar.size() / 4;
 				int it;
 				for (it = 0; it < nt; it++)
 				{
-					//if( dih_str == "H-N-C-O")
-					//{
-					//	PrintLog(" comp %d = %12.6f %12.6f %12.6f %12.6f \n", it, dpar[it*4],dpar[it*4+1],dpar[it*4+2],dpar[it*4+3]);		
-					//}
 					dih.AddTerm(dpar[it * 4], dpar[it * 4 + 1], dpar[it * 4 + 2], dpar[it * 4 + 3]);
 				}
 				dih.set_type = SET_FF_FIELD;
 				continue;
 			}
-
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-			pt4->FillRef(buf4);
 
 			//	IGOR TMP		PrintLog("Can't find Force field parameters for a Dihedral angle between atoms \n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
 			//					  buf1, buf2, buf3, buf4,
@@ -2732,24 +2736,30 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt3 = (*lditr).pt3;
 		HaAtom* pt4 = (*lditr).pt4;	
 		
-		if( dih.set_type <= SET_FF_FIELD)
+		if( dih.set_type < SET_FF_FIELD)
 		{
 			dih.ClearParams();
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol(),pt4->GetFFSymbol(), true);
+
+			std::string at1_ff_s = pt1->GetFFSymbol();
+			std::string at2_ff_s = pt2->GetFFSymbol();
+			std::string at3_ff_s = pt3->GetFFSymbol();
+			std::string at4_ff_s = pt4->GetFFSymbol();
+
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
+			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
+
+			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str(), true);
 			if(dpar.size() > 1  )
 			{
 				dih.AddTerm(dpar[0],dpar[1],dpar[2],dpar[3]);
 				dih.set_type = SET_FF_FIELD;
 				continue;
 			}
-		
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-			pt4->FillRef(buf4);
-		
+				
 			PrintLog("Can't find Force field parameters for a Improper Dihedral angle between atoms:\n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
-				buf1, buf2, buf3, buf4,
+				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(), pt4->GetRef().c_str(),
 				pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol(),pt4->GetFFSymbol() );
 		
 			PrintLog("Set Standard Parameters For the Improper Dihedral Angle \n");
@@ -2769,7 +2779,7 @@ int MolMechModel::SetStdValParams()
 		HaAtom* pt3 = (*lditr).pt3;
 		HaAtom* pt4 = (*lditr).pt4;
 
-		if (dih.set_type <= SET_FF_FIELD)
+		if (dih.set_type < SET_FF_FIELD)
 		{
 			dih.ClearParams();
 			std::string at1_ff_s = pt1->GetFFSymbol();
@@ -2782,6 +2792,11 @@ int MolMechModel::SetStdValParams()
 			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
 			if (atom_mut_params.count(pt4) > 0)  at4_ff_s = atom_mut_params[pt4]->ff_symbol;
 
+			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
+			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
+			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
+			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
+
 			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str(), true);
 			if (dpar.size() > 1)
 			{
@@ -2790,13 +2805,8 @@ int MolMechModel::SetStdValParams()
 				continue;
 			}
 
-			pt1->FillRef(buf1);
-			pt2->FillRef(buf2);
-			pt3->FillRef(buf3);
-			pt4->FillRef(buf4);
-
 			PrintLog("Can't find Force field parameters for a Improper Dihedral angle between atoms:\n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
-				buf1, buf2, buf3, buf4,
+				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(), pt4->GetRef().c_str(),
 				pt1->GetFFSymbol(), pt2->GetFFSymbol(), pt3->GetFFSymbol(), pt4->GetFFSymbol());
 
 			PrintLog("Set Standard Parameters For the Improper Dihedral Angle \n");
@@ -2826,7 +2836,7 @@ int MolMechModel::SetStdVdWParams()
 	{
 		HaAtom* aptr = *pitr;
 		
-		HaVec_double ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol());
+		HaVec_double ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol().c_str());
 
 		if(ppar.size() > 1)
 		{
@@ -2835,10 +2845,14 @@ int MolMechModel::SetStdVdWParams()
 			continue;
 		}
 
-		char buf[256];
-		aptr->FillRef(buf);
+		if (aptr->GetFFSymbol() == "DU")  // Set Zero VDW parameters for DUMMY atoms 
+		{
+			aptr->vdw_rad = 1.0;
+			aptr->ew = 0.0;
+			continue;
+		}
 
-		PrintLog("Can't Find VdW parameters for Atom %s FF symbol = \'%s\' \n",buf,aptr->GetFFSymbol());
+		PrintLog("Can't Find VdW parameters for Atom %s FF symbol = \'%s\' \n",aptr->GetRef().c_str(),aptr->GetFFSymbol());
         PrintLog("Will Set Standard VdW parameters \n");
 
 		std::string elem_symbol = aptr->GetStdSymbol(); 

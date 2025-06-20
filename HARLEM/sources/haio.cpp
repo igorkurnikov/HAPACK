@@ -19,6 +19,7 @@
 #include "stdarg.h"
 #include "hastring.h"
 #include "haio.h"
+#include <boost/format.hpp>
 
 #if !defined(_MSC_VER)
 #include <unistd.h>

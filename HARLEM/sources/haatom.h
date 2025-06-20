@@ -197,9 +197,8 @@ public:
 
   static double ElemDuttonRadius(int elem); //!< Get Atom Radii used in Dutton ET model
 
-  const char* GetFFSymbol() const { return FFSymbol.c_str(); } //!< Get Force Field symbol of the point
-  const char* SetFFSymbol(std::string new_ff_symbol) { FFSymbol = new_ff_symbol; 
-	                                                  return(FFSymbol.c_str()); } //!< Set Force Field 
+  std::string GetFFSymbol() const { return FFSymbol; } //!< Get Force Field Symbol of the Atom
+  const char* SetFFSymbol(std::string new_ff_symbol) { FFSymbol = new_ff_symbol; return(FFSymbol.c_str()); } //!< Set Force Field Symbol
   bool SetCharge(double new_charge){ charge = new_charge; return true;} //!< Set charge of the atom
   double GetCharge() const { return charge; } //!< Get Charge of the point 
 

@@ -100,6 +100,7 @@ public:
 	int SetCoarseGrainedDNAParams();  //!< Set MM parameters for coarse-grained model of DNA, De Pablo et al 
 	int SetCoarseGrainedAAParams();   //!< Set MM parameters for coarse-grained model of AA, Bond and Sansom 2006 jose August, 2008
 
+	std::string GetFFSymbolFromMolStruct(HaAtom* aptr); //!< Get FF Symbol from Molecular Structure and FF symbols of neighbors set
 	int SetStdValParams();       //!< Set Standard parameters for valence bonds, angles and dihedrals
 	int SetStdVdWParams();       //!< Set Standard Van-der-Waals parameters
 

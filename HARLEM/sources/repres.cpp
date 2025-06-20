@@ -282,7 +282,7 @@ HaMolView::FormatLabel(HaChain* chain, HaResidue* group, HaAtom* aptr, const cha
                case('s'):  *ptr++ = chain->ident;
                            break;
                case('f'):  /* Force Field Atom Symbol name */
-						   name = aptr->GetFFSymbol();
+						   name = aptr->GetFFSymbol().c_str();
 				           for( j=0; j<4; j++ )
                                if( name[j]!=' ' )
                                    *ptr++ = name[j];

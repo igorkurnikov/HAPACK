@@ -2716,6 +2716,7 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 			if (processed_template_atoms.count(pat1_templ) > 0 || processed_template_atoms.count(pat2_templ)) continue;
 			HaAtom* pat1_b = atom_templ_b_to_atom_res_map[pat1_templ];
 			HaAtom* pat2_b = atom_templ_b_to_atom_res_map[pat2_templ];
+			
 			if (!pat1_b)
 			{
 				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat1_templ->GetRef().c_str());
@@ -2726,6 +2727,7 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat2_templ->GetRef().c_str());
 				continue;
 			}
+
 			HaBond bnd(pat1_b, pat2_b);
 			bnd.SetParamFrom(*pbnd_templ);
 			bonds_b.push_back(bnd);

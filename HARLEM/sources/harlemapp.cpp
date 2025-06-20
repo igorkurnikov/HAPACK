@@ -93,7 +93,7 @@ HarlemApp::HarlemApp()
 	argv_loc = NULL;
 
 	FileFormat = FormatPDB;
-	only_rasmol_command = FALSE;
+	only_rasmol_command = TRUE;
 
 	FormatOpt["alchemy"]   =  FormatAlchemy;
 	FormatOpt["biosym"]    =  FormatBiosym;
@@ -318,9 +318,10 @@ int HarlemApp::InitRemoteComp()
 int HarlemApp::RasMolCmd(const char* cmd)
 {
 	cmd_pr.SetCmdLine(cmd);
+	int only_rasmol_command_old = only_rasmol_command;
 	only_rasmol_command = TRUE;
 	this->ExecuteCommand();
-	only_rasmol_command = FALSE;
+	only_rasmol_command = only_rasmol_command_old;
 	return TRUE;
 }
 
@@ -346,7 +347,6 @@ int HarlemApp::ExecuteCommand()
 	int ip;
 	PrintLog("Executing Command: %s \n", cmd_pr.GetCmdLine() ); 
 
-#if !defined(HARLEM_PYTHON_NO)
 	if(!only_rasmol_command)
 	{
 		PyGILState_STATE gstate;
@@ -366,9 +366,7 @@ int HarlemApp::ExecuteCommand()
 			PrintLog("RASMOL type command \n");
 		}
 	}
-#endif
 
-	only_rasmol_command = FALSE;
 	cmd_pr.ResetCursorPosition();
 	
     if( !cmd_pr.FetchToken() )
