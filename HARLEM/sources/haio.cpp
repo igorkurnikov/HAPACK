@@ -1,4 +1,4 @@
-/*! haio.cpp 
+﻿/*! haio.cpp 
   
    Classes and functions dealing with input and output 
    in HARLEM
@@ -37,7 +37,7 @@
 
 
 // extern "C" DllExport 
-int PrintLog(const char* str, ... )
+int PrintLogC(const char* str, ... )
 {
 	va_list arg_list;
 	va_start( arg_list, str );     /* Initialize variable arguments. */

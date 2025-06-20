@@ -485,7 +485,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 						}
 						else
 						{
-							throw std::runtime_error((boost::format("Termination Atom %s is not Hydrogen \n") % aptr->GetRef()).str());
+							throw std::runtime_error( (boost::format("Terminating Atom %s is not Hydrogen \n") % aptr->GetRef()).str() );
 						}
 					} // if Terminating hydrogens
 					else if (at_name.size() > 1 && at_name.compare(0, 2, "DA") == 0) // special rules for Dummy atoms in Mutating residues
@@ -526,7 +526,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 					}
 					else
 					{
-						PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef().c_str(), p_res_ff_templ->GetFullName().c_str());
+						PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef(), p_res_ff_templ->GetFullName());
 					}
 				}
 				aptr->SetFFSymbol(ff_symb);
@@ -553,7 +553,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			}
 			catch (const std::exception& ex)
 			{
-				PrintLog(" Error in MolMechModel::InitModel() setting ff parameters for atom %s \n", aptr->GetRef().c_str());
+				PrintLog(" Error in MolMechModel::InitModel() setting ff parameters for atom %s \n", aptr->GetRef());
 				PrintLog(" %s\n", ex.what());
 			}
 		} // cycle on Atoms
@@ -566,19 +566,19 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			{
 				std::string at_ref = p_res_ff_templ->improper_dihedrals[i][0];
 				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
-				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref);
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][1];
 				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
-				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());;
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref);;
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][2];
 				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
-				if (aptr3 == NULL) PrintLog(" Can't map atom \n", at_ref.c_str());
+				if (aptr3 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][3];
 				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
-				if (aptr4 == NULL) PrintLog(" Can't map atom \n", at_ref.c_str());
+				if (aptr4 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
 
 				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{
@@ -586,7 +586,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 				else
 				{
-					PrintLog(" Warning: failed to set and improper angle from residue FF template %s \n", res_fname.c_str());
+					PrintLog(" Warning: failed to set and improper angle from residue FF template %s \n", res_fname);
 				}
 			}
 		}

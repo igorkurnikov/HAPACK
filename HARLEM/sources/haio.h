@@ -1,4 +1,4 @@
-/*! \file haio.h
+﻿/*! \file haio.h
 
    Include Files for standard C++ and C IO libraries
 
@@ -20,12 +20,15 @@
 #endif
 
 #include <stdio.h>
+#include <boost/format.hpp>
+//#include <boost/format/format_error.hpp>
 #include <iostream>
 #include <fstream>
 #if defined(_MSC_VER)
 #include <sstream>
 #endif
 #include <strstream>
+#include <type_traits>
 #include <iomanip>
 
 using namespace std;
@@ -70,6 +73,60 @@ const std::string FLOAT_F8_3 = "%15.7f";
 //const std::string FLOAT_F8_3 = "(F8.3)";
 
 
+// 1) safeArg: null‐pointer → "<null>", everything else passes through
+
+template<typename T>
+auto safeArg(T * p) noexcept -> const void* {
+	// any pointer type T*
+	return p ? static_cast<const void*>(p)
+		: static_cast<const void*>("<null>");
+}
+
+inline const char* safeArg(const char* s) noexcept {
+	// literal C‐strings: treat nullptr the same way
+	return s ? s : "<null>";
+}
+
+// catch-all for non-pointer types
+template<typename T>
+auto safeArg(T && v) noexcept -> T&& {
+	return std::forward<T>(v);
+}
+
+template<typename... Args>
+void PrintLog(const std::string& fmt, Args&&... args) {
+	try {
+		boost::format f(fmt);
+
+		// unpack: feed each safeArg(arg) into the format
+		int _unpack[] = {
+			0,
+			(f % safeArg(std::forward<Args>(args)) , 0)...
+		};
+		static_cast<void>(_unpack);
+
+		std::cout << f << std::flush;
+	}
+	catch (const boost::io::format_error& e) {
+		// report fmt and number of args
+		std::cerr
+			<< "PrintLog format error: " << e.what()
+			<< "\n  Format string: \"" << fmt << '"'
+			<< "\n  Arguments: " << sizeof...(Args)
+			<< std::endl;
+	}
+}
+
+//template<typename... Args>
+//void PrintLog(const std::string& fmt, Args&&... args) {
+//	boost::format f(fmt);
+//	// “unpack” the parameters into the format object
+//	int _unpack[] = { 0, (f % std::forward<Args>(args), 0)... };
+//	static_cast<void>(_unpack);  // suppress unused‐variable warning
+//
+//	std::cout << f << std::flush;
+//}
+
 extern "C" 
 {
 extern int ErrorMessage(const char* str); //!< Print error message
@@ -84,11 +141,11 @@ extern int RestoreIOToConsole();                //!< Restore STDOUT to console t
 
 
 #if !defined(HAIO_CPP)
-extern int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
+//extern int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
 extern int PrintLogCount(int type, const char* str,  ... ); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #else
-	int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
+	//int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
 	int PrintLogCount(int type, const char* str,  ...); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 	int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #endif
