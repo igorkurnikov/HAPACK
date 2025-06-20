@@ -83,12 +83,12 @@ void MMForceField::Clear()
 
 void MMForceField::SetDefaultVdW()
 {
-	HaVec_double ppar(2);
+	vector<double> ppar(2);
 	ppar[0] = 1.908;
 	ppar[1] = 0.086;
 	symb_ppar_map["XXST"] = ppar; //!< Set Default VdW parameters
 
-	ppar[0] = 0.0;
+	ppar[0] = 1.0;
 	ppar[1] = 0.0;
 	symb_ppar_map["DC"] = ppar; //!< Set Default VdW parameters for Dummy Atoms
 	symb_ppar_map["DN"] = ppar; //!< Set Default VdW parameters for Dummy Atoms
@@ -217,14 +217,11 @@ double MMForceField::FindAtomMassFromSymbol( const std::string& ats )
 	return symb_mass_map[ats];
 }
 
-HaVec_double MMForceField::FindPointParamFromSymbol(const char* ff_symb)
+std::vector<double> MMForceField::FindPointParamFromSymbol(const std::string& ff_symb)
 {
-	std::string at_symbol = ff_symb;
+	std::vector<double> ppar;
 
-	HaVec_double ppar;
-	map<std::string,HaVec_double,less<std::string> >::iterator pitr;
-
-	pitr = symb_ppar_map.find(at_symbol);
+	auto pitr = symb_ppar_map.find(ff_symb);
 	if(pitr != symb_ppar_map.end() )
 	{
 		ppar = (*pitr).second;
@@ -233,7 +230,7 @@ HaVec_double MMForceField::FindPointParamFromSymbol(const char* ff_symb)
 	return ppar;	
 }
 
-static int StrMatch(const std::string& str, const std::string& templ_str)
+static int StrMatch(const string& str, const string& templ_str)
 {
 	if( templ_str == "X" ) 
 		return 1;
@@ -242,7 +239,7 @@ static int StrMatch(const std::string& str, const std::string& templ_str)
 	return 0;
 }
 
-HaVec_double MMForceField::FindBondParamFromSymbol(const char* as1,const char* as2)
+vector<double> MMForceField::FindBondParamFromSymbol(const string& as1, const string& as2)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -252,14 +249,13 @@ HaVec_double MMForceField::FindBondParamFromSymbol(const char* as1,const char* a
 	boost::trim(at_symbol_1); // boost::to_upper(at_symbol_1);
 	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
 
-	HaVec_double best_match;
+	vector<double> best_match;
 
 	std::string label;
-	map<std::string,HaVec_double,less<std::string> >::iterator mitr;
 
 	int ifound = FALSE;
     label = at_symbol_1 + "-" + at_symbol_2;
-	mitr = bond_param_map.find(label);
+	auto mitr = bond_param_map.find(label);
 	if(mitr != bond_param_map.end())
 	{
 		ifound = TRUE;
@@ -308,7 +304,7 @@ HaVec_double MMForceField::FindBondParamFromSymbol(const char* as1,const char* a
 	return best_match;
 }
 
-HaVec_double MMForceField::FindHBondParamFromSymbol(const char* as1,const char* as2)
+vector<double> MMForceField::FindHBondParamFromSymbol(const string& as1, const string& as2)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -317,24 +313,23 @@ HaVec_double MMForceField::FindHBondParamFromSymbol(const char* as1,const char* 
 	boost::trim(at_symbol_1); //boost::to_upper(at_symbol_1);
 	boost::trim(at_symbol_2); //boost::to_upper(at_symbol_2);
 
-	HaVec_double best_match;
+	vector<double> best_match;
 
 	std::string label;
-	map<std::string,HaVec_double,less<std::string> >::iterator mitr;
 
 	int ifound = FALSE;
     label = at_symbol_1 + "-" + at_symbol_2;
-	mitr = symb_hpar_map.find(label);
+	auto mitr = symb_hpar_map.find(label);
 	if(mitr != symb_hpar_map.end())
 	{
 		ifound = TRUE;
 		best_match = (*mitr).second;
 	}
 
-return best_match;
+	return best_match;
 }
 
-HaVec_double MMForceField::FindValAngleParamFromSymbol(const char* ats1,const char* ats2,const char* ats3)
+vector<double> MMForceField::FindValAngleParamFromSymbol(const string& ats1, const string& ats2, const string& ats3)
 {
 	std::string at_symbol_1 = ats1;
 	std::string at_symbol_2 = ats2;
@@ -346,10 +341,7 @@ HaVec_double MMForceField::FindValAngleParamFromSymbol(const char* ats1,const ch
 	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
 	boost::trim(at_symbol_3); // boost::to_upper(at_symbol_3);
 	
-	HaVec_double best_match;
-
-	std::string label;
-	map<std::string,HaVec_double,less<std::string> >::iterator mitr;
+	vector<double> best_match;
 	
 	int ifound = FALSE;
 
@@ -357,8 +349,8 @@ HaVec_double MMForceField::FindValAngleParamFromSymbol(const char* ats1,const ch
 	std::string ats_2 = at_symbol_2;
 	std::string ats_3 = at_symbol_3;
 
-	label = ats_1 + "-" + ats_2 + "-" + ats_3;
-	mitr = vang_param_map.find(label);
+	std::string label = ats_1 + "-" + ats_2 + "-" + ats_3;
+	auto mitr = vang_param_map.find(label);
 	if(mitr != vang_param_map.end())
 	{
 		best_match = (*mitr).second;
@@ -402,7 +394,7 @@ HaVec_double MMForceField::FindValAngleParamFromSymbol(const char* ats1,const ch
 
 }
 
-HaVec_double MMForceField::FindDihedralParamFromSymbol(const char* as1,const char* as2,const char* as3,const char* as4, bool improper_flag)
+vector<double> MMForceField::FindDihedralParamFromSymbol(const string& as1, const string& as2, const string& as3, const string& as4, bool improper_flag)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -426,9 +418,9 @@ HaVec_double MMForceField::FindDihedralParamFromSymbol(const char* as1,const cha
 	std::string ats_3;
 	std::string ats_4;
 
-	HaVec_double best_match;
+	vector<double> best_match;
 
-	map<std::string,HaVec_double,less<std::string> >  *ptr_dih_map;
+	map<std::string, vector<double>>  *ptr_dih_map;
 
 	if(improper_flag)
 		ptr_dih_map = &impdih_param_map;
@@ -436,7 +428,7 @@ HaVec_double MMForceField::FindDihedralParamFromSymbol(const char* as1,const cha
 		ptr_dih_map = &dih_param_map;
 
 	std::string label;
-	map<std::string,HaVec_double,less<std::string> >::iterator mitr;
+	map<std::string,vector<double>,less<std::string> >::iterator mitr;
 
 	int ifound = FALSE;
  	label = at_symbol_1 + "-" + at_symbol_2 + "-" + at_symbol_3 + "-" + at_symbol_4;
@@ -683,7 +675,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> eq_dist;
 				if(is.fail()) throw std::runtime_error("Error Reading Bond Params");
 
-				HaVec_double bpar(2);
+				vector<double> bpar(2);
 				bpar[0] = eq_dist;
 				bpar[1] = fconst;
 				std::string label = at1s + "-" + at2s;
@@ -717,7 +709,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> eq_ang;
 				if(is.fail()) throw std::runtime_error("Error Reading Valence Angle Params");
 				
-				HaVec_double vpar(2);
+				vector<double> vpar(2);
 				vpar[0] = eq_ang;
 				vpar[1] = fconst;
 				std::string label = at1s + "-" + at2s + "-" + at3s;
@@ -791,7 +783,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 					tpl[idx] = idiv_fc;      idx++;
 				}
 
-				HaVec_double tpar(idx);
+				vector<double> tpar(idx);
 				for(int i = 0; i< idx; i++)
 				{
 					tpar[i] = tpl[i];
@@ -847,7 +839,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 
 				if(is.fail()) throw std::runtime_error("Error Reading Improper Dihedral Angle Params");
 				
-				HaVec_double tpar(4);
+				vector<double> tpar(4);
 
 				tpar[0] = fabs(nperiod);
 				tpar[1] = ph;
@@ -908,7 +900,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> ene;
 				if( is.fail() ) throw std::runtime_error("Error Reading VdW parameters");
 				
-				HaVec_double ppar(2);
+				vector<double> ppar(2);
 				ppar[0] = rad;
 				ppar[1] = ene;
 
@@ -949,7 +941,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 
 				if( is.fail() ) throw std::runtime_error("Error Reading H bond parameters");
 				
-				HaVec_double hpar(3);
+				vector<double> hpar(3);
 				hpar[0] = acoef;
 				hpar[1] = bcoef;
 				hpar[2] = n; 

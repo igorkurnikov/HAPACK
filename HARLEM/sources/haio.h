@@ -73,8 +73,9 @@ const std::string FLOAT_F8_3 = "%15.7f";
 //const std::string FLOAT_F8_3 = "(F8.3)";
 
 
-// 1) safeArg: null‐pointer → "<null>", everything else passes through
+#ifndef SWIG
 
+// 1) safeArg: null‐pointer → "<null>", everything else passes through
 template<typename T>
 auto safeArg(T * p) noexcept -> const void* {
 	// any pointer type T*
@@ -116,6 +117,8 @@ void PrintLog(const std::string& fmt, Args&&... args) {
 			<< std::endl;
 	}
 }
+
+#endif
 
 //template<typename... Args>
 //void PrintLog(const std::string& fmt, Args&&... args) {

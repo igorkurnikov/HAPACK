@@ -2452,7 +2452,8 @@ std::string MolMechModel::GetFFSymbolFromMolStruct(HaAtom* aptr)
 	if (bonded_atoms.size() == 1) // so far only set rules for atoms with  one neighbor
 	{
 		HaAtom* aptr_host = bonded_atoms[0];
-		if (aptr_host->GetFFSymbol() == "CT") ff_name = "HT";
+		std::string host_ff_s = aptr_host->GetFFSymbol();
+		if (host_ff_s == "CT") ff_name = "HT";
 	}
 	return ff_name;  
 }
@@ -2482,7 +2483,7 @@ int MolMechModel::SetStdValParams()
 			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 
-			HaVec_double bpar = p_ff->FindBondParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str());
+			vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
 			if( bpar.size() > 1 )
 			{
 				bnd.r0 = bpar[0];
@@ -2490,9 +2491,10 @@ int MolMechModel::SetStdValParams()
 				bnd.set_type = SET_FF_FIELD;
 				continue;
 			}
+			
 		
 			PrintLog("Can't find Force field parameters for a bond between atoms \n %s %s \n with FF symbols %s %s \n",
-				pt1->GetRef().c_str(),pt2->GetRef().c_str(), pt1->GetFFSymbol(), pt2->GetFFSymbol() );
+				pt1->GetRef(),pt2->GetRef(), pt1->GetFFSymbol(), pt2->GetFFSymbol() );
 			PrintLog("Set Default Parameters For the bond based on Current Geometry \n");
 		
 			double mbdist = Vec3D::CalcDistance(pt1,pt2,ANGSTROM_U);
@@ -2521,7 +2523,7 @@ int MolMechModel::SetStdValParams()
 			if (at1_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 
-			HaVec_double bpar = p_ff->FindBondParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str());
+			vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
 			if (bpar.size() > 1)
 			{
 				bnd.r0 = bpar[0];
@@ -2531,7 +2533,7 @@ int MolMechModel::SetStdValParams()
 			}
 
 			PrintLog("Can't find Force field parameters for a bond between mutated atoms \n %s %s \n with FF symbols %s %s \n",
-				pt1->GetRef().c_str(), pt2->GetRef().c_str(), at1_ff_s.c_str(), at2_ff_s.c_str());
+				pt1->GetRef(), pt2->GetRef(), at1_ff_s, at2_ff_s);
 			PrintLog("Set Standard Parameters For the bond \n");
 
 			double mbdist = Vec3D::CalcDistance(pt1, pt2, ANGSTROM_U);
@@ -2560,7 +2562,7 @@ int MolMechModel::SetStdValParams()
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 
-			HaVec_double vpar(2);
+			vector<double> vpar(2);
 			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s.c_str(),at2_ff_s.c_str(), at2_ff_s.c_str());
 			if( vpar.size() > 1)
 			{
@@ -2651,7 +2653,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
+			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
 			if(dpar.size() > 1 )
 			{
 				int nt = dpar.size()/4;
@@ -2666,7 +2668,7 @@ int MolMechModel::SetStdValParams()
 
 //	IGOR TMP		PrintLog("Can't find Force field parameters for a Dihedral angle between atoms \n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
 //					  buf1, buf2, buf3, buf4,
-//					  pt1->FFSymbol.c_str(),pt2->FFSymbol.c_str(),pt3->FFSymbol.c_str(),pt4->FFSymbol.c_str() );
+//					  pt1->FFSymbol,pt2->FFSymbol,pt3->FFSymbol,pt4->FFSymbol );
 //			PrintLog("Set Standard Parameters For the Dihedral Angle \n");
 
 			double dih_angle = Vec3D::CalcDihedral(pt1,pt2,pt3,pt4);	
@@ -2703,7 +2705,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
+			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
 			if (dpar.size() > 1)
 			{
 				int nt = dpar.size() / 4;
@@ -2750,7 +2752,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str(), true);
+			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
 			if(dpar.size() > 1  )
 			{
 				dih.AddTerm(dpar[0],dpar[1],dpar[2],dpar[3]);
@@ -2759,7 +2761,7 @@ int MolMechModel::SetStdValParams()
 			}
 				
 			PrintLog("Can't find Force field parameters for a Improper Dihedral angle between atoms:\n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
-				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(), pt4->GetRef().c_str(),
+				pt1->GetRef(), pt2->GetRef(), pt3->GetRef(), pt4->GetRef(),
 				pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol(),pt4->GetFFSymbol() );
 		
 			PrintLog("Set Standard Parameters For the Improper Dihedral Angle \n");
@@ -2797,7 +2799,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			HaVec_double dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str(), true);
+			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
 			if (dpar.size() > 1)
 			{
 				dih.AddTerm(dpar[0], dpar[1], dpar[2], dpar[3]);
@@ -2806,7 +2808,7 @@ int MolMechModel::SetStdValParams()
 			}
 
 			PrintLog("Can't find Force field parameters for a Improper Dihedral angle between atoms:\n  %s %s %s %s\n with FF symbols %s %s %s %s\n",
-				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(), pt4->GetRef().c_str(),
+				pt1->GetRef(), pt2->GetRef(), pt3->GetRef(), pt4->GetRef(),
 				pt1->GetFFSymbol(), pt2->GetFFSymbol(), pt3->GetFFSymbol(), pt4->GetFFSymbol());
 
 			PrintLog("Set Standard Parameters For the Improper Dihedral Angle \n");
@@ -2836,7 +2838,7 @@ int MolMechModel::SetStdVdWParams()
 	{
 		HaAtom* aptr = *pitr;
 		
-		HaVec_double ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol().c_str());
+		vector<double> ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol());
 
 		if(ppar.size() > 1)
 		{
@@ -2852,12 +2854,12 @@ int MolMechModel::SetStdVdWParams()
 			continue;
 		}
 
-		PrintLog("Can't Find VdW parameters for Atom %s FF symbol = \'%s\' \n",aptr->GetRef().c_str(),aptr->GetFFSymbol());
+		PrintLog("Can't Find VdW parameters for Atom %s FF symbol = \'%s\' \n",aptr->GetRef(),aptr->GetFFSymbol());
         PrintLog("Will Set Standard VdW parameters \n");
 
 		std::string elem_symbol = aptr->GetStdSymbol(); 
 //		aptr->SetFFSymbol(elem_symbol);
-		ppar = p_ff->FindPointParamFromSymbol(elem_symbol.c_str());
+		ppar = p_ff->FindPointParamFromSymbol(elem_symbol);
 		if(ppar.size() > 1)
 		{
 			aptr->vdw_rad = ppar[0];
