@@ -136,27 +136,20 @@ bool HaMolecule::AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain, AtomAtom
 			}
 		}
 	}
-	
-	std::vector<HaBond*>::const_iterator bitr;
-	
+		
 	const MolSet* pmset_ref = Mol_ref.GetHostMolSet();
 
-	for(bitr = pmset_ref->Bonds.begin(); bitr != pmset_ref->Bonds.end(); bitr++ )
+	for(auto bitr = pmset_ref->Bonds.begin(); bitr != pmset_ref->Bonds.end(); bitr++ )
 	{
-		const HaBond* bptr_ref = *bitr;
+		const HaBond* bptr_ref = (*bitr).get();
 		if(bptr_ref->srcatom->GetHostMol() != &Mol_ref || bptr_ref->dstatom->GetHostMol() != &Mol_ref ) 
 		{
 			continue;
 		}
-		map<HaAtom*,HaAtom*, less<HaAtom*> >::iterator mitr;
-		mitr =at_map.find(bptr_ref->srcatom);
-		if(mitr == at_map.end() )
-			continue;
-		HaAtom* faptr1 = (*mitr).second;
-		mitr =at_map.find(bptr_ref->dstatom);
-		if(mitr == at_map.end() )
-			continue;
-		HaAtom* faptr2 = (*mitr).second;
+		if( at_map.count(bptr_ref->srcatom) == 0) continue;
+		HaAtom* faptr1 = at_map[bptr_ref->srcatom];
+		if (at_map.count(bptr_ref->dstatom) == 0) continue;
+		HaAtom* faptr2 = at_map[bptr_ref->dstatom];
 				
 		HaBond* fbptr= pmset->AddBond(faptr1,faptr2);
 		fbptr->SetParamFrom(*bptr_ref);	
@@ -1085,30 +1078,30 @@ HaBond* MolSet::AddBond(HaAtom* src, HaAtom* dst )
 		return NULL;
 	}
 
-	BondArray::iterator bitr = src->p_bonds->begin();
-	for (; bitr != src->p_bonds->end(); bitr++)
+	auto bitr = src->bonds.begin();
+	for (; bitr != src->bonds.end(); bitr++)
 	{
-		if ((*bitr)->srcatom == dst || (*bitr)->dstatom == dst) return (*bitr);
+		if ((*bitr)->srcatom == dst || (*bitr)->dstatom == dst) return (*bitr).get();
 	}
 	
-	HaBond* pb = new HaBond(src,dst);
+	shared_ptr<HaBond> pb = make_shared<HaBond>(src,dst);
 	Bonds.push_back(pb);
-	src->p_bonds->push_back(pb); 
-	dst->p_bonds->push_back(pb);
-	return( pb );
+	src->bonds.push_back(pb); 
+	dst->bonds.push_back(pb);
+	return( pb.get() );
 }
 
 
 bool MolSet::DeleteBond(HaAtom* src, HaAtom* dst)
 {
-	if(src == NULL || dst == NULL) return false;
+	if(src == nullptr || dst == nullptr ) return false;
 
-	std::vector<HaBond*>& bonds1 = src->GetBonds();
-	std::vector<HaBond*>& bonds2 = dst->GetBonds();
+	std::vector<shared_ptr<HaBond>>& bonds1 = src->GetBonds();
+	std::vector<shared_ptr<HaBond>>& bonds2 = dst->GetBonds();
 
-	HaBond* bnd_d = NULL;
+	shared_ptr<HaBond> bnd_d;
 
-	std::vector<HaBond*>::iterator bitr = bonds1.begin();
+	auto bitr = bonds1.begin();
 	while( bitr != bonds1.end() )
 	{
 		HaAtom* aptr1 = (*bitr)->GetFirstAtom();
@@ -1124,10 +1117,10 @@ bool MolSet::DeleteBond(HaAtom* src, HaAtom* dst)
 		break;
 	}
 
-	if( bnd_d == NULL )
+	if( !bnd_d )
 	{
 		PrintLog("Error in MolSet::DeleteBond() \n");
-		PrintLog(" Atoms %s  and %s are not bonded \n", src->GetRef().c_str(), dst->GetRef().c_str());
+		PrintLog(" Atoms %s  and %s are not bonded \n", src->GetRef(), dst->GetRef());
 		return false;
 	}
 	
@@ -1142,7 +1135,6 @@ bool MolSet::DeleteBond(HaAtom* src, HaAtom* dst)
 	{
 		if( *bitr != bnd_d ) continue; 
 		Bonds.erase(bitr);
-		delete bnd_d;
 		break;
 	}
 	return true;
@@ -1673,9 +1665,8 @@ AtomIterator* HaMolecule::GetAtomIteratorPtr()
 int HaMolecule::GetNBonds()  const  
 {
 	const MolSet* pmset = GetHostMolSet();
-	std::vector<HaBond*>::const_iterator bitr;
 	int nb = 0;
-	for( bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )
+	for( auto bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )
 	{
 		if( (*bitr)->GetFirstAtom()->GetHostMol() == this && (*bitr)->GetSecondAtom()->GetHostMol() == this )
 		{
@@ -1703,9 +1694,8 @@ int HaMolecule::GetNHBonds() const
 int HaMolecule::GetNSSBonds() const  
 {
 	const MolSet* pmset = GetHostMolSet();
-	std::vector<HaBond*>::const_iterator bitr;
 	int nb = 0;
-	for( bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )
+	for( auto bitr = pmset->Bonds.begin(); bitr != pmset->Bonds.end(); bitr++ )
 	{
 		int elem1 = (*bitr)->GetFirstAtom()->GetElemNo();
 		int elem2 = (*bitr)->GetSecondAtom()->GetElemNo();

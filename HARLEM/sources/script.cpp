@@ -626,7 +626,7 @@ void HaMolView::WriteScriptBackbone()
 	int ib;
 	for( ib = 0; ib < nb; ib++ )
 	{
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
 		IncFreqTable(GetBondDatum(bptr));
 	}
     WriteScriptAll();
@@ -637,7 +637,7 @@ void HaMolView::WriteScriptBackbone()
 	{   
 		for( ib = 0; ib < nb; ib++ )
 		{
-			bptr = pmset->BackboneBonds[ib];
+			bptr = pmset->BackboneBonds[ib].get();
 			datum = GetBondDatum(bptr);
 			if( datum != defdat )
 			{    
@@ -653,7 +653,7 @@ void HaMolView::WriteScriptBackbone()
 
 	for( ib = 0; ib < nb; ib++ )
 	{
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
         IncFreqTable(bptr->col);
 	}
 
@@ -668,7 +668,7 @@ void HaMolView::WriteScriptBackbone()
 	{
 		for( ib = 0; ib < nb; ib++ )
 		{
-			bptr = pmset->BackboneBonds[ib];
+			bptr = pmset->BackboneBonds[ib].get();
 			if( bptr->col != col )
 			{   
 				WriteScriptSelectBond(bptr->srcatom,bptr->dstatom);
@@ -709,23 +709,23 @@ void HaMolView::WriteScriptRibbons()
 
 			if( group->flag & RibbonFlag )
 			{   
-				fprintf(OutFile,"ribbons %d\n",group->width);
+				fprintf(OutFile,"ribbons %f\n",group->width);
 			} 
 			else if( group->flag & CartoonFlag )
 			{   
-				fprintf(OutFile,"cartoon %d\n",group->width);
+				fprintf(OutFile,"cartoon %f\n",group->width);
 			} 
 			else if( group->flag & StrandFlag )
 			{   
-				fprintf(OutFile,"strands %d\n",group->width);
+				fprintf(OutFile,"strands %f\n",group->width);
 			} 
 			else if( group->flag & DashStrandFlag )
 			{   
-				fprintf(OutFile,"strands dash %d\n",group->width);
+				fprintf(OutFile,"strands dash %f\n",group->width);
 			} 
 			else if( group->flag & TraceFlag )
 			{   
-				fprintf(OutFile,"trace %d\n",group->width);
+				fprintf(OutFile,"trace %f\n",group->width);
 			} 
 			else fputs("ribbons off\n",OutFile);
 
@@ -1304,7 +1304,7 @@ HaMolView::WritePOVRayFile( const char* name )
 					{
 			    		fprintf(OutFile," cylinder { <%9.3f, %9.3f, %9.3f>, <%9.3f, %9.3f, %9.3f>, %9.3f  \n",
 							x1,y1,z1, x1+xstep , y1+ystep , z1+zstep, rad  );
-				        fprintf(OutFile," texture {\n pigment { color rgb<%g, %g, %g> }\n }\n}\n", 1.0,1.0,0 );
+				        fprintf(OutFile," texture {\n pigment { color rgb<%g, %g, %g> }\n }\n}\n", 1.0,1.0,0.0 );
 
 						x1+= 2* xstep; y1+= 2* ystep; z1+= 2*zstep;	
 					}

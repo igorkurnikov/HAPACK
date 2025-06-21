@@ -238,7 +238,7 @@ void HaMolView::EnableBackbone( int mask, double rad )
 	int ib;
     for( ib = 0; ib < nb; ib++ )
     {   
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
 		flag = ZoneBoth ? bptr->dstatom->Selected() && bptr->srcatom->Selected()
 			            : bptr->dstatom->Selected() || bptr->srcatom->Selected();
 		
@@ -270,7 +270,7 @@ void HaMolView::DisableBackbone()
     {   
 		for( ib = 0; ib < nb; ib++)
 		{
-			bptr = pmset->BackboneBonds[ib];
+			bptr = pmset->BackboneBonds[ib].get();
             if( bptr->dstatom->Selected() && bptr->srcatom->Selected() )
                 bptr->SetNotDraw();
 		}
@@ -279,7 +279,7 @@ void HaMolView::DisableBackbone()
 	{
 		for( ib = 0; ib < nb; ib++)
 		{
-			bptr = pmset->BackboneBonds[ib];
+			bptr = pmset->BackboneBonds[ib].get();
 			if( bptr->dstatom->Selected() || bptr->srcatom->Selected() )
 				bptr->SetNotDraw();
 		}
@@ -689,7 +689,7 @@ void HaMolView::RestrictSelected()
 	int ib;
     for( ib = 0; ib < nb; ib++ )
     {   /* Ignore ZoneBoth setting! */
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
         if( !(bptr->dstatom->Selected() && bptr->srcatom->Selected()) )
 		{
  			bptr->UnSelect();
@@ -889,7 +889,7 @@ void HaMolView::ColourBackNone()
 
 	for( ib = 0; ib < nb; ib++ )
 	{   
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
 		flag = ZoneBoth ? bptr->dstatom->Selected() && bptr->srcatom->Selected()
 			            : bptr->dstatom->Selected() || bptr->srcatom->Selected();
 		
@@ -923,7 +923,7 @@ void HaMolView::ColourBackAttrib( int r, int g, int b )
 
 	for( ib = 0; ib < nb; ib++ )
 	{
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
 		if( bptr->Selected() )
 		{   
 			bptr->col = bcolor.cidx;
@@ -2403,15 +2403,15 @@ void HaMolView::ApplyTransform()
 		{
 			if (i == 0)
 			{
-				x_sh = -mol_shift * 0.5 * Scale;
+				x_sh = (int) (-mol_shift * 0.5 * Scale);
 			}
 			else if (i == 1)
 			{
-				x_sh =  mol_shift * 0.5 * Scale;
+				x_sh =  (int)(mol_shift * 0.5 * Scale);
 			}
 			else
 			{
-				x_sh = 0.0;
+				x_sh = 0;
 			}
 		}
 		pmol->SetAtomScreenCoord(this, x_sh, y_sh);
@@ -2455,7 +2455,7 @@ void HaMolView::ApplyTransform()
 			int ib;
 			for( ib = 0; ib < nb; ib++ )
 			{
-				bptr = pmset->BackboneBonds[ib];
+				bptr = pmset->BackboneBonds[ib].get();
 				if( bptr->flag&CylinderFlag )
 					bptr->irad = (int)(Scale*bptr->radius);
 			}

@@ -335,7 +335,6 @@ int HaMolecule::SetHISNames()
 }
 
 
-
 int HaMolecule::SetCysBridgeNames()
 {
 	AtomIteratorMolecule aitr(this);
@@ -346,7 +345,7 @@ int HaMolecule::SetCysBridgeNames()
 		HaAtom::BondIterator bitr = aptr->Bonds_begin();
 		for( ; bitr != aptr->Bonds_end(); ++bitr)
 		{
-			HaBond* bptr = (*bitr);
+			HaBond* bptr = (*bitr).get();
 			if( bptr->GetFirstAtom() > bptr->GetSecondAtom() ) continue;
 
 			HaAtom* aptr2 = bptr->GetFirstAtom() == aptr ? bptr->GetSecondAtom() : bptr->GetFirstAtom();

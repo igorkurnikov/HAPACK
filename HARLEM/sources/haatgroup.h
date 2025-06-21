@@ -21,17 +21,18 @@
 
 
 class AtomExpr;
-typedef std::set<HaAtom*, less<HaAtom*> > AtomSet;
-typedef std::map<HaAtom*, int, less<HaAtom*> > AtomIntMap;
-typedef std::map<const HaAtom*, int, less<const HaAtom*> > CAtomIntMap;
-// typedef std::map<HaAtom*, HaAtom*, less<HaAtom*> > AtomAtomMap;
-typedef std::multimap<HaAtom*, HaAtom*, less<HaAtom*> > AtomAtomMultiMap;
-typedef std::map<std::string, HaAtom*, less<std::string> > StrAtomMap;
+class AtomFFParam;
+
+using AtomSet = std::set<HaAtom*>;
+using AtomIntMap = std::map<HaAtom*, int>;
+using CAtomIntMap = std::map<const HaAtom*, int>;
+// using AtomAtomMap = std::map<HaAtom*, HaAtom*> ;
+using AtomAtomMultiMap = std::multimap<HaAtom*, HaAtom*>;
+using StrAtomMap = std::map<std::string, HaAtom*>;
 
 //#if !defined(RAPIDXML_HPP_INCLUDED)
 //	namespace rapidxml { template<class Ch = char> class xml_node; }
 //#endif
-
 
 class AtomIterator : public PointIterator
 //! Abstract class for an iterator on collections of atoms 
@@ -504,15 +505,19 @@ public:
 	bool SetTransformation(std::string alt_res_name); //!< Set Residue Mutation 
 	bool IsSet() { return is_set; } //!< Check if the Mutation is Set
 
-	std::string res_name_b;
-	std::set<HaAtom*> atoms_a;
-	std::set<HaAtom*> atoms_b;
-	std::set<HaAtom*> dummy_a;
-	std::set<HaAtom*> dummy_b;
+	string res_name_b;
+	set<HaAtom*> atoms_a;
+	set<HaAtom*> atoms_b;
+	set<HaAtom*> dummy_a;
+	set<HaAtom*> dummy_b;
 
-	std::map<HaAtom*, std::string> at_names_b;
-	std::map<HaAtom*, int> at_elem_b;
-	std::vector<HaBond> bonds_b;
+	map<HaAtom*, std::string> at_names_b;
+	map<HaAtom*, int> at_elem_b;
+	map<HaAtom*, double> at_mass_b;
+	map<HaAtom*, shared_ptr<AtomFFParam>> at_ff_params;
+
+	vector<HaBond> bonds_b;
+
 
 protected:
 	HaResidue* p_res_a;

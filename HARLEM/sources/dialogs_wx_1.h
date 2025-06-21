@@ -585,7 +585,7 @@ public:
     static int dlg_open;
 
 	std::map<std::string, bool> prop_show_flags; //!< Show flags of Snapshot  Properties
-	std::map<std::string, bool> prop_col_num;    //!< Column numbers of Snapshot  Properties
+	std::map<std::string, int> prop_col_num;    //!< Column numbers of Snapshot  Properties
 
 	MolSet* pmset;
 	

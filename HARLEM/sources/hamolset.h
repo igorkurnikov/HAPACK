@@ -258,9 +258,9 @@ public:
 
 	void ClearBackbone();  //!< Clear Backbone bonds
 
-	set<HaHBond, less<HaHBond> > HBonds;        //!< Hydrogen Bonds of the molecular set
-	std::vector<HaBond*>  Bonds;    //!< Valence bonds of the molecular set
-	std::vector<HaBond*>  BackboneBonds; //!< Backbone Bonds in the molecular set 
+	set<HaHBond> HBonds;        //!< Hydrogen Bonds of the molecular set
+	std::vector<shared_ptr<HaBond>>  Bonds;    //!< Valence bonds of the molecular set
+	std::vector<shared_ptr<HaBond>>  BackboneBonds; //!< Backbone Bonds in the molecular set 
 
 	AtomIteratorMolSet begin();   //!< Start iterator for Atoms
 	AtomIteratorMolSet end();     //!< End   iterator for Atoms
@@ -761,7 +761,7 @@ public:
 	BondIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 protected:
-	vector<HaBond*>::iterator bitrm;
+	std::vector<shared_ptr<HaBond>>::iterator bitrm;
 	MoleculesType::iterator mol_itr;
 	bool first_called; //!< Indicates that the iterator was called already
 	

@@ -11,6 +11,7 @@
 #define HABOND_CPP
 
 #include <assert.h>
+#include <memory>
 
 #include "haatom.h"
 #include "habond.h"

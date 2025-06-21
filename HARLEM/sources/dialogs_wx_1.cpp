@@ -4356,7 +4356,7 @@ void AtomParamsDlgWX::FillAtomGroup()
 
 		if( n_charge >= 0 )
 		{
-			sprintf(buf,"%9.4f",aptr->charge);
+			sprintf(buf,"%9.4f",aptr->GetCharge());
 			m_atom_lctrl->SetCellValue(itm, n_charge, buf); 
 		}
 
@@ -4368,13 +4368,13 @@ void AtomParamsDlgWX::FillAtomGroup()
 
 		if( n_vdwrad >= 0 )
 		{
-			sprintf(buf,"%9.4f",aptr->vdw_rad );
+			sprintf(buf,"%9.4f",aptr->GetVdWRad() );
 			m_atom_lctrl->SetCellValue(itm, n_vdwrad, buf); 
 		}
 
 		if( n_vdwene >= 0 )
 		{
-			sprintf(buf,"%9.4f",aptr->ew);
+			sprintf(buf,"%9.4f",aptr->GetVdWEne());
 			m_atom_lctrl->SetCellValue(itm, n_vdwene, buf);
 		}
 
@@ -4417,7 +4417,7 @@ void AtomParamsDlgWX::FillAtomGroup()
 
 		if( n_ff_symbol >= 0 )
 		{
-			sprintf(buf,"%s", aptr->GetFFSymbol() );
+			sprintf(buf,"%s", aptr->GetFFSymbol().c_str() );
 			m_atom_lctrl->SetCellValue(itm, n_ff_symbol, buf);
 		}
 		
@@ -4758,7 +4758,7 @@ void AtomParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 		{
 			sprintf(buf," Invalid Input for atom Force Field Symbol: %s ", str_val.ToStdString().c_str());
 			PrintMessage(buf);
-			sprintf(buf,"%s",aptr->GetFFSymbol());
+			sprintf(buf,"%s",aptr->GetFFSymbol().c_str());
 			m_atom_lctrl->SetCellValue(irow, icol, buf);
 		}
 		else
@@ -4775,12 +4775,12 @@ void AtomParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 		{
 			sprintf(buf," Invalid Input for atom charge: %s ", str_val.ToStdString().c_str());
 			PrintMessage(buf);
-			sprintf(buf,"%9.4f",aptr->charge);
+			sprintf(buf,"%9.4f",aptr->GetCharge());
 			m_atom_lctrl->SetCellValue(irow, icol, buf);
 		}
 		else
 		{
-			aptr->charge = dval;
+			aptr->SetCharge(dval);
 		}
 	}
 	if(icol == n_mass)
@@ -4796,7 +4796,7 @@ void AtomParamsDlgWX::OnEndLabelEdit(wxGridEvent& event)
 		}
 		else
 		{
-			aptr->mass = dval;
+			aptr->SetMass(dval);
 		}
 	}
 	else if( icol == n_radius)

@@ -311,7 +311,6 @@ struct FourPtrsEq {
 
 using FourAtoms = FourPtrs<HaAtom*>;
 
-
 int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 {
 	int ires;
@@ -373,8 +372,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		HaResidue* p_res_templ = p_res_db->GetTemplateForResidue(res_fname);
 		if (p_res_templ == NULL)
 		{
-			PrintLog(" Can't find residue template %s for residue %s\n",
-				res_fname.c_str(), pres->GetRef().c_str());
+			PrintLog(" Can't find residue template %s for residue %s\n",res_fname, pres->GetRef());
 			PrintLog(" No atom FF parameters will be set for atoms of the residue \n");
 			continue;
 		}
@@ -382,9 +380,8 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate(res_fname);
 		if (p_res_ff_templ == NULL)
 		{
-			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n",
-				p_ff->GetFFType().label(), res_fname.c_str());
-			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", pres->GetFullName().c_str(), pres->GetRef().c_str());
+			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n", p_ff->GetFFType().label(), res_fname);
+			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", pres->GetFullName(), pres->GetRef());
 		}
 
 		std::string res_mut_fname;
@@ -397,17 +394,15 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			p_res_mut_templ = p_res_db->GetTemplateForResidue(res_mut_fname);
 			if (!p_res_mut_templ)
 			{
-				PrintLog(" Can't find mutated residue template %s for residue %s\n",
-					res_mut_fname.c_str(), pres->GetRef().c_str());
+				PrintLog(" Can't find mutated residue template %s for residue %s\n", res_mut_fname, pres->GetRef());
 				PrintLog(" the mutated state of the residue will not be set\n");
 			}
 
 			p_res_mut_ff_templ = p_ff->GetResidueTemplate(res_mut_fname);
 			if (p_res_mut_templ && !p_res_mut_ff_templ)
 			{
-				PrintLog(" Force field %s doesn't have specific parameters for residue name %s\n",
-					p_ff->GetFFType().label(), res_mut_fname.c_str());
-				PrintLog(" FF parameters for mutated state of residue: %s will be set from residue template: %s \n", pres->GetRef().c_str(), res_mut_fname.c_str() );
+				PrintLog(" Force field %s doesn't have specific parameters for residue name %s\n", p_ff->GetFFType().label(), res_mut_fname);
+				PrintLog(" FF parameters for mutated state of residue: %s will be set from residue template: %s \n", pres->GetRef(), res_mut_fname );
 			}
 		}
 
@@ -415,14 +410,13 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		{
 			try
 			{
-				pt_to_templ_map[aptr] = NULL;
+				pt_to_templ_map[aptr] = nullptr;
 				std::string at_name = aptr->GetName();
 
 				HaAtom* atempl = p_res_templ->GetAtomByName(at_name);
-
-				if (atempl == NULL)
+				if (atempl == nullptr)
 				{
-					if (at_name.size() == 4 && at_name.compare(0, 3, "HTM") == 0) // special rules for Terminating hydrogens
+					if (boost::algorithm::starts_with(at_name, "HTM")) // special rules for Terminating hydrogens
 					{
 						if (aptr->IsHydrogen())
 						{
@@ -454,6 +448,8 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 								ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_10)
 							{
 								aptr->SetFFSymbol("H1");
+								aptr->SetCharge(0.0);
+
 							}
 							else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
 							{
@@ -476,41 +472,16 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 									for (HaAtom* aptr_b : bonded_atoms)
 										if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
 								}
-								//std::string host_ff_s = aptr_host->GetFFSymbol();
-								//if (host_ff_s == "C2") aptr->SetFFSymbol("HC2");
-								//else if (host_ff_s == "CA") aptr->SetFFSymbol("HCA");
-								//else if (host_ff_s == "NAM") aptr->SetFFSymbol("HNAM");
-								//else if (host_ff_s == "CAM=") aptr->SetFFSymbol("C2"); // may be need a special atom type for terminating hydrogen
 							}
 						}
 						else
 						{
 							throw std::runtime_error( (boost::format("Terminating Atom %s is not Hydrogen \n") % aptr->GetRef()).str() );
 						}
-					} // if Terminating hydrogens
-					else if (at_name.size() > 1 && at_name.compare(0, 2, "DA") == 0) // special rules for Dummy atoms in Mutating residues
-					{
-						aptr->SetFFSymbol("DU");
-						aptr->SetCharge(0);
-						aptr->SetMass(4.0);
-					}
-					else
-					{
-						throw std::runtime_error(" Atom is not found in residue template and not covered by special rules");
 					}
 				}
 
 				pt_to_templ_map[aptr] = atempl;
-
-				HaAtom* atempl_mut = nullptr;
-				std::string at_name_mut;
-				if (pres->IsAlchemicalTransformationSet() && p_res_mut_templ)
-				{
-					at_name_mut = pres->p_res_transform->at_names_b[aptr];
-					atempl_mut = p_res_mut_templ->GetAtomByName(at_name);
-					if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
-				}
-
 
 				double charge = atempl ? atempl->GetCharge() : 0.0;
 				double mass = atempl ? atempl->GetMass() : 4.0;
@@ -518,7 +489,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 				if (atempl && p_res_ff_templ != NULL)
 				{
-					AtomFFParam* p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
+					shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
 					if (p_at_ff != NULL)
 					{
 						charge = p_at_ff->GetCharge();
@@ -533,22 +504,49 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				aptr->SetCharge(charge);
 				aptr->SetMass(mass);
 
-				if (pres->IsAlchemicalTransformationSet() && atempl_mut)
+				HaAtom* atempl_mut = nullptr;
+				std::string at_name_mut;
+				if (pres->IsAlchemicalTransformationSet() && p_res_mut_templ)
 				{
-					std::shared_ptr<AtomFFParam> at_mut_params = std::make_shared<AtomFFParam>();
-					at_mut_params->charge = atempl_mut->GetCharge();
-					at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+					at_name_mut = pres->p_res_transform->at_names_b[aptr];
+					atempl_mut = p_res_mut_templ->GetAtomByName(at_name);
+					if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
+				}
 
-					if (p_res_mut_ff_templ != NULL)
+				if (pres->IsAlchemicalTransformationSet() && atempl_mut )
+				{
+					shared_ptr<AtomFFParam> p_at_mut_params = make_shared<AtomFFParam>();
+					p_at_mut_params->charge = atempl_mut->GetCharge();
+					p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+					p_at_mut_params->mass = atempl_mut->GetMass();
+
+					if (p_res_mut_ff_templ )
 					{
-						AtomFFParam* p_at_mut_ff = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
-						if (p_at_mut_ff)
+						shared_ptr<AtomFFParam> p_at_mut_ff = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
+						if (p_at_mut_ff) p_at_mut_params = p_at_mut_ff;
+					}
+					if (p_at_mut_params->mass < 0.5)
+					{
+						if (atempl_mut->GetMass() > 0.5) p_at_mut_params->mass = atempl_mut->GetMass();
+						else p_at_mut_params->mass = 4.0;
+					}
+					pres->p_res_transform->at_ff_params[aptr] = p_at_mut_params;
+				}
+
+				if (boost::algorithm::starts_with(at_name, "DA")) // special rules for State A Dummy atoms in Mutating residues
+				{
+					double mass = 4.0;
+					if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
+					{
+						shared_ptr<AtomFFParam> pat_par_mut = pres->p_res_transform->at_ff_params[aptr];
+						if (pat_par_mut)
 						{
-							at_mut_params->charge = p_at_mut_ff->GetCharge();
-							at_mut_params->ff_symbol = p_at_mut_ff->ff_symbol;
+							if (pat_par_mut->mass > 0.5) mass = pat_par_mut->mass;
 						}
 					}
-					atom_mut_params[aptr] = at_mut_params;
+					aptr->SetFFSymbol("DU");
+					aptr->SetCharge(0);
+					aptr->SetMass(mass);
 				}
 			}
 			catch (const std::exception& ex)
@@ -1212,8 +1210,8 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 		std::string at_name = aptr->GetName();
 		if (at_name == "X")
 		{
-			aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-			aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+			aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+			aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 		}
 	}
 	
@@ -1369,38 +1367,38 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 		std::string at_name = aptr->GetName();
  		if( at_name == "SG")
 		{
-			aptr->vdw_rad = 0.5*dcut;
-			aptr->ew      = eps;
+			aptr->SetVdWRad(0.5*dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("SG");
 		}
  		if( at_name == "PH")
 		{
-			aptr->vdw_rad = 0.5*dcut;
-			aptr->ew      = eps; 
+			aptr->SetVdWRad(0.5*dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("PH");
 		}
 		if( at_name == "AB" )
 		{
-			aptr->vdw_rad = 0.5*dcut;
-            aptr->ew      = eps; 
+			aptr->SetVdWRad(0.5 * dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("AB");
 		}
 		if( at_name == "TB" )
 		{
-			aptr->vdw_rad = 0.5*dcut;
-			aptr->ew      = eps; 
+			aptr->SetVdWRad(0.5 * dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("TB");
 		}
 		if( at_name == "GB" )
 		{
-			aptr->vdw_rad = 0.5*dcut;
-			aptr->ew      = eps; 
+			aptr->SetVdWRad(0.5 * dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("GB");
 		}
 		if( at_name == "CB" )
 		{
-			aptr->vdw_rad = 0.5*dcut;
-			aptr->ew      = eps; 
+			aptr->SetVdWRad(0.5 * dcut);
+			aptr->SetVdWEne(eps);
 			aptr->SetFFSymbol("CB");
 		}
 	}
@@ -2447,13 +2445,32 @@ int MolMechModel::SetDistConstrFromFile( const char* constr_file_name )
 
 std::string MolMechModel::GetFFSymbolFromMolStruct(HaAtom* aptr)
 {
+	std::string atn = aptr->GetName();
+	HaResidue* pres = aptr->GetHostRes();
+
 	std::string ff_name = "DU";
 	AtomGroup bonded_atoms = aptr->GetBondedAtoms();
 	if (bonded_atoms.size() == 1) // so far only set rules for atoms with  one neighbor
 	{
-		HaAtom* aptr_host = bonded_atoms[0];
-		std::string host_ff_s = aptr_host->GetFFSymbol();
-		if (host_ff_s == "CT") ff_name = "HT";
+		HaAtom* aptr_host_heavy = bonded_atoms[0]; // Heavy Atom  a given Terminal atom is Attached
+		AtomGroup bonded_atoms_host_heavy = aptr_host_heavy->GetBondedAtoms();  // Atoms bonded to the Heavy Atom host
+		AtomGroup bonded_hydrogens_host_heavy;
+		for (HaAtom* aptr : bonded_atoms_host_heavy)
+			if (aptr->IsHydrogen()) bonded_hydrogens_host_heavy.push_back(aptr);
+		int nh_host = bonded_hydrogens_host_heavy.size();
+
+		std::string h_ff_s = "H1";
+		for (HaAtom* aptr_h : bonded_hydrogens_host_heavy)
+		{
+			if (aptr_h->GetFFSymbol() == "HC") h_ff_s = "HC";
+		}
+
+		std::string host_ff_s = aptr_host_heavy->GetFFSymbol();
+	
+		if (host_ff_s == "CT")
+		{
+				ff_name = "H1";
+		}
 	}
 	return ff_name;  
 }
@@ -2492,7 +2509,6 @@ int MolMechModel::SetStdValParams()
 				continue;
 			}
 			
-		
 			PrintLog("Can't find Force field parameters for a bond between atoms \n %s %s \n with FF symbols %s %s \n",
 				pt1->GetRef(),pt2->GetRef(), pt1->GetFFSymbol(), pt2->GetFFSymbol() );
 			PrintLog("Set Default Parameters For the bond based on Current Geometry \n");
@@ -2544,8 +2560,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator vitr = ValAngles.begin();
-	for(; vitr != ValAngles.end(); vitr++)
+	for(auto vitr = ValAngles.begin(); vitr != ValAngles.end(); vitr++)
 	{
 		MMValAngle& va = (MMValAngle&)(*vitr);
 		HaAtom* pt1 = va.pt1;
@@ -2563,7 +2578,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 
 			vector<double> vpar(2);
-			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s.c_str(),at2_ff_s.c_str(), at2_ff_s.c_str());
+			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s);
 			if( vpar.size() > 1)
 			{
 				va.a0 = vpar[0];
@@ -2573,8 +2588,8 @@ int MolMechModel::SetStdValParams()
 			}
 			
 			PrintLog("Can't find Force field parameters for a val angle between atoms \n %s %s %s \n with FF symbols %s %s %s \n",
-				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(),
-				pt1->GetFFSymbol(),pt2->GetFFSymbol(),pt3->GetFFSymbol() );
+					pt1->GetRef(), pt2->GetRef(), pt3->GetRef(),
+				    at1_ff_s, at2_ff_s, at3_ff_s);
 			PrintLog("Set Standard Parameters For the Valence Angle \n");
 			
 			double vangle = Vec3D::CalcAngle(pt1,pt2,pt3)/DEG_TO_RAD;
@@ -2585,8 +2600,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	vitr = ValAngles_mut.begin();
-	for (; vitr != ValAngles_mut.end(); vitr++)
+	for (auto vitr = ValAngles_mut.begin(); vitr != ValAngles_mut.end(); vitr++)
 	{
 		MMValAngle& va = (MMValAngle&)(*vitr);
 		HaAtom* pt1 = va.pt1;
@@ -2608,7 +2622,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 
 			HaVec_double vpar(2);
-			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str());
+			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s);
 			if (vpar.size() > 1)
 			{
 				va.a0 = vpar[0];
@@ -2618,8 +2632,8 @@ int MolMechModel::SetStdValParams()
 			}
 
 			PrintLog("Can't find Force field parameters (mutated state ) for a val angle between atoms \n %s %s %s \n with FF symbols %s %s %s \n",
-				pt1->GetRef().c_str(), pt2->GetRef().c_str(), pt3->GetRef().c_str(),
-				at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str());
+				pt1->GetRef(), pt2->GetRef(), pt3->GetRef(),
+				at1_ff_s , at2_ff_s, at3_ff_s );
 			PrintLog("Set Standard Parameters For the Valence Angle \n");
 
 			double vangle = Vec3D::CalcAngle(pt1, pt2, pt3) / DEG_TO_RAD;
@@ -2653,7 +2667,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s.c_str(), at2_ff_s.c_str(), at3_ff_s.c_str(), at4_ff_s.c_str());
+			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
 			if(dpar.size() > 1 )
 			{
 				int nt = dpar.size()/4;
@@ -2842,15 +2856,15 @@ int MolMechModel::SetStdVdWParams()
 
 		if(ppar.size() > 1)
 		{
-			aptr->vdw_rad = ppar[0];
-			aptr->ew = ppar[1];
+			aptr->SetVdWRad(ppar[0]);
+			aptr->SetVdWEne(ppar[1]);
 			continue;
 		}
 
 		if (aptr->GetFFSymbol() == "DU")  // Set Zero VDW parameters for DUMMY atoms 
 		{
-			aptr->vdw_rad = 1.0;
-			aptr->ew = 0.0;
+			aptr->SetVdWRad(1.0);
+			aptr->SetVdWEne(0.0);
 			continue;
 		}
 
@@ -2862,14 +2876,14 @@ int MolMechModel::SetStdVdWParams()
 		ppar = p_ff->FindPointParamFromSymbol(elem_symbol);
 		if(ppar.size() > 1)
 		{
-			aptr->vdw_rad = ppar[0];
-			aptr->ew = ppar[1];
+			aptr->SetVdWRad(ppar[0]);
+			aptr->SetVdWEne(ppar[1]);
 		}
 		else
 		{
 //			aptr->SetFFSymbol("XXST");
-			aptr->vdw_rad = 1.908;
-			aptr->ew = 0.086;	
+			aptr->SetVdWRad(1.908);
+			aptr->SetVdWEne(0.086);
 		}
 	}
 	return TRUE;
@@ -3364,12 +3378,12 @@ bool MolMechModel::CalcNonBondPt(const HaAtom* pt1, const HaAtom* pt2,
 	
 	if( calc_vdw_flag) 
 	{
-		double sigma6 = pt1->vdw_rad + pt2->vdw_rad;
+		double sigma6 = pt1->GetVdWRad() + pt2->GetVdWRad();
 		sigma6*= (sigma6*sigma6);
 		sigma6*= sigma6; 
 		tmp = sigma6/r6;
 		
-		double estar = sqrt(pt1->ew * pt2->ew );
+		double estar = sqrt(pt1->GetVdWEne() * pt2->GetVdWEne());
 		
 		// E_vdW= sqrt(ew_i* ew_j)( (sigma_i+sigma_j)^12/r^12 - 
 		//                         	 2.0* (sigma_i+sigma_j)^6/r^6 )

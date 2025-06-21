@@ -1,5 +1,6 @@
 #include "hampi.h"
 #include <stdio.h>
+#include <memory>
 
 #include "haatom.h"
 #include "hamolset.h"
@@ -5782,7 +5783,7 @@ int HaMolMembraneMod::SetCoarseGrainedDFireCoreParams() // jose October 22, 2008
 		else 
 			aptr = res_ptr->GetAtomByName("CA");
 
-		aptr->vdw_rad = sc_vdwradius.GetVal(res_name.c_str());
+		aptr->SetVdWRad( sc_vdwradius.GetVal(res_name.c_str()));
 		//PrintLog("radius %s , %4.2f\n", res_name.c_str(), sc_vdwradius.GetVal(res_name.c_str()));
 	}
 
@@ -5798,8 +5799,7 @@ int HaMolMembraneMod::SetCoarseGrainedDFireCoreParams() // jose October 22, 2008
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-bool
-HaMolMembraneMod::BuildNonBondSCContactList() //@ jose October 22, 2008 
+bool HaMolMembraneMod::BuildNonBondSCContactList() //@ jose October 22, 2008 
 {
 	if (!nonbond_SC_contact_list.empty()) nonbond_SC_contact_list.clear();
 
@@ -5872,8 +5872,7 @@ HaMolMembraneMod::BuildNonBondSCContactList() //@ jose October 22, 2008
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
-bool 
-HaMolMembraneMod::BuildClashAtomList()
+bool HaMolMembraneMod::BuildClashAtomList()
 {
 	if (!nonbond_atom_clash_list.empty()) nonbond_atom_clash_list.clear();
 
@@ -5889,7 +5888,7 @@ HaMolMembraneMod::BuildClashAtomList()
 		HaMolecule* mol1 = pt1->GetHostMol();
 		std::string mol_name1 = mol1->GetRef();
 
-		double sigma1 = pt1->vdw_rad;
+		double sigma1 = pt1->GetVdWRad();
 
 		double x1 = pt1->GetX();
 		double y1 = pt1->GetY();
@@ -5905,7 +5904,7 @@ HaMolMembraneMod::BuildClashAtomList()
 
 			if (mol_name1 == mol_name2) continue; // check if they are from the same molecule
 
-			double sigma2 = pt2->vdw_rad;
+			double sigma2 = pt2->GetVdWRad();
 			cut2 = sigma1 + sigma2;
 			
 			cut2 = cut2*cut2;
@@ -6460,8 +6459,7 @@ HaMolMembraneMod::ScoreEnergy()
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-bool
-HaMolMembraneMod::CalcVdwRep( HaAtom* pt1,  HaAtom* pt2, double &vdw_at_ene)
+bool HaMolMembraneMod::CalcVdwRep( HaAtom* pt1,  HaAtom* pt2, double &vdw_at_ene)
 {
 	double r2 = 0.0;
 
@@ -6475,7 +6473,7 @@ HaMolMembraneMod::CalcVdwRep( HaAtom* pt1,  HaAtom* pt2, double &vdw_at_ene)
 	tmp = pt1->GetZ() - pt2->GetZ();
 	r2 += tmp*tmp;
 
-	double sigma2 = pt1->vdw_rad + pt2->vdw_rad ;
+	double sigma2 = pt1->GetVdWRad() + pt2->GetVdWRad();
 	double sigma_hardsphere = sigma2* 0.7509; // hard sphere contact from Kussell JMB 2001, 311, 183-193
   	sigma2 = sigma2*sigma2;
 
@@ -6702,103 +6700,103 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 		{
 			if (res_name == "ALA")
 			{
-				aptr->vdw_rad = 2.287; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(2.287); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);   //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "ARG")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "ASN")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "ASP")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "GLY")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "GLU")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "HIS")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "LEU")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "LYS")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "ILE")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "MET")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "SER")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "TYR")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "THR")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "PRO")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "CYS")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "GLN")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "VAL")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "TRP")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 			if (res_name == "PHE")
 			{
-				aptr->vdw_rad = 1.0; //< future modification from OPEP radius for each residue
-				aptr->ew = 0.0;		 //< future modification from OPEP radius for each residue
+				aptr->SetVdWRad(1.0); //< future modification from OPEP radius for each residue
+				aptr->SetVdWEne(0.0);		 //< future modification from OPEP radius for each residue
 			}
 		}
 	}

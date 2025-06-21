@@ -332,7 +332,7 @@ int MolEditor::FindBackbone( MolSet* pmset )
 					aptr1->flag |= BreakFlag;
 					continue;
 				}
-				HaBond* p_bond = new HaBond( aptr1,aptr2 );
+				shared_ptr<HaBond> p_bond = make_shared<HaBond>( aptr1,aptr2 );
 				pmset->BackboneBonds.push_back(p_bond);
 			}		
 			if( pres1->IsNucleo() && pres2->IsNucleo() )
@@ -340,7 +340,7 @@ int MolEditor::FindBackbone( MolSet* pmset )
 				HaAtom* aptr1 = pres1->GetAtomByName("P");
 				HaAtom* aptr2 = pres2->GetAtomByName("P");
 				if( aptr1 == NULL || aptr2 == NULL) continue;
-				HaBond* p_bond = new HaBond(aptr1,aptr2);
+				shared_ptr<HaBond> p_bond = make_shared<HaBond>(aptr1, aptr2);
 				pmset->BackboneBonds.push_back(p_bond);
 			}
 		}
@@ -1343,17 +1343,18 @@ int MolEditor::FixBondsUsingTempl(MolSet* pmset)
 					HaAtom::CreateBond(aptr,aptr2);
 				}
 			}
-			std::vector<HaBond*>& bonds_r = aptr->GetBonds();
-			std::vector<HaBond*>& bonds_t = atempl->GetBonds();
+
+			std::vector<shared_ptr<HaBond>>& bonds_r = aptr->GetBonds();
+			std::vector<shared_ptr<HaBond>>& bonds_t = atempl->GetBonds();
 			int k;
 			for( k = 0; k < bonds_r.size(); k++)
 			{
-				HaBond* pbnd_r = bonds_r[k];
+				shared_ptr<HaBond> pbnd_r = bonds_r[k];
 				HaAtom* aptr2 = pbnd_r->srcatom;
 				if( aptr2 == aptr ) aptr2 = pbnd_r->dstatom;
 				atempl2 = (HaAtom*) at_map[aptr2];
 				if( atempl2 == NULL) continue;
-				HaBond* pbnd_t = NULL;
+				shared_ptr<HaBond> pbnd_t;
 				for( j = 0; j < bonds_t.size(); j++)
 				{
 					if( bonds_t[j]->srcatom == atempl && bonds_t[j]->dstatom == atempl2 )
@@ -1371,7 +1372,7 @@ int MolEditor::FixBondsUsingTempl(MolSet* pmset)
 				{
 					if( pbnd_t->GetTypeString() != pbnd_r->GetTypeString() )
 					{
-						PrintLog(" Change Bond type between atoms %s %s  from %s to %s \n", aptr->GetRef().c_str(), aptr2->GetRef().c_str(), pbnd_r->GetTypeString().c_str(), pbnd_t->GetTypeString().c_str() );
+						PrintLog(" Change Bond type between atoms %s %s  from %s to %s \n", aptr->GetRef(), aptr2->GetRef(), pbnd_r->GetTypeString(), pbnd_t->GetTypeString() );
 						pbnd_r->SetTypeFrom( *pbnd_t);
 					}
 				}
@@ -2078,7 +2079,7 @@ int MolEditor::ConvertWaterArrowVB(MolSet* pmset)
 		HaAtom::BondIterator bitr = ph1->Bonds_begin();
 		for (; bitr != ph1->Bonds_end(); bitr++)
 		{
-			HaBond* bptr = *bitr;
+			HaBond* bptr = (*bitr).get();
 			HaAtom* at2 = nullptr;
 			if (bptr->GetFirstAtom() == ph1) 
 				at2 = bptr->GetSecondAtom();
@@ -2086,14 +2087,6 @@ int MolEditor::ConvertWaterArrowVB(MolSet* pmset)
 				at2 = bptr->GetFirstAtom();
 			if (at2 == ph2) bptr->SetVirtual();
 		}
-	//	pres = wat_res[i];
-	//	HaMolecule* old_mol = pres->GetHostMol();
-	//	int nr_mol = old_mol->GetNRes();
-	//	if (nr_mol == 1) continue;
-	//	HaMolecule* pmol = pmset->AddNewMolecule();
-	//	pmol->SetObjName("HOH");
-	//	HaChain* pchain = pmol->AddChain(' ');
-	//	HaResidue* pres2 = pchain->AddResidue(1);
 	}
 
 
@@ -2620,7 +2613,7 @@ int MolEditor::SetStdAtomicParams(MolSet* pmset, int at_params_type)
 		{
 			if(aptr->Selected())
 			{
-				aptr->charge = 0.0;
+				aptr->SetCharge(0.0);
 			}
 		}
 	}
@@ -2648,7 +2641,7 @@ int MolEditor::SetStdAtomicParams(MolSet* pmset, int at_params_type)
 				if(atempl != NULL)
 				{
 					if( at_params_type & AMBER_ALL_ATOM_CHRGS )
-						aptr->charge = atempl->GetCharge();
+						aptr->SetCharge(atempl->GetCharge());
 					if(at_params_type &  AMBER_ALL_ATOM_FF_SYMBOLS )
 						aptr->SetFFSymbol(atempl->GetFFSymbol());
 					if(at_params_type &  AMBER_ALL_ATOM_MASSES )
@@ -3407,7 +3400,7 @@ int MolEditor::CenterAtOriginWithRad(AtomContainer* pat_cont)
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 	{
 		int elemno = aptr->GetElemNo();
-		double rad = aptr->vdw_rad;
+		double rad = aptr->GetVdWRad();
 		if( rad < 0.01 )
 		{
 			rad = aptr->HaAtom::ElemVDWRadius(elemno);
@@ -3607,7 +3600,7 @@ int MolEditor::Solvate(MolSet* pmset)
 			HaAtom::BondIterator bitr = aptr->Bonds_begin();
 			for( ; bitr != aptr->Bonds_end(); ++bitr )
 			{
-				bptr = (*bitr);
+				bptr = (*bitr).get();
 
 				mitr = at_map.find(bptr->srcatom);
 				if(mitr == at_map.end()) continue;

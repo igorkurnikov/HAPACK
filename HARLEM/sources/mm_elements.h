@@ -18,11 +18,11 @@ class AtomFFParam
 {
 public:
 	AtomFFParam();
-	AtomFFParam(HaAtom* aptr_ref_new);
+	//AtomFFParam(HaAtom* aptr_ref_new);
 	virtual ~AtomFFParam(); 
 
 	void Clear(); //!< Clear content
-	int LoadXml(const TiXmlElement* xml_element, int option=0 ); //!< Load Atom FF Template from XML element
+	int LoadXml(const TiXmlElement* xml_element, std::string at_name, int option=0 ); //!< Load Atom FF Template from XML element
 
 	int HasDipole() const;   //!< Check if atom has electic dipole parameter
 	int HasQPole()  const;   //!< Check if atom has electric quadrupole parameter
@@ -34,13 +34,12 @@ public:
 	bool IsPolarPositionDep() const; //!< Indicate if atom polarizability if affected by the presence of other atoms
 	bool HasScreenPolar() const;   //!<   Indicate if polarizabilty screening coefficent ( sqrt(thole_coef) ) is set
 	
-
 	double GetCharge() const;        //!< Get Electric Charge
 	HaVec_double GetDipole() const;  //!< Get Electric Dipole
 	HaVec_double GetQPole()  const;  //!< Get Electric Quadrupole
 	int IsChiralFrame() const;       //!< Check if local frame is chiral
 	int IsBisectFrame() const;       //!< Check if local frame vector Z is defined as a bisector 
-	int SetFrameFromAtomNames();     //!< Set Pointers to atoms defining reference frame using stores array of atom names
+	bool SetFrameFromAtomNames(HaAtom* aptr_ref);  //!< Set Pointers to atoms defining reference frame using stored array of atom names
 
 public:
 	double charge;          //!< electrical charge of the atom
@@ -54,7 +53,11 @@ public:
 	double damp_polar_rad;         //!< Atom radius for polarizabiltiy damping interactions
 	double screen_polar;           //!< Polarity screenning coeffient ( if > 0 than sqrt(thole_coef) or not set )
 
-	std::string at_name;    //!< Atom name in the residue or residue force field template 
+	double mass;  //!< Atom Mass 
+	double rad_vdw;  //!< VdW radius of the atom
+	double ene_vdw;  //!< VdW energy of the atom
+
+	//std::string at_name;    //!< Atom name in the residue or residue force field template 
 	std::string ff_symbol;  //!< Force field symbol of the atom
 	std::string ff_polar_symbol;  //!<  Force field symbol of the atom for electrostatic and polarization parameters
 	
@@ -62,7 +65,7 @@ public:
 	AtomGroup frame_atoms;       //!< Array of atom pointer defing local frame of the atom
 	int bisect_flag;             //!< Flag to specify that Z-axis of the local frame of the atom is defined as a bisector 
 
-	HaAtom* aptr_ref;     //!< Reference atom of atom FF parameters	
+	// HaAtom* aptr_ref;
 };
 
 class ResFFTemplate
@@ -74,30 +77,27 @@ public:
 
 	void Clear(); //!< Clear All content
 
-	int LoadXml(const TiXmlElement* xml_element, int option=0 ); //!< Load Residue FF Template from XML element
+	bool LoadXml(const TiXmlElement* xml_element, int option=0 ); //!< Load Residue FF Template from XML element
 
-	AtomFFParam* GetAtomFFParam(const std::string& at_name); //!< Get Atom Force Field Parameters by Atom Name 
-	int SetAtomFFParam(const std::string& at_name, AtomFFParam* p_at_ff_param); //!< Set Atom Force Field Parameter
+	shared_ptr<AtomFFParam> GetAtomFFParam(const std::string& at_name); //!< Get Atom Force Field Parameters by Atom Name 
+	bool SetAtomFFParam(const std::string& at_name, shared_ptr<AtomFFParam> p_at_ff_param); //!< Set Atom Force Field parameters
 
-	int SetResFFVersion(const std::string& res_ff_version_new); //< Set Version string of the Residue force field template 
-	std::string GetFullName(); //!< Get Full Name of the residue template
+	void SetResFFVersion(const std::string& res_ff_version_new); //< Set Version string of the Residue force field template 
+	string GetFullName(); //!< Get Full Name of the residue template
 
 	HaResidue* GetResTemplate(); //!< Get Residue structure template associated with the Force Field residue template
 	
-	std::vector<AtomFFParam*> atom_params;
-
-	std::vector<StrVec> bonds;
-	std::vector<StrVec> angles;
-	std::vector<StrVec> dihedrals;
-	std::vector<StrVec> improper_dihedrals;
+	vector<StrVec> bonds;
+	vector<StrVec> angles;
+	vector<StrVec> dihedrals;
+	vector<StrVec> improper_dihedrals;
 
 private:
-	std::string res_name;       //!< Full Residue Name in Residue Database
-	std::string res_ff_version; //!< Identifier for the version of the force field for the residue 
+	string res_name;       //!< Full Residue Name in Residue Database
+	string res_ff_version; //!< Identifier for the version of the force field for the residue 
 
 	HaResidue* p_res_templ;
-	std::map<std::string,AtomFFParam*, less<std::string> > at_name_ff_param_map; //!< Map of atom names to atomic force field parameters
-
+	map<string,shared_ptr<AtomFFParam>> at_name_ff_param_map; //!< Map of atom names to atomic force field parameters
 };
 
 class MMBond

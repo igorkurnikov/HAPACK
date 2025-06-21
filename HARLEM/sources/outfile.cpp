@@ -1344,7 +1344,7 @@ HaMolView::CountPSItems()
 	int ib;
 	for( ib = 0; ib < nb; ib++ )
 	{
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
         if( bptr->IsToDraw() && (!UseClipping ||
             !ClipVectBond(bptr->srcatom,bptr->dstatom)) )
                 result++;
@@ -1422,7 +1422,7 @@ HaMolView::FetchPSItems(PSItemPtr* data, char* type )
 	int ib;
 	for( ib = 0; ib < nb; ib++ )
 	{
-	   bptr = pmset->BackboneBonds[ib];
+	   bptr = pmset->BackboneBonds[ib].get();
        if( bptr->IsToDraw() && (!UseClipping || !ClipVectBond(bptr->srcatom,bptr->dstatom)) )
        {   
 		   type[i] = PSBond;

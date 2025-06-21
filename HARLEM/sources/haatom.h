@@ -24,6 +24,8 @@ class MolSet;
 class ChemGroup;
 class AtomGroup;
 class HaBond;
+class AtomFFParam;
+
 template class std::vector<HaBond*>;
 
 const int DUMMY_ELEM = 99; //!< element number used for dummy charges
@@ -51,6 +53,7 @@ public:
 //! \name Constructors, Destructors, Set Parameters 
 //@{
   HaAtom();
+  HaAtom(const HaAtom& atom_ref);
   virtual ~HaAtom();
 
   bool SetParamFrom(const HaAtom& atom_ref);
@@ -121,20 +124,17 @@ public:
 
   void SetHostRes(HaResidue* new_phost_res);
 
-  using BondIterator = std::vector<HaBond*>::iterator;
-  using BondIterator_const = std::vector<HaBond*>::const_iterator;
+  using BondIterator       = std::vector<shared_ptr<HaBond>>::iterator;
+  using BondIterator_const = std::vector<shared_ptr<HaBond>>::const_iterator;
 
-  BondIterator Bonds_begin() { return p_bonds->begin(); }
-  BondIterator Bonds_end()   { return p_bonds->end();   }
+  BondIterator Bonds_begin() { return bonds.begin(); }
+  BondIterator Bonds_end()   { return bonds.end();   }
 
-  BondIterator_const Bonds_begin() const { return p_bonds->begin(); }
-  BondIterator_const Bonds_end()   const { return p_bonds->end();   }
+  BondIterator_const Bonds_begin() const { return bonds.begin(); }
+  BondIterator_const Bonds_end()   const { return bonds.end();   }
  	
-  std::vector<HaBond*>& GetBonds() { return *p_bonds;} //!< Get Covalent bonds of the atom
-  // std::vector<const HaBond*>& GetBonds() const { return *p_bonds;}
+  std::vector<shared_ptr<HaBond>>& GetBonds() { return bonds;} //!< Get Covalent bonds of the atom
 
-  //int GetBonds(std::vector<HaBond*>& bond_arr);              //!< get Covalent bonds of the atom
-  //int GetBonds(std::vector<const HaBond*>& bond_arr) const;  //!< get Covalent bonds of the atom (const version) 
   int GetBondedAtoms(AtomGroup& bonded_atoms); //!< get atoms bonded to the given atom
   AtomGroup GetBondedAtoms();                  //!< get atoms bonded to the given atom
   int GetHBondAcc(AtomGroup& hbonded_acc_atoms); //!< get hydrogen bond acceptor atoms H-bonded to the given H-Bond donor atom
@@ -142,8 +142,8 @@ public:
   
   void RemoveBond(HaBond* pb); //!< Remove Bond from atom bond array 
 
-  static int CreateBond(HaAtom* aptr1, HaAtom* aptr2); //!< Create bond between 2 atoms
-  static int DeleteBond(HaAtom* aptr1, HaAtom* aptr2); //!< Delete bond between 2 atoms
+  static bool CreateBond(HaAtom* aptr1, HaAtom* aptr2); //!< Create bond between 2 atoms
+  static bool DeleteBond(HaAtom* aptr1, HaAtom* aptr2); //!< Delete bond between 2 atoms
   
   static HaAtom* AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4, 
 		                           const HaAtom* aptr_templ, const HaAtom* aptr_templ_2, const HaAtom* aptr_templ_3, 
@@ -188,29 +188,35 @@ public:
   static std::string GetStdSymbolElem(int elem);    //!< Get Standard symbol of the element 
 //@}
  
-//! \name Force Field rleated functions: 
+//! \name Force Field related functions 
 //@{
-  static double ElemVDWRadius(int elem, 
-	                          bool united_atom_flag = false); //!< Get Standard Van der Waals radius of the Element  
+  static double ElemVDWRadius(int elem, bool united_atom_flag = false); //!< Get Standard Van der Waals radius of the Element  
   static double StdElemMass(int elem);               //!< Get Atomic mass of the element from the periodical table
   double GetStdMass() const;                         //!< Get Atomic mass of the element of the atom from the periodical table         
 
   static double ElemDuttonRadius(int elem); //!< Get Atom Radii used in Dutton ET model
 
-  std::string GetFFSymbol() const { return FFSymbol; } //!< Get Force Field Symbol of the Atom
-  const char* SetFFSymbol(std::string new_ff_symbol) { FFSymbol = new_ff_symbol; return(FFSymbol.c_str()); } //!< Set Force Field Symbol
-  bool SetCharge(double new_charge){ charge = new_charge; return true;} //!< Set charge of the atom
-  double GetCharge() const { return charge; } //!< Get Charge of the point 
+  const std::string GetFFSymbol() const;             //!< Get Force Field Symbol of the Atom
+  void SetFFSymbol(const std::string& new_ff_symbol); //!< Set Force Field Symbol of the Atom
+  
+  double GetCharge() const;                  //!< Get Atom Charge (a.u.)
+  void SetCharge(double new_charge);         //!< Set Atom Charge (a.u.)
+  
+  double GetMass() const;                    //!< Get atom mass 
+  void SetMass(double new_mass);             //!< Set atom mass 
 
-  double GetMass() const { return mass; }                            //!< get the mass of the point
-  bool SetMass( double new_mass ) { mass = new_mass; return true; }  //!< Set the mass of the point
-	
-  double charge;               //!< charge of the point (atomic charge)
-  double mass;                 //!< Mass of the point in Atomic units
-  double vdw_rad;   //!< atom VdW radius (in Bohr) to compute Van-der-Waals interactions 
-  double ew;        //!< mimimum energy of vdW interaction of the two identical atoms kcal/mol
+  double GetVdWRad() const;                  //!< Get atom VdW radius ( Ang )
+  void SetVdWRad(double new_rad_vdw);        //!< Set atom VdW radius 
 
-  std::string FFSymbol;  //!< Force-field symbol
+  double GetVdWEne() const;                  //!< Get VdW Energy parameter of the Atom ( kcal/mol ) ( attraction energy of two atoms at 2*r_vdw distance )
+  void SetVdWEne(double new_ene_vdw);        //!< Set VdW Energy parameter of the Atom
+
+  shared_ptr<AtomFFParam> ps_ff_par;
+
+  // double mass;                 //!< Mass of the Atom in Atomic units
+  // double vdw_rad;   //!< atom VdW radius (in Bohr) to compute Van-der-Waals interactions 
+  // double ew;        //!< mimimum energy of vdW interaction of the two identical atoms kcal/mol
+
   std::vector<std::string> comments; //!< Additional comments read from the HIN file
 //@}
 
@@ -259,7 +265,7 @@ public:
 protected:
   HaResidue* phost_res;   //!< the residue atom belongs to
 
-  std::vector<HaBond*>* p_bonds;  //!< Array of atoms the atom is bonded to  
+  std::vector<shared_ptr<HaBond>> bonds;  //!< Array of bonds the atom  
 
   bool proxy_flag;                //!< flag to indicate that atom is used in residue template in place of an atom of an another residue bonded to 
   std::string replaced_atom_name; //!< if (replace_atom_flag) indicate atom id this atom is replacing in the molecular structure

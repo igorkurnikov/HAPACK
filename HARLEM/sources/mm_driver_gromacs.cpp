@@ -546,8 +546,8 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 			if( at_ff_names.count(ff_s) > 0 ) continue;
 			at_ff_names.insert(ff_s);
 
-			double vdw_rad = p_mm_model->Atoms[i]->vdw_rad;
-			double ew = p_mm_model->Atoms[i]->ew;
+			double vdw_rad = p_mm_model->Atoms[i]->GetVdWRad();
+			double ew = p_mm_model->Atoms[i]->GetVdWEne();
 
 			double sigma   = 2*vdw_rad*0.1/pow(2.0,1.0/6.0);
 			double epsilon = 4.184*ew;

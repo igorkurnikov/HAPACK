@@ -37,9 +37,8 @@ std::string HaBasisSet::GetID(const HaBasisSet* pbas)
 {
 	if( pbas == NULL) return "";
 	
-	char buf[20];
-	sprintf(buf,"%x",pbas);
-	return buf;
+	std::string ss = (boost::format("%p") % pbas).str();
+	return ss;
 }
 
 int HaBasisSet::RemoveCachedMatForBasis(const HaBasisSet* pbas)

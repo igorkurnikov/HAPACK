@@ -7122,8 +7122,8 @@ int AmberMMModel::UpdateAmberData()
 	ntypes = 0;
 	for( i =0; i < natom ; i++) 
 	{
-		ppar[0] = p_mm_model->Atoms[i]->vdw_rad;
-		ppar[1] = p_mm_model->Atoms[i]->ew;
+		ppar[0] = p_mm_model->Atoms[i]->GetVdWRad();
+		ppar[1] = p_mm_model->Atoms[i]->GetVdWEne();
 
 		pitr = ppar_idx_map.find(ppar);
 		int idx;

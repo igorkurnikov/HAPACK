@@ -29,7 +29,7 @@
 #include "haresdb.h"
 
 #include "mm_force_field.h"
-
+#include "mm_elements.h"
 
 ElemStruct ElementArr[MAXELEMNO] =  {
     { { ' ', ' ' }, 0.72,  1.44,  1.000,   12, ""             },  /*   0 */
@@ -148,26 +148,23 @@ std::string HaAtom::GetRef(int ref_type) const
 
 HaAtom::HaAtom()
 {
-	p_bonds = new BondArray;
+	ps_ff_par = make_shared<AtomFFParam>();
 	Clear();
 }
 
+HaAtom::HaAtom(const HaAtom& atom_ref)
+{
+	ps_ff_par = make_shared<AtomFFParam>();
+	this->SetParamFrom(atom_ref);
+}
 
 HaAtom::~HaAtom()
 {
-	delete p_bonds;
+
 }
 
 void HaAtom::Clear()
 {
-	charge = 0.0;
-	mass   = 1.0;
-	vdw_rad = 1.0;
-	ew = 0.050;
-
-	FFSymbol.reserve(5);
-	FFSymbol = "";
-
 	x=y=z=0;
 	
 	tempf=0.0;
@@ -186,11 +183,11 @@ void HaAtom::Clear()
 	irad=0;
 	solv_access_area = 0.0;
 
-	p_bonds->reserve(4);
+	bonds.clear();
 
 	hybrid = NO_HYBRID;
 
-	phost_res=NULL;
+	phost_res=nullptr;
 }
 
 
@@ -200,11 +197,7 @@ bool HaAtom::SetParamFrom( const HaAtom& atom_ref)
 	pos[1] =   atom_ref.pos[1];
 	pos[2] =   atom_ref.pos[2];
 
-	charge   = atom_ref.charge;
-	mass     = atom_ref.mass;
-	vdw_rad  = atom_ref.vdw_rad;
-	ew       = atom_ref.ew;
-	FFSymbol = atom_ref.FFSymbol;
+	*ps_ff_par = *(atom_ref.ps_ff_par);
 	
 	x=atom_ref.x;
 	y=atom_ref.y;
@@ -234,9 +227,9 @@ void HaAtom::SetElemNo(const int new_elemno)
 	elemno = new_elemno;
 
 	radius = HaAtom::ElemVDWRadius(elemno);
-	vdw_rad = HaAtom::ElemVDWRadius(elemno);
+	this->SetVdWRad( HaAtom::ElemVDWRadius(elemno) );
 	image_radius = HaAtom::ElemVDWRadius(elemno);
-	mass = HaAtom::StdElemMass(elemno);
+	this->SetMass( HaAtom::StdElemMass(elemno));
 	if(elemno == 1) 
 	{
 		this->flag |= HydrogenFlag;
@@ -332,7 +325,7 @@ const char* HaAtom::GetName() const
 
 int HaAtom::GetNBonds() const
 {
-	return p_bonds->size();
+	return bonds.size();
 }
 
 std::string HaAtom::GetStdSymbol() const
@@ -426,29 +419,29 @@ void HaAtom::SetHostRes(HaResidue* new_phost_res)
 	phost_res=new_phost_res;
 }
 
-int HaAtom::CreateBond(HaAtom* aptr1, HaAtom* aptr2)
+bool HaAtom::CreateBond(HaAtom* aptr1, HaAtom* aptr2)
 {
 	MolSet* pmset = aptr1->GetHostMolSet();
-	if( aptr2->GetHostMolSet() != pmset ) return FALSE;
+	if( aptr2->GetHostMolSet() != pmset ) return false;
 
 	HaBond* bptr= pmset->AddBond(aptr1,aptr2 );
 	if(bptr != NULL) bptr->DrawWire();
 
-	return TRUE;
+	return false;
 }
 
-int HaAtom::DeleteBond(HaAtom* aptr1, HaAtom* aptr2)
+bool HaAtom::DeleteBond(HaAtom* aptr1, HaAtom* aptr2)
 {
 	MolSet* pmset = aptr1->GetHostMolSet();
 	pmset->DeleteBond(aptr1,aptr2);
-	return TRUE;
+	return true;
 }
 
 int HaAtom::GetBondedAtoms(AtomGroup& bonded_atoms_out)
 {
 	bonded_atoms_out.clear();
-	BondArray::iterator bitr = p_bonds->begin();
-	for( ; bitr != p_bonds->end(); bitr++)
+	auto bitr = bonds.begin();
+	for(; bitr != bonds.end(); bitr++)
 	{
 		if( (*bitr)->srcatom != this ) bonded_atoms_out.push_back( (*bitr)->srcatom );
 		else bonded_atoms_out.push_back( (*bitr)->dstatom );
@@ -506,14 +499,12 @@ int HaAtom::GetHBondAcc(AtomGroup& bonded_atoms_out)
 	return nb;
 }
 
-
-
 bool HaAtom::IsBonded(HaAtom& atm2)
 {
 	if( &atm2 == this ) return NULL;
 	
-	BondArray::iterator bitr = p_bonds->begin();
-	for( ; bitr != p_bonds->end(); bitr++ )
+	auto bitr = bonds.begin();
+	for( ; bitr != bonds.end(); bitr++ )
 	{
 		if( (*bitr)->srcatom == &atm2 || (*bitr)->dstatom == &atm2 ) return true; 		
 	}
@@ -522,13 +513,11 @@ bool HaAtom::IsBonded(HaAtom& atm2)
 
 void HaAtom::RemoveBond(HaBond* pb)
 {
-	BondArray::iterator bitr;
-	
-	for( bitr = p_bonds->begin(); bitr != p_bonds->end(); )
+	for( auto bitr = bonds.begin(); bitr != bonds.end(); )
 	{
-		if( (*bitr) == pb ) 
+		if( (*bitr).get() == pb ) 
 		{
-			bitr = p_bonds->erase(bitr);
+			bitr = bonds.erase(bitr);
 		}
 		else
 		{
@@ -1276,7 +1265,6 @@ double HaAtom::ElemDuttonRadius(int elem)
 }
 
 
-
 double HaAtom::StdElemMass(int elem)
 {
 	if( elem < 0 || elem > 103 ) 
@@ -1528,6 +1516,60 @@ bool HaAtom::SetCoordSubstH(const HaAtom* aptr1, const HaAtom* aptr2,
 	return true;
 
 }
+
+double HaAtom::GetMass() const 
+{ 
+	return ps_ff_par->mass;
+}              
+
+void HaAtom::SetMass(double new_mass) 
+{ 
+	ps_ff_par->mass = new_mass;
+}
+
+double HaAtom::GetVdWRad() const
+{
+	return ps_ff_par->rad_vdw;
+}
+
+void HaAtom::SetVdWRad(double new_vdw_rad)
+{
+	ps_ff_par->rad_vdw = new_vdw_rad;
+}
+
+double HaAtom::GetVdWEne() const
+{
+	return ps_ff_par->ene_vdw;
+}
+
+void HaAtom::SetVdWEne(double new_ene_vdw)
+{
+	ps_ff_par->ene_vdw = new_ene_vdw;
+}
+
+const std::string HaAtom::GetFFSymbol() const 
+{
+	if (ps_ff_par) return ps_ff_par->ff_symbol;
+	return {};
+} 
+
+void HaAtom::SetFFSymbol( const std::string& new_ff_symbol)
+{
+	if (!ps_ff_par) ps_ff_par = make_shared<AtomFFParam>();
+	ps_ff_par->ff_symbol = new_ff_symbol; 
+}
+
+void HaAtom::SetCharge(double new_charge)
+{ 
+	if (!ps_ff_par) ps_ff_par = make_shared<AtomFFParam>();
+	ps_ff_par->charge = new_charge;
+} 
+
+double HaAtom::GetCharge() const
+{ 
+	if (ps_ff_par) return ps_ff_par->GetCharge();
+	return 0.0;
+} 
 
 TiXmlElement* HaAtom::AddXml(TiXmlElement* parent_element, const char* name, int option) const
 {

@@ -215,7 +215,7 @@ public:
 
 	virtual void UpdateThisView(int lHint=0);
 	virtual void RefreshScreen() {}
-	int CreateImage();
+	bool CreateImage();
 	virtual void ClearImage(){}
 	void ClearBuffers();
 	virtual void TransferImage(){}

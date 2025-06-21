@@ -2710,7 +2710,7 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 		HaAtom::BondIterator bitr_end = aptr_b_templ->Bonds_end();
 		for (; bitr != bitr_end; bitr++)
 		{
-			HaBond* pbnd_templ = *bitr;
+			HaBond* pbnd_templ = (*bitr).get();
 			HaAtom* pat1_templ = pbnd_templ->GetFirstAtom();
 			HaAtom* pat2_templ = pbnd_templ->GetSecondAtom();
 			if (processed_template_atoms.count(pat1_templ) > 0 || processed_template_atoms.count(pat2_templ)) continue;

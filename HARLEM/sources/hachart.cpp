@@ -8,6 +8,7 @@
 
 #include "haio.h"
 #include <stdexcept>
+#include <memory>
 
 
 // common includes

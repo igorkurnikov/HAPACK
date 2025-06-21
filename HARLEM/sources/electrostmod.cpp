@@ -348,7 +348,7 @@ bool ElectrostMod::SaveChargeFile()
 			j+= sprintf(buf+j,"%4d", pres->GetSerNo() );
 			HaChain* chain= aptr->GetHostChain();
 			j+= sprintf(buf+j,"%c",chain->ident);
-			j+= sprintf(buf+j,"%10.5f", aptr->charge);
+			j+= sprintf(buf+j,"%10.5f", aptr->GetCharge());
 			fcrg << buf << endl;
 		}
 	}

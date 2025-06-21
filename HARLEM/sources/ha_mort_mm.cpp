@@ -1113,10 +1113,10 @@ int AmberMMModel::InitAmberModelAmoeba()
 				for( aptr = aitr_res.GetFirstAtom(); aptr; aptr = aitr_res.GetNextAtom() )
 				{
 					std::string at_name = aptr->GetName();
-					AtomFFParam* p_at_ff = p_res_ff_templ->GetAtomFFParam(at_name);
+					shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(at_name);
 					if( p_at_ff == NULL ) throw std::runtime_error(" No FF template for atom name " + at_name + "In residue " + res_fname );
 					
-					AddAtomFrames(aptr, p_at_ff, &templ_atname_to_res_map );
+					AddAtomFrames(aptr, p_at_ff.get(), &templ_atname_to_res_map );
 
 					for(j =0; j < 10; j++)
 					{

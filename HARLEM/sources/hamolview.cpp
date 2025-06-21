@@ -664,7 +664,7 @@ void HaMolView::DisplayBackbone()
 	int ib;
 	for( ib = 0; ib < nb; ib++ )
 	{
-		bptr = pmset->BackboneBonds[ib];
+		bptr = pmset->BackboneBonds[ib].get();
 		if( bptr->IsToDraw() )
 		{   
 			s = bptr->srcatom; d = bptr->dstatom;
@@ -1225,13 +1225,13 @@ void HaMolView::IdentifyAtom( int xpos, int ypos )
 			AtomIteratorMolSet aitr(pmset);
 			for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 			{
-				std::vector<HaBond*>& bonds = aptr->GetBonds();
+				auto bonds = aptr->GetBonds();
 				if( bonds.empty() && aptr->IsDisplayed() )
 				{
 					TestAtomProximity(aptr, xpos, ypos );
 					continue;
 				}
-				std::vector<HaBond*>::iterator bitr_at = bonds.begin();
+				auto bitr_at = bonds.begin();
 				for(; bitr_at != bonds.end(); bitr_at++)
 				{
 					if( (*bitr_at)->IsToDraw() )
@@ -1256,7 +1256,7 @@ void HaMolView::IdentifyAtom( int xpos, int ypos )
 			int ib;
 			for( ib = 0; ib < nb; ib++ )
 			{
-				bptr = pmset->BackboneBonds[ib];
+				bptr = pmset->BackboneBonds[ib].get();
 				if( bptr->IsToDraw() )
 				{   
 					TestAtomProximity(bptr->srcatom,xpos,ypos);
@@ -3305,10 +3305,10 @@ void HaMolView::SetMouseMode(int mode )
 }
 
 
-int HaMolView::CreateImage()
+bool HaMolView::CreateImage()
 {
 	pCanv->AllocImage();
-	return((int)pCanv->FBuffer);
+	return(pCanv->FBuffer != nullptr);
 }
 
 void run_eigen_vec_animation(HaMolView* p_mol_view, HaVec_double* p_vec, AtomContainer* p_at_cont )
@@ -3344,8 +3344,7 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 		if( na == 0 ) throw std::runtime_error(" Animated Atom Collection is empty ");
 		if( evec.size() != 3*na ) 
 		{
-			sprintf(buf,"Size of Eigenvector = %d is not equal 3*natoms = %d ",evec.size(),3*na);
-			throw std::runtime_error( buf );
+			throw std::runtime_error( (boost::format("Size of Eigenvector = %d is not equal 3*natoms = %d ") % evec.size() % (3*na)).str());
 		}
 		ref_crd.resize(3*na);
 		int i;

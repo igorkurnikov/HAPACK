@@ -59,7 +59,7 @@
 #include "haobject.h"
 #include "apbsmod.h"
 
-#include "wx/log.h"
+// #include "wx/log.h"
 #include "hawx_add.h"
 #include "hamatdb.h"
 
@@ -666,11 +666,9 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						int nb = aptr->GetNBonds();
 						os << " " << nb;
 
-						HaAtom::BondIterator_const bitr = aptr->Bonds_begin();
-
-						for( ; bitr != aptr->Bonds_end(); bitr++)
+						for(auto bitr = aptr->Bonds_begin() ; bitr != aptr->Bonds_end(); bitr++)
 						{
-							const HaBond* pbond = *bitr;
+							const HaBond* pbond = (*bitr).get();
 							const HaAtom* aptr_b = pbond->GetFirstAtom();
 							if( aptr_b == aptr ) aptr_b = pbond->GetSecondAtom();
 							std::string bond_type_str = "s";
@@ -879,11 +877,9 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 					if( aptr->GetNBonds() > 0 )
 					{	
 						os << "<bonds> ";
-
-						HaAtom::BondIterator_const bitr = aptr->Bonds_begin();
-						for( ; bitr !=  aptr->Bonds_end(); bitr++ )
+						for( auto bitr = aptr->Bonds_begin() ; bitr !=  aptr->Bonds_end(); bitr++ )
 						{
-							const HaBond* pb = *bitr;
+							const HaBond* pb = (*bitr).get();
 							const HaAtom* aptr_b = pb->GetFirstAtom(); 
 							if( aptr_b == aptr ) aptr_b = pb->GetSecondAtom(); 
 
@@ -1706,10 +1702,10 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 					if(aptr->IsHBDonor())    da_symbol+= "D";
 					if(aptr->IsHBAcceptor()) da_symbol+= "A";
 					
-					sprintf(buf,"\"%s\" ",da_symbol.c_str()   ); os << buf;
-					sprintf(buf,"\"%s\" ",aptr->GetFFSymbol() ); os << buf;
-					sprintf(buf," %10.5f ",aptr->GetMass() );    os << buf;
-					os << std::endl;
+					os << boost::format("\"%s\" ") % da_symbol;
+					os << boost::format("\"%s\" ") % aptr->GetFFSymbol();
+					os << boost::format(" %10.5f ") % aptr->GetMass();
+					os << "\n";
 				}
 			}
 		}
@@ -1720,10 +1716,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		AtomIteratorMolecule aitr_m(*mol_itr);
 		for( aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom() )
 		{
-			HaAtom::BondIterator bitr = aptr->Bonds_begin();
-			for(; bitr != aptr->Bonds_end(); bitr++)
+			for(auto bitr = aptr->Bonds_begin(); bitr != aptr->Bonds_end(); bitr++)
 			{
-				bptr = (*bitr);
+				bptr = (*bitr).get();
 
 				HaAtom* aptr2 = bptr->dstatom;
 				if (aptr == bptr->dstatom) aptr2 = bptr->srcatom;
@@ -2400,14 +2395,13 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	for ( aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom() )
 	{
 		if (del_atoms.IsMember(aptr)) continue;
-		std::vector<HaBond*>::iterator bitr_at = aptr->p_bonds->begin();
 
-		while (bitr_at != aptr->p_bonds->end())
+		for (auto bitr_at = aptr->bonds.begin();  bitr_at != aptr->bonds.end();)
 		{
-			HaBond* bptr_at = *bitr_at;
+			HaBond* bptr_at = (*bitr_at).get();
 			if (del_atoms.IsMember(bptr_at->srcatom) || del_atoms.IsMember(bptr_at->dstatom))
 			{
-				bitr_at = aptr->p_bonds->erase(bitr_at);
+				bitr_at = aptr->bonds.erase(bitr_at);
 			}
 			else
 			{
@@ -2416,32 +2410,27 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		}
 	}
 
-	std::vector<HaBond*>::iterator bitr1 = Bonds.begin();
-	std::vector<HaBond*>::iterator bitr2 = Bonds.begin();
-	
-	for( ; bitr1 != Bonds.end(); ++bitr1 )
+	std::vector<shared_ptr<HaBond>>::iterator bitr = Bonds.begin();	
+	for( ; bitr != Bonds.end();  )
 	{
-		 HaBond* bptr = *bitr1;
+		 HaBond* bptr = (*bitr).get();
 		 if( del_atoms.IsMember( bptr->GetFirstAtom() ) || del_atoms.IsMember( bptr->GetSecondAtom() ) ) 
 		 {
-			 delete bptr;
-			 continue;
+			 bitr = Bonds.erase(bitr);
 		 }
-		 (*bitr2) = (*bitr1);
-		 ++bitr2;
+		 else
+		 {
+			 ++bitr;
+		 }
 	}
 
-	if( bitr2 != Bonds.end() ) Bonds.erase(bitr2,Bonds.end());
-
-	set<HaHBond, less<HaHBond> >::iterator hbitr,hbitr2;
-	for( hbitr= HBonds.begin(); hbitr != HBonds.end(); )
+	for( auto hbitr= HBonds.begin(); hbitr != HBonds.end(); )
 	{
 		HaAtom* at1 = (*hbitr).src;
 		HaAtom* at2 = (*hbitr).dst;
 		if( del_atoms.IsMember(at1) || del_atoms.IsMember(at2) )
 		{
-			hbitr2 = hbitr; hbitr++;
-			HBonds.erase(hbitr2);
+			hbitr = HBonds.erase(hbitr);
 		}
 		else
 		{
@@ -2449,15 +2438,12 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		}
 	}
 
-	std::vector<HaBond*>::iterator bbitr;
-	for( bbitr = BackboneBonds.begin(); bbitr != BackboneBonds.end(); )
+	for( auto bbitr = BackboneBonds.begin(); bbitr != BackboneBonds.end(); )
 	{
 		HaAtom* at1 = (*bbitr)->srcatom;
 		HaAtom* at2 = (*bbitr)->dstatom;
 		if( del_atoms.IsMember(at1) || del_atoms.IsMember(at2) )
 		{
-			HaBond* bbptr = (*bbitr);
-			delete bbptr;
 			bbitr = BackboneBonds.erase(bbitr);
 		}
 		else
@@ -2676,12 +2662,10 @@ int MolSet::GetNHBonds() const
 int MolSet::GetNSSBonds() const
 {
 	int nss = 0;
-
-	std::vector<HaBond*>::const_iterator bitr;
 	
-	for( bitr = Bonds.begin() ; bitr != Bonds.end(); bitr++ )
+	for( auto bitr = Bonds.begin() ; bitr != Bonds.end(); bitr++ )
 	{
-		const HaBond* bptr = *bitr;
+		const HaBond* bptr = (*bitr).get();
 		int elem1 = bptr->GetFirstAtom()->GetElemNo();
 		int elem2 = bptr->GetSecondAtom()->GetElemNo();
 		if( elem1 == 16 && elem2 == 16 ) nss++;
@@ -6450,10 +6434,9 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 	set< HaBond* > used_bonds;
 	for(aptr = aitr_m1.GetFirstAtom(); aptr; aptr = aitr_m1.GetNextAtom())
 	{
-		HaAtom::BondIterator bitr = aptr->Bonds_begin();
-		for( ; bitr != aptr->Bonds_end(); ++bitr )
+		for(auto bitr = aptr->Bonds_begin(); bitr != aptr->Bonds_end(); ++bitr )
 		{
-			HaBond* bptr = (*bitr);
+			HaBond* bptr = (*bitr).get();
 			if (used_bonds.find(bptr) != used_bonds.end()) continue;
 			HaAtom* at1 = bptr->srcatom;
 			HaAtom* at2 = bptr->dstatom;
@@ -6462,7 +6445,6 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 
 			if( atmap1.find(at1) != atmap1.end() && atmap1.find(at2) != atmap1.end())
 			{
-
 				idx1 = atmap1[at1];
 				idx2 = atmap1[at2];
 				ed1.InsertEdge(idx1, idx2, NULL);
@@ -6486,10 +6468,9 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 	used_bonds.clear();
 	for(aptr = aitr_m2.GetFirstAtom(); aptr; aptr = aitr_m2.GetNextAtom())
 	{
-		HaAtom::BondIterator bitr = aptr->Bonds_begin();
-		for( ; bitr != aptr->Bonds_end(); ++bitr )
+		for(auto bitr = aptr->Bonds_begin(); bitr != aptr->Bonds_end(); ++bitr )
 		{
-			HaBond* bptr = (*bitr);
+			HaBond* bptr = (*bitr).get();
 			if (used_bonds.find(bptr) != used_bonds.end()) continue;
 			HaAtom* at1 = bptr->srcatom;
 			HaAtom* at2 = bptr->dstatom;
@@ -7166,24 +7147,23 @@ BondIteratorMolSet::~BondIteratorMolSet()
 
 HaBond* BondIteratorMolSet::GetFirstBond()
 {
-   if(pmset == NULL) { return NULL; }
+   if(pmset == nullptr) { return nullptr; }
 	
    bitrm = pmset->Bonds.begin();
 
-   if( bitrm == pmset->Bonds.end() ) return NULL;
-   return (*bitrm);
+   if( bitrm == pmset->Bonds.end() ) return nullptr;
+   return (*bitrm).get();
 }
 
 HaBond* BondIteratorMolSet::GetNextBond()
 {
-  if(pmset == NULL) { return NULL; }
+  if(pmset == nullptr) { return nullptr; }
   bitrm++;
   if( bitrm != pmset->Bonds.end())
   {
-	   return (*bitrm);
+	   return (*bitrm).get();
   }
-
-  return NULL;
+  return nullptr;
 }
 
 BondIteratorMolSet BondIteratorMolSet::__iter__() const
@@ -7375,12 +7355,6 @@ void MolSet::SelectAtomsMask( int mask )
 
 void MolSet::ClearBackbone()
 {
-	int nb = BackboneBonds.size();
-	int i;
-	for( i = 0; i < nb; i++)
-	{
-		delete BackboneBonds[i];
-	}
 	BackboneBonds.clear();
 }
 
@@ -7847,7 +7821,7 @@ std::vector<double>* PyAccMolSetProp::GetAtomsChargeAsVec()
 		{
 			if( this->pmset->save_opt_default.save_selected && !aptr->Selected())
 				continue;
-			Result->push_back(aptr->charge);
+			Result->push_back(aptr->GetCharge());
 		}
 	}
 	return Result;

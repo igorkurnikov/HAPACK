@@ -27,12 +27,12 @@ AtomFFParam::AtomFFParam()
 	Clear();
 }
 
-AtomFFParam::AtomFFParam(HaAtom* aptr_ref_new)
-{
-	Clear();
-	aptr_ref = aptr_ref_new;
-	if( aptr_ref != NULL )  at_name = aptr_ref->GetName();
-}
+//AtomFFParam::AtomFFParam(HaAtom* aptr_ref_new)
+//{
+//	Clear();
+//	aptr_ref = aptr_ref_new;
+//	if(aptr_ref) at_name = aptr_ref->GetName();
+//}
 
 AtomFFParam::~AtomFFParam()
 {
@@ -46,8 +46,8 @@ void AtomFFParam::Clear()
 	charge = 0.0;
 	dipole.clear();
 	qpole.clear();
+	mass = 4.0;
 	bisect_flag = FALSE;
-	at_name.clear();
 	ff_symbol.clear();
 	ff_polar_symbol.clear();
 	frame_atom_names.clear();
@@ -57,12 +57,13 @@ void AtomFFParam::Clear()
 	damp_polar_sensitivity = 0.0;
 	damp_polar_rad = 0.0;
 
+	ene_vdw = 0.0;
+	rad_vdw = 1.0;
+
 	screen_polar = 0.0;
-	
-	aptr_ref = NULL;
 }
 
-int AtomFFParam::LoadXml(const TiXmlElement* xml_element, int option )
+int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, int option )
 {
 	char buf[256];
 	if( xml_element == NULL) return FALSE;
@@ -77,7 +78,6 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, int option )
 			if( xml_element->CStrAttribute("name") ) ff_polar_symbol = xml_element->CStrAttribute("pol_type_id");
 		}
 
-		if( aptr_ref == NULL ) throw std::runtime_error(" Atom Reference pointer is NULL");
 		if( xml_element->QueryDoubleAttribute("chg",&dval ) == TIXML_SUCCESS )
 		{
 			charge = dval;
@@ -211,7 +211,7 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, int option )
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog("Error in AtomFFParam::LoadXml atom template: %s \n", at_name.c_str() );
+		PrintLog("Error in AtomFFParam::LoadXml atom template:  %s \n", at_name);
 		PrintLog("Error: %s \n",ex.what());
 		return FALSE;
 	}
@@ -289,7 +289,7 @@ int AtomFFParam::IsBisectFrame() const
 	return bisect_flag;
 }
 	
-int AtomFFParam::SetFrameFromAtomNames()
+bool AtomFFParam::SetFrameFromAtomNames(HaAtom* aptr_ref)
 {
 	char buf[256];
 	try
@@ -315,17 +315,17 @@ int AtomFFParam::SetFrameFromAtomNames()
 	}
 	catch( std::exception& ex )
 	{
-		PrintLog(" Error in AtomFFParam::SetFrameFromAtomNames()  Atom: %s \n",at_name.c_str() );
+		PrintLog(" Error in AtomFFParam::SetFrameFromAtomNames()  Atom: %s \n", aptr_ref->GetName() );
 		PrintLog(" Error: %s \n",ex.what());
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
  
 ResFFTemplate::ResFFTemplate(HaResidue* p_res_templ_new)
 {
 	p_res_templ = p_res_templ_new;
-	if( p_res_templ != NULL ) res_name = p_res_templ->GetFullName(); 
+	if( p_res_templ ) res_name = p_res_templ->GetFullName(); 
 }
 
 ResFFTemplate::~ResFFTemplate()
@@ -335,27 +335,15 @@ ResFFTemplate::~ResFFTemplate()
 
 void ResFFTemplate::Clear()
 {
-	if( atom_params.size() > 0 )
-	{
-		int n = atom_params.size();
-		int i;
-		for( i = 0; i < n; i++ )
-		{
-			delete atom_params[i];
-		}
-		atom_params.clear();
-		at_name_ff_param_map.clear();
-	}
-
+	at_name_ff_param_map.clear();
 	res_name.clear();
 	res_ff_version.clear();
-	p_res_templ = NULL;
+	p_res_templ = nullptr;
 }
 
-int ResFFTemplate::SetResFFVersion(const std::string& res_ff_version_new)
+void ResFFTemplate::SetResFFVersion(const std::string& res_ff_version_new)
 {
 	res_ff_version = res_ff_version_new;
-	return TRUE;
 }
 
 std::string ResFFTemplate::GetFullName()
@@ -369,18 +357,18 @@ std::string ResFFTemplate::GetFullName()
 	return res_ff_version;
 }
 
-AtomFFParam* ResFFTemplate::GetAtomFFParam(const std::string& at_name)
+shared_ptr<AtomFFParam> ResFFTemplate::GetAtomFFParam(const std::string& at_name)
 {
 	std::string at_name_loc = at_name;
 	boost::trim(at_name_loc);
 	boost::to_upper(at_name_loc);
 
-	if( at_name_ff_param_map.count(at_name_loc) == 0) return NULL;
+	if( at_name_ff_param_map.count(at_name_loc) == 0) return nullptr;
 
 	return at_name_ff_param_map[at_name_loc];
 }
 
-int ResFFTemplate::SetAtomFFParam(const std::string& at_name, AtomFFParam* p_at_ff_param)
+bool ResFFTemplate::SetAtomFFParam(const std::string& at_name, shared_ptr<AtomFFParam> sp_at_ff_param)
 {
 	try
 	{
@@ -388,26 +376,24 @@ int ResFFTemplate::SetAtomFFParam(const std::string& at_name, AtomFFParam* p_at_
 		if( p_res_templ->GetAtomByName(at_name.c_str()) == NULL) throw std::runtime_error(" No atom with this name in residue template ");
 		if( at_name_ff_param_map.count(at_name) > 0 ) throw std::runtime_error(" Atom FF Params already exist for this atom name ");
 		
-		atom_params.push_back( p_at_ff_param );
-		at_name_ff_param_map[at_name] = p_at_ff_param;
+		at_name_ff_param_map[at_name] = sp_at_ff_param;
 	}
 	catch( std::exception& ex )
 	{
 		PrintLog(" Error Setting Atom FF param %s for residue FF template: %s \n",
 			       at_name.c_str(),GetFullName().c_str());
 		PrintLog(" Error: %s \n",ex.what());
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 
-int ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
+bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 {
-	char buf[256];
-	if( xml_element == NULL) return FALSE;
+	if( !xml_element) return false;
 	try
 	{
-		if( p_res_templ == NULL ) throw std::runtime_error(" Residue Template pointer is NULL");
+		if( !p_res_templ) throw std::runtime_error(" Residue Template pointer is NULL");
 		const TiXmlElement* data_element;
 		data_element = xml_element->FirstChildElement();
 		for( ; data_element;  data_element = data_element->NextSiblingElement() )
@@ -416,28 +402,22 @@ int ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 			if(element_type == "atomff")
 			{
 				std::string at_name = data_element->Attribute("name");
-				HaAtom* aptr = p_res_templ->GetAtomByName(at_name.c_str());
+				HaAtom* aptr = p_res_templ->GetAtomByName(at_name);
 				if( aptr == NULL)
 				{
-					sprintf(buf,"No atom name %s in the residue %s \n",
-					        at_name.c_str(), p_res_templ->GetFullName().c_str());
-					throw std::runtime_error(buf);
+					string  msg = (boost::format("No atom name %s in the residue %s") % at_name % p_res_templ->GetFullName()).str();
+					throw std::runtime_error(msg);
 				}
-				AtomFFParam* p_at_ff = new AtomFFParam(aptr);
-				int ires = p_at_ff->LoadXml(data_element);
+				shared_ptr<AtomFFParam> p_at_ff = make_shared<AtomFFParam>();
+				int ires = p_at_ff->LoadXml(data_element, at_name );
 				if( !ires )
 				{
-					delete p_at_ff;
-					sprintf(buf,"Error Loading FF parameters for atom %s\n",at_name.c_str());
-					throw std::runtime_error(buf);
+					throw std::runtime_error( (boost::format("Error Loading FF parameters for atom %s") % at_name).str() );
 				}
 				if( at_name_ff_param_map.count(at_name) > 0 )
 				{
-					delete p_at_ff;
-					sprintf(buf,"Atom FF parameters for atom %s are already set\n",at_name.c_str());
-					throw std::runtime_error(buf);
+					throw std::runtime_error((boost::format("Atom FF parameters for atom %s are already set") % at_name).str());
 				}
-				atom_params.push_back(p_at_ff);
 				at_name_ff_param_map[at_name] = p_at_ff;
 			}
 			if(element_type == "improper_dihedrals")
@@ -466,9 +446,9 @@ int ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 		PrintLog("Error in ResFFTemplate::LoadXml() residue template: %s  version: %s\n", 
 			     res_name.c_str(),this->res_ff_version.c_str());
 		PrintLog("Error: %s \n",ex.what());
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 
 HaResidue* ResFFTemplate::GetResTemplate()
