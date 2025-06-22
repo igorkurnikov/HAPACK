@@ -77,7 +77,9 @@ public:
 	AtomIntMap& GetAtIdxMap(int recalc = FALSE); //!< Get a map of HaAtom* to indexes in Atoms array ( 0-based ). Optionally recalculate. 
 	AtomIntMap  at_idx_map; //!< Map of HaAtom* to indexes in Atoms array
 
-	map<HaAtom*, shared_ptr<AtomFFParam>> atom_mut_params; //!< Atom FF parameters for the mutated state
+	// map<HaAtom*, shared_ptr<AtomFFParam>> atom_mut_params; //!< Atom FF parameters for the mutated state
+
+	AtomFFParam* GetAtomFFParamMut(HaAtom* aptr); //!< Get Atom FF parameters for the mutated state ( if set )
 
 	MMBond*     GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state = false);                  //!< get valence bond between atoms
 	MMValAngle* GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, bool mutated_state = false);   //!< get valence angle between Atoms

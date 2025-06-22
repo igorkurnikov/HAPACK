@@ -421,7 +421,11 @@ int MMDriverGromacs::SaveGromacsTopToStream(std::ostream& os)
 		os << "; GROMACS top created by HARLEM" << std::endl;
 		os << std::endl;
 
-		os << "#include \"" << ffdb_prefix << "/forcefield.itp\" " << std::endl;
+		os << "#include \"" << ffdb_prefix << "/forcefield.itp\" \n\n";
+
+		os << "[atomtypes] \n";
+		os << "; name  at.num   mass    charge   ptype    sigma      epsilon \n";
+		os << "  DU      99     4.0      0.0      A       1.000      0.000 \n\n";
 		
 		std::string last_group = "";
 		int last_group_count = 0;
@@ -567,11 +571,11 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 	os << "[ atoms ]\n";
 	if (has_mut_atoms)
 	{
-		os << ";   nr       type  resnr residue  atom   cgnr     charge       mass              typeB    chargeB     massB \n";
+		os << ";   nr   type resnr residue atom   cgnr     charge       mass     typeB    chargeB      massB \n";
 	}
 	else
 	{
-		os << ";   nr  type   resi  res  atom    cgnr     charge      mass       ; qtot   bond_type \n";
+		os << ";   nr   type resnr residue atom   cgnr     charge       mass       ; qtot   \n";
 	}
 
 	double qtot = 0.0;
@@ -591,11 +595,12 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 		double ch_mut = ch;
 		double mass_mut = mass;
 		
-		if (p_mm_model->atom_mut_params.count(aptr) > 0)
+		AtomFFParam* p_at_ff_param_mut = p_mm_model->GetAtomFFParamMut(aptr);
+		if (p_at_ff_param_mut)
 		{
-			ff_s_mut = p_mm_model->atom_mut_params[aptr]->ff_symbol;
-			ch_mut   = p_mm_model->atom_mut_params[aptr]->GetCharge();
-			//mass_mut = p_mm_model->atom_mut_params[aptr]  //  IGOR_TMP FIX!
+			ff_s_mut = p_at_ff_param_mut->ff_symbol;
+			ch_mut   = p_at_ff_param_mut->GetCharge();
+			mass_mut = p_at_ff_param_mut->mass;  
 		}
 		qtot_mut += ch_mut;
 
@@ -608,7 +613,7 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 		os << boost::format("; qtot %7.3f ") % qtot;
 		if (has_mut_atoms)
 		{
-			os << boost::format("; qtot_mut %7.3f ") % qtot_mut;
+			os << boost::format("  qtot_mut %7.3f ") % qtot_mut;
 		}
 		os << "\n";
 	}
@@ -623,15 +628,14 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 	os << "[ bonds ]\n";
 	if(has_mut_atoms)
 	{ 
-		os << ";   ai     aj funct   r1            k1    r2            k2\n";
+		os << ";   ai      aj funct      r1              k1             r2             k2\n";
 	}
 	else
 	{
-		os << ";   ai     aj funct   r             k   \n";
+		os << ";   ai      aj funct      r               k   \n";
 	}
 
-	set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
-	for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
+	for(auto mbitr = p_mm_model->MBonds.begin(); mbitr != p_mm_model->MBonds.end(); mbitr++)
 	{
 		MMBond& bnd = (MMBond&) *mbitr;		
 		HaAtom* aptr1 = (HaAtom*) bnd.pt1;
@@ -669,7 +673,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 
 	if (has_mut_atoms)
 	{
-		for (; mbitr != p_mm_model->MBonds_mut.end(); mbitr++)  // Mutated bonds not found in p_mm_model->MBonds
+		for (auto mbitr = p_mm_model->MBonds_mut.begin(); mbitr != p_mm_model->MBonds_mut.end(); mbitr++)  // Mutated bonds not found in p_mm_model->MBonds
 		{
 			MMBond& bnd_m = (MMBond&)*mbitr;
 			HaAtom* aptr1 = (HaAtom*)bnd_m.pt1;
@@ -706,7 +710,7 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 		if (im == 1 && !has_mut_atoms) continue;
 
 		os << "[ pairs ]\n";
-		os << ";   ai     aj    funct\n";
+		os << ";   ai      aj funct\n";
 
 		for (shared_ptr<MMDihedral> ditr : *p_dih_list )
 		{
@@ -736,15 +740,14 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 	os << "[ angles ] \n";
 	if (has_mut_atoms)
 	{
-		os << ";   ai     aj     ak    funct   theta1        k1    theta2    k2 \n";
+		os << ";   ai     aj     ak funct    theta1         k1             theta2         k2 \n";
 	}
 	else
 	{
-		os << ";   ai     aj     ak    funct   theta         k \n";
+		os << ";   ai     aj     ak funct    theta          k \n";
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr = p_mm_model->ValAngles.begin();
-	for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
+	for(auto vaitr = p_mm_model->ValAngles.begin(); vaitr != p_mm_model->ValAngles.end(); vaitr++)
 	{
 		MMValAngle& ang = (MMValAngle&)(*vaitr);
 		
@@ -787,7 +790,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 
 	if (has_mut_atoms)
 	{
-		for (; vaitr != p_mm_model->ValAngles_mut.end(); vaitr++)  // Mutated Valence Angles not found in p_mm_model->ValAngles
+		for (auto vaitr = p_mm_model->ValAngles_mut.begin(); vaitr != p_mm_model->ValAngles_mut.end(); vaitr++)  // Mutated Valence Angles not found in p_mm_model->ValAngles
 		{
 			MMValAngle& ang_m = (MMValAngle&)(*vaitr);
 
@@ -826,11 +829,11 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	os << "[ dihedrals ] ; proper dihedrals \n";
 	if (has_mut_atoms)
 	{
-		os << ";    i      j      k      l   func   phase     kd      pn   phase2     kd2      pn2";
+		os << ";    i      j      k      l  func      phase           kd      pn       phase2          kd2      pn2 \n";
 	}
 	else
 	{
-		os << ";    i      j      k      l   func   phase     kd      pn \n";
+		os << ";    i      j      k      l  func      phase           kd      pn \n";
 	}
 
 	bool mutated_state = false;
@@ -873,7 +876,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 				{
 					double phase1 = 0.0;
 					double pk1 = 0.0;
-					double pn1 = 1.0;
+					double pn1 = pn[i];  // periodicity can not be perturbed in GROMACS
 					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
 					if (has_mut_atoms)
 					{
@@ -887,7 +890,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					{
 						double phase_mut = 0.0;
 						double pk_mut = 0.0;
-						double pn_mut = 1.0;
+						double pn_mut = pn[i];
 						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
 					}				}
 				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
@@ -900,11 +903,11 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	os << "[ dihedrals ] ; improper dihedrals \n";
 	if (has_mut_atoms)
 	{
-		os << ";    i      j      k      l   func   phase     kd      pn  phase2     kd2      pn2 \n";
+		os << ";    i      j      k      l  func      phase           kd      pn        phase2          kd2     pn2 \n";
 	}
 	else
 	{
-		os << ";    i      j      k      l   func   phase     kd      pn \n";
+		os << ";    i      j      k      l  func      phase           kd      pn \n";
 	}
 	
 	mutated_state = false;
@@ -947,7 +950,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 				{
 					double phase1 = 0.0;
 					double pk1 = 0.0;
-					double pn1 = 1.0;
+					double pn1 = pn[i]; // Periodicity can not be perturbed in GROMACS
 					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
 					if (has_mut_atoms)
 					{
@@ -961,7 +964,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					{
 						double phase_mut = 0.0;
 						double pk_mut = 0.0;
-						double pn_mut = 1.0;
+						double pn_mut = pn[i];  // Periodicity can not be perturbed in GROMACS
 						os << boost::format(" %14.4e %14.4e %2.0f ") % phase_mut % pk_mut % pn_mut;
 					}
 				}

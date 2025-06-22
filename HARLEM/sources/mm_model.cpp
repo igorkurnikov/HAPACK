@@ -867,6 +867,20 @@ AtomIntMap& MolMechModel::GetAtIdxMap(int recalc)
 	return at_idx_map;
 }
 
+AtomFFParam* MolMechModel::GetAtomFFParamMut(HaAtom* aptr)
+{
+	if (!aptr) return nullptr;
+	HaResidue* pres = aptr->GetHostRes();
+	
+	if (!pres->IsAlchemicalTransformationSet()) return nullptr;
+	
+	if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
+		return pres->p_res_transform->at_ff_params[aptr].get();
+	
+	return nullptr;
+}
+
+
 MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL) return NULL;
@@ -2539,8 +2553,8 @@ int MolMechModel::SetStdValParams()
 			std::string at1_ff_s = pt1->GetFFSymbol();
 			std::string at2_ff_s = pt2->GetFFSymbol();
 
-			if( atom_mut_params.count(pt1) > 0 ) at1_ff_s = atom_mut_params[pt1]->ff_symbol;
-			if( atom_mut_params.count(pt2) > 0 ) at2_ff_s = atom_mut_params[pt2]->ff_symbol;
+			if(GetAtomFFParamMut(pt1) != nullptr) at1_ff_s = GetAtomFFParamMut(pt1)->ff_symbol;
+			if(GetAtomFFParamMut(pt2) != nullptr) at2_ff_s = GetAtomFFParamMut(pt2)->ff_symbol;
 
 			if (at1_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
@@ -2619,9 +2633,9 @@ int MolMechModel::SetStdValParams()
 			std::string at2_ff_s = pt2->GetFFSymbol();
 			std::string at3_ff_s = pt3->GetFFSymbol();
 
-			if (atom_mut_params.count(pt1) > 0)  at1_ff_s = atom_mut_params[pt1]->ff_symbol;
-			if (atom_mut_params.count(pt2) > 0)  at2_ff_s = atom_mut_params[pt2]->ff_symbol;
-			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
+			if (GetAtomFFParamMut(pt1) != nullptr) at1_ff_s = GetAtomFFParamMut(pt1)->ff_symbol;
+			if (GetAtomFFParamMut(pt2) != nullptr) at2_ff_s = GetAtomFFParamMut(pt2)->ff_symbol;
+			if (GetAtomFFParamMut(pt3) != nullptr) at3_ff_s = GetAtomFFParamMut(pt3)->ff_symbol;
 
 			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
@@ -2715,10 +2729,10 @@ int MolMechModel::SetStdValParams()
 			std::string at3_ff_s = pt3->GetFFSymbol();
 			std::string at4_ff_s = pt4->GetFFSymbol();
 
-			if (atom_mut_params.count(pt1) > 0)  at1_ff_s = atom_mut_params[pt1]->ff_symbol;
-			if (atom_mut_params.count(pt2) > 0)  at2_ff_s = atom_mut_params[pt2]->ff_symbol;
-			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
-			if (atom_mut_params.count(pt4) > 0)  at4_ff_s = atom_mut_params[pt4]->ff_symbol;
+			if (GetAtomFFParamMut(pt1) != nullptr) at1_ff_s = GetAtomFFParamMut(pt1)->ff_symbol;
+			if (GetAtomFFParamMut(pt2) != nullptr) at2_ff_s = GetAtomFFParamMut(pt2)->ff_symbol;
+			if (GetAtomFFParamMut(pt3) != nullptr) at3_ff_s = GetAtomFFParamMut(pt3)->ff_symbol;
+			if (GetAtomFFParamMut(pt4) != nullptr) at4_ff_s = GetAtomFFParamMut(pt4)->ff_symbol;
 
 			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
@@ -2809,10 +2823,10 @@ int MolMechModel::SetStdValParams()
 			std::string at3_ff_s = pt3->GetFFSymbol();
 			std::string at4_ff_s = pt4->GetFFSymbol();
 
-			if (atom_mut_params.count(pt1) > 0)  at1_ff_s = atom_mut_params[pt1]->ff_symbol;
-			if (atom_mut_params.count(pt2) > 0)  at2_ff_s = atom_mut_params[pt2]->ff_symbol;
-			if (atom_mut_params.count(pt3) > 0)  at3_ff_s = atom_mut_params[pt3]->ff_symbol;
-			if (atom_mut_params.count(pt4) > 0)  at4_ff_s = atom_mut_params[pt4]->ff_symbol;
+			if (GetAtomFFParamMut(pt1) != nullptr) at1_ff_s = GetAtomFFParamMut(pt1)->ff_symbol;
+			if (GetAtomFFParamMut(pt2) != nullptr) at2_ff_s = GetAtomFFParamMut(pt2)->ff_symbol;
+			if (GetAtomFFParamMut(pt3) != nullptr) at3_ff_s = GetAtomFFParamMut(pt3)->ff_symbol;
+			if (GetAtomFFParamMut(pt4) != nullptr) at4_ff_s = GetAtomFFParamMut(pt4)->ff_symbol;
 
 			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
@@ -3072,7 +3086,7 @@ bool MolMechModel::has_mut_atoms_in_group(const AtomGroup& group)
 	bool has_mut_atoms = false;
 	for (HaAtom* aptr : group)
 	{
-		if (this->atom_mut_params.count(aptr) > 0) {
+		if (GetAtomFFParamMut(aptr) != nullptr ) {
 			has_mut_atoms = true;
 			break;
 		}

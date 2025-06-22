@@ -1716,7 +1716,7 @@ void AtomCorrAgent::SetDistRange( double rmin_par, double rmax_par, int nr_par )
 	rmax = rmax_par;
 	if( nr_par < 1 ) 
 	{
-		nr = (rmax - rmin )/0.1 + 1.000000001;
+		nr = (int)((rmax - rmin )/0.1 + 1.000000001);
 	}
 	else
 	{

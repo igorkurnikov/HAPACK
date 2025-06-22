@@ -1225,7 +1225,7 @@ int HaNonLocField3D::SaveField(const std::string& fname)
 				lidx++;
 				list<ValAtPoint>& val_list = fvals[lidx-1];
 
-				fprintf(fp," %5d%5d%5d %8d \n", ix, iy, iz, val_list.size());
+				fprintf(fp," %5d%5d%5d %8zu \n", ix, iy, iz, val_list.size());
 				
 				list<ValAtPoint>::iterator vitr;
 				for(vitr = val_list.begin(); vitr != val_list.end(); vitr++)
