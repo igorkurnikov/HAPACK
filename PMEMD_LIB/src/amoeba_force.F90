@@ -579,7 +579,7 @@ end subroutine amoeba_force_uni
 !              and the pme_ene_vir common block
 !*******************************************************************************
 
-subroutine distribute_amoeba_enes_virs_netfrcs(pot_ene, virial, netfrcs )
+subroutine distribute_amoeba_enes_virs_netfrcs(pot_ene, virial, netfrcs ) bind(C, name="dist_amoeba_enes_v_n")
 
   use parallel_dat_mod
 

@@ -7104,9 +7104,7 @@ int AmberMMModel::UpdateAmberData()
 // Distribute atoms over residues and molecules 
 // ( Do not quite correspond to HARLEM classification)
 
-	PrintLog("Before FindResMolPartition() \n");
 	FindResMolPartition();
-	PrintLog("After FindResMolPartition() \n");
 
 // Set Van-Der-Waals parameters of the Atoms 
 

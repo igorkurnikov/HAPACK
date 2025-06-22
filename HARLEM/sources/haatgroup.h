@@ -505,6 +505,8 @@ public:
 	bool SetTransformation(std::string alt_res_name); //!< Set Residue Mutation 
 	bool IsSet() { return is_set; } //!< Check if the Mutation is Set
 
+	AtomFFParam* GetAtomFFParamMut(HaAtom* aptr); //!< Get Atom FF Parameters for atom in the mutated state
+
 	string res_name_b;
 	set<HaAtom*> atoms_a;
 	set<HaAtom*> atoms_b;

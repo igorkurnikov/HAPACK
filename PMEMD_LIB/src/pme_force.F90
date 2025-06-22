@@ -1345,7 +1345,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
     write(mdout, 30) vir%molecular(3, 1), &
                      vir%molecular(3, 2), &
                      vir%molecular(3, 3)
-30                   format(5x, 'MOLECULAR VIRIAL: ', 3(1x, e14.8))
+30                   format(5x, 'MOLECULAR VIRIAL: ', 3(1x, e15.8))
    
   end if
 
@@ -1361,7 +1361,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_recip(3, 2), &
                      vir%elec_recip(3, 3)
     write(mdout, *) '..................'
-31     format(5x, 'Reciprocal VIRIAL: ', 3(1x, e14.8))
+31     format(5x, 'Reciprocal VIRIAL: ', 3(1x, e15.8))
     write(mdout, 32) vir%elec_direct(1, 1), &
                      vir%elec_direct(1, 2), &
                      vir%elec_direct(1, 3)
@@ -1372,10 +1372,10 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_direct(3, 2), &
                      vir%elec_direct(3, 3)
     write(mdout, *) '..................'
-32     format(5x, 'Direct VIRIAL: ', 3(1x, e14.8))
+32     format(5x, 'Direct VIRIAL: ', 3(1x, e15.8))
     write(mdout, 38) vir%eedvir
     write(mdout, *) '..................'
-38     format(5x, 'Dir Sum EE vir trace: ', e14.8)
+38     format(5x, 'Dir Sum EE vir trace: ', e15.8)
     write(mdout, 33) vir%elec_nb_adjust(1, 1), &
                      vir%elec_nb_adjust(1, 2), &
                      vir%elec_nb_adjust(1, 3)
@@ -1386,7 +1386,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_nb_adjust(3, 2), &
                      vir%elec_nb_adjust(3, 3)
     write(mdout, *) '..................'
-33     format(5x, 'Adjust VIRIAL: ', 3(1x, e14.8))
+33     format(5x, 'Adjust VIRIAL: ', 3(1x, e15.8))
     write(mdout, 34) vir%elec_recip_vdw_corr(1, 1), &
                      vir%elec_recip_vdw_corr(1, 2), &
                      vir%elec_recip_vdw_corr(1, 3)
@@ -1397,7 +1397,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_recip_vdw_corr(3, 2), &
                      vir%elec_recip_vdw_corr(3, 3)
     write(mdout, *) '..................'
-34     format(5x, 'Recip Disp. VIRIAL: ', 3(1x, e14.8))
+34     format(5x, 'Recip Disp. VIRIAL: ', 3(1x, e15.8))
     write(mdout, 35) vir%elec_recip_self(1, 1), &
                      vir%elec_recip_self(1, 2), &
                      vir%elec_recip_self(1, 3)
@@ -1408,7 +1408,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_recip_self(3, 2), &
                      vir%elec_recip_self(3, 3)
     write(mdout, *) '..................'
-35     format(5x, 'Self VIRIAL: ', 3(1x, e14.8))
+35     format(5x, 'Self VIRIAL: ', 3(1x, e15.8))
     write(mdout, 36) vir%elec_14(1, 1), &
                      vir%elec_14(1, 2), &
                      vir%elec_14(1, 3)
@@ -1419,7 +1419,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
                      vir%elec_14(3, 2), &
                      vir%elec_14(3, 3)
     write(mdout, *) '..................'
-36     format(5x, 'E14 VIRIAL: ', 3(1x, e14.8))
+36     format(5x, 'E14 VIRIAL: ', 3(1x, e15.8))
     write(mdout, 37) vir%atomic(1, 1), &
                      vir%atomic(1, 2), &
                      vir%atomic(1, 3)
@@ -1429,7 +1429,7 @@ subroutine pme_verbose_print(pot_ene, vir, vir_vs_ene)
     write(mdout, 37) vir%atomic(3, 1), &
                      vir%atomic(3, 2), &
                      vir%atomic(3, 3)
-37     format(5x, 'Atomic VIRIAL: ', 3(1x, e14.8))
+37     format(5x, 'Atomic VIRIAL: ', 3(1x, e15.8))
     write(mdout, *)'--------------------------------------------'
   end if
 

@@ -144,10 +144,13 @@ extern int RestoreIOToConsole();                //!< Restore STDOUT to console t
 
 
 #if !defined(HAIO_CPP)
+
+extern int ha_debug_level;                     //!< HARLEM debug level 
 //extern int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
 extern int PrintLogCount(int type, const char* str,  ... ); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 #else
+	int ha_debug_level = 0;  //!< HARLEM debug level 
 	//int PrintLog(const char* str, ... );  //!< HARLEM standard function to print info into STDOUT (syntax as in printf) 
 	int PrintLogCount(int type, const char* str,  ...); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
 	int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function

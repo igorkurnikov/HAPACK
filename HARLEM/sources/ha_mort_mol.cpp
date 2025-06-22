@@ -34,7 +34,6 @@ void MMForceField::switch_amoeba_type( mort::molecule_t& mol, const mort::molecu
 	{
 		return; 
 	}
-	char buf[120];
 
 	mort::atomiter_t ai = mol.atom_begin();
 	for( ; ai != mol.atom_end(); ++ai )
@@ -45,16 +44,14 @@ void MMForceField::switch_amoeba_type( mort::molecule_t& mol, const mort::molecu
 		if( pole_type_id <= 0 )
 		{
 			std::string str_err = "Error in switch_amoeba_type() \n";
-			sprintf(buf," atom %s with ID %d has invalid pole_type_d = %d \n",ai->get_s( mort::NAME ).c_str(),ai->get_s( mort::ID ).c_str() );
-			str_err += buf;
+			str_err += (boost::format(" atom %s with ID %d has invalid pole_type_d = %d \n") % ai->get_s(mort::NAME) % ai->get_s(mort::ID)).str();
 			throw std::runtime_error(str_err);
 		}
 
 		mort::atom_t pole( poleff, pole_type_id-1 );
 
 		int atom_type_id = pole.get_i(mort::TYPEID);
-		sprintf(buf,"%d",atom_type_id);
-		std::string atom_type = buf;
+		std::string atom_type = (boost::format("%d") % atom_type_id).str();
 
 		ai->set_s( mort::TYPE, atom_type );
 		ai->set_s( mort::POLTYPE, pole_type );

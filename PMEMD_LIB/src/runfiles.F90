@@ -285,8 +285,8 @@ subroutine mdeng(nstep, time, si, box)
   ! up to dV/dlambda, includes 3 0.d0 fields:
   write(mden, 3) 'L9 ', 0.d0, 0.d0, 0.d0, si(si_density), si(si_dv_dlambda)
 
-2 format(a, i8, 20(2x, e16.10))
-3 format(a, 20(e16.10, 2x))
+2 format(a, i8, 20(2x, e17.10))
+3 format(a, 20(e17.10, 2x))
 
   return
 

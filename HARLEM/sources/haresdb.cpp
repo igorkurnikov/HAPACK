@@ -77,7 +77,7 @@ int HaResDB::Init()
 			//std::string full_name = pApp->res_db_dir + file_name;
 			//res_db_files.push_back(full_name);
 			res_db_files.push_back(file_name);
-			PrintLog(" Add residue template file %s  in the Residue Database directory \n", file_name.c_str());
+			if( ha_debug_level > 1) PrintLog(" Add residue template file %s  in the Residue Database directory \n", file_name);
 		}
 	}
 
@@ -96,7 +96,7 @@ int HaResDB::Init()
 			{
 				std::string full_name = "./" + file_name;
 				res_db_files.push_back(full_name);
-				PrintLog(" Add residue template file %s  in the working directory \n", file_name.c_str());
+				PrintLog(" Add residue template file %s  in the working directory \n", file_name);
 			}
 		}
 	}

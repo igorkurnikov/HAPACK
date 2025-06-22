@@ -649,7 +649,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 
-		os << boost::format("%6d  %6d   1 %14.4e%14.4e ") % idx1 % idx2 % r0 % fc;
+		os << boost::format("%6d  %6d   1 %14.4e %14.4e ") % idx1 % idx2 % r0 % fc;
 		if (has_mut_atoms)
 		{
 			auto mbitr_mut = p_mm_model->MBonds_mut.find(bnd);
@@ -657,14 +657,14 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 			{
 				const double r0_m = mbitr_mut->r0 * 0.1; // Ang -> nm
 				const double fc_m = mbitr_mut->fc * 4.184 * 4.184 * 100; // kcal/mol/Ang^2  ->kJ/nm^2
-				os << boost::format(" %14.4e%14.4e ") % r0_m % fc_m;
+				os << boost::format(" %14.4e %14.4e ") % r0_m % fc_m;
 			}
 			else
 			{
-				os << boost::format(" %14.4e%14.4e ") % r0 % fc;
+				os << boost::format(" %14.4e %14.4e ") % r0 % fc;
 			}
 		}
-		os << boost::format("; %s - %s \n") % at_lbl_1, at_lbl_2;
+		os << boost::format("  ; %s - %s \n") % at_lbl_1 % at_lbl_2;
 	}
 
 	if (has_mut_atoms)
@@ -688,7 +688,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 
 			os << boost::format("%6d  %6d   1 %14.4e%14.4e %14.4e%14.4e") % idx1 % idx2 % r0 % fc % r0 % fc;
-			os << boost::format("; %s - %s \n") % at_lbl_1, at_lbl_2;
+			os << boost::format("  ; %s - %s \n") % at_lbl_1 % at_lbl_2;
 		}
 	}
 
@@ -722,7 +722,7 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 
-			os << boost::format("%6d  %6d  1 ; %s - %s \n") % idx1 % idx2 % at_lbl_1 % at_lbl_2;
+			os << boost::format("%6d  %6d  1   ; %s - %s \n") % idx1 % idx2 % at_lbl_1 % at_lbl_2;
 		}
 		os << " \n";
 	}
@@ -736,7 +736,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 	os << "[ angles ] \n";
 	if (has_mut_atoms)
 	{
-		os << ";   ai     aj     ak    funct   theta1        k1    theta2    k2\n";
+		os << ";   ai     aj     ak    funct   theta1        k1    theta2    k2 \n";
 	}
 	else
 	{
@@ -782,7 +782,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 				os << boost::format(" %14.4e%14.4e ") % a0 % fc;
 			}
 		}
-		os << boost::format("; %s - %s - %s \n") % at_lbl_1, at_lbl_2, at_lbl_3;
+		os << boost::format("  ; %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3;
 	}
 
 	if (has_mut_atoms)
@@ -810,8 +810,8 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 			std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
 
-			os << boost::format("%6d %6d %6d  1 %14.4e%14.4e %14.4e%14.4e") % idx1 % idx2 % idx3 % a0 % fc % a0 % fc; 
-			os << boost::format("; %s - %s - %s \n") % at_lbl_1, at_lbl_2, at_lbl_3;
+			os << boost::format("%6d %6d %6d  1 %14.4e%14.4e %14.4e%14.4e ") % idx1 % idx2 % idx3 % a0 % fc % a0 % fc; 
+			os << boost::format("  ; %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3;
 		}
 	}
 	os << "  \n";
@@ -874,15 +874,15 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					double phase1 = 0.0;
 					double pk1 = 0.0;
 					double pn1 = 1.0;
-					os << boost::format(" %14.4e %14.4e %2.0f") % phase1 % pk1 % pn1;
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
 					if (has_mut_atoms)
 					{
-						os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 					}
 				}
 				else
 				{
-					os << boost::format( " %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					os << boost::format( " %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 					if (has_mut_atoms)
 					{
 						double phase_mut = 0.0;
@@ -890,7 +890,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 						double pn_mut = 1.0;
 						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
 					}				}
-				os << boost::format("; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
 			}
 		}
 		mutated_state = true;
@@ -948,28 +948,28 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					double phase1 = 0.0;
 					double pk1 = 0.0;
 					double pn1 = 1.0;
-					os << boost::format(" %14.4e %14.4e %2.0f") % phase1 % pk1 % pn1;
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
 					if (has_mut_atoms)
 					{
-						os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 					}
 				}
 				else
 				{
-					os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk[i] % pn[i];
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 					if (has_mut_atoms)
 					{
 						double phase_mut = 0.0;
 						double pk_mut = 0.0;
 						double pn_mut = 1.0;
-						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase_mut % pk_mut % pn_mut;
 					}
 				}
-				os << boost::format("; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
 			}
 		}
 		mutated_state = true;
 	}
-	os << "  " << std::endl;
+	os << "  \n";
 	return TRUE;
 }

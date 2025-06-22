@@ -2304,14 +2304,14 @@ bool HaResidue::SetMissingCoordsWithTemplate(AtomSet& atoms_missing, AtomSet& at
 	{
 		if (atoms_missing.count(aptr) > 0)
 		{
-			PrintLog("Error in HaResidue::SetMissingCoordsWithTemplate(): Atom %s listed both missing and know coordinates \n",
-				aptr->GetRef().c_str());
+			PrintLog("Error in HaResidue::SetMissingCoordsWithTemplate(): Atom %s listed both missing and known coordinates \n",
+				aptr->GetRef());
 			return false;
 		}
 		if (atom_template_map.count(aptr) == 0)
 		{
-			PrintLog("Warning: HaResidue::SetMissingCoordsWithTemplate(): Atom %s with known coordinates doesn't have a template \n",
-				aptr->GetRef().c_str());
+			if( ha_debug_level > 1) PrintLog("Warning: HaResidue::SetMissingCoordsWithTemplate(): Atom %s with known coordinates doesn't have a template \n",
+				aptr->GetRef());
 		}
 	}
 
@@ -2747,6 +2747,14 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 	this->is_set = true;
 	return true;
 }
+
+AtomFFParam* AlchemicalTransformation::GetAtomFFParamMut(HaAtom* aptr)
+{
+	if (at_ff_params.count(aptr) > 0)
+		return at_ff_params[aptr].get();
+	return nullptr;
+}
+
 
 HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4, 
 		                     const HaAtom* aptr_templ, const HaAtom* aptr_templ_2, const HaAtom* aptr_templ_3, 

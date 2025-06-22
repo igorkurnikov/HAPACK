@@ -406,155 +406,162 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			}
 		}
 
+		for (HaAtom* aptr : *pres)  // Set Atom FF parameters from FF Residue templates
+		{
+			std::string at_name = aptr->GetName();
+
+			HaAtom* atempl = p_res_templ->GetAtomByName(at_name);
+
+			pt_to_templ_map[aptr] = atempl;
+
+			double charge = atempl ? atempl->GetCharge() : 0.0;
+			double mass = atempl ? atempl->GetMass() : 4.0;
+			std::string ff_symb = atempl ? atempl->GetFFSymbol() : "DU";
+
+			if (atempl && p_res_ff_templ != NULL)
+			{
+				shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
+				if (p_at_ff != NULL)
+				{
+					charge = p_at_ff->GetCharge();
+					ff_symb = p_at_ff->ff_symbol;
+				}
+				else
+				{
+					PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef(), p_res_ff_templ->GetFullName());
+				}
+			}
+			aptr->SetFFSymbol(ff_symb);
+			aptr->SetCharge(charge);
+			aptr->SetMass(mass);
+		}
+
+		for (HaAtom* aptr : *pres)  // Set Atom FF parameters from FF Residue templates for mutated state
+		{
+			HaAtom* atempl_mut = nullptr;
+			std::string at_name_mut;
+			if (pres->IsAlchemicalTransformationSet() && p_res_mut_templ)
+			{
+				at_name_mut = pres->p_res_transform->at_names_b[aptr];
+				atempl_mut = p_res_mut_templ->GetAtomByName(at_name_mut);
+				if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
+			}
+
+			if (pres->IsAlchemicalTransformationSet() && atempl_mut)
+			{
+				shared_ptr<AtomFFParam> p_at_mut_params = make_shared<AtomFFParam>();
+				p_at_mut_params->charge = atempl_mut->GetCharge();
+				p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+				p_at_mut_params->mass = atempl_mut->GetMass();
+
+				if (p_res_mut_ff_templ)
+				{
+					shared_ptr<AtomFFParam> p_at_mut_ff_templ = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
+					if (p_at_mut_ff_templ) *p_at_mut_params = *p_at_mut_ff_templ;
+				}
+
+				pres->p_res_transform->at_ff_params[aptr] = p_at_mut_params;
+			}
+		}
+
 		for (HaAtom* aptr : *pres)
 		{
-			try
+			if (pt_to_templ_map.count(aptr) > 0) continue; // Set FF parameters for atoms not found in residue templates
+			std::string at_name = aptr->GetName();
+			if (boost::algorithm::starts_with(at_name, "HTM")) // special rules for Terminating hydrogens
 			{
-				pt_to_templ_map[aptr] = nullptr;
-				std::string at_name = aptr->GetName();
-
-				HaAtom* atempl = p_res_templ->GetAtomByName(at_name);
-				if (atempl == nullptr)
+				if (aptr->IsHydrogen())
 				{
-					if (boost::algorithm::starts_with(at_name, "HTM")) // special rules for Terminating hydrogens
+					AtomGroup bonded_atoms = aptr->GetBondedAtoms();
+					if (bonded_atoms.size() != 1)
 					{
-						if (aptr->IsHydrogen())
+						PrintLog("TRM hydrogen atom %s has humber of bonds not equal 1 - FF Params are not set \n", aptr->GetRef());
+						continue;
+					}
+
+					HaAtom* aptr_host = bonded_atoms[0];
+					AtomGroup bonded_atoms_host = aptr_host->GetBondedAtoms();
+					int num_hydrogens_host = 0;
+					for (HaAtom* aptr_b : bonded_atoms_host)
+					{
+						if (aptr_b->IsHydrogen()) num_hydrogens_host++;
+					}
+
+					std::string at_host_ff_s = aptr_host->GetFFSymbol();
+
+					if (bonded_atoms.size() != 4)
+					{
+						PrintLog("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon) - FF Params are not set",
+							aptr_host->GetRef(), aptr->GetRef(), bonded_atoms.size());
+						continue;
+					}
+
+					if (aptr_host->GetElemNo() != 6)
+					{
+						PrintLog("Atom %s bonded to TRM atom %s is not carbon \n - FF Params are not set ",
+							aptr_host->GetRef(), aptr->GetRef());
+						continue;
+					}
+
+					if (ff_type == ForceFieldType::AMBER_94 || ff_type == ForceFieldType::AMBER_99_SB || ff_type == ForceFieldType::AMBER_99_BSC0 ||
+						ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_10)
+					{
+						if (at_host_ff_s == "CT")
 						{
-							AtomGroup bonded_atoms = aptr->GetBondedAtoms();
-							if (bonded_atoms.size() != 1)
+							std::string h_at_s = "H1";
+							for (HaAtom* aptr_b : bonded_atoms_host)
 							{
-								throw std::runtime_error((boost::format("TRM hydgroden atom %s has humber of bonds not equal 1 \n") % aptr->GetRef()).str());
+								if (aptr->IsHydrogen() && aptr->GetFFSymbol() == "HC") h_at_s = "HC"; // terminal Methyl hydrogens should be all H1 or all HC
 							}
-
-							HaAtom* aptr_host = bonded_atoms[0];
-
-							aptr_host->GetBondedAtoms(bonded_atoms);
-
-							if (bonded_atoms.size() != 4)
-							{
-								throw std::runtime_error(
-									(boost::format("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon)") %
-										aptr_host->GetRef() % aptr->GetRef() % bonded_atoms.size()).str());
-							}
-
-							if (aptr_host->GetElemNo() != 6)
-							{
-								throw std::runtime_error(
-									(boost::format("Atom %s bonded to TRM atom %s is not carbon \n") %
-										aptr_host->GetRef() % aptr->GetRef()).str());
-							}
-
-							if (ff_type == ForceFieldType::AMBER_94 || ff_type == ForceFieldType::AMBER_99_SB || ff_type == ForceFieldType::AMBER_99_BSC0 ||
-								ff_type == ForceFieldType::AMBER_03 || ff_type == ForceFieldType::AMBER_10)
-							{
-								aptr->SetFFSymbol("H1");
-								aptr->SetCharge(0.0);
-
-							}
-							else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
-							{
-								int num_hydrogens = 0;
-								for (HaAtom* aptr_b : bonded_atoms)
-								{
-									if (aptr_b->IsHydrogen()) num_hydrogens++;
-								}
-
-								if (num_hydrogens == 2)
-								{
-									aptr_host->SetFFSymbol("C2");
-									for (HaAtom* aptr_b : bonded_atoms)
-										if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC2");
-								}
-
-								if (num_hydrogens == 3)
-								{
-									aptr_host->SetFFSymbol("C3");
-									for (HaAtom* aptr_b : bonded_atoms)
-										if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
-								}
-							}
+							aptr->SetFFSymbol(h_at_s);
+							aptr->SetCharge(0.0);
 						}
-						else
+					}
+					else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
+					{
+
+						if (num_hydrogens_host == 2)
 						{
-							throw std::runtime_error( (boost::format("Terminating Atom %s is not Hydrogen \n") % aptr->GetRef()).str() );
+							aptr_host->SetFFSymbol("C2");
+							for (HaAtom* aptr_b : bonded_atoms)
+								if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC2");
+						}
+
+						if (num_hydrogens_host == 3)
+						{
+							aptr_host->SetFFSymbol("C3");
+							for (HaAtom* aptr_b : bonded_atoms)
+								if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
 						}
 					}
 				}
-
-				pt_to_templ_map[aptr] = atempl;
-
-				double charge = atempl ? atempl->GetCharge() : 0.0;
-				double mass = atempl ? atempl->GetMass() : 4.0;
-				std::string ff_symb = atempl ? atempl->GetFFSymbol() : "DU";
-
-				if (atempl && p_res_ff_templ != NULL)
+				else
 				{
-					shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
-					if (p_at_ff != NULL)
+					PrintLog("Terminating Atom %s is not Hydrogen - FF Params are not set\n", aptr->GetRef());
+					continue;
+				}
+			}
+		}
+
+		for (HaAtom* aptr : *pres)
+		{
+			std::string at_name = aptr->GetName();
+			if (boost::algorithm::starts_with(at_name, "DA")) // special rules for State A Dummy atoms in Mutating residues
+			{
+				double mass = 4.0;
+				if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
+				{
+					shared_ptr<AtomFFParam> pat_par_mut = pres->p_res_transform->at_ff_params[aptr];
+					if (pat_par_mut)
 					{
-						charge = p_at_ff->GetCharge();
-						ff_symb = p_at_ff->ff_symbol;
-					}
-					else
-					{
-						PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef(), p_res_ff_templ->GetFullName());
+						if (pat_par_mut->mass > 0.5) mass = pat_par_mut->mass;
 					}
 				}
-				aptr->SetFFSymbol(ff_symb);
-				aptr->SetCharge(charge);
+				aptr->SetFFSymbol("DU");
+				aptr->SetCharge(0);
 				aptr->SetMass(mass);
-
-				HaAtom* atempl_mut = nullptr;
-				std::string at_name_mut;
-				if (pres->IsAlchemicalTransformationSet() && p_res_mut_templ)
-				{
-					at_name_mut = pres->p_res_transform->at_names_b[aptr];
-					atempl_mut = p_res_mut_templ->GetAtomByName(at_name);
-					if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
-				}
-
-				if (pres->IsAlchemicalTransformationSet() && atempl_mut )
-				{
-					shared_ptr<AtomFFParam> p_at_mut_params = make_shared<AtomFFParam>();
-					p_at_mut_params->charge = atempl_mut->GetCharge();
-					p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
-					p_at_mut_params->mass = atempl_mut->GetMass();
-
-					if (p_res_mut_ff_templ )
-					{
-						shared_ptr<AtomFFParam> p_at_mut_ff = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
-						if (p_at_mut_ff) p_at_mut_params = p_at_mut_ff;
-					}
-					if (p_at_mut_params->mass < 0.5)
-					{
-						if (atempl_mut->GetMass() > 0.5) p_at_mut_params->mass = atempl_mut->GetMass();
-						else p_at_mut_params->mass = 4.0;
-					}
-					pres->p_res_transform->at_ff_params[aptr] = p_at_mut_params;
-				}
-
-				if (boost::algorithm::starts_with(at_name, "DA")) // special rules for State A Dummy atoms in Mutating residues
-				{
-					double mass = 4.0;
-					if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
-					{
-						shared_ptr<AtomFFParam> pat_par_mut = pres->p_res_transform->at_ff_params[aptr];
-						if (pat_par_mut)
-						{
-							if (pat_par_mut->mass > 0.5) mass = pat_par_mut->mass;
-						}
-					}
-					aptr->SetFFSymbol("DU");
-					aptr->SetCharge(0);
-					aptr->SetMass(mass);
-				}
 			}
-			catch (const std::exception& ex)
-			{
-				PrintLog(" Error in MolMechModel::InitModel() setting ff parameters for atom %s \n", aptr->GetRef());
-				PrintLog(" %s\n", ex.what());
-			}
-		} // cycle on Atoms
+		} // cycle on Atoms -DA dummy rules 
 
 		if (p_res_ff_templ)  // Add improper Angles 
 		{
@@ -564,19 +571,19 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			{
 				std::string at_ref = p_res_ff_templ->improper_dihedrals[i][0];
 				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
-				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref);
+				if (aptr1 == NULL && ha_debug_level > 1) PrintLog(" Can't map atom %s \n", at_ref);
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][1];
 				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
-				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref);;
+				if (aptr2 == NULL && ha_debug_level > 1) PrintLog(" Can't map atom %s \n", at_ref);;
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][2];
 				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
-				if (aptr3 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
+				if (aptr3 == NULL && ha_debug_level > 1) PrintLog(" Can't map atom %s\n", at_ref);
 
 				at_ref = p_res_ff_templ->improper_dihedrals[i][3];
 				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
-				if (aptr4 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
+				if (aptr4 == NULL && ha_debug_level > 1) PrintLog(" Can't map atom %s\n", at_ref);
 
 				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{
@@ -584,7 +591,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 				else
 				{
-					PrintLog(" Warning: failed to set and improper angle from residue FF template %s \n", res_fname);
+					if( ha_debug_level > 1 ) PrintLog(" Warning: failed to set an improper angle from the residue FF template %s \n", res_fname);
 				}
 			}
 		}
@@ -2448,31 +2455,30 @@ std::string MolMechModel::GetFFSymbolFromMolStruct(HaAtom* aptr)
 	std::string atn = aptr->GetName();
 	HaResidue* pres = aptr->GetHostRes();
 
-	std::string ff_name = "DU";
+	if (pres->IsAlchemicalTransformationSet())
+	{
+		AtomFFParam* at_ff_par_mut = pres->p_res_transform->GetAtomFFParamMut(aptr);
+		if (at_ff_par_mut) return at_ff_par_mut->ff_symbol;
+	}
+
+	std::string ff_s = "DU";
 	AtomGroup bonded_atoms = aptr->GetBondedAtoms();
 	if (bonded_atoms.size() == 1) // so far only set rules for atoms with  one neighbor
 	{
-		HaAtom* aptr_host_heavy = bonded_atoms[0]; // Heavy Atom  a given Terminal atom is Attached
-		AtomGroup bonded_atoms_host_heavy = aptr_host_heavy->GetBondedAtoms();  // Atoms bonded to the Heavy Atom host
-		AtomGroup bonded_hydrogens_host_heavy;
-		for (HaAtom* aptr : bonded_atoms_host_heavy)
-			if (aptr->IsHydrogen()) bonded_hydrogens_host_heavy.push_back(aptr);
-		int nh_host = bonded_hydrogens_host_heavy.size();
+		HaAtom* aptr_host = bonded_atoms[0]; // Heavy Atom  a given Terminal atom is Attached
+		std::string host_ff_s = aptr_host->GetFFSymbol();
+		AtomGroup bonded_atoms_host = aptr_host->GetBondedAtoms();  // Atoms bonded to the Heavy Atom host
+		int nh_host = 0;
+		for (HaAtom* aptr_b : bonded_atoms_host)
+			if (aptr_b->IsHydrogen()) nh_host++;
 
-		std::string h_ff_s = "H1";
-		for (HaAtom* aptr_h : bonded_hydrogens_host_heavy)
+		if (host_ff_s == "CT") ff_s = "H1";
+		for (HaAtom* aptr_b : bonded_atoms_host)
 		{
-			if (aptr_h->GetFFSymbol() == "HC") h_ff_s = "HC";
-		}
-
-		std::string host_ff_s = aptr_host_heavy->GetFFSymbol();
-	
-		if (host_ff_s == "CT")
-		{
-				ff_name = "H1";
+			if (aptr_b->GetFFSymbol() == "HC") ff_s = "HC";
 		}
 	}
-	return ff_name;  
+	return ff_s;  
 }
 
 int MolMechModel::SetStdValParams()
