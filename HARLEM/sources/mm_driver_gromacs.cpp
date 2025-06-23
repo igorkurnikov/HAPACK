@@ -120,7 +120,7 @@ int MMDriverGromacs::SaveAllInpFiles()
 	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname);
 	pmset->SaveGROFile(restr_crd_fname.c_str());
 	PrintLog("Save GROMACS run file %s\n", run_fname.c_str());
-	SaveRunFile();
+	SaveRunFiles();
 	to_save_input_files = FALSE;
 	return TRUE;
 }
@@ -202,7 +202,7 @@ bool MMDriverGromacs::SaveInitCrdFiles()
 	return true;
 }
 
-bool MMDriverGromacs::SaveRunFile()
+bool MMDriverGromacs::SaveRunFiles()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
 	fs::path p(this->inp_fname);
@@ -210,6 +210,11 @@ bool MMDriverGromacs::SaveRunFile()
 
 	if (p_mm_mod->run_ti)
 	{
+		std::string run_all_fname = prefix + "_all.sh";
+		std::ofstream os_run_all(run_all_fname, std::ios::binary);
+
+		os_run_all << "#!/bin/sh -f -x \n";
+
 		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
 		{
 			std::string prefix_lmb = prefix + "_L" + std::to_string(ilmb);
@@ -229,10 +234,12 @@ bool MMDriverGromacs::SaveRunFile()
 				PrintLog("Can't create file %s \n", inp_fname_lmb);
 				return false;
 			}
-			os << "#!/bin/sh -f \n";
+			os << "#!/bin/sh -f -x \n";
 			os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
 				inp_fname_lmb % this->top_fname % init_crd_fname_lmb % this->restr_crd_fname % tpr_fname_lmb << " \n";
 			os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname_lmb % prefix_lmb;
+
+			os_run_all << "sh " << run_fname_lmb << " \n";
 		}
 	}
 	else

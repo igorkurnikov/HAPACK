@@ -27,10 +27,10 @@ public:
 
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set GROMACS input and output file names with prefix
 	
-	bool SaveMdpFile();        //!< Save MM run parameters in GROMACS MDP format to File
+	bool SaveMdpFile();         //!< Save MM run parameters in GROMACS MDP format to File
 	int  SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
 	bool SaveInitCrdFiles();    //!< Save Initial Coordinates Files for the Run - possibly from previous MD or MIN runs 
-	bool SaveRunFile();        //!< Save GROMACS Run script
+	bool SaveRunFiles();        //!< Save GROMACS Run script
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
