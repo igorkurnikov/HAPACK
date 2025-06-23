@@ -12,6 +12,9 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 #include "harlemapp.h"
 #include "hamolecule.h"
@@ -26,7 +29,8 @@ MMDriverGromacs::MMDriverGromacs(HaMolMechMod* p_mm_mod_new)
 	p_mm_mod = p_mm_mod_new;
 	p_mm_model    = p_mm_mod->p_mm_model;
 	pmset = p_mm_mod->GetMolSet();
-	std::string prefix = pmset->GetName() + std::string("_gmx");
+	std::string prefix = pmset->GetName();
+	p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.TRR;
 	this->SetFileNamesWithPrefix(prefix);
 
 	to_save_input_files = TRUE;
@@ -88,6 +92,12 @@ void MMDriverGromacs::PartitionAtomsToMolecules()
 
 void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 {
+	prefix += "_gmx";
+	if (p_mm_mod->run_type == p_mm_mod->run_type.MIN_RUN)
+		prefix += "_min";
+	if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
+		prefix += "_md";
+
 	inp_fname = prefix + ".mdp";
 	top_fname = prefix + ".top";
 	init_crd_fname = prefix + "_init.gro";
@@ -100,13 +110,14 @@ void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 
 int MMDriverGromacs::SaveAllInpFiles()
 {	
-	PrintLog("Save GROMACS mdp file %s\n", inp_fname.c_str());
+	PrintLog("Save GROMACS mdp file %s\n", inp_fname);
 	SaveMdpFile();
-	PrintLog("Save GROMACS top file %s\n", top_fname.c_str());
+	PrintLog("Save GROMACS top file %s\n", top_fname);
 	SaveGromacsTopFile();
-	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname.c_str());
+	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname);
 	pmset->SaveGROFile(init_crd_fname.c_str());
-	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname.c_str());
+	SaveInitCrdFiles();
+	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname);
 	pmset->SaveGROFile(restr_crd_fname.c_str());
 	PrintLog("Save GROMACS run file %s\n", run_fname.c_str());
 	SaveRunFile();
@@ -114,35 +125,134 @@ int MMDriverGromacs::SaveAllInpFiles()
 	return TRUE;
 }
 
-int MMDriverGromacs::SaveMdpFile()
+bool MMDriverGromacs::SaveMdpFile()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os(this->inp_fname, std::ios::binary);
-	if (os.fail())
+
+	bool bres = false;
+	if (p_mm_mod->run_ti)
 	{
-		PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
-		PrintLog("Can't create file %s \n", this->inp_fname.c_str());
-		return FALSE;
+		fs::path p(this->inp_fname);
+		std::string prefix = p.stem().string();
+		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
+		{
+			std::string inp_fname_lmb = prefix + "_L" + std::to_string(ilmb) + ".mdp";
+			p_mm_mod->idx_lambda_ti = ilmb;
+			p_mm_mod->lambda_ti = p_mm_mod->lambda_ti_v[ilmb];
+			PrintLog("Save GROMACS input file %s \n", inp_fname_lmb);
+			std::ofstream os(inp_fname_lmb, std::ios::binary);
+			if (os.fail())
+			{
+				PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
+				PrintLog("Can't create file %s \n", inp_fname_lmb);
+				return false;
+			}
+			bres = SaveMdpToStream(os);
+		}
 	}
-	return SaveMdpToStream(os);
+	else
+	{
+		PrintLog("Save GROMACS input file %s \n", inp_fname);
+		std::ofstream os(this->inp_fname, std::ios::binary);
+		if (os.fail())
+		{
+			PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
+			PrintLog("Can't create file %s \n", this->inp_fname);
+			return FALSE;
+		}
+		bres = SaveMdpToStream(os);
+	}
+	return bres;
 }
 
-int MMDriverGromacs::SaveRunFile()
+bool MMDriverGromacs::SaveInitCrdFiles()
+{
+	fs::path p(this->inp_fname);
+	std::string prefix = p.stem().string();
+
+	if (p_mm_mod->run_ti)
+	{
+		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
+		{
+			std::string prefix_lmb = prefix + "_L" + std::to_string(ilmb);
+			std::string init_crd_fname_lmb = prefix_lmb + "_init.gro";
+
+			fs::path destination_file = init_crd_fname_lmb;
+			fs::path source_file = this->init_crd_fname;
+			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
+			{
+				std::string init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb, "_md", "_min");
+				init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb_min, "_init", "");
+				if (fs::exists(init_crd_fname_lmb_min))
+				{
+					source_file = init_crd_fname_lmb_min;
+				}
+			}
+			try {
+				fs::copy_file(source_file, destination_file, fs::copy_options::overwrite_existing); 
+				PrintLog("Copied %s to %s \n", source_file.string(), destination_file.string());
+			}
+			catch (const fs::filesystem_error& e) {
+				PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() copying file: %s %s %s", 
+					source_file.string(), destination_file.string(), e.what());
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool MMDriverGromacs::SaveRunFile()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
-	std::ofstream os(this->run_fname, std::ios::binary);
-	if (os.fail())
+	fs::path p(this->inp_fname);
+	std::string prefix = p.stem().string();
+
+	if (p_mm_mod->run_ti)
 	{
-		PrintLog("Error in MMDriverGromacs::SaveRunFile() \n");
-		PrintLog("Can't create file %s \n", this->run_fname.c_str());
-		return FALSE;
+		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
+		{
+			std::string prefix_lmb = prefix + "_L" + std::to_string(ilmb);
+			std::string inp_fname_lmb = prefix_lmb + ".mdp";
+			std::string init_crd_fname_lmb = prefix_lmb + "_init.gro";
+			std::string run_fname_lmb = prefix_lmb + ".sh";
+			std::string tpr_fname_lmb = prefix_lmb + ".tpr";
+
+			p_mm_mod->idx_lambda_ti = ilmb;
+			p_mm_mod->lambda_ti = p_mm_mod->lambda_ti_v[ilmb];
+
+			PrintLog("Save GROMACS run script %s \n", run_fname_lmb);
+			std::ofstream os(run_fname_lmb, std::ios::binary);
+			if (os.fail())
+			{
+				PrintLog("Error in MMDriverGromacs::SaveMdpFile() \n");
+				PrintLog("Can't create file %s \n", inp_fname_lmb);
+				return false;
+			}
+			os << "#!/bin/sh -f \n";
+			os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
+				inp_fname_lmb % this->top_fname % init_crd_fname_lmb % this->restr_crd_fname % tpr_fname_lmb << " \n";
+			os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname_lmb % prefix_lmb;
+		}
 	}
-	os << "#!/bin/sh -f \n";
-	os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
-		inp_fname % top_fname % init_crd_fname % restr_crd_fname % tpr_fname << " \n";
-	os << boost::format("gmx mdrun -s %s ") % tpr_fname << " \n";
+	else
+	{
+		PrintLog("Save GROMACS run script %s \n", this->run_fname);
+		std::ofstream os(this->run_fname, std::ios::binary);
+
+		if (os.fail())
+		{
+			PrintLog("Error in MMDriverGromacs::SaveRunFile() \n");
+			PrintLog("Can't create file %s \n", this->run_fname);
+			return false;
+		}
+		os << "#!/bin/sh -f \n";
+		os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
+			inp_fname % top_fname % init_crd_fname % restr_crd_fname % tpr_fname << " \n";
+		os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname % prefix ;
+	}
 	
-	return TRUE;
+	return true;
 }
 
 int MMDriverGromacs::SaveGromacsTopFile()
@@ -240,6 +350,37 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		}
 		// fprintf(fp, " tol=%12.7f, ", p_mm_mod->shake_tol );
 
+		if (p_mm_mod->run_ti)
+		{
+			os << " \n";
+			os << "; Free energy parameters \n";
+			os << "free-energy              = yes \n";
+			os << "sc-alpha = 0.05   ; Softcoring of VdW \n";
+			os << "sc-coul  = yes    ; Softcoring of Electrostatics \n";
+			os << "sc-r-power  = 6   ; Softcoring power \n";
+			os << "sc-power    = 1   ; Softcoring Electrostatic Power \n";
+			os << " \n";
+			os << "init-lambda-state = " << p_mm_mod->idx_lambda_ti << "    ; current lambda for Alchemical transition  \n";
+			os << " \n";
+
+			os << "coul-lambdas             = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching Coulomb interactions \n";
+
+			os << "vdw-lambdas              = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching VdW interactions \n";
+
+			os << "bonded-lambdas           = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching Valence interactions \n";
+			os << "  \n";
+			os << "nstdhdl                  = 100   ; frequency to save dH/dL info\n";
+			os << "  \n"; 
+		}
 
 		// Print out control:
 		os << std::endl << "; MM Run Output control \n\n";

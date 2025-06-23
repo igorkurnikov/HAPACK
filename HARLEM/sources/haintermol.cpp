@@ -2811,12 +2811,12 @@ bool HaInterMolMod::CalcEffInterEne()
 			return false;
 		}
 
-		pmm_mod->run_type = pmm_mod->run_type.MIN_RUN;
+		pmm_mod->SetRunType("MIN_RUN");
 		pmm_mod->p_amber_driver->SaveAmberInpFile();
 		pmm_mod->p_amber_driver->SaveAmberCrdFile();
 		pmm_mod->Run();
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-		pmm_mod->run_type = pmm_mod->run_type.MD_RUN;
+		pmm_mod->SetRunType("MD_RUN");
 		pmm_mod->p_amber_driver->SaveAmberInpFile();
 		pmm_mod->p_amber_driver->SaveAmberCrdFile();
 		pmm_mod->Run();

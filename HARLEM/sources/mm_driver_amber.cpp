@@ -1351,7 +1351,7 @@ void MMDriverAmber::InitPMEParams()
 void MMDriverAmber::InitAddMDCtrlParams()
 {
 	int global_master = FALSE;
-	if( p_mm_mod->run_ti == TRUE )
+	if( p_mm_mod->run_ti )
 	{
 		if( (mytaskid == 0) && (p_mm_mod->inter_model_rank == 0)) global_master = TRUE;
 		if( global_master )
@@ -1399,7 +1399,7 @@ void MMDriverAmber::InitAddMDCtrlParams()
 // This is needed for sander-consistent results
 	FC_FUNC_MODULE(random_mod,amrset)(&p_mm_mod->random_seed);
 
-	if(p_mm_mod->run_ti == TRUE || numtasks > 1)
+	if(p_mm_mod->run_ti || numtasks > 1)
 	{
 		BCastAddMDCtrlParams(p_mm_mod->single_job_comm);
 	}

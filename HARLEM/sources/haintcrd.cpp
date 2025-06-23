@@ -1508,14 +1508,14 @@ int ZMatCrd::SaveToStream(std::ostream& os, const harlem::HashMap* popt_par )
 
 			if( popt->ToSaveAtSeqNum() ) 
 			{
-				sprintf(buf," %4d  ",(ir+1)); os << buf;
+				os << " " << std::setw(4) << (ir + 1) << " ";
 			}
 
 			if( popt->ToSaveAtSymbol() )
 			{
 				std::string std_smbl = aptr->GetStdSymbol();
 				if( aptr->IsDummy() ) std_smbl = "X";
-				sprintf(buf," %3s  ",std_smbl.c_str()); os << buf;
+				os << " " << std::setw(3) << std_smbl << " ";
 			}
 			else if( popt->ToSaveAtElem() )
 			{

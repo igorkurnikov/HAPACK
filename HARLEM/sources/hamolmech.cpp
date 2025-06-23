@@ -197,6 +197,8 @@ int HaMolMechMod::SetStdParams()
 
 	run_internal_flag = TRUE;
 	run_ti    = FALSE;
+	idx_lambda_ti = 0;
+	lambda_ti_v = { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
 	update_view_flag = TRUE;
 	update_view_interval = 0.5;
 
@@ -403,6 +405,16 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	// PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", boost::filesystem::current_path().string().c_str());
 	return TRUE;
 }
+
+bool HaMolMechMod::SetRunType(std::string run_type_str)
+{
+	if( !this->run_type.SetWithLabel(run_type_str.c_str()) ) return false;
+	MolSet* pmset = this->GetMolSet();
+	if (p_gromacs_driver) p_gromacs_driver->SetFileNamesWithPrefix(pmset->GetName());
+	// if (p_amber_driver) p_amber_driver->SetFileNamesWithPrefix(pmset->GetName());
+	return true;
+}
+
 
 int HaMolMechMod::RunMinEne( const harlem::HashMap* popt_par )
 {
@@ -877,6 +889,17 @@ int HaMolMechMod::CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_m
 	}
 	return TRUE;
 }
+
+void HaMolMechMod::SetTILambdas(const std::vector<double>& lambda_ti_values)
+{
+	lambda_ti_v = lambda_ti_values;
+}
+
+std::vector<double> HaMolMechMod::GetTILambdas()
+{
+	return lambda_ti_v;
+}
+
 
 void HaMolMechMod::CallMMFunctionOnSlaves(int id)
 {

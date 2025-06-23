@@ -90,6 +90,7 @@ public:
 	
 	int RunCtrlThread(); //!< Run Thread Controlling MM Simulations
 	int Run( const harlem::HashMap* popt = NULL ); //!< Run MM simulations if(sync) - synchroneously ( controlled by run_type and run_internal_flag )
+	bool SetRunType(std::string run_type_str);   //!<  Set MM Run Type with a string
 	
 	int RunMinEne( const harlem::HashMap* popt = NULL ); //!< Run Energy minimization
 	int RunMD( const harlem::HashMap* popt = NULL ); //!< Run Molecular Dynamics simulations
@@ -123,14 +124,21 @@ public:
 	int LoadRestartFile( std::string rst_file_name = ""); //!< Load Restart file in the format of the current External MM Program ( default: current Restart file name ) 
 	int LoadAmberRestartFile(const std::string rst_file_name = ""); //!< Load Restart File in AMBER format 	 ( default: current Restart file name )
 
-private:
+public:
 	int run_internal_flag;      //!< if TRUE run MM calculation internally 
-	MMRunType run_type;         //!< Molecular Mechanics run type 
+	MMRunType run_type;         //!< Molecular Mechanics run type
+
 	MMExternalProg ext_mm_prog; //!< External MM Program to be used to run MM simulations
 
 	static harlem::RunOptions run_opt_default;
 
-	int run_ti;                 //!< Flag to indicate TI run
+	int run_ti;                      //!< Flag to indicate TI Free Energy calculations
+	double idx_lambda_ti;            //!< Current lammbda index
+	double lambda_ti;                //!< Factor to combine two hamiltonians in TI calculations 
+	std::vector<double> lambda_ti_v; //!< Lambda values for Free Energy calculations 
+
+	void SetTILambdas(const std::vector<double>& lambda_ti_values); //!< Set Lambdas for TI Free Energy calculations
+	std::vector<double> GetTILambdas(); //!< Get Lambdas for TI Free Energy calculations
 
 	long ext_proc_id;  //!< process ID for external MM program 
 
@@ -140,13 +148,14 @@ public:
 
 //@}
 
-//! \name TI control functions
+//! \name Mixed Hamoltonian TI Free Energy calculations
 //@{
 public:
 	int CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2); //!< Check consistency of MM models for TI calculations
 	static void CallMMFunctionOnSlaves(int id); //!< Call MM function on Slave Nodes with the given id using remote HA_MOL_MECH_EVENT event
 	
-	double lambda_ti;             //!< Factor to combine two hamiltonians in TI calculations 
+	
+	
 
 	int SetMPICommSplit2();   //!< Set MPI communicators splitting MPI_COMM_WORLD into two equal sets of processors 
 	MPI_Comm inter_model_comm;  //!< MPI communicator between corresponding nodes for two MM models in mixed hamiltonian 
@@ -501,7 +510,7 @@ protected:
 };
 
 class TISimMod
-//!< Call to perform Thermodynamic Integration Calculations of free energy changes 
+//!< Module to perform Free Fnergy calculation change for transition between hamiltonians 
 {
 public:
 	TISimMod(HaMolMechMod* p_mm_mod_new);

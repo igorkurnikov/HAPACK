@@ -390,6 +390,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 		if (pres->IsAlchemicalTransformationSet())
 		{
+			p_mm_mod->run_ti = TRUE; 
 			res_mut_fname = pres->p_res_transform->res_name_b;
 			p_res_mut_templ = p_res_db->GetTemplateForResidue(res_mut_fname);
 			if (!p_res_mut_templ)

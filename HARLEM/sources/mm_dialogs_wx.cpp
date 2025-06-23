@@ -586,7 +586,7 @@ void MolMechDlgWX::OnChkMMRunInt(wxCommandEvent& event)
 void MolMechDlgWX::OnChoiceRunType(wxCommandEvent& event)
 {
 	wxString str = choice_ctrl_run_type->GetStringSelection();
-	ptr_mm_mod->run_type.SetWithLabel(str.c_str());
+	ptr_mm_mod->SetRunType(str.ToStdString());
 	TransferRunTypeDataToWindow();
 	TransferDataToWindow();
 	wxNotebook* noteb = (wxNotebook*)FindWindow(ID_MM_DLG);

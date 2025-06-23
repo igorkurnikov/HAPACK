@@ -27,14 +27,15 @@ public:
 
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set GROMACS input and output file names with prefix
 	
-	int SaveMdpFile();     //!< Save MM run parameters in GROMACS MDP format to File
-	int SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
-	int SaveRunFile();     //!< Save GROMACS Run script
+	bool SaveMdpFile();        //!< Save MM run parameters in GROMACS MDP format to File
+	int  SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
+	bool SaveInitCrdFiles();    //!< Save Initial Coordinates Files for the Run - possibly from previous MD or MIN runs 
+	bool SaveRunFile();        //!< Save GROMACS Run script
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream
 
-	int SaveAtomTypesToStream(std::ostream& os);  //!< Save [ atomtypes ] section of GROMACS topology
+	int  SaveAtomTypesToStream(std::ostream& os);  //!< Save [ atomtypes ] section of GROMACS topology
 	bool SaveAtomsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ atoms ] section of GROMACS topology 
 	bool SaveBondsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ bonds ] section of GROMACS topology
 	bool Save14PairsToStream    (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ pairs ] section of GROMACS topology  ( pairs of atoms with 1-4 intramolecular interactions )
