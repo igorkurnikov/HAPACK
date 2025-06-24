@@ -219,7 +219,7 @@ public:
 
 	std::string moving_atoms;    //!< name of the Atom Array of atoms allowed to move in the dynamics =ALL_ATOMS for normal runs 
 
-	int SetRestrainedAtoms( const char* restr_atom_group_name); //!< set name of atom group of harmonically restrained atoms 
+	bool SetRestrainedAtoms( const std::string restr_atom_group_name); //!< set name of atom group of harmonically restrained atoms 
 	AtomGroup* GetRestrAtoms(); //!< Get Atom Group with harmonically restrained positions
 	int SaveAtomRestrArbalestIndForm( std::string restr_desc_fname, std::string restr_list_fname); //!< Save 
 	int SetRestrRefCrdFromXYZFile( const char* ref_crd_file_name_new ); //!< Set Reference coordinates for restrained atoms from TINKER XYZ file  

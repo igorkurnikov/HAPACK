@@ -209,12 +209,12 @@ int HaMolMechMod::SetStdParams()
 
 // output params:
 
-	wrt_log_freq = 10;
-	wrt_rstrt_freq = 100;
-	wrt_coord_freq = 0;
+	wrt_log_freq = 100;
+	wrt_rstrt_freq = 10000;
+	wrt_coord_freq = 1000;
 	wrt_vel_freq = 0;
 	wrt_frc_freq = 0;
-	wrt_ener_freq = 10;
+	wrt_ener_freq = 100;
 	wrt_constr_freq = 0;
 
     limit_wrt_atoms = 0;
@@ -255,7 +255,7 @@ int HaMolMechMod::SetStdParams()
 
 // Pressure regulation
 
-	ref_pressure = 1.0;
+	ref_pressure = 1.0;  
 	compressibility = 44.6;
 	press_relax_time = 1.0;
 

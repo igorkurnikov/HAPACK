@@ -425,7 +425,7 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  \n";
 			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 			{
-				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING)
+				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING )
 				{
 					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  \n";
 				}
@@ -436,9 +436,10 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 					if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
 					{
 						// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
-						os << " ref-p= " << p_mm_mod->ref_pressure <<     "    ;  The reference pressure for coupling  \n";
+						os << " ref-p= " << p_mm_mod->ref_pressure <<     "    ;  The reference pressure ( atm ) \n";
 						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  \n";
 						os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  \n";
+						os << " refcoord-scaling = all  ; scale reference coordinates for positional restraints in ConstP calculations \n";
 					}
 					else
 					{
@@ -492,11 +493,12 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		{
 			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
 		}
-		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)
+		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)  // does not work in GROMACS 2024
 		{
 			if (p_mm_mod->wrt_coord_freq > 0)
 			{
-				os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
+				//os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
+				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates to the output trajectory file (trr file) \n";
 			}
 		}
 		else

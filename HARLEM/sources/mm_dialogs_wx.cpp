@@ -448,7 +448,7 @@ bool MolMechDlgWX::TransferDataFromWindow()
 	
 	edit_ctrl = (wxTextCtrl*) FindWindow( IDC_RESTRAINED_ATOMS);
 	str = edit_ctrl->GetValue();
-	ptr_mm_mod->p_mm_model->SetRestrainedAtoms(str.c_str());
+	ptr_mm_mod->p_mm_model->SetRestrainedAtoms(str.ToStdString());
 
 	edit_ctrl = (wxTextCtrl*) FindWindow( IDC_MM_NONB_CUTOFF_DIST );
 	str = edit_ctrl->GetValue();

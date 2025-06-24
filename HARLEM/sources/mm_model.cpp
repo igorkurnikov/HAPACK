@@ -67,7 +67,7 @@ int MolMechModel::SetStdParams()
 	SetScale14Electr(1.2);
 	SetScale14VdW(2.0);
 
-	SetNBCutDist(12.0);
+	SetNBCutDist(9.0);
 
 	double tmp;
 	if( pmset->per_bc->IsSet() )
@@ -93,6 +93,9 @@ int MolMechModel::SetStdParams()
 
 	moving_atoms = "ALL_ATOMS";
     restrained_atoms = "NO_RESTRAINTS";
+	if (pmset->GetAtomGroupByID("RESTRAINED_ATOMS")) SetRestrainedAtoms("RESTRAINED_ATOMS");
+
+
 	restr_ref_crd_type = RESTR_REFC_CURRENT_CRD;
 
 	atom_restr_const = 1.0;
@@ -2176,13 +2179,13 @@ int MolMechModel::SetMovingAtoms(std::string moving_atoms_name_new)
 	return TRUE;
 }
 
-int MolMechModel::SetRestrainedAtoms(const char* restr_atom_group_name)
+bool MolMechModel::SetRestrainedAtoms(const std::string restr_atom_group_name)
 {
 	AtomGroup* p_atgrp_restr = NULL;
 	std::string restr_atgrp_name = restr_atom_group_name;
 	boost::trim(restr_atgrp_name);
 
-	if( restr_atgrp_name == this->restrained_atoms ) return TRUE;
+	if( restr_atgrp_name == this->restrained_atoms ) return true;
 
 	if( restr_atgrp_name == "NO_RESTRAINTS" ||  restr_atgrp_name.empty() )
 	{
@@ -2216,7 +2219,7 @@ int MolMechModel::SetRestrainedAtoms(const char* restr_atom_group_name)
 	}
 	
 	if(p_amber_model->natom > 0 ) p_amber_model->SetAtomPosRestrData();
-	return TRUE;
+	return true;
 }
 
 int MolMechModel::SetRestrRefCrdFromXYZFile( const char* ref_crd_file_name_new )
