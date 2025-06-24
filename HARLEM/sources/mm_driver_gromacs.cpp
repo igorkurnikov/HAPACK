@@ -30,7 +30,9 @@ MMDriverGromacs::MMDriverGromacs(HaMolMechMod* p_mm_mod_new)
 	p_mm_model    = p_mm_mod->p_mm_model;
 	pmset = p_mm_mod->GetMolSet();
 	std::string prefix = pmset->GetName();
+
 	p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.TRR;
+	
 	this->SetFileNamesWithPrefix(prefix);
 
 	to_save_input_files = TRUE;
@@ -355,114 +357,6 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		{
 			throw std::runtime_error((std::string)("Constraint method ") + p_mm_mod->shake_constr.label() + " is not supported in GROMACS ");
 		}
-		// fprintf(fp, " tol=%12.7f, ", p_mm_mod->shake_tol );
-
-		if (p_mm_mod->run_ti)
-		{
-			os << " \n";
-			os << "; Free energy parameters \n";
-			os << "free-energy              = yes \n";
-			os << "sc-alpha = 0.05   ; Softcoring of VdW \n";
-			os << "sc-coul  = yes    ; Softcoring of Electrostatics \n";
-			os << "sc-r-power  = 6   ; Softcoring power \n";
-			os << "sc-power    = 1   ; Softcoring Electrostatic Power \n";
-			os << " \n";
-			os << "init-lambda-state = " << p_mm_mod->idx_lambda_ti << "    ; current lambda for Alchemical transition  \n";
-			os << " \n";
-
-			os << "coul-lambdas             = ";
-			for (double lmb : p_mm_mod->lambda_ti_v)
-				os << " " << lmb;
-			os << " ;  lambdas for switching Coulomb interactions \n";
-
-			os << "vdw-lambdas              = ";
-			for (double lmb : p_mm_mod->lambda_ti_v)
-				os << " " << lmb;
-			os << " ;  lambdas for switching VdW interactions \n";
-
-			os << "bonded-lambdas           = ";
-			for (double lmb : p_mm_mod->lambda_ti_v)
-				os << " " << lmb;
-			os << " ;  lambdas for switching Valence interactions \n";
-			os << "  \n";
-			os << "nstdhdl                  = 100   ; frequency to save dH/dL info\n";
-			os << "  \n"; 
-		}
-
-		// Print out control:
-		os << std::endl << "; MM Run Output control \n\n";
-
-		if (p_mm_mod->wrt_log_freq != 1000)
-		{
-			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
-		}
-		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)
-		{
-			if (p_mm_mod->wrt_coord_freq > 0)
-			{
-				os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
-			}
-		}
-		else
-		{
-			if (p_mm_mod->wrt_coord_freq > 0)
-			{
-				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) \n";
-			}
-		}
-		if (p_mm_mod->wrt_vel_freq > 0)
-		{
-			os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  \n";
-		}
-		if( p_mm_mod->wrt_ener_freq != 1000 )
-		{ 
-			os << " nstenergy= " << p_mm_mod->wrt_ener_freq   << "        ;  number of steps that elapse between writing energies to energy file  \n";
-		}
-
-		// fprintf(fp, " ntwr=%d, ", p_mm_mod->wrt_rstrt_freq);
-		// fprintf(fp, " ntwprt=%d, ", p_mm_mod->limit_wrt_atoms);
-		// fprintf(fp, " ntf=%d, ", p_mm_model->omit_interactions.value());
-
-		os << std::endl << "; Pressure Control \n\n";
-
-		if ( p_mm_mod->period_bcond == p_mm_mod->period_bcond.NO_PERIODICITY )
-		{
-			os << " pbc=no " << "        ;  Use no periodic boundary conditions, ignore the box  \n";
-		}
-		else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES || p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL)
-		{
-			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  \n";
-			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
-			{
-				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING)
-				{
-					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  \n";
-				}
-				else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES)
-				{
-					// os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
-					// pressure regulation
-					if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
-					{
-						// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
-						os << " ref-p= " << p_mm_mod->ref_pressure << "    ;  The reference pressure for coupling  \n";
-						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  \n";
-						if (fabs(p_mm_mod->compressibility - 44.6) > 1.0)
-						{
-							os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  \n";
-						}
-					}
-					else
-					{
-						throw std::runtime_error((std::string)("Pressure control method ") + p_mm_mod->pressure_reg_method.label() + " is not supported in GROMACS ");
-					}
-				}
-				else
-				{
-					throw std::runtime_error((std::string)("Periodic boundary condition: ") + p_mm_mod->period_bcond.label() + " is not supported in GROMACS ");
-				}
-			}
-		}
 
 		os << std::endl << "; Non-bonded interactions \n\n";
  		if (p_mm_model->electr_method == p_mm_model->electr_method.PME_METHOD )
@@ -520,13 +414,106 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			}
 		}
 
+		os << std::endl << "; Pressure Control \n\n";
 
-		// Frozen and restrained atoms: To be expanded here
+		if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.NO_PERIODICITY)
+		{
+			os << " pbc=no " << "        ;  Use no periodic boundary conditions, ignore the box  \n";
+		}
+		else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES || p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL)
+		{
+			os << " pbc=xyz " << "        ;  Use periodic boundary conditions in all directions  \n";
+			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
+			{
+				if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_VOL || p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.NO_CRD_SCALING)
+				{
+					os << " pcoupl=no " << "        ;  No pressure coupling. This means a fixed box size  \n";
+				}
+				else if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.CONST_PRES)
+				{
+					os << " pcoupl=Berendsen " << "        ;  Exponential relaxation pressure coupling  " << std::endl;
+					// pressure regulation
+					if (p_mm_mod->pressure_reg_method == p_mm_mod->pressure_reg_method.ISOTROP_CRD_SCALING)
+					{
+						// os << " pcoupltype=isotropic " << "    ;  Isotropic pressure coupling  " << std::endl;
+						os << " ref-p= " << p_mm_mod->ref_pressure <<     "    ;  The reference pressure for coupling  \n";
+						os << " tau-p= " << p_mm_mod->press_relax_time << "    ;  The time constant for pressure coupling  \n";
+						os << " compressibility= " << p_mm_mod->compressibility * 1.0E-6 << "    ;  The compressibility ( bar^-1)  \n";
+					}
+					else
+					{
+						throw std::runtime_error((std::string)("Pressure control method ") + p_mm_mod->pressure_reg_method.label() + " is not supported in GROMACS ");
+					}
+				}
+				else
+				{
+					throw std::runtime_error((std::string)("Periodic boundary condition: ") + p_mm_mod->period_bcond.label() + " is not supported in GROMACS ");
+				}
+			}
+		}
 
-		// fprintf(fp, "ibelly=%d, ", p_amber_model->ibelly);
-		// int ntr_loc = 0; if (p_amber_model->natc > 0) ntr_loc = 1;
-		// fprintf(fp, "ntr=%d, ", ntr_loc);
-		// fprintf(fp, "\n");
+
+		if (p_mm_mod->run_ti)
+		{
+			os << " \n";
+			os << "; Free energy parameters \n";
+			os << "free-energy              = yes \n";
+			os << "sc-alpha = 0.05   ; Softcoring of VdW \n";
+			os << "sc-coul  = yes    ; Softcoring of Electrostatics \n";
+			os << "sc-r-power  = 6   ; Softcoring power \n";
+			os << "sc-power    = 1   ; Softcoring Electrostatic Power \n";
+			os << " \n";
+			os << "init-lambda-state = " << p_mm_mod->idx_lambda_ti << "    ; current lambda for Alchemical transition  \n";
+			os << " \n";
+
+			os << "coul-lambdas             = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching Coulomb interactions \n";
+
+			os << "vdw-lambdas              = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching VdW interactions \n";
+
+			os << "bonded-lambdas           = ";
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				os << " " << lmb;
+			os << " ;  lambdas for switching Valence interactions \n";
+			os << "  \n";
+			os << "nstdhdl                  = 100   ; frequency to save dH/dL info\n";
+			os << "  \n";
+		}
+
+		// Print out control:
+		os << std::endl << "; MM Run Output control \n\n";
+
+		if (p_mm_mod->wrt_log_freq != 1000)
+		{
+			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
+		}
+		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)
+		{
+			if (p_mm_mod->wrt_coord_freq > 0)
+			{
+				os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
+			}
+		}
+		else
+		{
+			if (p_mm_mod->wrt_coord_freq > 0)
+			{
+				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) \n";
+			}
+		}
+		if (p_mm_mod->wrt_vel_freq > 0)
+		{
+			os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  \n";
+		}
+		if (p_mm_mod->wrt_ener_freq != 1000)
+		{
+			os << " nstenergy= " << p_mm_mod->wrt_ener_freq << "        ;  number of steps that elapse between writing energies to energy file  \n";
+		}
 
 	}
 	catch (const std::exception& ex)
