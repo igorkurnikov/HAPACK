@@ -609,6 +609,7 @@ IntStrMap SetMMExternalProgLbls()
 	lmap[MMExternalProg::PMEMD_18]   = "AMBER 18: PMEMD";
 	lmap[MMExternalProg::TINKER_51]  = "TINKER 5.1";
 	lmap[MMExternalProg::GROMACS_51] = "GROMACS 5.1";
+	lmap[MMExternalProg::ARBALEST_25] = "ARBALEST 2025";
 	
 	return lmap;
 }

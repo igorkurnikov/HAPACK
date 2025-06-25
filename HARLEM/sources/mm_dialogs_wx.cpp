@@ -37,6 +37,7 @@
 #include "mm_driver_amber.h"
 #include "mm_driver_tinker.h"
 #include "mm_driver_gromacs.h"
+#include "mm_driver_arbalest.h"
 #include "mm_traj_anal.h"
 #include "mm_force_field.h"
 
@@ -856,6 +857,17 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 				btn_mm_run_calc->Enable();
 			}
 		}
+		else if (ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.ARBALEST_25)
+		{
+			if (ptr_mm_mod->p_arbalest_driver->to_save_input_files)
+			{
+				btn_mm_run_calc->Disable();
+			}
+			else
+			{
+				btn_mm_run_calc->Enable();
+			}
+		}
 	}
 }
 
@@ -1111,6 +1123,24 @@ void MolMechDlgWX::TransferExternalProgFileNames(bool to_window)
 		if (to_window) edit_ctrl->SetValue("");
 		//else ptr_mm_mod->constr_trj_fname = edit_ctrl->GetValue().ToStdString();
 	}
+
+	if (ptr_mm_mod->ext_mm_prog == MMExternalProg::ARBALEST_25)
+	{
+		MMDriverArbalest* p_arbalest_driver = ptr_mm_mod->p_arbalest_driver;
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_AMBER_RUN_FILE);
+		if (to_window) edit_ctrl->SetValue(p_arbalest_driver->run_fname);
+		else p_arbalest_driver->run_fname = edit_ctrl->GetValue().ToStdString();
+
+		//edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_LOG_FILE);
+		//if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->amber_out_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INP_FILE);
+		if (to_window) edit_ctrl->SetValue(p_arbalest_driver->config_fname);
+		else p_arbalest_driver->config_fname = edit_ctrl->GetValue().ToStdString();
+	}
+
 };
 
 void MolMechDlgWX::OnChangeExternalProg(wxCommandEvent& event)

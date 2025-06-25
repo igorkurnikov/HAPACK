@@ -49,6 +49,7 @@
 #include "mm_traj_anal.h"
 #include "mm_driver_amber.h"
 #include "mm_driver_gromacs.h"
+#include "mm_driver_arbalest.h"
 #include "mm_driver_tinker.h"
 
 #ifndef _MSC_VER
@@ -150,6 +151,7 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 	p_mm_model->p_amber_model->p_amber_driver = p_amber_driver;
 
 	p_gromacs_driver = new MMDriverGromacs(this);
+	p_arbalest_driver = new MMDriverArbalest(this);
 	p_mm_info       = new MMSysInfo(this);
 	p_ti_mod        = new TISimMod(this);
 	p_md_mod        = new MDSimMod(this); 
@@ -178,6 +180,7 @@ HaMolMechMod::~HaMolMechMod()
 {
 	delete p_mm_model;
 	delete p_amber_driver;
+	delete p_arbalest_driver;
 	delete p_mm_info;
 	delete p_ti_mod;
 	delete p_md_mod;
@@ -411,6 +414,8 @@ bool HaMolMechMod::SetRunType(std::string run_type_str)
 	if( !this->run_type.SetWithLabel(run_type_str.c_str()) ) return false;
 	MolSet* pmset = this->GetMolSet();
 	if (p_gromacs_driver) p_gromacs_driver->SetFileNamesWithPrefix(pmset->GetName());
+	if (p_arbalest_driver) p_arbalest_driver->SetFileNamesWithPrefix(pmset->GetName());
+
 	// if (p_amber_driver) p_amber_driver->SetFileNamesWithPrefix(pmset->GetName());
 	return true;
 }

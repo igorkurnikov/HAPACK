@@ -28,6 +28,7 @@ class MMSysInfo;
 class MMDriverAmber;
 class MMDriverTinker;
 class MMDriverGromacs;
+class MMDriverArbalest;
 class MolMechEvtHandler;
 class MDSimMod;
 class MinEneMod;
@@ -199,6 +200,7 @@ public:
 	MMDriverAmber*  p_amber_driver;  //!< Driver class for AMBER  calculations
 	MMDriverTinker* p_tinker_driver; //!< Driver class for TINKER calculations
 	MMDriverGromacs* p_gromacs_driver; //!< Driver class for GROMACS calculations
+	MMDriverArbalest* p_arbalest_driver; //!< Driver class for ARBALEST calculations
 
 private:
 	MDSimMod* p_md_mod;    //!< Module controling MD simulations
@@ -390,6 +392,7 @@ public:
 	friend class MolMechModel;
 	friend class MMDriverAmber;
 	friend class MMDriverGromacs;
+	friend class MMDriverArbalest;
 	friend class AmberMMModel;
 	friend class MMCtrlThread;
 	friend class MolMechDlgWX;

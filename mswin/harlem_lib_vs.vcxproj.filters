@@ -110,6 +110,7 @@
     <ClCompile Include="obj\Debug_x64\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="obj\Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
+    <ClCompile Include="..\HARLEM\sources\mm_driver_arbalest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="..\HARLEM\sources\haconsts.h" />
     <ClInclude Include="..\HARLEM\sources\haobject.h" />
     <ClInclude Include="..\HARLEM\sources\edit_mut_map_dlg_wx.h" />
+    <ClInclude Include="..\HARLEM\sources\mm_driver_arbalest.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\HARLEM\sources\hamolset.i" />

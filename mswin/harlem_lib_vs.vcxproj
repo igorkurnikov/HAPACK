@@ -221,6 +221,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\hascattermod.cpp" />
     <ClCompile Include="..\HARLEM\sources\haxml.cpp" />
     <ClCompile Include="..\HARLEM\sources\hazindo.cpp" />
+    <ClCompile Include="..\HARLEM\sources\mm_driver_arbalest.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_driver_gromacs.cpp" />
     <ClCompile Include="..\HARLEM\sources\ndo.cpp" />
     <ClCompile Include="..\HARLEM\sources\qc_params.cpp" />
@@ -350,6 +351,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\hascattermod.h" />
     <ClInclude Include="..\HARLEM\sources\haxml.h" />
     <ClInclude Include="..\HARLEM\sources\hazindo.h" />
+    <ClInclude Include="..\HARLEM\sources\mm_driver_arbalest.h" />
     <ClInclude Include="..\HARLEM\sources\mm_driver_gromacs.h" />
     <ClInclude Include="..\HARLEM\sources\qc_params.h" />
     <ClInclude Include="..\HARLEM\sources\protonredox.h" />

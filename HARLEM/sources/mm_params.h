@@ -429,7 +429,7 @@ public:
 	virtual ~MMExternalProg();
 
 	enum Value { /* PMEMD_9 = 0, SANDER_9 = 1, PMEMD_10 = 2, SANDER_10 = 3, 
-		         PMEMD_12 = 4, */ SANDER_12 = 5, PMEMD_12 = 6, PMEMD_18 = 7, TINKER_51 = 8, GROMACS_51 = 9 };
+		         PMEMD_12 = 4, */ SANDER_12 = 5, PMEMD_12 = 6, PMEMD_18 = 7, TINKER_51 = 8, GROMACS_51 = 9, ARBALEST_25 = 10};
 
 	operator int() const { return v_; }
 	bool operator==(const Value& val) const { return v_ == val; }
@@ -457,6 +457,7 @@ namespace swig {
 	const MMExternalProg PMEMD_18   = MMExternalProg::PMEMD_18;
 	const MMExternalProg TINKER_51  = MMExternalProg::TINKER_51;
 	const MMExternalProg GROMACS_51 = MMExternalProg::GROMACS_51;
+	const MMExternalProg ARBALEST_25 = MMExternalProg::ARBALEST_25;
 }
 
 class ForceFieldType : public HaEnum1

@@ -2014,6 +2014,7 @@ AtomGroup* MolMechModel::GetRestrAtoms()
 	return restr_atoms;
 }
 
+
 int MolMechModel::SaveAtomRestrArbalestIndForm(std::string restr_desc_fname, std::string restr_list_fname)
 {
 	char buf[128];
@@ -3085,16 +3086,22 @@ bool MolMechModel::BuildNonBondContactList()
 	return true;
 }
 
-bool MolMechModel::has_mut_atoms_in_group(const AtomGroup& group)
+bool MolMechModel::has_mut_atoms_in_group(AtomContainer& group)
 {
 	bool has_mut_atoms = false;
-	for (HaAtom* aptr : group)
+
+	std::unique_ptr<AtomIterator> p_at_itr(group.GetAtomIteratorPtr());
+	
+	for (HaAtom* aptr = p_at_itr->GetFirstAtom() ; aptr; aptr = p_at_itr->GetNextAtom())
 	{
-		if (GetAtomFFParamMut(aptr) != nullptr ) {
+		HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
 			has_mut_atoms = true;
 			break;
 		}
 	}
+
 	return has_mut_atoms; 
 }
 
