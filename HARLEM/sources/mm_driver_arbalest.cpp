@@ -513,9 +513,9 @@ bool MMDriverArbalest::SaveMolToStream(HaMolecule* pmol, std::ostream& os, std::
 
 	if (pos_restr_desc.size() > 0)
 	{
-		os << "  <RestrainingRules> \n";
+		os << "          <RestrainingRules> \n";
 		os << pos_restr_desc;
-		os << "  </RestrainingRules> \n";
+		os << "          </RestrainingRules> \n";
 	}
 
 	os << boost::format("        </Instance> \n");
@@ -716,22 +716,22 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 			atom_restr_id = "PositionRestraint_" + res_name_save + "_" + res_n_str;
 			if (use_chain) atom_restr_id += std::string(1, pchain->ident);
 			atom_restr_id += "_" + at_name;
-			PrintLog("use_chain = %d atom_restr_id = %s \n", use_chain, atom_restr_id.c_str());
+			// PrintLog("use_chain = %d atom_restr_id = %s \n", use_chain, atom_restr_id.c_str());
 		}
 		if (!os_desc.fail())
 		{
-			os_desc << "      <RestraintDefinition IsRelativeCoords=\"false\" Title=\"" << atom_restr_id << "\"> \n";
-			os_desc << "           <LinkToAtom_a>" << atom_id_arb << "</LinkToAtom_a> \n";
-			os_desc << "            <Anchor_C X=\"" << boost::format("%8.3f") % crd_r.GetX_Ang() << "\"";
+			os_desc << "            <RestraintDefinition IsRelativeCoords=\"false\" Title=\"" << atom_restr_id << "\"> \n";
+			os_desc << "              <LinkToAtom_a>" << atom_id_arb << "</LinkToAtom_a> \n";
+			os_desc << "                <Anchor_C X=\"" << boost::format("%8.3f") % crd_r.GetX_Ang() << "\"";
 			os_desc << " Y=\"" << boost::format("%8.3f") % crd_r.GetY_Ang() << "\"";
 			os_desc << " Z=\"" << boost::format("%8.3f") % crd_r.GetZ_Ang() << "\"" << " /> \n";
-			os_desc << "           <ForceConstant_Ca>" << boost::trim_copy(fc_str) << "</ForceConstant_Ca> \n";
-			os_desc << "           <EquilibriumLength_Ca>0</EquilibriumLength_Ca> \n";
-			os_desc << "      </RestraintDefinition> \n";
+			os_desc << "                <ForceConstant_Ca>" << boost::trim_copy(fc_str) << "</ForceConstant_Ca> \n";
+			os_desc << "                <EquilibriumLength_Ca>0</EquilibriumLength_Ca> \n";
+			os_desc << "            </RestraintDefinition> \n";
 		}
 		if (!os_list.fail())
 		{
-			os_list << "       <Restraint MolGroup=\"\" Title=\"" << atom_restr_id << "\"  /> \n";
+			os_list << "          <Restraint MolGroup=\"\" Title=\"" << atom_restr_id << "\"  /> \n";
 		}
 	}
 	//os_desc << "  </RestrainingRules> \n";

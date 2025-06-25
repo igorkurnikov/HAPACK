@@ -1139,6 +1139,50 @@ void MolMechDlgWX::TransferExternalProgFileNames(bool to_window)
 		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INP_FILE);
 		if (to_window) edit_ctrl->SetValue(p_arbalest_driver->config_fname);
 		else p_arbalest_driver->config_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_TOP_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->top_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_INIT_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->init_crd_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_CRD_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->restr_crd_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_RESTART_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_rst_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->trj_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CRD_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->trj_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_VEL_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_amber_driver->amber_trj_vel_file = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->ene_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ENE_TRAJ_FILE_2);
+		if (to_window) edit_ctrl->SetValue("");
+		//else p_gromacs_driver->ene_fname = edit_ctrl->GetValue().ToStdString();
+
+		edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_CONSTR_TRAJ_FILE);
+		if (to_window) edit_ctrl->SetValue("");
+		//else ptr_mm_mod->constr_trj_fname = edit_ctrl->GetValue().ToStdString();
 	}
 
 };
@@ -1175,6 +1219,10 @@ void MolMechDlgWX::OnSaveExtProgInp(wxCommandEvent& event)
 	else if ( ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.GROMACS_51 )
 	{
 		ptr_mm_mod->p_gromacs_driver->SaveAllInpFiles();
+	}
+	else if (ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.ARBALEST_25)
+	{
+		ptr_mm_mod->p_arbalest_driver->SaveAllInpFiles();
 	}
 
 	TransferExtProgDataToWindow();

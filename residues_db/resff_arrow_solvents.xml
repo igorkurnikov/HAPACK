@@ -5,4 +5,10 @@
   <atomff  name="H1" ff_type="HW" chg="0.0 " >  </atomff>
   <atomff  name="H2" ff_type="HW" chg="0.0 " >  </atomff>
 </resff>
+<resff rname="NA" ffname="ARROW_2.0" > >
+  <atomff  name="NA"  ff_type="NA=" chg="1.0 " >  </atomff>
+</resff>
+<resff rname="CL" ffname="ARROW_2.0" > >
+  <atomff  name="CL"  ff_type="CLCA" chg="-1.0 " >  </atomff>
+</resff>
 </HARLEM_DATA>
