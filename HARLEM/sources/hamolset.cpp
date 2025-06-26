@@ -248,9 +248,7 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 						if (res_name.size() > 4) res_name = res_name.substr(0, 4);
 
-						sprintf(buf, "%5d %.4s %.4s%c%4d    ", count++, atname.c_str(), res_name.c_str(),
-							chain->ident, group->serno % 10000);
-						os << buf;
+						os << boost::format("%5d %.4s %.4s%c%4d    ") % count++ % atname % res_name % chain->ident % (group->serno % 10000);
 
 						const HaMolView* pView = this->GetActiveMolView();
 						if (opt.save_transform && pView != NULL)
@@ -263,13 +261,13 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							y = aptr->GetY_Ang();
 							z = aptr->GetZ_Ang();
 						}
-						sprintf(buf, "%8.3f%8.3f%8.3f", x, y, z); os << buf;
-						sprintf(buf, "  1.00%6.2f", aptr->tempf); os << buf;
+						os << boost::format("%8.3f%8.3f%8.3f") % x % y % z;
+						os << boost::format("  1.00%6.2f") % aptr->tempf;
 
 						std::string at_symb = aptr->GetStdSymbol();
 						os << "          ";
 						if (at_symb.size() < 2) os << " ";
-						os << at_symb << std::endl;
+						os << at_symb << "\n";
 					}
 				}
 			}
@@ -526,6 +524,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	int imol = 0;
 	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
+		if (opt.save_only_mol >= 0 && opt.save_only_mol != imol) continue;
+
 		imol++;
 		std::string mol_name_full = (*mol_itr)->GetObjName();
 		std::string mol_name = mol_name_full;
@@ -542,6 +542,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 		const HaMolecule* pmol_c = *mol_itr;
 		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap();
+
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		int iat = 0;
 
@@ -564,7 +565,6 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				os << ";" << cmnt << std::endl;
 			}
 		}
-
 
 		if (pmol_c->charge > -100)
 		{
@@ -601,8 +601,14 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				
 				std::string res_name = pres->GetName(); 
 				std::string name_mod = pres->GetNameModifier();
-				std::string res_name_save = res_name;
+				
+				if (opt.save_state_b && pres->IsAlchemicalTransformationSet())
+				{
+					res_name = pres->p_res_transform->res_name_b;
+					name_mod = "";
+				}
 
+				std::string res_name_save = res_name;
 				if( res_name == "HIS")
 				{
 					res_name_save = "HID";
@@ -617,36 +623,54 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 				//if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
 				if (save_res_info) os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
-				const HaAtom* aptr;
+				HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);
 				for( aptr = aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
 				{
 //					if( !p_save_opt_default->save_selected || aptr->Selected())
 //					{	
-						iat++;
-						os << "atom " << iat << " " << aptr->GetName() << " " << aptr->GetStdSymbol();
-						std::string ff_symbol = aptr->GetFFSymbol();	
-						boost::trim(ff_symbol);
-						if( ff_symbol.empty() ) ff_symbol = aptr->GetStdSymbol();
-						os << " " << ff_symbol;
-						os << " s ";
-						double at_ch = aptr->GetCharge();
-						if( fabs(at_ch) < 0.000001 || fabs(at_ch - 1.0) < 0.000001 || fabs(at_ch + 1.0) < 0.000001 || fabs(at_ch - 2.0) < 0.000001 || fabs(at_ch + 2.0) < 0.000001 )
-						{
-							sprintf(buf,"%2.0f",at_ch);
-						}
-						else if( fabs(at_ch - 0.5) < 0.000001 || fabs(at_ch + 0.5) < 0.000001 || fabs(at_ch - 1.5) < 0.000001 || fabs(at_ch + 1.5) < 0.000001 )
-						{
-							sprintf(buf,"%3.1f",at_ch);
-						}
-						else
-						{
-							sprintf(buf,"%9.6f",at_ch);
-						}
-						os << buf;
+
+					std::string at_name = aptr->GetName();
+					int elemno = aptr->GetElemNo();
+					std::string ff_symbol = aptr->GetFFSymbol();
+					boost::trim(ff_symbol);
+					if (ff_symbol.empty()) ff_symbol = aptr->GetStdSymbol();
+					double at_ch = aptr->GetCharge();
+
+					if (opt.save_state_b && pres->IsAlchemicalTransformationSet())
+					{
+						if (pres->p_res_transform->atoms_b.count(aptr) == 0) continue;
 						
-						double x,y,z;
+						if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
+						{
+							ff_symbol = pres->p_res_transform->at_ff_params[aptr]->ff_symbol;
+							at_ch = pres->p_res_transform->at_ff_params[aptr]->charge;
+						}
+						if (pres->p_res_transform->at_elem_b.count(aptr) > 0) elemno = pres->p_res_transform->at_elem_b[aptr];
+					}
+					iat++;
+
+					std::string std_symbol = HaAtom::GetStdSymbolElem(elemno);
+
+					os << "atom " << iat << " " << at_name << " " << std_symbol << " " << ff_symbol;
+					
+					os << " s ";
+					
+					if( fabs(at_ch) < 0.000001 || fabs(at_ch - 1.0) < 0.000001 || fabs(at_ch + 1.0) < 0.000001 || fabs(at_ch - 2.0) < 0.000001 || fabs(at_ch + 2.0) < 0.000001 )
+					{
+						os << boost::format("%2.0f") % at_ch;
+					}
+					else if( fabs(at_ch - 0.5) < 0.000001 || fabs(at_ch + 0.5) < 0.000001 || fabs(at_ch - 1.5) < 0.000001 || fabs(at_ch + 1.5) < 0.000001 )
+					{
+						os << boost::format("%3.1f") % at_ch;
+					}
+					else
+					{
+						os << boost::format("%9.6f") % at_ch;
+					}
+						
+					double x,y,z;
 
 //						HaMolView* pView = GetActiveMolView();
 //						if(p_save_opt_default->save_transform && pView != NULL)
@@ -660,13 +684,14 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							z = aptr->GetZ_Ang();
 //						}
 
-						sprintf(buf,"%16.9f %16.9f %16.9f",x,y,z);
-						os << buf;
-//						os << boost::str(boost::format("%16.9f %16.9f %16.9f") % (x,y,z));
+						os << boost::format("%16.9f %16.9f %16.9f") % x % y % z;
 						int nb = aptr->GetNBonds();
 						os << " " << nb;
 
-						for(auto bitr = aptr->Bonds_begin() ; bitr != aptr->Bonds_end(); bitr++)
+						std::vector<shared_ptr<HaBond>>::iterator bitr     = aptr->Bonds_begin();
+						std::vector<shared_ptr<HaBond>>::iterator bitr_end = aptr->Bonds_end();
+
+						for(; bitr != bitr_end; bitr++)
 						{
 							const HaBond* pbond = (*bitr).get();
 							const HaAtom* aptr_b = pbond->GetFirstAtom();
@@ -760,8 +785,6 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 	opt.SetSaveHeader(false);
 	opt.SetSaveFooter(false);
 
-	char buf[256];
-
 	HaChain* chain;
 	HaResidue* pres;
 	vector<HaAtom*>::iterator paitr;
@@ -804,8 +827,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 				std::string name_mod = pres->GetNameModifier();
 				if( !name_mod.empty() ) os << "name_mod=\"" << name_mod << "\" ";
 
-				sprintf(buf,"%d",pres->GetSerNo());
-				std::string res_ser_no = buf;
+				std::string res_ser_no = (boost::format("%d") % pres->GetSerNo()).str();
 				if( !res_ser_no.empty() ) os << " no=\"" << res_ser_no << "\" ";
 				
 				os << "/> " << std::endl;
@@ -838,16 +860,13 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 					if( !ff_symbol.empty() ) os << " ff_s=\"" << ff_symbol << "\" ";
 
 					double chrg = aptr->GetCharge();
-					sprintf(buf," chrg=\"%10.5f\" ",chrg);
-					if( fabs(chrg) > 1.0e-8 ) os << buf;
+					if (fabs(chrg) > 1.0e-8) os << boost::format(" chrg=\"%10.5f\" ") % chrg;
 
 					double mass = aptr->GetMass();
 					if( fabs(mass - aptr->GetStdMass()) > 0.001 ) 
 					{
-						sprintf(buf," mass=\"%10.5f\" ", mass );   
-						os << buf;
+						os << boost::format(" mass=\"%10.5f\" ") % mass;
 					}
-
 					os << "> ";
 
 					double x, y, z;
@@ -871,8 +890,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 						at_name += harlem::ToString(i_in_res);
 					}
 					
-					sprintf(buf,"%4d %5s  %d %16.9f %16.9f %16.9f ",seq_n, at_name.c_str(), aptr->GetElemNo(), x,y,z);
-					os << buf;
+					os << boost::format("%4d %5s  %d %16.9f %16.9f %16.9f ") % seq_n % at_name % aptr->GetElemNo() % x % y % z;
 
 					if( aptr->GetNBonds() > 0 )
 					{	
@@ -898,8 +916,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 					}
 					if( fabs(aptr->tempf) > DBL_EPSILON )
 					{
-						sprintf(buf,"%9.4f",aptr->tempf);
-						os << "<tempf>" << buf << "</tempf>";
+						os << "<tempf>" << boost::format("%9.4f") % aptr->tempf << "</tempf>";
 					}
 					os << "</atom>" << std::endl;
 				}
@@ -910,9 +927,9 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 	if( per_bc->IsSet() )
 	{
 		os << "<ucell> ";
-		sprintf(buf," %16.9f %16.9f %16.9f %16.9f %16.9f %16.9f ",per_bc->GetA(),per_bc->GetB(),per_bc->GetC(),
-			per_bc->GetAlpha()*RAD_TO_DEG,per_bc->GetBeta()*RAD_TO_DEG, per_bc->GetGamma()*RAD_TO_DEG ) ;
-		os << buf << "</ucell>" << std::endl;
+		os << boost::format(" %16.9f %16.9f %16.9f %16.9f %16.9f %16.9f ") % per_bc->GetA() % per_bc->GetB() % per_bc->GetC()
+			% (per_bc->GetAlpha() * RAD_TO_DEG) % (per_bc->GetBeta() * RAD_TO_DEG) % (per_bc->GetGamma() * RAD_TO_DEG);
+		os << "</ucell> \n";
 	}
 
 	if( !p_zmat->IsEmpty() )
@@ -930,8 +947,8 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 		double protect = gptr->GetProtect();
 		os << "<chem_grp ";
 		if( !name_mset.empty() ) os << "id=\"" << id << "\"";
-		sprintf(buf," prot=\"%8.5f\"  size=\"%.1d\" ",gptr->GetProtect(),ng);
-		os << buf << ">" << std::endl;
+
+		os << boost::format(" prot=\"%8.5f\"  size=\"%.1d\" ") % gptr->GetProtect() % ng << "> \n";
 		
 		const HaAtom* aptr;
 
@@ -939,8 +956,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 		AtomIteratorAtomGroup_const aitr_chem_group(gptr);
 		for( aptr= aitr_chem_group.GetFirstAtom(); aptr; aptr= aitr_chem_group.GetNextAtom())
 		{
-			aptr->FillRef(buf);
-			os << " " << buf << " ";
+			os << " " << aptr->GetRef() << " ";
 			num_in_line++;
 			if(num_in_line == 10 )
 			{
@@ -959,9 +975,8 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 	{
 		os << "<atgrp id=\"" << lptr->GetID() << "\"";
 		int ng=lptr->size();
-		sprintf(buf," size=\"%2d\" ",ng);
-		os << buf;
-		os << ">" << std::endl;
+		os << boost::format(" size=\"%2d\" ") % ng;
+		os << "> \n";
 
 		int num_in_line = 0;
 		const HaAtom* aptr;
@@ -975,16 +990,15 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 			{
 				pmol = aptr->GetHostMol();
 				if( num_in_line != 0) os << std::endl;
-				os << "  molname=" << pmol->GetObjName() << " " << std::endl;	
+				os << "  molname=" << pmol->GetObjName() << " \n";	
 			}
 
-			aptr->FillRef(buf,HaAtom::ATOMREF_NO_MOL);
-			os << " " << buf << " ";
+			os << " " << aptr->GetRef(HaAtom::ATOMREF_NO_MOL) << " ";
 			num_in_line++;
 
 			if(num_in_line == 10 )
 			{
-				os << " " << std::endl;
+				os << " \n";
 				num_in_line = 0;
 			}
 		}
@@ -1001,7 +1015,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 			std::string name = ChargeMaps[i].GetName();
 			if( !name.empty() ) os << "name=\"" << name << "\" ";
 			
-			os << ">" << std::endl;
+			os << "> \n";
 
 			AtomDoubleMap::const_iterator mitr;
 			mitr = ChargeMaps[i].begin();
@@ -1010,10 +1024,8 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 				HaAtom* aptr = (HaAtom*) (*mitr).first;
 				double ch    = (*mitr).second;
 					
-				aptr->FillRef(buf);
-				os << " " << buf;
-				sprintf(buf," %16.9f ",ch);
-				os << buf << std::endl;
+				os << " " << aptr->GetRef();
+				os << boost::format(" %16.9f \n") % ch;
 			}
 			os << "</chrg_map>" << std::endl;
 		}
@@ -1102,7 +1114,7 @@ int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par )
 				int i;
 				for( i = 0; i < pbox_snap.size(); i++ )
 				{
-					sprintf(buf," %12.6f",pbox_snap[i]); os << buf;
+					os << boost::format(" %12.6f") % pbox_snap[i];
 				}
 				os << "</pbox>" << std::endl;
 			}
@@ -1650,9 +1662,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 				AtomIteratorAtomGroup aitr_r(pres);
 				for(aptr= aitr_r.GetFirstAtom(); aptr ; aptr = aitr_r.GetNextAtom() )
 				{
-					sprintf(buf,"%5d ",atid); os << buf;
-					sprintf(buf,"%3d ",aptr->GetElemNo()); os << buf;
-					sprintf(buf,"\"%.4s\" ",aptr->GetName()); os << buf;
+					os << boost::format("%5d ") % atid;
+					os << boost::format("%3d ") % aptr->GetElemNo();
+					os << boost::format("\"%.4s\" ") % aptr->GetName();
 
 					at_id_map[aptr] = atid;
 					
@@ -1670,40 +1682,34 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 						z = aptr->GetZ();
 					}
 					
-					sprintf(buf,"%16.9f %16.9f %16.9f",x,y,z);
-					os << buf;
-					sprintf(buf," \"%.1s\" ",&chain->ident);
-					os << buf;
+					os << boost::format("%16.9f %16.9f %16.9f") % x % y % z;
+					os << boost::format(" \"%.1s\" ") % &chain->ident;
+
+					os << boost::format("\"%s\"  %6d  %10.5f ") % full_res_name % pres->serno % aptr->GetCharge();
 					
-					sprintf(buf,"\"%s\"  %6d  %10.5f ",full_res_name.c_str(),pres->serno,aptr->GetCharge());
-					os << buf;
 					if( aptr->GetHybrid() == NO_HYBRID) 
 					{
-						sprintf(buf,"\"%s\" ","NO_HYBRID");
-						os << buf;
+						os << boost::format("\"%s\" ") % "NO_HYBRID";
 					}
 					else if ( aptr->GetHybrid() == SP_HYBRID )
 					{
-						sprintf(buf,"\"%s\" ","SP");
-						os << buf;
+						os << boost::format("\"%s\" ") % "SP";
 					}
 					else if (  aptr->GetHybrid() == SP2_HYBRID )
 					{
-						sprintf(buf,"\"%s\" ","SP2");
-						os << buf;
+						os << boost::format("\"%s\" ") % "SP2";
 					}
 					else if (  aptr->GetHybrid() == SP3_HYBRID )
 					{
-						sprintf(buf,"\"%s\" ","SP3");
-						os << buf;
+						os << boost::format("\"%s\" ") % "SP3";
 					}
 
 					std::string da_symbol;
 					if(aptr->IsHBDonor())    da_symbol+= "D";
 					if(aptr->IsHBAcceptor()) da_symbol+= "A";
 					
-					os << boost::format("\"%s\" ") % da_symbol;
-					os << boost::format("\"%s\" ") % aptr->GetFFSymbol();
+					os << boost::format("\"%s\" ")  % da_symbol;
+					os << boost::format("\"%s\" ")  % aptr->GetFFSymbol();
 					os << boost::format(" %10.5f ") % aptr->GetMass();
 					os << "\n";
 				}
@@ -2887,7 +2893,7 @@ HaAtom* MolSet::GetAtomByRef(const std::string& at_ref_str)
 }
 	
 
-AtomIntMap MolSet::GetAtomSeqNumMap()
+AtomIntMap MolSet::GetAtomSeqNumMap(AlchemicalState alchemical_state)
 {
 	at_seq_num_map.clear();
 
@@ -2898,13 +2904,20 @@ AtomIntMap MolSet::GetAtomSeqNumMap()
 
 	for( aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
+		HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count(aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count(aptr) == 0) continue;
+		}
+
 		at_seq_num_map[aptr] = i;
 		i++;
 	}
 	return at_seq_num_map;
 }
 
-CAtomIntMap MolSet::GetAtomSeqNumMap() const
+CAtomIntMap MolSet::GetAtomSeqNumMap(AlchemicalState alchemical_state) const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -2914,6 +2927,13 @@ CAtomIntMap MolSet::GetAtomSeqNumMap() const
 
 	for( aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
+		const HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+		}
+
 		at_seq_num_map_loc[aptr] = i;
 		i++;
 	}

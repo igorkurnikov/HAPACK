@@ -226,8 +226,8 @@ public:
 
 	void InitAtomIdx();  //!< Init Atom Array and Atom Sequence Number Map
 
-	AtomIntMap  GetAtomSeqNumMap();        //!< Get a map of atom pointers to their current sequence numbers 
-	CAtomIntMap GetAtomSeqNumMap() const;  //!< Get a map of atom pointers to their current sequence numbers 
+	AtomIntMap  GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED );        //!< Get a map of atom pointers to their current sequence numbers ( possibly for Alchemical State ) 
+	CAtomIntMap GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED ) const;  //!< Get a map of atom pointers to their current sequence numbers ( possibly for Alchemical State )
 	
 //@}
 //! \name Selection functions:

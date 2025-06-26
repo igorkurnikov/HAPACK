@@ -1128,7 +1128,7 @@ void AtomGroup::SelectAtomsAll()
 	}
 }
 
-AtomIntMap HaResidue::GetAtomSeqNumMap()
+AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state)
 {
 	AtomIntMap at_seq_num_map;
 
@@ -1139,13 +1139,19 @@ AtomIntMap HaResidue::GetAtomSeqNumMap()
 
 	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
+		if (this->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && this->p_res_transform->atoms_a.count(aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && this->p_res_transform->atoms_b.count(aptr) == 0) continue;
+		}
+
 		at_seq_num_map[aptr] = i;
 		i++;
 	}
 	return at_seq_num_map;
 }
 
-CAtomIntMap HaResidue::GetAtomSeqNumMap() const
+CAtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state ) const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -1155,6 +1161,12 @@ CAtomIntMap HaResidue::GetAtomSeqNumMap() const
 
 	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
+		if (this->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && this->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && this->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+		}
+
 		at_seq_num_map_loc[aptr] = i;
 		i++;
 	}
@@ -3514,6 +3526,9 @@ void AtomSaveOptions::SetStdOptions()
 	save_atom_ref   = TRUE; 
 	save_amber_pdb  = TRUE;
 	save_sep_wat_mol = FALSE;
+	save_state_a     = FALSE;   
+	save_state_b     = FALSE;
+	save_only_mol    = -1;
 
 	at_ref_type = HaAtom::ATOMREF_ELEM_NO;
 }
@@ -3533,7 +3548,12 @@ void AtomSaveOptions::Copy( const harlem::HashMap& ref )
 		save_atom_ref  = pref->save_atom_ref;
 		save_amber_pdb = pref->save_amber_pdb;
 
-		at_ref_type    = pref->at_ref_type;
+		save_sep_wat_mol = pref->save_sep_wat_mol;
+		save_state_a     = pref->save_state_a;
+		save_state_b     = pref->save_state_b;
+		save_only_mol    = pref->save_only_mol;
+
+		at_ref_type      = pref->at_ref_type;
 	}
 }
 

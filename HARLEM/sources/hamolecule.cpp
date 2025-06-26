@@ -1796,7 +1796,7 @@ void HaMolecule::Renumber(int start )
     }
 }
 
-AtomIntMap HaMolecule::GetAtomSeqNumMap()
+AtomIntMap HaMolecule::GetAtomSeqNumMap(AlchemicalState alchemical_state)
 {
 	AtomIntMap at_seq_num_map;
 
@@ -1807,13 +1807,20 @@ AtomIntMap HaMolecule::GetAtomSeqNumMap()
 
 	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
+		HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count(aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count(aptr) == 0) continue;
+		}
+
 		at_seq_num_map[aptr] = i;
 		i++;
 	}
 	return at_seq_num_map;
 }
 
-CAtomIntMap HaMolecule::GetAtomSeqNumMap() const
+CAtomIntMap HaMolecule::GetAtomSeqNumMap( AlchemicalState alchemical_state ) const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -1823,6 +1830,13 @@ CAtomIntMap HaMolecule::GetAtomSeqNumMap() const
 
 	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
+		const HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+		}
+
 		at_seq_num_map_loc[aptr] = i;
 		i++;
 	}

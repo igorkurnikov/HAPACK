@@ -121,6 +121,9 @@ public:
 	int save_atom_ref;  //!< Flag to save atom reference at the end of atom line 
 	int save_amber_pdb; //!< Flag to save PDB files with residue names and atom names matching AMBER database
 	int save_sep_wat_mol; //!< Flag to save water as separate molecules 
+	int save_state_a;     //!< Flag to save StateA of the system when Alphemical Transformation in Specified ( No dummy atoms corresponding to State B will be saved )
+	int save_state_b;     //!< Flag to save StateA of the system when Alphemical Transformation in Specified ( No dummy atoms corresponding to State A will be saved )
+	int save_only_mol;    //!< index of the molecule to be saved
 
 	HaAtom::AtomRefType at_ref_type; //!< Type of the atom reference to save at the end of the atom line
 
@@ -357,6 +360,13 @@ using AtomIteratorResidue=AtomIteratorAtomGroup;
 using AtomGroupList=std::list<AtomGroup>;
 class AlchemicalTransformation;
 
+enum class AlchemicalState
+{
+	MIXED = 0,
+	STATE_A = 1,
+	STATE_B = 2
+};
+
 //!  Class to define Residue in a polymer or biopolymer chain   
 class HaResidue : public AtomGroup
 {
@@ -405,8 +415,8 @@ public:
 	std::string GetRef() const;  //!< Get the text reference of the residue
 	virtual bool FillRef(char* buf,int mode = 0) const; //!< Write the text reference of the residue to the buffer
 
-	AtomIntMap  GetAtomSeqNumMap(); //!< Get the map of atoms to sequence atom numbers in the molecule
-	CAtomIntMap GetAtomSeqNumMap() const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
+	AtomIntMap  GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED ); //!< Get the map of atoms to sequence atom numbers in the molecule taking into account alchemical state (=0 (all),=1 (A), = 2(B))
+	CAtomIntMap GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED ) const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
 
 	bool SetUniqueAtomNames();                  //!< Set unique names to atoms of the residue 
 	std::string GetUniqueAtomName(int elem_no); //!< Get unique atom name for element elem_no 
