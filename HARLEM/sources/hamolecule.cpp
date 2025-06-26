@@ -466,17 +466,16 @@ int HaMolecule::Translate(const Vec3D& tr_vec )
 }
 
 
-int AtomContainer::SetIntCoordFromStr(const char* int_coord_str)
+int AtomContainer::SetIntCoordFromStr(std::string int_coord_str)
 {
 	double phi,cost,psi;
 	Vec3D trans;
 	int num;
 
-	num = sscanf(int_coord_str,"%lf %lf %lf %lf %lf %lf",
-		         &trans[0],&trans[1],&trans[2],&phi,&cost,&psi);
-
-	if( num == 6)
-	{
+	std::istringstream iss(int_coord_str);
+	
+	if ((iss >> trans[0] >> trans[1] >> trans[2] >> phi >> cost >> psi))
+	{ 
 		PrintLog(" Setting int coord for mol1 x=%9.4f y=%9.4f z=%9.4f \n phi=%9.4f cos_theta=%9.4f psi=%9.4f \n\n",
 			     trans[0],trans[1],trans[2],phi,cost,psi);
 		SetPosEulerTrans(phi,cost,psi,trans);
@@ -489,7 +488,7 @@ int AtomContainer::SetIntCoordFromStr(const char* int_coord_str)
 	return TRUE;
 }
 
-int AtomContainer::SaveXYZFile( const char* fout_name, const AtomSaveOptions* p_opt )
+int AtomContainer::SaveXYZFile( std::string fout_name, const AtomSaveOptions* p_opt )
 {
 	ofstream sout(fout_name);
 	if(!sout.good())
@@ -629,7 +628,7 @@ int AtomContainer::SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_op
 	return TRUE;
 }
 
-int AtomContainer::SaveGROFile(const char* fout_name, const AtomSaveOptions* p_opt)
+int AtomContainer::SaveGROFile(std::string fout_name, const AtomSaveOptions* p_opt)
 {
 	ofstream sout(fout_name);
 	if (!sout.good())
@@ -1651,7 +1650,7 @@ PointIterator_const* HaMolecule::GetPointIteratorPtr() const
 }
 
 
-int HaMolecule::IsMember(const HaAtom* aptr) const
+int HaMolecule::HasAtom(const HaAtom* aptr) const
 {
 	if(aptr == NULL) return FALSE;
 	if(aptr->GetHostMol() == this) return TRUE;

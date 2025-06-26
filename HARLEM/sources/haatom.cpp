@@ -409,7 +409,7 @@ ChemGroup* HaAtom::GetHostChemGroup()
 	
 	for(gptr=gitr.GetFirst();gptr;gptr=gitr.GetNext())
 	{
-		if(gptr->IsMember(this)) return gptr;
+		if(gptr->HasAtom(this)) return gptr;
 	}
 	return NULL;
 }
@@ -541,7 +541,7 @@ int HaAtom::GetReachableAtoms(AtomGroup& block_atoms, HaAtom* aptr2, AtomGroup& 
 	AtomIteratorAtomGroup at_itr(&bonded_atoms);
 	for( aptr = at_itr.GetFirstAtom(); aptr; aptr = at_itr.GetNextAtom())
 	{
-		if(!block_atoms.IsMember(aptr)) 
+		if(!block_atoms.HasAtom(aptr)) 
 		{
 			pending_atoms.push(aptr);
 		}
@@ -553,7 +553,7 @@ int HaAtom::GetReachableAtoms(AtomGroup& block_atoms, HaAtom* aptr2, AtomGroup& 
 		pending_atoms.pop();
 		if( ratom_set.count(aptr) == 0)
 		{
-			if(block_atoms.IsMember(aptr)) // loop!
+			if(block_atoms.HasAtom(aptr)) // loop!
 			{
 				loop = TRUE;
 				return FALSE;

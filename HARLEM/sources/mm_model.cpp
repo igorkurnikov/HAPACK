@@ -3086,25 +3086,6 @@ bool MolMechModel::BuildNonBondContactList()
 	return true;
 }
 
-bool MolMechModel::has_mut_atoms_in_group(AtomContainer& group)
-{
-	bool has_mut_atoms = false;
-
-	std::unique_ptr<AtomIterator> p_at_itr(group.GetAtomIteratorPtr());
-	
-	for (HaAtom* aptr = p_at_itr->GetFirstAtom() ; aptr; aptr = p_at_itr->GetNextAtom())
-	{
-		HaResidue* pres = aptr->GetHostRes();
-		if (pres->IsAlchemicalTransformationSet())
-		{
-			has_mut_atoms = true;
-			break;
-		}
-	}
-
-	return has_mut_atoms; 
-}
-
 int MolMechModel::BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* group2)
 {
 	int nn = Atoms.size();

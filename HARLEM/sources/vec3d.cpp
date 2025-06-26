@@ -1126,10 +1126,6 @@ extern "C"
 		int* irot, double* r,double* cc,double* w,int* ia);
 }
 
-int PointContainer::IsAtomCollection() const
-{
-	return FALSE;
-}
 
 double PointContainer::GetSuperimposeMat( HaVec_double& ref_crd, PointContainer& g2,
                                                   HaMat_double& rot_mat, HaVec_double& transl_vec )

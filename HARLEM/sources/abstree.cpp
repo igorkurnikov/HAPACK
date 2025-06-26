@@ -295,10 +295,10 @@ long AtomExpr::EvaluateExpr()
 			return( rgt.set->IsWithinRadius(QAtom, lft.dval) );
         }
 		else
-			return( rgt.set->IsMember(QAtom) );
+			return( rgt.set->HasAtom(QAtom) );
     }
 	else if( type==OpMember )
-        return( rgt.set->IsMember(QAtom) );
+        return( rgt.set->HasAtom(QAtom) );
 
 //
 

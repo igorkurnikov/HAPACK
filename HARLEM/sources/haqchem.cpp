@@ -895,7 +895,7 @@ int HaQCMod::GetLocOrbIdxOfGrp(const std::string& gid, HaVec_int & lorb_idx ) co
 	for( i=1; i <= nab; i++)
 	{
 		HaAtom* aptr = (HaAtom*) ActBas->GetHostPt(i-1);
-		if( gptr->IsMember(aptr) )
+		if( gptr->HasAtom(aptr) )
 		{
 			tmp_list.push_back(i);
 		}

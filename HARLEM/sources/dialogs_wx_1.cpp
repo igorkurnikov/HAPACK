@@ -594,20 +594,20 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
  	
 	if(!file_name.empty() && pmset != NULL )
 	{
-       wxString file_name_full = fname_full.GetFullPath();
+       std::string file_name_full = fname_full.GetFullPath().ToStdString();
        ::wxSetWorkingDirectory(dir_name);
 
         int isel = file_types_ch->GetSelection();
 
 		switch( isel )
 		{
-			case(0): pmset->SavePDBFile(file_name_full.c_str());     break;
-			case(1): pmset->SaveHarlemFile(file_name_full.c_str());  break;
-			case(2): pmset->SaveOldHarlemFile(file_name_full.c_str());  break;
-			case(3): pmset->SaveXYZFile(file_name_full.c_str());     break;
-			case(4): pmset->SaveXYZRadFile(file_name_full.c_str());  break;	
-			case(5): pmset->SaveHINFile(file_name_full.c_str());  break;	
-			case(6): pmset->SaveNRGFile(file_name_full.c_str());  break;
+			case(0): pmset->SavePDBFile(file_name_full);     break;
+			case(1): pmset->SaveHarlemFile(file_name_full);  break;
+			case(2): pmset->SaveOldHarlemFile(file_name_full);  break;
+			case(3): pmset->SaveXYZFile(file_name_full);     break;
+			case(4): pmset->SaveXYZRadFile(file_name_full);  break;	
+			case(5): pmset->SaveHINFile(file_name_full);  break;	
+			case(6): pmset->SaveNRGFile(file_name_full);  break;
 		}		
 	}
 	delete this;
@@ -5131,22 +5131,21 @@ void AtomParamsDlgWX::OnSetAtElemFromTempl(wxCommandEvent& event)
 
 void AtomParamsDlgWX::OnLoadCoords(wxCommandEvent& event) 
 {
-    wxString file_ext;
-    wxString path = wxFileSelector("Select file with atom coordinates to load");
+    std::string file_ext;
+    std::string fname = wxFileSelector("Select file with atom coordinates to load").ToStdString();
 
-    if ( !path )
-        return;
+    if ( fname.empty() ) return;
 
-    // it is just a sample, would use wxSplitPath in real program
-    file_ext = path.AfterLast(_T('.'));
-	file_ext.MakeUpper();
+	boost::filesystem::path p(fname);
+	std::string ext = p.extension().string();
+	if( boost::starts_with(ext,".")) ext = ext.substr(1);  // remove leading "." from extension
+	boost::to_upper(ext);
 
-//    wxLogMessage(_T("You selected the file '%s'"),(const wxChar*) path);
 	int format = FormatXYZ;
 	if( file_ext == "PDB" || file_ext == "ENT") format = FormatPDB;
 	if( file_ext == "HLM" ) format = FormatHarlem;
 	if( file_ext == "HIN" ) format = FormatHIN;
-	pmset->SetCoordFromFile(path.mb_str(), format);
+	pmset->SetCoordFromFile(fname, format);
 }
 
 void AtomParamsDlgWX::OnSetStdZMat(wxCommandEvent& event)
@@ -6685,17 +6684,17 @@ void EditGroupsDlg::OnSaveXYZFile(wxCommandEvent& event)
 	AtomGroup* p_at_arr = GetSelGroup();
 	if( p_at_arr == NULL) return;
 
-	wxString fname_init = pmset->GetName();
+	std::string fname_init = pmset->GetName();
 	fname_init += "_";
 	fname_init += p_at_arr->GetID();
 	fname_init += ".xyz";
 
 	wxString fname_out = ::wxFileSelector("Select XYZ file to save Atom Group coordinates",
-		::wxGetCwd(),fname_init,"xyz","*.xyz");
+		::wxGetCwd(), fname_init,"xyz","*.xyz");
 
 	if( fname_out.empty() ) return;
 
-	int ires = p_at_arr->SaveXYZFile( fname_out.c_str() );
+	int ires = p_at_arr->SaveXYZFile( fname_out.ToStdString() );
 }
 
 void EditGroupsDlg::OnSaveNDXFile(wxCommandEvent& event)
@@ -6825,7 +6824,7 @@ void EditGroupsDlg::OnAddSelToGrp(wxCommandEvent& event)
 	HaAtom* aptr;
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
-		if(aptr->Selected() && !at_grp->IsMember(aptr))
+		if(aptr->Selected() && !at_grp->HasAtom(aptr))
 			at_grp->InsertAtom(aptr);
 	}
 	OnChangeSelGroup();

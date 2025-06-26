@@ -225,15 +225,16 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	std::set<std::string> mol_defined;
 	std::string pos_restr_list;
 
-	for (HaMolecule* pmol : pmset->HostMolecules)
+	for (int idx_mol = 0; idx_mol < pmset->HostMolecules.size(); idx_mol++)
 	{
+		HaMolecule* pmol = pmset->HostMolecules[idx_mol];
 		std::string mol_name = pmol->GetName();
 		if (mol_defined.count(mol_name) > 0) continue;
 
 		std::vector<std::string> pos_restr_desc_and_list = GetPosRestraintsDescAndList();
 		pos_restr_list += pos_restr_desc_and_list[1];
 
-		SaveMolToStream(pmol, os, pos_restr_desc_and_list[0]);
+		SaveMolToStream(os, idx_mol, pos_restr_desc_and_list[0]);
 		mol_defined.insert(mol_name);
 	}
 
@@ -249,7 +250,8 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	}
 	os << "        </Molecules> \n";
 
-	std::string system_hin_fname;
+	std::string system_hin_fname = pmset->GetName() + std::string("_SYS.hin");
+	pmset->SaveHINFile(system_hin_fname);
 	os << "        <StructureFiles> \n";
 	os << boost::format("        <File Type=\"HIN\">%s</File>\n") % system_hin_fname;
 	os << "        </StructureFiles> \n";
@@ -270,7 +272,7 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	for (HaMolecule* pmol : pmset->HostMolecules)
 	{
 		std::string mol_name = pmol->GetName();
-		if (p_mm_model->has_mut_atoms_in_group(*pmol))
+		if (pmol->has_mut_atoms())
 		{
 			os << boost::format("          <Molecule Title=\"%s\" TargetInstance=\"StateB\" /> \n") % mol_name;
 		}
@@ -484,13 +486,23 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	return true;
 }
 
-bool MMDriverArbalest::SaveMolToStream(HaMolecule* pmol, std::ostream& os, std::string pos_restr_desc = "")
+bool MMDriverArbalest::SaveMolToStream(std::ostream& os, int mol_idx, std::string pos_restr_desc )
 {
+	HaMolecule* pmol = pmset->HostMolecules[mol_idx];
 	std::string mol_name = pmol->GetName();
-
-	if (std_mol_names.count(mol_name) > 0) return SaveStdMolToStream(mol_name, os);
-
 	std::string mol_a_hin_fname = mol_name + ".hin";
+
+	if (std_mol_names.count(mol_name) > 0)
+	{
+		mol_a_hin_fname = "Input/HIN/" + mol_name + ".hin";
+	}
+	else
+	{
+		AtomSaveOptions opt;
+		opt.mol_idx = mol_idx;
+		opt.alchemical_state = AlchemicalState::STATE_A;
+		pmset->SaveHINFile(mol_a_hin_fname, opt);
+	}
 
 	os << boost::format("    <MoleculeDefinition> Title=\"%s\"> \n") % mol_name;
 	os << boost::format("      <StructureType>SINGLERES</StructureType> \n");
@@ -520,81 +532,73 @@ bool MMDriverArbalest::SaveMolToStream(HaMolecule* pmol, std::ostream& os, std::
 
 	os << boost::format("        </Instance> \n");
 
-	std::string mol_b_hin_fname = mol_name + "_b.hin";
+	if (pmol->has_mut_atoms())
+	{
+		std::string mol_b_hin_fname = mol_name + "_b.hin";
+		AtomSaveOptions opt;
+		opt.mol_idx = mol_idx;
+		opt.alchemical_state = AlchemicalState::STATE_B;
+		pmset->SaveHINFile(mol_a_hin_fname, opt);
 
-	os << boost::format("        <Instance Title=\"StateB\"> \n");
-	os << boost::format("          <TopologySource>STRUCT</TopologySource> \n");
-	os << boost::format("            <TopologyFiles> \n");
-	os << boost::format("              <File Type=\"HIN\">%s</File>\n") % mol_b_hin_fname;
-	os << boost::format("            </TopologyFiles> \n");
-	os << boost::format("          <StructureFiles> \n");
-	os << boost::format("            <File Type=\"HIN\">%s</File>\n") % mol_b_hin_fname;
-	os << boost::format("          </StructureFiles> \n");
-	os << boost::format("          <StructureSettings> \n");
-	os << boost::format("            <GenerateChargeGroups>AUTO</GenerateChargeGroups> \n");
-	os << boost::format("            <ConstrainBonds>false</ConstrainBonds> \n");
-	os << boost::format("            <ConstrainAngles>false</ConstrainAngles> \n");
-	os << boost::format("            <ConstrainTorsions>false</ConstrainTorsions> \n");
-	os << boost::format("          </StructureSettings> \n");
-	os << boost::format("        </Instance> \n");
+		os << boost::format("        <Instance Title=\"StateB\"> \n");
+		os << boost::format("          <TopologySource>STRUCT</TopologySource> \n");
+		os << boost::format("            <TopologyFiles> \n");
+		os << boost::format("              <File Type=\"HIN\">%s</File>\n") % mol_b_hin_fname;
+		os << boost::format("            </TopologyFiles> \n");
+		os << boost::format("          <StructureFiles> \n");
+		os << boost::format("            <File Type=\"HIN\">%s</File>\n") % mol_b_hin_fname;
+		os << boost::format("          </StructureFiles> \n");
+		os << boost::format("          <StructureSettings> \n");
+		os << boost::format("            <GenerateChargeGroups>AUTO</GenerateChargeGroups> \n");
+		os << boost::format("            <ConstrainBonds>false</ConstrainBonds> \n");
+		os << boost::format("            <ConstrainAngles>false</ConstrainAngles> \n");
+		os << boost::format("            <ConstrainTorsions>false</ConstrainTorsions> \n");
+		os << boost::format("          </StructureSettings> \n");
+		os << boost::format("        </Instance> \n");
+	}
 
 	os << boost::format("      </StructureDefinition> \n");
 
-	os << boost::format("      <TransformationRules> \n");
-	os << boost::format("        <MutationRule> \n");
-	os << boost::format("          <InstA>StateA</InstA> \n");
-	os << boost::format("          <InstB>StateB</InstB> \n");
-	os << boost::format("          <MutationMaps> \n");
+	if (pmol->has_mut_atoms())
+	{
+		os << boost::format("      <TransformationRules> \n");
+		os << boost::format("        <MutationRule> \n");
+		os << boost::format("          <InstA>StateA</InstA> \n");
+		os << boost::format("          <InstB>StateB</InstB> \n");
+		os << boost::format("          <MutationMaps> \n");
 
-	std::string res_name_a;
-	std::string res_name_b;
-	std::string fname_map_a_b;
-	int res_no = 127;
+		ResidueIteratorMolecule ritr(pmol);
+		int ir_seq = 0;
+		for (HaResidue* pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+		{
+			ir_seq++;
+			if (pres->has_mut_atoms())
+			{
+				std::string res_name_a = pres->GetName();
+				std::string res_name_b = pres->p_res_transform->res_name_b;
+				std::string fname_map_a_b = std::string("map_") + res_name_a + "_" + res_name_b + ".xml";
+				int res_no = ir_seq;
 
-	os << boost::format("            <Map ResID=\"%d\"> \n") % res_no;
-	os << boost::format("              <ResA Title=\"%s\">%s</ResA> \n") % res_name_a % res_name_a;
-	os << boost::format("              <ResB Title=\"%s\">%s</ResB> \n") % res_name_b % res_name_b;
-	os << boost::format("              <MapFile>%s</MapFile> \n") % fname_map_a_b;
-	os << boost::format("            </Map> \n");
-	os << boost::format("          </MutationMaps> \n");
-	os << boost::format("        </MutationRule> \n");
+				pres->p_res_transform->SaveMutationMapArbalestFmt(fname_map_a_b);
 
-	os << boost::format("      </TransformationRules> \n");
+				os << boost::format("            <Map ResID=\"%d\"> \n") % res_no;
+				os << boost::format("              <ResA Title=\"%s\">%s</ResA> \n") % res_name_a % res_name_a;
+				os << boost::format("              <ResB Title=\"%s\">%s</ResB> \n") % res_name_b % res_name_b;
+				os << boost::format("              <MapFile>%s</MapFile> \n") % fname_map_a_b;
+				os << boost::format("            </Map> \n");
+			}
+		}
+
+		os << boost::format("          </MutationMaps> \n");
+		os << boost::format("        </MutationRule> \n");
+
+		os << boost::format("      </TransformationRules> \n");
+	}
 	os << boost::format("    </MoleculeDefinition> \n");
 
 	return true;
 }
 
-bool MMDriverArbalest::SaveStdMolToStream(std::string mol_name, std::ostream& os)
-{
-	if (std_mol_names.count(mol_name) == 0) return false;
-
-	std::string mol_a_hin_fname = "Input/HIN/" + mol_name + ".hin";
-
-	os << boost::format("    <MoleculeDefinition> Title=\"%s\"> \n") % mol_name;
-	os << boost::format("      <StructureType>SINGLERES</StructureType> \n");
-	os << boost::format("      <StructureDefinition> \n");
-
-	os << boost::format("        <Instance Title=\"StateA\"> \n");
-	os << boost::format("          <TopologySource>STRUCT</TopologySource> \n");
-	os << boost::format("            <TopologyFiles> \n");
-	os << boost::format("              <File Type=\"HIN\">%s</File>\n") % mol_a_hin_fname;
-	os << boost::format("            </TopologyFiles> \n");
-	os << boost::format("          <StructureFiles> \n");
-	os << boost::format("            <File Type=\"HIN\">%s</File>\n") % mol_a_hin_fname;
-	os << boost::format("          </StructureFiles> \n");
-	os << boost::format("          <StructureSettings> \n");
-	os << boost::format("            <GenerateChargeGroups>AUTO</GenerateChargeGroups> \n");
-	os << boost::format("            <ConstrainBonds>false</ConstrainBonds> \n");
-	os << boost::format("            <ConstrainAngles>false</ConstrainAngles> \n");
-	os << boost::format("            <ConstrainTorsions>false</ConstrainTorsions> \n");
-	os << boost::format("          </StructureSettings> \n");
-	os << boost::format("        </Instance> \n");
-	os << boost::format("      </StructureDefinition> \n");
-	os << boost::format("    </MoleculeDefinition> \n");
-
-	return true;
-}
 
 std::vector<std::string> MMDriverArbalest::GetPosRestraintsDescAndList()
 {

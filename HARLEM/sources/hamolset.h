@@ -17,6 +17,7 @@
 class HaMolecule;
 class HaAtom;
 class HaBond;
+class AtomGroup;
 class ZMatCrd;
 class HaMat_double;
 class HaMolView;
@@ -111,18 +112,18 @@ public:
 	static AtomLoadOptions load_opt_default; //!< Default Atom Load Options 
 	static AtomSaveOptions save_opt_default; //!< Default Atom Save Options 
 
-	int FetchFile(int format, const char* file_name, const AtomLoadOptions& opt = load_opt_default); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
-	int LoadHarlemFile (const char* fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecular System in HARLEM (*.HLM) (OLD or new XML) format
-	int LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecular System in AMBER PREP (*.IN) format
-	int LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);    //!< Load Molecular System in AMBER OFF (*.off;*.lib) format
-	int LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
-	int LoadRWFMolecule (const char* fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecular System in binary Gaussian checkpoint (*.rwf, *.chk) format
-	int LoadPDBFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in PDB format (flag = 1 - NMR extension)
-	int LoadMol2File(const char* fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load Molecular System in TRIPOS *.mol format 
-	int LoadMDLFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TRIPOS *.mdl format 
-	int LoadXYZFile(const char* fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
-	int LoadHINFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in Arbalest HIN format
-	int LoadNRGFile(const char* fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in NRG format (MBX program )
+	int FetchFile(int format, std::string file_name, const AtomLoadOptions& opt = load_opt_default); //!< Load file in a given format (FormatPDB,FormatHarlem etc..)
+	int LoadHarlemFile (std::string fname, const AtomLoadOptions& opt = load_opt_default );    //!< Load Molecular System in HARLEM (*.HLM) (OLD or new XML) format
+	int LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );  //!< Load Molecular System in AMBER PREP (*.IN) format
+	int LoadAmberOffFile(std::string fname, const AtomLoadOptions& opt = load_opt_default);    //!< Load Molecular System in AMBER OFF (*.off;*.lib) format
+	int LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecule in AMBER TOP (*.TOP;) format and matching *.crd or *.rst format
+	int LoadRWFMolecule (std::string fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecular System in binary Gaussian checkpoint (*.rwf, *.chk) format
+	int LoadPDBFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in PDB format (flag = 1 - NMR extension)
+	int LoadMol2File(std::string fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load Molecular System in TRIPOS *.mol format 
+	int LoadMDLFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TRIPOS *.mdl format 
+	int LoadXYZFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
+	int LoadHINFile(std::string fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in Arbalest HIN format
+	int LoadNRGFile(std::string fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in NRG format (MBX program )
 
 	int LoadXYZStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load coordinates from stream
 	int LoadHINStream( std::istream& is, const AtomLoadOptions& opt = load_opt_default);      //!< Load Molecular System from the std::istream in Arbalest HIN format
@@ -134,19 +135,19 @@ public:
 	
 	int LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt = load_opt_default); //!< Load file in OLD Harlem format
 
-	int SetCoordFromFile(const char* fname, int iform = FormatGUESS); //!< Set Molecular Set atom coordinates from File (in pdb, xyz or other format) 
+	int SetCoordFromFile(std::string fname, int iform = FormatGUESS); //!< Set Molecular Set atom coordinates from File (in pdb, xyz or other format) 
 	int SetCrdFromArray( const HaVec_double& crd_arr ); //!< Set Molecular Set atom coordinates for coordinate array
 
-	int SavePDBFile(const char* filename,    const AtomSaveOptions& opt = save_opt_default ) const;      //!< Save molecules into a file in PDB format
-	int SaveHarlemFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );  //!< Save molecules into a file in current HARLEM format (XML) (*.hlm)
-	int SaveOldHarlemFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save molecules into a file in OLD HARLEM format (*.hlm)
-	int SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
-	int SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt = save_opt_default ); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
-	int SaveHINFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in Arbalest HIN format
-	int SaveNRGFile(const char* filename, const AtomSaveOptions& opt = save_opt_default);      //!< Save MolSet in MBX NRG format
+	int SavePDBFile(std::string filename,    const AtomSaveOptions& opt = save_opt_default ) const;      //!< Save molecules into a file in PDB format
+	int SaveHarlemFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );  //!< Save molecules into a file in current HARLEM format (XML) (*.hlm)
+	int SaveOldHarlemFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save molecules into a file in OLD HARLEM format (*.hlm)
+	int SaveXYZRadFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
+	int SaveDimerXYZFile(std::string prefix, const AtomSaveOptions& opt = save_opt_default ); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
+	int SaveHINFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in Arbalest HIN format
+	int SaveNRGFile(std::string filename, const AtomSaveOptions& opt = save_opt_default);      //!< Save MolSet in MBX NRG format
 	
-	int SavePQRFile(const char* filename, const AtomSaveOptions& opt = save_opt_default ); //!< Save molecule into PQR format file
-	int SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt = save_opt_default );
+	int SavePQRFile(std::string filename, const AtomSaveOptions& opt = save_opt_default ); //!< Save molecule into PQR format file
+	int SavePQRFreeFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );
 	
 	TiXmlElement* AddXml(TiXmlElement* parent_element,const char* name = "", int option=0 ) const; //!< Add Minimal Molecular Set Descripion to XML element
 	int SaveXML(FILE* file_out, const AtomSaveOptions& opt = save_opt_default) const;          //!< Save Molecular Set Description to a file
@@ -201,7 +202,7 @@ public:
 	virtual int GetNumPt() const; 
 	virtual AtomIterator*       GetAtomIteratorPtr(); 
 	virtual AtomIterator_const* GetAtomIteratorPtr() const; 
-	virtual int IsMember(const HaAtom* aptr) const;
+	virtual int HasAtom(const HaAtom* aptr) const;
 //@}
 //! \name Molecular Structure Info
 //@{

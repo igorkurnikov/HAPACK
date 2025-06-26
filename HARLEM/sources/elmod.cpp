@@ -2176,6 +2176,7 @@ int pKaCalcMod::PrintResWithAltProtState()
 	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
+
 int pKaCalcMod::PrintPopulation()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");

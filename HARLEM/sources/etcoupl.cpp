@@ -517,7 +517,7 @@ bool ETCouplMod::path_coupl_calc()
 
 	for(i=0; i < nodes.size(); i++)
 	{
-		if(pdon->IsMember(nodes[i]) )
+		if(pdon->HasAtom(nodes[i]) )
 		{
 			que.push(PathStep(0.0, i, -1));	
 		}
@@ -557,7 +557,7 @@ bool ETCouplMod::path_coupl_calc()
 
 			if(pathways_calc_type == BEST_PATH)
 			{
-				if( pacc->IsMember( pnode ) )
+				if( pacc->HasAtom( pnode ) )
 				{
 					acc_found=cur_node;
 					break;
@@ -728,8 +728,8 @@ bool ETCouplMod::select_important(double thresh)
 		{
 			aptr=nodes[i];
 			aptr->Select();
-			if(pdon->IsMember(aptr)) continue; // do not print donor and
-			if(pacc->IsMember(aptr)) continue; // acceptor atoms
+			if(pdon->HasAtom(aptr)) continue; // do not print donor and
+			if(pacc->HasAtom(aptr)) continue; // acceptor atoms
 		}
 	}
 
@@ -780,12 +780,12 @@ double ETCouplMod::CalcAtomContactCoupling(HaAtom* aptr1, HaAtom* aptr2)
 	AtomGroup* pacc = pmset->GetAtomGroupByID("ACCEPTOR");
 
 	// short circuit donor and acceptor
-	if( (pdon->IsMember(aptr1) &&  pdon->IsMember(aptr2)) )
+	if( (pdon->HasAtom(aptr1) &&  pdon->HasAtom(aptr2)) )
 	{
 		return 0.0;
 	}
 
-	if( pacc && (pacc->IsMember(aptr1) &&  pacc->IsMember(aptr2)) )
+	if( pacc && (pacc->HasAtom(aptr1) &&  pacc->HasAtom(aptr2)) )
 	{
 		return 0.0;
 	}
@@ -1835,13 +1835,13 @@ int ETCouplMod::AddRedoxOrbFromEigVec(const HaVec_int& mo_idx)
 			}
 			Vec3D* hpt = ptr_qc_mod->ActBas->GetHostPt(i);
 			const HaAtom* pat_host= (const HaAtom*) hpt;
-			if( has_donor && pdon->IsMember(pat_host))
+			if( has_donor && pdon->HasAtom(pat_host))
 			{		
 				don_orb_idx[nb_don] = i;
 				nb_don++;
 			}
 
-			if( has_acc && pacc->IsMember(pat_host))
+			if( has_acc && pacc->HasAtom(pat_host))
 			{		
 				acc_orb_idx[nb_acc] = i;
 				nb_acc++;
@@ -2107,7 +2107,7 @@ int ETCouplMod::GetRedoxOrbsFromFrag( MolSet* pfrag )
 			{
 				Vec3D* pt = ptr_qc_mod->ActBas->GetHostPt(i);
 				HaAtom* aptr = dynamic_cast<HaAtom*>( pt );
-				if( !rdx_grp->IsMember( aptr ))  continue;
+				if( !rdx_grp->HasAtom( aptr ))  continue;
 				if( low_idx.count( aptr) == 0 )
 				{
 					low_idx[ aptr ] = i;
@@ -2121,7 +2121,7 @@ int ETCouplMod::GetRedoxOrbsFromFrag( MolSet* pfrag )
 			{
 				Vec3D* pt_f =  p_etmod_frag->ptr_qc_mod->ActBas->GetHostPt(i);
 				HaAtom* aptr_f = dynamic_cast<HaAtom*>( pt_f );
-				if( !rdx_grp_frag->IsMember( aptr_f ))  continue;
+				if( !rdx_grp_frag->HasAtom( aptr_f ))  continue;
 				if( low_idx_f.count( aptr_f ) == 0 )
 				{
 					low_idx_f[ aptr_f ] = i;
@@ -2155,7 +2155,7 @@ int ETCouplMod::GetRedoxOrbsFromFrag( MolSet* pfrag )
 			for( i_f = 0; i_f < nb_f; i_f++ )
 			{
 				HaAtom* aptr_f = dynamic_cast<HaAtom*>( p_etmod_frag->ptr_qc_mod->ActBas->GetHostPt(i_f) );
-				if( !rdx_grp_frag->IsMember( aptr_f ))  continue;
+				if( !rdx_grp_frag->HasAtom( aptr_f ))  continue;
 				HaAtom* aptr  = frag_atom_map[aptr_f];
 
 				if( aptr_fst == NULL ) aptr_fst = aptr;
@@ -3189,11 +3189,11 @@ bool ETCouplMod::CalcHDAPert(double &hda_coupl)
 	{
 		Vec3D* hpt = ptr_qc_mod->ActBas->GetHostPt(i-1);
 		const HaAtom* pat_host= (const HaAtom*) hpt;
-		if(pdon->IsMember(pat_host))
+		if(pdon->HasAtom(pat_host))
 		{		
 			donor_orb_idx.push_back(i);
 		}
-		else if(pacc->IsMember(pat_host))
+		else if(pacc->HasAtom(pat_host))
 		{		
 			acceptor_orb_idx.push_back(i);
 		}

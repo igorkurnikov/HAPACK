@@ -333,7 +333,7 @@ void wxMolED::OnNextButtonClick(wxCommandEvent& event)
         pmset = new MolSet();
         pmset->canvas_wx = frame_main->CreateMolView(pmset);        
     }
-	pmset->FetchFile(FormatPDB, fullPathName.c_str()); 
+	pmset->FetchFile(FormatPDB, fullPathName.ToStdString()); 
 
 	pmset->canvas_wx->mol_view->InitialTransform();
     pmset->canvas_wx->mol_view->DefaultRepresentation();

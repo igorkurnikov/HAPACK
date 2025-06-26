@@ -107,7 +107,7 @@ public:
 
     virtual int GetNAtoms() const;                   //!< return the number of atoms in molecule
 	virtual AtomIterator* GetAtomIteratorPtr();         //!< Create AtomIterator for the molecule
-    virtual int IsMember(const HaAtom* aptr) const;  //!< Check if the atom belongs to the Molecule
+    virtual int HasAtom(const HaAtom* aptr) const;  //!< Check if the atom belongs to the Molecule
 
 // Overidables of PointContainer:
 

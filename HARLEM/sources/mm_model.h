@@ -90,8 +90,6 @@ public:
 	int SetValAngle(HaAtom* pt1,HaAtom* pt2,HaAtom* pt3,double a0,double fc,int set_type = NOT_SET, bool mutated_state = false); //!< Set valence angle
 	shared_ptr<MMDihedral> AddImprDihedral(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, HaAtom* pt4, bool mutated_state = false); //!< Add improper angle
 
-	bool has_mut_atoms_in_group(AtomContainer& group);
-
 	void SetUseMortLib( int set_par ); //!< Set Parameters of the model Using MORT library 
 
 	int build_nb_contact_list_flag;  //!< Flag to build non-bond contact list during initialization of the module

@@ -408,7 +408,7 @@ PtrSet::PtrSet()
 }
 
 int
-PtrSet::IsMember( void* const ptr) const
+PtrSet::HasAtom( void* const ptr) const
 {
 	if( this->find(ptr) != this->end()) return 1;
 
@@ -436,7 +436,7 @@ VecPtr::Delete(const PtrSet& ptr_set)
 	int i;
 	for(i = 0; i < n; i++)
 	{
-		if( !ptr_set.IsMember( (*this)[i]) )
+		if( !ptr_set.HasAtom( (*this)[i]) )
 		{
 			copy_vec.push_back( (*this)[i]);
 		}

@@ -284,14 +284,13 @@ public:
 };
 
 
-
 class PtrSet: public set<void*, less<void*> >
 {
 //! Set of pointers
 public:
 	PtrSet();
 	
-	int IsMember(void* const ptr) const;
+	int HasAtom(void* const ptr) const;
 };
 
 class VecPtr: public vector<void*>

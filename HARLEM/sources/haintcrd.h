@@ -191,7 +191,6 @@ public:
 	int FindMovingAtoms();  //!< find atoms that move when internal coordinates change
 
 	AtomGroup moving_atoms;   //!< Atoms that move when internal coordinates change
-
 };
 
 enum ElemCrdType { UNDEF_ELEM_CRD, X_ELEM_CRD, Y_ELEM_CRD, Z_ELEM_CRD, 

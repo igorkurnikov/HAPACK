@@ -703,7 +703,7 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 
 bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {		
-	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	bool has_mut_atoms = group.has_mut_atoms();
 
 	os << "[ atoms ]\n";
 	if (has_mut_atoms)
@@ -760,7 +760,7 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 
 bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	bool has_mut_atoms = group.has_mut_atoms();
 
 	os << "[ bonds ]\n";
 	if(has_mut_atoms)
@@ -839,7 +839,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 
 bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	bool has_mut_atoms = group.has_mut_atoms();
 	int im = -1;
 	for (auto* p_dih_list : {&(p_mm_model->Dihedrals), &(p_mm_model->Dihedrals_mut)} )
 	{
@@ -872,7 +872,7 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 
 bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	bool has_mut_atoms = group.has_mut_atoms();
 
 	os << "[ angles ] \n";
 	if (has_mut_atoms)
@@ -961,7 +961,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 
 bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = p_mm_model->has_mut_atoms_in_group(group);
+	bool has_mut_atoms = group.has_mut_atoms();
 
 	os << "[ dihedrals ] ; proper dihedrals \n";
 	if (has_mut_atoms)

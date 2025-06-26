@@ -452,7 +452,7 @@ void CmdParser::CommandError(const char* error )
     CurToken = 0;
 }
 
-int MolSet::FetchFile(int format, const char* file_name, const AtomLoadOptions& opt_par )
+int MolSet::FetchFile(int format, std::string file_name, const AtomLoadOptions& opt_par )
 {
 	AtomLoadOptions opt(opt_par);
 
@@ -462,24 +462,24 @@ int MolSet::FetchFile(int format, const char* file_name, const AtomLoadOptions& 
 
 	if(GetNMol() == 0)
 	{
-		std::string mol_name= harlem::GetPrefixFromFullName(fname.c_str());
+		std::string mol_name= harlem::GetPrefixFromFullName(fname);
 		SetName(mol_name.c_str());
 	}
 	
 	switch( format )
 	{	
-	case(FormatHarlem):      done = LoadHarlemFile(fname.c_str(),    opt); break;
-	case(FormatAmberPrep):   done = LoadAmberPrepFile(fname.c_str(), opt); break;
-	case(FormatAmberTop):    done = LoadAmberTopFile (fname.c_str(), opt); break;
-	case(FormatAmberOff):    done = LoadAmberOffFile(fname.c_str(),  opt); break;
-	case(FormatRWF):         done = LoadRWFMolecule(fname.c_str(),   opt); break;
-	case(FormatPDB):         done = LoadPDBFile(fname.c_str(),       opt); break;
-	case(FormatNMRPDB):      opt.set_i("NMRPDB", 1);  done = LoadPDBFile(fname.c_str(), opt); break;
-	case(FormatMol2):        done = LoadMol2File(fname.c_str(),      opt); break;
-	case(FormatMDL):         done = LoadMDLFile(fname.c_str(),       opt); break;
-	case(FormatXYZ):         done = LoadXYZFile(fname.c_str(),       opt); break;
-	case(FormatHIN):         done = LoadHINFile(fname.c_str(),       opt); break;
-	case(FormatNRG):         done = LoadNRGFile(fname.c_str(),       opt); break;
+	case(FormatHarlem):      done = LoadHarlemFile(fname,    opt); break;
+	case(FormatAmberPrep):   done = LoadAmberPrepFile(fname, opt); break;
+	case(FormatAmberTop):    done = LoadAmberTopFile (fname, opt); break;
+	case(FormatAmberOff):    done = LoadAmberOffFile(fname,  opt); break;
+	case(FormatRWF):         done = LoadRWFMolecule(fname,   opt); break;
+	case(FormatPDB):         done = LoadPDBFile(fname,       opt); break;
+	case(FormatNMRPDB):      opt.set_i("NMRPDB", 1);  done = LoadPDBFile(fname, opt); break;
+	case(FormatMol2):        done = LoadMol2File(fname,      opt); break;
+	case(FormatMDL):         done = LoadMDLFile(fname,       opt); break;
+	case(FormatXYZ):         done = LoadXYZFile(fname,       opt); break;
+	case(FormatHIN):         done = LoadHINFile(fname,       opt); break;
+	case(FormatNRG):         done = LoadNRGFile(fname,       opt); break;
 
 	default:                 done = False;
 	}
@@ -996,7 +996,7 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 					}
 					else
 					{
-                                                TokenValue = (int)patl;
+						TokenValue = (int)patl;
 					}
 				}
 				else

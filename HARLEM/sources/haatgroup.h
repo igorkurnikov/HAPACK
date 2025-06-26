@@ -102,6 +102,8 @@ protected:
 
 };
 
+enum class AlchemicalState : int;
+
 class AtomSaveOptions : public harlem::SaveOptions
 //! Class to define options for saving atoms to stream or file
 {
@@ -121,9 +123,8 @@ public:
 	int save_atom_ref;  //!< Flag to save atom reference at the end of atom line 
 	int save_amber_pdb; //!< Flag to save PDB files with residue names and atom names matching AMBER database
 	int save_sep_wat_mol; //!< Flag to save water as separate molecules 
-	int save_state_a;     //!< Flag to save StateA of the system when Alphemical Transformation in Specified ( No dummy atoms corresponding to State B will be saved )
-	int save_state_b;     //!< Flag to save StateA of the system when Alphemical Transformation in Specified ( No dummy atoms corresponding to State A will be saved )
-	int save_only_mol;    //!< index of the molecule to be saved
+	AlchemicalState alchemical_state; //!< alchemical state to save  
+	int mol_idx;          //!< index of the molecule to be saved ( 0-based )
 
 	HaAtom::AtomRefType at_ref_type; //!< Type of the atom reference to save at the end of the atom line
 
@@ -134,15 +135,16 @@ class  AtomContainer: public PointContainer
 //! Abstract class for a collection of Atoms
 {
 public:
-    virtual AtomIterator* GetAtomIteratorPtr() = 0; //!< get atom iterator for a given atom collection
+    virtual AtomIterator* GetAtomIteratorPtr() = 0;                   //!< get atom iterator for the given atom container
 	virtual int GetNAtoms() const = 0;   
-	virtual int IsMember(const HaAtom* aptr) const = 0;  //!< check if atom belongs to the collection
+	virtual int HasAtom(const HaAtom* aptr) const = 0;  //!< check if atom belongs to the container
 
     AtomIteratorGen __iter__(); //!< Get Atom Iterator ( for Python compatibility )
 	AtomIteratorGen GetAtomIterator(); //!< Get General Atom Iterator 
 
-// Virtuals from PointContainer: 
-	virtual int IsAtomCollection() const { return TRUE;} //!< check if Point Collection consist of atoms
+// Functions for Alechemical Transformations
+
+	bool has_mut_atoms(); //!< Check if the containter has atoms involved in Alchemical Transformations
 
 // Manipulate position and orientation of Atom Collection in 3D space 
 
@@ -161,12 +163,12 @@ public:
 	int SetQuaternionTrans(const Quaternion& q, const Vec3D& trans); //!< Set molecular orientations corresponding to a given quaternion and translation
 	void GetQuaternionTrans(Quaternion& q,Vec3D& trans); //!< get std translational and rotational (quaternion) coordinates for a given molecule position
 
-	int SetIntCoordFromStr(const char* int_crd_str); //!< Set Internal coordinates reading them from the string in seq x,y,z, phi,cost,psi
+	int SetIntCoordFromStr(std::string int_crd_str); //!< Set Internal coordinates reading them from the string in seq x,y,z, phi,cost,psi
 
-	int SaveXYZFile( const char* fout_name,  const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to XYZ file
+	int SaveXYZFile( std::string fout_name,  const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to XYZ file
 	virtual int SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to output stream
 
-	int SaveGROFile(const char* fout_name, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file
+	int SaveGROFile( std::string fout_name, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file
 	virtual int SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file stream
 };
 
@@ -265,7 +267,7 @@ public:
 
 	virtual AtomIterator* GetAtomIteratorPtr();  //!< Return pointer to the corresponing Atom Iterator
 	int GetNAtoms() const;                   //!< Return the number of atoms in the list
-	int IsMember(const HaAtom* aptr) const;  //!< Check if the atom is a member of the group
+	int HasAtom(const HaAtom* aptr) const;  //!< Check if the atom is a member of the group
 
 // Overidables of PointContainer:
 
@@ -360,7 +362,7 @@ using AtomIteratorResidue=AtomIteratorAtomGroup;
 using AtomGroupList=std::list<AtomGroup>;
 class AlchemicalTransformation;
 
-enum class AlchemicalState
+enum class AlchemicalState : int
 {
 	MIXED = 0,
 	STATE_A = 1,
@@ -515,6 +517,8 @@ public:
 	bool SetTransformation(std::string alt_res_name); //!< Set Residue Mutation 
 	bool IsSet() { return is_set; } //!< Check if the Mutation is Set
 
+	bool SaveMutationMapArbalestFmt(std::string fname); //!< Save Mutation Map in ARBALEST format for the transition
+
 	AtomFFParam* GetAtomFFParamMut(HaAtom* aptr); //!< Get Atom FF Parameters for atom in the mutated state
 
 	string res_name_b;
@@ -619,7 +623,7 @@ public:
 	AtomIterator* GetAtomIteratorPtr() { return new AtomIteratorChain(this); }
 	AtomIterator_const* GetAtomIteratorPtr() const { return new AtomIteratorChain_const(this); }
 	int GetNAtoms() const; //!< Return the number of atoms in the chain
-	int IsMember(const HaAtom* aptr) const;       //!< Check if the atom is a member of the chain
+	int HasAtom(const HaAtom* aptr) const;       //!< Check if the atom is a member of the chain
 
 // Overidable of PointContainer:
 

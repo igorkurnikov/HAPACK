@@ -345,7 +345,7 @@ int HaResDB::GetTemplResAtomMaps( HaResidue* pres, AtomAtomMap& res_to_templ_map
 	AtomIteratorMolecule aitr_templ(res_templ);
 	for(atempl = aitr_templ.GetFirstAtom(); atempl; atempl = aitr_templ.GetNextAtom() )
 	{
-		if( prtempl->IsMember(atempl) )
+		if( prtempl->HasAtom(atempl) )
 			continue;
 		
 		AtomGroup bonded_atoms;
@@ -356,7 +356,7 @@ int HaResDB::GetTemplResAtomMaps( HaResidue* pres, AtomAtomMap& res_to_templ_map
 		AtomIteratorAtomGroup aitr_bonded_atoms(&bonded_atoms);
 		for(atempl2 = aitr_bonded_atoms.GetFirstAtom(); atempl2; atempl2 = aitr_bonded_atoms.GetNextAtom() ) 
 		{
-			if( !prtempl->IsMember(atempl2) ) continue;
+			if( !prtempl->HasAtom(atempl2) ) continue;
 			aptr = templ_to_res_map[atempl2];
 			if( aptr == NULL ) continue;
 
@@ -366,7 +366,7 @@ int HaResDB::GetTemplResAtomMaps( HaResidue* pres, AtomAtomMap& res_to_templ_map
 			AtomIteratorAtomGroup aitr_bonded_atoms_2(&bonded_atoms_2);
 			for( neib_atom = aitr_bonded_atoms_2.GetFirstAtom(); neib_atom; neib_atom = aitr_bonded_atoms_2.GetNextAtom() )
 			{
-				if( pres->IsMember( neib_atom ) )
+				if( pres->HasAtom( neib_atom ) )
 					continue;
 				templ_to_res_map[atempl] = neib_atom;
 				res_to_templ_map[neib_atom] = atempl;

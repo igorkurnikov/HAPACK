@@ -61,8 +61,8 @@ int AtomMapping::SetAtom3PtSyncRule(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* ar
 										double dist, double vang, double torsion, int priority )
 {
 	int idx_ac = 0;
-	if( p_ac_1->IsMember(aptr_mng) ) idx_ac = 1;
-	if( p_ac_2->IsMember(aptr_mng) ) idx_ac = 2;
+	if( p_ac_1->HasAtom(aptr_mng) ) idx_ac = 1;
+	if( p_ac_2->HasAtom(aptr_mng) ) idx_ac = 2;
 
 	if(idx_ac == 0)
 	{

@@ -89,8 +89,8 @@ namespace mort
 
              void operator()(morf_t& obj) const
              {
-	          int lestype;
-		  double force;
+	              int lestype = 0;
+		          double force = 0.0;
                   assert( obj.get_i(LESTYPE,lestype) && obj.get_d(FORCE,force) );
 
                   if( lestype > 0 )

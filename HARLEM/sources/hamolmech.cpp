@@ -1371,13 +1371,13 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 	
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		if(aptr != NULL && !pt_set.IsMember(aptr)) pt_set.insert(aptr);
+		if(aptr != NULL && !pt_set.HasAtom(aptr)) pt_set.insert(aptr);
 	}
 
 	vector<HaAtom*>::iterator mpitr;
 	for(mpitr = p_mm_model->Atoms.begin(); mpitr != p_mm_model->Atoms.end(); )
 	{
-		if( pt_set.IsMember( *mpitr ) )
+		if( pt_set.HasAtom( *mpitr ) )
 		{
 			mpitr = p_mm_model->Atoms.erase(mpitr);
 		}
@@ -1389,7 +1389,7 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 	set<MMBond,less<MMBond> >::iterator mbitr2;
 	for( mbitr= p_mm_model->MBonds.begin(); mbitr != p_mm_model->MBonds.end();  mbitr++ )
 	{
-		if( pt_set.IsMember( (*mbitr).pt1 ) || pt_set.IsMember( (*mbitr).pt2 ) ) 
+		if( pt_set.HasAtom( (*mbitr).pt1 ) || pt_set.HasAtom( (*mbitr).pt2 ) ) 
 		{
 			mbitr2 = mbitr;
 			mbitr2++;
@@ -1404,7 +1404,7 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 	set<MMValAngle, less<MMValAngle> >::iterator ang_itr2;
 	for( ang_itr= p_mm_model->ValAngles.begin(); ang_itr != p_mm_model->ValAngles.end(); )
 	{
-		if( pt_set.IsMember( (*ang_itr).pt1 ) || pt_set.IsMember( (*ang_itr).pt2 ) || pt_set.IsMember( (*ang_itr).pt3 ) )
+		if( pt_set.HasAtom( (*ang_itr).pt1 ) || pt_set.HasAtom( (*ang_itr).pt2 ) || pt_set.HasAtom( (*ang_itr).pt3 ) )
 		{
 			ang_itr2 = ang_itr;
 			ang_itr2++;
@@ -1418,7 +1418,7 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 	vector<AtomContact>::iterator vitr;
 	for( vitr = p_mm_model->DistConstraints.begin(); vitr != p_mm_model->DistConstraints.end(); )
 	{
-		if( pt_set.IsMember( (*vitr).pt1 ) || pt_set.IsMember( (*vitr).pt2 ) )
+		if( pt_set.HasAtom( (*vitr).pt1 ) || pt_set.HasAtom( (*vitr).pt2 ) )
 		{
 			vitr = p_mm_model->DistConstraints.erase( vitr );
 		}
@@ -1429,8 +1429,8 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 	
 	for( auto ditr = p_mm_model->Dihedrals.begin(); ditr != p_mm_model->Dihedrals.end();)
 	{
-		if( pt_set.IsMember( (*ditr)->pt1 ) || pt_set.IsMember( (*ditr)->pt2 ) ||
-			pt_set.IsMember( (*ditr)->pt3 ) || pt_set.IsMember( (*ditr)->pt4 ) )
+		if( pt_set.HasAtom( (*ditr)->pt1 ) || pt_set.HasAtom( (*ditr)->pt2 ) ||
+			pt_set.HasAtom( (*ditr)->pt3 ) || pt_set.HasAtom( (*ditr)->pt4 ) )
 		{
 			ditr = p_mm_model->Dihedrals.erase( ditr );
 		}
@@ -1440,8 +1440,8 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 
 	for( auto ditr = p_mm_model->ImprDihedrals.begin(); ditr != p_mm_model->ImprDihedrals.end(); )
 	{
-		if( pt_set.IsMember( (*ditr)->pt1 ) || pt_set.IsMember( (*ditr)->pt2 ) ||
-			pt_set.IsMember( (*ditr)->pt3 ) || pt_set.IsMember( (*ditr)->pt4 ) )
+		if( pt_set.HasAtom( (*ditr)->pt1 ) || pt_set.HasAtom( (*ditr)->pt2 ) ||
+			pt_set.HasAtom( (*ditr)->pt3 ) || pt_set.HasAtom( (*ditr)->pt4 ) )
 		{
 			ditr = p_mm_model->ImprDihedrals.erase( ditr );
 		}

@@ -338,7 +338,7 @@ int AtomGroup::DeleteAtoms(const PtrSet& ptr_set)
 
 	for(aitr = this->begin(); aitr != this->end();)
 	{
-		if( ptr_set.IsMember(*aitr))
+		if( ptr_set.HasAtom(*aitr))
 		{
 			aitr = this->erase(aitr);
 			ndel++;
@@ -353,7 +353,7 @@ int AtomGroup::DeleteAtoms(const PtrSet& ptr_set)
 
 
 
-int AtomGroup::IsMember(const HaAtom* aptr) const
+int AtomGroup::HasAtom(const HaAtom* aptr) const
 {
 	vector<HaAtom*>::const_iterator itr;
 	
@@ -1898,7 +1898,7 @@ int HaChain::GetNAtoms() const
 	return na;
 }
 
-int HaChain::IsMember(const HaAtom* aptr) const
+int HaChain::HasAtom(const HaAtom* aptr) const
 {
 	if( aptr == NULL) return FALSE;
 	if( aptr->GetHostChain() == this) return TRUE;
@@ -2760,6 +2760,48 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 	return true;
 }
 
+bool AlchemicalTransformation::SaveMutationMapArbalestFmt(std::string fname)
+{
+	if (!is_set)
+	{
+		PrintLog("Error in AlchemicalTransformation::SaveMutationMapArbalestFmt() \n");
+		PrintLog("Alchemical Transformations in not set \n");
+		return false;
+	}
+	
+	std::ofstream os(fname);
+	if (os.fail())
+	{
+		PrintLog("Error in AlchemicalTransformation::SaveMutationMapArbalestFmt() \n");
+		PrintLog("Can not save file %s \n", fname);
+		return false;
+	}
+
+	os << "<?xml version=\"1.0\" encoding=\"windows - 1251\"?> \n";
+	
+	std::string res_name_a = p_res_a->GetName();
+	std::string res_name_b = this->res_name_b;
+	
+	std::string title = res_name_a;
+	title += "-}";
+	title += this->res_name_b;
+	os << "<MutationMap Title=\"" + title + "\"> \n";
+
+	os << "    <ResA>" << res_name_a << "</ResA>" << std::endl;
+	os << "    <ResB>" << res_name_b << "</ResB>" << std::endl;
+	os << "    <AtomsMapping>" << std::endl;
+
+	for (HaAtom* aptr: atoms_b)
+	{
+		if (!atoms_a.count(aptr) > 0) continue;
+		os << "        <Atoms A=\"" << aptr->GetName() << "\"  B=\"" << this->at_names_b[aptr] << "\"/> \n";
+	}
+	os << "    </AtomsMapping> \n";
+	os << "</MutationMap> \n";
+	return TRUE;
+
+}
+
 AtomFFParam* AlchemicalTransformation::GetAtomFFParamMut(HaAtom* aptr)
 {
 	if (at_ff_params.count(aptr) > 0)
@@ -3246,6 +3288,24 @@ int AtomContainer::SetQuaternionTrans(const Quaternion& q, const Vec3D& trans)
 	return SetPositionMomInertia(rot,trans);
 }
 
+bool AtomContainer::has_mut_atoms()
+{
+	bool has_mut_atoms = false;
+
+	std::unique_ptr<AtomIterator> p_at_itr(this->GetAtomIteratorPtr());
+
+	for (HaAtom* aptr = p_at_itr->GetFirstAtom(); aptr; aptr = p_at_itr->GetNextAtom())
+	{
+		HaResidue* pres = aptr->GetHostRes();
+		if (pres->IsAlchemicalTransformationSet())
+		{
+			has_mut_atoms = true;
+			break;
+		}
+	}
+	return has_mut_atoms;
+}
+
 bool AtomContainer::GetStdRotMat(HaMat_double& rot_mat)
 {
    rot_mat.newsize(3,3);
@@ -3526,9 +3586,8 @@ void AtomSaveOptions::SetStdOptions()
 	save_atom_ref   = TRUE; 
 	save_amber_pdb  = TRUE;
 	save_sep_wat_mol = FALSE;
-	save_state_a     = FALSE;   
-	save_state_b     = FALSE;
-	save_only_mol    = -1;
+	alchemical_state = AlchemicalState::MIXED;
+	mol_idx       = -1;
 
 	at_ref_type = HaAtom::ATOMREF_ELEM_NO;
 }
@@ -3549,9 +3608,8 @@ void AtomSaveOptions::Copy( const harlem::HashMap& ref )
 		save_amber_pdb = pref->save_amber_pdb;
 
 		save_sep_wat_mol = pref->save_sep_wat_mol;
-		save_state_a     = pref->save_state_a;
-		save_state_b     = pref->save_state_b;
-		save_only_mol    = pref->save_only_mol;
+		alchemical_state = pref->alchemical_state;
+		mol_idx          = pref->mol_idx;
 
 		at_ref_type      = pref->at_ref_type;
 	}

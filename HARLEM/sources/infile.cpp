@@ -3,9 +3,9 @@
    Functions to read molecular structure in different formats
   
    \author Igor Kurnikov 
-   \date 1998-2002
+   \date 1998--
  
-   RasMol2 Molecular Graphics
+   Based on RasMol2 Molecular Graphics
    Roger Sayle, August 1995
    Version 2.6
  */
@@ -392,7 +392,7 @@ int HaMolecule::SetCysBridgeNames()
 	return TRUE;
 }
 
-int MolSet::LoadPDBFile(const char* fname , const AtomLoadOptions& opt )
+int MolSet::LoadPDBFile(std::string fname , const AtomLoadOptions& opt )
 {
 	bool flag_NMR = false;
 	if (opt.has_d("NMRPDB") && opt.get_d("NMRPDB") > 0) flag_NMR = true;
@@ -639,7 +639,7 @@ bool HaMolecule::FixChainsIdent()
 }
 
 
-int MolSet::LoadMDLFile(const char* fname, const AtomLoadOptions& opt )
+int MolSet::LoadMDLFile(std::string fname, const AtomLoadOptions& opt )
 {
 	using boost::trim_copy;
 	using boost::lexical_cast;
@@ -775,7 +775,7 @@ int MolSet::LoadMDLFile(const char* fname, const AtomLoadOptions& opt )
 	return( True );
 }
 
-int MolSet::SetCoordFromFile(const char* fname, int iform)
+int MolSet::SetCoordFromFile(std::string fname, int iform)
 {
 	MolSet axx_mset;
 	int ires;
@@ -851,7 +851,7 @@ int MolSet::SetCrdFromArray( const HaVec_double& crd_arr )
 	return TRUE;
 }
 
-int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions& opt_par )
+int MolSet::LoadXYZFile(std::string fname, const AtomLoadOptions& opt_par )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
@@ -870,7 +870,7 @@ int MolSet::LoadXYZFile(const char* fname, const AtomLoadOptions& opt_par )
 	return ires;
 }
 
-int MolSet::LoadHINFile(const char* fname, const AtomLoadOptions& opt_par )
+int MolSet::LoadHINFile(std::string fname, const AtomLoadOptions& opt_par )
 {
 	ifstream is_f(fname);
 	if( !is_f.good() )
@@ -1549,7 +1549,7 @@ int MolSet::LoadXMLStream (std::istream& is, const AtomLoadOptions& opt)
 }
  
  
-int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
+int MolSet::LoadMol2File(std::string fname, const AtomLoadOptions& opt)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
     std::ifstream is(fname);
@@ -1720,9 +1720,9 @@ int MolSet::LoadMol2File(const char* fname, const AtomLoadOptions& opt)
 /* Molecule File Format Generation */
 /*=================================*/
  
-int MolSet::SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt )
+int MolSet::SaveXYZRadFile(std::string filename, const AtomSaveOptions& opt )
 {
-	FILE* fout = fopen(filename,"w");
+	FILE* fout = fopen(filename.c_str(),"w");
 	if(fout == NULL) return FALSE;
 	AtomIteratorMolSet aitr(this);
 	HaAtom* aptr;
@@ -1738,7 +1738,7 @@ int MolSet::SaveXYZRadFile(const char* filename, const AtomSaveOptions& opt )
     return( True );
 }
 
-int MolSet::SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt)
+int MolSet::SaveDimerXYZFile(std::string prefix, const AtomSaveOptions& opt)
 {
 	if (!this->IsDimer())
 	{
@@ -1774,9 +1774,9 @@ int MolSet::SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt)
 		return FALSE;
 	}
 
-	std::string fname    = (std::string)prefix + ".xyz";
-	std::string fname_m1 = (std::string)prefix + "_A";
-	std::string fname_m2 = (std::string)prefix + "_B";
+	std::string fname    = prefix + ".xyz";
+	std::string fname_m1 = prefix + "_A";
+	std::string fname_m2 = prefix + "_B";
 
 	ofstream os(fname);
 	ofstream os1(fname_m1);
@@ -1831,7 +1831,7 @@ int MolSet::SaveDimerXYZFile(const char* prefix, const AtomSaveOptions& opt)
 
 static int set_string_from_istream(std::string& str, istream& is);
 
-int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions& opt )
+int MolSet::LoadHarlemFile (std::string fname, const AtomLoadOptions& opt )
 {
 //	PrintLog(" MolSet::LoadHarlemFile() pt 1 \n");
 
@@ -1854,7 +1854,7 @@ int MolSet::LoadHarlemFile (const char* fname, const AtomLoadOptions& opt )
 	{
 //		PrintLog(" MolSet::LoadHarlemFile():  Attempt to open as OLD HARLEM file \n");
 		is.close();
-		FILE* fp = fopen(fname,"r");
+		FILE* fp = fopen(fname.c_str(),"r");
 		if( fp == NULL ) return FALSE;
 		ires =  LoadOldHarlemFile(fp, opt);
 	}
@@ -2537,10 +2537,10 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 	return True;
 }
 
-int MolSet::LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt)
+int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
-    FILE* fp = fopen(fname,"r");
+    FILE* fp = fopen(fname.c_str(),"r");
 
 	if( !fp )
 	{   
@@ -2836,10 +2836,10 @@ int MolSet::LoadAmberPrepFile(const char* fname, const AtomLoadOptions& opt)
 }
 
 
-int MolSet::LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt )
+int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 {
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
-    FILE* fp = fopen(fname,"r");
+    FILE* fp = fopen(fname.c_str(),"r");
 
 	if( !fp )
 	{   
@@ -3137,7 +3137,7 @@ int MolSet::LoadAmberTopFile(const char* fname, const AtomLoadOptions& opt )
 	return TRUE;
 }
 
-int MolSet::LoadAmberOffFile(const char* fname, const AtomLoadOptions& opt )
+int MolSet::LoadAmberOffFile(std::string fname, const AtomLoadOptions& opt )
 {
 	ifstream is_f(fname);
 	if (!is_f.good())
@@ -3522,7 +3522,7 @@ int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
 	return(TRUE);
 }
 
-int MolSet::LoadNRGFile(const char* fname, const AtomLoadOptions& opt)
+int MolSet::LoadNRGFile(std::string fname, const AtomLoadOptions& opt)
 {
 	ifstream is_f(fname);
 	if (!is_f.good())
@@ -3697,14 +3697,14 @@ static int set_string_from_istream(std::string& str, istream& is)
 	}
 }
 
-int MolSet::LoadRWFMolecule(const char* fname, const AtomLoadOptions& opt )
+int MolSet::LoadRWFMolecule(std::string fname, const AtomLoadOptions& opt )
 {
 	PrintLog(" This is MolSet::LoadRWFMolecule() \n ");
 
 	HaMolecule* pMol=AddNewMolecule();	
 
 	GauFile  gfile;
-	gfile.set_file_name(fname);
+	gfile.set_file_name(fname.c_str());
 	gfile.set_gau_iunit(1);
 	gfile.set_open_mode("unknown");
     gfile.open();

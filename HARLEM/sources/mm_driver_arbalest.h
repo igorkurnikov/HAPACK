@@ -34,8 +34,7 @@ public:
 	std::vector<std::string> GetPosRestraintsDescAndList(); //!< Get Positional Restraints Description and List in Arbalest Format
 	bool SavePosRestraintsStream(std::ostream& os_desc, std::ostream& os_list); //!< Write Positional Restraints Description and List in Arbalest Format to Streams
 
-	bool SaveMolToStream(HaMolecule* pmol, std::ostream& os, std::string pos_restr_desc); //!< Save Description of a molecule to stream in Arbalest Config format
-	bool SaveStdMolToStream(std::string mol_name, std::ostream& os); //!< Save Description of a standard molecule to stream in Arbalest Config format
+	bool SaveMolToStream(std::ostream& os , int idx_mol, std::string pos_restr_desc); //!< Save Description of a molecule ( specified by 0-based index) to a stream in Arbalest Config format
 
 	int  SaveAtomTypesToStream(std::ostream& os);  //!< Save [ atomtypes ] section of GROMACS topology
 	bool SaveRestraintsToStream  (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ atoms ] section of GROMACS topology 

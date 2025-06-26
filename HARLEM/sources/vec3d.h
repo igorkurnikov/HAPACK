@@ -148,15 +148,13 @@ public:
 
 
 class PointContainer
-//! Abstract class of collections(group) of points in 3D space
+//! Abstract class of a container (group) of points in 3D space
 {
 public:
     virtual PointIterator*       GetPointIteratorPtr() = 0; //!< create Point Interator and return pointer (should be deleted when done)
     virtual PointIterator_const* GetPointIteratorPtr() const = 0; //!< create const Point Interator and return pointer (should be deleted when done)
 	virtual int GetNumPt() const = 0;                        //!< Get total of number of points in the collection
     
-	virtual int IsAtomCollection() const; //!< check if Collection consist of atoms
-	
 //  virtual std::string GetRef() const = 0;  //!< Get the text reference for a point collection
 //	virtual bool FillRef(char* buf,int mode = 0) const = 0; //!< Write text reference for a point collection to buffer 
 

@@ -279,7 +279,7 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 }
 
 
-int MolSet::SavePDBFile(const char* filename, const AtomSaveOptions& opt ) const
+int MolSet::SavePDBFile(std::string filename, const AtomSaveOptions& opt ) const
 {
 	ofstream fout(filename);
 	if (fout.fail())
@@ -301,7 +301,7 @@ std::string MolSet::SavePDBToString(const AtomSaveOptions& opt) const
 
 	
 
-int MolSet::SavePQRFile(const char* filename, const AtomSaveOptions& opt )
+int MolSet::SavePQRFile(std::string filename, const AtomSaveOptions& opt )
 {
 	bool SaveChainLetter = false;
 	if (opt.has_i("SAVE_CHAIN_LETTER") && opt.get_i("SAVE_CHAIN_LETTER") > 0) SaveChainLetter = true;
@@ -312,7 +312,7 @@ int MolSet::SavePQRFile(const char* filename, const AtomSaveOptions& opt )
 	HaAtom  *aptr;
 	int count;
 	
-	FILE* DataFile = fopen( filename, "w" );
+	FILE* DataFile = fopen( filename.c_str(), "w" );
 	if( !DataFile )
 	{
 			PrintLog("\n");
@@ -405,7 +405,7 @@ int MolSet::SavePQRFile(const char* filename, const AtomSaveOptions& opt )
     return( True );
 }
 
-int MolSet::SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt )
+int MolSet::SavePQRFreeFile(std::string filename, const AtomSaveOptions& opt )
 {
 	double x, y, z;
 	HaChain  *chain;
@@ -413,7 +413,7 @@ int MolSet::SavePQRFreeFile(const char* filename, const AtomSaveOptions& opt )
 	HaAtom  *aptr;
 	int count;
 	
-	FILE* DataFile = fopen( filename, "w" );
+	FILE* DataFile = fopen( filename.c_str(), "w" );
 	if( !DataFile )
 	{
 		PrintLog("\n");
@@ -524,7 +524,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	int imol = 0;
 	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
-		if (opt.save_only_mol >= 0 && opt.save_only_mol != imol) continue;
+		if (opt.mol_idx >= 0 && opt.mol_idx != imol) continue;
 
 		imol++;
 		std::string mol_name_full = (*mol_itr)->GetObjName();
@@ -541,7 +541,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 		}
 
 		const HaMolecule* pmol_c = *mol_itr;
-		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap();
+		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap(opt.alchemical_state);
 
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		int iat = 0;
@@ -596,13 +596,13 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				if (save_res_as_mol)
 				{
 					iat = 0;
-					at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap();
+					at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap(opt.alchemical_state);
 				}
 				
 				std::string res_name = pres->GetName(); 
 				std::string name_mod = pres->GetNameModifier();
 				
-				if (opt.save_state_b && pres->IsAlchemicalTransformationSet())
+				if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
 				{
 					res_name = pres->p_res_transform->res_name_b;
 					name_mod = "";
@@ -630,6 +630,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				{
 //					if( !p_save_opt_default->save_selected || aptr->Selected())
 //					{	
+					if (at_seqn_map.count(aptr) == 0) continue; // for Alchemical States do not save dummy atoms corresponging to atoms in different state
 
 					std::string at_name = aptr->GetName();
 					int elemno = aptr->GetElemNo();
@@ -638,10 +639,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					if (ff_symbol.empty()) ff_symbol = aptr->GetStdSymbol();
 					double at_ch = aptr->GetCharge();
 
-					if (opt.save_state_b && pres->IsAlchemicalTransformationSet())
+					if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
 					{
-						if (pres->p_res_transform->atoms_b.count(aptr) == 0) continue;
-						
 						if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
 						{
 							ff_symbol = pres->p_res_transform->at_ff_params[aptr]->ff_symbol;
@@ -691,11 +690,42 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						std::vector<shared_ptr<HaBond>>::iterator bitr     = aptr->Bonds_begin();
 						std::vector<shared_ptr<HaBond>>::iterator bitr_end = aptr->Bonds_end();
 
+						// build atom bonds corresponding to B state:
+						std::vector<shared_ptr<HaBond>> atom_bonds;
+						if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
+						{
+							
+							for (; bitr != bitr_end; bitr++)
+							{
+								const HaBond* pbond = (*bitr).get();
+								const HaAtom* aptr_b = pbond->GetFirstAtom();
+								if (aptr_b == aptr) aptr_b = pbond->GetSecondAtom();
+								if (pres->HasAtom(aptr_b)) continue;  // Atom bonds inside the residue are set from STATE_B 
+								atom_bonds.push_back(*bitr);
+							}
+							for (HaBond& bnd_b : pres->p_res_transform->bonds_b)
+							{
+								if (bnd_b.GetFirstAtom() == aptr || bnd_b.GetSecondAtom() == aptr)
+								{
+									HaAtom* aptr_b = bnd_b.GetFirstAtom();
+									if (aptr == bnd_b.GetFirstAtom()) aptr_b = bnd_b.GetSecondAtom();
+									if (at_seqn_map.count(aptr_b) == 0) continue;  //  Bond is to the dummy od STATE_A
+									shared_ptr<HaBond> ps_bnd = make_shared<HaBond>(bnd_b);
+									atom_bonds.push_back(ps_bnd);
+								}
+							}
+							bitr = atom_bonds.begin();
+							bitr_end = atom_bonds.end();
+						}
+
 						for(; bitr != bitr_end; bitr++)
 						{
 							const HaBond* pbond = (*bitr).get();
 							const HaAtom* aptr_b = pbond->GetFirstAtom();
 							if( aptr_b == aptr ) aptr_b = pbond->GetSecondAtom();
+
+							if (at_seqn_map.count(aptr_b) == 0) continue; 
+
 							std::string bond_type_str = "s";
 							if( pbond->IsDouble() ) bond_type_str = "d";
 							if( pbond->IsTriple() ) bond_type_str = "t";
@@ -706,28 +736,28 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							os << " " << i_bat << " " << bond_type_str;
 						}
 //					} // if selected 
-					os << std::endl;
+					os << "\n";
 					if (aptr->comments.size() > 0)
 					{
 						for ( std::string cmnt : aptr->comments )
 						{
-							os << ";" << cmnt << std::endl;
+							os << ";" << cmnt << "\n";
 						}
 					}
 				} // end atom
 				//if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
-				if (save_res_info)  os << "endres " << ires << std::endl;
+				if (save_res_info)  os << "endres " << ires << "\n";
 //				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << std::endl;
 			} //  end res
 		} // end chain
-		os << "endmol " << imol << std::endl;
+		os << "endmol " << imol << "\n";
 	} // end mol
 
 	if (this->comments2.size() > 0)
 	{
 		for (std::string cmt : this->comments2)
 		{
-			os << ";" << cmt << std::endl;
+			os << ";" << cmt << "\n";
 		}
 	}
 
@@ -1962,7 +1992,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 	return TRUE;
 }
 
-int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions& opt_par )
+int MolSet::SaveHarlemFile(std::string filename, const AtomSaveOptions& opt_par )
 {
 	AtomSaveOptions opt(opt_par);
 
@@ -1981,7 +2011,7 @@ int MolSet::SaveHarlemFile(const char* filename, const AtomSaveOptions& opt_par 
 }
 
 
-int MolSet::SaveHINFile(const char* filename, const AtomSaveOptions& opt )
+int MolSet::SaveHINFile(std::string filename, const AtomSaveOptions& opt )
 {
 	ofstream fout(filename);
 	if( fout.fail())
@@ -1994,7 +2024,7 @@ int MolSet::SaveHINFile(const char* filename, const AtomSaveOptions& opt )
 	return ires;
 }
 
-int MolSet::SaveNRGFile(const char* filename, const AtomSaveOptions& opt)
+int MolSet::SaveNRGFile(std::string filename, const AtomSaveOptions& opt)
 {
 	ofstream fout(filename);
 	if (fout.fail())
@@ -2007,7 +2037,7 @@ int MolSet::SaveNRGFile(const char* filename, const AtomSaveOptions& opt)
 	return ires;
 }
 
-int MolSet::SaveOldHarlemFile(const char* filename, const AtomSaveOptions& opt)
+int MolSet::SaveOldHarlemFile(std::string filename, const AtomSaveOptions& opt)
 {
 	ofstream fout(filename);
 	if( fout.fail())
@@ -2024,7 +2054,7 @@ bool MolSet::DeleteMol(HaMolecule* pMol)
 	return( DeleteAtoms(*pMol) );
 }
 
-double MolSet::FindClosestContact(HaAtom* atc1,HaAtom* atc2)
+double MolSet::FindClosestContact(HaAtom* atc1, HaAtom* atc2)
 {
 	double dist_min = 999999.0;
 	atc1 = NULL;
@@ -2354,7 +2384,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		if( aptr->GetHostMolSet() == this && !del_atoms.IsMember(aptr)) 
+		if( aptr->GetHostMolSet() == this && !del_atoms.HasAtom(aptr)) 
 		{
 			del_atoms.insert(aptr);
 		}
@@ -2400,12 +2430,12 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 
 	for ( aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom() )
 	{
-		if (del_atoms.IsMember(aptr)) continue;
+		if (del_atoms.HasAtom(aptr)) continue;
 
 		for (auto bitr_at = aptr->bonds.begin();  bitr_at != aptr->bonds.end();)
 		{
 			HaBond* bptr_at = (*bitr_at).get();
-			if (del_atoms.IsMember(bptr_at->srcatom) || del_atoms.IsMember(bptr_at->dstatom))
+			if (del_atoms.HasAtom(bptr_at->srcatom) || del_atoms.HasAtom(bptr_at->dstatom))
 			{
 				bitr_at = aptr->bonds.erase(bitr_at);
 			}
@@ -2420,7 +2450,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	for( ; bitr != Bonds.end();  )
 	{
 		 HaBond* bptr = (*bitr).get();
-		 if( del_atoms.IsMember( bptr->GetFirstAtom() ) || del_atoms.IsMember( bptr->GetSecondAtom() ) ) 
+		 if( del_atoms.HasAtom( bptr->GetFirstAtom() ) || del_atoms.HasAtom( bptr->GetSecondAtom() ) ) 
 		 {
 			 bitr = Bonds.erase(bitr);
 		 }
@@ -2434,7 +2464,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	{
 		HaAtom* at1 = (*hbitr).src;
 		HaAtom* at2 = (*hbitr).dst;
-		if( del_atoms.IsMember(at1) || del_atoms.IsMember(at2) )
+		if( del_atoms.HasAtom(at1) || del_atoms.HasAtom(at2) )
 		{
 			hbitr = HBonds.erase(hbitr);
 		}
@@ -2448,7 +2478,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	{
 		HaAtom* at1 = (*bbitr)->srcatom;
 		HaAtom* at2 = (*bbitr)->dstatom;
-		if( del_atoms.IsMember(at1) || del_atoms.IsMember(at2) )
+		if( del_atoms.HasAtom(at1) || del_atoms.HasAtom(at2) )
 		{
 			bbitr = BackboneBonds.erase(bbitr);
 		}
@@ -2616,7 +2646,7 @@ AtomIterator_const* MolSet::GetAtomIteratorPtr() const
 	return p_aitr;
 }
 
-int MolSet::IsMember(const HaAtom* aptr) const 
+int MolSet::HasAtom(const HaAtom* aptr) const 
 {
 	AtomIteratorMolSet_const aitr(this);
 	const HaAtom* aptr1 = aitr.GetFirstAtom();
@@ -4552,7 +4582,7 @@ ChemGroup* MolSet::GetChemGroupByAtom(const HaAtom* aptr)
 	
 	for(gitr=ChemGroups.begin(); gitr != ChemGroups.end(); gitr++)
 	{
-		if((*gitr).IsMember(aptr) )
+		if((*gitr).HasAtom(aptr) )
 		{
 			return( &(*gitr));
 		}

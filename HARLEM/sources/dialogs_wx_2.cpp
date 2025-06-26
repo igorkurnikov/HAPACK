@@ -396,7 +396,7 @@ void InterMolDlgWX::OnIntermolSetIntCoord(wxCommandEvent& event)
 	wxTextCtrl* int_coord_1 = (wxTextCtrl*) FindWindow(IDC_INTERMOL_INT_COORD_1);
 	wxTextCtrl* int_coord_2 = (wxTextCtrl*) FindWindow(IDC_INTERMOL_INT_COORD_2);
 
-	wxString str;
+	std::string str;
 
 	MolSet* pmset = ptr_im_mod->GetMolSet();
 	HaMolecule* pMol1 = pmset->GetMolByIdx(0);
@@ -408,8 +408,8 @@ void InterMolDlgWX::OnIntermolSetIntCoord(wxCommandEvent& event)
 			       " No molecule 1");
 		return;
 	}
-	str = int_coord_1->GetValue();
-	pMol1->SetIntCoordFromStr(str.c_str());
+	str = int_coord_1->GetValue().ToStdString();
+	pMol1->SetIntCoordFromStr(str);
 
 	if(pMol2 == NULL)
 	{
@@ -418,8 +418,8 @@ void InterMolDlgWX::OnIntermolSetIntCoord(wxCommandEvent& event)
 		return;
 	}
 
-	str = int_coord_2->GetValue();
-	pMol2->SetIntCoordFromStr(str.c_str());
+	str = int_coord_2->GetValue().ToStdString();
+	pMol2->SetIntCoordFromStr(str);
 
 	pmset->RefreshAllViews(RFApply | RFRefresh);	
 }
