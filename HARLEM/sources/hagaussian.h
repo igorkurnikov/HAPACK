@@ -51,7 +51,7 @@ public:
 	std::string GetRWFFileName() const;  //!< Get Read-Write (*.rwf) file name
 	std::string GetOutFileName() const;  //!< Get Output (*.out) file name
 
-	void SetAddKWStr( const string& add_kw_str ); //!< Set string of additional GAUSSIAN keywords
+	void SetAddKWStr( const std::string& add_kw_str ); //!< Set string of additional GAUSSIAN keywords
 
 protected:
 

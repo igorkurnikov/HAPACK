@@ -224,7 +224,7 @@ int StrDoubleMap_itr::GetNext()
 
 void StrDoubleMap::clear()
 {
-	map<std::string, double, less<std::string> >::clear();
+	std::map<std::string, double>::clear();
 }
 
 //int StrDoubleMap::count(const char* str)
@@ -234,12 +234,12 @@ void StrDoubleMap::clear()
 
 int StrDoubleMap::size()
 {
-	return map<std::string, double, less<std::string> >::size();
+	return std::map<std::string, double>::size();
 }
 
 double StrDoubleMap::GetVal(const char* str)
 {
-	map<std::string, double, less<std::string> >::iterator itr;
+	map<std::string, double>::iterator itr;
 	itr = this->find(str);
 	if(this->end() == itr) 
 	{
@@ -292,24 +292,24 @@ int StrStrMap_itr::GetNext()
 
 void StrStrMap::clear()
 {
-	map<std::string, std::string, less<std::string> >::clear();
+	std::map<std::string, std::string>::clear();
 }
 
 int StrStrMap::count(const char* str)
 {
-	return map<std::string, std::string, less<std::string> >::count(str);
+	return std::map<std::string, std::string>::count(str);
 }
 
 int StrStrMap::size()
 {
-	return map<std::string, std::string, less<std::string> >::size();
+	return std::map<std::string, std::string>::size();
 }
 
 static std::string empty_str;
 
 const char* StrStrMap::GetVal(const char* str)
 {
-	map<std::string, std::string, less<std::string> >::iterator itr;
+	std::map<std::string, std::string>::iterator itr;
 	itr = this->find(str);
 	if(this->end() == itr) 
 	{
@@ -328,12 +328,12 @@ void StrStrMap::SetVal(const char* str, const char* val)
 
 int StrIntMap::count(const char* str)
 {
-    return map<std::string, int, less<std::string> >::count((std::string)str);
+    return std::map<std::string, int>::count((std::string)str);
 }
 
 int StrIntMap::GetVal(const char* str)
 {
-	map<std::string, int, less<std::string> >::iterator itr;
+	std::map<std::string, int>::iterator itr;
 	itr = this->find(str);
 	if(this->end() == itr) 
 	{
@@ -411,7 +411,7 @@ std::string harlem::GetExtFromFileName(const std::string& fname)
 
 bool harlem::IsFloat(const std::string& str)
 {
-	istringstream is(str);
+	std::istringstream is(str);
 	double dval;
 	is >> dval;
 	if( is.fail() ) return false;

@@ -12,6 +12,7 @@
 
 #include <math.h>
 
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <wx/filename.h>
@@ -83,7 +84,7 @@ void MMForceField::Clear()
 
 void MMForceField::SetDefaultVdW()
 {
-	vector<double> ppar(2);
+	std::vector<double> ppar(2);
 	ppar[0] = 1.908;
 	ppar[1] = 0.086;
 	symb_ppar_map["XXST"] = ppar; //!< Set Default VdW parameters
@@ -107,30 +108,39 @@ int MMForceField::Init()
 	int ires; 
 	std::string file_name;
 
-	using namespace boost::filesystem;
+	// namespace fs = boost::filesystem;
+	namespace fs = std::filesystem;
  
 //	cout << "MMForceField::Init() pt 1 \n" << "Current PATH:" << current_path() << std::endl;
 
-	directory_iterator ditr( current_path() );
-	for( ; ditr != directory_iterator(); ditr++)
+	try
 	{
-		file_name = ditr->path().filename().string();
-		// PrintLog(" file_name = %s \n",file_name.c_str() );
-		if( boost::starts_with(file_name,"frcmod") || boost::ends_with(file_name, "frcmod"))
+		fs::path cur_path = fs::current_path();
+
+		fs::directory_iterator ditr(cur_path);
+		for (; ditr != fs::directory_iterator(); ditr++)
 		{
-			amber_param_files.push_back(file_name);
-			PrintLog(" Add AMBER parameter file %s in the working directory \n", file_name.c_str());
+			file_name = ditr->path().filename().string();
+			// PrintLog(" file_name = %s \n",file_name.c_str() );
+			if (boost::starts_with(file_name, "frcmod") || boost::ends_with(file_name, "frcmod"))
+			{
+				amber_param_files.push_back(file_name);
+				PrintLog(" Add AMBER parameter file %s in the working directory \n", file_name.c_str());
+			}
+			else if (boost::starts_with(file_name, "resff"))
+			{
+				resff_files.push_back(file_name);
+				PrintLog(" Add Residue Force Field file %s in the working directory \n", file_name.c_str());
+			}
+			else if (boost::starts_with(file_name, "tinker_param"))
+			{
+				tinker_param_files.push_back(file_name);
+				PrintLog(" Add Tinker Force Field Parameter file %s in the working directory \n", file_name.c_str());
+			}
 		}
-		else if( boost::starts_with(file_name,"resff") ) 
-		{
-			resff_files.push_back( file_name );
-			PrintLog(" Add Residue Force Field file %s in the working directory \n", file_name.c_str());
-		}
-		else if( boost::starts_with(file_name,"tinker_param") ) 
-		{
-			tinker_param_files.push_back( file_name );
-			PrintLog(" Add Tinker Force Field Parameter file %s in the working directory \n", file_name.c_str());
-		}
+	}
+	catch (const fs::filesystem_error& ex) {
+		PrintLog("Filesystem error while trying to read file in the working directory: %s \n",ex.what());
 	}
 
 	try
@@ -230,7 +240,7 @@ std::vector<double> MMForceField::FindPointParamFromSymbol(const std::string& ff
 	return ppar;	
 }
 
-static int StrMatch(const string& str, const string& templ_str)
+static int StrMatch(const std::string& str, const std::string& templ_str)
 {
 	if( templ_str == "X" ) 
 		return 1;
@@ -239,7 +249,7 @@ static int StrMatch(const string& str, const string& templ_str)
 	return 0;
 }
 
-vector<double> MMForceField::FindBondParamFromSymbol(const string& as1, const string& as2)
+std::vector<double> MMForceField::FindBondParamFromSymbol(const std::string& as1, const std::string& as2)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -249,7 +259,7 @@ vector<double> MMForceField::FindBondParamFromSymbol(const string& as1, const st
 	boost::trim(at_symbol_1); // boost::to_upper(at_symbol_1);
 	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
 
-	vector<double> best_match;
+	std::vector<double> best_match;
 
 	std::string label;
 
@@ -304,7 +314,7 @@ vector<double> MMForceField::FindBondParamFromSymbol(const string& as1, const st
 	return best_match;
 }
 
-vector<double> MMForceField::FindHBondParamFromSymbol(const string& as1, const string& as2)
+std::vector<double> MMForceField::FindHBondParamFromSymbol(const std::string& as1, const std::string& as2)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -313,7 +323,7 @@ vector<double> MMForceField::FindHBondParamFromSymbol(const string& as1, const s
 	boost::trim(at_symbol_1); //boost::to_upper(at_symbol_1);
 	boost::trim(at_symbol_2); //boost::to_upper(at_symbol_2);
 
-	vector<double> best_match;
+	std::vector<double> best_match;
 
 	std::string label;
 
@@ -329,7 +339,7 @@ vector<double> MMForceField::FindHBondParamFromSymbol(const string& as1, const s
 	return best_match;
 }
 
-vector<double> MMForceField::FindValAngleParamFromSymbol(const string& ats1, const string& ats2, const string& ats3)
+std::vector<double> MMForceField::FindValAngleParamFromSymbol(const std::string& ats1, const std::string& ats2, const std::string& ats3)
 {
 	std::string at_symbol_1 = ats1;
 	std::string at_symbol_2 = ats2;
@@ -341,7 +351,7 @@ vector<double> MMForceField::FindValAngleParamFromSymbol(const string& ats1, con
 	boost::trim(at_symbol_2); // boost::to_upper(at_symbol_2);
 	boost::trim(at_symbol_3); // boost::to_upper(at_symbol_3);
 	
-	vector<double> best_match;
+	std::vector<double> best_match;
 	
 	int ifound = FALSE;
 
@@ -394,7 +404,7 @@ vector<double> MMForceField::FindValAngleParamFromSymbol(const string& ats1, con
 
 }
 
-vector<double> MMForceField::FindDihedralParamFromSymbol(const string& as1, const string& as2, const string& as3, const string& as4, bool improper_flag)
+std::vector<double> MMForceField::FindDihedralParamFromSymbol(const std::string& as1, const std::string& as2, const std::string& as3, const std::string& as4, bool improper_flag)
 {
 	std::string at_symbol_1 = as1;
 	std::string at_symbol_2 = as2;
@@ -418,9 +428,9 @@ vector<double> MMForceField::FindDihedralParamFromSymbol(const string& as1, cons
 	std::string ats_3;
 	std::string ats_4;
 
-	vector<double> best_match;
+	std::vector<double> best_match;
 
-	map<std::string, vector<double>>  *ptr_dih_map;
+	std::map<std::string, std::vector<double>>  *ptr_dih_map;
 
 	if(improper_flag)
 		ptr_dih_map = &impdih_param_map;
@@ -428,7 +438,7 @@ vector<double> MMForceField::FindDihedralParamFromSymbol(const string& as1, cons
 		ptr_dih_map = &dih_param_map;
 
 	std::string label;
-	map<std::string,vector<double>,less<std::string> >::iterator mitr;
+	std::map<std::string, std::vector<double>>::iterator mitr;
 
 	int ifound = FALSE;
  	label = at_symbol_1 + "-" + at_symbol_2 + "-" + at_symbol_3 + "-" + at_symbol_4;
@@ -563,7 +573,7 @@ vector<double> MMForceField::FindDihedralParamFromSymbol(const string& as1, cons
 const int ASCII_SPACE = 32;
 const int ASCII_MINUS = 45;
 
-static void get_str_from_stream(istream& is,std::string& str)
+static void get_str_from_stream(std::istream& is,std::string& str)
 {
 	int ich;
 	str.clear();
@@ -608,7 +618,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 	
 		read_mode = READ_ATOM_MASSES;
 
-		multimap<std::string, std::string, less<std::string> >vdw_synonyms;
+		std::multimap<std::string, std::string>vdw_synonyms;
 		int i;
 
 		for(;;)
@@ -675,7 +685,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> eq_dist;
 				if(is.fail()) throw std::runtime_error("Error Reading Bond Params");
 
-				vector<double> bpar(2);
+				std::vector<double> bpar(2);
 				bpar[0] = eq_dist;
 				bpar[1] = fconst;
 				std::string label = at1s + "-" + at2s;
@@ -709,7 +719,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> eq_ang;
 				if(is.fail()) throw std::runtime_error("Error Reading Valence Angle Params");
 				
-				vector<double> vpar(2);
+				std::vector<double> vpar(2);
 				vpar[0] = eq_ang;
 				vpar[1] = fconst;
 				std::string label = at1s + "-" + at2s + "-" + at3s;
@@ -783,7 +793,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 					tpl[idx] = idiv_fc;      idx++;
 				}
 
-				vector<double> tpar(idx);
+				std::vector<double> tpar(idx);
 				for(int i = 0; i< idx; i++)
 				{
 					tpar[i] = tpl[i];
@@ -839,7 +849,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 
 				if(is.fail()) throw std::runtime_error("Error Reading Improper Dihedral Angle Params");
 				
-				vector<double> tpar(4);
+				std::vector<double> tpar(4);
 
 				tpar[0] = fabs(nperiod);
 				tpar[1] = ph;
@@ -874,7 +884,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 					std::string ats2;
 					is >> ats2;
 					if( is.fail() ) break;
-					multimap<std::string,std::string, less<std::string> >::value_type  str_pair(ats1,ats2);
+					std::multimap<std::string,std::string>::value_type  str_pair(ats1,ats2);
 					vdw_synonyms.insert(str_pair);
 				}
 			}
@@ -900,7 +910,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				is >> ene;
 				if( is.fail() ) throw std::runtime_error("Error Reading VdW parameters");
 				
-				vector<double> ppar(2);
+				std::vector<double> ppar(2);
 				ppar[0] = rad;
 				ppar[1] = ene;
 
@@ -909,7 +919,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 				symb_ppar_map[ats1] = ppar;
 				//PrintLog("%s %f\n",ats1.c_str(),rad);
 
-				multimap<std::string, std::string, less<std::string> >::iterator syn_itr1, syn_itr2;
+				std::multimap<std::string, std::string>::iterator syn_itr1, syn_itr2;
 				syn_itr1 = vdw_synonyms.lower_bound(ats1);
 				syn_itr2 = vdw_synonyms.upper_bound(ats1);
 				if(syn_itr1 == vdw_synonyms.end())
@@ -941,7 +951,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 
 				if( is.fail() ) throw std::runtime_error("Error Reading H bond parameters");
 				
-				vector<double> hpar(3);
+				std::vector<double> hpar(3);
 				hpar[0] = acoef;
 				hpar[1] = bcoef;
 				hpar[2] = n; 

@@ -56,7 +56,7 @@ public:
 	
 	int CurToken;                //!< the integer value of the token in Keywords map
 
-	deque<std::string> cmd_history;  //!< History of commands entered
+	std::deque<std::string> cmd_history;  //!< History of commands entered
 	static int max_history_save;
 	int cur_history_cmd;
 	

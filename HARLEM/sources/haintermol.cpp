@@ -340,7 +340,7 @@ HaInterMolMod::CalcElStaticInter()
 	return el_inter_ene;
 }
 
-double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
+double HaInterMolMod::CalcContElectrEne(std::vector<AtomContainer*> inter_groups)
 {
 	if(interact_groups.size() < 2)
 	{
@@ -419,12 +419,12 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 		}
 	}
 
-	vector<HaResidue*> res_list_tot;
+	std::vector<HaResidue*> res_list_tot;
 	int nres = pmset->GetNRes();
 	res_list_tot.reserve(nres);
 
-	map<void*,double, less<void*> > pk_complex;
-    map<void*,double, less<void*> > pk_part;
+	std::map<void*,double> pk_complex;
+	std::map<void*,double> pk_part;
 
 	HaResidue* pres;
 
@@ -500,7 +500,7 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 	{
 		for( igrp = 0; igrp < ngrp; igrp++)
 		{
-			vector<HaResidue*> res_list_part;
+			std::vector<HaResidue*> res_list_part;
 			res_list_part.reserve(nres);
 
 			AtomIteratorGen as_itr(inter_groups[igrp]);
@@ -565,7 +565,7 @@ double HaInterMolMod::CalcContElectrEne(vector<AtomContainer*> inter_groups)
 
 	if(this->compute_pk) // Compute activation energy associated with pK shifts
 	{
-		map<void*,double, less<void*> >::iterator sitr;
+		std::map<void*,double>::iterator sitr;
    
 		FILE* fapp = fopen("pks_inter_mol.dat","a");
 
@@ -3361,8 +3361,8 @@ return TRUE;
 int
 HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 {
-	fstream eigen;
-	eigen.open("eigenvector.dat", ios::out );
+	std::fstream eigen;
+	eigen.open("eigenvector.dat", std::ios::out );
 
 	if(module_to_init_flag)
 	{
@@ -3486,10 +3486,10 @@ HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 HaMat_double
 HaInterMolMod::Hessian(int energy_type, VecPtr ptmol)
 {
-	fstream eigen;
-	eigen.open("eigenvector.dat", ios::out );
-	fstream check;
-	check.open("check_theta.dat", ios::out|ios::app);
+	std::fstream eigen;
+	eigen.open("eigenvector.dat", std::ios::out );
+	std::fstream check;
+	check.open("check_theta.dat", std::ios::out| std::ios::app);
 
 
 	MolSet* pmset = GetMolSet();
@@ -4135,11 +4135,11 @@ HaInterMolMod::Jacobian(int energy_type, VecPtr ptmol)
 
 int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 {
-	fstream enefile;
-	enefile.open("minimizedenergy.dat", ios::out|ios::app );
+	std::fstream enefile;
+	enefile.open("minimizedenergy.dat", std::ios::out| std::ios::app );
 	
-	fstream stepfile;
-	stepfile.open("step_vector.dat", ios::out|ios::app );
+	std::fstream stepfile;
+	stepfile.open("step_vector.dat", std::ios::out| std::ios::app );
 	
 	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
@@ -4221,7 +4221,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 		else
 		{
 			sprintf(buf,"cur= %4.6f ene_prev= %4.6f", ene_cur, ene_prev);
-			enefile << buf << endl ;
+			enefile << buf << std::endl ;
 			if (istep >0)
 			{
 				delta_ene = fabs(ene_cur - ene_prev);
@@ -4284,9 +4284,9 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 					sprintf(buf,"%2.3f ", hessian.GetVal_idx0(i,j) );
 					stepfile << buf ;
 				}
-				stepfile << endl ;
+				stepfile << std::endl ;
 			}
-			stepfile << "H^-1" <<endl ;
+			stepfile << "H^-1" << std::endl ;
 			
 			HaMat_double::mat_inverse(hessian_minus_one);
 			for( i= 0; i < n_size; i++)
@@ -4296,7 +4296,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 					sprintf(buf,"%2.3f ", hessian_minus_one.GetVal_idx0(i,j) );
 					stepfile << buf ;
 				}
-				stepfile << endl ;
+				stepfile << std::endl ;
 			}
 			
 			double len_vec=0;
@@ -4314,9 +4314,9 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 				step_vector(i) *= len_vec;
 				//			PrintLog("step_vector(%d) = %2.3f \n", i, step_vector(i) );
 				sprintf(buf,"step_vector(%d)= %4.6f ,sqrt %4.6f", i, step_vector(i),sqrt(len_vec));
-				stepfile << buf << endl ;
+				stepfile << buf << std::endl ;
 			}
-			stepfile << endl ;
+			stepfile << std::endl ;
 			double stpmax = 1.0;
 			HaVec_double g;
 			g.newsize(n_size);
@@ -4327,12 +4327,12 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 				g[i] = jacobian[i];
 				p[i] = step_vector(i+1);
 			}
-			fstream file;
-				file.open("gradient.dat", ios::out|ios::app );
+			std::fstream file;
+				file.open("gradient.dat", std::ios::out| std::ios::app );
 				for( i= 0; i < n_size; i++)
 				{
 					sprintf(buf,"My i(%d) g = %2.3f p= %2.3f",i, g[i],p[i]);
-					file << buf << endl ;
+					file << buf << std::endl ;
 				}
 				file.close();
 			

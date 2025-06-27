@@ -550,7 +550,7 @@ int DihedralAngleCoord::FindMovingAtoms()
 	
 	moving_atoms.clear();
 
-	set<HaAtom*> found_atoms;
+	std::set<HaAtom*> found_atoms;
 
 	HaAtom* aptr;
 	AtomGroup bonded_atoms;
@@ -1479,7 +1479,7 @@ int ZMatCrd::SaveToStream(std::ostream& os, const harlem::HashMap* popt_par )
 //	PrintLog(" ZMatCrd::SaveToStream() pt 1 \n");
 	const ZMatSaveOptions* popt = dynamic_cast<const ZMatSaveOptions*>(popt_par);
 		
-	std::auto_ptr<ZMatSaveOptions> popt_auto( popt == NULL ? (ZMatSaveOptions*) opt_save_default.clone(): (ZMatSaveOptions*) popt->clone() );
+	std::unique_ptr<ZMatSaveOptions> popt_auto( popt == NULL ? (ZMatSaveOptions*) opt_save_default.clone(): (ZMatSaveOptions*) popt->clone() );
 	popt = popt_auto.get();
 
 	char buf[256];
@@ -1717,7 +1717,7 @@ int ZMatCrd::SaveXMLToStream(std::ostream& os, const harlem::HashMap* popt_arg )
 
 	const harlem::SaveOptions* popt = dynamic_cast<const harlem::SaveOptions*>(popt_arg);
 
-	std::auto_ptr<harlem::SaveOptions>popt_auto( popt == NULL ? new harlem::SaveOptions() : (harlem::SaveOptions*) popt->clone() );
+	std::unique_ptr<harlem::SaveOptions>popt_auto( popt == NULL ? new harlem::SaveOptions() : (harlem::SaveOptions*) popt->clone() );
 	popt = popt_auto.get();
 
 	bool save_header = popt->ToSaveHeader();
@@ -1752,7 +1752,7 @@ int ZMatCrd::LoadXMLNode( rapidxml::xml_node<>* node_zmat, const harlem::HashMap
 
 		const ZMatLoadOptions* popt = dynamic_cast<const ZMatLoadOptions*>(popt_arg);
 
-		std::auto_ptr<ZMatLoadOptions> popt_auto( popt == NULL ? new ZMatLoadOptions() : (ZMatLoadOptions*) popt->clone() );
+		std::unique_ptr<ZMatLoadOptions> popt_auto( popt == NULL ? new ZMatLoadOptions() : (ZMatLoadOptions*) popt->clone() );
 		popt = popt_auto.get();
 
 		xml_attribute<>* attr;
@@ -2043,7 +2043,7 @@ int ZMatCrd::CalcBGMatr()
 		formg_gs_( &ncrd,ib_mat.v(),b_mat.v(),g_mat.v() );
 
 		int ires = HaMat_double::mat_inverse( g_mat ); 
-		if( !ires ) throw runtime_error(" Failed to invert G-matrix");
+		if( !ires ) throw std::runtime_error(" Failed to invert G-matrix");
 
 	}
 	catch( const std::exception& ex )

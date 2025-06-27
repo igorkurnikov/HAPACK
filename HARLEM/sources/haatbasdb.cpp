@@ -326,7 +326,7 @@ HaAtBasDB::Init321G()
   
 for(int i=0; i < 12; i++)
 {
-	istrstream is(at_str[i]);
+	std::istrstream is(at_str[i]);
 	GauAtomBasis  tmpbas;
 	tmpbas.SetBasName("3-21G");
     tmpbas.SetFromGaussianInp(is);
@@ -593,7 +593,7 @@ HaAtBasDB::Init321PPG()
   
 for(int i=0; i < 12; i++)
 {
-	istrstream is(at_str[i]);
+	std::istrstream is(at_str[i]);
 	GauAtomBasis  tmpbas;
 	tmpbas.SetBasName("3-21++G");
     tmpbas.SetFromGaussianInp(is);
@@ -628,9 +628,9 @@ bool HaAtBasDB::InitHay1_dz()
 		patb= Extract(bname_ref,lat_ids[i]);
 		if( patb == NULL)
 		{
-			cerr << " HaAtBasDB::InitHay1_dz() " << endl; 
-			cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
-				 << lat_ids[i] << endl;
+			std::cerr << " HaAtBasDB::InitHay1_dz() " << std::endl; 
+			std::cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
+				 << lat_ids[i] << std::endl;
 			continue;
 	
 		}
@@ -670,7 +670,7 @@ const char* Fe_str=
         
 if(1)
 { 
-	istrstream is(Fe_str);
+	std::istrstream is(Fe_str);
     tmpbas.SetFromGaussianInp(is);
 }
 	this->AddAtomBasis(tmpbas);
@@ -700,7 +700,7 @@ const char* Ru_str=
 
 if(1)
 { 
-	istrstream is(Ru_str);
+	std::istrstream is(Ru_str);
  	tmpbas.SetFromGaussianInp(is);
 }
 	this->AddAtomBasis(tmpbas);
@@ -734,9 +734,9 @@ bool HaAtBasDB::InitHay1_dzPP()
 		patb= Extract(bname_ref,lat_ids[i]);
 		if( patb == NULL)
 		{
-			cerr << " HaAtBasDB::InitHay1_dzPP() " << endl; 
-			cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
-				 << lat_ids[i] << endl;
+			std::cerr << " HaAtBasDB::InitHay1_dzPP() " << std::endl; 
+			std::cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
+				 << lat_ids[i] << std::endl;
 			continue;
 	
 		}
@@ -755,9 +755,9 @@ bool HaAtBasDB::InitHay1_dzPP()
 		patb= Extract("HAY1_DZ", met_ids[i]);
 		if( patb == NULL)
 		{
-			cerr << " HaAtBasDB::InitHay1_dzPP() " << endl; 
-			cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
-				 << met_ids[i] << endl;
+			std::cerr << " HaAtBasDB::InitHay1_dzPP() " << std::endl; 
+			std::cerr << " Can't Find in DB basis " << bname_ref << " for atom " 
+				 << met_ids[i] << std::endl;
 			continue;
 	
 		}
@@ -774,7 +774,7 @@ bool HaAtBasDB::InitHay1_dzPP()
 static char bufl[120];
 
 static char* 
-get_Dalton_Bas_file_line(ifstream & is)
+get_Dalton_Bas_file_line(std::ifstream & is)
 {
 	for(;;)
 	{
@@ -815,7 +815,7 @@ bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & 
         PrintLog(" Full Name of the basis file: %s \n",BName_full.c_str());
         
 //        BName_full = "/usr/local/lib/harlem/basis/3-21G";	
-	ifstream is(BName_full.c_str());
+		std::ifstream is(BName_full.c_str());
 	if(is.fail())
 	{
 		PrintLog("Error in HaAtBasDB::SetFromDaltonFile \n");
@@ -833,7 +833,7 @@ bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & 
 		// Find the beginning of first Atom Basis description
 		if(*buf == 'A' || *buf == 'a')
 		{
-			istrstream str(++buf);
+			std::istrstream str(++buf);
 			int iat;
 			str >> iat;	
 			std::string Atomlbl_2=HaAtom::GetStdSymbolElem(iat);
@@ -860,7 +860,7 @@ bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & 
 		if(*buf == 'A' || *buf == 'a' )
 			break; // start of the next atom basis description
 		
-		istrstream str2(buf);
+		std::istrstream str2(buf);
 		int ng; int maxexp; int nsh;
 		
 		str2 >> maxexp >> nsh;
@@ -875,7 +875,7 @@ bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & 
 		for(iexp=1; iexp <= maxexp; iexp++)
 		{
 			buf=get_Dalton_Bas_file_line(is);
-			istrstream istr3(buf);
+			std::istrstream istr3(buf);
 			istr3 >> exp(iexp);
 			
 			// read subshell gaussian expansion coefficients:
@@ -885,8 +885,8 @@ bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & 
 				istr3 >> cf(iexp,ms);
 				if(istr3.fail())
 				{
-					cerr << " Error in HaAtBasDB::SetFromDaltonFile() " << endl;
-					cerr << " Setting Basis " << BName << " for Atom " << Atomlbl << endl;
+					std::cerr << " Error in HaAtBasDB::SetFromDaltonFile() " << std::endl;
+					std::cerr << " Setting Basis " << BName << " for Atom " << Atomlbl << std::endl;
 					return false;
 				}
 			}

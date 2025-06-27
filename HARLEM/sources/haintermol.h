@@ -63,7 +63,7 @@ public:
 
 	double CalculateMMEnergy(); //!< Calculate Intermolecular Energy using Molecular Mechanics model
 	double CalcElStaticInter(); //!< Calculate Intermolecular Electrostatic Interactions between molecules using Continuum dielectric approach  	                          
-    double CalcContElectrEne(vector<AtomContainer*> inter_groups); //!< Calculate electrostatic energy beween two groups of atoms	
+    double CalcContElectrEne(std::vector<AtomContainer*> inter_groups); //!< Calculate electrostatic energy beween two groups of atoms	
    
 	bool CalcEffInterEne();    //!< Compute effective interaction energy including ET terms
 	
@@ -94,7 +94,7 @@ public:
 	InterMolRepExchSimulator* p_rex_sim;       //!< Replica Exchange Simulator
 	ProtonRedoxMod*           p_prot_rdx_mod;  //!< Protonation and Redox equilibrium module 
 
-	vector<AtomContainer*>  interact_groups; //!< Interacting Atom Groups partitioning Molecular Se 
+	std::vector<AtomContainer*>  interact_groups; //!< Interacting Atom Groups partitioning Molecular Se 
 
 	HaField3D el_pot_field;   //!< Electrostatic field around the immobile molecule
 	HaField3D vdw_pot_field;  //!< Effective VdW 'repulsion' field around the immobile molecule  

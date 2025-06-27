@@ -215,7 +215,7 @@ dot2(const HaRPAvec & left, const HaRPAvec & right)
 }
 
 HaVec_double
-dot2(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right)
+dot2(const std::vector<HaRPAvec> & left, const std::vector<HaRPAvec> & right)
 {
 	int nvec=left.size();
 	assert(nvec == right.size());
@@ -227,20 +227,19 @@ dot2(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right)
 	return sv;
 }
 
-double
-norm2(const HaRPAvec & RPAv)
+double norm2(const HaRPAvec & RPAv)
 {
 	return(dot2(RPAv,RPAv));
 }
 
 HaVec_double
-norm2(const vector<HaRPAvec> & RPAv_arr)
+norm2(const std::vector<HaRPAvec> & RPAv_arr)
 {
 	return(dot2(RPAv_arr,RPAv_arr));
 }
 
 HaMat_double
-SProd(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right)
+SProd(const std::vector<HaRPAvec> & left, const std::vector<HaRPAvec> & right)
 {
 	int nvec1=left.size();
 	int nvec2=right.size();
@@ -259,9 +258,9 @@ SProd(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right)
 }
 
 HaVec_double
-SProd(const HaRPAvec & RPAv, const vector<HaRPAvec> & RPAv_arr2)
+SProd(const HaRPAvec & RPAv, const std::vector<HaRPAvec> & RPAv_arr2)
 {
-	vector<HaRPAvec> RPAv_arr;
+	std::vector<HaRPAvec> RPAv_arr;
 	RPAv_arr.push_back(RPAv);
 	HaMat_double ss_mat=SProd(RPAv_arr,RPAv_arr2);
 	HaVec_double ss_vec(ss_mat.num_rows());
@@ -271,8 +270,7 @@ SProd(const HaRPAvec & RPAv, const vector<HaRPAvec> & RPAv_arr2)
 }
 
 
-HaRPAvec 
-operator*(const double factor, const HaRPAvec & RPAv)
+HaRPAvec operator*(const double factor, const HaRPAvec & RPAv)
 {
 	HaRPAvec RPAv_new(RPAv);
 	mat_scale(RPAv_new.Z_mat,RPAv_new.Z_mat,factor);
@@ -280,10 +278,9 @@ operator*(const double factor, const HaRPAvec & RPAv)
 	return RPAv_new;
 }
 
-vector<HaRPAvec> 
-operator*(const HaVec_double & vfactor, const vector<HaRPAvec> & RPAv_arr)
+std::vector<HaRPAvec> operator*(const HaVec_double & vfactor, const std::vector<HaRPAvec> & RPAv_arr)
 {
-	vector<HaRPAvec> RPAv_arr_new(RPAv_arr);
+	std::vector<HaRPAvec> RPAv_arr_new(RPAv_arr);
 	int nvec=RPAv_arr.size();
 	for(int iv=0; iv < nvec; iv++)
 	{
@@ -295,8 +292,7 @@ operator*(const HaVec_double & vfactor, const vector<HaRPAvec> & RPAv_arr)
  
 
 
-HaRPAvec
-operator+(HaRPAvec & left, HaRPAvec & right)
+HaRPAvec operator+(HaRPAvec & left, HaRPAvec & right)
 {
 	assert(left.GetpHost() != NULL);
 	assert(left.GetpHost() == right.GetpHost() );
@@ -306,14 +302,13 @@ operator+(HaRPAvec & left, HaRPAvec & right)
 	return RPAv;
 }
 
-vector<HaRPAvec>
-operator+(vector<HaRPAvec> & left, vector<HaRPAvec> & right)
+std::vector<HaRPAvec> operator+(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right)
 {
 	int nvec=left.size();
 	assert(nvec > 0);
 	assert(nvec == right.size());
 	assert(left[0].GetpHost() == right[0].GetpHost());
-	vector<HaRPAvec> RPAv_arr(left);
+	std::vector<HaRPAvec> RPAv_arr(left);
 	for(int iv=0; iv < nvec; iv++)
 	{
 		mat_add(RPAv_arr[iv].Z_mat,RPAv_arr[iv].Z_mat, right[iv].Z_mat);
@@ -323,8 +318,7 @@ operator+(vector<HaRPAvec> & left, vector<HaRPAvec> & right)
 }
 
 
-HaRPAvec
-operator-(HaRPAvec & left, HaRPAvec & right)
+HaRPAvec operator-(HaRPAvec & left, HaRPAvec & right)
 {
 	assert(left.GetpHost() != NULL);
 	assert(left.GetpHost() == right.GetpHost() );
@@ -334,14 +328,13 @@ operator-(HaRPAvec & left, HaRPAvec & right)
 	return RPAv;
 }
 
-vector<HaRPAvec>
-operator-(vector<HaRPAvec> & left, vector<HaRPAvec> & right)
+std::vector<HaRPAvec> operator-(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right)
 {
 	int nvec=left.size();
 	assert(nvec > 0);
 	assert(nvec == right.size());
 	assert(left[0].GetpHost() == right[0].GetpHost());
-	vector<HaRPAvec> RPAv_arr(left);
+	std::vector<HaRPAvec> RPAv_arr(left);
 	for(int iv=0; iv < nvec; iv++)
 	{
 		mat_diff(RPAv_arr[iv].Z_mat,RPAv_arr[iv].Z_mat, right[iv].Z_mat);
@@ -350,8 +343,7 @@ operator-(vector<HaRPAvec> & left, vector<HaRPAvec> & right)
 	return RPAv_arr;
 }
 
-HaRPAvec &
-HaRPAvec::operator+=(HaRPAvec & right)
+HaRPAvec & HaRPAvec::operator+=(HaRPAvec & right)
 {
 	assert(this->GetpHost() != NULL);
 	assert(this->GetpHost() == right.GetpHost() );
@@ -361,8 +353,7 @@ HaRPAvec::operator+=(HaRPAvec & right)
 }
 
 
-HaRPAvec &
-HaRPAvec::operator-=(HaRPAvec & right)
+HaRPAvec & HaRPAvec::operator-=(HaRPAvec & right)
 {
 	assert(this->GetpHost() != NULL);
 	assert(this->GetpHost() == right.GetpHost() );
@@ -372,8 +363,7 @@ HaRPAvec::operator-=(HaRPAvec & right)
 }
 
 
-vector<HaRPAvec> &
-operator+=(vector<HaRPAvec> & left,vector<HaRPAvec> & right)
+std::vector<HaRPAvec> & operator+=(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right)
 {
 	int nvec=left.size();
 	assert(nvec > 0);
@@ -388,8 +378,7 @@ operator+=(vector<HaRPAvec> & left,vector<HaRPAvec> & right)
 	return left;
 }
 
-vector<HaRPAvec> &
-operator-=(vector<HaRPAvec> & left,vector<HaRPAvec> & right)
+std::vector<HaRPAvec> & operator-=(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right)
 {
 	int nvec=left.size();
 	assert(nvec > 0);

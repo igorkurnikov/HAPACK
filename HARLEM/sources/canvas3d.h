@@ -155,10 +155,10 @@ public:
 
 	static IntIntMap cval_idx_map;        //!< Map of main color values as ColorVal numbers to indecies in Lut[] array
 
-	static std::map<ColorVal,std::string, less<ColorVal> >    col_name_map; //!< map of color names  from color values
-	static std::map<std::string, ColorVal,less<std::string> > name_col_map; //!< map of color values from color names
+	static std::map<ColorVal,std::string>  col_name_map; //!< map of color names  from color values
+	static std::map<std::string, ColorVal> name_col_map; //!< map of color values from color names
 	
-	static vector<ColorVal> used_colors;  //!< Array of used(initiated) colors
+	static std::vector<ColorVal> used_colors;  //!< Array of used(initiated) colors
 	static int color_names_init_flag;  //!< flag to indicate that color names have been initiated
 
  static void GetRGBbyCIdxFloat(int cidx, float *fcol)

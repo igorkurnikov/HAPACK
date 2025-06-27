@@ -1499,7 +1499,7 @@ static int write_string_array_chuncks(std::ostream& os, StrVec& str_vec,
 		loc_idx += field_len;
 		if( loc_idx >= out_len )
 		{
-			os << buf_str.c_str() << endl;
+			os << buf_str.c_str() << std::endl;
 			loc_idx = 0;
 		}
 	}
@@ -1511,10 +1511,10 @@ void MMDriverAmber::SetAtomCrdToInternalArrays()
 {
 	if(p_amber_model->natom != p_mm_model->Atoms.size() )
 	{
-		ostrstream sstr;
-		sstr << "Error in MMDriverAmber::SetAtomCrdToInternalArrays()" << endl;
+		std::ostrstream sstr;
+		sstr << "Error in MMDriverAmber::SetAtomCrdToInternalArrays()" << std::endl;
 		sstr << " natom = " << p_amber_model->natom << "not equal Atoms.size() = "; 
-		sstr <<	p_mm_model->Atoms.size() << endl;
+		sstr <<	p_mm_model->Atoms.size() << std::endl;
 		throw sstr.str();
 	}
 	int i;
@@ -1562,10 +1562,10 @@ void MMDriverAmber::GetAtomCrdFromInternalArrays()
 {
 	if(p_amber_model->natom != p_mm_model->Atoms.size() )
 	{
-		ostrstream sstr;
-		sstr << "Error in MMDriverAmber::GetAtomCrdFromInternalArrays()" << endl;
+		std::ostrstream sstr;
+		sstr << "Error in MMDriverAmber::GetAtomCrdFromInternalArrays()" << std::endl;
 		sstr << " natom = " << p_amber_model->natom << "not equal Atoms.size() = "; 
-		sstr <<	p_mm_model->Atoms.size() << endl;
+		sstr <<	p_mm_model->Atoms.size() << std::endl;
 		throw std::runtime_error(sstr.str());
 	}
 	int i;
@@ -2362,7 +2362,7 @@ int MMDriverAmber::SaveAmberInpFile()
 		
 	if( p_mm_model->DistConstraints.size() > 0)
 	{	
-		vector<AtomContact>::iterator ptr_itr; 
+		std::vector<AtomContact>::iterator ptr_itr;
 		for(ptr_itr = p_mm_model->DistConstraints.begin();ptr_itr != p_mm_model->DistConstraints.end();ptr_itr++)
 		{
 		    fprintf(fp, " &rst ");
@@ -2472,7 +2472,7 @@ int MMDriverAmber::SaveAmberTopFile()
 {
 	if(p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
 	InitCtrlParams();
-	ofstream os(amber_top_file.c_str());
+	std::ofstream os(amber_top_file.c_str());
 	if(os.fail()) 
 	{
 		PrintLog("Error in MMDriverAmber::SaveAmberTopFile() \n");
@@ -2483,7 +2483,7 @@ int MMDriverAmber::SaveAmberTopFile()
 }
 
 
-int MMDriverAmber::SaveAmberTopToStream(ostream& os)
+int MMDriverAmber::SaveAmberTopToStream(std::ostream& os)
 {
 	if(os.fail()) return FALSE;
 
@@ -3071,12 +3071,12 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
 		os << std::setw(8) << p_amber_model->n_bond_amoeba_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_REGULAR_BOND_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_REGULAR_BOND_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->bond_amoeba_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_REGULAR_BOND_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_REGULAR_BOND_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->bond_amoeba_params[1],5,FLOAT_E16_8);
 
 		os << "%FLAG AMOEBA_REGULAR_BOND_FTAB_DEGREE" << std::endl;
@@ -3100,12 +3100,12 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_urey_bond_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_UREY_BRADLEY_BOND_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_UREY_BRADLEY_BOND_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->bond_urey_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_UREY_BRADLEY_BOND_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_UREY_BRADLEY_BOND_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->bond_urey_params[1],5,FLOAT_E16_8);
 
 		os << "%FLAG AMOEBA_UREY_BRADLEY_BOND_FTAB_DEGREE" << std::endl;
@@ -3130,12 +3130,12 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_angle_amoeba_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_REGULAR_ANGLE_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_REGULAR_ANGLE_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->angle_amoeba_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_REGULAR_ANGLE_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_REGULAR_ANGLE_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->angle_amoeba_params[1],5,FLOAT_E16_8);
 
         os << "%FLAG AMOEBA_REGULAR_ANGLE_FTAB_DEGREE" << std::endl;
@@ -3159,12 +3159,12 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_angle_amoeba_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_TRIGONAL_ANGLE_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_TRIGONAL_ANGLE_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->angle_amoeba_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_TRIGONAL_ANGLE_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_TRIGONAL_ANGLE_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->angle_amoeba_params[1],5,FLOAT_E16_8);
 
         os << "%FLAG AMOEBA_TRIGONAL_ANGLE_FTAB_DEGREE" << std::endl;
@@ -3188,8 +3188,8 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_opbend_angles_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_OPBEND_ANGLE_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_OPBEND_ANGLE_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->opbend_angle_params,5,FLOAT_E16_8);
             
         os << "%FLAG AMOEBA_OPBEND_ANGLE_FTAB_DEGREE" << std::endl;
@@ -3213,16 +3213,16 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_tors_amoeba_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_TORSION_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_TORSION_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->tors_amoeba_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_TORSION_PERIODICITY" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_TORSION_PERIODICITY" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->tors_amoeba_params[1],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_TORSION_PHASE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_TORSION_PHASE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->tors_amoeba_params[2],5,FLOAT_E16_8);
 
 		os << "%FLAG AMOEBA_PI_TORSION_NUM_LIST" << std::endl;
@@ -3238,16 +3238,16 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_pi_torsions_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_PI_TORSION_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_PI_TORSION_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->pi_tors_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_PI_TORSION_PERIODICITY" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_PI_TORSION_PERIODICITY" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->pi_tors_params[1],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_PI_TORSION_PHASE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_PI_TORSION_PHASE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->pi_tors_params[2],5,FLOAT_E16_8);
 
 		os << "%FLAG AMOEBA_STRETCH_BEND_NUM_LIST" << std::endl;
@@ -3263,20 +3263,20 @@ int MMDriverAmber::SaveAmberTopToStream(ostream& os)
         os << "%FORMAT(I8)" << std::endl;
         os << std::setw(8) << p_amber_model->n_stretch_bend_params << std::endl;
 
-		os << "%FLAG " << "AMOEBA_STRETCH_BEND_FORCE_CONSTANT" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_STRETCH_BEND_FORCE_CONSTANT" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->str_bend_params[0],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_STRETCH_BEND_ANGLE_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_STRETCH_BEND_ANGLE_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->str_bend_params[1],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_STRETCH_BEND_BOND1_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_STRETCH_BEND_BOND1_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->str_bend_params[2],5,FLOAT_E16_8);
 
-		os << "%FLAG " << "AMOEBA_STRETCH_BEND_BOND2_EQUIL_VALUE" << endl;
-        os << "%FORMAT(5E16.8)" << endl;
+		os << "%FLAG " << "AMOEBA_STRETCH_BEND_BOND2_EQUIL_VALUE" << std::endl;
+        os << "%FORMAT(5E16.8)" << std::endl;
 		write_double_array_chuncks(os,p_amber_model->str_bend_params[3],5,FLOAT_E16_8);
 
 		os << "%FLAG AMOEBA_TORSION_TORSION_NUM_LIST" << std::endl;
@@ -3579,7 +3579,7 @@ int MMDriverAmber::CloseOutputFiles()
 int MMDriverAmber::SaveAmberRstFile(const char* fname)
 {
 	char buf[256];
-	ofstream os(fname);
+	std::ofstream os(fname);
 
 	if(os.fail())
 	{	
@@ -6295,28 +6295,28 @@ void MMDriverAmber::PMEForce(int atm_cnt, HaVec_double& crd, HaVec_double& vel, 
 	int n3 = atm_cnt*3;
 	if(crd.size() != n3) 
 	{
-		ostrstream sstr; 
+		std::ostrstream sstr;
 		sstr << "Error in MMDriverAmber::PMEForce() \n";
 		sstr << " crd.size() = " << crd.size() << " neq  3*natom = \n" << n3;
 		throw sstr.str();
 	}
 	if(frc.size() != n3) 
 	{
-		ostrstream sstr; 
+		std::ostrstream sstr;
 		sstr << "Error in MMDriverAmber::PMEForce() \n";
 		sstr << " frc.size() = " << frc.size() << " neq  3*natom = \n" << n3;
 		throw sstr.str();
 	}
 	if(vel.size() != n3) 
 	{
-		ostrstream sstr; 
+		std::ostrstream sstr;
 		sstr << "Error in MMDriverAmber::PMEForce() \n";
 		sstr << " vel.size() = " << vel.size() << " neq  3*natom = \n" << n3;
 		throw sstr.str();
 	}
 	if(sys_info.size() != SI_CNT) 
 	{
-		ostrstream sstr; 
+		std::ostrstream sstr;
 		sstr << "Error in MMDriverAmber::PMEForce() \n";
 		sstr << " sys_info.size() = " << sys_info.size() << " neq  SI_CNT = \n" << SI_CNT;
 		throw sstr.str();
@@ -6474,7 +6474,7 @@ int MMDriverAmber::LoadAmberRestartFile(std::string rst_file_name)
 
 //	PrintLog(" Update coordinates from AMBER Restart File %s \n",rst_file_name);
 
-	ifstream is(rst_file_name);
+	std::ifstream is(rst_file_name);
 
 	is.getline(buf,255);
 	if( is.fail() )
@@ -6928,10 +6928,10 @@ int AmberMMModel::UpdateAmberData()
 	loc_bond_params.clear();
 	bnd_par_idx_map.clear();
 
-	map<HaVec_double, int, less<HaVec_double> >::iterator mbitr;
+	std::map<HaVec_double, int>::iterator mbitr;
 	numbnd = 0;
 
-	set<MMBond, less<MMBond> >::iterator bndset_itr = p_mm_model->MBonds.begin();
+	std::set<MMBond>::iterator bndset_itr = p_mm_model->MBonds.begin();
 
 	for( ; bndset_itr != p_mm_model->MBonds.end(); bndset_itr++)
 	{
@@ -6982,8 +6982,8 @@ int AmberMMModel::UpdateAmberData()
 	vang_par_idx_map.clear();
 	numang = 0;
 
-	map<HaVec_double,int, less<HaVec_double> >::iterator vaitr;
-	set<MMValAngle, less<MMValAngle> >::iterator vaset_itr = p_mm_model->ValAngles.begin();
+	std::map<HaVec_double,int>::iterator vaitr;
+	std::set<MMValAngle>::iterator vaset_itr = p_mm_model->ValAngles.begin();
 
 	for( ; vaset_itr != p_mm_model->ValAngles.end(); vaset_itr++)
 	{
@@ -7037,9 +7037,9 @@ int AmberMMModel::UpdateAmberData()
 	nphih = 0;
 	nphia = 0; 
 
-	map<HaVec_double, int, less<HaVec_double> >::iterator ditr;
+	std::map<HaVec_double, int>::iterator ditr;
 
-	vector<shared_ptr<MMDihedral>> *dih_list;
+	std::vector<std::shared_ptr<MMDihedral>> *dih_list;
 
 	for(int im= 0 ; im < 2; im++)
 	{
@@ -7047,7 +7047,7 @@ int AmberMMModel::UpdateAmberData()
 		if( im == 1)
 			dih_list = &p_mm_model->ImprDihedrals;
 
-		for( shared_ptr<MMDihedral> lditr : *dih_list)
+		for(std::shared_ptr<MMDihedral> lditr : *dih_list)
 		{
 			MMDihedral& dang = *lditr;
 			int nt = dang.GetNTerms();
@@ -7116,7 +7116,7 @@ int AmberMMModel::UpdateAmberData()
 	atm_iac.clear();
 	atm_iac.newsize(natom);
 	
-	map<HaVec_double,int, less<HaVec_double> >::iterator pitr;
+	std::map<HaVec_double,int>::iterator pitr;
 	ntypes = 0;
 	for( i =0; i < natom ; i++) 
 	{
@@ -7402,7 +7402,7 @@ int AmberMMModel::UpdateAmberData()
 	gbl_phase.resize(nptra);
 	gbl_pn.resize(nptra);
 
-	vector<HaVec_double>::iterator ldpar_itr;
+	std::vector<HaVec_double>::iterator ldpar_itr;
 
 	i =0;
 	for(ldpar_itr= loc_dih_ang_par.begin(); ldpar_itr != loc_dih_ang_par.end(); ldpar_itr++ )
@@ -7575,7 +7575,7 @@ int AmberMMModel::UpdateAmberData()
 	gbl_natex.resize(next);
 
 	int idx = 0;
-	set<HaAtom*, less<HaAtom*> >::iterator si_itr;
+	std::set<HaAtom*>::iterator si_itr;
 
 	for(i = 0; i < natom; i++)
 	{
@@ -7583,8 +7583,8 @@ int AmberMMModel::UpdateAmberData()
 		{	
 			int nex = p_mm_model->excluded_atom_list[i].size();
 		    
-			list<int> axx_list;
-			list<int>::iterator litr;
+			std::list<int> axx_list;
+			std::list<int>::iterator litr;
 
 			si_itr = p_mm_model->excluded_atom_list[i].begin();
 			for(; si_itr != p_mm_model->excluded_atom_list[i].end(); si_itr++)
@@ -8272,7 +8272,7 @@ int AmberMMModel::SetMovingAtomsData()
 
 	AtomIteratorAtomGroup aitr(p_atgrp_mv);
 
-	std::set<HaAtom*, less<HaAtom*> > atset_mv;
+	std::set<HaAtom*> atset_mv;
 	HaAtom* aptr;
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
 	{

@@ -31,9 +31,9 @@ GauFile::set_open_mode(const char* mode)
     open_mode=5;
   else
     {
-    cerr << "Gaufile::set_open_mode : unknown Gaussian file open mode: ";
-    cerr << mode << endl;
-    cerr << "set open mode to UNKNOWN " << endl;
+      std::cerr << "Gaufile::set_open_mode : unknown Gaussian file open mode: ";
+      std::cerr << mode << std::endl;
+      std::cerr << "set open mode to UNKNOWN " << std::endl;
     open_mode=3;
 	return 1;
     }

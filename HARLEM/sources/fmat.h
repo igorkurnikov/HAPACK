@@ -135,7 +135,7 @@ class Fortran_matrix
 		col_ = NULL;
 
         newsize(M,N);
-        istrstream ins(s);
+        std::istrstream ins(s);
 
         size_type i, j;
 
@@ -214,9 +214,9 @@ class Fortran_matrix
 			n_ = 0;
 			nalloc_ = 0;
 
-			ostrstream sstr; 
-			sstr << endl << "Error in Fortran_matrix::reserve() " << endl;
-			sstr << "Failed to allocate memory block of size " << M << " X " << N << "elements " << endl;
+            std::ostrstream sstr;
+			sstr << "\n" << "Error in Fortran_matrix::reserve() " << "\n";
+			sstr << "Failed to allocate memory block of size " << M << " X " << N << "elements \n";
 			throw sstr.str();
 		}
 
@@ -239,9 +239,9 @@ class Fortran_matrix
 			if( col_new == NULL)
 			{
 				destroy();
-				ostrstream sstr;
-				sstr << endl << "Error in Fortran_matrix::newsize() " << endl;
-				sstr << "Failed to allocate space for columns poiters of matrix " << M << " X " << N << "elements " << endl;
+                std::ostrstream sstr;
+				sstr << "\n Error in Fortran_matrix::newsize() \n";
+				sstr << "Failed to allocate space for columns poiters of matrix " << M << " X " << N << "elements \n";
 				throw sstr.str();	
 			}
 			col_ = col_new;
@@ -506,12 +506,12 @@ class Fortran_matrix
 #endif
 
 
-	int Print_format(ostream &sout, const char* format) const
+	int Print_format(std::ostream &sout, const char* format) const
 	{
 		
 		char buf[120]; // set max 20 characters per number
 		
-		sout << m_ << " " << n_ << endl;
+		sout << m_ << " " << n_ << std::endl;
 		
 		for (size_type i=1; i<= m_; i++)
 		{
@@ -520,7 +520,7 @@ class Fortran_matrix
 				sprintf(buf, format, (*this)(i,j) );
 				sout << buf;
 			}
-			sout << endl;
+			sout << std::endl;
 		}
 		
 		return 0;
@@ -640,12 +640,12 @@ class Fortran_matrix
 /* ***************************  I/O  ********************************/
 
 template <class T>
-ostream& operator<<(ostream &s, const Fortran_matrix<T> &A)
+std::ostream& operator<<(std::ostream &s, const Fortran_matrix<T> &A)
 {
     size_t M=A.num_rows();
     size_t N=A.num_cols();
 
-    s << M << " " << N << endl;
+    s << M << " " << N << std::endl;
 
     for (size_t i=1; i<=M; i++)
     {
@@ -653,7 +653,7 @@ ostream& operator<<(ostream &s, const Fortran_matrix<T> &A)
         {
             s << A(i,j) << " ";
         }
-        s << endl;
+        s << std::endl;
     }
 
 
@@ -663,7 +663,7 @@ ostream& operator<<(ostream &s, const Fortran_matrix<T> &A)
 
 
 template <class T>
-istream& operator>>(istream &s, Fortran_matrix<T> &A)
+std::istream& operator>>(std::istream &s, Fortran_matrix<T> &A)
 {
     size_t M, N;
 

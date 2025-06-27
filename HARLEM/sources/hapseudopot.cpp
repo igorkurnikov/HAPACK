@@ -80,7 +80,7 @@ bool HaPseudoPot::SaveGaussInp(std::ostream& os) const
 		return false;
 	}
 
-	vector<PseudoBlock>::const_iterator bitr;
+	std::vector<PseudoBlock>::const_iterator bitr;
 	for(bitr=blocks.begin(); bitr != blocks.end(); bitr++)
 	{
 		os << (*bitr).description.c_str() << std::endl;
@@ -143,7 +143,7 @@ HaPseudoPotDB::HaPseudoPotDB()
 
 HaPseudoPotDB::~HaPseudoPotDB()
 {
-	map<HaPseudoPotRef,HaPseudoPot*, less<HaPseudoPotRef> >::iterator pitr;
+	std::map<HaPseudoPotRef,HaPseudoPot*>::iterator pitr;
 	
 	for(pitr = dat.begin(); pitr != dat.end(); pitr++ )
 	{
@@ -164,7 +164,7 @@ HaPseudoPot* HaPseudoPotDB::Extract(const std::string & pot_name, const std::str
 {
 	HaPseudoPotRef pref(pot_name,at_label);
 
-	map<HaPseudoPotRef,HaPseudoPot*, less<HaPseudoPotRef> >::iterator pitr;
+	std::map<HaPseudoPotRef,HaPseudoPot*>::iterator pitr;
 	pitr=dat.find(pref);
 
 	if(pitr == dat.end())

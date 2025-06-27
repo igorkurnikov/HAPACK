@@ -74,12 +74,12 @@ int TrajIOAgent::Init(TrajPointInfo* ppt_info)
 {
 	if( IsReadCoord() )
 	{
-		traj_file.open(traj_file_name.c_str(), ios::in);
+		traj_file.open(traj_file_name.c_str(), std::ios::in);
 	}
 	else if( IsWriteCoord() )
 	{
-		traj_file.open(traj_file_name.c_str(), ios::out);
-		if(output_rejected_points) all_points_file.open(traj_all_pts_file_name.c_str(), ios::out);
+		traj_file.open(traj_file_name.c_str(), std::ios::out);
+		if(output_rejected_points) all_points_file.open(traj_all_pts_file_name.c_str(), std::ios::out);
 	}
 	if( traj_file.fail())
 	{
@@ -89,11 +89,11 @@ int TrajIOAgent::Init(TrajPointInfo* ppt_info)
 
 	if(IsReadEnergy())
 	{
-		ene_file.open(traj_ene_file_name.c_str(), ios::in);	
+		ene_file.open(traj_ene_file_name.c_str(), std::ios::in);
 	}
 	else if( IsWriteEnergy())
 	{
-		ene_file.open(traj_ene_file_name.c_str(), ios::out);		
+		ene_file.open(traj_ene_file_name.c_str(), std::ios::out);
 	}
 
 	npt = 0;
@@ -147,7 +147,7 @@ int TrajIOAgent::AnalyzePt(TrajPointInfo* ppt_info)
 			if( ppt_info->is_accepted && ppt_info->pcrd != NULL )
 			{
 				ppt_info->pcrd->SaveToStream(all_points_file);
-				all_points_file << " accepted " << endl;
+				all_points_file << " accepted " << std::endl;
 			}
 		}
 	}
@@ -158,7 +158,7 @@ int TrajIOAgent::AnalyzePt(TrajPointInfo* ppt_info)
 	{
 		char ene_str[256];
 		ene_file.getline(ene_str,255);
- 		istrstream is_ene(ene_str);
+		std::istrstream is_ene(ene_str);
 		is_ene >> ipt_ene;
 		is_ene >> ppt_info->tot_energy;
 //		ppt_info->tot_energy = p_im_mod->cur_intermol_ene;
@@ -218,7 +218,7 @@ int TrajIOAgent::AnalyzePt(TrajPointInfo* ppt_info)
 	
 	if(!p_sim->dont_calc_ene_flag && !ppt_info->do_skip)
 	{
-		ene_file << endl;
+		ene_file << std::endl;
 	}
 	return TRUE;
 }

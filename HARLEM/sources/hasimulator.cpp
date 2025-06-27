@@ -30,7 +30,7 @@ MCSimulator::MCSimulator()
 	delay_time = 0.0;           
 	npt_begin = 0;         
 	npt_step = 1; 
-	npt_end = 9999999999;
+	npt_end = (long)9999999;
 	
 	dont_calc_ene_flag = FALSE;  
 
@@ -100,7 +100,7 @@ int MCSimulator::RunMC()
 	int np_reject = 0;
 	stop_calc_flag = FALSE;
 
-	std::auto_ptr<harlem::Coord> p_crd_old( p_crd->clone() );  // to ensure deleting of pcrd upon exit from the function; 
+	std::unique_ptr<harlem::Coord> p_crd_old( p_crd->clone() );  // to ensure deleting of pcrd upon exit from the function; 
 
 	int istep = 0;
 	double ene_cur = ComputeEnergy(p_crd);

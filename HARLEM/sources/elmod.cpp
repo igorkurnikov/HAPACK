@@ -17,7 +17,6 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/algorithm/string.hpp>
 
-
 #include "hamolset.h"
 
 #include "elmod.h"
@@ -2435,7 +2434,7 @@ int pKaCalcMod::MakeAltStList()
 					sprintf(CTMP,"%d_%s\0",rptr->GetSerNo(),rptr->GetFullName().c_str());
 				else
 					sprintf(CTMP,"%d_%s_%c\0",rptr->GetSerNo(),rptr->GetFullName().c_str(),rptr->GetHostChain()->ident);
-				string TNAME;
+				std::string TNAME;
 				TNAME+=CTMP;
 				TNAME+="_AltState::";
 				TNAME+=alt_st->id.c_str();
@@ -2543,7 +2542,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 		HaAtom* aptr;
 		HaResidue* pres = (HaResidue*) alt_st->GetHostAtomGroup();
 		
-		map<void*,double,less<void*> > map_aptr_ch;
+		std::map<void*,double> map_aptr_ch;
 		AtomIteratorResidue aitr_res(pres);
 	
 		for(aptr = aitr_res.GetFirstAtom(); aptr; aptr = aitr_res.GetNextAtom())
@@ -2573,7 +2572,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 		HaAtom* aptr;
 		HaResidue* pres = (HaResidue*) alt_st->GetHostAtomGroup();
 		
-		map<void*,double,less<void*> > map_aptr_ch;
+		std::map<void*,double> map_aptr_ch;
 		AtomIteratorResidue aitr_res(pres);
 		
 		phost_mset->UnSelectAtomsAll();
@@ -2616,7 +2615,7 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 		aptr->SetCharge(0.0);
 	}
 	
-	vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
+	std::vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
 	double ch;
 
 	for(i=0; i < NumberOfAltStates; i++)
@@ -3586,7 +3585,7 @@ int PNPMod::ReadAMBER94FF()
 	
 	for(i=0; i < AtomTypesDB.size(); i++) 
 	{
-		std::cout << AtomTypesDB[i] << " "  << HalfSigmaDB[i] << " "  << FourEpsilonDB[i] << " "  << endl;
+		std::cout << AtomTypesDB[i] << " "  << HalfSigmaDB[i] << " "  << FourEpsilonDB[i] << " \n";
 	}
 	return status;
 }
@@ -3676,7 +3675,7 @@ int PNPMod::ReadOPLSitp(const char *filename)
 		if(wstr[0] == '[')
 		{
 			i=wstr.find(";");
-			if(i != string::npos) wstr=wstr.substr(i);
+			if(i != std::string::npos) wstr=wstr.substr(i);
                                 boost::replace_all(wstr," ","");
                                 boost::replace_all(wstr,"[","");
                                 boost::replace_all(wstr,"]","");
@@ -3903,7 +3902,7 @@ int PNPMod::ReadIER(const char *filename,bool AddToDB)
 			if(wstr[0] == '[')
 			{
 				i=wstr.find(";");
-				if (i != string::npos) wstr = wstr.substr(i);
+				if (i != std::string::npos) wstr = wstr.substr(i);
                                 boost::replace_all(wstr," ","");
                                 boost::replace_all(wstr,"[","");
                                 boost::replace_all(wstr,"]","");
@@ -4627,7 +4626,7 @@ int PNPMod::GetAtomTypeNumber(std::string atomname)
 			return i;
 		}
 	}
-	std::cout << "Can not find atom with FFsymbol: " << atomname << endl;
+	std::cout << "Can not find atom with FFsymbol: " << atomname << "\n";
 	return -1;
 }
 double PNPMod::GetHalfSigma(std::string atomname)

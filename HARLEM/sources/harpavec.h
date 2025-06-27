@@ -27,7 +27,7 @@ public:
 
 	int GetNBfunc() const;
 	
-	bool Print_info(ostream &sout, const int level) const;
+	bool Print_info(std::ostream &sout, const int level) const;
 
     int GetNumOccMO() const; // the number occupied MOs
 	int GetNumVacMO() const; // the number of vacant MOs
@@ -51,20 +51,20 @@ public:
 	// Calculate scalar product between two RPA vector
 	
 	friend HaMat_double
-		   SProd(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right); 
+		   SProd(const std::vector<HaRPAvec> & left, const std::vector<HaRPAvec> & right);
 
 	friend HaVec_double
-		   SProd(const HaRPAvec & RPAv, const vector<HaRPAvec> & RPAv_arr); 
+		   SProd(const HaRPAvec & RPAv, const std::vector<HaRPAvec> & RPAv_arr);
 
 	// Calculate scalar product between arrays of RPA vectors 
 	
 	friend double dot2(const HaRPAvec & left, const HaRPAvec & right);
 
 	friend HaVec_double
-		   dot2(const vector<HaRPAvec> & left, const vector<HaRPAvec> & right);
+		   dot2(const std::vector<HaRPAvec> & left, const std::vector<HaRPAvec> & right);
 
 	friend double norm2(const HaRPAvec & RPAv);
-	friend HaVec_double norm2(const vector<HaRPAvec> & RPAv_arr);
+	friend HaVec_double norm2(const std::vector<HaRPAvec> & RPAv_arr);
 
 	friend class HaRPAHam;
 	friend class HaRPAResolv;
@@ -73,30 +73,30 @@ public:
 	friend HaRPAvec 
 	operator*(const double factor, const HaRPAvec & RPAv); 
 
-	friend vector<HaRPAvec> 
-	operator*(const HaVec_double & vfactor, const vector<HaRPAvec> & RPAv_arr); 
+	friend std::vector<HaRPAvec>
+	operator*(const HaVec_double & vfactor, const std::vector<HaRPAvec> & RPAv_arr);
 
 
 	friend HaRPAvec
 	operator+(HaRPAvec & left, HaRPAvec & right); 
 
-	friend vector<HaRPAvec>
-	operator+(vector<HaRPAvec> & left, vector<HaRPAvec> & right); 
+	friend std::vector<HaRPAvec>
+	operator+(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right);
 
-	friend vector<HaRPAvec> 
-	operator-(vector<HaRPAvec> & left, vector<HaRPAvec> & right); 
+	friend std::vector<HaRPAvec>
+	operator-(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right);
 
 	HaRPAvec &
 	operator+=(HaRPAvec & rpav);
 
-	friend vector<HaRPAvec> &
-	operator+=(vector<HaRPAvec> & left,  vector<HaRPAvec> & right);
+	friend std::vector<HaRPAvec> &
+	operator+=(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right);
 
 	HaRPAvec &
 	operator-=(HaRPAvec & rpav);
 
-	friend vector<HaRPAvec> &
-	operator-=(vector<HaRPAvec> & left, vector<HaRPAvec> & right);
+	friend std::vector<HaRPAvec> &
+	operator-=(std::vector<HaRPAvec> & left, std::vector<HaRPAvec> & right);
 
 	HaQCMod* GetpHost();
 

@@ -99,7 +99,7 @@ short* Canvas3D::AllocDBuffer()
     DBuffer = (short*)malloc( size );
     if( !DBuffer ) 
 	{
-		cerr << " Error allocating depth buffer" << endl;
+        std::cerr << " Error allocating depth buffer" << std::endl;
 		exit(1);
 	}
 	return DBuffer;
@@ -156,7 +156,7 @@ int Canvas3D::OutCode(int x, int y, int z)
 // Determine if the point out of view and setup corresponding flags
 // in result BitAbove, BitBelow, BitLeft, BitRight, BitFront 
 {
-    register int result;
+    int result;
 
     if( y<0 )
     {   
@@ -1086,7 +1086,7 @@ void Canvas3D::ClipPolygon( Poly* p, double transp )
     short  *dptr;
     int offset;
 
-    register int dz;
+    int dz;
 	int dr,dg,db; 
 	int cr,cg,cb;
     int z;
@@ -1521,11 +1521,9 @@ Canvas3D::RectRibbon( Knot* src, Knot* dst, int col )
 }
 
 
-int 
-Canvas3D::TestSphere( register int x, register int y, 
-					   register int z, register int rad )
+int Canvas3D::TestSphere( int x, int y, int z, int rad )
 {
-    register int temp;
+    int temp;
 
     ClipStatus = 0;
 
@@ -1622,13 +1620,13 @@ void Canvas3D::DrawSphere(int x,int y,int z,int rad,int col)
 
 void Canvas3D::ClipSphere(int x,int y,int z,int rad,int col)
 {
-    register ColorVal  *fptr,  *fold;
-    register short  *dptr,  *dold;
+    ColorVal  *fptr,  *fold;
+    short  *dptr,  *dold;
 	
-    register int lastx,lasty,dx,dy,dz;
-    register int depth,wide,inten,side;
-    register int crad,cwide,temp;
-    register int offset;
+    int lastx,lasty,dx,dy,dz;
+    int depth,wide,inten,side;
+    int crad,cwide,temp;
+    int offset;
 	
 	
     /* Visibility Tests */
@@ -2253,9 +2251,9 @@ void Canvas3D::SetFontSize( int size )
 
 void Canvas3D::ClipCharacter( int x, int y, int z, int glyph, int col )
 {
-    register char *ptr;
-    register int sx,sy;
-    register int ex,ey;
+    char *ptr;
+    int sx,sy;
+    int ex,ey;
 
     ptr = VectFont[glyph];
     while( *ptr )

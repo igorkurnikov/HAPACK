@@ -177,7 +177,7 @@ public:
 
  	MolMechModel* p_mm_model; //!< Molecular Mechanics Model
 	virtual int OnDelAtoms(AtomContainer& del_atoms);  //!< Modify module content to react to deleted atoms (from HaCompMod)
-	bool Print_info(ostream& sout, const int level);   //!< Print Module info
+	bool Print_info(std::ostream& sout, const int level);   //!< Print Module info
 //@} 
 
 //! \name Event Processing

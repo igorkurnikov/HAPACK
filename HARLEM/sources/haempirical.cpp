@@ -215,14 +215,14 @@ double p_pair =0;
 	score_ene = center_attract + p_packdist+ p_packangle + p_contct + p_vdw + p_bured +p_pair + p_sym + p_constr + p_helicepack + p_toy + p_rep;
  //   score_ene = p_vdw ;
 	if(output_yes){
-	fstream component_file;
-	component_file.open("energy_components.dat",ios::out | ios::app);
+	std::fstream component_file;
+	component_file.open("energy_components.dat", std::ios::out | std::ios::app);
 //	sprintf(buf,"Constr %3.2f PDist %3.2f PAngl %3.2f Conct %3.2f Bured %3.2f VDW %3.4f Pair %3.2f PSym %3.2f PSAcc %3.2f ",
 //	p_constr, p_packdist, p_packangle, p_contct, p_bured, p_vdw, p_pair, p_sym, p_acs);
 //	sprintf(buf,"PAngl %14.9f Pair %14.9.2f  Phel %14.9f ",
 //	p_packangle, p_pair, center_attract);
 	sprintf(buf,"Ppack %14.9f Prep %14.9f PLJ %14.9f Pburied % 14.9f", center_attract, p_rep, p_toy, p_bured);
-	component_file << buf << endl;
+	component_file << buf << std::endl;
 	component_file.close();
 	}
 //	sprintf(buf,"PACK DENSITY %4.3f BringToCenter %3.2f \n", pack_dens_calculated, p_btc); 
@@ -373,9 +373,9 @@ HaEmpiricalMod::PenaltyPackAngle()
 	int ichain_old =0;
 	int nmol = pmset->GetNMol();
 	double pack_angle_ene =0.0;
-    register double ux,uy,uz;
-    register double vx,vy,vz;
-    register double temp;
+    double ux,uy,uz;
+    double vx,vy,vz;
+    double temp;
  	double angle = 0.0; 
 	
 
@@ -430,9 +430,9 @@ HaEmpiricalMod::CalcPackAngleForceTorque(Vec3DValArray& torque_array)
 	int ichain_old =0;
 	int nmol = pmset->GetNMol();
 	double deriv_pack_angle;
-    register double ux,uy,uz;
-    register double vx,vy,vz;
-    register double temp;
+    double ux,uy,uz;
+    double vx,vy,vz;
+    double temp;
  	double angle = 0.0; 
 	Quaternion quat1;
 	Quaternion quat2;
@@ -581,8 +581,8 @@ double
 HaEmpiricalMod::PenaltyBured()
 {
 	int output_yes = 1;
-	fstream component_file;
-	component_file.open("energy_components.dat",ios::out | ios::ate);
+	std::fstream component_file;
+	component_file.open("energy_components.dat", std::ios::out | std::ios::ate);
 	char buf[256];
 
 
@@ -717,7 +717,7 @@ HaEmpiricalMod::PenaltyBured()
 				// PrintLog("@@@@: residue %s%d,  \n",  res_ptr->GetName(), res_ptr->GetSerNo());
 if (output_yes){
 				sprintf(buf,"residue %s%d Ncontacs %d",res_ptr->GetName(), res_ptr->GetSerNo(),ncount_bured); // Remove
-				component_file << buf<< endl ; // Remove
+				component_file << buf<< std::endl ; // Remove
 			}
 
 				cur_la_value = - la_value[raw] * la_weight_value[raw];
@@ -945,8 +945,8 @@ HaEmpiricalMod::PenaltyPairwise()
 	HaResidue* res_ptr1;
 	HaMolecule* pMol;
 	HaMolecule* pMol1;
-	fstream pairwi_file;
-	pairwi_file.open("pairwi_file.dat", ios::out | ios::app);
+	std::fstream pairwi_file;
+	pairwi_file.open("pairwi_file.dat", std::ios::out | std::ios::app);
 	char buf[256];
 
 	double cur_bured_ene = 0.0;
@@ -1175,7 +1175,7 @@ HaEmpiricalMod::PenaltyPairwise()
 //	}
 // end comments
 	sprintf(buf, "%3.2f %3.2f %3.2f", pairwise_ene , cur_bured_ene, vdw_ene);
-	pairwi_file << buf << endl;
+	pairwi_file << buf << std::endl;
 //	pairwi_file.close();
 	return pairwise_ene;// + cur_bured_ene + vdw_ene;
 }
@@ -2713,8 +2713,8 @@ double HaEmpiricalMod::PenaltySolventAccessible()
 		FindAxes();
 		CenterOfMass();
 	}
-	fstream space_file;// Remove
-	space_file.open("sampling_coord_REGxy_2.dat",ios::out | ios::app);// Remove
+	std::fstream space_file;// Remove
+	space_file.open("sampling_coord_REGxy_2.dat", std::ios::out | std::ios::app);// Remove
 	char buf[256];// Remove
 
 	HaAtom* aptr ;
@@ -2849,7 +2849,7 @@ double HaEmpiricalMod::PenaltySolventAccessible()
 		sprintf(buf,"%2.1f ", angle); //REMOVE
 		space_file<< buf; //REMOVE
 	} 
-	space_file<< buf << endl; //REMOVE
+	space_file<< buf << std::endl; //REMOVE
 	sa_ene = cur_sa_ene;
 	space_file.close(); //REMOVE
 	return sa_ene;
@@ -3947,8 +3947,8 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 	double weigth = 0.005;
 	//fstream constraints_file;
 	//constraints_file.open("constraints.dat", ios::out | ios::app);
-	fstream energy_file;
-	energy_file.open("energy_file.dat", ios::out | ios::app);
+	std::fstream energy_file;
+	energy_file.open("energy_file.dat", std::ios::out | std::ios::app);
 	double ene = 0.0;
 	double energy_total = 0.0, dist;
 
@@ -3982,7 +3982,7 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 			i++;
 		} 
 	}
-	energy_file<<ene<<endl;
+	energy_file<<ene<< std::endl;
 	return ene;
 }
 double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted soon
@@ -4022,10 +4022,10 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 	double ene_tor= 0.0;
 	double vdw_ene = 0.0;
 	double ene_val = 0.0;
-	fstream harmonic_file;
-	harmonic_file.open("harmonic_file.dat", ios::out | ios::app);
-	fstream distance_constraint;
-	distance_constraint.open("distance_constraint.dat", ios::out | ios::app);
+	std::fstream harmonic_file;
+	harmonic_file.open("harmonic_file.dat", std::ios::out | std::ios::app);
+	std::fstream distance_constraint;
+	distance_constraint.open("distance_constraint.dat", std::ios::out | std::ios::app);
 	char buf[256];
 	for (i=0; i <16;i++)
 	{
@@ -4108,7 +4108,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 	//ene_tor = (1.25181-tor_ang)*(1.25181-tor_ang)*50;
 	//ene_val = (1.35400-val_ang1)*(1.35400-val_ang1)*50 + (1.22843-val_ang2)*(1.22843-val_ang2)*50;
 	//PrintLog("ener_tor= %f", ene_tor);
-	distance_constraint << distance[0] << "  "<< distance[1] <<"  "<<distance[2] <<"  "<< distance[3]<<"  "<< distance[4]<<"  "<<distance[5]<<"  "<< distance[6]<<"  "<<distance[7]<<endl;
+	distance_constraint << distance[0] << "  "<< distance[1] <<"  "<<distance[2] <<"  "<< distance[3]<<"  "<< distance[4]<<"  "<<distance[5]<<"  "<< distance[6]<<"  "<<distance[7]<< std::endl;
 
 // clash energy & probably in the future pairwise 
  	for (imol= 0; imol < nmol; imol++)
@@ -4167,7 +4167,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 	}
 	//sprintf(buf,"Eharm %3.2f Evdw %3.2f", energy_final, vdw_ene);
 	//harmonic_file << buf << endl;
-	harmonic_file << energy_final << "  "<< vdw_ene <<"  "<<ene_tor<<"  "<<ene_val<<endl;
+	harmonic_file << energy_final << "  "<< vdw_ene <<"  "<<ene_tor<<"  "<<ene_val<< std::endl;
 
 	return energy_final+vdw_ene;//+ene_tor+ene_val;
 }
@@ -4188,8 +4188,8 @@ HaEmpiricalMod::HarmonicEnergy()
 	Vec3D cur_com_atom;
 	Vec3D* vec1 ;
 	Vec3D* vec2 ;
-	fstream harmonic_file;
-	harmonic_file.open("harmonic_file.dat", ios::out | ios::app);
+	std::fstream harmonic_file;
+	harmonic_file.open("harmonic_file.dat", std::ios::out | std::ios::app);
 	char buf[256];
 //	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
 //	center_arr1 = emp_mod->CenterOfMass();
@@ -4248,7 +4248,7 @@ HaEmpiricalMod::HarmonicEnergy()
 			PrintLog("DISt %2.1f, vec1[0]=%2.1f, vec2[0]=%2.1f, ene=%2.1f\n", dist, vec1[0], vec2[0], ene_r);
 	}*/
 	sprintf(buf, "%2.1f", ene_final);
-	harmonic_file << buf << endl;
+	harmonic_file << buf << std::endl;
 
 	return ene_final;
 }
@@ -4934,8 +4934,8 @@ int HaEmpiricalMod::QuantSampling() // added by jose
 	int ind_save=0;
 	Vec3DValArray center_arr_temp;
 	char buf[256];
-	fstream state_file;
-	state_file.open("state_file.dat", ios::out | ios::app);
+	std::fstream state_file;
+	state_file.open("state_file.dat", std::ios::out | std::ios::app);
 	center_arr_temp.resize(nmol);
 	/*this->GetGeomCenter();
 	*/
@@ -5052,7 +5052,7 @@ int HaEmpiricalMod::QuantSampling() // added by jose
 		sprintf(buf,"%2d  ", state_new.GetVal(imol+1));
 		state_file<< buf;
 	}
-	state_file<< endl;
+	state_file<< std::endl;
 	return TRUE;
 }
 
@@ -5234,8 +5234,8 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 	int i=0,j=0,h1,h2;
 	int s, s1;
 	this->QuantSampling();
-	fstream energy_LJ_file;
-	energy_LJ_file.open("energy_LJ_file.dat", ios::out | ios::app);
+	std::fstream energy_LJ_file;
+	energy_LJ_file.open("energy_LJ_file.dat", std::ios::out | std::ios::app);
 	double ene = 0.0;
 	//double energy_total = 0.0, dist;
     for (imol= 0; imol < nmol; imol++)
@@ -5288,7 +5288,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 			i++;
 		} 
 	}
-	energy_LJ_file<<sqrt(dist_sc_2)<<"  "<< ene<<endl;
+	energy_LJ_file<<sqrt(dist_sc_2)<<"  "<< ene<< std::endl;
 	return ene;
 }
 
@@ -5381,8 +5381,8 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 	int h1,h2;
 	int s, s1;
 	this->QuantSampling();
-	fstream energy_LJ_file;
-	energy_LJ_file.open("energy_LJstat_file.dat", ios::out | ios::app);
+	std::fstream energy_LJ_file;
+	energy_LJ_file.open("energy_LJstat_file.dat", std::ios::out | std::ios::app);
 	double ene = 0.0;
 	//int state[4]={0,1,2,3};
 	int	state[6][4]={0,1,2,3,
@@ -5465,7 +5465,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 		}
 		h1++;
 	} 
-	energy_LJ_file<< ene<<endl;
+	energy_LJ_file<< ene<< std::endl;
 	return ene;
 }
 int HaEmpiricalMod::InitCylinders()  //added by jose
@@ -5827,7 +5827,7 @@ bool HaMolMembraneMod::BuildNonBondSCContactList() //@ jose October 22, 2008
 		double y2 = pt1->GetY();
 		double z2 = pt1->GetZ();
 
-		set<HaAtom*, less<HaAtom*> >& pt_nonb_SC_contact_list = nonbond_SC_contact_list[i];
+		std::set<HaAtom*>& pt_nonb_SC_contact_list = nonbond_SC_contact_list[i];
 
 		for (j = i+1; j < nn; j++)
 		{
@@ -5894,7 +5894,7 @@ bool HaMolMembraneMod::BuildClashAtomList()
 		double y1 = pt1->GetY();
 		double z1 = pt1->GetZ();
 
-		set<HaAtom*, less<HaAtom*> >& pt_nonb_clash_list = nonbond_atom_clash_list[i];
+		std::set<HaAtom*>& pt_nonb_clash_list = nonbond_atom_clash_list[i];
 
 		for (j = i+1; j < nn; j++)
 		{
@@ -5974,7 +5974,7 @@ HaMolMembraneMod::LoadDFireCoreParams()  //jose modified Nov 4th, rewritten Octo
 	{
 		pch = fgets(str,255,fp); 
 
-		istrstream is(str);
+		std::istrstream is(str);
 
 		if (read_mode == LIPID_ACCESS_SCALE)
 		{
@@ -6105,7 +6105,7 @@ HaMolMembraneMod::LoadDFireCoreParams()  //jose modified Nov 4th, rewritten Octo
 			while (strncmp(str,"DONE",4)!=0)
 			{	
 				pch = fgets(str,255,fp);
-				istrstream is2(str);
+				std::istrstream is2(str);
 
 				rt1s.clear();
 				rt2s.clear();
@@ -6205,7 +6205,7 @@ HaMolMembraneMod::LoadDFireCoreParams()  //jose modified Nov 4th, rewritten Octo
 			while (strncmp(str,"DONE",4)!=0)
 			{	
 				pch = fgets(str,255,fp);
-				istrstream is2(str);
+				std::istrstream is2(str);
 
 				rt1s.clear();
 				rt2s.clear();
@@ -6325,7 +6325,7 @@ HaMolMembraneMod::ScoreEnergy()
 			else
 				pt1 = rptr1->GetAtomByName("CA");
 
-			set<HaAtom*, less<HaAtom*> >::iterator scitr;
+			std::set<HaAtom*>::iterator scitr;
 			for( scitr = nonbond_SC_contact_list[i].begin(); scitr != nonbond_SC_contact_list[i].end(); scitr++)
 			{
 				pt2 = *scitr;
@@ -6340,7 +6340,7 @@ HaMolMembraneMod::ScoreEnergy()
 		pt1 = AtomsCentroids[i];
 		rptr1 = pt1->GetHostRes();
 		std::string res_nam1 = rptr1->GetName();
-		set<HaAtom* , less<HaAtom*> >::iterator mitr;
+		std::set<HaAtom*>::iterator mitr;
 		for ( mitr =  nonbond_atom_clash_list[i].begin(); 
 			mitr !=  nonbond_atom_clash_list[i].end(); mitr++)
 		{
@@ -6356,7 +6356,7 @@ HaMolMembraneMod::ScoreEnergy()
 	}
 
 	double d2= MAX_radius*MAX_radius;
-	vector<HaAtom* >::iterator aitr = CentreAtoms.begin();
+	std::vector<HaAtom* >::iterator aitr = CentreAtoms.begin();
 	for (; aitr != CentreAtoms.end(); aitr ++)
 	{
 		pt1 = (*aitr);
@@ -6378,7 +6378,7 @@ HaMolMembraneMod::ScoreEnergy()
 	}
 
 	double weight_lipid = 10.0;
-	vector<HaAtom* >::iterator aitr1 = LipidInterfaceAtoms.begin();
+	std::vector<HaAtom* >::iterator aitr1 = LipidInterfaceAtoms.begin();
 	for (; aitr1 != LipidInterfaceAtoms.end(); aitr1 ++)
 	{
 		pt1 = (*aitr1);
@@ -6633,7 +6633,7 @@ HaMolMembraneMod::BuildNonBondCAContactList()
 		double y2 = pt1->GetY();
 		double z2 = pt1->GetZ();*/
 
-		set<HaAtom*, less<HaAtom*> >& pt_nonb_CA_contact_list = nonbond_CA_contact_list[i];
+		std::set<HaAtom*>& pt_nonb_CA_contact_list = nonbond_CA_contact_list[i];
 
 		for (j = i+1; j < nn; j++)
 		{
@@ -6684,7 +6684,7 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 	}
 	//if( module_to_init_flag ) Initialize();
 
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 	for (aitr = MolMechModule->p_mm_model->Atoms.begin(); aitr != MolMechModule->p_mm_model->Atoms.end(); aitr++)
 	{
 		HaAtom* aptr = (*aitr);
@@ -6803,7 +6803,7 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 	
 	PrintLog("Set OPEP Bonds params \n");
 
-	set<MMBond, less<MMBond> >::iterator bitr;
+	std::set<MMBond>::iterator bitr;
 	for( bitr = MolMechModule->p_mm_model->MBonds.begin(); bitr != MolMechModule->p_mm_model->MBonds.end(); bitr++)
 	{
         MMBond* bptr = (MMBond*)&(*bitr);
@@ -6834,7 +6834,7 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 
 	PrintLog("Set OPEP Valence params \n");
 
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr;
+	std::set<MMValAngle>::iterator vaitr;
 	for( vaitr = MolMechModule->p_mm_model->ValAngles.begin(); vaitr != MolMechModule->p_mm_model->ValAngles.end(); vaitr++)
 	{
         MMValAngle* pang = (MMValAngle*) &(*vaitr);
@@ -6870,7 +6870,7 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 
 	PrintLog("Set OPEP Dihedral Angles params \n");
 
-	for( shared_ptr<MMDihedral> daitr : MolMechModule->p_mm_model->Dihedrals)
+	for(std::shared_ptr<MMDihedral> daitr : MolMechModule->p_mm_model->Dihedrals)
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;

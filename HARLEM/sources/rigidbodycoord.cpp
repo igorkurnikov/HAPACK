@@ -232,7 +232,7 @@ int RigidBodyCoord::SetFromCurrAtomCrd(AtomContainer* at_cont, int iobj)
 	return TRUE;
 }
 
-int RigidBodyCoord::SetFromCurrAtomCrd(vector<AtomContainer*> vec_at_cont)
+int RigidBodyCoord::SetFromCurrAtomCrd(std::vector<AtomContainer*> vec_at_cont)
 {
 	int n_obj = GetNumObj();
 	if( vec_at_cont.size() != n_obj )

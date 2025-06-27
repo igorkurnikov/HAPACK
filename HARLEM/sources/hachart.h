@@ -109,8 +109,8 @@ public:
 	HaVec_double* GetYData(int i_ser); //!< Get Y data for series (i_ser) return NULL at error 
 
 protected:
-	vector<HaVec_double> xc;
-	vector<HaVec_double> yc;
+	std::vector<HaVec_double> xc;
+	std::vector<HaVec_double> yc;
 
 	double xmin;
 	double xmax;
@@ -160,9 +160,9 @@ public:
 	HaVec_double* GetZData(int i_ser); //!< Get Z data for series (i_ser) return NULL at error 
 
 protected:
-	vector<HaVec_double> xc;
-	vector<HaVec_double> yc;
-	vector<HaVec_double> zc;
+	std::vector<HaVec_double> xc;
+	std::vector<HaVec_double> yc;
+	std::vector<HaVec_double> zc;
 
 	double xmin; //!< minimal X coordinate of the plotting box in world coordinates ( data coordinates) 
 	double xmax; //!< maximal X coordinate of the plotting box in world coordinates ( data coordinates) 

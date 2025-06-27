@@ -53,13 +53,6 @@ StmMod::CalcTMatr1()
 
     int nb = ptr_qc_mod->GetNBfunc(); // Get Number of basis functions
 
-	cout << "Print 1 " << endl;
-
-//	ovlp.Print_info(cout,1);
-	cout << endl;
-
-	cout << " Print 2 " << endl;
-
 	//HaOperR r1(*ptr_qc_mod);   // Initial Electric Dipole  operator
 	//r1.Print_info(cout,1);	
 //cout << endl;
@@ -171,7 +164,7 @@ StmMod::CalcTMatr1()
 //		cout << i << "  " << eig(i) << endl;
 	   
 //	}
-	cout << " Huckel Matrix" << endl;
+	std::cout << " Huckel Matrix" << std::endl;
 	//no=0;
 	nev=0;
 	for( i = 1; i <= nb; i++)
@@ -322,7 +315,7 @@ for(i=1;i<=nb;i++)
 		  cout << buf ;
 		}
 		cout << endl;*/
-	cout <<i<<" "<<eig(i)<<endl;
+	std::cout <<i<<" "<<eig(i)<< std::endl;
 
 }
 
@@ -919,6 +912,6 @@ cos(kxa/2-1.7320508*kya/6-2.44948974*kza/3)));
 			}
 			tot=2*sin(2*pi*k3)*sin(2*pi*k3)*(tot1*tot1+tot2*tot2);
             tmat_el = tot;
-	 cout << tot << endl;
+			std::cout << tot << std::endl;
 	return True;
 }

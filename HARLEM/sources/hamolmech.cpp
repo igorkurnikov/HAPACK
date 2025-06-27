@@ -279,7 +279,7 @@ int HaMolMechMod::SetStdParams()
 	return True;
 }
 
-typedef list<int> LIST_INT;
+typedef std::list<int> LIST_INT;
 
 
 int HaMolMechMod::Initialize()
@@ -375,7 +375,7 @@ void run_mm(HaMolMechMod* p_mm_mod)
 int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 {
 	const harlem::RunOptions* popt_c = dynamic_cast<const harlem::RunOptions*>(popt_par);
-	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
+	std::unique_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
 	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
@@ -424,7 +424,7 @@ bool HaMolMechMod::SetRunType(std::string run_type_str)
 int HaMolMechMod::RunMinEne( const harlem::HashMap* popt_par )
 {
 	const harlem::RunOptions* popt_c = dynamic_cast<const harlem::RunOptions*>(popt_par);
-	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
+	std::unique_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
 	SetMMRunType(MMRunType::MIN_RUN);
@@ -434,7 +434,7 @@ int HaMolMechMod::RunMinEne( const harlem::HashMap* popt_par )
 int HaMolMechMod::RunMD( const harlem::HashMap* popt_par )
 {
 	const harlem::RunOptions* popt_c = dynamic_cast<const harlem::RunOptions*>(popt_par);
-	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
+	std::unique_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
 	SetMMRunType(MMRunType::MD_RUN);
@@ -496,7 +496,7 @@ int HaMolMechMod::ControlCalc()
 int HaMolMechMod::RunExternal( const harlem::HashMap* popt_par )
 {
 	const harlem::RunOptions* popt_c = dynamic_cast<const harlem::RunOptions*>(popt_par);
-	std::auto_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
+	std::unique_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
 	bool sync = popt->ToRunSync();
@@ -1025,7 +1025,7 @@ int HaMolMechMod::CalcEnergySimple()
 	double val;
 	double delt;
 
-	set<MMBond, less<MMBond> >::iterator mbitr = p_mm_model->MBonds.begin();
+	std::set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
 
 	for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
 	{
@@ -1035,7 +1035,7 @@ int HaMolMechMod::CalcEnergySimple()
 		p_mm_info->bond_ene += bond.fc * delt * delt; 
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr = p_mm_model->ValAngles.begin();
+	std::set<MMValAngle>::iterator vaitr = p_mm_model->ValAngles.begin();
 
 	for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
 	{
@@ -1048,7 +1048,7 @@ int HaMolMechMod::CalcEnergySimple()
 	for( i = 0; i < np; i++)
 	{
 		int nl_size = p_mm_model->nonbond_contact_list[i].size();
-		set<HaAtom*, less<HaAtom*> >::iterator mitr;
+		std::set<HaAtom*>::iterator mitr;
 		for( mitr = p_mm_model->nonbond_contact_list[i].begin();
 		     mitr != p_mm_model->nonbond_contact_list[i].end(); mitr++)
 		{
@@ -1062,7 +1062,7 @@ int HaMolMechMod::CalcEnergySimple()
 		}
 	}
 
-	for( shared_ptr<MMDihedral>ditr : p_mm_model->Dihedrals )
+	for(std::shared_ptr<MMDihedral>ditr : p_mm_model->Dihedrals )
 	{
 		pt1 = (*ditr).pt1;
 		pt2 = (*ditr).pt4;
@@ -1076,7 +1076,7 @@ int HaMolMechMod::CalcEnergySimple()
 	if(p_mm_model->GetNumHarmConstr() > 0)
 	{
 		double lc_ene;
-		vector<AtomContact>::iterator citr;
+		std::vector<AtomContact>::iterator citr;
 		for(citr = p_mm_model->DistConstraints.begin(); citr != p_mm_model->DistConstraints.end(); citr++)
 		{
 			AtomContact& cnt = (*citr);
@@ -1276,12 +1276,12 @@ void HaMolMechMod::PrintLogEne()
 
 
 
-bool HaMolMechMod::Print_info(ostream& sout, const int level)
+bool HaMolMechMod::Print_info(std::ostream& sout, const int level)
 {
 	if( level > 2)
 	{
-		sout << " Excluded Atom List " << endl;
-		set<HaAtom*, less<HaAtom*> >::iterator si_itr;
+		sout << " Excluded Atom List " << "\n";
+		std::set<HaAtom*>::iterator si_itr;
 		int nn = p_mm_model->Atoms.size();
 		if( nn != p_mm_model->excluded_atom_list.size())
 		{
@@ -1374,7 +1374,7 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 		if(aptr != NULL && !pt_set.HasAtom(aptr)) pt_set.insert(aptr);
 	}
 
-	vector<HaAtom*>::iterator mpitr;
+	std::vector<HaAtom*>::iterator mpitr;
 	for(mpitr = p_mm_model->Atoms.begin(); mpitr != p_mm_model->Atoms.end(); )
 	{
 		if( pt_set.HasAtom( *mpitr ) )
@@ -1385,8 +1385,8 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			mpitr++;
 	}
 
-	set<MMBond,less<MMBond> >::iterator mbitr;
-	set<MMBond,less<MMBond> >::iterator mbitr2;
+	std::set<MMBond>::iterator mbitr;
+	std::set<MMBond>::iterator mbitr2;
 	for( mbitr= p_mm_model->MBonds.begin(); mbitr != p_mm_model->MBonds.end();  mbitr++ )
 	{
 		if( pt_set.HasAtom( (*mbitr).pt1 ) || pt_set.HasAtom( (*mbitr).pt2 ) ) 
@@ -1400,8 +1400,8 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			mbitr++;
 	}
 
-	set<MMValAngle, less<MMValAngle> >::iterator ang_itr;
-	set<MMValAngle, less<MMValAngle> >::iterator ang_itr2;
+	std::set<MMValAngle>::iterator ang_itr;
+	std::set<MMValAngle>::iterator ang_itr2;
 	for( ang_itr= p_mm_model->ValAngles.begin(); ang_itr != p_mm_model->ValAngles.end(); )
 	{
 		if( pt_set.HasAtom( (*ang_itr).pt1 ) || pt_set.HasAtom( (*ang_itr).pt2 ) || pt_set.HasAtom( (*ang_itr).pt3 ) )
@@ -1415,7 +1415,7 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			ang_itr++;
 	}
 
-	vector<AtomContact>::iterator vitr;
+	std::vector<AtomContact>::iterator vitr;
 	for( vitr = p_mm_model->DistConstraints.begin(); vitr != p_mm_model->DistConstraints.end(); )
 	{
 		if( pt_set.HasAtom( (*vitr).pt1 ) || pt_set.HasAtom( (*vitr).pt2 ) )
@@ -2292,7 +2292,7 @@ void TISimMod::ReduceDvDlData(int n_avg,const char* file_name)
 	char buf[256];
 	int i,j,ires;
 
-	vector<FILE*>files_inp;
+	std::vector<FILE*>files_inp;
 	files_inp.resize(num_lmb);
 
 	int no_files = TRUE;

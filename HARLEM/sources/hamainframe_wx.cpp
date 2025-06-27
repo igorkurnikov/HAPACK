@@ -2568,19 +2568,19 @@ void HaMainFrameWX::OnTestMin1( wxCommandEvent &event )
 
 void HaMainFrameWX::OnTestMap( wxCommandEvent &event )
 {
-    multimap< int, double, less<int> > test_map;
-    multimap< int, double, less<int> >::iterator itr1;
-    multimap< int, double, less<int> >::iterator itr2;
+	std::multimap< int, double> test_map;
+	std::multimap< int, double>::iterator itr1;
+	std::multimap< int, double>::iterator itr2;
     
-    multimap<int, double, less<int> >::value_type p1(1,2.0);    
+	std::multimap<int, double>::value_type p1(1,2.0);
     test_map.insert(p1);
-    multimap<int, double, less<int> >::value_type p2(1,3.0);    
+	std::multimap<int, double>::value_type p2(1,3.0);
     test_map.insert(p2);
-    multimap<int, double, less<int> >::value_type p3(2,5.0);    
+	std::multimap<int, double>::value_type p3(2,5.0);
     test_map.insert(p3);
-    multimap<int, double, less<int> >::value_type p4(3,7.0);    
+	std::multimap<int, double>::value_type p4(3,7.0);
     test_map.insert(p4);
-    multimap<int, double, less<int> >::value_type p5(3,8.0);    
+	std::multimap<int, double>::value_type p5(3,8.0);
     test_map.insert(p5);
 
     for( int i = 1 ; i <= 4; i++)
@@ -2901,15 +2901,15 @@ HaLogWindow::HaLogWindow(wxWindow* pParent)
 	m_pLogFrame = new HaLogFrame(pParent, this, title);
 
 	m_pLogFrame->Show();
-	m_sbufOld = cout.rdbuf();
-	cout.rdbuf((std::streambuf*)m_pLogFrame->TextCtrl());
-	cout << "HaLogWindow::HaLogWindow()" << endl;
-	cout.flush();
+	m_sbufOld = std::cout.rdbuf();
+	std::cout.rdbuf((std::streambuf*)m_pLogFrame->TextCtrl());
+	std::cout << "HaLogWindow::HaLogWindow()" << std::endl;
+	std::cout.flush();
 }
 
 HaLogWindow::~HaLogWindow()
 {
-	cout.rdbuf(m_sbufOld);
+	std::cout.rdbuf(m_sbufOld);
 	delete m_pLogFrame;
 }
 

@@ -56,7 +56,7 @@ HaHBond* MolSet::AddHBond(HaAtom* src, HaAtom* dst)
 
 	   if(pmset != this || dst->GetHostMolSet() != this ) return NULL;
  
-	   set<HaHBond, less<HaHBond> >::iterator hitr;
+	   std::set<HaHBond>::iterator hitr;
 
 	   HaHBond hbond(src,dst);
 	
@@ -70,7 +70,7 @@ HaHBond* MolSet::AddHBond(HaAtom* src, HaAtom* dst)
 	   if(hitr != pmset->HBonds.end())
 		   return( (HaHBond*) &(*hitr));
 
-	   pair<set<HaHBond, less<HaHBond> >::iterator,bool> pr= pmset->HBonds.insert(hbond);
+	   std::pair<std::set<HaHBond>::iterator,bool> pr= pmset->HBonds.insert(hbond);
 	   if(pr.second)
 	   {
 			return( (HaHBond*) &(*pr.first) );

@@ -129,7 +129,7 @@ public:
 
 public:   	
     
-	bool Print_info(ostream &sout, const int level) const; //!< Print information about the molecule
+	bool Print_info(std::ostream &sout, const int level) const; //!< Print information about the molecule
 
 // Residues Related Functions:
 
@@ -171,11 +171,11 @@ public:
 
 	int structsource;  //!< indicate whether secondary structure were loaded from PDB or computed
 	
-	list<SecStructElement> Features;
+	std::list<SecStructElement> Features;
 	
 // Molecule data:
 private:
-	list<HaChain> Chains;      //!< List of Chains	
+	std::list<HaChain> Chains;      //!< List of Chains	
 
 public:
 	
@@ -218,7 +218,7 @@ public:
 protected:
 
 	AtomIteratorChain aitr;
-	list<HaChain>::iterator ch_itr;
+	std::list<HaChain>::iterator ch_itr;
 
 	HaMolecule* pMol;
 };
@@ -237,7 +237,7 @@ public:
 protected:
 
 	AtomIteratorChain_const aitr;
-	list<HaChain>::const_iterator ch_itr;
+	std::list<HaChain>::const_iterator ch_itr;
 	
 	const HaMolecule* pMol;
 };
@@ -254,8 +254,8 @@ public:
 	HaResidue* GetNextRes();  //!< Return next residue of the molecule (=NULL if no more residues)
 	
 protected:
-	vector<HaResidue*>::iterator res_itr;
-	list<HaChain>::iterator ch_itr;
+	std::vector<HaResidue*>::iterator res_itr;
+	std::list<HaChain>::iterator ch_itr;
 	
 	HaMolecule* pmol;
 };
@@ -272,8 +272,8 @@ public:
 	const HaResidue* GetNextRes();  //!< Return next residue of the molecule (=NULL if no more residues)
 
 protected:
-	vector<HaResidue*>::const_iterator res_itr;
-	list<HaChain>::const_iterator ch_itr;
+	std::vector<HaResidue*>::const_iterator res_itr;
+	std::list<HaChain>::const_iterator ch_itr;
 
 	const HaMolecule* pmol;
 };
@@ -292,7 +292,7 @@ public:
 	HaChain* GetNextChain();  //!< Return next chain in the molecule (=NULL if no more chains)
 	
 protected:
-	list<HaChain>::iterator ch_itr;
+	std::list<HaChain>::iterator ch_itr;
 	
 	HaMolecule* pmol;
 };

@@ -35,7 +35,7 @@ public:
 	~PseudoBlock();
 
 	std::string description;
-	vector<PseudoTerm> terms;
+	std::vector<PseudoTerm> terms;
 
 };
 
@@ -57,7 +57,7 @@ protected:
   unsigned int max_angm;
   unsigned int ncore_el;
      
-  vector<PseudoBlock> blocks;
+  std::vector<PseudoBlock> blocks;
 };
 
 class HaPseudoPotRef
@@ -91,7 +91,7 @@ public:
 
 	
 protected:
-	map<HaPseudoPotRef,HaPseudoPot*, less<HaPseudoPotRef> > dat; // Atomic Orbital symbol
+	std::map<HaPseudoPotRef,HaPseudoPot*> dat; // Atomic Orbital symbol
 
 	bool InitHayWadt_1(); // Initialize Hay and Wadt Pseudopotential 1 (only valence electrons)
 };

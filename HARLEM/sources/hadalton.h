@@ -78,11 +78,11 @@ protected:
 	
 // Fill different sections of input files:
 
-	void Fill_section_general(ofstream& pfile);
-	void Fill_section_wave_fun(ofstream& pfile);
-	void Fill_subsection_HF_param(ofstream& pfile);
-	void Fill_section_properties(ofstream& pfile);
-	void Fill_subsection_ABALNR(ofstream& pfile);
+	void Fill_section_general(std::ofstream& pfile);
+	void Fill_section_wave_fun(std::ofstream& pfile);
+	void Fill_subsection_HF_param(std::ofstream& pfile);
+	void Fill_section_properties(std::ofstream& pfile);
+	void Fill_subsection_ABALNR(std::ofstream& pfile);
 
 };
 

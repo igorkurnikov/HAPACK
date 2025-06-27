@@ -253,7 +253,7 @@ class NumVector
     NumVector(size_type N, char *s) :  v_(0), vm1_(0), n_(0), nalloc_(0), amode(INTERNAL_ALLOC)
     {
        initialize(N);
-       istrstream ins(s);
+       std::istrstream ins(s);
 
        size_type i;
 
@@ -514,21 +514,21 @@ class NumVector
 /* ***************************  I/O  ********************************/
 
 template <class T>
-ostream& operator<<(ostream &s, const NumVector<T> &A)
+std::ostream& operator<<(std::ostream &s, const NumVector<T> &A)
 {
     size_t N=A.dim();
 
-    s <<  N << endl;
+    s <<  N << std::endl;
 
     for (size_t i=0; i<N; i++)
-        s   << A[i] << " " << endl;
-    s << endl;
+        s   << A[i] << " " << std::endl;
+    s << std::endl;
 
     return s;
 }
 
 template <class T>
-istream& operator>>(istream &s, NumVector<T> &A)
+std::istream& operator>>(std::istream &s, NumVector<T> &A)
 {
     size_t N;
 

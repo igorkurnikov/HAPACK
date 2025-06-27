@@ -62,12 +62,12 @@ MolEditor::~MolEditor()
 
 
 
-int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, vector<HaHBond>& hbonds )
+int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, std::vector<HaHBond>& hbonds )
 {	
 	hbonds.clear();
 
 	AtomGroup don_atoms;
-	vector< AtomGroup > h_don_atoms;
+	std::vector< AtomGroup > h_don_atoms;
 
 	int na_tot = p_at_coll->GetNAtoms();
 
@@ -93,7 +93,7 @@ int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, vector<HaHBond
 	HaAtom* aptr;
 	MolEditor mol_editor;
 
-	vector<HaAtom> add_hydrogens; // Additional hydrogen attached to donor atoms to use in Hydrogen bond calculations
+	std::vector<HaAtom> add_hydrogens; // Additional hydrogen attached to donor atoms to use in Hydrogen bond calculations
 	AtomGroup empty_at_array;
 
 	int i;
@@ -118,7 +118,7 @@ int MolEditor::FindHBondsAtomCollection(AtomContainer* p_at_coll, vector<HaHBond
 			
 			AtomGroup bonded_atoms;
 			aptr->GetBondedAtoms( bonded_atoms );
-			vector<HaAtom> extra_bonded_h = mol_editor.FindMissingHydrogens(aptr);
+			std::vector<HaAtom> extra_bonded_h = mol_editor.FindMissingHydrogens(aptr);
 			
 			for(i = 0; i < bonded_atoms.size(); i++)
 			{
@@ -332,7 +332,7 @@ int MolEditor::FindBackbone( MolSet* pmset )
 					aptr1->flag |= BreakFlag;
 					continue;
 				}
-				shared_ptr<HaBond> p_bond = make_shared<HaBond>( aptr1,aptr2 );
+				std::shared_ptr<HaBond> p_bond = std::make_shared<HaBond>( aptr1,aptr2 );
 				pmset->BackboneBonds.push_back(p_bond);
 			}		
 			if( pres1->IsNucleo() && pres2->IsNucleo() )
@@ -340,7 +340,7 @@ int MolEditor::FindBackbone( MolSet* pmset )
 				HaAtom* aptr1 = pres1->GetAtomByName("P");
 				HaAtom* aptr2 = pres2->GetAtomByName("P");
 				if( aptr1 == NULL || aptr2 == NULL) continue;
-				shared_ptr<HaBond> p_bond = make_shared<HaBond>(aptr1, aptr2);
+				std::shared_ptr<HaBond> p_bond = std::make_shared<HaBond>(aptr1, aptr2);
 				pmset->BackboneBonds.push_back(p_bond);
 			}
 		}
@@ -756,8 +756,8 @@ int MolEditor::CalcProteinHBonds(HaChain* chn1 )
     HaChain  *chn2;
     HaResidue  *group1;
     HaResidue  *group2;
-	set<HaResidue, less<HaResidue> >::iterator ritr1;
-	set<HaResidue, less<HaResidue> >::iterator ritr2;
+	std::set<HaResidue>::iterator ritr1;
+	std::set<HaResidue>::iterator ritr2;
     HaAtom* ca1;
     HaAtom* ca2;
     HaAtom* pc1;
@@ -895,9 +895,9 @@ int MolEditor::CalcProteinHBonds(HaChain* chn1 )
 }
 
 
-vector<HaAtom> MolEditor::FindMissingHydrogens( HaAtom* aptr)
+std::vector<HaAtom> MolEditor::FindMissingHydrogens( HaAtom* aptr)
 {
-	vector<HaAtom> extra_h;
+	std::vector<HaAtom> extra_h;
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();	
 
 	HaAtom* aptr_templ = p_res_db->GetTemplateForAtom(aptr);
@@ -907,8 +907,8 @@ vector<HaAtom> MolEditor::FindMissingHydrogens( HaAtom* aptr)
 	aptr->GetBondedAtoms( bonded_atoms );
 	aptr_templ->GetBondedAtoms( bonded_atoms_templ );
 
-	vector<int> from_templ_atmap( bonded_atoms_templ.size(), -1);
-	vector<int> to_templ_atmap  ( bonded_atoms.size(), -1);
+	std::vector<int> from_templ_atmap( bonded_atoms_templ.size(), -1);
+	std::vector<int> to_templ_atmap  ( bonded_atoms.size(), -1);
 
 	int nh = 0;
 	int nh_t = 0;
@@ -1344,17 +1344,17 @@ int MolEditor::FixBondsUsingTempl(MolSet* pmset)
 				}
 			}
 
-			std::vector<shared_ptr<HaBond>>& bonds_r = aptr->GetBonds();
-			std::vector<shared_ptr<HaBond>>& bonds_t = atempl->GetBonds();
+			std::vector<std::shared_ptr<HaBond>>& bonds_r = aptr->GetBonds();
+			std::vector<std::shared_ptr<HaBond>>& bonds_t = atempl->GetBonds();
 			int k;
 			for( k = 0; k < bonds_r.size(); k++)
 			{
-				shared_ptr<HaBond> pbnd_r = bonds_r[k];
+				std::shared_ptr<HaBond> pbnd_r = bonds_r[k];
 				HaAtom* aptr2 = pbnd_r->srcatom;
 				if( aptr2 == aptr ) aptr2 = pbnd_r->dstatom;
 				atempl2 = (HaAtom*) at_map[aptr2];
 				if( atempl2 == NULL) continue;
-				shared_ptr<HaBond> pbnd_t;
+				std::shared_ptr<HaBond> pbnd_t;
 				for( j = 0; j < bonds_t.size(); j++)
 				{
 					if( bonds_t[j]->srcatom == atempl && bonds_t[j]->dstatom == atempl2 )
@@ -2828,10 +2828,10 @@ int MolEditor::FindAlphaHelix( HaMolecule* pmol, int pitch, int flag )
 	return TRUE;
 }
 
-static void TestLadder(list<HaChain>::iterator chain_ref, list<HaChain>& Chains, 
+static void TestLadder(std::list<HaChain>::iterator chain_ref, std::list<HaChain>& Chains,
 					   HaResidue* prevri,HaResidue* curri, HaResidue* nexti)
 {
-	list<HaChain>::iterator chain= chain_ref;
+	std::list<HaChain>::iterator chain= chain_ref;
    
 	HaResidue* prevrj = NULL;
 	HaResidue* currj = NULL;
@@ -3646,8 +3646,8 @@ int MolEditor::ReplicatePeriodBox(MolSet* pmset, int nx, int ny, int nz)
 			        " No Molecules in the molset");
 		 return FALSE;
 	 }
-     list<HaResidue*> res_list;
-	 list<HaResidue*>::iterator resl_itr;
+	 std::list<HaResidue*> res_list;
+	 std::list<HaResidue*>::iterator resl_itr;
 	 HaResidue* group;
 	 HaChain* chain;
 	 HaAtom* aptr;
@@ -3669,8 +3669,8 @@ int MolEditor::ReplicatePeriodBox(MolSet* pmset, int nx, int ny, int nz)
 	 {
 		 if(group->GetSerNo() > res_num) res_num = group->GetSerNo();
 	 }
-	 list<HaBond*> bond_list;
-	 list<HaBond*>::iterator bondl_itr;
+	 std::list<HaBond*> bond_list;
+	 std::list<HaBond*>::iterator bondl_itr;
 
 	 HaBond* bptr;
 	 BondIteratorMolSet bitr(pmset);
@@ -3767,7 +3767,7 @@ int MolEditor::WrapToUnitCell(AtomContainer* pat_coll, PeriodicUnitInfo* per_inf
 		return FALSE;
 	}
 
-	vector<AtomGroup> mols;
+	std::vector<AtomGroup> mols;
 	SplitToMolecules(pat_coll,mols);
 
 	int nmol = mols.size();
@@ -3916,19 +3916,19 @@ int MolEditor::DeleteOverlapMols(MolSet* pmset, AtomGroup& at_coll)
 	return TRUE;
 }
 
-int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mols)
+int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, std::vector<AtomGroup>& mols)
 {
 	mols.clear();
 	if( p_at_coll == NULL ) return FALSE;
 
 	int na = p_at_coll->GetNAtoms();
 
-	set<HaAtom*, less<HaAtom*> > atoms_left;
-	set<HaAtom*, less<HaAtom*> > all_atoms;
+	std::set<HaAtom*> atoms_left;
+	std::set<HaAtom*> all_atoms;
 
-	vector< set<HaAtom*, less<HaAtom*> > > clusters;
-	set<HaAtom*> empty_atset;
-	set<HaAtom*>* p_last_atset = NULL;
+	std::vector< std::set<HaAtom*> > clusters;
+	std::set<HaAtom*> empty_atset;
+	std::set<HaAtom*>* p_last_atset = NULL;
 
 	AtomIteratorGen aitr(p_at_coll);
 	HaAtom* aptr;
@@ -3950,7 +3950,7 @@ int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mol
 		{
 			if( atoms_left.empty() ) break;
 
-			set<HaAtom*, less<HaAtom*> >::iterator atoms_left_itr = atoms_left.begin();
+			std::set<HaAtom*>::iterator atoms_left_itr = atoms_left.begin();
 			aptr = (*atoms_left_itr);
 			conn_atoms.push(aptr);
 			atoms_left.erase(atoms_left_itr);
@@ -3985,7 +3985,7 @@ int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mol
 		na = clusters[i].size();
 		mols[i].resize(na);
 		j = 0;
-		set<HaAtom*, less<HaAtom*> >::iterator asitr;
+		std::set<HaAtom*>::iterator asitr;
 		for( asitr = clusters[i].begin(); asitr != clusters[i].end(); asitr++)
 		{
 			mols[i][j] = (*asitr);

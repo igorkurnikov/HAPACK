@@ -34,7 +34,7 @@ public:
 
 	virtual ~wxAtomEdit();
 
-	static list<wxAtomEdit*> active_controls;
+	static std::list<wxAtomEdit*> active_controls;
 	static int BroadCastPickedAtom(HaAtom* PickAtom);
 
 	int OnAtomPicked(HaAtom* PickAtom);

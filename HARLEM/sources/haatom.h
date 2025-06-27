@@ -124,8 +124,8 @@ public:
 
   void SetHostRes(HaResidue* new_phost_res);
 
-  using BondIterator       = std::vector<shared_ptr<HaBond>>::iterator;
-  using BondIterator_const = std::vector<shared_ptr<HaBond>>::const_iterator;
+  using BondIterator       = std::vector<std::shared_ptr<HaBond>>::iterator;
+  using BondIterator_const = std::vector<std::shared_ptr<HaBond>>::const_iterator;
 
   BondIterator Bonds_begin() { return bonds.begin(); }
   BondIterator Bonds_end()   { return bonds.end();   }
@@ -133,7 +133,7 @@ public:
   BondIterator_const Bonds_begin() const { return bonds.begin(); }
   BondIterator_const Bonds_end()   const { return bonds.end();   }
  	
-  std::vector<shared_ptr<HaBond>>& GetBonds() { return bonds;} //!< Get Covalent bonds of the atom
+  std::vector<std::shared_ptr<HaBond>>& GetBonds() { return bonds;} //!< Get Covalent bonds of the atom
 
   int GetBondedAtoms(AtomGroup& bonded_atoms); //!< get atoms bonded to the given atom
   AtomGroup GetBondedAtoms();                  //!< get atoms bonded to the given atom
@@ -166,7 +166,7 @@ public:
 //@{
   static int AtTypeFromLbl(const std::string & Label); //!< Determine atom element number from the atom label
 
-  bool Print_info(ostream &sout, const int level) const;
+  bool Print_info(std::ostream &sout, const int level) const;
 
   enum AtomRefType{ ATOMREF_FULL = 0,  //!< Full atom reference include molecule name  
 	                ATOMREF_STD,       //!< Include molecule name only if there are more than 1 molecule in the molecular set
@@ -211,7 +211,7 @@ public:
   double GetVdWEne() const;                  //!< Get VdW Energy parameter of the Atom ( kcal/mol ) ( attraction energy of two atoms at 2*r_vdw distance )
   void SetVdWEne(double new_ene_vdw);        //!< Set VdW Energy parameter of the Atom
 
-  shared_ptr<AtomFFParam> ps_ff_par;
+  std::shared_ptr<AtomFFParam> ps_ff_par;
 
   // double mass;                 //!< Mass of the Atom in Atomic units
   // double vdw_rad;   //!< atom VdW radius (in Bohr) to compute Van-der-Waals interactions 
@@ -265,7 +265,7 @@ public:
 protected:
   HaResidue* phost_res;   //!< the residue atom belongs to
 
-  std::vector<shared_ptr<HaBond>> bonds;  //!< Array of bonds the atom  
+  std::vector<std::shared_ptr<HaBond>> bonds;  //!< Array of bonds the atom  
 
   bool proxy_flag;                //!< flag to indicate that atom is used in residue template in place of an atom of an another residue bonded to 
   std::string replaced_atom_name; //!< if (replace_atom_flag) indicate atom id this atom is replacing in the molecular structure
@@ -276,7 +276,7 @@ protected:
 
 typedef std::vector<HaAtom*> HaAtomVector;
   
-class AtomDoubleMap : public std::map<HaAtom*,double, less<HaAtom*> >
+class AtomDoubleMap : public std::map<HaAtom*,double>
 {
 public:
     
@@ -292,7 +292,7 @@ protected:
 	std::string name;
 };
 
-class AtomAtomMap : public std::map<HaAtom*,HaAtom*, less<HaAtom*> >
+class AtomAtomMap : public std::map<HaAtom*,HaAtom*>
 {
 public:
 	AtomAtomMap();

@@ -88,7 +88,7 @@ void HaTests::calc_polar_gcontr()
 
   HaMat_double gsmat;
 
-  vector<HaRPAvec> x;
+  std::vector<HaRPAvec> x;
   int ic,ig1,ig2;
   ic = 2;
   for( ic=1; ic <=3 ; ic++)
@@ -128,7 +128,7 @@ void HaTests::calc_polar_gcontr()
 		  for( ig2=1; ig2 <= ngrp; ig2++)
 		  {
 			  HaRPAvec RPAv(*ptr_qc_mod);
-			  vector<HaRPAvec> RPAv_arr;
+			  std::vector<HaRPAvec> RPAv_arr;
 			  RPAv_arr.push_back(RPAv);
 
 			  std::string gid1=(pmset->GetChemGroupByIdx(ig1)).GetID();
@@ -157,8 +157,8 @@ void HaTests::calc_polar_gcontr()
 	
   HaMat_double rrg(ngsq,ngsq);
   rrg(I1,I1)=rrt(I1,I1);
-  cout << " Group contributions to xx component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to xx component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   int j;
   for( i=1; i <= ngsq; i++)
@@ -166,8 +166,8 @@ void HaTests::calc_polar_gcontr()
 		rr_tenz(1,1)+=rrg(i,j);
 
   rrg(I1,I1)=rrt(I1+ngsq,I1+ngsq);
-  cout << " Group contributions to yy component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to yy component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   for(i=1; i <= ngsq; i++)
 	  for(j=1; j <= ngsq; j++)
@@ -175,16 +175,16 @@ void HaTests::calc_polar_gcontr()
 
 
   rrg(I1,I1)=rrt(I1+2*ngsq,I1+2*ngsq);
-  cout << " Group contributions to zz component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to zz component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   for(i=1; i <= ngsq; i++)
 	  for(j=1; j <= ngsq; j++)
 		rr_tenz(3,3)+=rrg(i,j);
 
 
-  cout << " Total Polarization tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total Polarization tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
 }
 
@@ -298,10 +298,10 @@ void HaTests::calc_polar_contr_f()
 
   HaMatDB f_goper_mat("group_oper_mat.hdb","r");
 
-  vector<HaRPAvec> x;
+  std::vector<HaRPAvec> x;
   int ic,ig1,ig2;
 
-  int nn1[3]={0,0,0}; // number of RPA vectors of the certain projection
+  int nn1[3]={0,0,0}; // number of RPA std::vectors of the certain projection
 
   char buf[10];
   for( ic=1; ic <=3 ; ic++)
@@ -321,11 +321,11 @@ void HaTests::calc_polar_contr_f()
 
 			  if(!f_goper_mat.get(g_op_id,ActOrbSubMat))
 			  {
-					cout << "not found: " << g_op_id.GetStr() << endl;
+				  std::cout << "not found: " << g_op_id.GetStr() << std::endl;
 					continue;
 			  }
 
-			  cout << "found: " << g_op_id.GetStr() << endl;
+			  std::cout << "found: " << g_op_id.GetStr() << std::endl;
 			  RPAv.SetFromLOGrpMat(g1.GetID(),g2.GetID(),ActOrbSubMat);
 			  RPAv.id=g_op_id;
 			  x.push_back(RPAv);
@@ -353,7 +353,7 @@ void HaTests::calc_polar_contr_f()
 		  for( ig2=1; ig2 <= ngrp; ig2++)
 		  {
 			  HaRPAvec RPAv(*ptr_qc_mod);
-			  vector<HaRPAvec> RPAv_arr;
+			  std::vector<HaRPAvec> RPAv_arr;
 			  RPAv_arr.push_back(RPAv);
 			
 			  ChemGroup& g1 = pmset->GetChemGroupByIdx(ig1);
@@ -365,11 +365,11 @@ void HaTests::calc_polar_contr_f()
 
 			  if(!f_goper_mat.get(g_op_id,ActOrbSubMat))
 			  {
-				  cout << "not found: " << g_op_id.GetStr() << endl;
+				  std::cout << "not found: " << g_op_id.GetStr() << std::endl;
 				  continue;
 			  }
 			
-			  cout << "found: " << g_op_id.GetStr() << endl;
+			  std::cout << "found: " << g_op_id.GetStr() << std::endl;
 			  RPAv_arr[0].SetFromLOGrpMat(g1.GetID(),g2.GetID(),ActOrbSubMat);
 			  m++;
 			  HaMat_double gg;
@@ -401,8 +401,8 @@ void HaTests::calc_polar_contr_f()
 	
   HaMat_double rrg(nn1[0],nn1[0]);
   rrg(I1,I1)=rrt(I1,I1);
-  cout << " Group contributions to xx component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to xx component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   int i,j;
   for( i=1; i <= nn1[0]; i++)
@@ -411,8 +411,8 @@ void HaTests::calc_polar_contr_f()
 
   rrg.newsize(nn1[1],nn1[1]);
   rrg(I2,I2)=rrt(I2+nn1[0],I2+nn1[0]);
-  cout << " Group contributions to yy component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to yy component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   for(i=1; i <= nn1[1]; i++)
 	  for(j=1; j <= nn1[1]; j++)
@@ -421,16 +421,16 @@ void HaTests::calc_polar_contr_f()
 
   rrg.newsize(nn1[2],nn1[2]);
   rrg(I3,I3)=rrt(I3+nn1[0]+nn1[1],I3+nn1[0]+nn1[1]);
-  cout << " Group contributions to zz component of Polariz Tensor " << endl;
-  rrg.Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to zz component of Polariz Tensor " << std::endl;
+  rrg.Print_format(std::cout," %12.6f ");
 
   for(i=1; i <= nn1[2]; i++)
 	  for(j=1; j <= nn1[2]; j++)
 		rr_tenz(3,3)+=rrg(i,j);
 
 
-  cout << " Total Polarization tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total Polarization tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
 }
 
@@ -460,7 +460,7 @@ HaTests::calc_polar_contr_2idx()
 
   HaMatDB f_goper_mat("group_oper_mat.hdb","r");
 
-  vector<HaRPAvec> x;
+  std::vector<HaRPAvec> x;
   int ic,ig1,ig2;
 
   HaMat_doubleArr rmats;
@@ -492,9 +492,9 @@ HaTests::calc_polar_contr_2idx()
 	  RPAv.SetFromAOMat(ActOrbMat,REAL_OPER);
 	  if(iprint > 2)
 	  {
-		 cout << "Z_mat of RPA vector of R component " << ic << endl;
-		 RPAv.Z_mat.Print_format(cout," %10.5f ");
-		 cout << endl;
+		 std::cout << "Z_mat of RPA std::vector of R component " << ic << std::endl;
+		 RPAv.Z_mat.Print_format(std::cout," %10.5f ");
+		 std::cout << std::endl;
 	  }
 	  RPAv.id=g_op_id;
 	  x.push_back(RPAv);
@@ -517,7 +517,7 @@ HaTests::calc_polar_contr_2idx()
 		  for( ig2=1; ig2 <= ngrp; ig2++)
 		  {
 			  HaRPAvec RPAv(*ptr_qc_mod);
-			  vector<HaRPAvec> RPAv_arr;
+			  std::vector<HaRPAvec> RPAv_arr;
 			  RPAv_arr.push_back(RPAv);
 			
 			  ChemGroup& g1= pmset->GetChemGroupByIdx(ig1);
@@ -529,11 +529,11 @@ HaTests::calc_polar_contr_2idx()
 
 			  if(!f_goper_mat.get(g_op_id,ActOrbSubMat))
 			  {
-				  cout << "not found: " << g_op_id.GetStr() << endl;
+				  std::cout << "not found: " << g_op_id.GetStr() << std::endl;
 				  continue;
 			  }
 			
-			  cout << "found: " << g_op_id.GetStr() << endl;
+			  std::cout << "found: " << g_op_id.GetStr() << std::endl;
 			  RPAv_arr[0].SetFromLOGrpMat(g1.GetID(),g2.GetID(),ActOrbSubMat);
 			  gg=SProd(RPAv_arr,x);
 
@@ -551,8 +551,8 @@ HaTests::calc_polar_contr_2idx()
 
   mat_scale(rr_tenz,rr_tenz,-2.0);
 
-  cout << " Total Polarization tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total Polarization tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
 }
 
@@ -581,7 +581,7 @@ void HaTests::calc_beta_contr_2idx()
 
   HaMatDB f_goper_mat("group_oper_mat.hdb","r");
 
-  vector<HaRPAvec> x;
+  std::vector<HaRPAvec> x;
   int ic,ig1,ig2;
 
   HaOperRDelt r1(ptr_qc_mod);
@@ -625,9 +625,9 @@ void HaTests::calc_beta_contr_2idx()
 	  RPAv.SetFromAOMat(ActOrbMat,IMAG_OPER);
 	  if(iprint > 2)
 	  {
-		 cout << "Z_mat of RPA vector of RxGrad component " << ic << endl;
-		 RPAv.Z_mat.Print_format(cout," %10.5f ");
-		 cout << endl;
+		  std::cout << "Z_mat of RPA std::vector of RxGrad component " << ic << std::endl;
+		 RPAv.Z_mat.Print_format(std::cout," %10.5f ");
+		 std::cout << std::endl;
 	  }
 	  RPAv.id=g_op_id;
 	  x.push_back(RPAv);
@@ -642,9 +642,9 @@ void HaTests::calc_beta_contr_2idx()
   {
 	  for(ic =0; ic< x.size(); ic++)
 	  {
-	     cout << "Z_mat of RPA vector of Solution (E-H)^-1|RxGrad) component " << ic << endl;
-		 x[ic].Z_mat.Print_format(cout," %10.5f ");
-		 cout << endl;
+		  std::cout << "Z_mat of RPA std::vector of Solution (E-H)^-1|RxGrad) component " << ic << std::endl;
+		 x[ic].Z_mat.Print_format(std::cout," %10.5f ");
+		 std::cout << std::endl;
 	  }
   }
 
@@ -661,7 +661,7 @@ void HaTests::calc_beta_contr_2idx()
 		  for( ig2=1; ig2 <= ngrp; ig2++)
 		  {
 			  HaRPAvec RPAv(*ptr_qc_mod);
-			  vector<HaRPAvec> RPAv_arr;
+			  std::vector<HaRPAvec> RPAv_arr;
 			  RPAv_arr.push_back(RPAv);
 			
 			  ChemGroup& g1= pmset->GetChemGroupByIdx(ig1);
@@ -673,18 +673,18 @@ void HaTests::calc_beta_contr_2idx()
 
 			  if(!f_goper_mat.get(g_op_id,ActOrbSubMat))
 			  {
-				  cout << "not found: " << g_op_id.GetStr() << endl;
+				  std::cout << "not found: " << g_op_id.GetStr() << std::endl;
 				  continue;
 			  }
 			
-			  cout << "found: " << g_op_id.GetStr() << endl;
+			  std::cout << "found: " << g_op_id.GetStr() << std::endl;
 			  RPAv_arr[0].SetFromLOGrpMat(g1.GetID(),g2.GetID(),ActOrbSubMat,REAL_OPER);
 			
 			  if(iprint > 2)
 			  {
-				  cout << " Z_mat for R group pertubation comp g1 g2 " <<
-					  ic << " " <<  g1.GetID() << " " << g2.GetID() << endl;
-					RPAv_arr[0].Z_mat.Print_format(cout," %10.5f ");
+				  std::cout << " Z_mat for R group pertubation comp g1 g2 " <<
+					  ic << " " <<  g1.GetID() << " " << g2.GetID() << std::endl;
+					RPAv_arr[0].Z_mat.Print_format(std::cout," %10.5f ");
 
 			  }
 			
@@ -705,20 +705,20 @@ void HaTests::calc_beta_contr_2idx()
 
   mat_scale(rr_tenz,rr_tenz,-1.0);
 
-  cout << " Total G' tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total G' tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
   double beta;
   beta=-(rr_tenz(1,1)+rr_tenz(2,2)+rr_tenz(3,3))/(3*0.0773);
-  cout << " Beta is: " << endl;
-  cout << beta << endl;
+  std::cout << " Beta is: " << std::endl;
+  std::cout << beta << std::endl;
 
 }
 
 
 void HaTests::read_polar_contr()
 {
-  ofstream flog("harlem.log");
+	std::ofstream flog("harlem.log");
 
   MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
@@ -741,7 +741,7 @@ void HaTests::read_polar_contr()
 
   HaMat_double gg;
 
-  vector<HaMat_double> rmg_vec;
+  std::vector<HaMat_double> rmg_vec;
 
   char buf[10];
   for( int ic=1; ic <=3 ; ic++)
@@ -770,12 +770,12 @@ void HaTests::read_polar_contr()
 					  HaGrp4MatID g4_mat_id(g_op_id1,g_op_id2);
 					  if(!polar_contr_db.get(g4_mat_id,gg))
 					  {
-						  cout << "not found: " << g4_mat_id.GetStr() << endl;
-						  flog << "not found: " << g4_mat_id.GetStr() << endl;
+						  std::cout << "not found: " << g4_mat_id.GetStr() << std::endl;
+						  flog << "not found: " << g4_mat_id.GetStr() << std::endl;
 						  continue;
 					  }
-					  cout << "found: " << g4_mat_id.GetStr() << endl;
-					  flog << "found: " << g4_mat_id.GetStr() << endl;
+					  std::cout << "found: " << g4_mat_id.GetStr() << std::endl;
+					  flog << "found: " << g4_mat_id.GetStr() << std::endl;
 					  rmg(ig1+(ig2-1)*ngrp, ig3+(ig4-1)*ngrp)=gg(1,1);
 				  }
 			  }
@@ -785,8 +785,8 @@ void HaTests::read_polar_contr()
 	  rmg_vec.push_back(rmg);
   }
 
-  cout << " Group contributions to xx component of Polariz Tensor " << endl;
-  rmg_vec[0].Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to xx component of Polariz Tensor " << std::endl;
+  rmg_vec[0].Print_format(std::cout," %12.6f ");
 
   HaMat_double rr_tenz(3,3,0.0);
 
@@ -795,23 +795,22 @@ void HaTests::read_polar_contr()
 	  for( j=1; j <= ngsq; j++)
 		rr_tenz(1,1)+=rmg_vec[0](i,j);
 
-  cout << " Group contributions to yy component of Polariz Tensor " << endl;
-  rmg_vec[1].Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to yy component of Polariz Tensor " << std::endl;
+  rmg_vec[1].Print_format(std::cout," %12.6f ");
 
   for( i=1; i <= ngsq; i++)
 	  for( j=1; j <= ngsq; j++)
 		rr_tenz(2,2)+=rmg_vec[1](i,j);
 
-  cout << " Group contributions to xx component of Polariz Tensor " << endl;
-  rmg_vec[2].Print_format(cout," %12.6f ");
+  std::cout << " Group contributions to xx component of Polariz Tensor " << std::endl;
+  rmg_vec[2].Print_format(std::cout," %12.6f ");
 
   for( i=1; i <= ngsq; i++)
 	  for( j=1; j <= ngsq; j++)
 		rr_tenz(3,3)+=rmg_vec[2](i,j);
 
-
-  cout << " Total Polarization tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total Polarization tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
   flog.close();
 
@@ -819,7 +818,7 @@ void HaTests::read_polar_contr()
 
 void HaTests::read_polar_contr_2idx()
 {
-  ofstream flog("harlem.log");
+	std::ofstream flog("harlem.log");
 
   MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
@@ -863,12 +862,12 @@ void HaTests::read_polar_contr_2idx()
 				  HaGrp4MatID g4_mat_id(g_op_id1,g_op_id2);
 				  if(!polar_contr_db.get(g4_mat_id,gg))
 				  {
-					  cout << "not found: " << g4_mat_id.GetStr() << endl;
-					  flog << "not found: " << g4_mat_id.GetStr() << endl;
+					  std::cout << "not found: " << g4_mat_id.GetStr() << std::endl;
+					  flog << "not found: " << g4_mat_id.GetStr() << std::endl;
 					  continue;
 				  }
-				  cout << "found: " << g4_mat_id.GetStr() << endl;
-				  flog << "found: " << g4_mat_id.GetStr() << endl;
+				  std::cout << "found: " << g4_mat_id.GetStr() << std::endl;
+				  flog << "found: " << g4_mat_id.GetStr() << std::endl;
 				  rr_tenz(ic,ic2)+=gg(1,1);
 			  }
 		  }
@@ -877,8 +876,8 @@ void HaTests::read_polar_contr_2idx()
 
   mat_scale(rr_tenz,rr_tenz,-2.0);
 
-  cout << " Total Polarization tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total Polarization tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
   flog.close();
 
@@ -886,7 +885,7 @@ void HaTests::read_polar_contr_2idx()
 
 void HaTests::read_beta_contr_2idx()
 {
-  ofstream flog("harlem.log");
+	std::ofstream flog("harlem.log");
 
   MolSet* pmset = GetCurMolSet();
   if( pmset == NULL) return;
@@ -929,12 +928,12 @@ void HaTests::read_beta_contr_2idx()
 				  HaGrp4MatID g4_mat_id(g_op_id1,g_op_id2);
 				  if(!beta_contr_db.get(g4_mat_id,gg))
 				  {
-					  cout << "not found: " << g4_mat_id.GetStr() << endl;
-					  flog << "not found: " << g4_mat_id.GetStr() << endl;
+					  std::cout << "not found: " << g4_mat_id.GetStr() << std::endl;
+					  flog << "not found: " << g4_mat_id.GetStr() << std::endl;
 					  continue;
 				  }
-				  cout << "found: " << g4_mat_id.GetStr() << endl;
-				  flog << "found: " << g4_mat_id.GetStr() << endl;
+				  std::cout << "found: " << g4_mat_id.GetStr() << std::endl;
+				  flog << "found: " << g4_mat_id.GetStr() << std::endl;
 				  rr_tenz(ic,ic2)+=gg(1,1);
 			  }
 		  }
@@ -943,13 +942,13 @@ void HaTests::read_beta_contr_2idx()
 
   mat_scale(rr_tenz,rr_tenz,-1.0);
 
-  cout << " Total G' tenzor is: " << endl;
-  cout << rr_tenz << endl;
+  std::cout << " Total G' tenzor is: " << std::endl;
+  std::cout << rr_tenz << std::endl;
 
   double beta;
   beta=-(rr_tenz(1,1)+rr_tenz(2,2)+rr_tenz(3,3))/(3*0.0773);
-  cout << " Beta is: " << endl;
-  cout << beta << endl;
+  std::cout << " Beta is: " << std::endl;
+  std::cout << beta << std::endl;
 
   flog.close();
 
@@ -967,7 +966,7 @@ void HaTests::test_oper_1()
 
 	HaMat_double& ss = ptr_qc_mod->GetOvlpMat();
 
-	ss.Print_format(cout," %6.3f ");
+	ss.Print_format(std::cout," %6.3f ");
 
 	HaMat_double sm1 = ss;
 	HaMat_double::mat_inverse(sm1);
@@ -980,7 +979,7 @@ void HaTests::test_oper_1()
 //	rd1.RecalcLondon(&ptr_qc_mod->AtBasis);
 //	cout << " r X Grad for london orbitals";
 //	rd1.Print_info(cout,1);	
-//	cout << endl;
+//	cout << std::endl;
 
 	HaMat_doubleArr rm;
 	HaMat_doubleArr gm;
@@ -996,13 +995,13 @@ void HaTests::test_oper_1()
 	{
 		PrintLog(" \n");
 		PrintLog(" The matrix of component %d of R-operator \n ",i+1);
-		rm[i].Print_format(cout," %6.3f ");
+		rm[i].Print_format(std::cout," %6.3f ");
 	}
 
 	t1.EvalGauBasisSet(&ptr_qc_mod->AtBasis,tmat);
 	PrintLog(" \n");
 	PrintLog(" The matrix of Kinietic Energy operator T \n");
-	tmat.Print_format(cout," %6.3f ");
+	tmat.Print_format(std::cout," %6.3f ");
 	
 	rd1.EvalGauBasisSet(&ptr_qc_mod->AtBasis,rdm);
 	ns = rdm.size();
@@ -1010,7 +1009,7 @@ void HaTests::test_oper_1()
 	{
 		PrintLog(" \n");
 		PrintLog(" The matrix of component %d of R X Delt operator \n ",i+1);
-		rdm[i].Print_format(cout," %6.3f ");
+		rdm[i].Print_format(std::cout," %6.3f ");
 	}
 
 	return;
@@ -1023,26 +1022,26 @@ void HaTests::test_oper_1()
 	HaMat_double CMO;
 	CMO.set_ext_alloc(ptr_qc_mod->MO_coef.begin(),nb,nb);
 
-	cout << " MOs : " << endl;
-	CMO.Print_format(cout," %10.5f ");
+	std::cout << " MOs : " << std::endl;
+	CMO.Print_format(std::cout," %10.5f ");
 
 
     HaMat_double scr, rdmx_mo;	
 	matmult_T1(scr,CMO,rdm[0]);
 	matmult   (rdmx_mo,scr,CMO);
 
-	cout << "RxGrad_X in MO basis" << endl;
-	rdmx_mo.Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << "RxGrad_X in MO basis" << std::endl;
+	rdmx_mo.Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << " RxGrad operator matricies with substracted ( 0.5*(R_1+R_2)*Grad_ij) " << endl;
+	std::cout << " RxGrad operator matricies with substracted ( 0.5*(R_1+R_2)*Grad_ij) " << std::endl;
 
-	cout << "RxGrad_X corrected: " << endl;
-	rdm[0].Print_format(cout,"%10.5f ");
-	cout << "RxGrad_Y corrected: " << endl;
-	rdm[1].Print_format(cout,"%10.5f ");
-	cout << "RxGrad_Z corrected: " << endl;
-	rdm[2].Print_format(cout,"%10.5f ");
+	std::cout << "RxGrad_X corrected: " << std::endl;
+	rdm[0].Print_format(std::cout,"%10.5f ");
+	std::cout << "RxGrad_Y corrected: " << std::endl;
+	rdm[1].Print_format(std::cout,"%10.5f ");
+	std::cout << "RxGrad_Z corrected: " << std::endl;
+	rdm[2].Print_format(std::cout,"%10.5f ");
 
 
 
@@ -1050,17 +1049,17 @@ void HaTests::test_oper_1()
 	rdm_n[1] = rm[2]*sm1*gm[0] - rm[0]*sm1*gm[2];
 	rdm_n[2] = rm[0]*sm1*gm[1] - rm[1]*sm1*gm[0];
 
-	cout << " (R X Grad)_X mat calculated from R and Delt : " << endl;
-	cout << rdm_n[0].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " (R X Grad)_X mat calculated from R and Delt : " << std::endl;
+	std::cout << rdm_n[0].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << " (R X Grad)_Y mat calculated from R and Delt : " << endl;
-	cout << rdm_n[1].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " (R X Grad)_Y mat calculated from R and Delt : " << std::endl;
+	std::cout << rdm_n[1].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << " (R X Grad)_Z mat calculated from R and Delt : " << endl;
-	cout << rdm_n[2].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " (R X Grad)_Z mat calculated from R and Delt : " << std::endl;
+	std::cout << rdm_n[2].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
 	HaOperKinEner rT;
 
@@ -1069,9 +1068,9 @@ void HaTests::test_oper_1()
 	tm_n= gm[0]*sm1*gm[0]+gm[1]*sm1*gm[1]+gm[2]*sm1*gm[2]; 
 	mat_scale(tm_n, tm_n, -0.5);
 
-	cout << " Kinetic Energy mat calculated from Grad mat : " << endl;
-	cout << tm_n.Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " Kinetic Energy mat calculated from Grad mat : " << std::endl;
+	std::cout << tm_n.Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
     HaMat_doubleArr gm_n;
 
@@ -1079,17 +1078,17 @@ void HaTests::test_oper_1()
 	gm_n[1]= rm[1] * sm1 * tm - tm * sm1 * rm[1];
 	gm_n[2]= rm[2] * sm1 * tm - tm * sm1 * rm[2];
 	
-	cout << " Grad_X mat calculated as [T,r] : " << endl;
-	cout << gm_n[0].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " Grad_X mat calculated as [T,r] : " << std::endl;
+	std::cout << gm_n[0].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << " Grad_Y mat calculated as [T,r] : " << endl;
-	cout << gm_n[1].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " Grad_Y mat calculated as [T,r] : " << std::endl;
+	std::cout << gm_n[1].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << " Grad_Z mat calculated as [T,r] : " << endl;
-	cout << gm_n[2].Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << " Grad_Z mat calculated as [T,r] : " << std::endl;
+	std::cout << gm_n[2].Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
 }
 
@@ -1120,7 +1119,7 @@ void HaTests::test_oper_2()
 	HaRPAHam h1;
 	h1.SetEnergy(0.0);
 
-	vector<HaRPAvec> x;
+	std::vector<HaRPAvec> x;
 	
 	HaMat_double OrbMat;
 	for( int ic=0; ic < 3 ; ic++)
@@ -1166,12 +1165,12 @@ void HaTests::test_oper_2()
 	matmult(scr,SC_vac,x[2].Z_mat);
 	matmult_T2(Hrmz,scr,SC_occ);
 
-	cout << "x[0].Z_mat" << endl;
-	x[0].Z_mat.Print_format(cout,"%10.5f ");
-	cout << "x[1].Z_mat" << endl;
-	x[1].Z_mat.Print_format(cout,"%10.5f ");
-	cout << "x[2].Z_mat" << endl;
-	x[2].Z_mat.Print_format(cout,"%10.5f ");
+	std::cout << "x[0].Z_mat" << std::endl;
+	x[0].Z_mat.Print_format(std::cout,"%10.5f ");
+	std::cout << "x[1].Z_mat" << std::endl;
+	x[1].Z_mat.Print_format(std::cout,"%10.5f ");
+	std::cout << "x[2].Z_mat" << std::endl;
+	x[2].Z_mat.Print_format(std::cout,"%10.5f ");
 
 	HaMat_double CMO;
 	CMO.set_ext_alloc(ptr_qc_mod->MO_coef.begin(),nb,nb);
@@ -1184,17 +1183,17 @@ void HaTests::test_oper_2()
 	matmult_T1(scr,CMO,Hrmz);
 	matmult   (hrmz_mo,scr,CMO);
 
-	cout << "[H,r]_X in MO basis" << endl;
-	hrmx_mo.Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << "[H,r]_X in MO basis" << std::endl;
+	hrmx_mo.Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << "[H,r]_Y in MO basis" << endl;
-	hrmy_mo.Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << "[H,r]_Y in MO basis" << std::endl;
+	hrmy_mo.Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
-	cout << "[H,r]_Z in MO basis" << endl;
-	hrmz_mo.Print_format(cout,"%10.5f ");
-	cout << endl;
+	std::cout << "[H,r]_Z in MO basis" << std::endl;
+	hrmz_mo.Print_format(std::cout,"%10.5f ");
+	std::cout << std::endl;
 
 }
 
@@ -1227,7 +1226,7 @@ void HaTests::test_qcmod_1()
 	}
 	else
 	{
-		cout << "test_qcmod_1(): didn't find Fe in PseudoPot DB " << endl;
+		std::cout << "test_qcmod_1(): didn't find Fe in PseudoPot DB " << std::endl;
 	}
 
 	pot_ptr = pseudo_db.Extract("HAY_1","Ru");
@@ -1238,7 +1237,7 @@ void HaTests::test_qcmod_1()
 	}
 	else
 	{
-		cout << "test_qcmod_1(): didn't find Ru in PseudoPot DB " << endl;
+		std::cout << "test_qcmod_1(): didn't find Ru in PseudoPot DB " << std::endl;
 	}
 }
 
@@ -1247,7 +1246,7 @@ void HaTests::dump_mol_info()
 {
 	MolSet* pmset = GetCurMolSet();
 	if(pmset == NULL) return;
-	pmset->Print_info(cout,1);
+	pmset->Print_info(std::cout,1);
 }
 
 void HaTests::dump_gauss_bcommon()
@@ -1263,8 +1262,8 @@ void HaTests::dump_overlap()
 
 	if(ptr_qc_mod == NULL)
 	{
-		cerr << " Error in dump_overlap() " << endl;
-		cerr << " QChem Module is not set " << endl;
+		std::cerr << " Error in dump_overlap() " << std::endl;
+		std::cerr << " QChem Module is not set " << std::endl;
 		return ;
 	}
 
@@ -1273,7 +1272,7 @@ void HaTests::dump_overlap()
 	GauBasisSet::CalcOvlpMat( &ptr_qc_mod->AtBasis, &ptr_qc_mod->AtBasis,ss);
 
 	PrintLog(" Overlap matrix \n"); 
-	ss.Print_format(cout,"%10.5f ");
+	ss.Print_format(std::cout,"%10.5f ");
 }
 
 void HaTests::dump_overlap2()
@@ -1298,7 +1297,7 @@ void HaTests::dump_overlap2()
 
 	PrintLog(" Overlap matrix between 3-21G and STO-6G basis \n"); 
 //  PrintLog(" Overlap matrix between STO-3G and STO-6G basis \n"); 
-	ss.Print_format(cout,"%10.5f ");
+	ss.Print_format(std::cout,"%10.5f ");
 }
 
 class HaMinQ1 : public HaMinimizer

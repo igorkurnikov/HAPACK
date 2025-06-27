@@ -267,7 +267,7 @@ public:
 
 // Color Manipulation functions:
 
-	vector<int> min_color_map; //!< Array of minimal set of colors to describe the image
+	std::vector<int> min_color_map; //!< Array of minimal set of colors to describe the image
 	IntIntMap rev_color_map; //!< Map from colors to indexes in min_color_map
 
 	static void RefreshColors(); //!< Reset colors for current display parameters for changes in fade and others
@@ -326,7 +326,7 @@ public:
 	
 //! \name Monitors functions:
 
-	list<Monitor> MonitList;
+	std::list<Monitor> MonitList;
 
 	void DeleteAllMonitors();
 	void AddAtomPairMonitor( HaAtom* src, HaAtom* dst );

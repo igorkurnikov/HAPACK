@@ -58,7 +58,7 @@ static int GetHBondDatum( HaHBond * );
 
 static void ResetFreqTable()
 {
-    register int i;
+    int i;
 
     for( i=0; i<FREQSIZE; i++ )
         Freq[i].count = 0;
@@ -66,8 +66,8 @@ static void ResetFreqTable()
 
 static void IncFreqTable(int datum )
 {
-    register int count;
-    register int i;
+    int count;
+    int i;
 
     for( i=0; i<FREQSIZE; i++ )
         if( !Freq[i].count )
@@ -374,7 +374,7 @@ HaMolView::WriteMolScriptFile( const char* name )
 
 static void WriteScriptDatum( char*, int );
 static void WriteScriptSelectBond( HaAtom *, HaAtom * );
-static void WriteScriptHBonds( char*, list<HaHBond>& lst );
+static void WriteScriptHBonds( char*, std::list<HaHBond>& lst );
 
 
 static void WriteScriptAll()
@@ -554,13 +554,12 @@ static void WriteScriptDatum( char* ptr, int datum )
 }
 
 
-void 
-HaMolView::WriteScriptBonds()
+void HaMolView::WriteScriptBonds()
 {
-    register HaBond  *bptr;
-    register int defdat;
-    register int datum;
-    register int col;
+    HaBond  *bptr;
+    int defdat;
+    int datum;
+    int col;
 
     fputs("\n# Bonds\n",OutFile);
 
@@ -850,10 +849,9 @@ HaMolView::WriteScriptLabels()
 }
 
 
-void 
-HaMolView::WriteScriptMonitors()
+void HaMolView::WriteScriptMonitors()
 {
-    register int col;
+    int col;
 
     fputs("\n# Monitors\n",OutFile);
     if( MonitList.empty() )
@@ -865,7 +863,7 @@ HaMolView::WriteScriptMonitors()
 
     ResetFreqTable();
 
-	list<Monitor>::iterator mitr;
+    std::list<Monitor>::iterator mitr;
     for( mitr= MonitList.begin(); mitr!= MonitList.end(); mitr++ )
     {   
 
@@ -891,8 +889,7 @@ HaMolView::WriteScriptMonitors()
 }
 
 
-int 
-HaMolView::WriteScriptFile( const char* name )
+int HaMolView::WriteScriptFile( const char* name )
 {
     int theta,phi,psi;
     char *ptr;
@@ -1314,7 +1311,7 @@ HaMolView::WritePOVRayFile( const char* name )
 	}
 		
 	
-	list<Object3D*>::iterator oitr;
+    std::list<Object3D*>::iterator oitr;
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
 	{
 		if( (*oitr) == NULL) continue;
@@ -1527,7 +1524,7 @@ void HaMolView::WriteVRMLWireframe()
     int i,j;
     static int flag;
 
-	map<HaAtom*, short, less<HaAtom*> > at_mbox; // Shadow?
+    std::map<HaAtom*, short> at_mbox; // Shadow?
 
 	AtomIteratorMolSet aitr(GetMolSet());
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
@@ -1633,10 +1630,9 @@ void HaMolView::WriteVRMLWireframe()
 }
 
 
-void 
-HaMolView::WriteVRMLDots()
+void HaMolView::WriteVRMLDots()
 {
-    vector<int> hist;
+    std::vector<int> hist;
     DotStruct  *ptr;
     double x,y,z;
     int count;
@@ -1653,7 +1649,7 @@ HaMolView::WriteVRMLDots()
 		count = 0;
 		MolSet* pmset = GetMolSet();
 		
-		list<Object3D*>::iterator oitr;
+        std::list<Object3D*>::iterator oitr;
 		
 		for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
 		{

@@ -83,11 +83,11 @@ public:
 	int GetNext();
 
 protected:
-	map<std::string, double, less<std::string> >::iterator itr;
+	std::map<std::string, double>::iterator itr;
 	StrDoubleMap& int_map;
 };
 
-class StrDoubleMap: public map<std::string, double, less<std::string> >
+class StrDoubleMap: public std::map<std::string, double>
 //! Map of strings to real numbers
 {
 public:
@@ -118,11 +118,11 @@ public:
 	int GetNext();
 
 protected:
-	map<std::string, std::string, less<std::string> >::iterator itr;
+	std::map<std::string, std::string>::iterator itr;
 	StrStrMap& int_map;
 };
 
-class StrStrMap: public map<std::string, std::string, less<std::string> >
+class StrStrMap: public std::map<std::string, std::string>
 //! Map of strings to strings
 {
 public:
@@ -139,7 +139,7 @@ public:
 
 };
 
-class StrIntMap: public map<std::string, int, less<std::string> >
+class StrIntMap: public std::map<std::string, int>
 //! Map of strings to integer numbers
 {
 public:
@@ -176,8 +176,8 @@ public:
     
 };
 
-typedef map<std::string,void*,less<std::string> > StrPtrMap;
-typedef map<int,std::string,less<int> > IntStrMap;
+typedef std::map<std::string, void*> StrPtrMap;
+typedef std::map<int,std::string> IntStrMap;
 
 #if defined(linux) || defined(__DECCXX)
 extern int _fstrnicmp(const char *s1, const char *s2, size_t n);

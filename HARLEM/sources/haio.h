@@ -31,8 +31,6 @@
 #include <type_traits>
 #include <iomanip>
 
-using namespace std;
-
 #if defined(_MSC_VER)
   
   typedef struct DIR DIR;

@@ -400,7 +400,7 @@ class const_Region2D
 //  ************** ostream algorithms *******************************
 
 template <class TNT_Array2D,class T>
-ostream& operator<<(ostream &s, const const_Region2D<TNT_Array2D,T> &A)
+std::ostream& operator<<(std::ostream &s, const const_Region2D<TNT_Array2D,T> &A)
 {
     size_t start = A.lbound();
     size_t Mend=A.lbound()+ A.num_rows() - 1;
@@ -422,7 +422,7 @@ ostream& operator<<(ostream &s, const const_Region2D<TNT_Array2D,T> &A)
 }
 
 template <class TNT_Array2D>
-ostream& operator<<(ostream &s, const Region2D<TNT_Array2D> &A)
+std::ostream& operator<<(std::ostream &s, const Region2D<TNT_Array2D> &A)
 {
     size_t start = A.lbound();
     size_t Mend=A.lbound()+ A.num_rows() - 1;

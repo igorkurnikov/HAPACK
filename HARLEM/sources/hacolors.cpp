@@ -39,10 +39,10 @@ int RegisterStdColorNames()
 	return TRUE;
 }
 
-vector<ColorVal> HaColor::used_colors; 
+std::vector<ColorVal> HaColor::used_colors;
 IntIntMap HaColor::cval_idx_map;  
-std::map<ColorVal,std::string, less<ColorVal> >    HaColor::col_name_map; 
-std::map<std::string, ColorVal,less<std::string> > HaColor::name_col_map;
+std::map<ColorVal,std::string>    HaColor::col_name_map; 
+std::map<std::string, ColorVal> HaColor::name_col_map;
 
 int HaColor::color_names_init_flag = RegisterStdColorNames();
 

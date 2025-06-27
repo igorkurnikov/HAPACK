@@ -285,8 +285,8 @@ bool WaveFunAnalDlgWX::TransferDataToWindow()
 		return false;
 	if(p_qc_mod->MOene.size() == 0)
 	{
-		cerr << " Error in FillListBoxMOene(): " << endl;
-		cerr << " No Molecular Orbital Energies are set for current QChem Module" << endl;
+		std::cerr << " Error in FillListBoxMOene(): " << std::endl;
+		std::cerr << " No Molecular Orbital Energies are set for current QChem Module" << std::endl;
 		return false;
 	}
 	n = p_qc_mod->MOene.size();
@@ -330,8 +330,8 @@ void WaveFunAnalDlgWX::OnPlotMO(wxCommandEvent &event)
 	
 	if(p_qc_mod->MO_coef.num_cols() == 0)
 	{
-		cerr << " WaveFunAnalDlgWX::OnPlotMO() " << endl;
-		cerr << " Molecular Orbitals are not set " << endl;
+		std::cerr << " WaveFunAnalDlgWX::OnPlotMO() " << std::endl;
+		std::cerr << " Molecular Orbitals are not set " << std::endl;
 		return;
 	}
 	int idx;
@@ -346,8 +346,8 @@ void WaveFunAnalDlgWX::OnPlotMO(wxCommandEvent &event)
 
 	if(!bres)
 	{
-		cerr << " WaveFunAnalDlgWX::OnPlotMO() " << endl;
-		cerr << " Error Reading MO Isolevel value " << endl;
+		std::cerr << " WaveFunAnalDlgWX::OnPlotMO() " << std::endl;
+		std::cerr << " Error Reading MO Isolevel value " << std::endl;
 		return;
 	}
 

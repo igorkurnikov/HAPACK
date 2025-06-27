@@ -1772,7 +1772,7 @@ int HaQCMod::RunCNDOThread()
 
 //    Integral scratch arrays.
 
-   vector<HaVec_double> at_coul_int(natoms);
+	std::vector<HaVec_double> at_coul_int(natoms);
 
    HaVec_double f2(18);
    HaVec_double g1(18);
@@ -2127,7 +2127,7 @@ int
 HaQCMod::FormFockNDO(int natoms, int* ian,const int* ifst_bf_at, const int* ilst_bf_at,
 					 double* da, double* db, double* fm, 
 					 const double* gss, const double* gsd,const double* gdd,
-					 vector<HaVec_double>& at_coul_int)
+	std::vector<HaVec_double>& at_coul_int)
 //! ian[i] atom types if < 1 - point charge 
 {
 	int ia,ja;

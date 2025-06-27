@@ -171,9 +171,9 @@ MolSet* HaMolView::GetMolSet()
 unsigned int isqrt(unsigned int val )
 {
 #ifndef sun386
-    register int i,result;
-    register unsigned int temp;
-    register unsigned int rem;
+    int i,result;
+    unsigned int temp;
+    unsigned int rem;
 
     i = 16;
     while( !(val&((unsigned int)3<<30)) && i )
@@ -531,15 +531,14 @@ HaMolView::DisplayCylinder(int x1,int y1,int z1,
 }
 
 
-void 
-HaMolView::DisplayDoubleBonds()
+void HaMolView::DisplayDoubleBonds()
 {
-    register HaAtom  *s;
-    register HaAtom  *d;
-    register HaBond  *bptr;
-    register int dx,dy,ix,iy;
-    register int ax,ay,sc,dc;
-    register int k,flag;
+    HaAtom  *s;
+    HaAtom  *d;
+    HaBond  *bptr;
+    int dx,dy,ix,iy;
+    int ax,ay,sc,dc;
+    int k,flag;
 	
 	BondIteratorMolSet bitr(GetMolSet());
 	for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond()) 
@@ -701,7 +700,7 @@ void HaMolView::DisplayHBonds()
 {
 	MolSet* pmset = GetMolSet();
 	
-	set<HaHBond, less<HaHBond> >::iterator  bitr;
+	std::set<HaHBond>::iterator  bitr;
 	HaAtom  *s;
 	HaAtom  *d;
 	int sc,dc;
@@ -1203,7 +1202,7 @@ void HaMolView::IdentifyAtom( int xpos, int ypos )
 {
     int rad, wide, dpth;
     int newf, dx, dy, dz;
-    set<HaHBond, less<HaHBond> >::iterator hptr;
+	std::set<HaHBond>::iterator hptr;
 	HaChain* chain;
     HaAtom   *aptr;
     HaBond  *bptr;
@@ -1690,16 +1689,15 @@ HaMolView::InitializeRenderer()
     ReSizeScreen();
 }
 
-int 
-HaMolView::FillCurrAtomRef(char* buf)
+int HaMolView::FillCurrAtomRef(char* buf)
 {
  	return PkAtom->FillRef(buf);
 }
 
 static void CentreZoneExpr(AtomExpr* expr)
 {
-    register double x, y, z;
-    register int count;
+    double x, y, z;
+    int count;
 	HaAtom* aptr;
 
 	MolSet* pmset = GetCurMolSet();
@@ -3332,7 +3330,7 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 	MolSet* pmset = GetMolSet();
 	try
 	{
-		std::auto_ptr<AtomIterator> paitr(p_at_coll->GetAtomIteratorPtr());
+		std::unique_ptr<AtomIterator> paitr(p_at_coll->GetAtomIteratorPtr());
 		HaAtom* aptr;
 		AtomGroup atgrp;
 		for(aptr = paitr->GetFirstAtom(); aptr ; aptr = paitr->GetNextAtom())

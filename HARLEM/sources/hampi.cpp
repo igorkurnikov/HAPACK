@@ -189,7 +189,7 @@ int HaMPI::SendXmlMsgAllProc(const char* str)
 	basic_signal[2] = 0;
 	basic_signal[3] = 0;
 
-	vector<MPI_Request> req_vec;
+	std::vector<MPI_Request> req_vec;
 	req_vec.resize(nprocs);
 
 //	ierr = MPI_Bcast((void*)&basic_signal[0],BASIC_SIGNAL_DIM,MPI_INT,0,MPI_COMM_WORLD);
@@ -227,7 +227,7 @@ int HaMPI::SendKillAppMsgAllProc()
 	int ierr= 0;
 
 #if defined(HARLEM_MPI)
-	vector<MPI_Request> req_vec;
+	std::vector<MPI_Request> req_vec;
 	req_vec.resize(nprocs);
 
 	basic_signal[0] = KILL_APP_SIGNAL;

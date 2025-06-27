@@ -59,7 +59,7 @@ public:
 
 	int ProcessEvent(int type, int id);    //!< Process Signal (substitution for Event)
 
-	vector<ComputerAccount> comp_accounts; //!< accessible computer accounts
+	std::vector<ComputerAccount> comp_accounts; //!< accessible computer accounts
 
 	ComputerAccount* GetAccountByID(const char* acc_id);
 	int ShowAccountsLoad(); //!< Show load of remote accounts

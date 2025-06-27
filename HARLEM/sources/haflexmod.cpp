@@ -119,7 +119,7 @@ int HaFlexMod::FindHydrogenBonds()
 	AtomGroup* p_act_at_array = pmset->GetAtomGroupByID(active_at_array_id.c_str());
 	if( p_act_at_array != NULL) p_active_atoms = p_act_at_array;
 
-	vector<HaHBond> hbond_arr_axx;
+	std::vector<HaHBond> hbond_arr_axx;
 	p_mol_editor->FindHBondsAtomCollection(p_active_atoms,hbond_arr_axx );
 	int n_hb = hbond_arr_axx.size();
 	this->ClearHB();
@@ -136,10 +136,10 @@ int HaFlexMod::FindHydrogenBonds()
 
 int HaFlexMod::FindHydrophobicContacts()
 {
-	vector<HaAtom*> donorAtomList;
-	vector<HaAtom*> acceptorAtomList;
-	vector<HaAtom*> donorAcceptorList;
-	vector<double> donorAcceptorDistanceList;
+	std::vector<HaAtom*> donorAtomList;
+	std::vector<HaAtom*> acceptorAtomList;
+	std::vector<HaAtom*> donorAcceptorList;
+	std::vector<double> donorAcceptorDistanceList;
 	
 	ClearHPT();
 	selected_hpt.clear();
@@ -151,7 +151,7 @@ int HaFlexMod::FindHydrophobicContacts()
 	AtomGroup bonded_atoms;
 
 	int nat = phost_mset->GetNAtoms();
-	vector<HaAtom*>    np_atoms;
+	std::vector<HaAtom*>    np_atoms;
 	np_atoms.reserve(nat);
 	HaAtom* aptr;
 
@@ -310,7 +310,7 @@ int HaFlexMod::ReadFirstDataFile()
 		first_data_file_name += ".txt";
 	}
 
-	list<AtomGroup>::iterator gitr = phost_mset->NamedAtomGroups.begin();
+	std::list<AtomGroup>::iterator gitr = phost_mset->NamedAtomGroups.begin();
 	
 	for(; gitr != phost_mset->NamedAtomGroups.end(); )
 	{
@@ -325,7 +325,7 @@ int HaFlexMod::ReadFirstDataFile()
 		}
 	}
 
-	ifstream fin(first_data_file_name.c_str());
+	std::ifstream fin(first_data_file_name.c_str());
 	
 	fin.getline (buf,256); 
 	fin.getline (buf,256); 
@@ -333,8 +333,8 @@ int HaFlexMod::ReadFirstDataFile()
 	
 	if( fin.eof() ) return FALSE;
 
-	vector<AtomGroup> grp_vec;
-	vector<HaAtom*> atom_vec;
+	std::vector<AtomGroup> grp_vec;
+	std::vector<HaAtom*> atom_vec;
 	atom_vec.reserve(phost_mset->GetNAtoms());
 
 	AtomIteratorMolSet aitr(phost_mset);
@@ -354,7 +354,7 @@ int HaFlexMod::ReadFirstDataFile()
 		int stressed_num = 0;
 		int coll_mode = 0;
 		
-		istrstream line_s(buf);
+		std::istrstream line_s(buf);
 		line_s >> fst_num; 
 		line_s >> orig_num;
 		line_s >> rigid_num;
@@ -391,7 +391,7 @@ int HaFlexMod::DeleteSelectedHBonds()
     
 	int i;
 
-	vector<HBondAvg*>::iterator bitr = HBArray.begin();
+	std::vector<HBondAvg*>::iterator bitr = HBArray.begin();
 	for(; bitr != HBArray.end(); )
 	{
 		int found = FALSE;
@@ -420,7 +420,7 @@ int HaFlexMod::DeleteSelectedHPTethers()
     
 	int i;
 
-	vector<HaHydrophobicTether*>::iterator bitr = HPTArray.begin();
+	std::vector<HaHydrophobicTether*>::iterator bitr = HPTArray.begin();
 	for(; bitr != HPTArray.end(); )
 	{
 		int found = FALSE;
@@ -478,8 +478,8 @@ int HaFlexMod::ComputeBondsDutyCycleAlongMD()
 	int n_hb = HBArray.size();
 	int n_ph = HPTArray.size();
 
-	vector<int> count_hb(n_hb,0);
-	vector<int> count_ph(n_ph,0);
+	std::vector<int> count_hb(n_hb,0);
+	std::vector<int> count_ph(n_ph,0);
 
 	int n_pt = 0;
 	int i;
@@ -517,7 +517,7 @@ int HaFlexMod::ComputeBondsDutyCycleAlongMD()
 	
 	if(n_pt == 0) return FALSE;
 
-	vector<HBondAvg*>::iterator hb_itr;
+	std::vector<HBondAvg*>::iterator hb_itr;
 	i = 0;
 	for(hb_itr = HBArray.begin(); hb_itr != HBArray.end(); )
 	{
@@ -537,7 +537,7 @@ int HaFlexMod::ComputeBondsDutyCycleAlongMD()
 		i++;
 	}
 
-	vector<HaHydrophobicTether*>::iterator hpt_itr;
+	std::vector<HaHydrophobicTether*>::iterator hpt_itr;
 	i = 0;
 	for(hpt_itr = HPTArray.begin(); hpt_itr != HPTArray.end(); )
 	{

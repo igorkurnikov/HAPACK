@@ -174,8 +174,8 @@ public:
 	double ph; //!< Current pH value in the system
     
 protected:
-	multimap<AtomGroup*, AltChemState*, less<AtomGroup*> > res_altst_map;
-	typedef multimap<AtomGroup*, AltChemState*, less<AtomGroup*> > altst_map_type;
+	std::multimap<AtomGroup*, AltChemState*> res_altst_map;
+	typedef std::multimap<AtomGroup*, AltChemState*> altst_map_type;
 };
 
 

@@ -188,7 +188,7 @@ int MolSet::SetMortMol(mort::molecule_t& mort_mol, const ForceFieldType& ff_type
 //			PrintLog("cnamemap does not exist when modelize resd \n");
 //		}
 
-		map<int,int> idmap;
+		std::map<int,int> idmap;
 		mort::molecule_t full;
 
 		mort::resd_t rprev(full, -1);
@@ -282,8 +282,8 @@ int HaResidue::CheckStructMortLib(const ForceFieldType& ff_type)
 
 	ires = TRUE;
 
-	std::set< std::string, less<std::string> > res_at_names;
-	std::set< std::string, less<std::string> > templ_at_names;
+	std::set< std::string> res_at_names;
+	std::set< std::string> templ_at_names;
 
 	mort::atomiter_t aitr_templ = p_templ->atom_begin();
     for( ; aitr_templ != p_templ->atom_end(); ++aitr_templ )
@@ -317,7 +317,7 @@ int HaResidue::CheckStructMortLib(const ForceFieldType& ff_type)
         }
 	}
 
-	std::set< std::string, less<std::string> >::iterator nm_itr;	
+	std::set<std::string>::iterator nm_itr;	
 	for( nm_itr = templ_at_names.begin(); nm_itr != templ_at_names.end(); nm_itr++)
 	{
 		std::string at_name_mort = (*nm_itr);

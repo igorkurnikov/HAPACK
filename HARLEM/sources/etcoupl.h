@@ -57,7 +57,7 @@ public:
 	bool empty() { return trace.empty(); }
 
 	double coupling; // coupiling value
-	list<int> trace; // list of node indexes of the best path
+	std::list<int> trace; // list of node indexes of the best path
 
 };
 
@@ -120,8 +120,8 @@ public:
 
 	bool m_hbond_paths_flag; //!< Flag to use special functional form for H-Bond contact  
 
-	vector<PathStep> best_path; //!< Vector of step that make best coupled path in PATHWAYS calculations
-	vector<PathStep> coupl_map; //!< the map of best path coupling to the donor
+	std::vector<PathStep> best_path; //!< Vector of step that make best coupled path in PATHWAYS calculations
+	std::vector<PathStep> coupl_map; //!< the map of best path coupling to the donor
 
     double pw_nb_decay;     //!< PATHWAYS non-bond exponential distance decay parameter
 	double pw_nb_min_dist;  //!< PATHWAYS non-bond minimal distance

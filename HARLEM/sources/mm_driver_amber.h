@@ -473,20 +473,20 @@ public:
 	HaVec_int  gbl_dihed; //!< Array of Dihedral Angles mimicking PMEMD structures
 
 	std::vector<HaVec_double> loc_bond_params; //!< bond parameters used in the module
-	std::map<HaVec_double, int, less<HaVec_double> > bnd_par_idx_map; //!< map Bond Parameters to indexes in loc_bond_params
+	std::map<HaVec_double, int> bnd_par_idx_map; //!< map Bond Parameters to indexes in loc_bond_params
 
 	std::vector<HaVec_double> loc_val_angle_params; //!< used valence Angle parameteres 
-	std::map<HaVec_double,int, less<HaVec_double> > vang_par_idx_map; //!< map of indexes val angle parameteres in loc_val_angle_params
+	std::map<HaVec_double,int> vang_par_idx_map; //!< map of indexes val angle parameteres in loc_val_angle_params
  	
 	std::vector<HaVec_double> loc_dih_ang_par; //!< used dihedral Angle parameters 
-	std::map<HaVec_double, int, less<HaVec_double> > dang_par_idx_map; //!< map of Dihedral Angle to indexes in loc_dih_ang_par
+	std::map<HaVec_double, int> dang_par_idx_map; //!< map of Dihedral Angle to indexes in loc_dih_ang_par
 
 	std::vector<HaResidue*> amber_residues;      //!< List of pointers of HARLEM residues that correspond to AMBER residues 
 	std::vector<int>        nat_amber_residues;  //!< Number of atoms in AMBER residues
 	StrVec res_labels;  //!< AMBER residue labels
 
-	vector<HaVec_double> loc_point_params;                   //!< Array of Locally used Point Parameters
-	map<HaVec_double,int, less<HaVec_double> > ppar_idx_map; //!< Map between Point Params and their position in loc_point_params
+	std::vector<HaVec_double> loc_point_params;                   //!< Array of Locally used Point Parameters
+	std::map<HaVec_double,int> ppar_idx_map; //!< Map between Point Params and their position in loc_point_params
 
 	double num_deg;         //!< Total number of degrees of freedom
 	double num_deg_solute;  //!< Number of solute degrees 
@@ -512,21 +512,21 @@ public:
 	int n_bond_amoeba;         //!< Number of AMOEBA Valence bonds
 	int n_bond_amoeba_params;  //!< Number of AMOEBA Valence bonds parameters 
 	HaVec_int  gbl_bond_amoeba;     //!< Array of AMOEBA Valence Bonds ( 2 indexes of atoms and parm_idx ) x N Valence Bonds
-	vector<HaVec_double>    bond_amoeba_params;  //!< Parameters of AMOEBA Valence Bonds 
+	std::vector<HaVec_double>    bond_amoeba_params;  //!< Parameters of AMOEBA Valence Bonds 
 	int bond_amoeba_ftab_degree;         //!< AMOEBA_REGULAR_BOND_FTAB_DEGREE
 	HaVec_double bond_amoeba_ftab_coef;  //!< AMOEBA_REGULAR_BOND_FTAB_COEFFS
 
 	int n_urey_bond;             //!< Number of Urey-Bradley bonds
 	int n_urey_bond_params;      //!< Number of Urey-Bradley bond parameteres 
 	HaVec_int   gbl_bond_urey;     //!< Array of Urey-Bradley bonds   ( 2 indexes of atoms and parm_idx ) x N Urey-Bradley bonds
-	vector<HaVec_double> bond_urey_params;  //!< Parameters of Urey-Bradley bonds 
+	std::vector<HaVec_double> bond_urey_params;  //!< Parameters of Urey-Bradley bonds 
 	int bond_urey_ftab_degree;              //!< AMOEBA_UREY_BRADLEY_BOND_FTAB_DEGREE
 	HaVec_double bond_urey_ftab_coef;       //!< AMOEBA_UREY_BRADLEY_BOND_FTAB_COEFFS
 
 	int n_angle_amoeba;             //!< The number of regular amoeba valence angles 
 	int n_angle_amoeba_params;      //!< The number of regular amoeba valence angles parameters 
 	HaVec_int  gbl_angle_amoeba_reg;            //!< Array of regular amoeba valence angles ( 3 indexes of atoms and parm_idx ) x N regular angles
-	vector<HaVec_double>  angle_amoeba_params;  //!< Parameters of amoeba valence angles ( regular and trigonal )
+	std::vector<HaVec_double>  angle_amoeba_params;  //!< Parameters of amoeba valence angles ( regular and trigonal )
 	int angle_amoeba_ftab_degree;               //!< AMOEBA_REGULAR_ANGLE_FTAB_DEGREE and AMOEBA_TRIGONAL_ANGLE_FTAB_DEGREE
 	HaVec_double angle_amoeba_ftab_coef;        //!< AMOEBA_REGULAR_ANGLE_FTAB_COEFFS and AMOEBA_TRIGONAL_ANGLE_FTAB_DEGREE
 
@@ -541,23 +541,23 @@ public:
 	int n_tors_amoeba;                         //!< The number of Torsion angles in AMOEBA
 	int n_tors_amoeba_params;                  //!< The number of Torsion anlgle parameters in AMOEBA 
 	HaVec_int  gbl_amoeba_tors_angle;          //!< Array of AMOEBA torsion angles  ( 4 indexes of atoms and parm_idx ) x N torsion angles
-	vector<HaVec_double>  tors_amoeba_params;  //!< Parameters of AMOEBA torsion angles
+	std::vector<HaVec_double>  tors_amoeba_params;  //!< Parameters of AMOEBA torsion angles
 
 	int n_pi_torsions;                     //!< The number of PI torsion angles
 	int n_pi_torsions_params;              //!< The number of PI torsion angle parameters
 	HaVec_int  gbl_pi_tors_angle;          //!< Array of PI torsion angles  ( 4 indexes of atoms and parm_idx ) x N PI torsion angles
-	vector<HaVec_double>  pi_tors_params;  //!< Parameters of PI torsion angles
+	std::vector<HaVec_double>  pi_tors_params;  //!< Parameters of PI torsion angles
 
 	int n_stretch_bend;                    //!< The number Stretch-bend terms
 	int n_stretch_bend_params;             //!< The number of Stretch-bend parameters
 	HaVec_int  gbl_str_bend_angle;         //!< Array of Stretch-bend angles  ( 3 indexes of atoms and parm_idx ) x N stretch/bend angles
-	vector<HaVec_double>  str_bend_params; //!< Parameters of Stretch-bend angles
+	std::vector<HaVec_double>  str_bend_params; //!< Parameters of Stretch-bend angles
 
 	int n_tors_tors;                        //!< The number of torsion-torsion terms
 	int n_tors_tors_params;                 //!< The number of torsion-torsion parameters
 	HaVec_int gbl_tors_tors;                //!< Array of Torsion-torsion terms	
 	HaVec_int tors_tors_id_params;          //!< ids of torsion- torsion parameters 
-	vector< vector<HaVec_double> >  tors_tors_params; //!< Torsion-torsion parameters
+	std::vector< std::vector<HaVec_double> >  tors_tors_params; //!< Torsion-torsion parameters
 	                                                  // dimension of external vector is the number of torsion-torsion parameters
 	                                                  // dimension of internal vector is 6 
 	                                                  // 0-idx internal vector is values of torsion 1 in the tables

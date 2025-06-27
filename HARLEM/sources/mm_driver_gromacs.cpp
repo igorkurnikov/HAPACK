@@ -849,7 +849,7 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 		os << "[ pairs ]\n";
 		os << ";   ai      aj funct\n";
 
-		for (shared_ptr<MMDihedral> ditr : *p_dih_list )
+		for (std::shared_ptr<MMDihedral> ditr : *p_dih_list )
 		{
 			HaAtom* aptr1 = ditr->pt1;
 			HaAtom* aptr2 = ditr->pt4;
@@ -976,7 +976,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	bool mutated_state = false;
 	for (auto* p_dih_list : { &(p_mm_model->Dihedrals),&(p_mm_model->Dihedrals_mut) })
 	{
-		for (shared_ptr<MMDihedral> ditr : *(p_dih_list))
+		for (std::shared_ptr<MMDihedral> ditr : *(p_dih_list))
 		{
 			MMDihedral& dih = (MMDihedral&)(*ditr);
 
@@ -1050,7 +1050,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	mutated_state = false;
 	for (auto* p_dih_list : { &(p_mm_model->ImprDihedrals),&(p_mm_model->ImprDihedrals_mut) })
 	{
-		for (shared_ptr<MMDihedral> ditr : (*p_dih_list))
+		for (std::shared_ptr<MMDihedral> ditr : (*p_dih_list))
 		{
 			MMDihedral& dih = (MMDihedral&)(*ditr);
 

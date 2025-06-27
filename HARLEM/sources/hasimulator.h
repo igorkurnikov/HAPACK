@@ -70,7 +70,7 @@ public:
 
 	int AnalyzeTrajectory();   //!< Playback and compute properties along trajectory
 
-	vector<TrajAnalAgent*> agents; //!< Array of classes to analyze trajectories
+	std::vector<TrajAnalAgent*> agents; //!< Array of classes to analyze trajectories
 
 	TrajIOAgent* GetTrajectoryIOAgent(); //!< Set parameters to read/write energy parameters along the trajectory
 	int DeleteTrajAnalAgent(TrajAnalAgent* p_ag); //!< Delete Trajectory Analysis Agent from the list

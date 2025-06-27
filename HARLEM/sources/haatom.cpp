@@ -148,13 +148,13 @@ std::string HaAtom::GetRef(int ref_type) const
 
 HaAtom::HaAtom()
 {
-	ps_ff_par = make_shared<AtomFFParam>();
+	ps_ff_par = std::make_shared<AtomFFParam>();
 	Clear();
 }
 
 HaAtom::HaAtom(const HaAtom& atom_ref)
 {
-	ps_ff_par = make_shared<AtomFFParam>();
+	ps_ff_par = std::make_shared<AtomFFParam>();
 	this->SetParamFrom(atom_ref);
 }
 
@@ -482,7 +482,7 @@ int HaAtom::GetHBondAcc(AtomGroup& bonded_atoms_out)
 
 	HaHBond hbond_start(this, (HaAtom*)1);
 
-	set<HaHBond, less<HaHBond> >::iterator ritr;
+	std::set<HaHBond>::iterator ritr;
 
 	ritr= pmset->HBonds.lower_bound(hbond_start);
 
@@ -531,8 +531,8 @@ int HaAtom::GetReachableAtoms(AtomGroup& block_atoms, HaAtom* aptr2, AtomGroup& 
 	loop = FALSE;
     reach_atoms.clear();
 
-	set<HaAtom*,less<HaAtom*> > ratom_set;
-	stack<HaAtom*> pending_atoms;
+	std::set<HaAtom*> ratom_set;
+	std::stack<HaAtom*> pending_atoms;
 	AtomGroup bonded_atoms;
 	HaAtom* aptr;
 	pending_atoms.push(aptr2);
@@ -568,7 +568,7 @@ int HaAtom::GetReachableAtoms(AtomGroup& block_atoms, HaAtom* aptr2, AtomGroup& 
 		}
 	}
 
-	set<HaAtom*, less<HaAtom*> >::iterator sa_itr, send;
+	std::set<HaAtom*>::iterator sa_itr, send;
 
 	sa_itr = ratom_set.begin();
 	send   = ratom_set.end();
@@ -614,14 +614,14 @@ int HaAtom::AtTypeFromLbl(const std::string & Label)
 }
 
 
-bool HaAtom::Print_info(ostream &sout, const int level) const
+bool HaAtom::Print_info(std::ostream &sout, const int level) const
 {
 	assert(level >= 0);
-	sout << "element #= " << GetElemNo() << " Name = " << GetName() << endl;
+	sout << "element #= " << GetElemNo() << " Name = " << GetName() << "\n";
 
 	sout << " coord= " << pos[0] << "  "
 		               << pos[1] << "  "
-					   << pos[2] << endl;
+					   << pos[2] << "\n";
     return true;
 }
 
@@ -1555,13 +1555,13 @@ const std::string HaAtom::GetFFSymbol() const
 
 void HaAtom::SetFFSymbol( const std::string& new_ff_symbol)
 {
-	if (!ps_ff_par) ps_ff_par = make_shared<AtomFFParam>();
+	if (!ps_ff_par) ps_ff_par = std::make_shared<AtomFFParam>();
 	ps_ff_par->ff_symbol = new_ff_symbol; 
 }
 
 void HaAtom::SetCharge(double new_charge)
 { 
-	if (!ps_ff_par) ps_ff_par = make_shared<AtomFFParam>();
+	if (!ps_ff_par) ps_ff_par = std::make_shared<AtomFFParam>();
 	ps_ff_par->charge = new_charge;
 } 
 

@@ -195,7 +195,7 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 	stderr=curr_stdout_fp;
 #endif
 	setvbuf( stdout, NULL, _IONBF, 0 );
-	ios::sync_with_stdio();
+	std::ios::sync_with_stdio();
 	return True;
 }
 
@@ -207,7 +207,7 @@ int RedirectIOToFile(const char* fname)
 		return False;
 	*stdout=*curr_stdout_fp;
     setvbuf( stdout, NULL, _IONBF, 0 );
-	ios::sync_with_stdio();
+	std::ios::sync_with_stdio();
 	return True;
 }
 
@@ -227,8 +227,8 @@ int RestoreIOToConsole()
 // extern "C" DllExport 
 int ErrorInMod(const char* module, const char* msg)
 {
-	cerr << " Error in: " << module << endl;
-	cerr << msg << endl;
+	std::cerr << " Error in: " << module << "\n";
+	std::cerr << msg << "\n";
 	return 1;
 }
 

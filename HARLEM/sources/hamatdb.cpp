@@ -78,7 +78,7 @@ void HaGrpOperID::set(const char* oper_type, const ChemGroup& g1, const ChemGrou
 }
 
 
-ostream& operator<<(ostream& s, HaGrpOperID& g_op_id)
+std::ostream& operator<<(std::ostream& s, HaGrpOperID& g_op_id)
 {
 	return(g_op_id.Print_To(s));
 }
@@ -142,7 +142,7 @@ bool HaMatDB::is_open()
 
 bool HaMatDB::put(StrKey& key, const HaMat_double& fgmat)
 {
-	ostrstream data_buf_stream;
+	std::ostrstream data_buf_stream;
 	data_buf_stream << fgmat;
 
 	return true;
@@ -157,14 +157,14 @@ bool HaMatDB::get(StrKey& key, HaMat_double& fgmat)
 		{
 			if(debug_level > 10)
 			{
-				cerr << " HaMatDB::get(): Submatrix not found with key: " << endl;
-				key.Print_To(cout) ;
+				std::cerr << " HaMatDB::get(): Submatrix not found with key: " << std::endl;
+				key.Print_To(std::cout) ;
 			}
 			return false;
 		}
 		else
 		{
-			istrstream data_buf_stream( data_str.c_str() );
+			std::istrstream data_buf_stream( data_str.c_str() );
 			size_t M, N;
             data_buf_stream >> M >> N;
 			
@@ -188,7 +188,7 @@ bool HaMatDB::get(StrKey& key, HaMat_double& fgmat)
 	}
 	catch( const std::exception& ex)
 	{
-		cerr << ex.what() << "\n";
+		std::cerr << ex.what() << "\n";
 		return false;
 	}
 	
@@ -201,7 +201,7 @@ bool HaMatDB::ListKeys()
  
 }
 
-bool HaMatDB::ListAll(ostream& sout) 
+bool HaMatDB::ListAll(std::ostream& sout)
 {
 	return true;
  
@@ -268,7 +268,7 @@ HaMatDB::AddFromFile(const char* fname)
 {
 	char buf[2400];
 
-	ifstream is(fname);
+	std::ifstream is(fname);
 	if( is.fail() )
 	{	
 		PrintLog(" Error in HaMatDblDB::AddFromFile() \n");
@@ -288,7 +288,7 @@ HaMatDB::AddFromFile(const char* fname)
 			PrintLog(" Error reading matrix for key %s \n",key_str.c_str());
 			return FALSE;
 		}
-		istrstream is2(buf);
+		std::istrstream is2(buf);
 		int nr, nc;
 		is2 >> nr;
 		is2 >> nc;
@@ -308,7 +308,7 @@ HaMatDB::AddFromFile(const char* fname)
 				PrintLog(" Error reading matrix values for key %s",key_str.c_str());
 				return false;
 			}
-			istrstream is3(buf);
+			std::istrstream is3(buf);
 			for(j = 0; j < nc; j++)
 			{
 				double val;

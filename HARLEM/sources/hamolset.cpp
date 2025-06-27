@@ -141,7 +141,7 @@ void MolSet::DeleteAll()
 {	
 	ReleaseAllFragments();
 
-	vector<HaCompMod*>::iterator mitr;
+	std::vector<HaCompMod*>::iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
 	{
 		HaCompMod* comp_mod = *mitr;
@@ -149,7 +149,7 @@ void MolSet::DeleteAll()
 	}
 	CompModules.clear();
 
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	for(oitr = ViewObjects.begin(); oitr != ViewObjects.end(); oitr++)
 	{
 		if( (*oitr) != NULL && (*oitr)->GetObjType() != OBJ3D_MOLECULE )
@@ -281,7 +281,7 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 int MolSet::SavePDBFile(std::string filename, const AtomSaveOptions& opt ) const
 {
-	ofstream fout(filename);
+	std::ofstream fout(filename);
 	if (fout.fail())
 	{
 		PrintLog(" Error in MolSet::SavePDBFile()  opening file %s\n", filename);
@@ -687,11 +687,11 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						int nb = aptr->GetNBonds();
 						os << " " << nb;
 
-						std::vector<shared_ptr<HaBond>>::iterator bitr     = aptr->Bonds_begin();
-						std::vector<shared_ptr<HaBond>>::iterator bitr_end = aptr->Bonds_end();
+						std::vector<std::shared_ptr<HaBond>>::iterator bitr     = aptr->Bonds_begin();
+						std::vector<std::shared_ptr<HaBond>>::iterator bitr_end = aptr->Bonds_end();
 
 						// build atom bonds corresponding to B state:
-						std::vector<shared_ptr<HaBond>> atom_bonds;
+						std::vector<std::shared_ptr<HaBond>> atom_bonds;
 						if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
 						{
 							
@@ -710,7 +710,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 									HaAtom* aptr_b = bnd_b.GetFirstAtom();
 									if (aptr == bnd_b.GetFirstAtom()) aptr_b = bnd_b.GetSecondAtom();
 									if (at_seqn_map.count(aptr_b) == 0) continue;  //  Bond is to the dummy od STATE_A
-									shared_ptr<HaBond> ps_bnd = make_shared<HaBond>(bnd_b);
+									std::shared_ptr<HaBond> ps_bnd = std::make_shared<HaBond>(bnd_b);
 									atom_bonds.push_back(ps_bnd);
 								}
 							}
@@ -817,7 +817,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 
 	HaChain* chain;
 	HaResidue* pres;
-	vector<HaAtom*>::iterator paitr;
+	std::vector<HaAtom*>::iterator paitr;
 	
 	CAtomIntMap at_seqn_map  = GetAtomSeqNumMap();
 
@@ -1082,7 +1082,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 
 int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par ) const
 {
-	std::auto_ptr<harlem::HashMap> popt_auto( (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
+	std::unique_ptr<harlem::HashMap> popt_auto = ( popt_par == nullptr) ? std::make_unique<harlem::HashMap>() : std::unique_ptr<harlem::HashMap>(popt_par->clone());
 	harlem::HashMap* popt = popt_auto.get();
 
 	char buf[256];
@@ -1160,7 +1160,7 @@ int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par )
 
 int MolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* popt_par ) const
 {
-	std::auto_ptr<harlem::HashMap> popt_auto( (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
+	std::unique_ptr<harlem::HashMap> popt_auto = (popt_par == nullptr) ? std::make_unique<harlem::HashMap>() : std::unique_ptr<harlem::HashMap>(popt_par->clone());
 	harlem::HashMap* popt = popt_auto.get();
 
 	if( popt_par == NULL )
@@ -1184,7 +1184,7 @@ int MolSet::SaveCrdSnapshots(const std::string& fname, const harlem::HashMap* po
 int MolSet::LoadCrdSnapshots(const std::string& fname, const harlem::HashMap& opt )
 {
 	using namespace rapidxml;
-	std::ifstream is(fname.c_str(), ios::binary);
+	std::ifstream is(fname.c_str(), std::ios::binary);
 	if(is.fail()) 
 	{
 		PrintLog(" Error in MolSet::LoadCrdSnapshots \n");
@@ -1658,7 +1658,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 
 	HaChain* chain;
 	HaResidue* pres;
-	vector<HaAtom*>::iterator paitr;
+	std::vector<HaAtom*>::iterator paitr;
 	AtomIntMap at_id_map;
 	AtomIntMap::iterator mitr; 
 
@@ -1899,12 +1899,12 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		MolMechModel* p_mm_model = ptr_mm_mod->GetMolMechModel();
 		os << "#MOLECULAR MECHANICS MODULE " << std::endl;
 		
-		vector<MMDihedral>::iterator iditr;
+		std::vector<MMDihedral>::iterator iditr;
 		
 		if( !p_mm_model->ImprDihedrals.empty())
 		{
 			os << "IMPROPER ANGLES" << std::endl;
-			for(shared_ptr<MMDihedral> iditr : p_mm_model->ImprDihedrals )
+			for(std::shared_ptr<MMDihedral> iditr : p_mm_model->ImprDihedrals )
 			{
 				MMDihedral& impr_dihedral = *iditr;
 				if( impr_dihedral.pt1 == NULL || impr_dihedral.pt2 == NULL || 
@@ -1933,7 +1933,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		}
 
 		int nv = 0;
-		set<MMBond, less<MMBond> >::iterator mbitr = p_mm_model->MBonds.begin();
+		std::set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
 
 		for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
 		{
@@ -1958,7 +1958,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 
 		nv = 0;
 
-		set<MMValAngle, less<MMValAngle> >::iterator vaitr = p_mm_model->ValAngles.begin();
+		std::set<MMValAngle>::iterator vaitr = p_mm_model->ValAngles.begin();
 
 		for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
 		{
@@ -1996,7 +1996,7 @@ int MolSet::SaveHarlemFile(std::string filename, const AtomSaveOptions& opt_par 
 {
 	AtomSaveOptions opt(opt_par);
 
-	ofstream fout(filename);
+	std::ofstream fout(filename);
 	if( fout.fail())
 	{
 		PrintLog(" Error in MolSet::SaveHarlemFile()  opening file %s\n",filename);
@@ -2013,7 +2013,7 @@ int MolSet::SaveHarlemFile(std::string filename, const AtomSaveOptions& opt_par 
 
 int MolSet::SaveHINFile(std::string filename, const AtomSaveOptions& opt )
 {
-	ofstream fout(filename);
+	std::ofstream fout(filename);
 	if( fout.fail())
 	{
 		PrintLog(" Error in MolSet::SaveHINFile()  opening file %s\n",filename);
@@ -2026,7 +2026,7 @@ int MolSet::SaveHINFile(std::string filename, const AtomSaveOptions& opt )
 
 int MolSet::SaveNRGFile(std::string filename, const AtomSaveOptions& opt)
 {
-	ofstream fout(filename);
+	std::ofstream fout(filename);
 	if (fout.fail())
 	{
 		PrintLog(" Error in MolSet::SaveNRGFile()  opening file %s\n", filename);
@@ -2039,7 +2039,7 @@ int MolSet::SaveNRGFile(std::string filename, const AtomSaveOptions& opt)
 
 int MolSet::SaveOldHarlemFile(std::string filename, const AtomSaveOptions& opt)
 {
-	ofstream fout(filename);
+	std::ofstream fout(filename);
 	if( fout.fail())
 	{
 		PrintLog(" Error in MolSet::SaveOldHarlemFile()   opening file %s\n",filename);
@@ -2392,7 +2392,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 
 	if( del_atoms.size() > 0 ) OnAtomSeqChange();
 
-	vector<HaCompMod*>::iterator mitr;
+	std::vector<HaCompMod*>::iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
 	{
 		(*mitr)->OnDelAtoms(atcoll);
@@ -2422,7 +2422,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	}
 
 	nmol = GetNMol();
-	vector<HaMolecule*>::iterator mol_itr;
+	std::vector<HaMolecule*>::iterator mol_itr;
 
 	// Delete bonds to deleted atoms saved in atom objects :
 
@@ -2446,7 +2446,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		}
 	}
 
-	std::vector<shared_ptr<HaBond>>::iterator bitr = Bonds.begin();	
+	std::vector<std::shared_ptr<HaBond>>::iterator bitr = Bonds.begin();	
 	for( ; bitr != Bonds.end();  )
 	{
 		 HaBond* bptr = (*bitr).get();
@@ -2492,8 +2492,8 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 	{
 		HaMolecule* pMol = (*mol_itr);
 
-		list<HaChain>::iterator chain_itr;
-		multimap<int, HaResidue*, less<int> >::iterator res_itr, res_itr2;
+		std::list<HaChain>::iterator chain_itr;
+		std::multimap<int, HaResidue*>::iterator res_itr, res_itr2;
 		
 		for( chain_itr = pMol->Chains.begin(); chain_itr != pMol->Chains.end(); )
 		{
@@ -2540,7 +2540,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		
 		if(pMol->GetNAtoms() == 0)
 		{
-			list<Object3D*>::iterator oitr;
+			std::list<Object3D*>::iterator oitr;
 			for(oitr = ViewObjects.begin(); oitr != ViewObjects.end(); oitr++)
 			{
 				if( (*oitr) == pMol)
@@ -2558,7 +2558,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		}
 	}
 	
-	list<ChemGroup>::iterator cg_itr;
+	std::list<ChemGroup>::iterator cg_itr;
 	for( cg_itr = ChemGroups.begin(); cg_itr != ChemGroups.end(); )
 	{
 		(*cg_itr).DeleteAtoms( del_atoms );
@@ -2572,7 +2572,7 @@ bool MolSet::DeleteAtoms(AtomContainer& atcoll)
 		}
 	}
 
-	list<AtomGroup>::iterator atg_itr;
+	std::list<AtomGroup>::iterator atg_itr;
 	for( atg_itr = NamedAtomGroups.begin(); atg_itr != NamedAtomGroups.end(); )
 	{
 		(*atg_itr).DeleteAtoms( del_atoms );
@@ -2826,7 +2826,7 @@ void MolSet::ExpandAtomSelectionBonded()
 
 	for (int i = 0; i < 1000; i++)
 	{
-		list<HaAtom*> add_atoms;
+		std::list<HaAtom*> add_atoms;
 		AtomGroup bonded_atoms;
 		for (HaAtom* aptr : selected_atoms) {
 			aptr->GetBondedAtoms(bonded_atoms);
@@ -2863,7 +2863,7 @@ int MolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
 {
 	HaHBond hbond(src,dst);
 	
-	set<HaHBond, less<HaHBond> >::const_iterator hbitr= HBonds.find(hbond);
+	std::set<HaHBond>::const_iterator hbitr= HBonds.find(hbond);
 	if(hbitr != HBonds.end()) return TRUE;
 
 	HaHBond hbond2(dst,src);
@@ -3481,7 +3481,7 @@ std::string MolSet::GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const
 
 void MolSet::SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname)
 {
-	ofstream fos(fname);
+	std::ofstream fos(fname);
 	if (fos.fail()) return;
 	std::string grp_str = this->GetAtomGroupNdxStr(p_atgrp);
 	fos << grp_str;
@@ -3549,7 +3549,7 @@ bool MolSet::SetStdChemGroups()
 	for(group = ritr.GetFirstRes(); group; group = ritr.GetNextRes())
 	{
 		// Peptide backbone
-		cout << " Calc residue " << group->GetSerNo() << endl;
+		std::cout << " Calc residue " << group->GetSerNo() << "\n";
 		if(group->IsProtein())
 		{
 			res_next=group->GetNextResInChain();
@@ -3586,7 +3586,7 @@ bool MolSet::SetStdChemGroups()
 		if(group->IsTerm())
 		{
 			gcur_ptr=AddBlankChemGroup("BUF");
-			vector<HaAtom*>::iterator aitr;
+			std::vector<HaAtom*>::iterator aitr;
 			for(aitr=group->begin(); aitr != group->end(); aitr++)
 			{
 				gcur_ptr->InsertAtom(*aitr);
@@ -4638,7 +4638,7 @@ int MolSet::ReleaseFragment(MolSet* frag)
 		frag_atom_maps.erase(frag);
 	}
 	
-	vector<MolSet*>::iterator fitr;
+	std::vector<MolSet*>::iterator fitr;
 
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); fitr++)
 	{
@@ -4673,7 +4673,7 @@ int MolSet::ReleaseAllFragments()
     }
 	frag_atom_maps.clear();
 
-	vector<MolSet*>::iterator fitr;
+	std::vector<MolSet*>::iterator fitr;
 
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); )
 	{
@@ -4695,7 +4695,7 @@ int MolSet::DeleteAllFragments()
     }
 	frag_atom_maps.clear();
 	
-	vector<MolSet*>::iterator fitr;
+	std::vector<MolSet*>::iterator fitr;
 	for(fitr = Fragments.begin(); fitr != Fragments.end(); )
 	{
 		MolSet* frag = (MolSet*)(*fitr);
@@ -4783,7 +4783,7 @@ int MolSet::SelectAtomsMatchingFragment(MolSet* frag)
 	AtomMapping* at_map_ptr = (AtomMapping*) frag_atom_maps[frag];
 	if( at_map_ptr->p_ac_2 == frag )
 	{
-		std::map< HaAtom*, HaAtom*, less<HaAtom*> >::iterator mitr;
+		std::map< HaAtom*, HaAtom*>::iterator mitr;
 		for( mitr = at_map_ptr->atmap_2to1.begin(); mitr != at_map_ptr->atmap_2to1.end(); mitr++)
 		{
 			HaAtom* p_ref_atom = (*mitr).second;
@@ -4881,7 +4881,7 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 	pfrag->SetName( frag_name.c_str() );
 	
 	int cur_serno=0;
-	vector<HaAtom*>::iterator paitr;
+	std::vector<HaAtom*>::iterator paitr;
 
 	int mol_new=0;
 	int ch_new=0;
@@ -5389,8 +5389,7 @@ MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 	
 }
 
-bool
-MolSet::Print_info(ostream &sout, const int level)
+bool MolSet::Print_info(std::ostream &sout, const int level)
 {
 	MoleculesType::iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
@@ -5406,7 +5405,7 @@ MolSet::Print_info(ostream &sout, const int level)
 
 HaCompMod* MolSet::GetCompModule(int mtype, bool create_module )
 {
-	vector<HaCompMod*>::iterator mitr;
+	std::vector<HaCompMod*>::iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
 	{
 		if( (*mitr) == NULL) continue;
@@ -5424,7 +5423,7 @@ HaCompMod* MolSet::GetCompModule(int mtype, bool create_module )
 
 const HaCompMod* MolSet::GetCompModule( int mtype ) const  
 {
-	vector<HaCompMod*>::const_iterator mitr;
+	std::vector<HaCompMod*>::const_iterator mitr;
 	for(mitr = CompModules.begin(); mitr != CompModules.end(); mitr++)
 	{
 		if( (*mitr) == NULL) continue;
@@ -5610,7 +5609,7 @@ bool MolSet::DeleteObject3D(Object3D* pobj)
 
 bool MolSet::DeleteObject3D(const std::string& obj_name)
 {
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	for(oitr = ViewObjects.begin(); oitr != ViewObjects.end(); oitr++)
 	{
 		if( !strcmp((*oitr)->GetObjName(), obj_name.c_str()) )
@@ -5750,7 +5749,7 @@ HaDisplayedSurface* MolSet::CalcMolSurfDens()
 HaDisplayedSurface* MolSet::GetMolSurface(int create_flag)
 {
 	HaDisplayedSurface* sptr = NULL;
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	for(oitr = this->ViewObjects.begin(); oitr != this->ViewObjects.end(); oitr++)
 	{
 		if( (*oitr)->GetObjType() == OBJ3D_SURFACE )
@@ -5970,7 +5969,7 @@ int MolSet::CreateExcludedVolumeMol()
 	mrad = (int)(solv_rad/grid_space) + 1;
 	int mrad2 = (int)((solv_rad/grid_space)*(solv_rad/grid_space));
 
-	vector< vector<int> > update_vec;
+	std::vector< std::vector<int> > update_vec;
 
 	for( ix = 0; ix < nx; ix++)
 	{
@@ -6030,8 +6029,8 @@ int MolSet::CreateExcludedVolumeMol()
 	int ires = 1;
 	int iat = 0;
 
-	map< HaAtom*,vector<int> > aptr_idx_map;
-	map< vector<int>,HaAtom* > idx_aptr_map;
+	std::map< HaAtom*, std::vector<int> > aptr_idx_map;
+	std::map< std::vector<int>,HaAtom* > idx_aptr_map;
 
 	for( ix = 0; ix < mol_dens.GetNx(); ix++)
 	{
@@ -6075,10 +6074,10 @@ int MolSet::CreateExcludedVolumeMol()
 	AtomIteratorMolecule aitr_mol(pmol);
 	for( aptr = aitr_mol.GetFirstAtom(); aptr; aptr = aitr_mol.GetNextAtom())
 	{
-		vector<int> idx_grid = aptr_idx_map[ aptr ];
+		std::vector<int> idx_grid = aptr_idx_map[ aptr ];
 		for( int i = 0; i < 3; i++)
 		{
-			vector<int> idx_grid_2 = idx_grid;
+			std::vector<int> idx_grid_2 = idx_grid;
 			idx_grid_2[i] = idx_grid[i] - 1;
 			if( idx_aptr_map.count(idx_grid_2) > 0)
 			{
@@ -6109,7 +6108,7 @@ int MolSet::CreateExcludedVolumeMol()
 
 std::string MolSet::GetUniqueMolName(const std::string& suggest_name)
 {
-	vector<HaMolecule*>::iterator mol_itr;
+	std::vector<HaMolecule*>::iterator mol_itr;
 	std::string trial_name= suggest_name;
 	bool name_found = false;
 
@@ -6481,7 +6480,7 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 		i++;
 	}
 
-	set< HaBond* > used_bonds;
+	std::set< HaBond* > used_bonds;
 	for(aptr = aitr_m1.GetFirstAtom(); aptr; aptr = aitr_m1.GetNextAtom())
 	{
 		for(auto bitr = aptr->Bonds_begin(); bitr != aptr->Bonds_end(); ++bitr )
@@ -7313,7 +7312,7 @@ void MolSet::SelectAtomsInBoundaryBox()
 {
 	if(!per_bc->IsSet()) return;
 
-	vector<AtomGroup> mols;
+	std::vector<AtomGroup> mols;
 
 	this->p_mol_editor->SplitToMolecules(this,mols);
 
@@ -7509,7 +7508,7 @@ int MolSet::DescribeSecStruct()
 		
 		PrintLog(" Molecule  %s :\n\n",pMol->GetObjName());
 		
-		list<SecStructElement>::iterator fitr;
+		std::list<SecStructElement>::iterator fitr;
 
 		PrintLog(" Alpha helicies: \n\n");
 
@@ -7549,7 +7548,7 @@ int MolSet::PrintHBonds()
 {
 	int nmol = GetNMol();
 
-	set<HaHBond, less<HaHBond> >::iterator hitr;
+	std::set<HaHBond>::iterator hitr;
 
 	int nhb = GetNHBonds();
 
@@ -7567,8 +7566,8 @@ int MolSet::PrintHBonds()
 
 		//PrintLog(" %s -> %s \n", src_id.c_str(), dst_id.c_str());
 		PrintLog("%d %d", src->GetSerNo(),dst->GetSerNo()); //<< jose addition 
-		fstream hbonds;
-		hbonds.open("hbonds.dat",ios::out | ios::app);
+		std::fstream hbonds;
+		hbonds.open("hbonds.dat", std::ios::out | std::ios::app);
 		hbonds << src->GetSerNo() << " " << dst->GetSerNo() << "\n";
 		//>> jose addition
 	}
@@ -7584,7 +7583,7 @@ int MolSet::RenumberSelectedRes(int start_num)
 	ResidueIteratorMolSet ritr(this);
 
 	std::vector<HaResidue*> sel_res;
-	std::set<HaResidue*, less<HaResidue*> > sel_res_set;
+	std::set<HaResidue*> sel_res_set;
 
 	for(pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes() )
 	{
@@ -7608,7 +7607,7 @@ int MolSet::RenumberSelectedRes(int start_num)
 		return FALSE;
 	}
 
-	std::set<int, less<int> > used_res_num;
+	std::set<int> used_res_num;
 	ResidueIteratorChain ritr_ch(p_chain);
 	for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes() )
 	{
@@ -7632,7 +7631,7 @@ int MolSet::RenumberSelectedRes(int start_num)
 		res_num_new[ir] = ser_num_new;
 	}
 
-	std::multimap<int, HaResidue*, less<int> >::iterator ritr_m1,ritr_m2;
+	std::multimap<int, HaResidue*>::iterator ritr_m1,ritr_m2;
 
 	for(ritr_m1 = p_chain->res_map.begin(); ritr_m1 != p_chain->res_map.end(); )
 	{
@@ -7657,6 +7656,20 @@ int MolSet::RenumberSelectedRes(int start_num)
 		p_chain->res_map.insert(ir_pair);
 	}
 	return TRUE;
+}
+
+bool MolSet::SplitSolventIntoMolecules()
+{
+	std::vector<HaMolecule*> mols_new;
+	for (HaMolecule* pmol : HostMolecules)
+	{
+		std::list<HaChain>::iterator ch_itr = pmol->Chains.begin();
+		while (ch_itr != pmol->Chains.end())
+		{ 
+
+		}
+	}
+	return true;
 }
 
 int MolSet::AnnounceGeomChange()
@@ -7758,7 +7771,7 @@ CrdSnapshot* MolSet::GetCrdSnapshotByName(const char* snp_name, bool create )
 
 int MolSet::DeleteCrdSnapshot( CrdSnapshot* psnap )
 {
-	vector<CrdSnapshot*>::iterator itr;
+	std::vector<CrdSnapshot*>::iterator itr;
 	for( itr = crd_snapshots.begin(); itr != crd_snapshots.end(); )
 	{
 		if( *itr == psnap ) 

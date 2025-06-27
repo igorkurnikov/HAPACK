@@ -122,7 +122,7 @@ protected:
                   
 };
 
-typedef vector<GauShell> ShellsType;
+typedef std::vector<GauShell> ShellsType;
 
 class HaPseudoPot;
 
@@ -190,7 +190,7 @@ public:
   bool operator == (const GauAtomBasis & rhs) const;
   bool operator <  (const GauAtomBasis & rhs) const;
 
-  bool Print_info(ostream &sout, const int level) const; 
+  bool Print_info(std::ostream &sout, const int level) const;
 
 protected:
   HaAtom* host_atom;       //!< Atom - Basis Set reside on	 
@@ -213,7 +213,7 @@ public:
 
 	void Clear();
 
-	typedef vector<GauAtomBasis>::iterator AtomBasIterator;
+	typedef std::vector<GauAtomBasis>::iterator AtomBasIterator;
 
 	std::string GetName() const; //!< Get Name of the Gaussian Basis Set  ("GEN" if not described by a single name)
 	bool IsGeneric() const;  //!< Check if basis set should be considered generic
@@ -257,7 +257,7 @@ public:
 
     int MatchBasisSet(const GauBasisSet* basis_frag, IntIntMap& frag_bas_fun_map, HaVec_double* bas_pert_vec = NULL); //!< Map Basis functions of the fragment to the current basis set, bas_pert_vec - perturbatins factors for fragment atom basis
 
-	vector<GauAtomBasis> at_bas_vec;           //!< vector of atom bases    
+	std::vector<GauAtomBasis> at_bas_vec;           //!< vector of atom bases    
 	HaVec_int atom_bas_idx;                    //!< Atom basis indexes of basis functions 
 	HaVec_int fst_bas_fun_idx;                 //!< Index of the first orbitals of the atomic basis sets in the GauBasSet
 	StrVec bf_lbls;                            //!< Labels of basis functions

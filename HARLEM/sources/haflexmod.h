@@ -12,7 +12,6 @@
 #include "hahbhp.h"
 
 #include <string>
-using namespace std;
 
 class MolEditor; 
 class HaMolView;
@@ -41,11 +40,11 @@ public:
 
 	AtomIntMap atom_ref_map;
 
-	vector<HBondAvg*> HBArray;
-	vector<HaHydrophobicTether*> HPTArray;
+	std::vector<HBondAvg*> HBArray;
+	std::vector<HaHydrophobicTether*> HPTArray;
 
-	vector<HBondAvg*> selected_hb;              //!< selected hydrogen bonds
-	vector<HaHydrophobicTether*> selected_hpt;  //!< selected Hydrophobic tethers
+	std::vector<HBondAvg*> selected_hb;              //!< selected hydrogen bonds
+	std::vector<HaHydrophobicTether*> selected_hpt;  //!< selected Hydrophobic tethers
 
 	std::string struct_file_name;
 	std::string first_data_file_name;

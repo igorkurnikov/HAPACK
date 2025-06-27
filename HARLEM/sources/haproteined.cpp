@@ -379,7 +379,7 @@ int CollectCrdAnalMod::SavePlatoInputFiles()
 		os << "      <comment author=\"HARLEM\" date=\"Today\">" << std::endl;
 		os << "        HARLEM generated PLATO input file " << std::endl;
 		os << "      </comment>" << std::endl;
-		os << "    </comments>" << endl;
+		os << "    </comments>" << std::endl;
 
 		int i,na;
 		na = p_at_grp->GetNAtoms();
@@ -544,7 +544,7 @@ int CollectCrdAnalMod::CalcTimeProj()
 		int bsize = 60*na;
 		buf = (char*) malloc( bsize );
 		
-		ifstream is(md_traj_fname_plato.c_str());
+		std::ifstream is(md_traj_fname_plato.c_str());
 		if( is.fail()) throw std::runtime_error("Error to open file " + md_traj_fname_plato);
 
 		is.getline(buf, bsize);

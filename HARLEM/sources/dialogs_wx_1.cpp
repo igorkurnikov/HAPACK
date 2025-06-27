@@ -913,7 +913,7 @@ Object3DDlgWX::DDX_obj_list()
 	if(pmset == NULL) return;
 
 	obj_list->Clear();
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	obj_vec.clear();
 	for(oitr = (pmset->ViewObjects).begin(); oitr != (pmset->ViewObjects).end(); oitr++)
 	{
@@ -2776,8 +2776,8 @@ void ETEffHamDlgWX::OnPlotEigenVec(wxCommandEvent& event)
 
 	if(!bres)
 	{
-		cerr << " Error in ETEffHamDlgWX::OnPlotEigenVec() " << endl;
-		cerr << " Error Reading EigenVector isolevel value " << endl;
+		std::cerr << " Error in ETEffHamDlgWX::OnPlotEigenVec() " << std::endl;
+		std::cerr << " Error Reading EigenVector isolevel value " << std::endl;
 		return;
 	}
 
@@ -7385,7 +7385,7 @@ bool MolSetParDlg::TransferDataToWindow()
 			MolSet* frag = (MolSet*) pmset->Fragments[i];
 			frag_list->Append( frag->GetName() );
 		}
-		vector<HaMolecule*>::iterator mol_itr;
+		std::vector<HaMolecule*>::iterator mol_itr;
 		for(mol_itr= pmset->HostMolecules.begin(); mol_itr != pmset->HostMolecules.end(); mol_itr++ )
 		{
 			mol_list->Append( (*mol_itr)->GetObjName() );
@@ -7479,7 +7479,7 @@ void AtomPropColorDlg::OnInitDialog()
 	p_color_names = (wxChoice*) FindWindow( IDC_CHOICE_COLORS );
 	p_color_names->Clear();
 
-	std::map<std::string, ColorVal,less<std::string> >::iterator citr;
+	std::map<std::string, ColorVal>::iterator citr;
 	citr = HaColor::name_col_map.begin();
 	for( ; citr != HaColor::name_col_map.end(); citr++ )
 	{
@@ -8561,7 +8561,7 @@ void ScatterDlg::OnSetCoreHam(wxCommandEvent& event)
 // wxAtomEdit
 
 
-list<wxAtomEdit*>  wxAtomEdit::active_controls;
+std::list<wxAtomEdit*>  wxAtomEdit::active_controls;
 
 wxAtomEdit::wxAtomEdit(wxWindow* parent, wxWindowID id, const wxString& value,
 		const wxPoint& pos,const wxSize& size, long style, const wxValidator& validator,
@@ -8597,7 +8597,7 @@ void wxAtomEdit::OnSetFocus(wxFocusEvent& event)
 
 int wxAtomEdit::BroadCastPickedAtom(HaAtom* PickAtom)
 {
-	list<wxAtomEdit*>::iterator citr;
+	std::list<wxAtomEdit*>::iterator citr;
 	for(citr = active_controls.begin(); citr != active_controls.end(); citr++ )
 	{
 		(*citr)->OnAtomPicked(PickAtom);

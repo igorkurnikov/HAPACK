@@ -23,15 +23,15 @@ public:
 	bool SetEnergy(const double NewEne); //!< Set Energy if Calc (E-H)
 
 
-bool Apply(vector<HaRPAvec> & RPAvec); //!< Apply RPA Hamiltonian to the array
+bool Apply(std::vector<HaRPAvec> & RPAvec); //!< Apply RPA Hamiltonian to the array
                                        //!<  of RPA vectors defined as 
 
-bool Apply_init(vector<HaRPAvec> & RPAvec) const; 
+bool Apply_init(std::vector<HaRPAvec> & RPAvec) const;
       // Apply zero order RPA Hamiltonian 
 
 
-vector<HaRPAvec> 
-operator *(const vector<HaRPAvec> & RPAvec); //!< Apply Hamiltonian
+std::vector<HaRPAvec>
+operator *(const std::vector<HaRPAvec> & RPAvec); //!< Apply Hamiltonian
 
 protected: 
 	double Ene;
@@ -54,13 +54,13 @@ bool SetEnergy(const double NewEne);
 bool SetImag(const bool new_imag);
 
 
-bool Apply_Init(vector<HaRPAvec> & RPAvec) const; //!< Apply Zero order approximation
+bool Apply_Init(std::vector<HaRPAvec> & RPAvec) const; //!< Apply Zero order approximation
                                                   //!< (diagonal MO) RPA resolvent
 
-bool Apply(vector<HaRPAvec> & RPAvec) const; //!< Apply RPA Resolvent 
+bool Apply(std::vector<HaRPAvec> & RPAvec) const; //!< Apply RPA Resolvent 
                                              //!< to the array of RPA vectors defined as 
 
-vector<HaRPAvec> solve(const vector<HaRPAvec> & CISvec) const; //!< Apply RPA Resolvent 
+std::vector<HaRPAvec> solve(const std::vector<HaRPAvec> & CISvec) const; //!< Apply RPA Resolvent 
                                                                //!< in the given approximation
 
 protected: 

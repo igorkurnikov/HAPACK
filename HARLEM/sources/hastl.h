@@ -29,8 +29,6 @@
 #include <new>
 #endif
 
-using namespace std;
-
 #if !defined(__PRETTY_FUNCTION__) 
 #if defined(_MSC_VER) 
 #define __PRETTY_FUNCTION__ __FUNCSIG__
@@ -99,16 +97,16 @@ public:
 
 #else
 
-typedef map<int, int, less<int> >              IntIntMap_parent;
-typedef map<int, int, less<int> >::iterator    IntIntMap_itr_parent;
-typedef map<int, void* , less<int> >            IntPtrMap_parent;
-typedef map<int, void* , less<int> >::iterator  IntPtrMap_itr_parent;
-typedef map<void*, int, less<void*> >            PtrIntMap_parent;
-typedef map<void*, int, less<void*> >::iterator  PtrIntMap_itr_parent;
-typedef map<void*, void*, less<void*> >           PtrPtrMap_parent;
-typedef map<void*, void*, less<void*> >::iterator PtrPtrMap_itr_parent;
-typedef map<void*, double, less<void*> >           PtrDoubleMap_parent;
-typedef map<void*, double, less<void*> >::iterator PtrDoubleMap_itr_parent;
+typedef std::map<int, int>              IntIntMap_parent;
+typedef std::map<int, int>::iterator    IntIntMap_itr_parent;
+typedef std::map<int, void*>            IntPtrMap_parent;
+typedef std::map<int, void*>::iterator  IntPtrMap_itr_parent;
+typedef std::map<void*, int>            PtrIntMap_parent;
+typedef std::map<void*, int>::iterator  PtrIntMap_itr_parent;
+typedef std::map<void*, void*>           PtrPtrMap_parent;
+typedef std::map<void*, void*>::iterator PtrPtrMap_itr_parent;
+typedef std::map<void*, double>           PtrDoubleMap_parent;
+typedef std::map<void*, double>::iterator PtrDoubleMap_itr_parent;
 
 #endif
 
@@ -284,7 +282,7 @@ public:
 };
 
 
-class PtrSet: public set<void*, less<void*> >
+class PtrSet: public std::set<void*>
 {
 //! Set of pointers
 public:
@@ -293,7 +291,7 @@ public:
 	int HasAtom(void* const ptr) const;
 };
 
-class VecPtr: public vector<void*>
+class VecPtr: public std::vector<void*>
 {
 //! Vector of pointers
 public:

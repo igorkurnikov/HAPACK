@@ -993,8 +993,8 @@ int AmberMMModel::InitAmberModelAmoeba()
 	
 		if( p_mm_model->setup_params_from_mort_flag )
 		{
-			vector< vector<int> > chirials;
-			vector< vector<int> > regulars;
+			std::vector< std::vector<int> > chirials;
+			std::vector< std::vector<int> > regulars;
 
 			maitr = mol.atom_begin();
 			for( ; maitr != mol.atom_end(); ++maitr )
@@ -1113,7 +1113,7 @@ int AmberMMModel::InitAmberModelAmoeba()
 				for( aptr = aitr_res.GetFirstAtom(); aptr; aptr = aitr_res.GetNextAtom() )
 				{
 					std::string at_name = aptr->GetName();
-					shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(at_name);
+					std::shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(at_name);
 					if( p_at_ff == NULL ) throw std::runtime_error(" No FF template for atom name " + at_name + "In residue " + res_fname );
 					
 					AddAtomFrames(aptr, p_at_ff.get(), &templ_atname_to_res_map );
@@ -1272,7 +1272,7 @@ int AmberMMModel::InitAmberModelAmoeba()
 
 int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_res )
 {
-	ofstream os(fname);
+	std::ofstream os(fname);
 	if(!os.good()) return FALSE;
 	
 	char buf[256];
@@ -1350,8 +1350,8 @@ int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_re
 			continue;
 		}
 		
-		vector< vector<int> > chirials;
-		vector< vector<int> > regulars;
+		std::vector< std::vector<int> > chirials;
+		std::vector< std::vector<int> > regulars;
 
 		if( !pmol ) continue;
 		try 
@@ -1522,7 +1522,7 @@ int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_re
 			at_idx++;
 		}
 		
-		std::set<int, less<int> > res_at_id;
+		std::set<int> res_at_id;
 		mort::atomiter_t aitr_rm = ritr_mort->atom_begin();
 		for( ; aitr_rm !=  ritr_mort->atom_end(); ++aitr_rm )
 		{
@@ -1575,6 +1575,6 @@ int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_re
 		ritr_mort_prev = ritr_mort;
 	}
 
-	os << harlem::HarlemDataFooter() << endl;
+	os << harlem::HarlemDataFooter() << "\n";
 	return TRUE;
 }

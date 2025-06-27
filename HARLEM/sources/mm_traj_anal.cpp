@@ -1396,7 +1396,7 @@ int RMSDAgent::SetRefCrdFitFromXYZFile( const std::string& ref_crd_file_name_new
 	char buf[256];
 	int na;
 	refc_fs.getline(buf,256);
-	istrstream ss(buf);
+	std::istrstream ss(buf);
 	ss >> na;
 	if(!ss)
 	{
@@ -1417,7 +1417,7 @@ int RMSDAgent::SetRefCrdFitFromXYZFile( const std::string& ref_crd_file_name_new
 	for(i = 0; i < na; i++)
 	{
 		refc_fs.getline(buf,256);
-		istrstream line_s(buf);
+		std::istrstream line_s(buf);
 		std::string id;
 		int idx;
 		double x,y,z;
@@ -1454,7 +1454,7 @@ int RMSDAgent::SetRefCrdRMSDFromXYZFile( const std::string& ref_crd_file_name_ne
 	char buf[256];
 	int na;
 	refc_fs.getline(buf,256);
-	istrstream ss(buf);
+	std::istrstream ss(buf);
 	ss >> na;
 	if(!ss)
 	{
@@ -1476,7 +1476,7 @@ int RMSDAgent::SetRefCrdRMSDFromXYZFile( const std::string& ref_crd_file_name_ne
 	for(i = 0; i < na; i++)
 	{
 		refc_fs.getline(buf,256);
-		istrstream line_s(buf);
+		std::istrstream line_s(buf);
 		std::string id;
 		int idx;
 		double x,y,z;
@@ -1683,7 +1683,7 @@ int  AtomCorrAgent::Finalize()
 		}
 	}
 
-	ofstream os(fname_out.c_str());
+	std::ofstream os(fname_out.c_str());
 	if( os.is_open() )
 	{
 		os << "  i_pt        r           <n>    <n - <n>>^2  g(r) " << std::endl;

@@ -328,7 +328,7 @@ int HarlemApp::RasMolCmd(const char* cmd)
 int HarlemApp::ExecRasMolScript(const char* file_name)
 {
 	char buf[20000];
-	ifstream sfile(file_name);
+	std::ifstream sfile(file_name);
 	for(;;)
 	{
 		sfile.getline(buf,19999);
@@ -533,7 +533,7 @@ int HarlemApp::RedirectIOLogFile(const std::string& fname_new )
 		*stderr = *file_log;
 		setvbuf( stderr, NULL, _IONBF, 0 ); // set stderr unbuffered
 		
-		ios::sync_with_stdio();
+		std::ios::sync_with_stdio();
 
 	    wxLog* p_log = new wxLogStderr();
         wxLog::SetActiveTarget(p_log);
@@ -739,7 +739,7 @@ int HarlemApp::ProcessOptions()
 }
 
 
-static int PrefixString(register char* str1, register char* str2 )
+static int PrefixString(char* str1, char* str2 )
 {
 	while( *str1 == *str2++ )
 	if( *str1++ == '\0' )

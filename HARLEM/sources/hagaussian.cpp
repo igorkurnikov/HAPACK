@@ -742,8 +742,8 @@ void HaGaussMod::FillSectionBasis(std::ostream& os) const
 	if(p_qc_mod->wave_fun_type == harlem::qc::NDO) return;
 	if( !p_qc_mod->IsGenBasisSet() && !save_basis_set_gen ) return;
 	
-	set<GauAtomBasis, less<GauAtomBasis> > bs_set;
-	set<const HaPseudoPot*, less<const HaPseudoPot*> > ppot_set;
+	std::set<GauAtomBasis> bs_set;
+	std::set<const HaPseudoPot*> ppot_set;
 	AtBasisType::iterator bitr;
 
 	for(bitr= p_qc_mod->AtBasis.at_bas_vec.begin(); bitr != p_qc_mod->AtBasis.at_bas_vec.end() ; bitr++)
@@ -767,7 +767,7 @@ void HaGaussMod::FillSectionBasis(std::ostream& os) const
 	{
 		os <<  "    " << std::endl;
 
-		set<const HaPseudoPot*, less<const HaPseudoPot*> >::iterator pitr;
+		std::set<const HaPseudoPot*>::iterator pitr;
 		for(pitr=ppot_set.begin(); pitr != ppot_set.end(); pitr++)
 		{
 			(*pitr)->SaveGaussInp(os);
@@ -787,7 +787,7 @@ void HaGaussMod::FillSectionExtCharges(std::ostream& os) const
 	if( fabs(p_qc_mod->distr_ext_chrg) > 0.0001 ) // distributed charge as a dot surface
 	{
 		DotStruct* dot_surf = NULL;
-		list<Object3D*>::iterator oitr;
+		std::list<Object3D*>::iterator oitr;
 		for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end();)
 		{
 			if( (*oitr)->GetObjType() == OBJ3D_DOT_SURFACE )
@@ -807,7 +807,7 @@ void HaGaussMod::FillSectionExtCharges(std::ostream& os) const
 			
 		double ch = p_qc_mod->distr_ext_chrg/np;
 				
-		vector<HaDot>::iterator ditr;
+		std::vector<HaDot>::iterator ditr;
 		for(ditr= dot_surf->dots.begin(); ditr != dot_surf->dots.end(); ditr++)
 		{
 			HaDot& cur_dot = *ditr;
@@ -1012,7 +1012,7 @@ void HaGaussMod::SetSaveBasisSetGen( bool set_par  )
 	save_basis_set_gen = set_par;
 }
 
-void HaGaussMod::SetAddKWStr( const string& add_kw_str_par )
+void HaGaussMod::SetAddKWStr( const std::string& add_kw_str_par )
 {
 	add_kw_str = add_kw_str_par;
 }

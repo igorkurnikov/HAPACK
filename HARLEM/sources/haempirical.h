@@ -216,19 +216,19 @@ public:
 	int SetCoarseGrainedDFireCoreParams(); //!< Set CG parameters of AA, DFIRE_SCM CORE @ jose October 22, 2008
 
 	int Initialize();//!< Init module - build MM model and force field 
-	vector<HaAtom*> AtomsCentroids; //!<  Atoms and other force and mass centers
-	vector<HaResidue*> Residues; //!<  contains residues   jose October 22, 2008
-	vector<HaAtom*> LipidInterfaceAtoms; //!<  Atoms located on the interface 
-	vector<HaAtom*> CentreAtoms; //!<  Centre Atoms of each molecule
+	std::vector<HaAtom*> AtomsCentroids; //!<  Atoms and other force and mass centers
+	std::vector<HaResidue*> Residues; //!<  contains residues   jose October 22, 2008
+	std::vector<HaAtom*> LipidInterfaceAtoms; //!<  Atoms located on the interface 
+	std::vector<HaAtom*> CentreAtoms; //!<  Centre Atoms of each molecule
 	int ClearMembraneModel(); //!< Clear Membrane Model
 
 	bool BuildNonBondSCContactList(); //!< Build the non-bonded SC contact list for coarse grained calculations jose
-	vector<AtomSet> nonbond_SC_contact_list; //!< Non-bonded SC contact list: SC representation atoms of different molecules for which non-bonded interactions are computed according to SCM @ jose October 22, 2008
+	std::vector<AtomSet> nonbond_SC_contact_list; //!< Non-bonded SC contact list: SC representation atoms of different molecules for which non-bonded interactions are computed according to SCM @ jose October 22, 2008
 	bool BuildNonBondCAContactList(); //!< Build the non-bonded Calpha contact list for coarse grained calculations 
-	vector<AtomSet> nonbond_CA_contact_list; //!< Non-bonded Calpha contact list: SC representation atoms of different molecules for which non-bonded interactions are computed according to Calpha
+	std::vector<AtomSet> nonbond_CA_contact_list; //!< Non-bonded Calpha contact list: SC representation atoms of different molecules for which non-bonded interactions are computed according to Calpha
 
 	bool BuildClashAtomList(); //!< Build a clash atom list from CA and SC atom force centroids @ jose November 11, 2008
-	vector<AtomSet> nonbond_atom_clash_list; //!< Non-bonded atom contact list: atom representation of CA & SC from different molecules for which repulsion forces are computed @ jose November 11, 2008
+	std::vector<AtomSet> nonbond_atom_clash_list; //!< Non-bonded atom contact list: atom representation of CA & SC from different molecules for which repulsion forces are computed @ jose November 11, 2008
 
 	int LoadDFireCoreParams();   //!< Initialize DFIRE_SCM CORE parameters @ jose October 22, 2008	
 	StrDoubleMap la_value; //!< Map of Adamian Empirical Lipid potential @ jose October 22, 2008

@@ -357,7 +357,7 @@ std::string ResFFTemplate::GetFullName()
 	return res_ff_version;
 }
 
-shared_ptr<AtomFFParam> ResFFTemplate::GetAtomFFParam(const std::string& at_name)
+std::shared_ptr<AtomFFParam> ResFFTemplate::GetAtomFFParam(const std::string& at_name)
 {
 	std::string at_name_loc = at_name;
 	boost::trim(at_name_loc);
@@ -368,7 +368,7 @@ shared_ptr<AtomFFParam> ResFFTemplate::GetAtomFFParam(const std::string& at_name
 	return at_name_ff_param_map[at_name_loc];
 }
 
-bool ResFFTemplate::SetAtomFFParam(const std::string& at_name, shared_ptr<AtomFFParam> sp_at_ff_param)
+bool ResFFTemplate::SetAtomFFParam(const std::string& at_name, std::shared_ptr<AtomFFParam> sp_at_ff_param)
 {
 	try
 	{
@@ -405,10 +405,10 @@ bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 				HaAtom* aptr = p_res_templ->GetAtomByName(at_name);
 				if( aptr == NULL)
 				{
-					string  msg = (boost::format("No atom name %s in the residue %s") % at_name % p_res_templ->GetFullName()).str();
+					std::string  msg = (boost::format("No atom name %s in the residue %s") % at_name % p_res_templ->GetFullName()).str();
 					throw std::runtime_error(msg);
 				}
-				shared_ptr<AtomFFParam> p_at_ff = make_shared<AtomFFParam>();
+				std::shared_ptr<AtomFFParam> p_at_ff = std::make_shared<AtomFFParam>();
 				int ires = p_at_ff->LoadXml(data_element, at_name );
 				if( !ires )
 				{

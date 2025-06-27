@@ -288,7 +288,7 @@ class pKaCalcMod : public  HaCompMod
 
 		AtomGroup sel_atoms;
 		VecPtr act_chem_states;
-		vector<string> AltNames;
+		std::vector<std::string> AltNames;
 		
 		//! interaction matrix - on the diagonal energy difference of alternative and unmodifed state when 
 		//! alt_pop[j] - population of aternative states  

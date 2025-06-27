@@ -47,7 +47,7 @@ class MDTrajectory
 
 	protected:
 		MolSet* pmset;
-		vector<HaAtom*>    Atoms;          //!<  Atoms and other force and mass centers
+		std::vector<HaAtom*>    Atoms;          //!<  Atoms and other force and mass centers
 
 		HaVec_double cur_crd;
 		HaVec_double cur_vel;
@@ -240,7 +240,7 @@ public:
 
 protected:
 	
-	ofstream constr_trj_fs;
+	std::ofstream constr_trj_fs;
 	
 };
 

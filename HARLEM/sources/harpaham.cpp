@@ -49,7 +49,7 @@ HaRPAHam::SetEnergy(const double NewEne)
 
 
 bool
-HaRPAHam::Apply_init(vector<HaRPAvec> & RPAvec) const
+HaRPAHam::Apply_init(std::vector<HaRPAvec> & RPAvec) const
 {
 
 	int nvec= RPAvec.size(); 
@@ -91,7 +91,7 @@ HaRPAHam::Apply_init(vector<HaRPAvec> & RPAvec) const
 	return true;
 }
 
-bool HaRPAHam::Apply(vector<HaRPAvec> & RPAvec)
+bool HaRPAHam::Apply(std::vector<HaRPAvec> & RPAvec)
 // Calculate  Z'= A Z + B Y  
 //            Y'= B Z + A Y 
 {
@@ -282,10 +282,10 @@ bool HaRPAHam::Apply(vector<HaRPAvec> & RPAvec)
 	return 1;
 }
 
-vector<HaRPAvec>
-HaRPAHam::operator *(const vector<HaRPAvec> & RPAv) 
+std::vector<HaRPAvec>
+HaRPAHam::operator *(const std::vector<HaRPAvec> & RPAv)
 {
-	vector<HaRPAvec> RPAv_new(RPAv);
+	std::vector<HaRPAvec> RPAv_new(RPAv);
 	HaMat_double tmpz,tmpy;
 	int iv,nv;
 	
@@ -377,9 +377,9 @@ HaRPAResolv::SetImag(const bool new_imag)
 
 
 bool
-HaRPAResolv::Apply(vector<HaRPAvec> & a1) const
+HaRPAResolv::Apply(std::vector<HaRPAvec> & a1) const
 {
-	vector<HaRPAvec> x(a1);
+	std::vector<HaRPAvec> x(a1);
 	Apply_Init(x);
 	
 	HaRPAHam  h1;
@@ -390,7 +390,7 @@ HaRPAResolv::Apply(vector<HaRPAvec> & a1) const
 	g0.SetOpMode(1);
 	g0.SetEnergy(this->Ene);
 
-	cout << " HaRPAResolv::Apply " << endl;
+	std::cout << " HaRPAResolv::Apply " << std::endl;
 	
 	int maxiter=100;
 	HaVec_double tol;
@@ -402,8 +402,8 @@ HaRPAResolv::Apply(vector<HaRPAvec> & a1) const
 //	result=CG_mult(h1,x,a1,g0,maxiter,tol);
 
 
-	cout << " Final accuracy is tol= " << tol << endl; 
-	cout << " The required number of iterations:  " << maxiter << endl;
+	std::cout << " Final accuracy is tol= " << tol << std::endl;
+	std::cout << " The required number of iterations:  " << maxiter << std::endl;
 	
 	a1=x;
 	
@@ -411,7 +411,7 @@ HaRPAResolv::Apply(vector<HaRPAvec> & a1) const
 }
 
 bool
-HaRPAResolv::Apply_Init(vector<HaRPAvec> & RPAvec) const
+HaRPAResolv::Apply_Init(std::vector<HaRPAvec> & RPAvec) const
 {
 	int nvec= RPAvec.size(); 
 	assert(nvec > 0);
@@ -453,10 +453,10 @@ HaRPAResolv::Apply_Init(vector<HaRPAvec> & RPAvec) const
 	return true;
 }
 
-vector<HaRPAvec>
-HaRPAResolv::solve(const vector<HaRPAvec> & RPAv) const
+std::vector<HaRPAvec>
+HaRPAResolv::solve(const std::vector<HaRPAvec> & RPAv) const
 {
-	vector<HaRPAvec> RPAv_new(RPAv);
+	std::vector<HaRPAvec> RPAv_new(RPAv);
 	if(opmode == FULL)
 	{
 		(*this).Apply(RPAv_new);

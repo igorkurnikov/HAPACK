@@ -152,7 +152,7 @@ public:
 	HaNonLocField3D();
 	virtual ~HaNonLocField3D();
 
-	vector< list<ValAtPoint> > fvals;
+	std::vector< std::list<ValAtPoint> > fvals;
 
 	int SaveField(const std::string& fname);
 
@@ -227,7 +227,7 @@ public:
 	HaVec_short  itsph;   //!< index of a sphere tesserae belongs to
 	HaVec_short  itsph_r; //!< index of a real sphere tesserae assigned to
     
-	bool Print_info(ostream& sout, const int level) const; //!< dump information about the surface
+	bool Print_info(std::ostream& sout, const int level) const; //!< dump information about the surface
 	HaVec_double surface_alpha;   //!< Array of atomic surfaces
 	HaVec_double volume_alpha;    //!< Array of atomic volumes
 	HaMat_double d_volume_alpha;  //!< Matrix of atomic volumes derivatives 
@@ -368,7 +368,7 @@ public:
     DotStruct();
 	virtual ~DotStruct();
 
-	vector<HaDot> dots;
+	std::vector<HaDot> dots;
 	int GetCount() { return dots.size(); }
 
 	void AddDot(double x, double y, double z, int col );

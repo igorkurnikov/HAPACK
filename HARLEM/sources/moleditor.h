@@ -17,7 +17,7 @@ public:
 
 	void Init(); //!< Init with standard parameters
 
-	vector<HaAtom> FindMissingHydrogens( HaAtom* aptr );
+	std::vector<HaAtom> FindMissingHydrogens( HaAtom* aptr );
 
 	int DeleteExtraAtoms(MolSet* pmset);   //!< Delete atoms not found in residues templates
 	int AddMissingAtoms(MolSet* pmset);    //!< Add Missing atoms in the structure using residue templates
@@ -45,7 +45,7 @@ public:
     int SetAngle(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, double ang_new);  //!< Set Valence angle (in rad)
     int SetTorsion(HaAtom* aptr1, HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4, double tors_new); //!< Set Dihedral angle (in rad)
 
-	int FindHBondsAtomCollection( AtomContainer* p_at_coll, vector<HaHBond>& hbonds); //!< Compute H-Bonds for the collection of atoms
+	int FindHBondsAtomCollection( AtomContainer* p_at_coll, std::vector<HaHBond>& hbonds); //!< Compute H-Bonds for the collection of atoms
     bool CalcHBonds(MolSet* pmset, bool recalc=false);  //!< Compute Hydrogen Bonds for the molecular Set
 	int IsValidHBond(HaHBond* p_hb); //!< Check if hydrogen bond satisfy current criteria 
 	void CalcHydrogenBonds(MolSet* pmset);            //!< Compute Hydrogen Bonds for the molecular Set - Old,not used, to incorporate
@@ -82,9 +82,7 @@ public:
 	int ReplicatePeriodBox(MolSet* pmset, int nx, int ny, int nz); //!< Replicate Molecular Set Along X,Y,Z axes using box periodical boundary info
     int WrapToUnitCell(AtomContainer* at_cont, PeriodicUnitInfo* per_info); //!< Wrap Atoms in the periodical system to the Unit Cell  
     int DeleteOverlapMols(MolSet* pmset, AtomGroup& at_coll); //!< Remove all molecules (connected groups of atoms) that overlap at_coll 
-	int SplitToMolecules(AtomContainer* p_at_coll, vector<AtomGroup>& mols); //!< Split Atom Collection into groups of bonded atoms (molecules) 
-
-	
+	int SplitToMolecules(AtomContainer* p_at_coll, std::vector<AtomGroup>& mols); //!< Split Atom Collection into groups of bonded atoms (molecules) 
 
 	int MergeMolecules(HaMolecule* pMol1, HaMolecule* pMol2); //!< Merge molecule 2 into molecule 1
 

@@ -121,7 +121,7 @@ public:
     double tot_ene;  //!< Current total electrostatic energy of the system (in KT) 
 
 	HaField3D el_pot_map; //!< Electrostatic poteintial Map on 3D Grid 
-	list<HaSurface*> Surfaces;
+	std::list<HaSurface*> Surfaces;
 
 	int fill_charge_mode; //!< Mode to spread atomic charges on the grid (FILL_CHARGE_NEAREST_PT = 1, FILL_CHARGE_CUBE=2)
     

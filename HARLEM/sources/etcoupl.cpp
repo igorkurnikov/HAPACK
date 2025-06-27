@@ -282,8 +282,8 @@ HaCompMod(COMP_MOD_ET_COUPL,new_phost_mset)
 {
 	if(new_phost_mset == NULL) 
 	{
-		cerr << " Error in ETCouplMod::ETCouplMod() "<< endl;
-		cerr << " The pointer to the new host molecular set is invalid " << endl;
+		std::cerr << " Error in ETCouplMod::ETCouplMod() "<< std::endl;
+		std::cerr << " The pointer to the new host molecular set is invalid " << std::endl;
 	}
 	ptr_qc_mod = NULL;
 	ptr_qc_mod = new_phost_mset->GetQCMod(true);
@@ -409,8 +409,8 @@ bool ETCouplMod::InitiatePathwaysGraph()
 {
 	if(!phost_mset)
 	{
-		cerr << " ETCouplMod::InitiatePathwaysGraph(): " << endl;
-		cerr << " Host Molecule Set is not defined " << endl;
+		std::cerr << " ETCouplMod::InitiatePathwaysGraph(): " << std::endl;
+		std::cerr << " Host Molecule Set is not defined " << std::endl;
 		return false;
 	}
 	MolEditor* p_mol_editor = phost_mset->GetMolEditor(true);
@@ -459,7 +459,7 @@ bool ETCouplMod::InitiatePathwaysGraph()
 	for(i=0; i < nn; i++)
 	{
 		HaAtom* aptr = nodes[i];
-		list<ETEdge>* p_edge_list = new list<ETEdge>;
+		std::list<ETEdge>* p_edge_list = new std::list<ETEdge>;
 		edges[i] = p_edge_list;
 				
 		nodes_part.GetNeighbors(*aptr, local_atoms );
@@ -489,7 +489,7 @@ static const double LN_036= log(0.36);
 
 bool ETCouplMod::path_coupl_calc()
 {
-	priority_queue< PathStep, deque<PathStep>, less<PathStep> > que;
+	std::priority_queue< PathStep, std::deque<PathStep>> que;
 
 	char buf[256];
 	HaAtom* aptr;
@@ -566,8 +566,8 @@ bool ETCouplMod::path_coupl_calc()
             
 			// put coupling to neighbors to the queue
 
-			list<ETEdge>::iterator itr;
-			list<ETEdge>* p_edges_list = (list<ETEdge>*) edges[cur_node];
+			std::list<ETEdge>::iterator itr;
+			std::list<ETEdge>* p_edges_list = (std::list<ETEdge>*) edges[cur_node];
 
 			for(itr= p_edges_list->begin(); itr != p_edges_list->end(); itr++)
 			{
@@ -581,8 +581,8 @@ bool ETCouplMod::path_coupl_calc()
 	{
 		if(acc_found == -1)
 		{
-			cerr << " Error in ETCouplMod::path_coupl_calc() " << endl;
-			cerr << " No path have been found to acceptor " << endl;
+			std::cerr << " Error in ETCouplMod::path_coupl_calc() " << std::endl;
+			std::cerr << " No path have been found to acceptor " << std::endl;
 			return False;
 		}
 		best_path_coupl = exp(coupl_map[acc_found].coupling);
@@ -700,7 +700,7 @@ bool ETCouplMod::select_important(double thresh)
 	pathways_calc_type=COUPL_MAP;
 	path_coupl_calc();
 
-	vector<PathStep> coupl_map_save; 
+	std::vector<PathStep> coupl_map_save;
 	coupl_map_save.swap(coupl_map);
 
 	pdon->swap(*pacc);
@@ -1195,7 +1195,7 @@ bool ETCouplMod::SetDAdipoleMat()
 	HaVec_double vd(3,0.0);
 	HaVec_double va(3,0.0);
 	HaVec_double vda(3,0.0);
-	vector<HaAtom*>::iterator iatr;
+	std::vector<HaAtom*>::iterator iatr;
 	int i,na=0;
 
 	for(iatr=pacc->begin(); iatr != pacc->end(); iatr++)
@@ -1240,9 +1240,9 @@ bool ETCouplMod::SetDAdipoleMat()
 
 	if( rr <= 1.0)
 	{
-		cerr << " Error in  ETCouplMod::SetDAdipoleMat() " << endl;   
-		cerr << " donor and acceptor coincide " << endl;
-		cerr << " Donor-acceptor field dipole matrix is not set " << endl;
+		std::cerr << " Error in  ETCouplMod::SetDAdipoleMat() " << std::endl;   
+		std::cerr << " donor and acceptor coincide " << std::endl;
+		std::cerr << " Donor-acceptor field dipole matrix is not set " << std::endl;
 		return false;
 	}
 
@@ -2211,15 +2211,15 @@ bool ETCouplMod::PrintEigVecCoef(int idx)
 	
 	if(ptr_qc_mod == NULL)
 	{
-		cerr << " Error in ETCouplMod::PrintEigVecCoef() " << endl;
-		cerr << " Qchem module is not set for ET Coupling module " << endl;
+		std::cerr << " Error in ETCouplMod::PrintEigVecCoef() " << std::endl;
+		std::cerr << " Qchem module is not set for ET Coupling module " << std::endl;
 		return false;
 	}
 	
 	if(idx > eigv.GetNOrbs() && idx <= 0)
 	{
-		cerr << " Error in ETCouplMod::PrintEigVecCoef() " << endl;
-		cerr << " Index of the effective orbital " << idx << " Is out of range " << endl;
+		std::cerr << " Error in ETCouplMod::PrintEigVecCoef() " << std::endl;
+		std::cerr << " Index of the effective orbital " << idx << " Is out of range " << std::endl;
 		return false;
 	}
 	
@@ -2227,9 +2227,9 @@ bool ETCouplMod::PrintEigVecCoef(int idx)
 
 	if(eigv.bas->GetNBfunc() != nao)
 	{
-		cerr << " Error in ETCouplMod::PrintEigVecCoef() " << endl;
-		cerr << " The Number of rows in eigenvector matrix " << eigv.bas->GetNBfunc() << 
-			    " is not equal to the number of Active orbitals " << nao << endl;
+		std::cerr << " Error in ETCouplMod::PrintEigVecCoef() " << std::endl;
+		std::cerr << " The Number of rows in eigenvector matrix " << eigv.bas->GetNBfunc() << 
+			    " is not equal to the number of Active orbitals " << nao << std::endl;
 		return false;
 	}
 
@@ -2315,15 +2315,15 @@ bool ETCouplMod::CreateEigVecContour(int idx, double flvl, int grid_size)
 	char buf[128];
 	if(ptr_qc_mod == NULL)
 	{
-		cerr << " Error in ETCouplMod::CreateEigVecContour() " << endl;
-		cerr << " Qchem module is not set for ET Coupling module " << endl;
+		std::cerr << " Error in ETCouplMod::CreateEigVecContour() " << std::endl;
+		std::cerr << " Qchem module is not set for ET Coupling module " << std::endl;
 		return false;
 	}
 
 	if( idx > enel.size() )
 	{
-		cerr << " Error in ETCouplMod::CreateEigVecContour() " << endl;
-		cerr << " Selected Eigen Vec index is larger than the number of Eigen Vec " << endl;
+		std::cerr << " Error in ETCouplMod::CreateEigVecContour() " << std::endl;
+		std::cerr << " Selected Eigen Vec index is larger than the number of Eigen Vec " << std::endl;
 		return false;
 	}
 	
@@ -2597,13 +2597,13 @@ bool ETCouplMod::GetSubMatFromDB()
 			{
 				if(debug_level > 10)
 				{
-					cout << "not found: " << gmat_id.GetStr() << endl;
+					std::cout << "not found: " << gmat_id.GetStr() << std::endl;
 				}
 				continue;
 			}
 			if(debug_level > 10)
 			{
-				cout << "found: " << gmat_id.GetStr() << endl;
+				std::cout << "found: " << gmat_id.GetStr() << std::endl;
 			}
 			ptr_qc_mod->InsertLocOrbSubMat(g1.GetID(),g2.GetID(),heff_mat,sub_mat);	
                         key_prot = gmat_id.GetStr();
@@ -3180,9 +3180,9 @@ bool ETCouplMod::CalcHDAPert(double &hda_coupl)
 		PrintLog( " Doesn't correspond to the number of active orbitals %d ", nab);		return false;
 	}
 
-	vector<int> bridge_orb_idx;
-	vector<int> donor_orb_idx;
-	vector<int> acceptor_orb_idx;
+	std::vector<int> bridge_orb_idx;
+	std::vector<int> donor_orb_idx;
+	std::vector<int> acceptor_orb_idx;
 
 	int i,j;
 	for(i=1; i <= nab; i++) 
@@ -3351,7 +3351,7 @@ bool ETCouplMod::PrintProtectMat() const
 //		sprintf(buf," %6.4f ", protect_mat(ig1,ig1));
 //		sout << buf;
 //	}
-//	sout << endl;
+//	sout << std::endl;
 
 
 //	for( ig1=1; ig1 <= ngrp; ig1++)
@@ -3365,7 +3365,7 @@ bool ETCouplMod::PrintProtectMat() const
 //			sprintf(buf," %6.4f ",protect_mat(ig1,ig2));
 //			sout << buf;
 //		}
-//		sout << endl;
+//		sout << std::endl;
 //	}
 	return true;
 }

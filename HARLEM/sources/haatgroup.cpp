@@ -395,7 +395,7 @@ void AtomGroup::AddFromExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
-	std::set<HaAtom*,less<HaAtom*> > old_atoms;
+	std::set<HaAtom*> old_atoms;
 	AtomIteratorAtomGroup aitr_g(this);
 
 	for(aptr = aitr_g.GetFirstAtom(); aptr; aptr = aitr_g.GetNextAtom())
@@ -425,7 +425,7 @@ void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
-	std::set<HaAtom*,less<HaAtom*> > old_atoms;
+	std::set<HaAtom*> old_atoms;
 	AtomIteratorAtomGroup aitr_g(this);
 
 	for(aptr = aitr_g.GetFirstAtom(); aptr; aptr = aitr_g.GetNextAtom())
@@ -456,7 +456,7 @@ void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, MolSet* pmset)
 {	
 	if( !pmset) return;
 	HaAtom* aptr;
-	std::set<HaAtom*,less<HaAtom*> > old_atoms;
+	std::set<HaAtom*> old_atoms;
 	AtomIteratorAtomGroup aitr_g(this);
 
 	for(aptr = aitr_g.GetFirstAtom(); aptr; aptr = aitr_g.GetNextAtom())
@@ -556,16 +556,16 @@ std::string ChemGroup::GetIDFromRef(const std::string& buf)
 	return tmp_id;
 }
  
-bool ChemGroup::Print_info(ostream &sout, const int level) const
+bool ChemGroup::Print_info(std::ostream &sout, const int level) const
 {
-	sout << " Atom Group with id " << id << endl;
-	sout << " contains  " << size() << "  atoms" << endl;
+	sout << " Atom Group with id " << id << "\n";
+	sout << " contains  " << size() << "  atoms" << "\n";
 	vector<HaAtom*>::const_iterator caitr;
 	for ( caitr= begin(); caitr != end(); caitr++);
 	{
 		char buf[256];
 		(*caitr)->FillRef(buf);
-		sout << buf << endl;
+		sout << buf << "\n";
 	}
 	return true;
 }
@@ -682,7 +682,7 @@ int HaResidue::GetNAtomsNonProxy() const
 
 HaResidue* HaResidue::GetPrevResInChain()
 {
-	std::multimap<int, HaResidue*, less<int> >::iterator ritr;
+	std::multimap<int, HaResidue*>::iterator ritr;
 
 	ritr = phost_ch->res_map.find( this->GetSerNo() );
 	if(ritr == phost_ch->res_map.begin() || ritr == phost_ch->res_map.end()) 
@@ -693,7 +693,7 @@ HaResidue* HaResidue::GetPrevResInChain()
 
 HaResidue* HaResidue::GetPrevResInChain() const
 {
-	std::multimap<int, HaResidue*, less<int> >::const_iterator ritr;
+	std::multimap<int, HaResidue*>::const_iterator ritr;
 
 	ritr = phost_ch->res_map.find( this->GetSerNo() );
 	if(ritr == phost_ch->res_map.begin() || ritr == phost_ch->res_map.end()) 
@@ -704,7 +704,7 @@ HaResidue* HaResidue::GetPrevResInChain() const
 
 HaResidue* HaResidue::GetNextResInChain()
 {
-	std::multimap<int, HaResidue*, less<int> >::iterator ritr;
+	std::multimap<int, HaResidue*>::iterator ritr;
 	ritr = phost_ch->res_map.find( this->GetSerNo() );
 
 	if(ritr == phost_ch->res_map.end()) return NULL;
@@ -716,7 +716,7 @@ HaResidue* HaResidue::GetNextResInChain()
 
 HaResidue* HaResidue::GetNextResInChain() const
 {
-	std::multimap<int, HaResidue*, less<int> >::const_iterator ritr;
+	std::multimap<int, HaResidue*>::const_iterator ritr;
 	ritr = phost_ch->res_map.find( this->GetSerNo() );
 
 	if(ritr == phost_ch->res_map.end()) return NULL;
@@ -885,11 +885,11 @@ bool HaResidue::SetUniqueAtomNames()
 	using std::map;
 
 	int iadd=1;
-	multimap<string, HaAtom*, less<string> > atname_at_map;
-	multimap<string, HaAtom*, less<string> >::iterator aa_map_itr;
+	std::multimap<string, HaAtom*> atname_at_map;
+	std::multimap<string, HaAtom*>::iterator aa_map_itr;
 
-	set<string, less<string> > atname_not_unique;
-	set<string, less<string> > atname_all;
+	std::set<string> atname_not_unique;
+	std::set<string> atname_all;
 
 	AtomIteratorAtomGroup aitr(this);
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
@@ -901,22 +901,22 @@ bool HaResidue::SetUniqueAtomNames()
 			atname_not_unique.insert( aptr->GetName() );
 		}
 		atname_all.insert( aptr->GetName() );
-		atname_at_map.insert( pair<string,HaAtom*>( aptr->GetName(), aptr) );
+		atname_at_map.insert( std::pair<string, HaAtom*>(aptr->GetName(), aptr));
 	}
 	if(uniq_names) return true;
 	
 	char buf[256];
 	FillRef(buf);
 	
-	cerr << " Warning: in HaResidue::SetUniqueAtomNames() " << endl;
-	cerr << " Atom Names in the Residue " << buf << " are not unique " << endl;
-	cerr << " and will be changed " << endl;
+	std::cerr << " Warning: in HaResidue::SetUniqueAtomNames() " << std::endl;
+	std::cerr << " Atom Names in the Residue " << buf << " are not unique " << std::endl;
+	std::cerr << " and will be changed " << std::endl;
 
 	char lbi[4];
-	set<string, less<string> >::iterator atname_itr;
+	std::set<string>::iterator atname_itr;
 
-	multimap<string,HaAtom*, less<string> >::iterator aa_map_itr1;
-	multimap<string,HaAtom*, less<string> >::iterator aa_map_itr2;
+	std::multimap<string,HaAtom*>::iterator aa_map_itr1;
+	std::multimap<string,HaAtom*>::iterator aa_map_itr2;
 
 	for(atname_itr = atname_not_unique.begin(); atname_itr != atname_not_unique.end(); atname_itr++)
 	{
@@ -957,7 +957,7 @@ bool HaResidue::SetUniqueAtomNames()
 
 std::string HaResidue::GetUniqueAtomName(int elem_no)
 {
-	set<std::string> at_names;
+	std::set<std::string> at_names;
 	HaAtom* aptr;
 	std::string atname("");
 	AtomIteratorAtomGroup aitr(this);
@@ -1954,7 +1954,7 @@ static const int MIN_TERM_RES_SERNO=5000;
 
 int HaChain::GetUniqResSerNo(int term_res_flag) const
 {
-	std::multimap<int, HaResidue*, less<int> >::const_iterator ritr;
+	std::multimap<int, HaResidue*>::const_iterator ritr;
 	int new_serno;
 	
 	if(term_res_flag)
@@ -1972,7 +1972,7 @@ int HaChain::GetUniqResSerNo(int term_res_flag) const
 
 bool HaChain::SetUniqueResNo()
 {
-	std::multimap<int, HaResidue*, less<int> >::iterator ritr;
+	std::multimap<int, HaResidue*>::iterator ritr;
 
 	int last_serno = -999999;
 	int found_same_serno = FALSE;
@@ -2020,7 +2020,7 @@ HaResidue* HaChain::GetFirstRes()
 
 HaResidue* HaChain::GetResBySerNo(const int res_ser_no)
 {
-	std::multimap<int,HaResidue*, less<int> >::iterator ritr = res_map.find(res_ser_no);
+	std::multimap<int,HaResidue*>::iterator ritr = res_map.find(res_ser_no);
 	if( ritr != res_map.end() ) return (*ritr).second;
 	return NULL;
 }
@@ -2131,7 +2131,7 @@ public:
 	            // if ar == NULL - the atom is missing	
 	int ntype;  //!< Indicator of resolved state of the atom and his neighbors
 	int nresolv_neib; //!< the numbor of resolved neighbor atoms
-	vector<int> bonded_nodes; //!< the node indexes the template atoms(nodes) connected 
+	std::vector<int> bonded_nodes; //!< the node indexes the template atoms(nodes) connected 
 	                          //!< to the template atom in the template residue
 };
 
@@ -2151,7 +2151,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 		
 		HaMolecule* res_templ = p_res_db->GetMolTemplForRes( fres_name.c_str() );
 		HaResidue* prtempl = p_res_db->GetTemplateForResidue( fres_name.c_str() );
-		if( prtempl == NULL || res_templ == NULL ) throw runtime_error(" Can't find residue template " + fres_name + " in the database" );
+		if( prtempl == NULL || res_templ == NULL ) throw std::runtime_error(" Can't find residue template " + fres_name + " in the database" );
 
 		if( this->IsWater())
 		{
@@ -2163,7 +2163,7 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 		nodes.clear();
 		AtomIntMap at_nodes_map; // map connecting atom pointer to their positions in nodes vector; 
 
-		std::set<std::string, less<std::string> > at_names;
+		std::set<std::string> at_names;
 
 		AtomIteratorAtomGroup aitr_this(this);
 
@@ -2172,10 +2172,10 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 		for(aptr= aitr_this.GetFirstAtom(); aptr; aptr= aitr_this.GetNextAtom())
 		{
 			std::string at_name = aptr->GetName();
-			if( at_names.find(aptr->GetName()) != at_names.end() ) throw runtime_error(" Residue has multiple atoms with the name " + at_name ); 
+			if( at_names.find(aptr->GetName()) != at_names.end() ) throw std::runtime_error(" Residue has multiple atoms with the name " + at_name );
 
 			atempl= prtempl->GetAtomByName(aptr->GetName());
-			if(atempl == NULL) throw runtime_error(" Residue Template doesn't have atom " + at_name + " found in current residue ");
+			if(atempl == NULL) throw std::runtime_error(" Residue Template doesn't have atom " + at_name + " found in current residue ");
 
 			AtomNode node;
 			node.at = atempl;
@@ -2793,7 +2793,7 @@ bool AlchemicalTransformation::SaveMutationMapArbalestFmt(std::string fname)
 
 	for (HaAtom* aptr: atoms_b)
 	{
-		if (!atoms_a.count(aptr) > 0) continue;
+		if (atoms_a.count(aptr) == 0) continue;
 		os << "        <Atoms A=\"" << aptr->GetName() << "\"  B=\"" << this->at_names_b[aptr] << "\"/> \n";
 	}
 	os << "    </AtomsMapping> \n";
@@ -2826,12 +2826,12 @@ HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4,
 
 		if (aptr2 == aptr3)
 		{
-			throw::runtime_error("Reference atoms aptr2 and patr3 are the same ");
+			throw std::runtime_error("Reference atoms aptr2 and patr3 are the same ");
 		}
 
 		if (aptr2->GetHostMolSet() != aptr3->GetHostMolSet() )
 		{
-			throw::runtime_error("Reference atoms aptr2 and aptr3 do not belong to the same Molecular Set");
+			throw std::runtime_error("Reference atoms aptr2 and aptr3 do not belong to the same Molecular Set");
 		}
 
 		double dist      = Vec3D::CalcDistance( aptr_templ, aptr_templ_2);
@@ -2848,13 +2848,13 @@ HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4,
 
 		if(aptr3->GetHostMolSet() != pmset || aptr4->GetHostMolSet() != pmset) 
 		{
-			throw::runtime_error("Atoms to attach do not belong to the same Molecular Set");
+			throw std::runtime_error("Atoms to attach do not belong to the same Molecular Set");
 		}
 
 		HaResidue* pres = aptr2->GetHostRes();
 
 		new_atom = pres->AddNewAtom();
-		if(new_atom == NULL)  throw::runtime_error("Can not add new atom");
+		if(new_atom == NULL)  throw std::runtime_error("Can not add new atom");
 
 		new_atom->SetParamFrom(*aptr_templ);
 
@@ -3679,7 +3679,7 @@ int CrdSnapshot::SaveCurrentAtomCrd()
 	
 	crd.resize(ncrd);
 
-	std::auto_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
+	std::unique_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
 	int j = 0;
 	HaAtom* aptr;
 	for( aptr = p_aitr->GetFirstAtom(); aptr; aptr = p_aitr->GetNextAtom() )
@@ -3716,7 +3716,7 @@ int CrdSnapshot::SetAtomCrd()
 		return FALSE;
 	}
 
-	std::auto_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
+	std::unique_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
 	int j = 0;
 	HaAtom* aptr;
 	for( aptr = p_aitr->GetFirstAtom(); aptr; aptr = p_aitr->GetNextAtom() )
@@ -3787,7 +3787,7 @@ int CrdSnapshot::LoadXMLNode( rapidxml::xml_node<>* node, const harlem::HashMap*
 {
 	using namespace rapidxml;
 
-	std::auto_ptr<harlem::HashMap> popt_auto(  (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
+	std::unique_ptr<harlem::HashMap> popt_auto(  (popt_par == NULL) ? new harlem::HashMap() : popt_par->clone() );
 	harlem::HashMap* popt = popt_auto.get();
 
 	MolSet* pmset = NULL;

@@ -79,25 +79,25 @@ public:
 
 	bool LoadXml(const TiXmlElement* xml_element, int option=0 ); //!< Load Residue FF Template from XML element
 
-	shared_ptr<AtomFFParam> GetAtomFFParam(const std::string& at_name); //!< Get Atom Force Field Parameters by Atom Name 
-	bool SetAtomFFParam(const std::string& at_name, shared_ptr<AtomFFParam> p_at_ff_param); //!< Set Atom Force Field parameters
+	std::shared_ptr<AtomFFParam> GetAtomFFParam(const std::string& at_name); //!< Get Atom Force Field Parameters by Atom Name 
+	bool SetAtomFFParam(const std::string& at_name, std::shared_ptr<AtomFFParam> p_at_ff_param); //!< Set Atom Force Field parameters
 
 	void SetResFFVersion(const std::string& res_ff_version_new); //< Set Version string of the Residue force field template 
-	string GetFullName(); //!< Get Full Name of the residue template
+	std::string GetFullName(); //!< Get Full Name of the residue template
 
 	HaResidue* GetResTemplate(); //!< Get Residue structure template associated with the Force Field residue template
 	
-	vector<StrVec> bonds;
-	vector<StrVec> angles;
-	vector<StrVec> dihedrals;
-	vector<StrVec> improper_dihedrals;
+	std::vector<StrVec> bonds;
+	std::vector<StrVec> angles;
+	std::vector<StrVec> dihedrals;
+	std::vector<StrVec> improper_dihedrals;
 
 private:
-	string res_name;       //!< Full Residue Name in Residue Database
-	string res_ff_version; //!< Identifier for the version of the force field for the residue 
+	std::string res_name;       //!< Full Residue Name in Residue Database
+	std::string res_ff_version; //!< Identifier for the version of the force field for the residue 
 
 	HaResidue* p_res_templ;
-	map<string,shared_ptr<AtomFFParam>> at_name_ff_param_map; //!< Map of atom names to atomic force field parameters
+	std::map<std::string, std::shared_ptr<AtomFFParam>> at_name_ff_param_map; //!< Map of atom names to atomic force field parameters
 };
 
 class MMBond
@@ -172,10 +172,10 @@ public:
 	int GetNTerms() const { return pk.size(); } //! Get the number of terms in a dihedral angle 
 	void ClearParams() { pn.clear(); phase.clear(); pk.clear(); idivf.clear(); }  //!< clear FF parameters
 	
-	vector<double> pn;    //!< Periodicity of the dihedral of the given type 
-	vector<double> phase; //!< phase of the dihedral of the given type
-	vector<double> pk;    //!< force constant (potential depth) 
-	vector<double> idivf; //!< constant to multiply pk to get a potential depth   
+	std::vector<double> pn;    //!< Periodicity of the dihedral of the given type 
+	std::vector<double> phase; //!< phase of the dihedral of the given type
+	std::vector<double> pk;    //!< force constant (potential depth) 
+	std::vector<double> idivf; //!< constant to multiply pk to get a potential depth   
 
 	int AddTerm( double pn_new, double phase_new, double pk_new, double idivf_new = 1.0 );
 
@@ -184,7 +184,7 @@ public:
 
 };
 
-typedef vector<MMDihedral> MMDihedralArray;
+typedef std::vector<MMDihedral> MMDihedralArray;
 
 class AtomContact
 //! Atom-Atom contact(constraint) harmonic, VdW (6-12) or (10-12) or Coulomb (q_i*q_j/r_ij) in the Molecular Mechanics model

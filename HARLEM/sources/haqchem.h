@@ -57,7 +57,7 @@ public:
 
 	void SetStdParams();
 
-	bool Print_info( ostream &sout, const int level) const;
+	bool Print_info(std::ostream &sout, const int level) const;
 	virtual int SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt = NULL ) const;
 
 //! \name Atom Center functions:  
@@ -280,9 +280,9 @@ public:
 	int InitHuckHam(HaMat_double& hmat, HaMat_double& ss, ArrayOrb3D& bas); //!< Init Huckel Hamiltonian 
 	double GetNDOValEl(int elem, double& ns_val, double& np_val, double& nd_val,double& nf_val); //!< Get the number of valence electron and electron dencities of S,P,D valence shells
     int FormFockNDO(int natoms, int* ian, const int* ifst_bf_at, const int* ilst_bf_at,
-					double* da, double* db, double* fm, 
-					const double* gss, const double* gsd,const double* gdd,
-					vector<HaVec_double>& at_coul_int);
+		double* da, double* db, double* fm, 
+		const double* gss, const double* gsd,const double* gdd,
+		std::vector<HaVec_double>& at_coul_int);
 	double CalcNucRepEne(int natoms, const HaVec_int& ian, const HaMat_double& c, 
 		                 const  HaVec_double& core_ch, const double* gss);
 	

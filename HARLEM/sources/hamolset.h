@@ -84,7 +84,7 @@ public:
 	enum DEBUG_FLAG_PARAMS { file_reading_debug = 0x0001 };
 	int debug_flag;
 //! Print information about the molecule set
-	bool Print_info(ostream &sout, const int level); //!< Print molecular set info
+	bool Print_info(std::ostream &sout, const int level); //!< Print molecular set info
 //@}
 
 //! \name Axxiliary classes:
@@ -170,8 +170,8 @@ public:
 
 	static MolSet* CurMolSet;                            //!< Currently active Molecular Set
 	std::vector<HaMolecule*> HostMolecules;                   //!< Molecules in the molecular set  
-	std::multimap<int, HaMolecule*, less<int> > serno_mol_map; //!< map of serial numbers of molecules to molecular pointers
-	std::multimap<std::string, HaMolecule*, less<std::string> > name_mol_map; //!< map of names of molecules to molecular pointers
+	std::multimap<int, HaMolecule*> serno_mol_map; //!< map of serial numbers of molecules to molecular pointers
+	std::multimap<std::string, HaMolecule*> name_mol_map; //!< map of names of molecules to molecular pointers
 	 
 	HaMolecule* AddNewMolecule( int mol_ser_no = -1 );  //!< function to add a new molecule to the set 
 	HaMolecule* GetFirstMolecule();                  //!< Get First Molecule in the set
@@ -194,6 +194,9 @@ public:
 	void OnChangePeriodicity(); //!< Notify Views and modules that periodical box was create or deleted
 
 	int RenumberSelectedRes(int start_num = 1); //!< Renumber Selected Residues (should be in one chain) 
+
+	bool SplitSolventIntoMolecules(); //!< Split solvent and ions into separate molecules
+
 //@}
 //! \name Iterations over atoms: implementations of AtomContainer and PointContainer functions:
 //@{
@@ -259,9 +262,9 @@ public:
 
 	void ClearBackbone();  //!< Clear Backbone bonds
 
-	set<HaHBond> HBonds;        //!< Hydrogen Bonds of the molecular set
-	std::vector<shared_ptr<HaBond>>  Bonds;    //!< Valence bonds of the molecular set
-	std::vector<shared_ptr<HaBond>>  BackboneBonds; //!< Backbone Bonds in the molecular set 
+	std::set<HaHBond> HBonds;        //!< Hydrogen Bonds of the molecular set
+	std::vector<std::shared_ptr<HaBond>>  Bonds;    //!< Valence bonds of the molecular set
+	std::vector<std::shared_ptr<HaBond>>  BackboneBonds; //!< Backbone Bonds in the molecular set 
 
 	AtomIteratorMolSet begin();   //!< Start iterator for Atoms
 	AtomIteratorMolSet end();     //!< End   iterator for Atoms
@@ -319,9 +322,9 @@ public:
 	bool CheckUniqChemGrpID(const std::string& gid);
 	std::string GetUniqChemGrpID(int buf_reg_flag);
 
-	list<ChemGroup> ChemGroups; //!< Chemical Functional Groups
+	std::list<ChemGroup> ChemGroups; //!< Chemical Functional Groups
 	VecPtr chemg_idx;
-	typedef list<ChemGroup> ChemGroupsType;
+	typedef std::list<ChemGroup> ChemGroupsType;
 
 //@}
 
@@ -393,7 +396,7 @@ public:
 	bool SetParseRadii(); //!< Set atomic radii to PARSE radii set
 	bool SetHPPRadii();   //!< Set atomic radii used on H++ server
 	
-    vector<AtomDoubleMap> ChargeMaps; //!< The vector of atom-charge maps that 
+    std::vector<AtomDoubleMap> ChargeMaps; //!< The vector of atom-charge maps that 
 
 	AtomDoubleMap* GetChargeMapByName(const char* map_name); //!< Get a atom-charge map by the name
 	AtomDoubleMap* CreateChargeMap(const char* map_name);    //!< Create an atom-charge map with a given name 
@@ -456,7 +459,7 @@ public:
 	MolEditor*        GetMolEditor(const bool create_module = false);      //!< Get Molecular Editor Module
 	CollectCrdAnalMod*   GetCollectCrdAnalMod(const bool create_module = false); //!< Get Cluster Analysis Module
 
-	vector<HaCompMod*> CompModules; //!< List of Computational modulles associated with the molecular set
+	std::vector<HaCompMod*> CompModules; //!< List of Computational modulles associated with the molecular set
 //@}
 public:
 //! \name Molecular Display functions:
@@ -471,8 +474,8 @@ public:
 	bool AddObject3D(Object3D* new_view_object);   //!< Add a new 3D object to the list
 	bool DeleteObject3D(Object3D* pobj);           //!< Delete 3D object from the list using the pointer 
 	bool DeleteObject3D(const std::string& obj_name);  //!< Delete 3D object from the list using its name
-
-	list<Object3D*> ViewObjects; //!< the list of 3D objects
+	
+	std::list<Object3D*> ViewObjects; //!< the list of 3D objects
 
 	void ClearPickedAtoms(); //!< Clear Picked Atoms Set
 	AtomGroup picked_atoms;
@@ -492,7 +495,7 @@ public:
 
 };
 
-typedef vector<HaMolecule*> MoleculesType;
+typedef std::vector<HaMolecule*> MoleculesType;
 
 class AtomIteratorMolecule;
 class AtomIteratorMolecule_const;
@@ -564,7 +567,7 @@ public:
 	using iterator_category = std::forward_iterator_tag;
 	using value_type = HaAtom;
 	using difference_type = std::ptrdiff_t;
-	using pointer = vector<HaAtom*>::const_iterator;
+	using pointer = std::vector<HaAtom*>::const_iterator;
 	using reference = const HaAtom*;
 
 	virtual PointIterator_const* clone() const; //!<  Create a copy of the iterator with the same state (from PointIterator_const )
@@ -586,8 +589,8 @@ public:
 
 	
 protected:
-    vector<HaAtom*>::const_iterator aitr_res;
-	vector<HaAtom*>::const_iterator aitr_res_end;
+	std::vector<HaAtom*>::const_iterator aitr_res;
+	std::vector<HaAtom*>::const_iterator aitr_res_end;
 	ResidueIteratorMolSet_const* pritr;
 };
 
@@ -641,8 +644,8 @@ public:
 	ResidueIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 protected:
-	vector<HaResidue*>::iterator res_itr;
-	list<HaChain>::iterator ch_itr;
+	std::vector<HaResidue*>::iterator res_itr;
+	std::list<HaChain>::iterator ch_itr;
 	MoleculesType::iterator mol_itr;
 
 	MoleculesType::iterator mol_itr_begin;
@@ -663,8 +666,8 @@ public:
 	const HaResidue* GetNextRes();  //!< Return the next residue in the sequence (=NULL if no more atoms)
 	
 protected:
-	vector<HaResidue*>::const_iterator res_itr;
-	list<HaChain>::const_iterator ch_itr;
+	std::vector<HaResidue*>::const_iterator res_itr;
+	std::list<HaChain>::const_iterator ch_itr;
 	MoleculesType::const_iterator mol_itr;
 
 	MoleculesType::const_iterator mol_itr_begin;
@@ -682,7 +685,7 @@ public:
 	HaChain* GetNextChain();  //!< Return next chain in the molecular set (=NULL if no more atoms)
 	
 protected:
-	list<HaChain>::iterator ch_itr;
+	std::list<HaChain>::iterator ch_itr;
 	MoleculesType::iterator mol_itr;
 	
 	MolSet* pmset;
@@ -699,7 +702,7 @@ public:
 	ChemGroup* GetNext();  //!< Return next Chemical Group in the Molecular Set (=NULL if no more Chemical Groups)
 
 protected:
-    list<ChemGroup>::iterator CurGroupItr;	
+	std::list<ChemGroup>::iterator CurGroupItr;
 	MolSet* pmset;
 };
 
@@ -714,7 +717,7 @@ public:
 	AtomGroup* GetNext();  //!< Return next named Atom Group (=NULL if no more Atom Groups)
 	
 protected:
-	list<AtomGroup>::iterator CurListItr;	
+	std::list<AtomGroup>::iterator CurListItr;
 	MolSet* pmset;
 };
 
@@ -729,7 +732,7 @@ public:
 	const AtomGroup* GetNext() ; //!< Return next named Atom Group (=NULL if no more Atom Groups)
 	
 protected:
-	list<AtomGroup>::const_iterator CurListItr;	
+	std::list<AtomGroup>::const_iterator CurListItr;
 	const MolSet* pmset;
 };
 
@@ -762,7 +765,7 @@ public:
 	BondIteratorMolSet __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 protected:
-	std::vector<shared_ptr<HaBond>>::iterator bitrm;
+	std::vector<std::shared_ptr<HaBond>>::iterator bitrm;
 	MoleculesType::iterator mol_itr;
 	bool first_called; //!< Indicates that the iterator was called already
 	
@@ -780,7 +783,7 @@ public:
 	HaHBond* GetNextBond();  //!< Return next Hydrogen bond or SS bond of the Molecular (=NULL if no more H-bonds(SS bonds))
 	
 protected:
-	set< HaHBond,less<HaHBond> >::iterator bitrm;
+	std::set< HaHBond >::iterator bitrm;
 	MoleculesType::iterator mol_itr;
 		
 	MolSet* pmset;

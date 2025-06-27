@@ -165,11 +165,11 @@ public:
 
 	int SetIntCoordFromStr(std::string int_crd_str); //!< Set Internal coordinates reading them from the string in seq x,y,z, phi,cost,psi
 
-	int SaveXYZFile( std::string fout_name,  const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to XYZ file
-	virtual int SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL ); //!< Save AtomContainer to output stream
+	int SaveXYZFile( std::string fout_name,  const AtomSaveOptions* p_opt = nullptr ); //!< Save AtomContainer to XYZ file
+	virtual int SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_opt = nullptr); //!< Save AtomContainer to output stream
 
-	int SaveGROFile( std::string fout_name, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file
-	virtual int SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_opt = NULL); //!< Save AtomContainer to GROMACS GRO file stream
+	int SaveGROFile( std::string fout_name, const AtomSaveOptions* p_opt = nullptr); //!< Save AtomContainer to GROMACS GRO file
+	virtual int SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_opt = nullptr); //!< Save AtomContainer to GROMACS GRO file stream
 };
 
 
@@ -233,7 +233,7 @@ public:
 	HaAtom* GetNextAtom();  //!< Return Next atom in the sequence (=NULL if no more atoms)
 	
 protected:
-	vector<HaAtom*>::iterator aitrm; 
+	std::vector<HaAtom*>::iterator aitrm;
 	AtomGroup* p_at_group;
 };
 
@@ -248,13 +248,13 @@ public:
 	const HaAtom* GetNextAtom();  //!< Return Next atom in the sequence (=NULL if no more atoms)
 	
 protected:
-	vector<HaAtom*>::const_iterator aitrm; 
+	std::vector<HaAtom*>::const_iterator aitrm; 
 	
 	const AtomGroup* p_at_group;
 };
 
 
-class AtomGroup : public vector<HaAtom*>, public AtomContainer
+class AtomGroup : public std::vector<HaAtom*>, public AtomContainer
 //! Class to define a group of atoms
 {	
 public:
@@ -331,7 +331,7 @@ public:
  
   static std::string GetIDFromRef(const std::string& buf);
 
-  bool Print_info(ostream &sout, const int level) const;
+  bool Print_info(std::ostream &sout, const int level) const;
 
 protected:
 
@@ -521,18 +521,18 @@ public:
 
 	AtomFFParam* GetAtomFFParamMut(HaAtom* aptr); //!< Get Atom FF Parameters for atom in the mutated state
 
-	string res_name_b;
-	set<HaAtom*> atoms_a;
-	set<HaAtom*> atoms_b;
-	set<HaAtom*> dummy_a;
-	set<HaAtom*> dummy_b;
+	std::string res_name_b;
+	std::set<HaAtom*> atoms_a;
+	std::set<HaAtom*> atoms_b;
+	std::set<HaAtom*> dummy_a;
+	std::set<HaAtom*> dummy_b;
 
-	map<HaAtom*, std::string> at_names_b;
-	map<HaAtom*, int> at_elem_b;
-	map<HaAtom*, double> at_mass_b;
-	map<HaAtom*, shared_ptr<AtomFFParam>> at_ff_params;
+	std::map<HaAtom*, std::string> at_names_b;
+	std::map<HaAtom*, int> at_elem_b;
+	std::map<HaAtom*, double> at_mass_b;
+	std::map<HaAtom*, std::shared_ptr<AtomFFParam>> at_ff_params;
 
-	vector<HaBond> bonds_b;
+	std::vector<HaBond> bonds_b;
 
 
 protected:
@@ -556,7 +556,7 @@ public:
 	
 protected:
 	std::vector<HaResidue*>::iterator ritrm;
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 	
 	HaChain* chain;
 };
@@ -576,7 +576,7 @@ public:
 	
 protected:
 	std::vector<HaResidue*>::const_iterator ritrm;
-	vector<HaAtom*>::const_iterator aitr;               
+	std::vector<HaAtom*>::const_iterator aitr;
 	
 	const HaChain* chain;
 };
@@ -635,8 +635,8 @@ public:
    
   char ident;                      //!< Chain identifier             
  
-  vector<HaResidue*> res_arr;   //!< Array of Residues in the chain
-  multimap<int, HaResidue*, less<int> >  res_map; //!< Map of serial numbers to Residues 
+  std::vector<HaResidue*> res_arr;   //!< Array of Residues in the chain
+  std::multimap<int, HaResidue*>  res_map; //!< Map of serial numbers to Residues 
  
   HaMolecule* GetHostMol() { return phost_mol; }  //!< Get the molecule chain belongs to
   const HaMolecule* GetHostMol() const { return (const HaMolecule*) phost_mol; } //!< Get the molecule chain belongs to (const version)

@@ -167,7 +167,7 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 
 	if( !ImprDihedrals.empty())
 	{
-		for(shared_ptr<MMDihedral> ps_dih : ImprDihedrals )
+		for(std::shared_ptr<MMDihedral> ps_dih : ImprDihedrals )
 		{
 			const MMDihedral& impr_dihedral = *ps_dih;
 			if( impr_dihedral.pt1 == NULL || impr_dihedral.pt2 == NULL || 
@@ -198,7 +198,7 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 	}
 
 	int nv = 0;
-	set<MMBond, less<MMBond> >::const_iterator mbitr = MBonds.begin();
+	std::set<MMBond>::const_iterator mbitr = MBonds.begin();
 
 	for(; mbitr != MBonds.end(); mbitr++)
 	{
@@ -223,7 +223,7 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 		}
 	}
 
-	set<MMValAngle, less<MMValAngle> >::const_iterator vaitr = ValAngles.begin();
+	std::set<MMValAngle>::const_iterator vaitr = ValAngles.begin();
 
 	for(; vaitr != ValAngles.end(); vaitr++)
 	{
@@ -424,7 +424,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 			if (atempl && p_res_ff_templ != NULL)
 			{
-				shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
+				std::shared_ptr<AtomFFParam> p_at_ff = p_res_ff_templ->GetAtomFFParam(aptr->GetName());
 				if (p_at_ff != NULL)
 				{
 					charge = p_at_ff->GetCharge();
@@ -453,14 +453,14 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 			if (pres->IsAlchemicalTransformationSet() && atempl_mut)
 			{
-				shared_ptr<AtomFFParam> p_at_mut_params = make_shared<AtomFFParam>();
+				std::shared_ptr<AtomFFParam> p_at_mut_params = std::make_shared<AtomFFParam>();
 				p_at_mut_params->charge = atempl_mut->GetCharge();
 				p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
 				p_at_mut_params->mass = atempl_mut->GetMass();
 
 				if (p_res_mut_ff_templ)
 				{
-					shared_ptr<AtomFFParam> p_at_mut_ff_templ = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
+					std::shared_ptr<AtomFFParam> p_at_mut_ff_templ = p_res_mut_ff_templ->GetAtomFFParam(at_name_mut);
 					if (p_at_mut_ff_templ) *p_at_mut_params = *p_at_mut_ff_templ;
 				}
 
@@ -553,9 +553,9 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			if (boost::algorithm::starts_with(at_name, "DA")) // special rules for State A Dummy atoms in Mutating residues
 			{
 				double mass = 4.0;
-				if (pres->p_res_transform->at_ff_params.count(aptr) > 0)
+				if (pres->IsAlchemicalTransformationSet() && pres->p_res_transform->at_ff_params.count(aptr) > 0)
 				{
-					shared_ptr<AtomFFParam> pat_par_mut = pres->p_res_transform->at_ff_params[aptr];
+					std::shared_ptr<AtomFFParam> pat_par_mut = pres->p_res_transform->at_ff_params[aptr];
 					if (pat_par_mut)
 					{
 						if (pat_par_mut->mass > 0.5) mass = pat_par_mut->mass;
@@ -655,8 +655,8 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		return TRUE;
 	}
 
-	map<HaAtom*, set<HaAtom*>> conn_graph;      // Atom connection graph for the main state
-	map<HaAtom*, set<HaAtom*>> conn_graph_mut;  // Atom connection graph for the mutated state
+	std::map<HaAtom*, std::set<HaAtom*>> conn_graph;      // Atom connection graph for the main state
+	std::map<HaAtom*, std::set<HaAtom*>> conn_graph_mut;  // Atom connection graph for the mutated state
 
 	BondIteratorMolSet bitr(pmset);
 	for (HaBond* bptr = bitr.GetFirstBond(); bptr; bptr = bitr.GetNextBond())   // Set MM Bonds
@@ -744,11 +744,11 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 	for(HaAtom* pt: Atoms) // Fill Arrays of Valence Angles and Dihedrals
 	{
-		set<HaAtom*>::iterator itr1;
+		std::set<HaAtom*>::iterator itr1;
 		for( itr1 = conn_graph[pt].begin(); itr1 != conn_graph[pt].end(); itr1++) 
 		{
 			HaAtom* pt1 = *itr1;
-			set<HaAtom*>::iterator itr2;
+			std::set<HaAtom*>::iterator itr2;
 			for( itr2 = conn_graph[pt].begin() ; itr2 != itr1; itr2++)
 			{
 				HaAtom* pt2 = *itr2;
@@ -775,11 +775,11 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 	for (HaAtom* pt : Atoms) // Fill Arrays of Valence Angles and Dihedrals for the mutated state
 	{
-		set<HaAtom*>::iterator itr1;
+		std::set<HaAtom*>::iterator itr1;
 		for (itr1 = conn_graph_mut[pt].begin(); itr1 != conn_graph_mut[pt].end(); itr1++)
 		{
 			HaAtom* pt1 = *itr1;
-			set<HaAtom*>::iterator itr2;
+			std::set<HaAtom*>::iterator itr2;
 			for (itr2 = conn_graph_mut[pt].begin(); itr2 != itr1; itr2++)
 			{
 				HaAtom* pt2 = *itr2;
@@ -902,7 +902,7 @@ MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state)
 		bnd.pt2 = pt2;
 	}
 
-	set<MMBond>::iterator itr;
+	std::set<MMBond>::iterator itr;
 	
 	if (mutated_state)
 	{
@@ -936,7 +936,7 @@ MMValAngle* MolMechModel::GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, boo
 		va.pt3 = pt1;
 	}
 
-	set<MMValAngle>::iterator itr;
+	std::set<MMValAngle>::iterator itr;
 	if (mutated_state)
 	{
 		itr = ValAngles_mut.find(va);
@@ -1152,7 +1152,7 @@ int MolMechModel::Set14interDihFlags()
 		forbid_14_map_mut.insert(p2);
 	}
 
-	for( shared_ptr<MMDihedral> sp_dih : Dihedrals)
+	for(std::shared_ptr<MMDihedral> sp_dih : Dihedrals)
 	{
 		HaAtom* pt1 = sp_dih->pt1;
 		HaAtom* pt4 = sp_dih->pt4;
@@ -1184,7 +1184,7 @@ int MolMechModel::Set14interDihFlags()
 		}
 	}
 
-	for (shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
+	for (std::shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
 	{
 		HaAtom* pt1 = sp_dih->pt1;
 		HaAtom* pt4 = sp_dih->pt4;
@@ -1222,7 +1222,7 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 {
 	UpdateModel();
 
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 	for (aitr = Atoms.begin(); aitr != Atoms.end(); aitr++)
 	{
 		HaAtom* aptr = (*aitr);
@@ -1242,7 +1242,7 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 	
 	PrintLog("Set OPEP Bonds params \n");
 
-	set<MMBond, less<MMBond> >::iterator bitr;
+	std::set<MMBond>::iterator bitr;
 	for( bitr = MBonds.begin(); bitr != MBonds.end(); bitr++)
 	{
         MMBond* bptr = (MMBond*)&(*bitr);
@@ -1273,7 +1273,7 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 
 	PrintLog("Set OPEP Valence params \n");
 
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr;
+	std::set<MMValAngle>::iterator vaitr;
 	for( vaitr = ValAngles.begin(); vaitr != ValAngles.end(); vaitr++)
 	{
         MMValAngle* pang = (MMValAngle*) &(*vaitr);
@@ -1309,7 +1309,7 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 
 	PrintLog("Set OPEP Dihedral Angles params \n");
 
-	for( shared_ptr<MMDihedral> daitr : Dihedrals)
+	for(std::shared_ptr<MMDihedral> daitr : Dihedrals)
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;
@@ -1376,7 +1376,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 	SetNBCutDist(30.0);
 	SetScale14VdW(1000000.0);
 
-    vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 	for( aitr = Atoms.begin(); aitr != Atoms.end(); aitr++)
 	{
 		HaAtom* aptr    = (*aitr);
@@ -1430,7 +1430,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Bonds params \n");
 
-	set<MMBond, less<MMBond> >::iterator bitr;
+	std::set<MMBond>::iterator bitr;
 	for( bitr = MBonds.begin(); bitr != MBonds.end(); bitr++)
 	{
         MMBond* bptr = (MMBond*)&(*bitr);
@@ -1509,7 +1509,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Valence Angles params \n");
 
-	set<MMValAngle, less<MMValAngle> >::iterator vaitr;
+	std::set<MMValAngle>::iterator vaitr;
 	for( vaitr = ValAngles.begin(); vaitr != ValAngles.end(); vaitr++)
 	{
         MMValAngle* pang = (MMValAngle*) &(*vaitr);
@@ -1625,7 +1625,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Dihedral Angles params \n");
 
-	for( shared_ptr<MMDihedral> daitr : Dihedrals )
+	for(std::shared_ptr<MMDihedral> daitr : Dihedrals )
 	{
 		HaAtom* aptr1 = (*daitr).pt1; 
 		HaAtom* aptr2 = (*daitr).pt2;
@@ -1766,7 +1766,7 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 		}
 	}
   
-    set<VecPtr> go_contacts;
+	std::set<VecPtr> go_contacts;
 
 	PrintLog("Set GO-type VdW contacts \n");
 
@@ -2233,7 +2233,7 @@ int MolMechModel::SetRestrRefCrdFromXYZFile( const char* ref_crd_file_name_new )
 		return FALSE;
 	}
 
-	ifstream refc_fs( ref_crd_file_name_new );
+	std::ifstream refc_fs( ref_crd_file_name_new );
 	if( !refc_fs.good() )
 	{	
 		PrintLog(" Error in MolMechModel::SetRestrRefCrdFromXYZFile() \n");
@@ -2244,7 +2244,7 @@ int MolMechModel::SetRestrRefCrdFromXYZFile( const char* ref_crd_file_name_new )
 	char buf[256];
 	int na;
 	refc_fs.getline(buf,256);
-	istrstream ss(buf);
+	std::istrstream ss(buf);
 	ss >> na;
 	if(!ss)
 	{
@@ -2266,7 +2266,7 @@ int MolMechModel::SetRestrRefCrdFromXYZFile( const char* ref_crd_file_name_new )
 	for(i = 0; i < na; i++)
 	{
 		refc_fs.getline(buf,256);
-		istrstream line_s(buf);
+		std::istrstream line_s(buf);
 		std::string id;
 		int idx;
 		double x,y,z;
@@ -2510,7 +2510,7 @@ int MolMechModel::SetStdValParams()
 		return FALSE;
 	}
 
-	set<MMBond>::iterator mbitr = MBonds.begin();
+	std::set<MMBond>::iterator mbitr = MBonds.begin();
 	for(; mbitr != MBonds.end(); mbitr++)
 	{
 		MMBond& bnd = (MMBond&)(*mbitr);
@@ -2525,7 +2525,7 @@ int MolMechModel::SetStdValParams()
 			if (at1_ff_s == "DU") at1_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 
-			vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
+			std::vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
 			if( bpar.size() > 1 )
 			{
 				bnd.r0 = bpar[0];
@@ -2564,7 +2564,7 @@ int MolMechModel::SetStdValParams()
 			if (at1_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt1);
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 
-			vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
+			std::vector<double> bpar = p_ff->FindBondParamFromSymbol(at1_ff_s, at2_ff_s);
 			if (bpar.size() > 1)
 			{
 				bnd.r0 = bpar[0];
@@ -2602,7 +2602,7 @@ int MolMechModel::SetStdValParams()
 			if (at2_ff_s == "DU") at2_ff_s = GetFFSymbolFromMolStruct(pt2);
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 
-			vector<double> vpar(2);
+			std::vector<double> vpar(2);
 			vpar = p_ff->FindValAngleParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s);
 			if( vpar.size() > 1)
 			{
@@ -2669,7 +2669,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 	
-	for( shared_ptr<MMDihedral> lditr : Dihedrals )
+	for(std::shared_ptr<MMDihedral> lditr : Dihedrals )
 	{
 		MMDihedral& dih = *lditr;
 
@@ -2692,7 +2692,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
+			std::vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
 			if(dpar.size() > 1 )
 			{
 				int nt = dpar.size()/4;
@@ -2716,7 +2716,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for (shared_ptr<MMDihedral> lditr : Dihedrals_mut)
+	for (std::shared_ptr<MMDihedral> lditr : Dihedrals_mut)
 	{
 		MMDihedral& dih = *lditr;
 
@@ -2744,7 +2744,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
+			std::vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s);
 			if (dpar.size() > 1)
 			{
 				int nt = dpar.size() / 4;
@@ -2768,7 +2768,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for( shared_ptr<MMDihedral> lditr : ImprDihedrals)
+	for(std::shared_ptr<MMDihedral> lditr : ImprDihedrals)
 	{
 		MMDihedral& dih = *lditr;
 		
@@ -2791,7 +2791,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
+			std::vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
 			if(dpar.size() > 1  )
 			{
 				dih.AddTerm(dpar[0],dpar[1],dpar[2],dpar[3]);
@@ -2811,7 +2811,7 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for (shared_ptr<MMDihedral> lditr : ImprDihedrals_mut)
+	for (std::shared_ptr<MMDihedral> lditr : ImprDihedrals_mut)
 	{
 		MMDihedral& dih = *lditr;
 
@@ -2838,7 +2838,7 @@ int MolMechModel::SetStdValParams()
 			if (at3_ff_s == "DU") at3_ff_s = GetFFSymbolFromMolStruct(pt3);
 			if (at4_ff_s == "DU") at4_ff_s = GetFFSymbolFromMolStruct(pt4);
 
-			vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
+			std::vector<double> dpar = p_ff->FindDihedralParamFromSymbol(at1_ff_s, at2_ff_s, at3_ff_s, at4_ff_s, true);
 			if (dpar.size() > 1)
 			{
 				dih.AddTerm(dpar[0], dpar[1], dpar[2], dpar[3]);
@@ -2871,13 +2871,13 @@ int MolMechModel::SetStdVdWParams()
 		return FALSE;
 	}
 
-	vector<HaAtom*>::iterator pitr;
+	std::vector<HaAtom*>::iterator pitr;
 
 	for(pitr = Atoms.begin(); pitr != Atoms.end(); pitr++)
 	{
 		HaAtom* aptr = *pitr;
 		
-		vector<double> ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol());
+		std::vector<double> ppar = p_ff->FindPointParamFromSymbol(aptr->GetFFSymbol());
 
 		if(ppar.size() > 1)
 		{
@@ -2945,7 +2945,7 @@ bool MolMechModel::BuildExcludedAtomList()
 	excluded_atom_list_mut.clear();
 	
 	int nn = Atoms.size();
-	set<HaAtom*> tmp_set;
+	std::set<HaAtom*> tmp_set;
 
 	excluded_atom_list.resize(nn,tmp_set);
 	excluded_atom_list_mut.resize(nn, tmp_set);
@@ -2984,7 +2984,7 @@ bool MolMechModel::BuildExcludedAtomList()
 		AddAtomsToExcludedAtomList(vang.pt2, vang.pt3, pt_indx_map, true);
 	}
 		
-	for( shared_ptr<MMDihedral> sp_dih: Dihedrals)
+	for(std::shared_ptr<MMDihedral> sp_dih: Dihedrals)
 	{	
 		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt2,pt_indx_map);
 		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt3,pt_indx_map);
@@ -2994,7 +2994,7 @@ bool MolMechModel::BuildExcludedAtomList()
 		AddAtomsToExcludedAtomList(sp_dih->pt3, sp_dih->pt4,pt_indx_map);
 	}
 
-	for (shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
+	for (std::shared_ptr<MMDihedral> sp_dih : Dihedrals_mut)
 	{
 		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt2, pt_indx_map, true);
 		AddAtomsToExcludedAtomList(sp_dih->pt1, sp_dih->pt3, pt_indx_map, true);
@@ -3004,7 +3004,7 @@ bool MolMechModel::BuildExcludedAtomList()
 		AddAtomsToExcludedAtomList(sp_dih->pt3, sp_dih->pt4, pt_indx_map, true);
 	}
 
-	vector<AtomContact>::iterator vdw_itr;
+	std::vector<AtomContact>::iterator vdw_itr;
 
 	for( vdw_itr = DistConstraints.begin(); vdw_itr != DistConstraints.end(); vdw_itr++ )
 	{
@@ -3052,8 +3052,8 @@ bool MolMechModel::BuildNonBondContactList()
 		double y1 = pt->GetY();
 		double z1 = pt->GetZ();
 
-        set<HaAtom*>& pt_nonb_contact_list = nonbond_contact_list[i];
-		set<HaAtom*>& pt_nonb_contact_list_mut = nonbond_contact_list_mut[i];
+		std::set<HaAtom*>& pt_nonb_contact_list = nonbond_contact_list[i];
+		std::set<HaAtom*>& pt_nonb_contact_list_mut = nonbond_contact_list_mut[i];
 		for(j = i+1; j < nn; j++)
 		{
 			HaAtom* pt2 = Atoms[j];
@@ -3092,7 +3092,7 @@ int MolMechModel::BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* 
 	excluded_atom_list.clear();
 	excluded_atom_list.resize(nn);
 
-	set<HaAtom*,less<HaAtom*> >all_atom_set;
+	std::set<HaAtom*> all_atom_set;
 	AtomIntMap& pt_indx_map = GetAtIdxMap(TRUE); 
 	
 	int i;
@@ -3104,8 +3104,8 @@ int MolMechModel::BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* 
 	
 	AtomIteratorGen aitr1(group1);
 	AtomIteratorGen aitr2(group2);
-	set<HaAtom*,less<HaAtom*> >group1_atom_set;
-	set<HaAtom*,less<HaAtom*> >group2_atom_set;
+	std::set<HaAtom*> group1_atom_set;
+	std::set<HaAtom*> group2_atom_set;
 
 	for(aptr= aitr1.GetFirstAtom(); aptr != NULL; aptr= aitr1.GetNextAtom())
 	{
@@ -3128,8 +3128,8 @@ int MolMechModel::BuildGrpGrpExcludedList(AtomContainer* group1, AtomContainer* 
 		group2_atom_set.insert(aptr);
 	}
 	
-	set<HaAtom*,less<HaAtom*> >::iterator aitr_set_1;
-	set<HaAtom*,less<HaAtom*> >::iterator aitr_set_2;
+	std::set<HaAtom*>::iterator aitr_set_1;
+	std::set<HaAtom*>::iterator aitr_set_2;
 
 	for(aitr_set_1 = group1_atom_set.begin(); aitr_set_1 != group1_atom_set.end(); aitr_set_1++)
 	{
@@ -3162,7 +3162,7 @@ int MolMechModel::BuildGrpGrpNonBondList(AtomContainer* group1, AtomContainer* g
 	int nn = Atoms.size();
 	nonbond_contact_list.resize(nn);
 	
-	set<HaAtom*, less<HaAtom*> > Points_set;
+	std::set<HaAtom*> Points_set;
 
 	int i;
 	for(i = 0; i < nn; i++)
@@ -3205,7 +3205,7 @@ int MolMechModel::BuildGrpGrpNonBondList(AtomContainer* group1, AtomContainer* g
 
 	for(aptr1= aitr1.GetFirstAtom(); aptr1 != NULL; aptr1= aitr1.GetNextAtom())
 	{
-		set<HaAtom*, less<HaAtom*> >::iterator pitr;
+		std::set<HaAtom*>::iterator pitr;
 			pitr = Points_set.find(aptr1);
 		if(pitr == Points_set.end())
 		{
@@ -3254,7 +3254,7 @@ bool MolMechModel::SetHBondRestraints(double force_const)
 		p_mol_editor->CalcHBonds(pmset);
 	}
 		  
-	set<HaHBond, less<HaHBond> >::iterator hbnd_itr; //to scan hbonds list
+	std::set<HaHBond>::iterator hbnd_itr; //to scan hbonds list
 	for(hbnd_itr = pmset->HBonds.begin(); hbnd_itr !=pmset->HBonds.end(); hbnd_itr++)
 	{
 		HaAtom* pt1; HaAtom* pt2; //the two atom pointers

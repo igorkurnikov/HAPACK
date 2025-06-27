@@ -99,7 +99,7 @@ void HaMolecule::UpdateFeature(SecStructElement* ptr,int mask )
  
 void HaMolecule::ProcessFeatures()
 {
-	list<SecStructElement>::iterator fitr;
+	std::list<SecStructElement>::iterator fitr;
 
     structsource = SourcePDB;
 	
@@ -598,13 +598,13 @@ bool HaMolecule::FixChainsIdent()
 {
 	if(GetNChains() <= 1) return true;
 	
-	list<HaChain>::iterator citr1;
-	list<HaChain>::iterator citr2;
+	std::list<HaChain>::iterator citr1;
+	std::list<HaChain>::iterator citr2;
 
-	set<char, less<char> > not_used_id;
-	set<char, less<char> > used_id;
+	std::set<char> not_used_id;
+	std::set<char> used_id;
 
-	set<char, less<char> >::iterator iditr;
+	std::set<char>::iterator iditr;
 
 	char id;
 
@@ -853,7 +853,7 @@ int MolSet::SetCrdFromArray( const HaVec_double& crd_arr )
 
 int MolSet::LoadXYZFile(std::string fname, const AtomLoadOptions& opt_par )
 {
-	ifstream is_f(fname);
+	std::ifstream is_f(fname);
 	if( !is_f.good() )
 	{
 		PrintLog(" Error in MolSet::LoadXYZFile() \n");
@@ -872,7 +872,7 @@ int MolSet::LoadXYZFile(std::string fname, const AtomLoadOptions& opt_par )
 
 int MolSet::LoadHINFile(std::string fname, const AtomLoadOptions& opt_par )
 {
-	ifstream is_f(fname);
+	std::ifstream is_f(fname);
 	if( !is_f.good() )
 	{
 		PrintLog(" Error in MolSet::LoadHINFile() \n");
@@ -1778,9 +1778,9 @@ int MolSet::SaveDimerXYZFile(std::string prefix, const AtomSaveOptions& opt)
 	std::string fname_m1 = prefix + "_A";
 	std::string fname_m2 = prefix + "_B";
 
-	ofstream os(fname);
-	ofstream os1(fname_m1);
-	ofstream os2(fname_m2);
+	std::ofstream os(fname);
+	std::ofstream os1(fname_m1);
+	std::ofstream os2(fname_m2);
 
 	if (os.fail() || os1.fail() || os2.fail())
 	{
@@ -1829,7 +1829,7 @@ int MolSet::SaveDimerXYZFile(std::string prefix, const AtomSaveOptions& opt)
 	return TRUE; 
 }
 
-static int set_string_from_istream(std::string& str, istream& is);
+static int set_string_from_istream(std::string& str, std::istream& is);
 
 int MolSet::LoadHarlemFile (std::string fname, const AtomLoadOptions& opt )
 {
@@ -1861,7 +1861,7 @@ int MolSet::LoadHarlemFile (std::string fname, const AtomLoadOptions& opt )
 	else
 	{
 		is.close();
-		is.open(fname,ios::binary);
+		is.open(fname, std::ios::binary);
 //	    PrintLog(" MolSet::LoadHarlemFile() load file in new XML format \n");
 		ires = LoadXMLStream (is, opt );
 	}
@@ -1910,8 +1910,8 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 
 	read_mode = FIND_SECTION;
 
-	map<int,HaAtom*, less<int> > id_atom_map;
-	map<int,HaAtom*, less<int> >::iterator mitr1,mitr2;
+	std::map<int,HaAtom*> id_atom_map;
+	std::map<int,HaAtom*>::iterator mitr1,mitr2;
 	// Load Molecule Parameters:
 		for(;;)
 		{
@@ -2010,7 +2010,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 				else
 				{
 					if(pMol== NULL) break;
-					istrstream is(buf);
+					std::istrstream is(buf);
 					int atid;
 					int elno;
 					std::string atname;
@@ -2115,7 +2115,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 				}
 				else
 				{
-					istrstream is(buf);
+					std::istrstream is(buf);
 					int src_id, dst_id;
 					std::string btype_str;
 					is >> src_id;
@@ -2144,7 +2144,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 				}
 				else
 				{
-					istrstream is(buf);
+					std::istrstream is(buf);
 					double temp;
 					is >> temp;
 					double px = temp;
@@ -2183,7 +2183,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
                         charge_map = NULL;
 						break;
 					}
-					istrstream is(buf);
+					std::istrstream is(buf);
 					std::string atom_ref;
 					double ch;
 					is >> atom_ref;
@@ -2207,7 +2207,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 				}
 				else
 				{
-					istrstream is(buf);
+					std::istrstream is(buf);
 					if( nat_to_read < 1)
 					{
 						std::string gid;
@@ -2413,7 +2413,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 						else 
 						{
 							std::string aref1, aref2, aref3, aref4;
-							istrstream is(buf);
+							std::istrstream is(buf);
 							is >> aref1;
 							is >> aref2;
 							is >> aref3;
@@ -2453,7 +2453,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 						{
 							std::string aref1, aref2;
 							double r0,fc;
-							istrstream is(buf);
+							std::istrstream is(buf);
 							is >> aref1;
 							is >> aref2;
 							is >> r0;
@@ -2491,7 +2491,7 @@ int MolSet::LoadOldHarlemFile(FILE* fp, const AtomLoadOptions& opt )
 						{
 							std::string aref1, aref2, aref3;
 							double a0,fc;
-							istrstream is(buf);
+							std::istrstream is(buf);
 							is >> aref1;
 							is >> aref2;
 							is >> aref3;
@@ -2575,7 +2575,7 @@ int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 			if(result == NULL)
 				return TRUE;
 		}
-		istrstream is(buf);
+		std::istrstream is(buf);
 		std::string mol_name;
 		is >> mol_name;
 		pMol=AddNewMolecule();
@@ -2594,7 +2594,7 @@ int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 			if(result == NULL)
 				return TRUE;
 		}
-		map<int, Vec3D*, less<int> > num_aptr_map;
+		std::map<int, Vec3D*> num_aptr_map;
 
 		Vec3D ref_pt1; 
 		Vec3D ref_pt2; 
@@ -2611,7 +2611,7 @@ int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 		for(;;)
 		{
 			result=fgets(buf,255,fp);
-			istrstream is2(buf);
+			std::istrstream is2(buf);
 			int iat1;
 			is2 >> iat1;
 			if(is2.fail())
@@ -2722,7 +2722,7 @@ int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 					result=fgets(buf,255,fp);
 					if(result == NULL) 
 						return TRUE;
-					istrstream is3(buf);
+					std::istrstream is3(buf);
 					std::string atname_1;
 					std::string atname_2;
 					is3 >> atname_1 >> atname_2;
@@ -2742,7 +2742,7 @@ int MolSet::LoadAmberPrepFile(std::string fname, const AtomLoadOptions& opt)
 					result=fgets(buf,255,fp);
 					if(result == NULL) 
 						return TRUE;
-					istrstream is3(buf);
+					std::istrstream is3(buf);
 					std::string atname_1;
 					std::string atname_2;
 					std::string atname_3;
@@ -2875,7 +2875,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 			if(result == NULL)
 				return TRUE;
 		}
-		istrstream is(buf);
+		std::istrstream is(buf);
 		std::string mol_name;
 		is >> mol_name;
 		pMol=AddNewMolecule();
@@ -2894,7 +2894,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 			if(result == NULL)
 				return TRUE;
 		}
-		map<int, Vec3D*, less<int> > num_aptr_map;
+		std::map<int, Vec3D*> num_aptr_map;
 
 		Vec3D ref_pt1; 
 		Vec3D ref_pt2; 
@@ -2911,7 +2911,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 		for(;;)
 		{
 			result=fgets(buf,255,fp);
-			istrstream is2(buf);
+			std::istrstream is2(buf);
 			int iat1;
 			is2 >> iat1;
 			if(is2.fail())
@@ -3022,7 +3022,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 					result=fgets(buf,255,fp);
 					if(result == NULL) 
 						return TRUE;
-					istrstream is3(buf);
+					std::istrstream is3(buf);
 					std::string atname_1;
 					std::string atname_2;
 					is3 >> atname_1 >> atname_2;
@@ -3042,7 +3042,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 					result=fgets(buf,255,fp);
 					if(result == NULL) 
 						return TRUE;
-					istrstream is3(buf);
+					std::istrstream is3(buf);
 					std::string atname_1;
 					std::string atname_2;
 					std::string atname_3;
@@ -3139,7 +3139,7 @@ int MolSet::LoadAmberTopFile(std::string fname, const AtomLoadOptions& opt )
 
 int MolSet::LoadAmberOffFile(std::string fname, const AtomLoadOptions& opt )
 {
-	ifstream is_f(fname);
+	std::ifstream is_f(fname);
 	if (!is_f.good())
 	{
 		PrintLog(" Error in MolSet::LoadAmberOffFile() \n");
@@ -3185,9 +3185,9 @@ int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
 	try
 	{
 		std::map<std::string,HaMolecule*> units;
-		std::vector<string> str_arr_init;
-		std::vector<string> str_arr;
-		std::vector<string> tokens;
+		std::vector<std::string> str_arr_init;
+		std::vector<std::string> str_arr;
+		std::vector<std::string> tokens;
 
 		enum READ_MODE { UNKNOWN_SECTION = 0, READ_UNIT_NAMES, READ_ATOMS_TABLE, READ_ATOMS_PERT_INFO, READ_BOUND_BOX,
 			READ_CHILD_SEQUENCE, READ_UNIT_CONNECT, READ_ATOM_CONNECTIVITY, READ_HIERARCHY, READ_UNIT_NAME,
@@ -3524,7 +3524,7 @@ int MolSet::LoadAmberOffStream(std::istream& is_arg, const AtomLoadOptions& opt)
 
 int MolSet::LoadNRGFile(std::string fname, const AtomLoadOptions& opt)
 {
-	ifstream is_f(fname);
+	std::ifstream is_f(fname);
 	if (!is_f.good())
 	{
 		PrintLog(" Error in MolSet::LoadNRGFile() \n");
@@ -3548,7 +3548,7 @@ int MolSet::LoadNRGStream(std::istream& is, const AtomLoadOptions& opt )
 	std::string word, name;
 	std::string xs, ys, zs;
 	double x, y, z;
-	std::vector<string> tokens;
+	std::vector<std::string> tokens;
 	int cur_res_idx = 0;
 	int cur_at_idx = 0;
 
@@ -3668,7 +3668,7 @@ int MolSet::LoadNRGStream(std::istream& is, const AtomLoadOptions& opt )
 
 
 
-static int set_string_from_istream(std::string& str, istream& is)
+static int set_string_from_istream(std::string& str, std::istream& is)
 {
 	char ch;
 	str.erase();

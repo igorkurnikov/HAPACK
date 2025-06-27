@@ -1607,7 +1607,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 	  if(sel_type_str == "Valence Bonds")
 	  {
 		  int idx = 0;
-          set<MMBond, less<MMBond> >::iterator mbitr = ptr_mm_mod->p_mm_model->MBonds.begin();
+		  std::set<MMBond>::iterator mbitr = ptr_mm_mod->p_mm_model->MBonds.begin();
           
 		  for( ; mbitr != ptr_mm_mod->p_mm_model->MBonds.end(); mbitr++ )
 		  {
@@ -1629,7 +1629,7 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 	  if(sel_type_str == "Valence Angles")
 	  {
 		  int idx = 0;
-		  set<MMValAngle, less<MMValAngle> >::iterator vaitr = ptr_mm_mod->p_mm_model->ValAngles.begin();
+		  std::set<MMValAngle>::iterator vaitr = ptr_mm_mod->p_mm_model->ValAngles.begin();
 		  for(; vaitr != ptr_mm_mod->p_mm_model->ValAngles.end(); vaitr++ )
 		  {
 			  MMValAngle* pval = (MMValAngle*) &(*vaitr);

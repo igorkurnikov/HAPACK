@@ -36,7 +36,7 @@ namespace harlem
 		virtual int LoadFromStream(std::istream& is, const harlem::HashMap* popt = NULL ); //!< Read Coordinates from stream
 		virtual int SaveToStream(std::ostream&  os, const harlem::HashMap* popt = NULL ) const; //!< Write Coordinates to stream
 		int SetFromCurrAtomCrd(AtomContainer* at_cont, int iobj);     //!< Set internal coordinates of iobj object from Current Cartesian Coordinates of Atom Collection 
-		int SetFromCurrAtomCrd(vector<AtomContainer*> vec_at_cont);  //!< Set from Current Cartesian Coordinates of an Array of Atom Collections
+		int SetFromCurrAtomCrd(std::vector<AtomContainer*> vec_at_cont);  //!< Set from Current Cartesian Coordinates of an Array of Atom Collections
 
 		virtual void SetNumObj(int n_obj_new);    //!< Set Number of objects which positions are described by these coordinates
 		int GetNumObj() const;            //!< Get the number of rigid body objects described by coordinates

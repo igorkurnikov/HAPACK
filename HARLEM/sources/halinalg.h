@@ -239,7 +239,7 @@ public:
 	static int solv_lin_syst_1(HaMat_double& a, HaMat_double& b); //!< Solve system of linear equations 
 	static int DiagMat(HaMat_double& hmat, HaMat_double& ss, HaMat_double& eigv, HaVec_double& eig_ene); //!< diagonalize matrix hmat (use overlap matrix ss if it is not empty)
 
-	static int PrintSymmMat(ostream& sout, double* fmat,int nn, const char* frm_str = ""); //!< Print Symmetric matrix
+	static int PrintSymmMat(std::ostream& sout, double* fmat,int nn, const char* frm_str = ""); //!< Print Symmetric matrix
 
     TiXmlElement* AddXml( TiXmlElement* parent_element,const char* name = "", int option = 0) const;
 	virtual int LoadXml( const TiXmlElement* mat_element, int option = 0 ); 
@@ -287,8 +287,8 @@ private:
 	NumVector<double> vec_;
 };
 
-typedef map<std::string,HaVec_double,less<std::string> >  StrVecMap;
-typedef vector<HaMat_double> HaMat_doubleArr;
+typedef std::map<std::string,HaVec_double>  StrVecMap;
+typedef std::vector<HaMat_double> HaMat_doubleArr;
 
 
 class MultiVarFunctor

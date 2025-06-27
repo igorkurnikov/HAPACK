@@ -91,26 +91,26 @@ HaDaltonMod::run(const RunMode rmode)
 	result=_spawnlp(mode,"daltonx",NULL);
 	if(result == -1)
 	{
-		cout << " Error in submitting DALTON job " << endl;
+		std::cout << " Error in submitting DALTON job " << std::endl;
 		if(errno == E2BIG)
 		{
-			cout << " Argument list exceeds 1024 bytes " << endl;
+			std::cout << " Argument list exceeds 1024 bytes " << std::endl;
 		}
 		else if( errno == EINVAL)
 		{
-			cout << " mode argument is invalid " << endl;
+			std::cout << " mode argument is invalid " << std::endl;
 		}
 		else if( errno == ENOENT)
 		{
-			cout << " File or path is not found " << endl;
+			std::cout << " File or path is not found " << std::endl;
 		}
 		else if( errno == ENOEXEC)
 		{
-			cout << " Specified file is not executable or has invalid executable-file format " << endl;
+			std::cout << " Specified file is not executable or has invalid executable-file format " << std::endl;
 		}
 		else if( errno == ENOMEM )
 		{
-			cout << " Not enough memory is available to execute new process " << endl;
+			std::cout << " Not enough memory is available to execute new process " << std::endl;
 		}
 	}		
 #else
@@ -128,22 +128,20 @@ HaDaltonMod::Set_mol_file_name(const char* mf_name)
 	return true;
 }
 
-bool 
-HaDaltonMod::Set_param_file_name(const char* pf_name)
+bool HaDaltonMod::Set_param_file_name(const char* pf_name)
 {
 	param_file_name = pf_name;
 	return true;
 }
 
 
-bool 
-HaDaltonMod::Save_mol_file()
+bool HaDaltonMod::Save_mol_file()
 {
 	char buf[120];
-	ofstream mfile(mol_file_name.c_str());
-	mfile << "ATOMBASIS" << endl;
-	mfile << " Harlem generated Molecule file " << endl;
-	mfile << " Test Molecule " << endl;
+	std::ofstream mfile(mol_file_name.c_str());
+	mfile << "ATOMBASIS" << std::endl;
+	mfile << " Harlem generated Molecule file " << std::endl;
+	mfile << " Test Molecule " << std::endl;
 
 	char cbas_smb=' ';
 	int na=      p_qc_mod->GetNumCnt();
@@ -168,7 +166,7 @@ HaDaltonMod::Save_mol_file()
 
 	HaAtom* aptr;
 
-	mfile << buf << endl;
+	mfile << buf << std::endl;
 	AtomIteratorMolSet aitr(phmol_set);
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
@@ -176,16 +174,16 @@ HaDaltonMod::Save_mol_file()
 		int at_num=1;
 		std::string bname="3-21G";
 		sprintf(buf,"      %4.0f%5d      %s",at_chg,at_num,bname.c_str()); 
-		mfile << buf << endl;
+		mfile << buf << std::endl;
 		std::string at_lbl=aptr->GetStdSymbol();
 		double x = aptr->GetX_Ang();
 		double y = aptr->GetY_Ang();
 		double z = aptr->GetZ_Ang();
 		sprintf(buf,"%s    %20.15f %20.15f %20.15f ",at_lbl.c_str(), x,y,z);
-		mfile << buf << endl;
+		mfile << buf << std::endl;
 	}
 
-	mfile << endl << endl;
+	mfile << std::endl << std::endl;
 
 	mfile.close();
 	return true;
@@ -193,77 +191,73 @@ HaDaltonMod::Save_mol_file()
 
 
 
-bool 
-HaDaltonMod::Save_param_file()
+bool HaDaltonMod::Save_param_file()
 {
-	ofstream pfile(param_file_name.c_str());
+	std::ofstream pfile(param_file_name.c_str());
 	Fill_section_general(pfile);
 	Fill_section_wave_fun(pfile);
 	Fill_section_properties(pfile);
-	pfile << "*END OF INPUT" << endl;
+	pfile << "*END OF INPUT" << std::endl;
 	pfile.close();
 	return true;
 }
 
-void
-HaDaltonMod::Set_rotangle_calc()
+void HaDaltonMod::Set_rotangle_calc()
 {
 	
 }
 
-void
-HaDaltonMod::Set_london_magdip_calc()
+void HaDaltonMod::Set_london_magdip_calc()
 {
 	Set_rotangle_calc();
 	ABALNR_skip=true;
 }
 
-void
-HaDaltonMod::Fill_section_general(ofstream& pfile)
+void HaDaltonMod::Fill_section_general(std::ofstream& pfile)
 {
-	pfile << "**GENERAL" << endl;
-	pfile << ".RUN PROPERTIES" << endl;
-	pfile << ".DIRECT" << endl;
+	pfile << "**GENERAL" << std::endl;
+	pfile << ".RUN PROPERTIES" << std::endl;
+	pfile << ".DIRECT" << std::endl;
 }
 
 void
-HaDaltonMod::Fill_section_wave_fun(ofstream& pfile)
+HaDaltonMod::Fill_section_wave_fun(std::ofstream& pfile)
 {
-	pfile << "**WAVE FUNCTIONS" << endl;
-	pfile << ".HF" << endl;
+	pfile << "**WAVE FUNCTIONS" << std::endl;
+	pfile << ".HF" << std::endl;
 	Fill_subsection_HF_param(pfile);
 }
 
 void
-HaDaltonMod::Fill_subsection_HF_param(ofstream& pfile)
+HaDaltonMod::Fill_subsection_HF_param(std::ofstream& pfile)
 {
-	pfile << "*HF INPUT" << endl;
-	pfile << ".THRESH" << endl;
-	pfile << "1.0D-8" << endl;
+	pfile << "*HF INPUT" << std::endl;
+	pfile << ".THRESH" << std::endl;
+	pfile << "1.0D-8" << std::endl;
 }
 
 
 void
-HaDaltonMod::Fill_section_properties(ofstream& pfile)
+HaDaltonMod::Fill_section_properties(std::ofstream& pfile)
 {
-	pfile << "**PROPERTIES" << endl;
-	pfile << ".NOCMC" << endl;
-	pfile << ".VROA"  << endl;
-	pfile << ".ABALNR" << endl;
+	pfile << "**PROPERTIES" << std::endl;
+	pfile << ".NOCMC" << std::endl;
+	pfile << ".VROA"  << std::endl;
+	pfile << ".ABALNR" << std::endl;
 	Fill_subsection_ABALNR(pfile);
 }
 
 void
-HaDaltonMod::Fill_subsection_ABALNR(ofstream& pfile)
+HaDaltonMod::Fill_subsection_ABALNR(std::ofstream& pfile)
 {
-	pfile << "*ABALNR" << endl;
-	if(ABALNR_skip) pfile << ".SKIP"   << endl;
-	pfile << ".ROTANG" << endl;
-	pfile << ".THRLNR" << endl;
-	pfile << "5.0D-8"  << endl;
-    pfile << ".FREQUE" << endl;
-    pfile << " 1 "     << endl;
-    pfile << " 0.0773179772 " << endl;
+	pfile << "*ABALNR" << std::endl;
+	if(ABALNR_skip) pfile << ".SKIP"   << std::endl;
+	pfile << ".ROTANG" << std::endl;
+	pfile << ".THRLNR" << std::endl;
+	pfile << "5.0D-8"  << std::endl;
+    pfile << ".FREQUE" << std::endl;
+    pfile << " 1 "     << std::endl;
+    pfile << " 0.0773179772 " << std::endl;
 }
 
 bool

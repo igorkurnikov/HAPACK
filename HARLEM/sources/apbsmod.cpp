@@ -184,7 +184,7 @@ int APBSMod::Run()
     fgets(line,1024,OUT);
     // printf(line);
 	std::string HaLine(line);
-    if(HaLine.find("Global net energy")!=string::npos)
+    if(HaLine.find("Global net energy")!= std::string::npos)
     {
       sscanf(line,"  Global net energy = %lf",&E);
 			E=E*HaConsts::kJ_mol_to_kT;

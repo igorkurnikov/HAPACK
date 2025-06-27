@@ -20,8 +20,8 @@ public:
 	AtomContainer* p_ac_1; //!< Atom Collection 1
 	AtomContainer* p_ac_2; //!< Atom Collection 2
 
-	std::map< HaAtom*, HaAtom*, less<HaAtom*> > atmap_2to1; //!< Map of atoms of Atom Collection 2 to those of Atom Collection 1 
-	std::map< HaAtom*, HaAtom*, less<HaAtom*> > atmap_1to2; //!< Map of atoms of Atom Collection 1 to those of Atom Collection 2 
+	std::map< HaAtom*, HaAtom*> atmap_2to1; //!< Map of atoms of Atom Collection 2 to those of Atom Collection 1 
+	std::map< HaAtom*, HaAtom*> atmap_1to2; //!< Map of atoms of Atom Collection 1 to those of Atom Collection 2 
 
 	std::vector<SingleAtomCrdRule*> SyncRules2from1; //!< Rules to synchronize coordinates of atom collection 2 from coordinates of the atom collection 1  
 	std::vector<SingleAtomCrdRule*> SyncRules1from2; //!< Rules to synchronize coordinates of atom collection 1 from coordinates of the atom collection 2  

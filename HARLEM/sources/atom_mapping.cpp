@@ -91,7 +91,7 @@ int AtomMapping::SetAtom3PtSyncRule(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* ar
 int AtomMapping::Map2to1ByAtomDistance()
 {
 	ClearSyncRules2from1();
-	std::auto_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
+	std::unique_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
 
 	double xmin,xmax,ymin,ymax,zmin,zmax;
 
@@ -105,7 +105,7 @@ int AtomMapping::Map2to1ByAtomDistance()
 
 	part.DistributePointsToCells( *p_ac_1 );
 
-	std::set<HaAtom* ,less<HaAtom*> > atoms_mapped; 
+	std::set<HaAtom*> atoms_mapped; 
 	atmap_2to1.clear();
 	HaAtom* aptr_2;
 	
@@ -179,7 +179,7 @@ int AtomMapping::Map2to1ByAtomDistance()
 
 // Find coordinate synchronization rules for atoms based coordinates of already mapped atoms
 	AtomGroup mapped_atoms_arr;
-	std::set<HaAtom*, less<HaAtom*> >::iterator aitr_m;
+	std::set<HaAtom*>::iterator aitr_m;
 	for(aitr_m = atoms_mapped.begin(); aitr_m != atoms_mapped.end(); aitr_m++)
 	{
 		mapped_atoms_arr.push_back(*aitr_m);
@@ -216,11 +216,11 @@ int AtomMapping::Map2to1ByAtomDistance()
 int AtomMapping::Map2to1ByAtomRef()
 {
 	ClearSyncRules2from1();
-    std::auto_ptr<AtomIterator> p_aitr_1(p_ac_1->GetAtomIteratorPtr());
-	std::auto_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
+    std::unique_ptr<AtomIterator> p_aitr_1(p_ac_1->GetAtomIteratorPtr());
+	std::unique_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
 
 	AtomGroup mapped_atoms;
-	map<std::string, HaAtom*, less<std::string> > ref_atom_map_1;
+	std::map<std::string, HaAtom*> ref_atom_map_1;
 	HaAtom* aptr;
 	for( aptr = p_aitr_1->GetFirstAtom(); aptr; aptr = p_aitr_1->GetNextAtom() )
 	{
@@ -283,7 +283,7 @@ int AtomMapping::BuildSyncRulesForMissingAtoms(AtomContainer& all_atoms, AtomCon
 	rules.clear();
 
 	std::set<HaAtom*> mapped_atoms, mapped_atoms_orig;
-	std::auto_ptr<AtomIterator> p_aitr_known( known_atoms.GetAtomIteratorPtr() );
+	std::unique_ptr<AtomIterator> p_aitr_known( known_atoms.GetAtomIteratorPtr() );
 	HaAtom* aptr;
 	for( aptr = p_aitr_known->GetFirstAtom(); aptr; aptr = p_aitr_known->GetNextAtom() )
 	{
@@ -292,11 +292,11 @@ int AtomMapping::BuildSyncRulesForMissingAtoms(AtomContainer& all_atoms, AtomCon
 	
 	mapped_atoms_orig = mapped_atoms;
 
-	std::map<HaAtom*,AtomGroup, less<HaAtom*> > all_nb;      // all neigbors(bonded atoms) of the atom
-	std::map<HaAtom*,AtomGroup, less<HaAtom*> > mapped_nb;   // mapped neigbors of the atom
-	std::map<HaAtom*,AtomGroup, less<HaAtom*> > unmapped_nb; // unmapped neigbors of the atom
+	std::map<HaAtom*,AtomGroup> all_nb;      // all neigbors(bonded atoms) of the atom
+	std::map<HaAtom*,AtomGroup> mapped_nb;   // mapped neigbors of the atom
+	std::map<HaAtom*,AtomGroup> unmapped_nb; // unmapped neigbors of the atom
 	
-	std::auto_ptr<AtomIterator> p_aitr_all( all_atoms.GetAtomIteratorPtr() );
+	std::unique_ptr<AtomIterator> p_aitr_all( all_atoms.GetAtomIteratorPtr() );
 	
 	for( aptr = p_aitr_all->GetFirstAtom(); aptr; aptr = p_aitr_all->GetNextAtom() )
 	{
@@ -574,7 +574,7 @@ bool compare_sync_rules(CrdAssignRule* p_rule_1,CrdAssignRule* p_rule_2) { retur
 
 int AtomMapping::SyncAtomCrd1From2()
 {
-	std::map< HaAtom*, HaAtom*, less<HaAtom*> >::iterator aitr_m;
+	std::map< HaAtom*, HaAtom*>::iterator aitr_m;
 	for( aitr_m = atmap_1to2.begin() ; aitr_m != atmap_1to2.end(); aitr_m++)
 	{
 		HaAtom* aptr_mng = (*aitr_m).first;
@@ -596,7 +596,7 @@ int AtomMapping::SyncAtomCrd1From2()
 
 int AtomMapping::SyncAtomCrd2From1()
 {
-	std::map< HaAtom*, HaAtom*, less<HaAtom*> >::iterator aitr_m;
+	std::map< HaAtom*, HaAtom*>::iterator aitr_m;
 	for( aitr_m = atmap_2to1.begin() ; aitr_m != atmap_2to1.end(); aitr_m++)
 	{
 		HaAtom* aptr_mng = (*aitr_m).first;
@@ -621,8 +621,8 @@ void AtomMapping::PrintInfo(int detailed)
 	int na2 = p_ac_2->GetNAtoms();
 	int n_map_dir_2 = atmap_2to1.size();
 
-	set<HaAtom*, less<HaAtom*> > unmapped_atoms;
-	std::auto_ptr<AtomIterator> p_aitr_2( p_ac_2->GetAtomIteratorPtr() );
+	std::set<HaAtom*> unmapped_atoms;
+	std::unique_ptr<AtomIterator> p_aitr_2( p_ac_2->GetAtomIteratorPtr() );
 
 	HaAtom* aptr2;
 	for( aptr2 = (*p_aitr_2).GetFirstAtom(); aptr2; aptr2 = (*p_aitr_2).GetNextAtom() )
@@ -630,7 +630,7 @@ void AtomMapping::PrintInfo(int detailed)
 		unmapped_atoms.insert(aptr2);
 	}
 	
-	std::map< HaAtom*, HaAtom*, less<HaAtom*> >::iterator mitr;
+	std::map< HaAtom*, HaAtom*>::iterator mitr;
 	for( mitr = atmap_2to1.begin(); mitr != atmap_2to1.end(); mitr++)
 	{
 		aptr2 = (*mitr).first;
@@ -652,7 +652,7 @@ void AtomMapping::PrintInfo(int detailed)
 	if( detailed )
 	{
 		PrintLog("\nUnmapped atoms: |n");
-		set<HaAtom*, less<HaAtom*> >::iterator aitr_u;
+		std::set<HaAtom*>::iterator aitr_u;
 		for( aitr_u = unmapped_atoms.begin(); aitr_u != unmapped_atoms.end(); aitr_u++)
 		{
 			PrintLog( "%s \n",(*aitr_u)->GetRef().c_str() );

@@ -133,7 +133,7 @@ void Vec3D::SetZ_Ang( double z_new)
 
 int Vec3D::SetFromStr(const char* str)
 {
-	istrstream is(str);
+	std::istrstream is(str);
 	int i;
 
 	for( i = 0; i < 3; i++)
@@ -268,10 +268,10 @@ double Vec3D::CalcDistanceSq(const Vec3D* atm1, const Vec3D* atm2, const CoordUn
 
 double Vec3D::CalcAngle(const Vec3D* atm1, const Vec3D* atm2, const Vec3D* atm3 )
 {
-    register double ulen2,vlen2;
-    register double ux,uy,uz;
-    register double vx,vy,vz;
-    register double temp;
+    double ulen2,vlen2;
+    double ux,uy,uz;
+    double vx,vy,vz;
+    double temp;
 
 	if(atm1 == NULL || atm2 == NULL || atm3 == NULL )
 	{
@@ -1237,9 +1237,9 @@ double PointContainer::CalcRMSD(PointContainer& g1, PointContainer& g2, int tran
 	}
 	else
 	{
-		std::auto_ptr<PointIterator> p_auto1( g1.GetPointIteratorPtr() );
+		std::unique_ptr<PointIterator> p_auto1( g1.GetPointIteratorPtr() );
 		PointIterator* p_itr1 = p_auto1.get();
-		std::auto_ptr<PointIterator> p_auto2( g2.GetPointIteratorPtr() );
+		std::unique_ptr<PointIterator> p_auto2( g2.GetPointIteratorPtr() );
 		PointIterator* p_itr2 = p_auto2.get();
 
 		Vec3D* ppt1 = p_itr1->GetFirstPt();
@@ -1258,7 +1258,7 @@ double PointContainer::CalcRMSD(PointContainer& g1, PointContainer& g2, int tran
 int PointContainer::Transform( const HaMat_double& rot_mat, const HaVec_double& trans_vec)
 {
 	Vec3D* pp;
-	std::auto_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
 	
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
 	{
@@ -1283,7 +1283,7 @@ int PointContainer::SaveCrdToArray(HaVec_double& crd_arr)
 	crd_arr.resize(3*npt);
 	
 	Vec3D* pp;
-	std::auto_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
 	
 	int i = 0;
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
@@ -1315,7 +1315,7 @@ int PointContainer::SetCrdFromArray( const HaVec_double& crd_arr)
 	}
 	
 	Vec3D* pp;
-	std::auto_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
 	int i = 0;
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
 	{

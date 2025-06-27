@@ -187,7 +187,7 @@ bool ElectrostMod::SaveParamFile()
     sprintf(buf," %s %s\n",BOOL_SYMB(iatout),tail.c_str());
 	fpar << buf;
 
-	fpar << toplbl << endl;
+	fpar << toplbl << std::endl;
 
     tail="                           ! isph - flag for spherical charge distrib";
     sprintf(buf," %s %s\n",BOOL_SYMB(isph),tail.c_str());
@@ -229,8 +229,8 @@ bool ElectrostMod::SaveParamFile()
 
 bool ElectrostMod::SaveRadiusFile()
 {
-	map< std::string, double, less<std::string> > rad_map;
-	map< std::string, double, less<std::string> >::iterator ritr;
+	std::map< std::string, double> rad_map;
+	std::map< std::string, double>::iterator ritr;
 
 	if(phost_mset != NULL) 
 	{
@@ -311,9 +311,9 @@ bool ElectrostMod::SaveRadiusFile()
 bool ElectrostMod::SaveChargeFile()
 {
 	char buf[256];
-	ofstream fcrg(charge_file_name.c_str());
-	fcrg << "! default charge file   " << endl;
-	fcrg << "atom__resnumbc_charge_  " << endl;
+	std::ofstream fcrg(charge_file_name.c_str());
+	fcrg << "! default charge file   " << std::endl;
+	fcrg << "atom__resnumbc_charge_  " << std::endl;
 	if(phost_mset != NULL) 
 	{
 		HaAtom* aptr;
@@ -349,7 +349,7 @@ bool ElectrostMod::SaveChargeFile()
 			HaChain* chain= aptr->GetHostChain();
 			j+= sprintf(buf+j,"%c",chain->ident);
 			j+= sprintf(buf+j,"%10.5f", aptr->GetCharge());
-			fcrg << buf << endl;
+			fcrg << buf << std::endl;
 		}
 	}
 	fcrg.close();
@@ -1113,7 +1113,7 @@ bool ElectrostMod::CalcAltStatePK(AltChemState* alt_res_st, AtomGroup* active_at
 	}
 
 	HaAtom* aptr; 
-	map<void*,double,less<void*> > map_aptr_ch;
+	std::map<void*,double> map_aptr_ch;
 	AtomIteratorMolSet  aitr_mset(phost_mset);
 	AtomIteratorResidue aitr_res(pres);
 	
@@ -1423,15 +1423,15 @@ bool ElectrostMod::ReadTotEne(double &tot_ene, const char* fname)
 	std::ifstream is(fname);
 	if(is.fail())
 	{
-		cerr << " Error in ElectrostMod::ReadTotEne() " << endl;
-		cerr << " Cannot open file " << fname << endl;
+		std::cerr << " Error in ElectrostMod::ReadTotEne() " << std::endl;
+		std::cerr << " Cannot open file " << fname << std::endl;
 		return false;
 	}
 	is >> tot_ene;
 	if(is.fail())
 	{
-		cerr << " Error in ElectrostMod::ReadTotEne() " << endl;
-		cerr << " Fail to read energy from file " << fname << endl;
+		std::cerr << " Error in ElectrostMod::ReadTotEne() " << std::endl;
+		std::cerr << " Fail to read energy from file " << fname << std::endl;
 		return false;		
 	}
 	return true;
@@ -1476,8 +1476,8 @@ ElectrostMod::AddBoundaryAtoms()
 	FILE*  fcoord = fopen ( coord_file_name.c_str(), "a");
 	if(fcoord == NULL)
 	{
-		cerr << " Error in HaDelphi::AddBoundaryAtoms() " << endl;
-		cerr << " Failed to open to append file " << coord_file_name.c_str() << endl; 
+		std::cerr << " Error in HaDelphi::AddBoundaryAtoms() " << std::endl;
+		std::cerr << " Failed to open to append file " << coord_file_name.c_str() << std::endl;
 		return false;
 	}
 	

@@ -71,7 +71,7 @@ public:
   bool get(StrKey& key, HaMat_double& fgmat);
   
   virtual bool ListKeys() ;
-  virtual bool ListAll(ostream& s);
+  virtual bool ListAll(std::ostream& s);
 
   int PutMat(const char* key_str, const HaMat_double& fmat );
   int GetMat(const char* key_str, HaMat_double& fmat);
