@@ -116,6 +116,8 @@ public:
 	virtual harlem::HashMap* clone() const; //!< Create a separate copy of the object and return its pointer 
 
 	void SetStdOptions();
+	void SetSavedAtoms(AtomContainer& atoms); //!< Set Atoms to be saved
+	void SetSavedAtomsAll();                  //!< Set To Save All Atoms
 
 	int save_selected;  //!< Flag to save only selected atoms 
 	int save_connect;   //!< Flag to save atom covalent bonds connection info 
@@ -124,7 +126,7 @@ public:
 	int save_amber_pdb; //!< Flag to save PDB files with residue names and atom names matching AMBER database
 	int save_sep_wat_mol; //!< Flag to save water as separate molecules 
 	AlchemicalState alchemical_state; //!< alchemical state to save  
-	int mol_idx;          //!< index of the molecule to be saved ( 0-based )
+	std::set<HaAtom*> saved_atoms;  //!< only atoms in the Atom Set will be saved
 
 	HaAtom::AtomRefType at_ref_type; //!< Type of the atom reference to save at the end of the atom line
 
@@ -304,6 +306,7 @@ public:
 
 	bool HasSelectedAtoms(); //!< Check if some of the atoms of the group are selected
 	void SelectAtomsAll();   //!< Select All Atoms in the residue
+	bool HasAtomsInSet(const std::set<HaAtom*> atom_set); //!< if some of the atoms of the group are in the Atom Set 
 
 protected:
 	std::string id;

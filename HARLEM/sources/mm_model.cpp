@@ -2022,7 +2022,7 @@ int MolMechModel::SaveAtomRestrArbalestIndForm(std::string restr_desc_fname, std
 	AtomGroup* restr_atoms = GetRestrAtoms();
 	if (!restr_atoms || restr_atoms->GetNAtoms() == 0)
 	{
-		PrintLog("No Restrained Atoms defined");
+		PrintLog("No Restrained Atoms defined \n");
 		return FALSE;
 	}
 

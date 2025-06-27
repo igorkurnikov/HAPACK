@@ -505,7 +505,6 @@ int MolSet::SavePQRFreeFile(std::string filename, const AtomSaveOptions& opt )
 int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 {      
 	if( os.fail() ) return FALSE;
-	char buf[128];
 
 	HaChain* chain;
 	HaResidue* pres;
@@ -514,7 +513,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	{
 		for (std::string cmt : this->comments1)
 		{
-			os << ";" << cmt << std::endl;
+			os << ";" << cmt << "\n";
 		}
 	}
 
@@ -524,10 +523,18 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	int imol = 0;
 	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
-		if (opt.mol_idx >= 0 && opt.mol_idx != imol) continue;
+		bool has_saved_atoms = true;
+		if (!opt.saved_atoms.empty())
+		{
+			has_saved_atoms = false;
+			AtomIteratorMolecule aitr_m(*mol_itr);
+			for (HaAtom* aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom())
+				if (opt.saved_atoms.count(aptr) > 0) has_saved_atoms = true;
+		}
+		if (!has_saved_atoms) continue;
 
 		imol++;
-		std::string mol_name_full = (*mol_itr)->GetObjName();
+		std::string mol_name_full = (*mol_itr)->GetName();
 		std::string mol_name = mol_name_full;
 
 		while (mol_name.size() > 0)
@@ -546,29 +553,31 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		int iat = 0;
 
-		HaResidue* pres_fst_ch0 = NULL;
+		HaResidue* pres_fst_ch0 = nullptr;
 		HaChain* chain_fst = ch_itr.GetFirstChain();
 		if (chain_fst) pres_fst_ch0 = chain_fst->GetFirstRes();
+		if (!pres_fst_ch0) continue; // the molecule doesn't have any residues
 
-		if( pres_fst_ch0 != NULL && pres_fst_ch0->IsWater() && opt.save_sep_wat_mol )
+		if( (pres_fst_ch0->IsWater() || pres_fst_ch0->IsIon()) && opt.save_sep_wat_mol )  // Split Molecules consisting of Water and Ions
 		{ 
-			os << "mol " << imol << " " << '\"' << "HOH" << '\"' << std::endl;
+			std::string mol_name_saved = pres_fst_ch0->GetName();
+			os << "mol " << imol << " " << '\"' << mol_name_saved << '\"' << "\n";
 		}
 		else
 		{
-			os << "mol " << imol << " " << '\"' << mol_name << '\"' << std::endl;
+			os << "mol " << imol << " " << '\"' << mol_name << '\"' << "\n";
 		}
 		if (pmol_c->comments.size() > 0)
 		{
 			for (std::string cmnt : pmol_c->comments)
 			{
-				os << ";" << cmnt << std::endl;
+				os << ";" << cmnt << "\n";
 			}
 		}
 
 		if (pmol_c->charge > -100)
 		{
-			os << "charge " << std::to_string(pmol_c->charge) << std::endl;
+			os << "charge " << std::to_string(pmol_c->charge) << "\n";
 		}
 
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
@@ -589,9 +598,9 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				}
 				if( save_res_as_mol  && !(pres == pres_fst_ch0) && pres->IsWater() )
 				{
-					if(!(pres == pres_fst) ) os << "endmol " << imol << std::endl;
+					if(!(pres == pres_fst) ) os << "endmol " << imol << "\n";
 					imol++;
-					os << "mol " << imol << " " << '\"' << pres->GetName() << '\"' << std::endl;
+					os << "mol " << imol << " " << '\"' << pres->GetName() << '\"' << "\n";
 				}
 				if (save_res_as_mol)
 				{
@@ -621,8 +630,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
-				//if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
-				if (save_res_info) os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << std::endl;
+				//if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << "\n";
+				if (save_res_info) os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << "\n";
 				HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);
@@ -745,9 +754,9 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						}
 					}
 				} // end atom
-				//if( save_res_info )  os << "endres " << pres->GetSerNo() << std::endl;
+				//if( save_res_info )  os << "endres " << pres->GetSerNo() << "\n";
 				if (save_res_info)  os << "endres " << ires << "\n";
-//				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << std::endl;
+//				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << "\n";
 			} //  end res
 		} // end chain
 		os << "endmol " << imol << "\n";
@@ -770,7 +779,7 @@ int MolSet::SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt) const
 
 	std::string name; 
 	name = this->GetName();
-	os << "SYSTEM " << name << std::endl;
+	os << "SYSTEM " << name << "\n";
 	
 	MoleculesType::const_iterator mol_itr; 
 	int ires = 0;
@@ -779,11 +788,11 @@ int MolSet::SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt) const
 	const HaAtom* aptr;
 	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
-		os << "MOLECULE" << std::endl;
+		os << "MOLECULE" << "\n";
 		ResidueIteratorMolecule_const ritr(*mol_itr);
 		for (pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
 		{
-			os << "MONOMER " << pres->GetName() << std::endl;
+			os << "MONOMER " << pres->GetName() << "\n";
 			AtomIteratorAtomGroup_const aitr(pres);
 			for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 			{
@@ -792,13 +801,13 @@ int MolSet::SaveNRGToStream(std::ostream& os, const AtomSaveOptions& opt) const
 				os << std::setw(5) << std::left << aptr->GetStdSymbol() 
 					<< std::setw(20) << std::right << aptr->GetX() 
 					<< std::setw(20) << std::right << aptr->GetY() 
-					<< std::setw(20) << std::right << aptr->GetZ() << std::endl;
+					<< std::setw(20) << std::right << aptr->GetZ() << "\n";
 			}
-			os << "ENDMON" << std::endl;
+			os << "ENDMON" << "\n";
 		}
-		os << "ENDMOL" << std::endl;
+		os << "ENDMOL" << "\n";
 	}
-	os << "ENDSYS" << std::endl;
+	os << "ENDSYS" << "\n";
 
 	return TRUE;
 }
@@ -823,13 +832,13 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 
 	if( save_header )
 	{
-		os << harlem::StdXMLHeader()     << std::endl;
-		os << harlem::HarlemDataHeader() << std::endl;
+		os << harlem::StdXMLHeader()     << "\n";
+		os << harlem::HarlemDataHeader() << "\n";
 	}
 
 	os << "<molset ";
 	os << "name=\"" << GetName() << "\" ";
-	os << ">" << std::endl;
+	os << ">" << "\n";
 
 	int seq_n = 0;
 
@@ -838,14 +847,14 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 	{
 		os << "<molecule ";
 		os << "name=\"" << (*mol_itr)->GetObjName() << "\" ";
-		os << "/>" << std::endl;
+		os << "/>" << "\n";
 		
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			os << "<chain ";
 	        os << " id=\"" << chain->ident << "\" ";
-			os << "/>" << std::endl;
+			os << "/>" << "\n";
 				
 			ResidueIteratorChain ritr_ch(chain);
 			for(pres = ritr_ch.GetFirstRes(); pres; pres = ritr_ch.GetNextRes())
@@ -860,7 +869,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 				std::string res_ser_no = (boost::format("%d") % pres->GetSerNo()).str();
 				if( !res_ser_no.empty() ) os << " no=\"" << res_ser_no << "\" ";
 				
-				os << "/> " << std::endl;
+				os << "/> " << "\n";
 
 				const HaAtom* aptr;
 				
@@ -948,7 +957,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 					{
 						os << "<tempf>" << boost::format("%9.4f") % aptr->tempf << "</tempf>";
 					}
-					os << "</atom>" << std::endl;
+					os << "</atom>" << "\n";
 				}
 			}
 		}
@@ -990,13 +999,13 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 			num_in_line++;
 			if(num_in_line == 10 )
 			{
-				os << "  " << std::endl; 
+				os << "  " << "\n"; 
 				num_in_line = 0;
 			}	
 		}
-		if( num_in_line != 0 ) os << " " << std::endl;
+		if( num_in_line != 0 ) os << " " << "\n";
 
-		os << "</chem_grp>" << std::endl;
+		os << "</chem_grp>" << "\n";
 	}
 
 	const AtomGroup* lptr;
@@ -1019,7 +1028,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 			if( aptr->GetHostMol() != pmol )
 			{
 				pmol = aptr->GetHostMol();
-				if( num_in_line != 0) os << std::endl;
+				if( num_in_line != 0) os << "\n";
 				os << "  molname=" << pmol->GetObjName() << " \n";	
 			}
 
@@ -1032,8 +1041,8 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 				num_in_line = 0;
 			}
 		}
-		os << " " << std::endl;
-		os << "</atgrp>" << std::endl;
+		os << " " << "\n";
+		os << "</atgrp>" << "\n";
 	}
 	if(!ChargeMaps.empty())
 	{
@@ -1057,13 +1066,13 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 				os << " " << aptr->GetRef();
 				os << boost::format(" %16.9f \n") % ch;
 			}
-			os << "</chrg_map>" << std::endl;
+			os << "</chrg_map>" << "\n";
 		}
 	}
 
 	SaveCrdSnapshots(os);
 
-	os << "</molset>" << std::endl;
+	os << "</molset>" << "\n";
 	
 	int nm = CompModules.size();
 	int im;
@@ -1074,7 +1083,7 @@ int MolSet::SaveXMLToStream(std::ostream& os, const AtomSaveOptions& opt_par ) c
 
 	if( save_footer )
 	{
-		os << harlem::HarlemDataFooter() << std::endl;
+		os << harlem::HarlemDataFooter() << "\n";
 	}
 	
 	return FALSE;
@@ -1095,8 +1104,8 @@ int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par )
 
 		if( save_header )
 		{
-			os << harlem::StdXMLHeader()     << std::endl;
-			os << harlem::HarlemDataHeader() << std::endl;
+			os << harlem::StdXMLHeader()     << "\n";
+			os << harlem::HarlemDataHeader() << "\n";
 		}
 
 		int ns = crd_snapshots.size();
@@ -1117,19 +1126,19 @@ int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par )
 				os << "atgrp=\"" << p_at_grp->GetID() << "\" ";
 			}
 			
-			os << ">" << std::endl;
+			os << ">" << "\n";
 
 			std::string desc = crd_snapshots[i]->GetDesc();
 			if( !desc.empty() )
 			{
-				os << "<desc>" << desc << "</desc>" << std::endl;
+				os << "<desc>" << desc << "</desc>" << "\n";
 			}
 
 			HaVec_double crd_snap = crd_snapshots[i]->GetCrd();
 			
 			write_double_array_chuncks(os,crd_snap,6,FLOAT_F12_7);
 			
-//			if( crd_snap.size() % 6 != 0 ) os << std::endl; 
+//			if( crd_snap.size() % 6 != 0 ) os << "\n"; 
 
 			if( crd_snapshots[i]->HasPBox() )
 			{
@@ -1146,13 +1155,13 @@ int MolSet::SaveCrdSnapshots(std::ostream& os, const harlem::HashMap* popt_par )
 				{
 					os << boost::format(" %12.6f") % pbox_snap[i];
 				}
-				os << "</pbox>" << std::endl;
+				os << "</pbox>" << "\n";
 			}
-			os << "</crd_snap>" << std::endl;
+			os << "</crd_snap>" << "\n";
 		}
 		if( save_footer )
 		{
-			os << harlem::HarlemDataFooter() << std::endl;
+			os << harlem::HarlemDataFooter() << "\n";
 		}
 	}	
 	return TRUE;
@@ -1662,25 +1671,25 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 	AtomIntMap at_id_map;
 	AtomIntMap::iterator mitr; 
 
-	os << "#BEGIN MOL_SET " << std::endl;
+	os << "#BEGIN MOL_SET " << "\n";
 	if(!name_mset.empty())
 	{
-		os << "MOL_SET_NAME=" << name_mset << std::endl;
+		os << "MOL_SET_NAME=" << name_mset << "\n";
 	}
 
 	MoleculesType::iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
-		os << "#MOLECULE " << std::endl;
+		os << "#MOLECULE " << "\n";
 		std::string mol_name = (*mol_itr)->GetObjName();
 		at_id_map.clear();
 		int atid = 1;
 		if(!mol_name.empty())
 		{
-			os << "MOLNAME=" << mol_name << std::endl;
+			os << "MOLNAME=" << mol_name << "\n";
 		}
 		
-		os << "#ATOMS " << std::endl;
+		os << "#ATOMS " << "\n";
 
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
@@ -1745,9 +1754,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 				}
 			}
 		}
-		os << "#END ATOMS " << std::endl;
+		os << "#END ATOMS " << "\n";
 		
-		os << "#BONDS " << std::endl;
+		os << "#BONDS " << "\n";
 		
 		AtomIteratorMolecule aitr_m(*mol_itr);
 		for( aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom() )
@@ -1783,30 +1792,30 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 					bond_flag_str = "DOUBLE";
 				}
 
-				os << bond_flag_str << std::endl;
+				os << bond_flag_str << "\n";
 			}
 		}
-		os << "#END BONDS " << std::endl;
-		os << "#END MOLECULE " << std::endl;
+		os << "#END BONDS " << "\n";
+		os << "#END MOLECULE " << "\n";
 	}
 	
 	if( per_bc->IsSet() )
 	{
-		os << "#UNIT CELL " << std::endl;
+		os << "#UNIT CELL " << "\n";
 		sprintf(buf," %16.9f %16.9f %16.9f %16.9f %16.9f %16.9f ",per_bc->GetA(),per_bc->GetB(),per_bc->GetC(),
 			per_bc->GetAlpha()*RAD_TO_DEG,per_bc->GetBeta()*RAD_TO_DEG, per_bc->GetGamma()*RAD_TO_DEG ) ;
-		os << buf << std::endl;
-		os << "#END UNIT CELL " << std::endl;
+		os << buf << "\n";
+		os << "#END UNIT CELL " << "\n";
 	}
 
 	if(!ChargeMaps.empty())
 	{
-		os << "#CHARGE MAPS " << std::endl;
+		os << "#CHARGE MAPS " << "\n";
 		int nm = ChargeMaps.size();
 		int i;
 		for(i = 0; i< nm; i++)
 		{
-			os << "#BEGIN MAP " << ChargeMaps[i].GetName() << std::endl;
+			os << "#BEGIN MAP " << ChargeMaps[i].GetName() << "\n";
 			AtomDoubleMap::iterator mitr;
 			mitr = ChargeMaps[i].begin();
 			for(; mitr != ChargeMaps[i].end(); mitr++)
@@ -1817,14 +1826,14 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 				aptr->FillRef(buf);
 				os << " " << buf;
 				sprintf(buf," %16.9f ",ch);
-				os << buf << std::endl;
+				os << buf << "\n";
 			}
-			os << "#END MAP " << std::endl;
+			os << "#END MAP " << "\n";
 		}
-		os << "#END CHARGE MAPS " << std::endl;
+		os << "#END CHARGE MAPS " << "\n";
 	}
 
-	os << "#GROUPS " << std::endl;
+	os << "#GROUPS " << "\n";
 	
 	ChemGroup* gptr;
 	ChemGroupIterator gitr(this);
@@ -1843,15 +1852,15 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 			num_in_line++;
 			if(num_in_line == 30 )
 			{
-				os << " ### " << std::endl << "         "; 
+				os << " ### " << "\n" << "         "; 
 				num_in_line = 0;
 			}
 		}
-		os << " " << std::endl;
+		os << " " << "\n";
 	}
-	os << "#END GROUPS " << std::endl;
+	os << "#END GROUPS " << "\n";
 
-	os << "#ATOM LISTS " << std::endl;
+	os << "#ATOM LISTS " << "\n";
 	AtomGroup* lptr;
 	AtomGroupIteratorMolSet litr(this);
 	for(lptr = litr.GetFirst(); lptr; lptr = litr.GetNext())
@@ -1866,24 +1875,24 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		{
 			if(num_in_line == 30 )
 			{
-				os << " ### " << std::endl << "         ";
+				os << " ### " << "\n" << "         ";
 				num_in_line = 0;
 			}
 			aptr->FillRef(buf);
 			os << " " << buf << " ";
 			num_in_line++;
 		}
-		os << " " << std::endl;
+		os << " " << "\n";
 	}
-	os << "#END ATOM LISTS " << std::endl;
+	os << "#END ATOM LISTS " << "\n";
 
 	HaQCMod* ptr_qc_mod = GetQCMod(false);
 	if(ptr_qc_mod != NULL)
 	{
-		os << "#QCHEM MODULE " << std::endl;
-		os << "BASIS=" << ptr_qc_mod->GetBasName() << std::endl;
-		os << "LOC_ORB_BASIS=" << ptr_qc_mod->GetLocOrbSetID() << std::endl;
-		os << "#END QCHEM MODULE " << std::endl;
+		os << "#QCHEM MODULE " << "\n";
+		os << "BASIS=" << ptr_qc_mod->GetBasName() << "\n";
+		os << "LOC_ORB_BASIS=" << ptr_qc_mod->GetLocOrbSetID() << "\n";
+		os << "#END QCHEM MODULE " << "\n";
 	}
 
 //	ETCouplMod* ptr_et_coupl = GetETCouplMod(false);
@@ -1897,13 +1906,13 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 	if( ptr_mm_mod != NULL )
 	{
 		MolMechModel* p_mm_model = ptr_mm_mod->GetMolMechModel();
-		os << "#MOLECULAR MECHANICS MODULE " << std::endl;
+		os << "#MOLECULAR MECHANICS MODULE " << "\n";
 		
 		std::vector<MMDihedral>::iterator iditr;
 		
 		if( !p_mm_model->ImprDihedrals.empty())
 		{
-			os << "IMPROPER ANGLES" << std::endl;
+			os << "IMPROPER ANGLES" << "\n";
 			for(std::shared_ptr<MMDihedral> iditr : p_mm_model->ImprDihedrals )
 			{
 				MMDihedral& impr_dihedral = *iditr;
@@ -1927,9 +1936,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 
 				aptr = (HaAtom*) impr_dihedral.pt4;
 				aptr->FillRef(buf);
-				os << buf << "  " << std::endl;
+				os << buf << "  " << "\n";
 			}
-			os << "END IMPROPER ANGLES" << std::endl;
+			os << "END IMPROPER ANGLES" << "\n";
 		}
 
 		int nv = 0;
@@ -1940,7 +1949,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 			MMBond& bnd = (MMBond&) *mbitr;
 			if( bnd.set_type == MolMechModel::SET_SPEC)
 			{
-				if( nv == 0) os << "SPECIAL VALENCE BONDS" << std::endl;
+				if( nv == 0) os << "SPECIAL VALENCE BONDS" << "\n";
 				nv++;
 				
 				aptr = (HaAtom*) bnd.pt1;
@@ -1951,10 +1960,10 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 				aptr->FillRef(buf);
 				os << buf << "  ";
 				sprintf(buf,"%12.6f  %12.6f ",bnd.r0,bnd.fc);
-				os << buf << std::endl;
+				os << buf << "\n";
 			}
 		}
-		if( nv > 0) os << "END SPECIAL VALENCE BONDS" << std::endl;
+		if( nv > 0) os << "END SPECIAL VALENCE BONDS" << "\n";
 
 		nv = 0;
 
@@ -1965,7 +1974,7 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 			MMValAngle& vang = (MMValAngle&) *vaitr;
 			if( vang.set_type == MolMechModel::SET_SPEC)
 			{
-				if( nv == 0) os << "SPECIAL VALENCE ANGLES" << std::endl;
+				if( nv == 0) os << "SPECIAL VALENCE ANGLES" << "\n";
 				nv++;
 				 
 				aptr = (HaAtom*) vang.pt1;
@@ -1981,14 +1990,14 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 				os << buf << "  ";
 
 				sprintf(buf,"%12.6f  %12.6f ",vang.a0,vang.fc);
-				os << buf << std::endl;
+				os << buf << "\n";
 			}  
 		}
-		if( nv > 0) os << "END SPECIAL VALENCE ANGLES" << std::endl;
-		os << "#END MOLECULAR MECHANICS MODULE " << std::endl;
+		if( nv > 0) os << "END SPECIAL VALENCE ANGLES" << "\n";
+		os << "#END MOLECULAR MECHANICS MODULE " << "\n";
 	}
 
-	os << "#END MOL_SET" << std::endl;
+	os << "#END MOL_SET" << "\n";
 	return TRUE;
 }
 
@@ -5848,8 +5857,8 @@ int MolSet::SaveCrdExclVolArb()
 	std::string fname = "excluded_vol.xml";
 
 	std::ofstream os(fname.c_str());
-	os << "<\?xml version=\"1.0\" encoding=\"utf-8\"\?>" << std::endl;
-	os << "<ExcludedVolume>" << std::endl;
+	os << "<\?xml version=\"1.0\" encoding=\"utf-8\"\?>" << "\n";
+	os << "<ExcludedVolume>" << "\n";
 	if( os.fail() )
 	{
 		PrintLog("Failed to Write to %s \n",fname.c_str());
@@ -5861,9 +5870,9 @@ int MolSet::SaveCrdExclVolArb()
 	for( aptr = aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
 		sprintf(buf,"<Point X=\"%7.2f\" Y=\"%7.2f\" Z=\"%7.2f\"/>",aptr->GetX_Ang(), aptr->GetY_Ang(),aptr->GetZ_Ang());
-		os << buf << std::endl;
+		os << buf << "\n";
 	}	
-	os << "</ExcludedVolume>" << std::endl;
+	os << "</ExcludedVolume>" << "\n";
 
 	return TRUE;
 }

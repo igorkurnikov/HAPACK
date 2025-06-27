@@ -1128,6 +1128,16 @@ void AtomGroup::SelectAtomsAll()
 	}
 }
 
+bool AtomGroup::HasAtomsInSet(const std::set<HaAtom*> atom_set)
+{
+	for (HaAtom* aptr : *this)
+	{
+		if( atom_set.count(aptr) > 0 ) return true;
+	}
+	return false;
+
+}
+
 AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state)
 {
 	AtomIntMap at_seq_num_map;
@@ -3587,9 +3597,23 @@ void AtomSaveOptions::SetStdOptions()
 	save_amber_pdb  = TRUE;
 	save_sep_wat_mol = FALSE;
 	alchemical_state = AlchemicalState::MIXED;
-	mol_idx       = -1;
+	saved_atoms.clear();
 
 	at_ref_type = HaAtom::ATOMREF_ELEM_NO;
+}
+
+void AtomSaveOptions::SetSavedAtoms(AtomContainer& atoms)
+{
+	std::unique_ptr<AtomIterator> paitr( atoms.GetAtomIteratorPtr() );
+
+	saved_atoms.clear();
+	for (HaAtom* aptr = paitr->GetFirstAtom(); aptr; aptr = paitr->GetNextAtom())
+		saved_atoms.insert(aptr);
+}
+
+void AtomSaveOptions::SetSavedAtomsAll()
+{
+	saved_atoms.clear();
 }
 
 void AtomSaveOptions::Copy( const harlem::HashMap& ref )
@@ -3609,7 +3633,7 @@ void AtomSaveOptions::Copy( const harlem::HashMap& ref )
 
 		save_sep_wat_mol = pref->save_sep_wat_mol;
 		alchemical_state = pref->alchemical_state;
-		mol_idx          = pref->mol_idx;
+		saved_atoms      = pref->saved_atoms;
 
 		at_ref_type      = pref->at_ref_type;
 	}

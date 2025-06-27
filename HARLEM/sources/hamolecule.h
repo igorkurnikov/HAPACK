@@ -69,6 +69,8 @@ public:
 	static int AttachFragment( HaAtom* catom_host, HaAtom* catom_frag );
 	int CombineMolecules(HaMolecule* frag_mol, HaAtom* catom_host, HaAtom* catom_frag );
 
+	bool IsSolvent() const; //!< Check if the Molecule contains only Standard Solvent or Ion residues 
+	std::set<std::string> GetResidueNames() const; //!< Get Unique  Names of Residues in the molecule
 
 protected:
 	MolSet* phost_mset;

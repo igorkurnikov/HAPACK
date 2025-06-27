@@ -343,7 +343,33 @@ int HaMolecule::AttachFragment(HaAtom* catom_host, HaAtom* catom_frag )
 	}
 
 	return True; 
-}		
+}
+
+bool HaMolecule::IsSolvent() const
+{
+	bool bres = true;
+	ResidueIteratorMolecule_const ritr(this);
+	for (const HaResidue* pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	{
+		if (!pres->IsSolvent() && !pres->IsIon()) bres = false;
+	}
+	return bres;
+}
+
+std::set<std::string> HaMolecule::GetResidueNames() const
+{
+	std::set<std::string> res_names;
+	ResidueIteratorMolecule_const ritr(this);
+	for (const HaResidue* pres = ritr.GetFirstRes(); pres; pres = ritr.GetNextRes())
+	{
+		std::string res_name = pres->GetName();
+		if(res_names.count(res_name) == 0 ) res_names.insert(res_name);
+	}
+	return res_names;
+}
+
+
+
 
 int HaMolecule::CombineMolecules(HaMolecule* frag_mol, HaAtom* catom_host, HaAtom* catom_frag )
 {

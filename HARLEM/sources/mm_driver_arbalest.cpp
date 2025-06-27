@@ -191,10 +191,10 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << "    </Boundary> \n";
 
 	os << "    <LongRange> \n";
-	os << boost::format("      <RCutOff>%9.3f</RCutOff> \n") % p_mm_model->nb_cut_dist;
-	os << boost::format("      <RSwitch>%9.3f</RSwitch> \n") % p_mm_model->nb_cut_dist;
-	os << boost::format("      <RCutOffVdW>%9.3f</RCutOffVdW> \n") % p_mm_model->nb_cut_dist;
-	os << boost::format("      <RSwitchVdW>%9.3f</RSwitchVdW> \n") % p_mm_model->nb_cut_dist;
+	os << boost::format("      <RCutOff>%f</RCutOff> \n") % p_mm_model->nb_cut_dist;
+	os << boost::format("      <RSwitch>%f</RSwitch> \n") % p_mm_model->nb_cut_dist;
+	os << boost::format("      <RCutOffVdW>%f</RCutOffVdW> \n") % p_mm_model->nb_cut_dist;
+	os << boost::format("      <RSwitchVdW>%f</RSwitchVdW> \n") % p_mm_model->nb_cut_dist;
 	os << boost::format("      <dRCutOff>2.0</dRCutOff> \n");
 	os << boost::format("      <NLstRefresh>100</NLstRefresh> \n");
 
@@ -230,13 +230,16 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	{
 		HaMolecule* pmol = pmset->HostMolecules[idx_mol];
 		std::string mol_name = pmol->GetName();
-		if (mol_defined.count(mol_name) > 0) continue;
 
-		std::vector<std::string> pos_restr_desc_and_list = GetPosRestraintsDescAndList();
+		std::set<HaAtom*> saved_atoms;
+		AtomIteratorMolecule aitr_m(pmol);
+		for (HaAtom* aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom())
+			saved_atoms.insert(aptr);
+
+		std::vector<std::string> pos_restr_desc_and_list = GetPosRestraintsDescAndList(saved_atoms);
 		pos_restr_list += pos_restr_desc_and_list[1];
 
-		SaveMolToStream(os, idx_mol, pos_restr_desc_and_list[0]);
-		mol_defined.insert(mol_name);
+		SaveMolDefToStream(os, pmol, mol_defined, pos_restr_desc_and_list[0]);
 	}
 
 	os << "  </Topology> \n";
@@ -247,14 +250,14 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << "        <Molecules> \n";
 	for (std::string mol_name : mol_defined)
 	{
-		os << boost::format("        <Molecule Instance=\"StateA\" Title=\"%s\" />\n") % mol_name;
+		os << boost::format("          <Molecule Instance=\"StateA\" Title=\"%s\" />\n") % mol_name;
 	}
 	os << "        </Molecules> \n";
 
 	std::string system_hin_fname = pmset->GetName() + std::string("_SYS.hin");
 	pmset->SaveHINFile(system_hin_fname);
 	os << "        <StructureFiles> \n";
-	os << boost::format("        <File Type=\"HIN\">%s</File>\n") % system_hin_fname;
+	os << boost::format("          <File Type=\"HIN\">%s</File>\n") % system_hin_fname;
 	os << "        </StructureFiles> \n";
 
 	if (pos_restr_list.size() > 0)
@@ -266,41 +269,47 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << "      </Load> \n";
 	os << "    </SystemState> \n";
 
-	os << "    <SystemState Title=\"SystemStateB\"> TransitionFrom=\"SystemStateA\"> \n";
-	os << "      <Transform> \n";
-	os << "        <Molecules> \n";
-
-	for (HaMolecule* pmol : pmset->HostMolecules)
+	if (pmset->has_mut_atoms())
 	{
-		std::string mol_name = pmol->GetName();
-		if (pmol->has_mut_atoms())
+		os << "    <SystemState Title=\"SystemStateB\"> TransitionFrom=\"SystemStateA\"> \n";
+		os << "      <Transform> \n";
+		os << "        <Molecules> \n";
+
+		for (HaMolecule* pmol : pmset->HostMolecules)
 		{
-			os << boost::format("          <Molecule Title=\"%s\" TargetInstance=\"StateB\" /> \n") % mol_name;
+			std::string mol_name = pmol->GetName();
+			if (pmol->has_mut_atoms())
+			{
+				os << boost::format("          <Molecule Title=\"%s\" TargetInstance=\"StateB\" /> \n") % mol_name;
+			}
 		}
+		os << "        </Molecules> \n";
+		os << "      </Transform> \n";
+		os << "    </SystemState> \n";
 	}
-	os << "        </Molecules> \n";
-	os << "      </Transform> \n";
-	os << "    </SystemState> \n";
 	os << "  </MolecularSystem> \n";
 
-	if (p_mm_mod->run_ti)
+	if (pmset->has_mut_atoms())
 	{
-		os << "  <ConfigureTI> \n";
-		os << "    <Transition Title=\"ProteinABMutation\" SeqID=\"1\"> \n";
-		os << "      <Settings> \n";
-		os << "        <Param Title=\"StateI\">SystemStateA</Param> \n";
-		os << "        <Param Title=\"StateF\">SystemStateB</Param> \n";
-		std::string lambdas_str;
-		for (double lmb : p_mm_mod->lambda_ti_v)
-			lambdas_str += (boost::format("%d ") % lmb).str();
-		os << "        <Param Title = \"LambdaValues\">" << lambdas_str << "</Param> \n";
-		os << "        <Param Title=\"InitialConformation\">true</Param> \n";
-		os << "        <Param Title=\"ScaleFactorPwr\">2.0</Param> \n";
-		os << "        <Param Title=\"SoftCoringRadius\">1.5</Param> \n";
-		os << "        <Param Title=\"SoftCoringPwr\">1.0</Param> \n";
-		os << "      <Settings> \n";
-		os << "    </Transition> \n";
-		os << "  </ConfigureTI> \n";
+		if (p_mm_mod->run_ti)
+		{
+			os << "  <ConfigureTI> \n";
+			os << "    <Transition Title=\"ProteinABMutation\" SeqID=\"1\"> \n";
+			os << "      <Settings> \n";
+			os << "        <Param Title=\"StateI\">SystemStateA</Param> \n";
+			os << "        <Param Title=\"StateF\">SystemStateB</Param> \n";
+			std::string lambdas_str;
+			for (double lmb : p_mm_mod->lambda_ti_v)
+				lambdas_str += (boost::format("%d ") % lmb).str();
+			os << "        <Param Title = \"LambdaValues\">" << lambdas_str << "</Param> \n";
+			os << "        <Param Title=\"InitialConformation\">true</Param> \n";
+			os << "        <Param Title=\"ScaleFactorPwr\">2.0</Param> \n";
+			os << "        <Param Title=\"SoftCoringRadius\">1.5</Param> \n";
+			os << "        <Param Title=\"SoftCoringPwr\">1.0</Param> \n";
+			os << "      <Settings> \n";
+			os << "    </Transition> \n";
+			os << "  </ConfigureTI> \n";
+		}
 	}
 
 	os << "  <GroupsDefinition> \n";
@@ -449,25 +458,28 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 		os << "            </FunctionalGroups>\n";
 		os << "          </Output> \n";
 
-		os << "          <Output DataType=\"BAR\" Frequency=\"50\"> \n";
-		os << "            <Settings> \n";
-		os << "              <Param Title=\"Time\">Time</Param> \n";
-		os << "              <Param Title=\"EnrgPot\">EnrgPot</Param> \n";
-		os << "              <Param Title=\"EnrgCoul\">EnrgCoul</Param> \n";
-		os << "              <Param Title=\"EnrgVdW\">EnrgVdW</Param> \n";
-		os << "              <Param Title=\"EnrgPol\">EnrgPol</Param> \n";
-		os << "              <Param Title=\"EnrgBond\">EnrgBond</Param> \n";
-		os << "              <Param Title=\"EnrgAngle\">EnrgAngle</Param> \n";
-		os << "              <Param Title=\"EnrgStretch\">EnrgStretch</Param> \n";
-		os << "              <Param Title=\"EnrgTorsion\">EnrgTorsion</Param> \n";
-		os << "              <Param Title=\"EnrgOOP\">EnrgOOP</Param> \n";
-		os << "              <Param Title=\"EnrgShell\">EnrgShell</Param> \n";
-		os << "              <Param Title=\"EnrgVdW_LRCor\">EnrgVdW_LRCor</Param> \n";
-		os << "            </Settings> \n";
-		os << "            <FunctionalGroups> \n";
-		os << "              <Group>SYSTEM</Group> \n";
-		os << "            </FunctionalGroups>\n";
-		os << "          </Output> \n";
+		if (p_mm_mod->run_ti)
+		{
+			os << "          <Output DataType=\"BAR\" Frequency=\"50\"> \n";
+			os << "            <Settings> \n";
+			os << "              <Param Title=\"Time\">Time</Param> \n";
+			os << "              <Param Title=\"EnrgPot\">EnrgPot</Param> \n";
+			os << "              <Param Title=\"EnrgCoul\">EnrgCoul</Param> \n";
+			os << "              <Param Title=\"EnrgVdW\">EnrgVdW</Param> \n";
+			os << "              <Param Title=\"EnrgPol\">EnrgPol</Param> \n";
+			os << "              <Param Title=\"EnrgBond\">EnrgBond</Param> \n";
+			os << "              <Param Title=\"EnrgAngle\">EnrgAngle</Param> \n";
+			os << "              <Param Title=\"EnrgStretch\">EnrgStretch</Param> \n";
+			os << "              <Param Title=\"EnrgTorsion\">EnrgTorsion</Param> \n";
+			os << "              <Param Title=\"EnrgOOP\">EnrgOOP</Param> \n";
+			os << "              <Param Title=\"EnrgShell\">EnrgShell</Param> \n";
+			os << "              <Param Title=\"EnrgVdW_LRCor\">EnrgVdW_LRCor</Param> \n";
+			os << "            </Settings> \n";
+			os << "            <FunctionalGroups> \n";
+			os << "              <Group>SYSTEM</Group> \n";
+			os << "            </FunctionalGroups>\n";
+			os << "          </Output> \n";
+		}
 
 		os << "          <Output DataType=\"XTC\" Frequency=\"5000\"> \n";
 		os << "            <Settings> \n";
@@ -489,23 +501,32 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	return true;
 }
 
-bool MMDriverArbalest::SaveMolToStream(std::ostream& os, int mol_idx, std::string pos_restr_desc )
+bool MMDriverArbalest::SaveMolDefToStream(std::ostream& os, HaMolecule* pmol, std::set<std::string>& mol_defined, std::string pos_restr_desc )
 {
-	HaMolecule* pmol = pmset->HostMolecules[mol_idx];
 	std::string mol_name = pmol->GetName();
 	std::string mol_a_hin_fname = mol_name + ".hin";
 
-	if (std_mol_names.count(mol_name) > 0)
+	if( mol_defined.count(mol_name) > 0) return true;
+
+	if (pmol->IsSolvent())
 	{
-		mol_a_hin_fname = "Input/HIN/" + mol_name + ".hin";
+		std::set<std::string> solv_ion_names = pmol->GetResidueNames();
+		for (std::string solv_ion_res_name : solv_ion_names)
+		{
+			if (mol_defined.count(solv_ion_res_name) > 0) continue;
+			SaveStdMolDefToStream(os, solv_ion_res_name);
+			mol_defined.insert(solv_ion_res_name);
+		}
+		return true;
 	}
-	else
-	{
-		AtomSaveOptions opt;
-		opt.mol_idx = mol_idx;
-		opt.alchemical_state = AlchemicalState::STATE_A;
-		pmset->SaveHINFile(mol_a_hin_fname, opt);
-	}
+	
+	AtomSaveOptions opt;
+	opt.SetSavedAtoms(*pmol);
+	opt.alchemical_state = AlchemicalState::STATE_A;
+	pmset->SaveHINFile(mol_a_hin_fname, opt);
+
+	mol_defined.insert(mol_name);
+	
 
 	os << boost::format("    <MoleculeDefinition Title=\"%s\"> \n") % mol_name;
 	os << boost::format("      <StructureType>SINGLERES</StructureType> \n");
@@ -539,7 +560,7 @@ bool MMDriverArbalest::SaveMolToStream(std::ostream& os, int mol_idx, std::strin
 	{
 		std::string mol_b_hin_fname = mol_name + "_b.hin";
 		AtomSaveOptions opt;
-		opt.mol_idx = mol_idx;
+		opt.SetSavedAtoms(*pmol);
 		opt.alchemical_state = AlchemicalState::STATE_B;
 		pmset->SaveHINFile(mol_a_hin_fname, opt);
 
@@ -602,23 +623,56 @@ bool MMDriverArbalest::SaveMolToStream(std::ostream& os, int mol_idx, std::strin
 	return true;
 }
 
+bool MMDriverArbalest::SaveStdMolDefToStream(std::ostream& os , std::string mol_name )
+{
+	std::string mol_a_hin_fname = "Input/HIN/" + mol_name + ".hin";
 
-std::vector<std::string> MMDriverArbalest::GetPosRestraintsDescAndList()
+	os << boost::format("    <MoleculeDefinition Title=\"%s\"> \n") % mol_name;
+	os << boost::format("      <StructureType>SINGLERES</StructureType> \n");
+	os << boost::format("      <StructureDefinition> \n");
+
+	os << boost::format("        <Instance Title=\"StateA\"> \n");
+	os << boost::format("          <TopologySource>STRUCT</TopologySource> \n");
+	os << boost::format("            <TopologyFiles> \n");
+	os << boost::format("              <File Type=\"HIN\">%s</File>\n") % mol_a_hin_fname;
+	os << boost::format("            </TopologyFiles> \n");
+	os << boost::format("          <StructureFiles> \n");
+	os << boost::format("            <File Type=\"HIN\">%s</File>\n") % mol_a_hin_fname;
+	os << boost::format("          </StructureFiles> \n");
+	os << boost::format("          <StructureSettings> \n");
+	os << boost::format("            <GenerateChargeGroups>AUTO</GenerateChargeGroups> \n");
+	os << boost::format("            <ConstrainBonds>false</ConstrainBonds> \n");
+	os << boost::format("            <ConstrainAngles>false</ConstrainAngles> \n");
+	os << boost::format("            <ConstrainTorsions>false</ConstrainTorsions> \n");
+	os << boost::format("          </StructureSettings> \n");
+	os << boost::format("        </Instance> \n");
+	os << boost::format("      </StructureDefinition> \n");
+	os << boost::format("    </MoleculeDefinition> \n");
+
+	return true;
+}
+
+std::vector<std::string> MMDriverArbalest::GetPosRestraintsDescAndList(std::set<HaAtom*>& atoms_saved)
 {
 	std::vector<std::string> restr_desc_and_list(2);
 	std::ostringstream oss_desc;
 	std::ostringstream oss_list;
-	bool bres = SavePosRestraintsStream(oss_desc, oss_list);
-	if (bres)
+
+	AtomGroup* restr_atoms = p_mm_model->GetRestrAtoms();
+	if (restr_atoms && restr_atoms->GetNAtoms() > 0)
 	{
-		restr_desc_and_list[0] = oss_desc.str();
-		restr_desc_and_list[1] = oss_list.str();
+		bool bres = SavePosRestraintsStream(oss_desc, oss_list, atoms_saved);
+		if (bres)
+		{
+			restr_desc_and_list[0] = oss_desc.str();
+			restr_desc_and_list[1] = oss_list.str();
+		}
 	}
 	return restr_desc_and_list;
 }
 
 
-bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostream& os_list)
+bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostream& os_list, std::set<HaAtom*>& atoms_saved)
 {
 	if (os_desc.fail()) return false;
 	if (os_list.fail()) return false;
@@ -626,7 +680,7 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 	AtomGroup* restr_atoms = p_mm_model->GetRestrAtoms();
 	if (!restr_atoms || restr_atoms->GetNAtoms() == 0)
 	{
-		PrintLog("No Restrained Atoms defined");
+		PrintLog("No Restrained Atoms defined \n");
 		return false;
 	}
 
@@ -668,6 +722,7 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 	int n_res_seq = 0;
 	for (HaResidue* rptr : ritr)
 	{
+		if (!rptr->HasAtomsInSet(atoms_saved)) continue;
 		n_res_seq++;
 		for (HaAtom* aptr : *rptr)
 			atom_res_seq_map[aptr] = n_res_seq;
@@ -678,6 +733,9 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 	{
 		idx_r++;
 		Vec3D crd_r = p_mm_model->restr_ref_coords[idx_r];
+
+		if (atoms_saved.count(aptr) == 0) continue;
+
 		HaResidue* pres = aptr->GetHostRes();
 		HaChain* pchain = aptr->GetHostChain();
 		HaMolecule* pmol = aptr->GetHostMol();
@@ -700,7 +758,7 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 		}
 
 		//std::string res_n_str = harlem::ToString( pres->GetSerNo() );
-		std::string res_n_str = std::to_string(atom_res_seq_map[aptr]); // use sequence number of the residue - it looks like Arbalest uses this
+		std::string res_n_str = std::to_string(atom_res_seq_map[aptr]); // use sequence number of the residue - it looks like Arbalest uses sequential residue numbers
 
 		std::string atom_id_arb;
 		std::string atom_restr_id;
