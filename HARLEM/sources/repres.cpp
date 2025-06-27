@@ -168,13 +168,12 @@ HaMolView::DefaultLabels( int enable )
 }
 
 
-void 
-HaMolView::DisplayLabels()
+void HaMolView::DisplayLabels()
 {
-    register HaChain  *chain;
-    register HaResidue  *group;
-    register HaAtom  *aptr;
-    register int col,z;
+    HaChain  *chain;
+    HaResidue  *group;
+    HaAtom  *aptr;
+    int col,z;
  
     char buffer[256];
   
@@ -216,7 +215,7 @@ HaMolView::DisplayLabels()
 static char *FormatInteger(char* ptr,int value )
 {
     char buffer[10];
-    register char *tmp;
+    char *tmp;
 
     if( value<0 )
     {   
@@ -343,7 +342,7 @@ void HaMolView::DeleteAllMonitors()
 
 void HaMolView::DeleteAtomPairMonitor(HaAtom* src, HaAtom* dst)
 {
-	list<Monitor>::iterator mitr;
+	std::list<Monitor>::iterator mitr;
 	for (mitr = MonitList.begin(); mitr != MonitList.end(); )
 	{
 		if (((*mitr).src == src) && ((*mitr).dst == dst) ||
@@ -370,7 +369,7 @@ void HaMolView::AddAtomPairMonitor( HaAtom* src, HaAtom* dst )
 
 	PrintLog(" Adding Monitor between atoms %s and %s \n", buf1,buf2);
 
-	list<Monitor>::iterator mitr;
+	std::list<Monitor>::iterator mitr;
 
 	for(mitr = MonitList.begin(); mitr != MonitList.end(); mitr++)
     {
@@ -402,10 +401,10 @@ void HaMolView::AddAtomPairMonitor( HaAtom* src, HaAtom* dst )
 
 void  HaMolView::CreateMonitor( int src, int dst )
 {
-    register HaAtom  *aptr;
-    register HaAtom  *sptr;
-    register HaAtom  *dptr;
-    register int done;
+    HaAtom  *aptr;
+    HaAtom  *sptr;
+    HaAtom  *dptr;
+    int done;
     char buffer[20];
  
     if( src == dst )
@@ -482,7 +481,7 @@ void HaMolView::DisplayMonitors()
 		z = SlabValue() - 1;
 
 
-	list<Monitor>::iterator mitr;
+	std::list<Monitor>::iterator mitr;
     for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
     {   
 		ptr = &(*mitr);
@@ -529,13 +528,12 @@ void HaMolView::DisplayMonitors()
 /*=========================*/
 
   
-void 
-HaMolView::DeleteDotSurfaces()
+void HaMolView::DeleteDotSurfaces()
 {
 
 	MolSet* pmset = GetMolSet();
 
- 	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end();)
 	{
 		if( (*oitr)->GetObjType() == OBJ3D_DOT_SURFACE )
@@ -618,10 +616,9 @@ int HaMolView::TestDot( double x, double y, double z , bool solvent_access)
 }
  
  
-void 
-HaMolView::InitElemDots()
+void HaMolView::InitElemDots()
 {
-    register int i,size;
+    int i,size;
  
     size = MAXELEMNO*sizeof(ElemDotStruct);
     ElemDots = (ElemDotStruct *)malloc(size);
@@ -713,10 +710,9 @@ void HaMolView::AddElemDots( int elem, int density )
 }
  
  
-void 
-HaMolView::FreeElemDots()
+void HaMolView::FreeElemDots()
 {
-    register int i;
+    int i;
  
     for( i=0; i<MAXELEMNO; i++ )
         if( ElemDots[i].count )
@@ -807,8 +803,7 @@ void HaMolView::CalculateDotSurface( int density )
     FreeElemDots();
 }
  
-void 
-HaMolView::DisplayObj3D()
+void HaMolView::DisplayObj3D()
 {
  
   MolSet* pmset = GetMolSet();
@@ -817,7 +812,7 @@ HaMolView::DisplayObj3D()
   int iyadd=  pCanv->YRange()/2 ;
   int izadd=  ZOffset() ;
 
-  list<Object3D*>::iterator oitr;
+  std::list<Object3D*>::iterator oitr;
 
   for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
   {
@@ -828,11 +823,10 @@ HaMolView::DisplayObj3D()
   }
 }
 
-void 
-HaMolView::DisplayDotSurfaces()
+void HaMolView::DisplayDotSurfaces()
 {
-    register int xi,yi,zi;
-    register int i;
+    int xi,yi,zi;
+    int i;
  
 	MolSet* pmset = GetMolSet();
 
@@ -840,7 +834,7 @@ HaMolView::DisplayDotSurfaces()
 	int iyadd=  pCanv->YRange()/2 ;
 	int izadd=  ZOffset() ;				
 
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
 	{
@@ -904,7 +898,7 @@ static void CalculateVInten( Knot* ptr )
 
 static void CalculateHInten( Knot* ptr )
 {
-    register double inten;
+    double inten;
  
     /* The intensity of the sides of a protein cartoon
      * may be calculated using ptr->cx,cy,cz and this
@@ -952,7 +946,7 @@ void HaMolView::DisplayRibbon( HaChain* chain )
  
     prev = False;
 
-	vector<HaResidue*>::iterator gitr, gnext_itr;
+	std::vector<HaResidue*>::iterator gitr, gnext_itr;
 	
 	if( chain->res_arr.empty() )
 	{
@@ -1562,13 +1556,12 @@ void HaMolView::DisplayETBestPath()
 
 }
 
-void
-HaMolView::DisplayContourSurf()
+void HaMolView::DisplayContourSurf()
 {
 	MolSet* pmset= GetMolSet();
 	if(pmset == NULL) return;
 
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
 	{
 		if( (*oitr)->GetObjType() != OBJ3D_SURFACE )

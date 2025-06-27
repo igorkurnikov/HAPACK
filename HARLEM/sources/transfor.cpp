@@ -289,7 +289,7 @@ void HaMolView::DisableBackbone()
 
 void HaMolView::SetHBondStatus( int enable, double rad )
 {
-    set<HaHBond, less<HaHBond> >::iterator bitr;
+	std::set<HaHBond>::iterator bitr;
     HaAtom  *src;
     HaAtom  *dst;
     int flag, irad;
@@ -380,7 +380,7 @@ void HaMolView::SetRibbonStatus( int enable, int flag, double width )
     HaChain  *chain;
     HaResidue  *group;
     HaAtom  *ptr;
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 
 	MolSet* pmset = this->GetMolSet();
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
@@ -389,7 +389,7 @@ void HaMolView::SetRibbonStatus( int enable, int flag, double width )
     if( !enable && !DrawRibbon )
         return;
 
-	vector<HaMolecule*>::iterator mol_itr;
+	std::vector<HaMolecule*>::iterator mol_itr;
 	ForEachMol_VIEW
 	{
 		if( !(*mol_itr)->IsSecStructFound() )
@@ -465,13 +465,12 @@ void HaMolView::SetRibbonStatus( int enable, int flag, double width )
 }
 
 
-void 
-HaMolView::SetRibbonCartoons()
+void HaMolView::SetRibbonCartoons()
 {
     HaChain  *chain;
     HaResidue  *group;
     HaAtom  *ptr;
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 
 	MoleculesType::iterator mol_itr;
 	MolSet* pmset = this->GetMolSet();
@@ -777,7 +776,7 @@ void HaMolView::RefreshColors()
 	
 //	PrintLog(" HaMolView::RefreshColors() \n");
 
-	vector<ColorVal> cvals = HaColor::used_colors;
+	std::vector<ColorVal> cvals = HaColor::used_colors;
 	
 	HaColor::used_colors.clear();
     HaColor::cval_idx_map.clear();
@@ -847,7 +846,7 @@ int HaMolView::ColorAtomsByProp( const std::string& str_prop_par, DValColorMap* 
 
 void HaMolView::ColourBondNone()
 {
-    register HaBond  *bptr;
+    HaBond  *bptr;
 
 	BondIteratorMolSet bitr(GetMolSet());
     for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond()) 
@@ -934,8 +933,8 @@ void HaMolView::ColourBackAttrib( int r, int g, int b )
 
 void HaMolView::ColourHBondNone()
 {
-    set<HaHBond, less<HaHBond> >  *list_ptr;
-    set<HaHBond, less<HaHBond> >::iterator  ptr;
+	std::set<HaHBond>  *list_ptr;
+	std::set<HaHBond>::iterator  ptr;
     HaAtom  *src;
     HaAtom  *dst;
     HaHBond* phb;
@@ -1039,7 +1038,7 @@ HaMolView::ColourSSBondNone()
 
 void HaMolView::ColourHBondType()
 {
-    set<HaHBond, less<HaHBond> >::iterator hptr;
+	std::set<HaHBond>::iterator hptr;
     HaHBond* phb;
 
 	ColourHBondNone();
@@ -1093,7 +1092,7 @@ void HaMolView::ColourHBondAttrib( int r, int g, int b )
 	
 	HaColor color(r,g,b);
 	
-	set<HaHBond, less<HaHBond> >::iterator  bitr;
+	std::set<HaHBond>::iterator  bitr;
 	for( bitr = pmset->HBonds.begin(); bitr != pmset->HBonds.end(); bitr++)
 	{
 		HaHBond* phb = (HaHBond*)&(*bitr);
@@ -1104,8 +1103,7 @@ void HaMolView::ColourHBondAttrib( int r, int g, int b )
 	}
 }
 
-void 
-HaMolView::ColourSSBondAttrib( int r, int g, int b )
+void HaMolView::ColourSSBondAttrib( int r, int g, int b )
 {
 	ColourSSBondNone();
 
@@ -1131,11 +1129,10 @@ HaMolView::ColourSSBondAttrib( int r, int g, int b )
 	}
 }
 
-void 
-HaMolView::ColourRibbonNone( int flag )
+void HaMolView::ColourRibbonNone( int flag )
 {
-    register HaResidue  *group;
-    register HaAtom  *aptr;
+    HaResidue  *group;
+    HaAtom  *aptr;
 
 	MoleculesType::iterator mol_itr;
 
@@ -1210,12 +1207,11 @@ HaMolView::ColourRibbonAttrib( int flag, int r, int g, int b )
 }
 
 
-void 
-HaMolView::ColourMonitNone()
+void HaMolView::ColourMonitNone()
 {
     int flag;
 
-	list<Monitor>::iterator mitr;
+	std::list<Monitor>::iterator mitr;
 
 	for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
 		if( (*mitr).col )
@@ -1229,15 +1225,14 @@ HaMolView::ColourMonitNone()
 		}
 }
 
-void 
-HaMolView::ColourMonitAttrib( int r, int g, int b )
+void HaMolView::ColourMonitAttrib( int r, int g, int b )
 {
     int flag;
     ColourMonitNone();
 
 	HaColor color(r,g,b);
 
-	list<Monitor>::iterator mitr;
+	std::list<Monitor>::iterator mitr;
 
     for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
     {   
@@ -1251,15 +1246,14 @@ HaMolView::ColourMonitAttrib( int r, int g, int b )
 }
 
 
-void 
-HaMolView::ColourDotsAttrib( int r, int g, int b )
+void HaMolView::ColourDotsAttrib( int r, int g, int b )
 {
     int i;
 		
 	HaColor color(r,g,b);
 	MolSet* pmset = GetMolSet();
 
- 	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end();)
 	{
@@ -1350,7 +1344,7 @@ void HaMolView::ColourDotsPotential()
 
 	MolSet* pmset = GetMolSet();
 
- 	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end();)
 	{
@@ -1689,7 +1683,7 @@ void HaMolView::RigidClusterColourAttrib()
 	{   
 		std::string grp_name = gptr->GetID();
 		found = grp_name.find("RIGIDCLST");
-		if (found == string::npos) continue;
+		if (found == std::string::npos) continue;
 
 		ig++;
 		switch(ig%4)
@@ -2051,7 +2045,7 @@ HaMolView::InitialTransform()
 	pmset->GetMinMaxCrd(MinX_v,MinY_v,MinZ_v,MaxX_v,MaxY_v,MaxZ_v); 
 
 
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	for(oitr = pmset->ViewObjects.begin(); oitr != pmset->ViewObjects.end(); oitr++)
 	{
@@ -2173,7 +2167,7 @@ void HaMolView::PrepareTransform()
 
 	MolSet* pmset = GetMolSet();
 
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	double CenX_tr;
 	double CenY_tr;
@@ -2366,7 +2360,7 @@ static int apply_count=0;
 void HaMolView::ApplyTransform()
 {	
     HaChain  *chain;
-    set<HaHBond, less<HaHBond> >::iterator  hptr;
+	std::set<HaHBond>::iterator  hptr;
     HaBond  *bptr;
     HaAtom  *aptr;
     HaHBond* phb;

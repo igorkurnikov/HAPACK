@@ -14,7 +14,7 @@
 
 #include <regex>
 
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
 
 #include "hamolset.h"
@@ -3556,7 +3556,7 @@ const char * PNPMod::GetIonName(int ion)
 }
 int PNPMod::ReadAMBER94FF()
 {
-	boost::filesystem::path amber_94_ff_path(pApp->res_db_dir);
+	std::filesystem::path amber_94_ff_path(pApp->res_db_dir);
 	amber_94_ff_path /= "amber_94_ff.dat";
 	int status = ReadAMBERFF(amber_94_ff_path.string().c_str());
 	
@@ -3643,9 +3643,9 @@ int PNPMod::ReadAMBERFF(const char* filename)
 }
 int PNPMod::ReadOPLSFF()
 {
-	boost::filesystem::path ffoplsaanb_itp_path = pApp->res_db_dir;
+	std::filesystem::path ffoplsaanb_itp_path = pApp->res_db_dir;
 	ffoplsaanb_itp_path /= "ffoplsaanb.itp";
-	boost::filesystem::path ffoplsaa_rtp_path = pApp->res_db_dir;
+	std::filesystem::path ffoplsaa_rtp_path = pApp->res_db_dir;
 	ffoplsaa_rtp_path /= "ffoplsaa.rtp";
 	
 	int status;

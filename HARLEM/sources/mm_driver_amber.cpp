@@ -20,9 +20,10 @@
 
 #include "hampi.h"
 
+#include <filesystem>
+
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/filesystem.hpp>
 //#include <boost/process.hpp>
 //#include <boost/process/child.hpp>
 
@@ -6465,7 +6466,7 @@ int MMDriverAmber::LoadAmberRestartFile(std::string rst_file_name)
 
 	if (rst_file_name.empty()) rst_file_name = this->amber_rst_file;
 
-	if( !boost::filesystem::exists( (std::string) rst_file_name ) )
+	if( !std::filesystem::exists( (std::string) rst_file_name ) )
 	{	
 		PrintLog(" Fail to update coordinates from AMBER Restart File \n");
 		PrintLog(" File %s does not exist \n", rst_file_name );
@@ -8590,11 +8591,11 @@ int MMDriverAmber::RunAmberProg(int sync)
 	}
 
 #if defined(_MSC_VER)
-	exe_fname = pApp->harlem_home_dir + boost::filesystem::path::preferred_separator + exe_fname;
+	exe_fname = pApp->harlem_home_dir + std::filesystem::path::preferred_separator + exe_fname;
 #else
-	std::string exe_fname_test = pApp->harlem_home_dir + boost::filesystem::path::preferred_separator + "bin" + boost::filesystem::path::preferred_separator + exe_fname;
+	std::string exe_fname_test = pApp->harlem_home_dir + std::filesystem::path::preferred_separator + "bin" + std::filesystem::path::preferred_separator + exe_fname;
 	PrintLog("exe_fname_test = %s \n", exe_fname_test.c_str() );
-	if (boost::filesystem::exists(exe_fname_test)) exe_fname = exe_fname_test;
+	if (std::filesystem::exists(exe_fname_test)) exe_fname = exe_fname_test;
 	PrintLog("exe_fname_test = %s \n", exe_fname.c_str() );
 #endif
 

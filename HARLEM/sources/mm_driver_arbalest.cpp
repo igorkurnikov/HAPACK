@@ -10,11 +10,11 @@
 #include <math.h>
 #include <tinyxml.h>
 
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
-#include <boost/filesystem.hpp>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 #include "harlemapp.h"
 #include "hamolecule.h"
@@ -29,10 +29,11 @@ MMDriverArbalest::MMDriverArbalest(HaMolMechMod* p_mm_mod_new)
 	p_mm_mod = p_mm_mod_new;
 	p_mm_model    = p_mm_mod->p_mm_model;
 	pmset = p_mm_mod->GetMolSet();
-	std::string prefix = pmset->GetName();
-
+	
 	p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.TRR;
 	
+	this->arbalest_exe = "ARBALEST";
+	std::string prefix = pmset->GetName();
 	this->SetFileNamesWithPrefix(prefix);
 
 	to_save_input_files = TRUE;
@@ -156,7 +157,7 @@ bool MMDriverArbalest::SaveRunFiles()
 			PrintLog("Can't create file %s \n", this->run_fname);
 			return false;
 		}
-		os << "#!/bin/sh -f \n";
+		os << "#!/bin/sh -f -x \n";
 		os << boost::format("%s --config %s - ") % arbalest_exe % config_fname << " \n";
 	}
 	return true;
@@ -179,9 +180,9 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << "    </ForceField> \n";
 
 	os << "    <Volume> \n";
-	os << boost::format("      <Lx>%12.6f</Lx> \n") % pmset->per_bc->GetA();
-	os << boost::format("      <Lx>%12.6f</Lx> \n") % pmset->per_bc->GetB();
-	os << boost::format("      <Lx>%12.6f</Lx> \n") % pmset->per_bc->GetC();
+	os << boost::format("      <Lx>%f</Lx> \n") % pmset->per_bc->GetA();
+	os << boost::format("      <Ly>%f</Ly> \n") % pmset->per_bc->GetB();
+	os << boost::format("      <Lz>%f</Lz> \n") % pmset->per_bc->GetC();
 	os << "    </Volume> \n";
 	os << "    <Boundary> \n";
 	os << "      <BoundX>PERIODIC</BoundX> \n";
@@ -394,6 +395,8 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 			os << "            <Param Title=\"RelaxTime\">0.5</Param> \n";
 			os << "            <Param Title=\"Compressibility\">4.5e-5</Param> \n";
 			os << "          </Settings> \n";
+			os << "          <FunctionalGroups> \n";
+			os << "            <Group>SYSTEM</Group> \n";
 			os << "          </FunctionalGroups> \n";
 			os << "        </Algorithm> \n";
 		}
@@ -504,7 +507,7 @@ bool MMDriverArbalest::SaveMolToStream(std::ostream& os, int mol_idx, std::strin
 		pmset->SaveHINFile(mol_a_hin_fname, opt);
 	}
 
-	os << boost::format("    <MoleculeDefinition> Title=\"%s\"> \n") % mol_name;
+	os << boost::format("    <MoleculeDefinition Title=\"%s\"> \n") % mol_name;
 	os << boost::format("      <StructureType>SINGLERES</StructureType> \n");
 	os << boost::format("      <StructureDefinition> \n");
 

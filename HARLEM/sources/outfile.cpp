@@ -212,10 +212,9 @@ HaMolView::WritePPMFile( const char* name,int raw )
     return( True );
 }
 
-void 
-HaMolView::WriteGIFCode(int code )
+void HaMolView::WriteGIFCode(int code )
 {
-    register int max;
+    int max;
 
     max = (code==GIFEOFCode)? 0 : 7;
     BitBuffer |= ((unsigned int)code<<BitBufLen);
@@ -545,14 +544,13 @@ HaMolView::FindDepth( PSItemPtr item, int type )
 }
 
 
-void 
-HaMolView::DepthSort(PSItemPtr* data, char* type, int count )
+void HaMolView::DepthSort(PSItemPtr* data, char* type, int count )
 {
-    register char ttmp;
-    register void  *dtmp;
-    register int i, j, k;
-    register int depth;
-    register int temp;
+    char ttmp;
+    void  *dtmp;
+    int i, j, k;
+    int depth;
+    int temp;
 
     for( i=1; i<count; i++ )
     {   
@@ -585,10 +583,9 @@ HaMolView::DepthSort(PSItemPtr* data, char* type, int count )
 }
 
 
-int 
-HaMolView::ClipVectSphere(HaAtom* ptr )
+int HaMolView::ClipVectSphere(HaAtom* ptr )
 {
-    register int rad;
+    int rad;
 
     rad = ptr->irad;
 
@@ -600,8 +597,7 @@ HaMolView::ClipVectSphere(HaAtom* ptr )
 }
 
 
-int 
-HaMolView::ClipVectBond( HaAtom* src, HaAtom* dst )
+int HaMolView::ClipVectBond( HaAtom* src, HaAtom* dst )
 {
     if( !src || !dst )  return( True );
     if( (src->x<0) && (dst->x<0) )  return( True );
@@ -613,8 +609,7 @@ HaMolView::ClipVectBond( HaAtom* src, HaAtom* dst )
 
 
 
-void 
-HaMolView::WriteVectColour( int col )
+void HaMolView::WriteVectColour( int col )
 {
     if( col != VectCol )
     {   
@@ -657,23 +652,22 @@ static int VectClipContain( SphereSect *x, SphereSect *y )
 }
 
 
-void 
-HaMolView::WriteVectSphere( PSItemPtr *data, char *type,int index)
+void HaMolView::WriteVectSphere( PSItemPtr *data, char *type,int index)
 {
-    register int ecount, count;
-    register HaAtom  *atm;
-    register HaAtom  *ptr;
-    register int dist2,dist3;
-    register int dx, dy, dz;
-    register int i,j,k;
+    int ecount, count;
+    HaAtom  *atm;
+    HaAtom  *ptr;
+    int dist2,dist3;
+    int dx, dy, dz;
+    int i,j,k;
 
-    register double b,d,f,g,x;
-    register double radf,radb;
-    register double phi1,phi2;
-    register double temp,psi;
-    register double theta;
+    double b,d,f,g,x;
+    double radf,radb;
+    double phi1,phi2;
+    double temp,psi;
+    double theta;
 
-    register SphereSect *sptr;
+    SphereSect *sptr;
     SphereSect sect[MAXSECT];
 
     ptr = (HaAtom *)data[index];
@@ -978,21 +972,20 @@ HaMolView::WriteVectWire( HaAtom* src, HaAtom* dst, int col, int dash )
 }
 
 
-void 
-HaMolView::WriteVectStick(HaAtom* src,HaAtom* dst, int col, int rad )
+void HaMolView::WriteVectStick(HaAtom* src,HaAtom* dst, int col, int rad )
 {
-    register HaAtom  *tmp;
-    register double midx, midy;
-    register double relx, rely;
-    register double endx, endy;
-    register double radius, angle;
-    register double dist, dist3;
-    register double temp, ratio;
+    HaAtom  *tmp;
+    double midx, midy;
+    double relx, rely;
+    double endx, endy;
+    double radius, angle;
+    double dist, dist3;
+    double temp, ratio;
 	
-    register int dist2;
-    register int dx, dy, dz;
-    register int col1, col2;
-    register int i, inten;
+    int dist2;
+    int dx, dy, dz;
+    int col1, col2;
+    int i, inten;
 	
     if( !rad )
     {   
@@ -1170,7 +1163,7 @@ HaMolView::WriteVectDots()
     temp = SlabValue() - ZOffset();
 
 	MolSet* pmset = GetMolSet();
-	list<Object3D*>::iterator oitr;
+	std::list<Object3D*>::iterator oitr;
 
 	int ixadd=  pCanv->XRange()/2;
 	int iyadd=  pCanv->YRange()/2;
@@ -1241,15 +1234,14 @@ HaMolView::WriteVectLabels()
 }
 
 
-void 
-HaMolView::WriteVectMonitors()
+void HaMolView::WriteVectMonitors()
 {
-    register HaAtom  *s;
-    register HaAtom  *d;
-    register int x,y,col;
+    HaAtom  *s;
+    HaAtom  *d;
+    int x,y,col;
 
-    register char *cptr;
-    register int dist;
+    char *cptr;
+    int dist;
     char buffer[10];
  
     buffer[9] = '\0';
@@ -1259,7 +1251,7 @@ HaMolView::WriteVectMonitors()
     fprintf(OutFile," findfont %d scalefont setfont\n",pCanv->m_FontSize<<1);
 
 
-	list<Monitor>::iterator mtr;
+	std::list<Monitor>::iterator mtr;
     for( mtr=MonitList.begin(); mtr != MonitList.end(); mtr++ )
     {   
 		s = (*mtr).src;
@@ -1305,11 +1297,10 @@ HaMolView::WriteVectMonitors()
 }
 
 
-int 
-HaMolView::CountPSItems()
+int HaMolView::CountPSItems()
 {
     HaChain  *chain;
-    set<HaHBond, less<HaHBond> >::iterator hptr;
+    std::set<HaHBond>::iterator hptr;
     HaBond  *bptr;
     HaAtom  *aptr;
     int result;
@@ -1363,7 +1354,7 @@ HaMolView::CountPSItems()
                 result++;
         }
 
-	list<Monitor>::iterator mitr;
+    std::list<Monitor>::iterator mitr;
     for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
         if( !UseClipping || !ClipVectBond((*mitr).src,(*mitr).dst) )
             result++;
@@ -1372,11 +1363,10 @@ HaMolView::CountPSItems()
 }
 
 
-void 
-HaMolView::FetchPSItems(PSItemPtr* data, char* type )
+void HaMolView::FetchPSItems(PSItemPtr* data, char* type )
 {
     HaChain  *chain;
-    set<HaHBond, less<HaHBond> >::iterator hptr;
+    std::set<HaHBond>::iterator hptr;
     HaBond  *bptr;
     HaAtom  *aptr;
     int i,flag;
@@ -1450,7 +1440,7 @@ HaMolView::FetchPSItems(PSItemPtr* data, char* type )
 		   }
 	   }  
 
-	list<Monitor>::iterator mitr;
+    std::list<Monitor>::iterator mitr;
     for( mitr=MonitList.begin(); mitr != MonitList.end(); mitr++ )
         if( !UseClipping || !ClipVectBond((*mitr).src,(*mitr).dst) )
         {   
@@ -1460,8 +1450,7 @@ HaMolView::FetchPSItems(PSItemPtr* data, char* type )
 }
 
 
-void 
-HaMolView::WritePSItems(PSItemPtr* data, char* type, int count )
+void HaMolView::WritePSItems(PSItemPtr* data, char* type, int count )
 {
     Monitor  *monit;
     HaHBond  *hbond;
@@ -1525,15 +1514,14 @@ HaMolView::WritePSItems(PSItemPtr* data, char* type, int count )
 
 
 
-int 
-HaMolView::WriteVectPSFile(const char* name )
+int HaMolView::WriteVectPSFile(const char* name )
 {
-    register double ambi;
-    register double temp, inten;
-    register int xsize, ysize;
-    register int xpos, ypos;
-    register int count;
-    register int i;
+    double ambi;
+    double temp, inten;
+    int xsize, ysize;
+    int xpos, ypos;
+    int count;
+    int i;
 
     PSItemPtr  *data;
     char  *type;
@@ -1750,10 +1738,9 @@ HaMolView::FlushPICTBuffer()
 }
 
 
-void 
-HaMolView::FlushPICTPacket()
+void HaMolView::FlushPICTPacket()
 {
-    register int i;
+    int i;
 
     if( RLELength>2 )
     {   
@@ -1962,10 +1949,9 @@ HaMolView::FlushIRISBuffer()
 }
 
 
-void 
-HaMolView::FlushIRISPacket()
+void HaMolView::FlushIRISPacket()
 {
-    register int i;
+    int i;
 
     if( RLELength>2 )
     {   
@@ -2083,11 +2069,9 @@ HaMolView::DetermineIRISSizes(int* rowstart,short* rowsize, int* min, int* max )
 }
 
                              
-void 
-HaMolView::WriteIRISHeader(register int* rowstart, register short* rowsize, 
-							int min, int max )
+void HaMolView::WriteIRISHeader(int* rowstart, short* rowsize, int min, int max )
 {              
-    register int i,size;
+    int i,size;
     
     WriteMSBShort(474);     /* imagic     */
     WriteMSBShort(257);     /* type       */
@@ -2111,12 +2095,11 @@ HaMolView::WriteIRISHeader(register int* rowstart, register short* rowsize,
 }
 
 
-void 
-HaMolView::WriteIRISData()
+void HaMolView::WriteIRISData()
 {
-    register ColorVal  *ptr;
-    register ColorVal  *tmp;
-    register int x,y,i;
+    ColorVal  *ptr;
+    ColorVal  *tmp;
+    int x,y,i;
 	
     RLEOutput = True;
     PacketLen = 0;
@@ -2161,13 +2144,12 @@ HaMolView::WriteIRISData()
 }
 
                              
-int 
-HaMolView::WriteIRISFile(const char* name )
+int HaMolView::WriteIRISFile(const char* name )
 {
-    register int  *rowstart;
-    register short  *rowsize;
+    int  *rowstart;
+    short  *rowsize;
     static int min,max;
-    register int size;
+    int size;
 
 
 #if defined(_WIN32) 

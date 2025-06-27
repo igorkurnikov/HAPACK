@@ -10,11 +10,12 @@
 #include <math.h>
 #include <tinyxml.h>
 
+#include <filesystem>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
-#include <boost/filesystem.hpp>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 #include "harlemapp.h"
 #include "hamolecule.h"

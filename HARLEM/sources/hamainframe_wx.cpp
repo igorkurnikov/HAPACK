@@ -67,7 +67,7 @@
 #include <windows.h>
 #endif
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
 
@@ -995,7 +995,7 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 	load_dlg.sizer_main_v->SetSizeHints( &load_dlg );
 	load_dlg.ShowModal();
 
-	if( !load_dlg.dir_name.empty() )  boost::filesystem::current_path(load_dlg.dir_name);
+	if( !load_dlg.dir_name.empty() )  std::filesystem::current_path(load_dlg.dir_name);
 //	::wxSetWorkingDirectory(load_dlg.dir_name);
      
     MolSet* pmset = GetCurMolSet();

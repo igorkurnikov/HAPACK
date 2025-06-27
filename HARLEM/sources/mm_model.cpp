@@ -470,7 +470,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 		for (HaAtom* aptr : *pres)
 		{
-			if (pt_to_templ_map.count(aptr) > 0) continue; // Set FF parameters for atoms not found in residue templates
+			if (pt_to_templ_map.count(aptr) > 0 && pt_to_templ_map[aptr] != nullptr) continue; // Set FF parameters for atoms not found in residue templates
 			std::string at_name = aptr->GetName();
 			if (boost::algorithm::starts_with(at_name, "HTM")) // special rules for Terminating hydrogens
 			{
@@ -493,16 +493,16 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 
 					std::string at_host_ff_s = aptr_host->GetFFSymbol();
 
-					if (bonded_atoms.size() != 4)
+					if (bonded_atoms_host.size() != 4)
 					{
-						PrintLog("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon) - FF Params are not set",
+						PrintLog("Atom %s bonded to Hydrogen TRM atom %s has %d bonds (should be 4 -  SP4 carbon) - FF Params are not set \n",
 							aptr_host->GetRef(), aptr->GetRef(), bonded_atoms.size());
 						continue;
 					}
 
 					if (aptr_host->GetElemNo() != 6)
 					{
-						PrintLog("Atom %s bonded to TRM atom %s is not carbon \n - FF Params are not set ",
+						PrintLog("Atom %s bonded to TRM atom %s is not carbon \n - FF Params are not set \n",
 							aptr_host->GetRef(), aptr->GetRef());
 						continue;
 					}
@@ -527,14 +527,14 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 						if (num_hydrogens_host == 2)
 						{
 							aptr_host->SetFFSymbol("C2");
-							for (HaAtom* aptr_b : bonded_atoms)
+							for (HaAtom* aptr_b : bonded_atoms_host)
 								if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC2");
 						}
 
 						if (num_hydrogens_host == 3)
 						{
 							aptr_host->SetFFSymbol("C3");
-							for (HaAtom* aptr_b : bonded_atoms)
+							for (HaAtom* aptr_b : bonded_atoms_host)
 								if (aptr_b->IsHydrogen()) aptr_b->SetFFSymbol("HC3");
 						}
 					}

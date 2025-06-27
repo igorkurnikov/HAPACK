@@ -12,9 +12,8 @@
 
 #include "tinyxml.h"
 
-//#include <filesystem>
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
 
 #include "command.h"
 #include "harlemapp.h"
@@ -59,16 +58,16 @@ int HaResDB::Init()
 	std::string db_file_name;
 	FILE* fp;
 
-	namespace bf = boost::filesystem;
-	//namespace bf = std::filesystem;   // for C++17 - needs to convert at some time
+	//namespace fs = std::filesystem;
+	namespace fs = std::filesystem;   // needs C++17 -
 
 	HarlemApp* pApp_loc = GetHarlemApp();
 
-	bf::directory_iterator ditr_main(pApp_loc->res_db_dir);
+	fs::directory_iterator ditr_main(pApp_loc->res_db_dir);
 
     // DIR *dir = opendir(pApp->res_db_dir.c_str());
     PrintLog(" Initialize Residue Database \n");
-	for (; ditr_main != bf::directory_iterator(); ditr_main++)
+	for (; ditr_main != fs::directory_iterator(); ditr_main++)
 	{
 		std::string file_name = ditr_main->path().filename().string();
 		//		PrintLog(" file_name = %s \n",file_name.c_str() );
@@ -83,12 +82,12 @@ int HaResDB::Init()
 
 	std::sort(res_db_files.begin(),res_db_files.end(),sort_fn);
 
-	bf::path cur_path = bf::current_path();
+	fs::path cur_path = fs::current_path();
 
 	try {
-		bf::directory_iterator ditr(cur_path);
+		fs::directory_iterator ditr(cur_path);
 
-		for (; ditr != bf::directory_iterator(); ditr++)
+		for (; ditr != fs::directory_iterator(); ditr++)
 		{
 			std::string file_name = ditr->path().filename().string();
 			//		PrintLog(" file_name = %s \n",file_name.c_str() );
@@ -100,17 +99,16 @@ int HaResDB::Init()
 			}
 		}
 	}
-	catch (bf::filesystem_error& ex)
+	catch (fs::filesystem_error& ex)
 	{
-		std::string error_str = ex.what();
-		PrintLog("error_str.c_str() \n");
+		PrintLog("%s \n", ex.what());
 	}
 
 	for(sitr = res_db_files.begin(); sitr != res_db_files.end(); sitr++)
 	{
 
 		db_file_name = (*sitr);
-		boost::filesystem::path db_file_path(pApp->res_db_dir);
+		fs::path db_file_path(pApp->res_db_dir);
 		if( !boost::starts_with(db_file_name, ".") ) 
                 {
                     db_file_path /= db_file_name;

@@ -14,7 +14,6 @@
 
 #include <filesystem>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
 #include <wx/filename.h>
 
 #include "tinyxml.h"
@@ -108,7 +107,6 @@ int MMForceField::Init()
 	int ires; 
 	std::string file_name;
 
-	// namespace fs = boost::filesystem;
 	namespace fs = std::filesystem;
  
 //	cout << "MMForceField::Init() pt 1 \n" << "Current PATH:" << current_path() << std::endl;
@@ -1030,7 +1028,7 @@ StrVec MMForceField::GetAmberParamFiles() const
 void MMForceField::SetDefaultParamFiles()
 {
 	std::string res_dir = pApp->res_db_dir;
-	std::string amber_parm_dir = res_dir + "amber_parm" + boost::filesystem::path::preferred_separator;
+	std::string amber_parm_dir = res_dir + "amber_parm" + std::filesystem::path::preferred_separator;
 	
 	amber_param_files.clear();
 	resff_files.clear();

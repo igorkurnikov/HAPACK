@@ -20,10 +20,9 @@
 
 #include <chrono>
 #include <thread>
+#include <filesystem>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/path.hpp>
 
 #include "hatypes.h"
 #include "hamolmech.h"
@@ -378,7 +377,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 	std::unique_ptr<harlem::RunOptions> popt_auto( popt_c == NULL ? (harlem::RunOptions*) run_opt_default.clone() : (harlem::RunOptions*) popt_c->clone() );
 	harlem::RunOptions* popt = popt_auto.get();
 
-	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", boost::filesystem::current_path().string().c_str() );
+	PrintLog("\n HaMolMechMod::Run() pt 1   Current Dir: %s \n", std::filesystem::current_path().string().c_str() );
 
 	int ires = TRUE;
 	if( to_init_simulations || p_mm_model->to_init_mm_model ) ires = InitMMSimulations();
@@ -405,7 +404,7 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 		if( popt->ToRunSync() ) return TRUE;
 	}
 	RunCtrlThread();
-	// PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", boost::filesystem::current_path().string().c_str());
+	// PrintLog("\n HaMolMechMod::Run() pt end   Current Dir: %s \n", std::filesystem::current_path().string().c_str());
 	return TRUE;
 }
 

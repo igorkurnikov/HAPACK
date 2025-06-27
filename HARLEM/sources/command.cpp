@@ -512,7 +512,7 @@ int MolSet::FetchFile(int format, std::string file_name, const AtomLoadOptions& 
 
 int CmdParser::LookUpKeyword()
 {
-	map<std::string,int, less<std::string> >::iterator kitr;
+	std::map<std::string,int>::iterator kitr;
 
 	boost::to_upper(TokenIdent);
 
@@ -797,7 +797,7 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
     int neg;
 	double dtmp;
 
-	vector<HaMolecule*>::iterator mol_itr;
+	std::vector<HaMolecule*>::iterator mol_itr;
 	MolEditor* p_mol_editor = pmset->GetMolEditor(true);
 	
     switch( level )

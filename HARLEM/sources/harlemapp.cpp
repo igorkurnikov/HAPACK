@@ -17,9 +17,8 @@
 #include <Python.h>
 #endif
 
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/path.hpp>
 
 #include "wx/wxprec.h"
 
@@ -173,14 +172,14 @@ int HarlemApp::InitFirst()
 	std::string doc_dir;
 
 // Set HARLEM HOME directory
-	boost::filesystem::path harlem_home_path = ".";
+	std::filesystem::path harlem_home_path = ".";
 
 	if( std::getenv("MOLSET_HOME") != NULL ) harlem_home_path = std::getenv("MOLSET_HOME");
 	if (std::getenv("HARLEM_HOME") != NULL)  harlem_home_path = std::getenv("HARLEM_HOME");
 
-	harlem_home_dir = harlem_home_path.string() + boost::filesystem::path::preferred_separator;
-	res_db_dir = harlem_home_dir + "residues_db" + boost::filesystem::path::preferred_separator;
-	doc_dir    = harlem_home_dir + "doc" + boost::filesystem::path::preferred_separator;
+	harlem_home_dir = harlem_home_path.string() + std::filesystem::path::preferred_separator;
+	res_db_dir = harlem_home_dir + "residues_db" + std::filesystem::path::preferred_separator;
+	doc_dir    = harlem_home_dir + "doc" + std::filesystem::path::preferred_separator;
 	//PrintLog("%s(): harlem_home_dir = %s \n", __func__, harlem_home_dir.c_str());
 #if(_MSC_VER)
 	word_editor = harlem_home_dir + "scite.exe";
@@ -188,7 +187,7 @@ int HarlemApp::InitFirst()
 	word_editor = "scite";
 #endif
 	
-	manual_main_page = doc_dir + "advanced_manual_html" + boost::filesystem::path::preferred_separator + "index.html" ;
+	manual_main_page = doc_dir + "advanced_manual_html" + std::filesystem::path::preferred_separator + "index.html" ;
 	cmd_line_help_main_page = doc_dir +  "HARLEM_BeginnerUserManual.htm";
 	
 	InitParallel();
@@ -212,18 +211,18 @@ int HarlemApp::InitFirst()
 	if( !finp_name.empty() ) // if filename has been specified on the command line: load the file
 	{
 		MolSet* pmset = new MolSet();
-		boost::filesystem::path finp_path = finp_name;
+		std::filesystem::path finp_path = finp_name;
 
 		// PrintLog(" input file name %s \n", finp_path.string().c_str());
 
-		boost::filesystem::path cur_path = boost::filesystem::current_path();
-		boost::filesystem::path finp_dir_path = finp_path.parent_path();
+		std::filesystem::path cur_path = std::filesystem::current_path();
+		std::filesystem::path finp_dir_path = finp_path.parent_path();
 		// PrintLog(" HarlemApp::InitFirst() pt 1:  Current Working Directory %s \n",cur_path.string().c_str() );
 		if(!finp_dir_path.empty() )
 		{
-			boost::filesystem::current_path(finp_dir_path);
+			std::filesystem::current_path(finp_dir_path);
 		}
-		cur_path = boost::filesystem::current_path();
+		cur_path = std::filesystem::current_path();
 
 		// PrintLog(" HarlemApp::InitFirst() pt 2:  Current Working Directory %s \n", cur_path.string().c_str());
 			
@@ -263,14 +262,14 @@ int HarlemApp::InitFirst()
 
 int HarlemApp::InitParallel()
 {
-	boost::filesystem::path cur_path = boost::filesystem::current_path();
+	std::filesystem::path cur_path = std::filesystem::current_path();
 	mpi_driver = new HaMPI();
 	if (mpi_driver->nprocs > 1 && mpi_driver->myrank > 0)
 	{
 		mpi_driver->Listen();
 	}
 	//Current Directory is changed by MPI_Init() - changing back...
-	boost::filesystem::current_path(cur_path);
+	std::filesystem::current_path(cur_path);
 	return TRUE;
 }
 

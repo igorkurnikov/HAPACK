@@ -109,7 +109,7 @@
 
 #endif
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/format.hpp>
@@ -3782,9 +3782,9 @@ void  CrdSnapshotDlg::OnLoadSnapshotFromMolFile(wxCommandEvent& event)
 		for (std::string fname : tokens)
 		{
 			boost::trim(fname);
-			boost::filesystem::path dir_path(load_dlg.dir_name);
-			boost::filesystem::path file_local_path(fname);
-			boost::filesystem::path file_full_path = dir_path / file_local_path;
+			std::filesystem::path dir_path(load_dlg.dir_name);
+			std::filesystem::path file_local_path(fname);
+			std::filesystem::path file_full_path = dir_path / file_local_path;
 
 			std::shared_ptr<MolSet> pmset_load(new MolSet());
 			
@@ -5136,7 +5136,7 @@ void AtomParamsDlgWX::OnLoadCoords(wxCommandEvent& event)
 
     if ( fname.empty() ) return;
 
-	boost::filesystem::path p(fname);
+	std::filesystem::path p(fname);
 	std::string ext = p.extension().string();
 	if( boost::starts_with(ext,".")) ext = ext.substr(1);  // remove leading "." from extension
 	boost::to_upper(ext);
