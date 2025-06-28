@@ -519,7 +519,6 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 	MoleculesType::const_iterator mol_itr;
 	
-	int ires = 0;
 	int imol = 0;
 	for (mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
 	{
@@ -533,6 +532,9 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 		}
 		if (!has_saved_atoms) continue;
 
+		int ires_in_mol = 0;
+		bool save_res_as_mol = false; 
+		bool save_res_info = true;
 		imol++;
 		std::string mol_name_full = (*mol_itr)->GetName();
 		std::string mol_name = mol_name_full;
@@ -558,28 +560,6 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 		if (chain_fst) pres_fst_ch0 = chain_fst->GetFirstRes();
 		if (!pres_fst_ch0) continue; // the molecule doesn't have any residues
 
-		if( (pres_fst_ch0->IsWater() || pres_fst_ch0->IsIon()) && opt.save_sep_wat_mol )  // Split Molecules consisting of Water and Ions
-		{ 
-			std::string mol_name_saved = pres_fst_ch0->GetName();
-			os << "mol " << imol << " " << '\"' << mol_name_saved << '\"' << "\n";
-		}
-		else
-		{
-			os << "mol " << imol << " " << '\"' << mol_name << '\"' << "\n";
-		}
-		if (pmol_c->comments.size() > 0)
-		{
-			for (std::string cmnt : pmol_c->comments)
-			{
-				os << ";" << cmnt << "\n";
-			}
-		}
-
-		if (pmol_c->charge > -100)
-		{
-			os << "charge " << std::to_string(pmol_c->charge) << "\n";
-		}
-
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			ResidueIteratorChain ritr_ch(chain);
@@ -587,21 +567,36 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 			HaResidue* pres_fst = ritr_ch.GetFirstRes();
 			for(pres = pres_fst; pres; pres = ritr_ch.GetNextRes())
 			{
-				ires++;
-				bool save_res_as_mol = false;
-				bool save_res_info = true;
-
-				if ( opt.save_sep_wat_mol)
+				if ((pres->IsSolvent() || pres->IsIon() || save_res_as_mol) && opt.save_sep_solv_mol)  // Split Molecules consisting of Water and Ions
 				{
+					if (ires_in_mol > 0)  os << "endmol " << imol << "\n";
+
+					std::string mol_name_saved = pres->GetName();
+					os << "mol " << imol << " " << '\"' << mol_name_saved << '\"' << "\n";
 					save_res_as_mol = true;
 					save_res_info = false;
 				}
-				if( save_res_as_mol  && !(pres == pres_fst_ch0) && pres->IsWater() )
+				else
 				{
-					if(!(pres == pres_fst) ) os << "endmol " << imol << "\n";
-					imol++;
-					os << "mol " << imol << " " << '\"' << pres->GetName() << '\"' << "\n";
+					if (ires_in_mol == 0)
+					{
+						os << "mol " << imol << " " << '\"' << mol_name << '\"' << "\n";
+
+						if (pmol_c->comments.size() > 0)
+						{
+							for (std::string cmnt : pmol_c->comments)
+							{
+								os << ";" << cmnt << "\n";
+							}
+						}
+						if (pmol_c->charge > -100)
+						{
+							os << "charge " << std::to_string(pmol_c->charge) << "\n";
+						}
+					}
 				}
+				ires_in_mol++; 
+
 				if (save_res_as_mol)
 				{
 					iat = 0;
@@ -630,8 +625,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					if( name_mod == "UNPROT") res_name_save = "CYX";
 				}
 
-				//if(save_res_info) os << "res " << pres->GetSerNo() << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << "\n";
-				if (save_res_info) os << "res " << ires << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << "\n";
+				if (save_res_info) os << "res " << ires_in_mol << "  " << res_name_save << "  " << pres->GetSerNo() << " - " << id_chain << "\n";
 				HaAtom* aptr;
 				std::vector<HaBond*> bonds;
 				AtomIteratorAtomGroup aitr_group(pres);
@@ -755,7 +749,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					}
 				} // end atom
 				//if( save_res_info )  os << "endres " << pres->GetSerNo() << "\n";
-				if (save_res_info)  os << "endres " << ires << "\n";
+				if (save_res_info)  os << "endres " << ires_in_mol << "\n";
 //				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << "\n";
 			} //  end res
 		} // end chain

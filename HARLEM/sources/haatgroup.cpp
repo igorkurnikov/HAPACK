@@ -3595,7 +3595,7 @@ void AtomSaveOptions::SetStdOptions()
 	save_connect    = TRUE;
 	save_atom_ref   = TRUE; 
 	save_amber_pdb  = TRUE;
-	save_sep_wat_mol = FALSE;
+	save_sep_solv_mol = FALSE;
 	alchemical_state = AlchemicalState::MIXED;
 	saved_atoms.clear();
 
@@ -3631,7 +3631,7 @@ void AtomSaveOptions::Copy( const harlem::HashMap& ref )
 		save_atom_ref  = pref->save_atom_ref;
 		save_amber_pdb = pref->save_amber_pdb;
 
-		save_sep_wat_mol = pref->save_sep_wat_mol;
+		save_sep_solv_mol = pref->save_sep_solv_mol;
 		alchemical_state = pref->alchemical_state;
 		saved_atoms      = pref->saved_atoms;
 

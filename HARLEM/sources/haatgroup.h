@@ -124,7 +124,7 @@ public:
 	int save_transform; //!< Flag to save atom using transformation matrix of the current Molecular View
 	int save_atom_ref;  //!< Flag to save atom reference at the end of atom line 
 	int save_amber_pdb; //!< Flag to save PDB files with residue names and atom names matching AMBER database
-	int save_sep_wat_mol; //!< Flag to save water as separate molecules 
+	int save_sep_solv_mol; //!< Flag to save water as separate molecules 
 	AlchemicalState alchemical_state; //!< alchemical state to save  
 	std::set<HaAtom*> saved_atoms;  //!< only atoms in the Atom Set will be saved
 

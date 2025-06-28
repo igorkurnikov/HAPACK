@@ -255,7 +255,10 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << "        </Molecules> \n";
 
 	std::string system_hin_fname = pmset->GetName() + std::string("_SYS.hin");
-	pmset->SaveHINFile(system_hin_fname);
+	
+	AtomSaveOptions opt;
+	opt.save_sep_solv_mol = TRUE;
+	pmset->SaveHINFile(system_hin_fname, opt);
 	os << "        <StructureFiles> \n";
 	os << boost::format("          <File Type=\"HIN\">%s</File>\n") % system_hin_fname;
 	os << "        </StructureFiles> \n";

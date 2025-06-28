@@ -514,7 +514,7 @@ SaveMolFileDlg::SaveMolFileDlg( MolSet* pmset_new, wxWindow *parent, wxWindowID 
 	if(pmset->save_opt_default.save_amber_pdb)
 		chk_box->SetValue(true);
 	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	if (pmset->save_opt_default.save_sep_wat_mol)
+	if (pmset->save_opt_default.save_sep_solv_mol)
 		chk_box->SetValue(true);
 
     FillFileTypes();
@@ -581,7 +581,7 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
 	pmset->save_opt_default.save_amber_pdb = chk_box->IsChecked() ? TRUE : FALSE;
 
 	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	pmset->save_opt_default.save_sep_wat_mol = chk_box->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_sep_solv_mol = chk_box->IsChecked() ? TRUE : FALSE;
 		
     wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
     wxString file_name = file_name_edt->GetValue();
