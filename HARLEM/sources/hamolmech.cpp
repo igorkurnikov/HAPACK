@@ -2432,6 +2432,50 @@ std::string TISimMod::GetCurFilePrefix()
 	return cur_prefix;
 }
 
+MMDriver::MMDriver()
+{
+	num_cpu = 4;
+	using_gpu = true;
+	gpu_id = 0;
+}
+
+MMDriver::~MMDriver()
+{
+
+}
+
+bool MMDriver::IsUsingGPU()
+{
+	return using_gpu;
+}
+
+
+void MMDriver::SetUseGpu(bool enable)
+{
+	using_gpu = enable;
+}
+
+int  MMDriver::GetGPUID()
+{
+	return gpu_id;
+}
+
+void MMDriver::SetGPUID(int gpu_id)
+{
+	this->gpu_id = gpu_id;
+}
+
+int  MMDriver::GetNumCpu()
+{
+	return this->num_cpu;
+}
+
+void MMDriver::SetNumCPU(int num_cpu)
+{
+	this->num_cpu = num_cpu;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 MDTrajectory::MDTrajectory(MolSet* new_pmset)
 {

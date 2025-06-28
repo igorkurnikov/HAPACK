@@ -141,8 +141,10 @@ bool MMDriverArbalest::SaveRunFiles()
 				return false;
 			}
 			os << "#!/bin/sh -f -x \n";
-			os << boost::format("%s --config %s - ") % arbalest_exe % config_fname_lmb << " \n";
-
+			os << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname_lmb % this->GetNumCpu();
+			if (this->IsUsingGPU()) os << " --gpu 1  --gpudeviceid " << this->GetGPUID();
+			os << " \n";
+ 
 			os_run_all << "sh " << run_fname_lmb << " \n";
 		}
 	}
@@ -158,7 +160,9 @@ bool MMDriverArbalest::SaveRunFiles()
 			return false;
 		}
 		os << "#!/bin/sh -f -x \n";
-		os << boost::format("%s --config %s - ") % arbalest_exe % config_fname << " \n";
+		os << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname % this->GetNumCpu();
+		if (this->IsUsingGPU()) os << " --gpu 1  --gpudeviceid " << this->GetGPUID();
+		os << " \n";
 	}
 	return true;
 }

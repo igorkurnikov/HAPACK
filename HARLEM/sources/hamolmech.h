@@ -566,6 +566,9 @@ public:
 class MMDriver
 {
 public:
+	MMDriver();
+	virtual ~MMDriver();
+
 	virtual std::string GetClassName() = 0;
 
 	virtual int CalcEnergy() = 0; //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod 
@@ -574,7 +577,22 @@ public:
 	MolMechModel* p_mm_model;
 	MolSet*     pmset;
 
-	int to_save_input_files; //!< Flag to indicate that input files are needed to be saved before running external program
+	bool IsUsingGPU();
+	void SetUseGpu(bool enable);
+
+	int  GetGPUID();            //!< Get GPU ID to use in Calculations
+	void SetGPUID(int gpu_id);  //!< Set GPU ID to use in Calculations
+
+	int  GetNumCpu();            //!< Get Number of CPU to use in Calculations
+	void SetNumCPU(int num_cpu); //!< Set Number of CPU to use in Calculations
+	
+	int to_save_input_files;     //!< Flag to indicate that input files are needed to be saved before running external program
+
+protected:
+
+	int  num_cpu;
+	bool using_gpu;
+	int  gpu_id;
 };
 
 #endif // end if !defined(HAMOLMECH_H) 
