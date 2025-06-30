@@ -119,7 +119,8 @@ bool MMDriverArbalest::SaveRunFiles()
 		std::string run_all_fname = prefix + "_all.sh";
 		std::ofstream os_run_all(run_all_fname, std::ios::binary);
 
-		os_run_all << "#!/bin/sh -f -x \n";
+		int job_prefix_size = std::min<size_t>(prefix.size(), 3);
+		std::string job_prefix = prefix.substr(0,job_prefix_size);
 
 		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
 		{
@@ -127,7 +128,6 @@ bool MMDriverArbalest::SaveRunFiles()
 			std::string config_fname_lmb = prefix_lmb + ".xml";
 			std::string init_crd_fname_lmb = prefix_lmb + "_init.gro";
 			std::string run_fname_lmb = prefix_lmb + ".sh";
-			std::string tpr_fname_lmb = prefix_lmb + ".tpr";
 
 			p_mm_mod->idx_lambda_ti = ilmb;
 			p_mm_mod->lambda_ti = p_mm_mod->lambda_ti_v[ilmb];
@@ -140,12 +140,33 @@ bool MMDriverArbalest::SaveRunFiles()
 				PrintLog("Can't create file %s \n", run_fname_lmb);
 				return false;
 			}
-			os << "#!/bin/sh -f -x \n";
+			os << "#!/bin/bash \n";
+			os << "#SBATCH --job-name=" << job_prefix << "_L" << ilmb << "       # job name \n";
+			if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+			else os << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+
+			os << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+			os << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+			os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+			
+			if (ilmb == 0)
+			{
+				os_run_all << "#!/bin/bash \n";
+				os_run_all << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
+				if (this->IsUsingGPU()) os_run_all << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+				else os_run_all << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+				os_run_all << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+				os_run_all << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+				os_run_all << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+			}
+
 			os << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname_lmb % this->GetNumCpu();
 			if (this->IsUsingGPU()) os << " --gpu 1  --gpudeviceid " << this->GetGPUID();
 			os << " \n";
- 
-			os_run_all << "sh " << run_fname_lmb << " \n";
+
+			os_run_all << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname_lmb % this->GetNumCpu();
+			if (this->IsUsingGPU()) os_run_all << " --gpu 1  --gpudeviceid " << this->GetGPUID();
+			os_run_all << " \n";
 		}
 	}
 	else
@@ -238,7 +259,10 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 		std::set<HaAtom*> saved_atoms;
 		AtomIteratorMolecule aitr_m(pmol);
 		for (HaAtom* aptr = aitr_m.GetFirstAtom(); aptr; aptr = aitr_m.GetNextAtom())
+		{
+			if (aptr->IsDummy()) continue; // Do not apply restraints to Dummy atoms
 			saved_atoms.insert(aptr);
+		}
 
 		std::vector<std::string> pos_restr_desc_and_list = GetPosRestraintsDescAndList(saved_atoms);
 		pos_restr_list += pos_restr_desc_and_list[1];
