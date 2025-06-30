@@ -1816,7 +1816,7 @@ void HaMolecule::Renumber(int start )
     }
 }
 
-AtomIntMap HaMolecule::GetAtomSeqNumMap(AlchemicalState alchemical_state)
+AtomIntMap HaMolecule::GetAtomSeqNumMap(AlchemicalState alchemical_state, bool include_dummy)
 {
 	AtomIntMap at_seq_num_map;
 
@@ -1830,8 +1830,17 @@ AtomIntMap HaMolecule::GetAtomSeqNumMap(AlchemicalState alchemical_state)
 		HaResidue* pres = aptr->GetHostRes();
 		if (pres->IsAlchemicalTransformationSet())
 		{
-			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count(aptr) == 0) continue;
-			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count(aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_A)
+			{
+				if (pres->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && pres->p_res_transform->dummy_a.count((HaAtom*)aptr) > 0) continue;
+
+			}
+			if (alchemical_state == AlchemicalState::STATE_B)
+			{
+				if (pres->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && pres->p_res_transform->dummy_b.count((HaAtom*)aptr) > 0) continue;
+			}
 		}
 
 		at_seq_num_map[aptr] = i;
@@ -1840,7 +1849,7 @@ AtomIntMap HaMolecule::GetAtomSeqNumMap(AlchemicalState alchemical_state)
 	return at_seq_num_map;
 }
 
-CAtomIntMap HaMolecule::GetAtomSeqNumMap( AlchemicalState alchemical_state ) const
+CAtomIntMap HaMolecule::GetAtomSeqNumMap( AlchemicalState alchemical_state, bool include_dummy) const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -1853,8 +1862,17 @@ CAtomIntMap HaMolecule::GetAtomSeqNumMap( AlchemicalState alchemical_state ) con
 		const HaResidue* pres = aptr->GetHostRes();
 		if (pres->IsAlchemicalTransformationSet())
 		{
-			if (alchemical_state == AlchemicalState::STATE_A && pres->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
-			if (alchemical_state == AlchemicalState::STATE_B && pres->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_A)
+			{
+				if (pres->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && pres->p_res_transform->dummy_a.count((HaAtom*)aptr) > 0) continue;
+
+			}
+			if (alchemical_state == AlchemicalState::STATE_B)
+			{
+				if (pres->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && pres->p_res_transform->dummy_b.count((HaAtom*)aptr) > 0) continue;
+			}
 		}
 
 		at_seq_num_map_loc[aptr] = i;

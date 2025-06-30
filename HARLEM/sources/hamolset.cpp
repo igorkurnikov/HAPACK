@@ -550,15 +550,12 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 		}
 
 		const HaMolecule* pmol_c = *mol_itr;
-		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap(opt.alchemical_state);
+		CAtomIntMap at_seqn_map = pmol_c->GetAtomSeqNumMap(opt.alchemical_state, false);
 
 		ChainIteratorMolecule ch_itr(*mol_itr);
 		int iat = 0;
 
-		HaResidue* pres_fst_ch0 = nullptr;
-		HaChain* chain_fst = ch_itr.GetFirstChain();
-		if (chain_fst) pres_fst_ch0 = chain_fst->GetFirstRes();
-		if (!pres_fst_ch0) continue; // the molecule doesn't have any residues
+		if (pmol_c->GetNAtoms() == 0) continue; // the molecule doesn't have any residues
 
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
@@ -600,7 +597,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				if (save_res_as_mol)
 				{
 					iat = 0;
-					at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap(opt.alchemical_state);
+					at_seqn_map = ((const HaResidue*)pres)->GetAtomSeqNumMap(opt.alchemical_state, false);
 				}
 				
 				std::string res_name = pres->GetName(); 
@@ -687,14 +684,12 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 //						}
 
 						os << boost::format("%16.9f %16.9f %16.9f") % x % y % z;
-						int nb = aptr->GetNBonds();
-						os << " " << nb;
-
+						
 						std::vector<std::shared_ptr<HaBond>>::iterator bitr     = aptr->Bonds_begin();
 						std::vector<std::shared_ptr<HaBond>>::iterator bitr_end = aptr->Bonds_end();
 
 						// build atom bonds corresponding to B state:
-						std::vector<std::shared_ptr<HaBond>> atom_bonds;
+						std::vector<std::shared_ptr<HaBond>> atom_bonds;  // Form Atom Bonds array for State B
 						if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
 						{
 							
@@ -712,7 +707,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 								{
 									HaAtom* aptr_b = bnd_b.GetFirstAtom();
 									if (aptr == bnd_b.GetFirstAtom()) aptr_b = bnd_b.GetSecondAtom();
-									if (at_seqn_map.count(aptr_b) == 0) continue;  //  Bond is to the dummy od STATE_A
+									if (at_seqn_map.count(aptr_b) == 0) continue;  //  Bond is to the dummy of STATE_A
 									std::shared_ptr<HaBond> ps_bnd = std::make_shared<HaBond>(bnd_b);
 									atom_bonds.push_back(ps_bnd);
 								}
@@ -720,6 +715,9 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							bitr = atom_bonds.begin();
 							bitr_end = atom_bonds.end();
 						}
+
+						std::ostringstream bond_ss;  // accumulate bond description
+						int nb = 0;                  // accumulate bond count
 
 						for(; bitr != bitr_end; bitr++)
 						{
@@ -736,10 +734,13 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							if( pbond->IsVirtual() ) bond_type_str = "v";
 							int i_bat = at_seqn_map[aptr_b];
 							i_bat++;
-							os << " " << i_bat << " " << bond_type_str;
+							bond_ss << " " << i_bat << " " << bond_type_str;
+							nb++;
 						}
 //					} // if selected 
-					os << "\n";
+
+					os << " " << nb << bond_ss.str() << "\n";
+
 					if (aptr->comments.size() > 0)
 					{
 						for ( std::string cmnt : aptr->comments )
@@ -748,9 +749,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 						}
 					}
 				} // end atom
-				//if( save_res_info )  os << "endres " << pres->GetSerNo() << "\n";
 				if (save_res_info)  os << "endres " << ires_in_mol << "\n";
-//				if( save_res_as_mol && !(pres == pres_fst_ch0) ) os << "endmol " << imol << "\n";
 			} //  end res
 		} // end chain
 		os << "endmol " << imol << "\n";

@@ -420,8 +420,8 @@ public:
 	std::string GetRef() const;  //!< Get the text reference of the residue
 	virtual bool FillRef(char* buf,int mode = 0) const; //!< Write the text reference of the residue to the buffer
 
-	AtomIntMap  GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED ); //!< Get the map of atoms to sequence atom numbers in the molecule taking into account alchemical state (=0 (all),=1 (A), = 2(B))
-	CAtomIntMap GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED ) const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
+	AtomIntMap  GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED , bool include_dummy = true); //!< Get the map of atoms to sequence atom numbers in the molecule taking into account alchemical state (=0 (all),=1 (A), = 2(B))
+	CAtomIntMap GetAtomSeqNumMap( AlchemicalState alchemical_state = AlchemicalState::MIXED,  bool include_dummy = true) const; //<! Get the map of atoms to sequence atom numbers in the molecule - const version
 
 	bool SetUniqueAtomNames();                  //!< Set unique names to atoms of the residue 
 	std::string GetUniqueAtomName(int elem_no); //!< Get unique atom name for element elem_no 

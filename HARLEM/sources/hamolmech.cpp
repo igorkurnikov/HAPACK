@@ -228,14 +228,14 @@ int HaMolMechMod::SetStdParams()
 //  Minimization parameters:
     	
 	SetMaxNumMinimSteps( 500 );
-	SetNumSteepDescentSteps ( 10 );
+	SetNumSteepDescentSteps ( 100 );
 	SetInitMinStep( 0.01 );
 	SetGradCnvrgVal( 0.0001 );
 	SetZMatMin( false );
 
 // MD parameters
 
-	SetNumMDSteps( 1000 );
+	SetNumMDSteps( 100000 );
 	SetRemoveInitRBMotion( FALSE );
 	SetRemoveRBMotionFreq( 1000 );
 	SetStartTime( 0.0 );
@@ -243,8 +243,8 @@ int HaMolMechMod::SetStdParams()
 
 // Temperature regulation:
 
-	ref_temp = 300.0;
-	init_temp = 300.0;
+	ref_temp = 298.0;
+	init_temp = 298.0;
 	langevin_dump_const = 5.0;
 	random_seed = 71277;
 	rand_vel_freq = 1000;

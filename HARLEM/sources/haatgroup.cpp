@@ -1138,7 +1138,7 @@ bool AtomGroup::HasAtomsInSet(const std::set<HaAtom*> atom_set)
 
 }
 
-AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state)
+AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state, bool include_dummy)
 {
 	AtomIntMap at_seq_num_map;
 
@@ -1151,8 +1151,17 @@ AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state)
 	{
 		if (this->IsAlchemicalTransformationSet())
 		{
-			if (alchemical_state == AlchemicalState::STATE_A && this->p_res_transform->atoms_a.count(aptr) == 0) continue;
-			if (alchemical_state == AlchemicalState::STATE_B && this->p_res_transform->atoms_b.count(aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_A)
+			{
+				if (this->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && this->p_res_transform->dummy_a.count((HaAtom*)aptr) > 0) continue;
+
+			}
+			if (alchemical_state == AlchemicalState::STATE_B)
+			{
+				if (this->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+				if (!include_dummy && this->p_res_transform->dummy_b.count((HaAtom*)aptr) > 0) continue;
+			}
 		}
 
 		at_seq_num_map[aptr] = i;
@@ -1161,7 +1170,7 @@ AtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state)
 	return at_seq_num_map;
 }
 
-CAtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state ) const
+CAtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state , bool include_dummy ) const
 {
 	CAtomIntMap at_seq_num_map_loc;
 
@@ -1173,8 +1182,17 @@ CAtomIntMap HaResidue::GetAtomSeqNumMap( AlchemicalState alchemical_state ) cons
 	{
 		if (this->IsAlchemicalTransformationSet())
 		{
-			if (alchemical_state == AlchemicalState::STATE_A && this->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
-			if (alchemical_state == AlchemicalState::STATE_B && this->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+			if (alchemical_state == AlchemicalState::STATE_A)
+			{
+				if(this->p_res_transform->atoms_a.count((HaAtom*)aptr) == 0) continue;
+				if(!include_dummy && this->p_res_transform->dummy_a.count((HaAtom*)aptr) > 0) continue;
+
+			}
+			if (alchemical_state == AlchemicalState::STATE_B)
+			{
+				if(this->p_res_transform->atoms_b.count((HaAtom*)aptr) == 0) continue;
+				if(!include_dummy && this->p_res_transform->dummy_b.count((HaAtom*)aptr) > 0) continue;
+			}
 		}
 
 		at_seq_num_map_loc[aptr] = i;
@@ -2303,9 +2321,11 @@ int HaResidue::AddMissingAtoms( ADD_ATOM_TYPE atom_type )
 	return TRUE;
 }
 
-bool HaResidue::SetMissingCoordsWithTemplate(AtomSet& atoms_missing, AtomSet& atoms_known, AtomAtomMap& atom_template_map)
+bool HaResidue::SetMissingCoordsWithTemplate(AtomSet& atoms_missing_init, AtomSet& atoms_known, AtomAtomMap& atom_template_map)
 {	
 	// Consistency checks:
+	AtomSet atoms_missing = atoms_missing_init;
+
 	for (HaAtom* aptr : atoms_missing)
 	{
 		if (atoms_known.count(aptr) > 0)
@@ -2804,6 +2824,7 @@ bool AlchemicalTransformation::SaveMutationMapArbalestFmt(std::string fname)
 	for (HaAtom* aptr: atoms_b)
 	{
 		if (atoms_a.count(aptr) == 0) continue;
+		if (dummy_a.count(aptr) > 0) continue;
 		os << "        <Atoms A=\"" << aptr->GetName() << "\"  B=\"" << this->at_names_b[aptr] << "\"/> \n";
 	}
 	os << "    </AtomsMapping> \n";

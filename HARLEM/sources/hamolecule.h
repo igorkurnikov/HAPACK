@@ -156,8 +156,8 @@ public:
 	void DescribeMolecule();
 
 	void Renumber(int start );
-	AtomIntMap GetAtomSeqNumMap(AlchemicalState alchemical_state = AlchemicalState::MIXED);        //!< Get the map of atoms to sequence atom numbers in the molecule accounting Alchemical States if set
-	CAtomIntMap GetAtomSeqNumMap(AlchemicalState alchemical_state = AlchemicalState::MIXED) const; //!< Get the map of atoms to sequence atom numbers in the molecule 
+	AtomIntMap GetAtomSeqNumMap(AlchemicalState alchemical_state = AlchemicalState::MIXED, bool include_dummy = true);        //!< Get the map of atoms to sequence atom numbers in the molecule accounting Alchemical States if set
+	CAtomIntMap GetAtomSeqNumMap(AlchemicalState alchemical_state = AlchemicalState::MIXED, bool include_dummy = true) const; //!< Get the map of atoms to sequence atom numbers in the molecule 
 	void DescribeSequence();
 
 	static int SeqFormat; //!< Format Sequence in DesribeSequence() function

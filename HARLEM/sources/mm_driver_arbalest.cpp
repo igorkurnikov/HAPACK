@@ -262,6 +262,7 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	
 	AtomSaveOptions opt;
 	opt.save_sep_solv_mol = TRUE;
+	opt.alchemical_state = AlchemicalState::STATE_A;
 	pmset->SaveHINFile(system_hin_fname, opt);
 	os << "        <StructureFiles> \n";
 	os << boost::format("          <File Type=\"HIN\">%s</File>\n") % system_hin_fname;
@@ -278,7 +279,7 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 
 	if (pmset->has_mut_atoms())
 	{
-		os << "    <SystemState Title=\"SystemStateB\"> TransitionFrom=\"SystemStateA\"> \n";
+		os << "    <SystemState Title=\"SystemStateB\" TransitionFrom=\"SystemStateA\"> \n";
 		os << "      <Transform> \n";
 		os << "        <Molecules> \n";
 
@@ -313,7 +314,7 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 			os << "        <Param Title=\"ScaleFactorPwr\">2.0</Param> \n";
 			os << "        <Param Title=\"SoftCoringRadius\">1.5</Param> \n";
 			os << "        <Param Title=\"SoftCoringPwr\">1.0</Param> \n";
-			os << "      <Settings> \n";
+			os << "      </Settings> \n";
 			os << "    </Transition> \n";
 			os << "  </ConfigureTI> \n";
 		}
@@ -569,7 +570,7 @@ bool MMDriverArbalest::SaveMolDefToStream(std::ostream& os, HaMolecule* pmol, st
 		AtomSaveOptions opt;
 		opt.SetSavedAtoms(*pmol);
 		opt.alchemical_state = AlchemicalState::STATE_B;
-		pmset->SaveHINFile(mol_a_hin_fname, opt);
+		pmset->SaveHINFile(mol_b_hin_fname, opt);
 
 		os << boost::format("        <Instance Title=\"StateB\"> \n");
 		os << boost::format("          <TopologySource>STRUCT</TopologySource> \n");
