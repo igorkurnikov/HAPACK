@@ -3032,7 +3032,7 @@ void PeriodicUnitInfo::SetOctahedron( bool to_set )
 	}
 }
 
-int PeriodicUnitInfo::SetStdBox(AtomContainer* p_at_coll)
+int PeriodicUnitInfo::SetStdBox(AtomContainer* p_at_coll, double padding)
 {
 	if( p_at_coll == NULL) return FALSE;
 	if( p_at_coll->GetNAtoms() == 0) return TRUE;
@@ -3064,7 +3064,7 @@ int PeriodicUnitInfo::SetStdBox(AtomContainer* p_at_coll)
 		dval = aptr->GetZ() + rad;
 		if( dval > zmax ) zmax = dval;
 	}
-	SetBox(xmax - xmin, ymax - ymin, zmax - zmin);
+	SetBox((xmax - xmin) + padding, (ymax - ymin) + padding, (zmax - zmin) + padding);
 
 	return TRUE;
 }

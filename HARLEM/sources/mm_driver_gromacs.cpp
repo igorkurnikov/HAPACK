@@ -113,16 +113,21 @@ void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 
 int MMDriverGromacs::SaveAllInpFiles()
 {	
+	if (!pmset->per_bc->IsValid())
+	{
+		pmset->per_bc->SetStdBox(pmset,30.0);
+	}
+
 	PrintLog("Save GROMACS mdp file %s\n", inp_fname);
 	SaveMdpFile();
 	PrintLog("Save GROMACS top file %s\n", top_fname);
 	SaveGromacsTopFile();
 	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname);
-	pmset->SaveGROFile(init_crd_fname.c_str());
+	pmset->SaveGROFile(init_crd_fname);
 	SaveInitCrdFiles();
 	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname);
-	pmset->SaveGROFile(restr_crd_fname.c_str());
-	PrintLog("Save GROMACS run file %s\n", run_fname.c_str());
+	pmset->SaveGROFile(restr_crd_fname);
+	PrintLog("Save GROMACS run file %s\n", run_fname);
 	SaveRunFiles();
 	to_save_input_files = FALSE;
 	return TRUE;
@@ -199,6 +204,28 @@ bool MMDriverGromacs::SaveInitCrdFiles()
 				PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() copying file: %s %s %s", 
 					source_file.string(), destination_file.string(), e.what());
 				return false;
+			}
+		}
+	}
+	else
+	{
+		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
+		{
+			std::string init_crd_fname_min = boost::algorithm::replace_last_copy(this->init_crd_fname, "_md", "_min");
+			init_crd_fname_min = boost::algorithm::replace_last_copy(init_crd_fname_min, "_init", "");
+			if (fs::exists(init_crd_fname_min))
+			{
+				fs::path source_file = init_crd_fname_min;
+				fs::path destination_file = this->init_crd_fname;
+				try {
+					fs::copy_file(source_file, destination_file, fs::copy_options::overwrite_existing);
+					PrintLog("Copied %s to %s \n", source_file.string(), destination_file.string());
+				}
+				catch (const fs::filesystem_error& e) {
+					PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() copying file: %s %s %s",
+						source_file.string(), destination_file.string(), e.what());
+					return false;
+				}
 			}
 		}
 	}
@@ -404,7 +431,12 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		}
 		else
 		{
-			throw std::runtime_error((std::string)("Electrostatics method ") + p_mm_model->electr_method.label() + " is not supported in GROMACS ");
+			PrintLog("Electrostatics method %s is not supported in GROMACS - set electrostatic model to Cutoff \n", p_mm_model->electr_method.label());
+			os << " coulombtype=Cut-off " << "        ; Plain cut-off with pair list radius rlist and Coulomb cut-off rcoulomb  \n";
+			if (fabs(p_mm_model->diel_const - 1.0) > 0.00001)
+			{
+				os << " epsilon-r= " << p_mm_model->diel_const << "        ; The relative dielectric constant  \n";
+			}
 		}
 
 		os << " cutoff-scheme=Verlet " << "        ;  Generate a pair list with buffering \n";

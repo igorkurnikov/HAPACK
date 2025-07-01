@@ -670,7 +670,7 @@ public:
 	int IsValid() const;        //!< Check if Periodical Boundary box params are valid
 	void Set( bool to_set = true );     //!< Set/Unset Periodical Boundary Conditions
 	void SetOctahedron( bool to_set = true ); //!< Set/Unset Octahedron Boundary conditions  
-	int SetStdBox(AtomContainer* at_coll); //!< Compute Periodical Box for AtomContainer 
+	int SetStdBox(AtomContainer* at_coll, double padding = 5.0 ); //!< Compute Standard Periodical Box for AtomContainer - dimensions over X,Y,Z + padding
 
 	std::string spacegroup;
 	int orthogonal_flag;
