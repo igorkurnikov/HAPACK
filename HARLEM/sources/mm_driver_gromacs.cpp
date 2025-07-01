@@ -211,12 +211,13 @@ bool MMDriverGromacs::SaveRunFiles()
 	fs::path p(this->inp_fname);
 	std::string prefix = p.stem().string();
 
+	int job_prefix_size = std::min<size_t>(prefix.size(), 3);
+	std::string job_prefix = prefix.substr(0, job_prefix_size);
+
 	if (p_mm_mod->run_ti)
 	{
 		std::string run_all_fname = prefix + "_all.sh";
 		std::ofstream os_run_all(run_all_fname, std::ios::binary);
-
-		os_run_all << "#!/bin/sh -f -x \n";
 
 		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
 		{
@@ -237,12 +238,34 @@ bool MMDriverGromacs::SaveRunFiles()
 				PrintLog("Can't create file %s \n", inp_fname_lmb);
 				return false;
 			}
-			os << "#!/bin/sh -f -x \n";
-			os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
+			os << "#!/bin/sh \n";
+
+			os << "#SBATCH --job-name=" << job_prefix << "_L" << ilmb << "       # job name \n";
+			if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+			else os << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+
+			os << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+			os << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+			if (this->IsUsingGPU()) os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+
+			if (ilmb == 0)
+			{
+				os_run_all << "#!/bin/sh \n";
+				os_run_all << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
+				if (this->IsUsingGPU()) os_run_all << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+				else os_run_all << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+				os_run_all << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+				os_run_all << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+				if (this->IsUsingGPU()) os_run_all << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+			}
+
+			os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 5 ") %
 				inp_fname_lmb % this->top_fname % init_crd_fname_lmb % this->restr_crd_fname % tpr_fname_lmb << " \n";
 			os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname_lmb % prefix_lmb;
 
-			os_run_all << "sh " << run_fname_lmb << " \n";
+			os_run_all << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 5 ") %
+				inp_fname_lmb % this->top_fname % init_crd_fname_lmb % this->restr_crd_fname % tpr_fname_lmb << " \n";
+			os_run_all << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname_lmb % prefix_lmb;
 		}
 	}
 	else
@@ -256,8 +279,15 @@ bool MMDriverGromacs::SaveRunFiles()
 			PrintLog("Can't create file %s \n", this->run_fname);
 			return false;
 		}
-		os << "#!/bin/sh -f \n";
-		os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 2 ") %
+		os << "#!/bin/sh \n";
+		os << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
+		if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+		else os << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+		os << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+		os << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+		if (this->IsUsingGPU()) os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+
+		os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 5 ") %
 			inp_fname % top_fname % init_crd_fname % restr_crd_fname % tpr_fname << " \n";
 		os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname % prefix ;
 	}

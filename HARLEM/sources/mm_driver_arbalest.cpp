@@ -114,13 +114,13 @@ bool MMDriverArbalest::SaveRunFiles()
 	fs::path p(this->config_fname);
 	std::string prefix = p.stem().string();
 
+	int job_prefix_size = std::min<size_t>(prefix.size(), 3);
+	std::string job_prefix = prefix.substr(0, job_prefix_size);
+
 	if (p_mm_mod->run_ti)
 	{
 		std::string run_all_fname = prefix + "_all.sh";
 		std::ofstream os_run_all(run_all_fname, std::ios::binary);
-
-		int job_prefix_size = std::min<size_t>(prefix.size(), 3);
-		std::string job_prefix = prefix.substr(0,job_prefix_size);
 
 		for (int ilmb = 0; ilmb < p_mm_mod->lambda_ti_v.size(); ilmb++)
 		{
@@ -140,24 +140,24 @@ bool MMDriverArbalest::SaveRunFiles()
 				PrintLog("Can't create file %s \n", run_fname_lmb);
 				return false;
 			}
-			os << "#!/bin/bash \n";
+			os << "#!/bin/sh \n";
 			os << "#SBATCH --job-name=" << job_prefix << "_L" << ilmb << "       # job name \n";
 			if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
 			else os << "#SBATCH --partition=cpu-part          # partition(queue) \n";
 
 			os << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
 			os << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
-			os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+			if (this->IsUsingGPU()) os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
 			
 			if (ilmb == 0)
 			{
-				os_run_all << "#!/bin/bash \n";
+				os_run_all << "#!/bin/sh \n";
 				os_run_all << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
 				if (this->IsUsingGPU()) os_run_all << "#SBATCH --partition=gpu-part    # partition(queue) \n";
 				else os_run_all << "#SBATCH --partition=cpu-part          # partition(queue) \n";
 				os_run_all << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
 				os_run_all << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
-				os_run_all << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+				if (this->IsUsingGPU()) os_run_all << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
 			}
 
 			os << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname_lmb % this->GetNumCpu();
@@ -180,7 +180,14 @@ bool MMDriverArbalest::SaveRunFiles()
 			PrintLog("Can't create file %s \n", this->run_fname);
 			return false;
 		}
-		os << "#!/bin/sh -f -x \n";
+		os << "#!/bin/sh \n";
+		os << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
+		if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
+		else os << "#SBATCH --partition=cpu-part          # partition(queue) \n";
+		os << "#SBATCH -t 5-24:00                    # time limit: (D-HH:MM) \n";
+		os << "#SBATCH  --ntasks-per-node=" << this->GetNumCpu() << "         # number of cpu cores \n";
+		if (this->IsUsingGPU()) os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
+
 		os << boost::format("%s --config %s --omp %d ") % arbalest_exe % config_fname % this->GetNumCpu();
 		if (this->IsUsingGPU()) os << " --gpu 1  --gpudeviceid " << this->GetGPUID();
 		os << " \n";
