@@ -44,6 +44,17 @@ MMDriverGromacs::~MMDriverGromacs()
 
 }
 
+bool MMDriverGromacs::SetCompatibleParams()
+{
+	if (!pmset->per_bc->IsValid())
+	{
+		pmset->per_bc->SetStdBox(pmset, 30.0);  // Make sure Periodic Boundary conditions are set
+	}
+	p_mm_mod->period_bcond.SetCompatValue();
+	return true;
+}
+
+
 std::set<std::string> MMDriverGromacs::std_gmx_mols = { "HOH","WAT","SOL","NA","CL","MG","NA+","CL-","MG2+"};
 
 void MMDriverGromacs::PartitionAtomsToMolecules()
@@ -113,11 +124,7 @@ void MMDriverGromacs::SetFileNamesWithPrefix(std::string prefix)
 
 int MMDriverGromacs::SaveAllInpFiles()
 {	
-	if (!pmset->per_bc->IsValid())
-	{
-		pmset->per_bc->SetStdBox(pmset,30.0);
-	}
-
+	SetCompatibleParams();
 	PrintLog("Save GROMACS mdp file %s\n", inp_fname);
 	SaveMdpFile();
 	PrintLog("Save GROMACS top file %s\n", top_fname);

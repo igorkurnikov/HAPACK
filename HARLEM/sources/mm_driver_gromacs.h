@@ -23,6 +23,7 @@ public:
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Gromacs
 
+	bool SetCompatibleParams(); //!< Insure MM parameters are consistent with GROMACS ( like enforce periodic box )
 	void PartitionAtomsToMolecules(); //!< Partition Atoms to GROMACS molecules 
 
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set GROMACS input and output file names with prefix

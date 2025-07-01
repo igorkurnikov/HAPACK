@@ -391,49 +391,55 @@ bool MolMechDlgWX::TransferDataToWindow()
 	int itemp;
 
 	TransferExternalProgFileNames(true);
-
-	wxTextCtrl* edit_ctrl = (wxTextCtrl*) FindWindow( IDC_MM_MOVING_ATOMS);
-	if( edit_ctrl == NULL ) return false;
-	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->moving_atoms.c_str());
-
-	edit_ctrl = (wxTextCtrl*) FindWindow( IDC_RESTRAINED_ATOMS);
-	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->restrained_atoms.c_str());
-
-	edit_ctrl = (wxTextCtrl*) FindWindow( IDC_MM_FF_TYPE);
-	edit_ctrl->SetValue( ptr_mm_mod->p_mm_model->ff_type.label()); 
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_NONB_CUTOFF_DIST );
-	edit_ctrl->SetValue( wxString::Format("%14.9f",ptr_mm_mod->p_mm_model->GetNBCutDist()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_SCALE_14_ELECTR );
-	edit_ctrl->SetValue( wxString::Format("%6.2f",ptr_mm_mod->p_mm_model->GetScale14Electr()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_SCALE_14_VDW );
-	edit_ctrl->SetValue( wxString::Format("%6.2f",ptr_mm_mod->p_mm_model->GetScale14VdW()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_DIEL_CONST );
-	edit_ctrl->SetValue( wxString::Format("%6.2f",ptr_mm_mod->p_mm_model->GetDielConst()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_ION_STRENGTH );
-	edit_ctrl->SetValue( wxString::Format("%6.2f",ptr_mm_mod->p_mm_model->GetIonStrength()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_THOLE_DUMP_CONST );
-	edit_ctrl->SetValue( wxString::Format("%6.4f",ptr_mm_mod->p_mm_model->GetTholeExponCoef() ) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_RESTR_FRC_CONST );
-	edit_ctrl->SetValue( wxString::Format("%8.3f",ptr_mm_mod->p_mm_model->GetAtomRestrForceConst()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_NUM_HARM_CONSTR );
-	edit_ctrl->SetValue( wxString::Format("%d",ptr_mm_mod->p_mm_model->GetNumHarmConstr()) );
-
-	edit_ctrl= (wxTextCtrl*) FindWindow( IDC_MM_NPT_TRAJ );
-	edit_ctrl->SetValue( wxString::Format("%d",ptr_mm_mod->p_traj_anal_mod->pt_pos.size() ) );
-
-	TransferRunTypeDataToWindow();
 	TransferExtProgDataToWindow();
+	TransferMMParamToWindow();
+	TransferRunTypeDataToWindow();
 	TransferAtomSuperimposeDataToWindow();
 	return wxFrame::TransferDataToWindow();
 }
+
+bool MolMechDlgWX::TransferMMParamToWindow()
+{
+	wxTextCtrl* edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_MOVING_ATOMS);
+	if (edit_ctrl == NULL) return false;
+	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->moving_atoms.c_str());
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_RESTRAINED_ATOMS);
+	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->restrained_atoms.c_str());
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_FF_TYPE);
+	edit_ctrl->SetValue(ptr_mm_mod->p_mm_model->ff_type.label());
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_NONB_CUTOFF_DIST);
+	edit_ctrl->SetValue(wxString::Format("%14.9f", ptr_mm_mod->p_mm_model->GetNBCutDist()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_SCALE_14_ELECTR);
+	edit_ctrl->SetValue(wxString::Format("%6.2f", ptr_mm_mod->p_mm_model->GetScale14Electr()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_SCALE_14_VDW);
+	edit_ctrl->SetValue(wxString::Format("%6.2f", ptr_mm_mod->p_mm_model->GetScale14VdW()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_DIEL_CONST);
+	edit_ctrl->SetValue(wxString::Format("%6.2f", ptr_mm_mod->p_mm_model->GetDielConst()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_ION_STRENGTH);
+	edit_ctrl->SetValue(wxString::Format("%6.2f", ptr_mm_mod->p_mm_model->GetIonStrength()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_THOLE_DUMP_CONST);
+	edit_ctrl->SetValue(wxString::Format("%6.4f", ptr_mm_mod->p_mm_model->GetTholeExponCoef()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_RESTR_FRC_CONST);
+	edit_ctrl->SetValue(wxString::Format("%8.3f", ptr_mm_mod->p_mm_model->GetAtomRestrForceConst()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_NUM_HARM_CONSTR);
+	edit_ctrl->SetValue(wxString::Format("%d", ptr_mm_mod->p_mm_model->GetNumHarmConstr()));
+
+	edit_ctrl = (wxTextCtrl*)FindWindow(IDC_MM_NPT_TRAJ);
+	edit_ctrl->SetValue(wxString::Format("%d", ptr_mm_mod->p_traj_anal_mod->pt_pos.size()));
+
+	return true;
+}
+
 
 bool MolMechDlgWX::TransferDataFromWindow()
 {
@@ -737,14 +743,22 @@ void MolMechDlgWX::OnChangePeriodicity()
 	if( choice_ctrl_per_bcond )
 	{
 		HaEnumValidator* pval = dynamic_cast<HaEnumValidator*>(choice_ctrl_per_bcond->GetValidator());
-		if( pval ) pval->UpdateItems();
+		if (pval)
+		{
+			pval->UpdateItems();
+			pval->TransferToWindow();
+		}
 	}
 	if( choice_ctrl_electr_method )
 	{
 		HaEnumValidator* pval = dynamic_cast<HaEnumValidator*>(choice_ctrl_electr_method->GetValidator());
-		if( pval ) pval->UpdateItems();
+		if (pval)
+		{
+			pval->UpdateItems();
+			pval->TransferToWindow();
+		}
 	}
-	TransferDataToWindow();
+	//TransferDataToWindow();
 }
 
 void HaMolMechMod::OnChangePeriodicity()
@@ -848,6 +862,8 @@ void MolMechDlgWX::TransferExtProgDataToWindow()
 		}
 		else if(  ptr_mm_mod->ext_mm_prog == ptr_mm_mod->ext_mm_prog.GROMACS_51 )
 		{
+			ptr_mm_mod->p_gromacs_driver->SetCompatibleParams();
+			this->OnChangePeriodicity();
 			if( ptr_mm_mod->p_gromacs_driver->to_save_input_files ) 
 			{
 				btn_mm_run_calc->Disable();

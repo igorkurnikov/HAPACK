@@ -42,6 +42,7 @@ protected:
 	MMDihedral* cur_dih;
 	MMDihedral* cur_impr_dih;
 
+	bool TransferMMParamToWindow(); //!< Transfer Parameters of MM Run from MM modules to Dialog controls
    void TransferAtomSuperimposeDataToWindow();   //!< Set Dialog controls from RMSDAgent parameters
    void TransferAtomSuperimposeDataFromWindow(); //!< Set RMSDAgent parameters from Dialog controls
    void TransferExtProgDataToWindow();
