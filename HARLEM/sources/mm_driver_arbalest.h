@@ -26,7 +26,6 @@ public:
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set ARBALEST input and output file names with prefix
 	
 	bool SaveConfigFile();      //!< Save MM run parameters in ARBALEST CONFIG format to File
-	bool SaveInitCrdFiles();    //!< Save Initial Coordinates Files for the Run - possibly from previous MD or MIN runs 
 	bool SaveRunFiles();        //!< Save ARBALEST Run script
 	
 	int SaveConfigToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
@@ -37,11 +36,7 @@ public:
 	bool SaveMolDefToStream(std::ostream& os , HaMolecule* pmol, std::set<std::string>& mol_defined, std::string pos_restr_desc); //!< Save Description of a molecule ( specified by 0-based index) to a stream in Arbalest Config format
 	bool SaveStdMolDefToStream(std::ostream& os, std::string mol_name); //!< Save a description of a standard molecule ( with HIN files saved in Input/HIN )
 
-	int  SaveAtomTypesToStream(std::ostream& os);  //!< Save [ atomtypes ] section of GROMACS topology
-	bool SaveRestraintsToStream  (std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map); //!< Save [ atoms ] section of GROMACS topology 
-
 	std::string arbalest_exe; // !< ARBALEST executable path
-
 	std::string config_fname;
 	std::string output_dir_name;
 	std::string trj_fname;
