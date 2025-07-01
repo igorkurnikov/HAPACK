@@ -444,7 +444,7 @@ bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 	catch( std::exception& ex )
 	{
 		PrintLog("Error in ResFFTemplate::LoadXml() residue template: %s  version: %s\n", 
-			     res_name.c_str(),this->res_ff_version.c_str());
+			     res_name,this->res_ff_version);
 		PrintLog("Error: %s \n",ex.what());
 		return false;
 	}
