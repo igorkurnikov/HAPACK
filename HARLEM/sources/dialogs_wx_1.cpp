@@ -5539,7 +5539,7 @@ void ResidueParamsDlgWX::OnSetTransformation(wxCommandEvent& event)
 	std::string mut_res_type = p_mut_res_type_text->GetValue();
 	if (!mut_res_type.empty())
 	{
-		PrintLog("Set Alchemical Transformation for Residue %s to type: %s \n", pres_sel->GetRef().c_str(), mut_res_type.c_str());
+		PrintLog("Set Alchemical Transformation for Residue %s to type: %s \n", pres_sel->GetRef(), mut_res_type);
 		pres_sel->SetAlchemicalTransformation(mut_res_type);
 	}
 	TransferDataToWindow();

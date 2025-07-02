@@ -582,6 +582,8 @@ public:
 	int  GetNumCpu();            //!< Get Number of CPU to use in Calculations
 	void SetNumCPU(int num_cpu); //!< Set Number of CPU to use in Calculations
 
+	void SetRestrainedAtomsRasmolExpr(std::string rasmol_expr); //!< Set Restrained Atoms with RASMOL expression
+
 	void SetEneMinMethod(const EneMinMethod& method); //!< Set type of energy minimization
 	void SetNumMinSteps(int max_num_minim_steps_new);    //!< Set the maximal number of energy minimization steps
 	void SetNumMDSteps(int num_md_steps_new); //!< Set the number of MD steps

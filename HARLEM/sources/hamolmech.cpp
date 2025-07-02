@@ -2475,6 +2475,13 @@ void MMDriver::SetNumCPU(int num_cpu)
 	this->num_cpu = num_cpu;
 }
 
+void MMDriver::SetRestrainedAtomsRasmolExpr(std::string rasmol_expr)
+{
+	pmset->SelectAtomsExpr(rasmol_expr.c_str());
+	pmset->SetAtomGroupFromSelection("RESTRAINED_ATOMS");
+	p_mm_model->SetRestrainedAtoms("RESTRAINED_ATOMS");
+}
+
 void MMDriver::SetEneMinMethod(const EneMinMethod& method)
 {
 	p_mm_mod->SetEneMinMethod(method);

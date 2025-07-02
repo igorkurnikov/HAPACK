@@ -3330,7 +3330,14 @@ ResidueIteratorMolSet MolSet::GetResidueIterator()
 
 int MolSet::GetNChemGroups() const
 {
-	return(ChemGroups.size());
+	int n_chem_grp = 0;
+	for (const AtomGroup& at_grp : this->NamedAtomGroups)
+	{
+		if (at_grp.GetGroupType() == "CHEM_GROUP") n_chem_grp++;
+	}
+	return  n_chem_grp;
+
+	//return(ChemGroups.size());
 }
 	
 
@@ -4851,6 +4858,13 @@ int MolSet::FragmentIdx(const MolSet* pmset)
 	return -1;
 }
 
+MolSet* MolSet::CreateFragmentFromRasmolExpr(std::string rasmol_expr)
+{
+	this->SelectAtomsExpr(rasmol_expr.c_str());
+	MolSet* pfrag = this->CreateFragmentFromSelection("FRAGMENT");
+	return pfrag;
+}
+
 MolSet* MolSet::CreateFragmentFromAtomGroup(std::string grp_name, std::string frag_name, StrStrMap* params )
 {
 	AtomGroup* pat_grp = this->GetAtomGroupByID(grp_name.c_str());
@@ -4903,8 +4917,9 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 
 	HaChain*   pch_cur;
 	HaResidue* pres_cur;
-
-	if( this->GetNChemGroups() == 0) this->SetStdChemGroups();
+	
+	//if( this->GetNChemGroups() == 0) this->SetStdChemGroups();
+	if (this->GetNChemGroups() == 0) this->SetStdProteinGroups();
 
 	MolSet* pfrag= new MolSet;
 	pfrag->SetName( frag_name.c_str() );
@@ -5414,6 +5429,48 @@ int MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 	}
 	return True;
 }
+
+bool MolSet::FixStructure()
+{
+	int ires = TRUE;
+	ires = DeleteExtraAtoms();
+	ires = AddMissingAtoms();
+	ires = FixBondsUsingTempl();
+	ires = OrderAtomsInRes();
+
+	return true;
+}
+
+int MolSet::DeleteExtraAtoms()
+{
+	return p_mol_editor->DeleteExtraAtoms(this);
+}
+
+int MolSet::AddMissingAtoms()
+{
+	return p_mol_editor->AddMissingAtoms(this);
+}
+
+int MolSet::AddHydrogens()
+{
+	return p_mol_editor->AddHydrogens(this);
+}
+
+int MolSet::AddPolarHydrogens()
+{
+	return p_mol_editor->AddPolarHydrogens(this);
+}
+
+int MolSet::FixBondsUsingTempl()
+{
+	return p_mol_editor->FixBondsUsingTempl(this);
+}
+
+int MolSet::OrderAtomsInRes()
+{
+	return p_mol_editor->OrderAtomsInRes(this);
+}
+
 
 int MolSet::Solvate()
 {
@@ -7717,7 +7774,10 @@ AtomGroup MolSet::GetSelectedAtoms()
 
 void MolSet::SelectAtomsExpr( const char* expr_str)
 {
-	CmdParser cmd_pr;
+	std::string expr = std::string("Select ") + expr_str;
+	pApp->RasMolCmd(expr.c_str());
+
+	/*CmdParser cmd_pr;
 	cmd_pr.SetCmdLine(expr_str);
 	AtomExpr* p_expr;
 	if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
@@ -7731,7 +7791,7 @@ void MolSet::SelectAtomsExpr( const char* expr_str)
 			PrintLog("Invalid selection string syntax\n");
 		}
 		delete p_expr;
-	}
+	}*/
 }
 
 int MolSet::DescribeSecStruct()

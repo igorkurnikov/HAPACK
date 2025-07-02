@@ -406,6 +406,16 @@ public:
 
 //! \name Structure Editing
 //@{	
+	bool FixStructure();      //!< Fix Structure ( Bonding, Missing Atoms ) using Residue Templates
+
+	int DeleteExtraAtoms();   //!< Delete atoms not found in residues templates
+	int AddMissingAtoms();    //!< Add Missing atoms in the structure using residue templates
+	int AddHydrogens();       //!< Add hydrogens
+	int AddPolarHydrogens();  //!< Add Polar hydrogens involved in hydrogen-bonding
+	int FixBondsUsingTempl(); //!< Fix Bonds of the selected residues according to residue templates
+	int OrderAtomsInRes();    //!< order atoms in residues according to residue templates
+
+
 	int Solvate(); //!< Solvate Molecular Set 
 	int CenterSoluteInSolvent(); //!< Center solute in the center of periodic box
 	int CenterMolInPBox();  //!< Center Molecule in the center of periodic box
@@ -415,6 +425,7 @@ public:
 //! \name Fragmentation:
 //@{	
 	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is not a fragment)
+	MolSet* CreateFragmentFromRasmolExpr(std::string rasmol_expr); //!< Create fragment using RASMOL-like expression 
 	MolSet* CreateFragmentFromAtomGroup(std::string grp_name, std::string frag_name, StrStrMap* params = NULL);  //!< Create fragment from AtomGroup
 	MolSet* CreateFragmentFromSelection(std::string frag_name, StrStrMap* params = NULL); //!< Create fragment from Selected Atoms
 	MolSet* CreateDimerFragmentFromAtomGroups(std::string grp1_name, std::string grp2_name, std::string frag_name ="", StrStrMap* params = NULL); //!< Create Dimer Fragement from two atoms groups
