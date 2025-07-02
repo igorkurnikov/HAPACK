@@ -403,6 +403,15 @@ public:
 	int SetChargeMapByCurrentCharges(const char* map_name);        //!< Set a atom-charge name by the current atomic chagres of the molecular set 
 	int SetChargesFromChargeMap(AtomDoubleMap* charge_map);  //!< Set atomic charges from the atom-charge map 
 //@}
+
+//! \name Structure Editing
+//@{	
+	int Solvate(); //!< Solvate Molecular Set 
+	int CenterSoluteInSolvent(); //!< Center solute in the center of periodic box
+	int CenterMolInPBox();  //!< Center Molecule in the center of periodic box
+	void AddIons(int n_na, int n_cl); //!< Add Na+ and CL- atoms 
+//@}
+
 //! \name Fragmentation:
 //@{	
 	MolSet* parent_mset;     //!< The pointer to the parent Molecular Set ( != NULL if molset is not a fragment)

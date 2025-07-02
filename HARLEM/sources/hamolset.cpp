@@ -5401,8 +5401,7 @@ MolSet::SetChargeMapByCurrentCharges(const char* map_name)
 	return True;
 }
 
-int 
-MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
+int MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 {
 	if(charge_map == NULL) 
 		return False;
@@ -5413,9 +5412,219 @@ MolSet::SetChargesFromChargeMap(AtomDoubleMap* charge_map)
 	{
 		aptr->SetCharge(charge_map->GetValue(aptr));
 	}
-
 	return True;
-	
+}
+
+int MolSet::Solvate()
+{
+	MolSet* cur_mol_set = GetCurMolSet();
+
+	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
+	std::string solv_fname = pApp->res_db_dir + p_mol_editor->solv_name + ".hlm";
+	FILE* solv_file = fopen(solv_fname.c_str(), "r");
+	if (solv_file == NULL)
+	{
+		PrintLog("Error In MolEditor::Solvate() \n");
+		PrintLog(" No solvent file %s in the residues_db directory", solv_fname.c_str());
+		return FALSE;
+	}
+	fclose(solv_file);
+
+
+	double a, b, c;
+	double xmin, ymin, zmin, xmax, ymax, zmax;
+	if (!this->per_bc->IsSet())
+	{
+		this->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
+
+		a = xmax - xmin + 2 * p_mol_editor->solv_buffer_dist;
+		b = ymax - ymin + 2 * p_mol_editor->solv_buffer_dist;
+		c = zmax - zmin + 2 * p_mol_editor->solv_buffer_dist;
+
+		PrintLog("MolSet::Solvate() set PBOX to = %7.3f %7.3f %7.3f Ang \n", a, b, c);
+
+		this->per_bc->SetBox(a, b, c);
+	}
+	a = this->per_bc->GetA();
+	b = this->per_bc->GetB();
+	c = this->per_bc->GetC();
+
+	this->CenterMolInPBox();
+	this->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
+
+	MolSet* solvent = new MolSet();
+	solvent->LoadHarlemFile(solv_fname);
+
+	if (!solvent->per_bc->IsSet())
+	{
+		PrintLog("MolSet::Solvate() \n");
+		PrintLog("Solvent file %s Does not have periodic box information \n", solv_fname.c_str());
+
+		//		delete solvent; // some errors when deleting solvent  TO FIX ?
+
+		return False;
+	}
+
+	// this->WrapToUnitCell(solvent, solvent->per_bc);
+
+	int nx = (int)((a) / solvent->per_bc->GetA()); nx++;
+	int ny = (int)((a) / solvent->per_bc->GetB()); ny++;
+	int nz = (int)((a) / solvent->per_bc->GetC()); nz++;
+
+	if (nx > 1 || ny > 1 || nz > 1)
+	{
+		p_mol_editor->ReplicatePeriodBox(solvent, nx, ny, nz);
+	}
+
+	p_mol_editor->WrapToUnitCell(solvent,solvent->per_bc);
+
+	AtomIteratorMolSet aitr(this);
+	AtomGroup old_atoms;
+	HaAtom* aptr;
+
+	for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+	{
+		old_atoms.InsertAtom(aptr);
+	}
+	AtomIteratorAtomGroup aitr_old_atoms(&old_atoms);
+
+	double min_solute_solv_dist_sq = p_mol_editor->min_solute_solv_dist * p_mol_editor->min_solute_solv_dist;
+
+	BoxPartition part_table; // Table of Distributions of atoms into quadrants between minimal and maximal coordinates of atoms of the molecular set
+	part_table.SetBoundaries(xmin - 0.05, ymin - 0.05, zmin - 0.05, xmax + 0.05, ymax + 0.05, zmax + 0.05);
+	part_table.DistributePointsToCells(old_atoms);
+	part_table.SetRegionRad(p_mol_editor->min_solute_solv_dist);
+
+	HaMolecule* pMol = this->AddNewMolecule();
+	pMol->SetObjName("Solvent");
+	MoleculesType::iterator mol_itr;
+	HaChain* chain;
+	HaResidue* group;
+
+	HaChain* chain_cur = pMol->AddChain(' ');
+
+	AtomGroup close_atoms;
+
+	int nres = 0;
+	for (mol_itr = solvent->HostMolecules.begin(); mol_itr != solvent->HostMolecules.end(); mol_itr++)
+	{
+		AtomAtomMap at_map;
+		AtomAtomMap::iterator mitr;
+
+		ChainIteratorMolecule chitr(*mol_itr);
+		for (chain = chitr.GetFirstChain(); chain; chain = chitr.GetNextChain())
+		{
+			ResidueIteratorChain ritr_ch(chain);
+			for (group = ritr_ch.GetFirstRes(); group; group = ritr_ch.GetNextRes())
+			{
+				if (group->GetNAtoms() == 0) continue;
+				bool overlap = false;
+				AtomIteratorAtomGroup aitr_res(group);
+
+				HaAtom* aptr_res;
+				double x_avg = 0.0, y_avg = 0.0, z_avg = 0.0;
+
+				for (aptr_res = aitr_res.GetFirstAtom(); aptr_res; aptr_res = aitr_res.GetNextAtom())
+				{
+					x_avg += aptr_res->GetX();
+					y_avg += aptr_res->GetY();
+					z_avg += aptr_res->GetZ();
+
+					part_table.GetNeighbors(*aptr_res, close_atoms);
+					AtomIteratorAtomGroup aitr_close(&close_atoms);
+
+					for (aptr = aitr_old_atoms.GetFirstAtom(); aptr; aptr = aitr_old_atoms.GetNextAtom()) // IGOR_TMP removed partiton table speed up
+					// for (aptr = aitr_close.GetFirstAtom(); aptr; aptr = aitr_close.GetNextAtom())
+					{
+						if (Vec3D::CalcDistanceSq(aptr, aptr_res) < min_solute_solv_dist_sq)
+						{
+							overlap = true;
+							break;
+						}
+					}
+					if (overlap) break;
+				}
+				if (overlap) continue;
+
+				x_avg = x_avg / group->GetNAtoms();
+				y_avg = y_avg / group->GetNAtoms();
+				z_avg = z_avg / group->GetNAtoms();
+
+				if (x_avg < 0.0 || y_avg < 0.0 || z_avg < 0.0) continue;
+				if (x_avg > a || y_avg > b || z_avg > c) continue;
+
+				nres++;
+				HaResidue* new_res = chain_cur->AddResidue(nres);
+				new_res->SetParamFrom(*group);
+				new_res->serno = nres;
+
+				HaAtom* aptr_new;
+				AtomIteratorAtomGroup aitr_group(group);
+
+				for (aptr = aitr_group.GetFirstAtom(); aptr; aptr = aitr_group.GetNextAtom())
+				{
+					aptr_new = new_res->AddNewAtom();
+					aptr_new->SetParamFrom(*aptr);
+					at_map[aptr] = aptr_new;
+				}
+			}
+		}
+
+		HaBond* bptr;
+		HaBond* bptr_new;
+
+		AtomIteratorMolecule aitr(*mol_itr);  // Atom Iterator of a molecule in SOLVENT Molecular Set 
+		for (aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
+		{
+			HaAtom::BondIterator bitr = aptr->Bonds_begin();
+			for (; bitr != aptr->Bonds_end(); ++bitr)
+			{
+				bptr = (*bitr).get();
+
+				mitr = at_map.find(bptr->srcatom);
+				if (mitr == at_map.end()) continue;
+				HaAtom* aptr1 = (*mitr).second;
+				mitr = at_map.find(bptr->dstatom);
+				if (mitr == at_map.end()) continue;
+				HaAtom* aptr2 = (*mitr).second;
+				//				if( aptr2 < aptr1 ) continue;
+				bptr_new = this->AddBond(aptr1, aptr2);
+				bptr_new->SetParamFrom(*bptr);
+			}
+		}
+	}
+
+	// pmset->per_bc->SetBox(solvent->per_bc->GetA(),solvent->per_bc->GetB(),solvent->per_bc->GetC());
+	delete solvent;
+
+	HaMolView* pview = this->GetActiveMolView();
+	if (pview)
+	{
+		pview->InitialTransform();
+		pview->DefaultRepresentation();
+	}
+	this->RefreshAllViews(RFRefresh | RFColour | RFApply);
+
+	SetCurMolSet(cur_mol_set);
+
+	return TRUE;
+}
+
+int MolSet::CenterSoluteInSolvent()
+{
+	int ires = p_mol_editor->CenterSoluteInSolvent(this);
+	return ires;
+}
+
+int MolSet::CenterMolInPBox()
+{
+	int ires = p_mol_editor->CenterMolInPBox(this);
+	return ires;
+}
+
+void MolSet::AddIons(int n_na, int n_cl)
+{
+	p_mol_editor->AddIons(this, n_na, n_cl);
 }
 
 bool MolSet::Print_info(std::ostream &sout, const int level)

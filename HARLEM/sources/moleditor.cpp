@@ -3450,8 +3450,6 @@ int MolEditor::Solvate(MolSet* pmset)
 	}
 	fclose(solv_file);
 
-	
-
 	double a, b, c;
 	double xmin, ymin, zmin, xmax, ymax, zmax;
 	if (!pmset->per_bc->IsSet())
