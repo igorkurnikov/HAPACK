@@ -221,7 +221,7 @@ public:
 	
 	double FindClosestContact(HaAtom* atc1,HaAtom* atc2); //!< Find closest Atom contact in the molecular Set
 
-	HaResidue* GetResByRef(const char* res_ref);  //!< get a residue by reference
+	HaResidue* GetResByRef(const std::string& res_ref);  //!< get a residue by reference
 	HaAtom* GetAtomByRef(const std::string& at_ref);     //!< get a single atom by reference
 	bool GetAtomsByRef(const char* at_ref, AtomGroup& at_set); //!< get a group of atoms by reference
 	
@@ -389,7 +389,7 @@ public:
 public:
 //! \name Atomic Parameters (charges. force-field symbols etc):
 //@{
-	double  CalculatePotential( double x, double y, double z ); //!< calculate electrostatic potential 
+	double CalculatePotential( double x, double y, double z ); //!< calculate electrostatic potential 
 	                                                            //!< in a point from atomic point charges and eps=10.0
 	bool CalcDipole();    //!< Calculate and print charge and dipole of selected atoms of mol set 
 	bool SetVdwRadii();   //!< Set atomic radii to Standard VdW  Radii
@@ -420,6 +420,8 @@ public:
 	int CenterSoluteInSolvent(); //!< Center solute in the center of periodic box
 	int CenterMolInPBox();  //!< Center Molecule in the center of periodic box
 	void AddIons(int n_na, int n_cl); //!< Add Na+ and CL- atoms 
+
+	bool SetAlchemicalTransformationForRes(std::string res_id, std::string mut_res_name); //!< Set Alchemchemical Transformation for residues with ID res_id 
 //@}
 
 //! \name Fragmentation:

@@ -2902,12 +2902,10 @@ int MolSet::AreHBonded(HaAtom* src, HaAtom* dst) const
 	return FALSE;
 }
 
-HaResidue* MolSet::GetResByRef(const char* res_ref)
+HaResidue* MolSet::GetResByRef(const std::string& res_ref_str )
 {
 	if(HostMolecules.empty())
 		return NULL;
-
-	std::string res_ref_str(res_ref);
 
 	HaMolecule* pMol= HostMolecules[0];
 	int ibeg_res_ref_in_mol=0;
@@ -5682,6 +5680,13 @@ int MolSet::CenterMolInPBox()
 void MolSet::AddIons(int n_na, int n_cl)
 {
 	p_mol_editor->AddIons(this, n_na, n_cl);
+}
+
+bool MolSet::SetAlchemicalTransformationForRes(std::string res_id, std::string mut_res_name)
+{
+	HaResidue* pres = this->GetResByRef(res_id);
+	if (!pres) return false;
+	return pres->SetAlchemicalTransformation(mut_res_name);
 }
 
 bool MolSet::Print_info(std::ostream &sout, const int level)
