@@ -227,7 +227,7 @@ int HaMolMechMod::SetStdParams()
 
 //  Minimization parameters:
     	
-	SetMaxNumMinimSteps( 500 );
+	SetNumMinSteps( 500 );
 	SetNumSteepDescentSteps ( 100 );
 	SetInitMinStep( 0.01 );
 	SetGradCnvrgVal( 0.0001 );
@@ -1547,7 +1547,7 @@ void HaMolMechMod::SetEneMinMethod( const EneMinMethod& method )
 	min_type = method;
 }
 
-void HaMolMechMod::SetMaxNumMinimSteps( int max_num_minim_steps_new )
+void HaMolMechMod::SetNumMinSteps( int max_num_minim_steps_new )
 {
 	max_num_minim_steps = max_num_minim_steps_new;
 }
@@ -2475,6 +2475,55 @@ void MMDriver::SetNumCPU(int num_cpu)
 	this->num_cpu = num_cpu;
 }
 
+void MMDriver::SetEneMinMethod(const EneMinMethod& method)
+{
+	p_mm_mod->SetEneMinMethod(method);
+}
+
+void MMDriver::SetNumMinSteps(int max_num_minim_steps_new)
+{
+	p_mm_mod->SetNumMinSteps(max_num_minim_steps_new);
+}
+
+void MMDriver::SetNumMDSteps(int num_md_steps_new)
+{
+	p_mm_mod->SetNumMDSteps(num_md_steps_new);
+}
+
+void MMDriver::SetRemoveInitRBMotion(int remove_init_motion)
+{
+	p_mm_mod->SetRemoveInitRBMotion(remove_init_motion);
+}
+
+void MMDriver::SetRemoveRBMotionFreq(int freq)
+{
+	p_mm_mod->SetRemoveRBMotionFreq(freq);
+}
+
+void MMDriver::SetStartVelMethod(const StartVelMethod& start_vel_method_new)
+{
+	p_mm_mod->SetStartVelMethod(start_vel_method_new);
+}
+
+void MMDriver::SetStartTime(double start_time_new)
+{
+	p_mm_mod->SetStartTime(start_time_new);
+}
+
+void MMDriver::SetMDTimeStep(double md_time_step_new)
+{
+	p_mm_mod->SetMDTimeStep(md_time_step_new);
+}
+
+void MMDriver::SetNBListUpdateFreq(int freq)
+{
+	p_mm_mod->SetNBListUpdateFreq(freq);
+}
+
+void MMDriver::SetPerBoundaryCondType(const PerBoundaryCondType& type)
+{
+	p_mm_mod->SetPerBoundaryCondType(type);
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 MDTrajectory::MDTrajectory(MolSet* new_pmset)

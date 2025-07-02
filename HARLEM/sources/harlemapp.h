@@ -112,6 +112,7 @@ public:
 	int max_num_log_msg;              // maximal number of messages of a given type to print 
 
 	VecPtr molset_vec;  //!< Vector of pointers to Molecular Sets in the application
+	std::vector<std::shared_ptr<MolSet>> molset_vec_shared; //!< Vector of shared pointers to Molecular Sets in the application
 	static HarlemApp* m_HarlemApp;
 };
 

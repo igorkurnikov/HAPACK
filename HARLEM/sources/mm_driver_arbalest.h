@@ -15,6 +15,7 @@
 class MMDriverArbalest : public MMDriver
 {
 public:
+	MMDriverArbalest(MolSet* pmset);
 	MMDriverArbalest(HaMolMechMod* p_mm_mod_new);
 	virtual ~MMDriverArbalest();
 
@@ -22,6 +23,8 @@ public:
 
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Arbalest
+
+	bool InitForceField(std::string ff_name); //!< Initialize Force Field on the system with a name string
 
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set ARBALEST input and output file names with prefix
 	
@@ -47,9 +50,7 @@ public:
 
 protected:
 
-	MolSet*     pmset;
-	MolMechModel* p_mm_model;      //!< MolMechModel corresponding to the class
-	HaMolMechMod* p_mm_mod;        //!< HaMolMech Module associated with the model
+
 };
 
 

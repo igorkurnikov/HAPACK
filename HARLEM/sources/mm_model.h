@@ -32,6 +32,7 @@ public:
 	MolMechModel(HaMolMechMod* p_mm_mod_new);
 	virtual ~MolMechModel();
 
+	int InitForceField(std::string ff_type_str); //!< Initiate Molecular Mechanics Model with force field name 
 	int InitModel(const ForceFieldType& = MMForceField::ff_type_default); //!< Initiate Molecular Mechanics Model with force field name ff_name_par
 	int UpdateModel(); //!< Initialize MM Model with default FF if it is not initialized or set internal model arrays if needed after model modification  
 	int Clear(); //!< Clear model

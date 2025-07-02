@@ -821,11 +821,19 @@ extern "C" {
 #if defined(HAMOLSET_CPP)
 	MolSet* GetCurMolSet() { return MolSet::CurMolSet; }
 	void SetCurMolSet(MolSet* pmset);
+	
 #else
 	extern MolSet* GetCurMolSet();
 	extern void SetCurMolSet(MolSet* pmset);
 #endif
 }
+
+#if defined(HAMOLSET_CPP)
+MolSet* LoadMolFile(std::string fname);
+#else
+extern MolSet* LoadMolFile(std::string fname);
+#endif
+
 
 #endif // end !defined(HAMOLSET_H)
 

@@ -265,12 +265,12 @@ public:
 public:
 
 	void SetEneMinMethod( const EneMinMethod& method ); //!< Set type of energy minimization
-	void SetMaxNumMinimSteps( int max_num_minim_steps_new);    //!< Set the maximal number of energy minimization steps
+	void SetNumMinSteps( int max_num_minim_steps_new);  //!< Set the maximal number of energy minimization steps
 	void SetNumSteepDescentSteps( int nsteps );         //!< Set the number of steepest descent minimization steps 
 	void SetInitMinStep( double init_min_step_new );    //!< Set initial size for minimization step 
 	void SetGradCnvrgVal( double grad_cnvrg_val_new );   //!<  Set convergence criterium for energy gradient in energy minimization
 	void SetZMatMin( bool set_par = true ); //!< Set energy minimization using Z-matrix
-	bool IsZMatMin() const; //!< Check if energy minimization will Z-matrix
+	bool IsZMatMin() const; //!< Check if energy minimization will use Z-matrix
 	
 private:
 	EneMinMethod min_type; //!< type of energy minimization 
@@ -573,10 +573,6 @@ public:
 
 	virtual int CalcEnergy() = 0; //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod 
 	
-	HaMolMechMod* p_mm_mod;
-	MolMechModel* p_mm_model;
-	MolSet*     pmset;
-
 	bool IsUsingGPU();
 	void SetUseGpu(bool enable);
 
@@ -585,7 +581,21 @@ public:
 
 	int  GetNumCpu();            //!< Get Number of CPU to use in Calculations
 	void SetNumCPU(int num_cpu); //!< Set Number of CPU to use in Calculations
+
+	void SetEneMinMethod(const EneMinMethod& method); //!< Set type of energy minimization
+	void SetNumMinSteps(int max_num_minim_steps_new);    //!< Set the maximal number of energy minimization steps
+	void SetNumMDSteps(int num_md_steps_new); //!< Set the number of MD steps
+
+	void SetRemoveInitRBMotion(int remove_init_motion = TRUE); //!< Set flag to remove initial translational and rotational motion
+	void SetRemoveRBMotionFreq(int freq); //!< Set frequency to remove rigid body translational and rotational motion of the system
+
+	void SetStartVelMethod(const StartVelMethod& start_vel_method_new); //!< Set method to generate start velocity
 	
+	void SetStartTime(double start_time_new);    //!< Set start time(ps) of MD trajectory
+	void SetMDTimeStep(double md_time_step_new); //!< Set MD time step(ps)
+	void SetNBListUpdateFreq(int freq); //!< Set Frequency (md steps) to update non-bonded atoms list
+	void SetPerBoundaryCondType(const PerBoundaryCondType& type); //!<  Set periodical boundary conditions type
+
 	int to_save_input_files;     //!< Flag to indicate that input files are needed to be saved before running external program
 
 protected:
@@ -593,6 +603,12 @@ protected:
 	int  num_cpu;
 	bool using_gpu;
 	int  gpu_id;
+
+public:
+
+	MolSet* pmset;
+	MolMechModel* p_mm_model;      //!< MolMechModel corresponding to the class
+	HaMolMechMod* p_mm_mod;        //!< HaMolMech Module associated with the model
 };
 
 #endif // end if !defined(HAMOLMECH_H) 

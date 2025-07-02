@@ -24,6 +24,21 @@ namespace fs = std::filesystem;
 #include "mm_model.h"
 #include "mm_driver_arbalest.h"
 
+MMDriverArbalest::MMDriverArbalest(MolSet* pmset)
+{
+	this->pmset = pmset;
+	p_mm_mod = pmset->GetMolMechMod(true);
+	p_mm_model = p_mm_mod->p_mm_model;
+
+	p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.TRR;
+
+	this->arbalest_exe = "ARBALEST";
+	std::string prefix = pmset->GetName();
+	this->SetFileNamesWithPrefix(prefix);
+
+	to_save_input_files = TRUE;
+}
+
 MMDriverArbalest::MMDriverArbalest(HaMolMechMod* p_mm_mod_new)
 {
 	p_mm_mod = p_mm_mod_new;
@@ -66,6 +81,11 @@ int MMDriverArbalest::SaveAllInpFiles()
 	SaveRunFiles();
 	to_save_input_files = FALSE;
 	return TRUE;
+}
+
+bool MMDriverArbalest::InitForceField(std::string ff_name)
+{
+	return p_mm_model->InitForceField(ff_name);
 }
 
 bool MMDriverArbalest::SaveConfigFile()

@@ -311,8 +311,20 @@ struct FourPtrsEq {
 	}
 };
 
-
 using FourAtoms = FourPtrs<HaAtom*>;
+
+int MolMechModel::InitForceField(std::string ff_type_str)
+{
+	boost::trim(ff_type_str);
+	boost::to_upper(ff_type_str);
+	ForceFieldType ff_type_par = MMForceField::ff_type_default;
+
+	if (ff_type_str == "ARROW") ff_type_par = ff_type_par.ARROW_2_0;
+	if (ff_type_str == "AMBER") ff_type_par = ff_type_par.AMBER_99_SB;
+	if (ff_type_str == "AMOEBA") ff_type_par = ff_type_par.AMOEBA;
+
+	return InitModel(ff_type_par);
+}
 
 int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 {

@@ -120,7 +120,8 @@ MolSet::MolSet()
 	p_zmat = new ZMatCrd(this);
 	p_mol_editor  = new MolEditor();
 
-	if( pApp ) pApp->AddMolSet(this);
+	HarlemApp* pApp = GetHarlemApp();
+	pApp->AddMolSet(this);
 
 	this->SetName("MOLSET");
 }
@@ -174,6 +175,32 @@ void MolSet::DeleteAll()
 	
 	DeleteCrdSnapshots();
 } 
+
+MolSet* LoadMolFile(std::string fname)
+{
+	//std::shared_ptr<MolSet> ps_mset(new MolSet());
+	
+
+	MolSet* pmset = new MolSet();
+	
+	std::string ext = harlem::GetExtFromFileName(fname);
+	boost::to_lower(ext);
+
+	int ires;
+
+	if(ext == "hlm") ires = pmset->LoadHarlemFile(fname);
+	if(ext == "pdb") ires = pmset->LoadPDBFile(fname);
+	if(ext == "hin") ires = pmset->LoadHINFile(fname);
+	if(ext == "xyz") ires = pmset->LoadXYZFile(fname);
+	if(ext == "off") ires = pmset->LoadAmberOffFile(fname);
+
+	
+	
+	//pApp->molset_vec_shared.push_back(ps_mset);
+
+	return pmset;
+}
+
 
 int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 {
