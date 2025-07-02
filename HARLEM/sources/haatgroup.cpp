@@ -866,12 +866,11 @@ std::string HaResidue::GetFullName() const
 }
 
 
-std::string HaResidue::GetResNameFromFullName(const char* res_full_name)
+std::string HaResidue::GetResNameFromFullName(std::string res_full_name)
 {
-	std::string fname_str = res_full_name;
-	size_t sep_pos = fname_str.find_first_of("#");
+	size_t sep_pos = res_full_name.find_first_of("#");
 	if( sep_pos == std::string::npos ) { return res_full_name; }
-	return fname_str.substr(0,sep_pos);
+	return res_full_name.substr(0,sep_pos);
 }
 
 bool HaResidue::SetUniqueAtomNames()
@@ -2728,6 +2727,7 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 
 		std::string atn_b = aptr_b_templ->GetName();
 		HaAtom* aptr_add = p_res_a->AddNewAtom();
+
 		at_names_b[aptr_add] = atn_b;
 		at_elem_b[aptr_add] = aptr_b_templ->GetElemNo();
 		atom_templ_b_to_atom_res_map[aptr_b_templ] = aptr_add;
@@ -2737,7 +2737,8 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 		std::string atn_a = (boost::format("DA%d") % i_dummy_a).str();
 		aptr_add->SetName(atn_a);
 		aptr_add->SetElemNo(99);
-		pView->ColorAtomCPK(aptr_add);
+
+		if(pView) pView->ColorAtomCPK(aptr_add);
 		
 		at_names_b[aptr_add] = atn_b;
 		atoms_b.insert(aptr_add);

@@ -53,19 +53,12 @@ struct sort_fname_func
 
 int HaResDB::Init()
 {
-	std::vector<std::string>::iterator sitr;
-	char buf[256];
-	std::string db_file_name;
-	FILE* fp;
-
-	//namespace fs = std::filesystem;
-	namespace fs = std::filesystem;   // needs C++17 -
+	namespace fs = std::filesystem;   
 
 	HarlemApp* pApp_loc = GetHarlemApp();
 
 	fs::directory_iterator ditr_main(pApp_loc->res_db_dir);
 
-    // DIR *dir = opendir(pApp->res_db_dir.c_str());
     PrintLog(" Initialize Residue Database \n");
 	for (; ditr_main != fs::directory_iterator(); ditr_main++)
 	{
@@ -84,13 +77,14 @@ int HaResDB::Init()
 
 	fs::path cur_path = fs::current_path();
 
-	try {
+	try 
+	{
 		fs::directory_iterator ditr(cur_path);
 
 		for (; ditr != fs::directory_iterator(); ditr++)
 		{
 			std::string file_name = ditr->path().filename().string();
-			//		PrintLog(" file_name = %s \n",file_name.c_str() );
+			//		PrintLog(" file_name = %s \n",file_name );
 			if (boost::starts_with(file_name, "res_"))
 			{
 				std::string full_name = "./" + file_name;
@@ -104,40 +98,66 @@ int HaResDB::Init()
 		PrintLog("%s \n", ex.what());
 	}
 
-	for(sitr = res_db_files.begin(); sitr != res_db_files.end(); sitr++)
+	for(std::string db_file_name : res_db_files)
 	{
-
-		db_file_name = (*sitr);
 		fs::path db_file_path(pApp->res_db_dir);
 		if( !boost::starts_with(db_file_name, ".") ) 
-                {
-                    db_file_path /= db_file_name;
-                    db_file_name = db_file_path.string();
-                }
+		{
+			db_file_path /= db_file_name;
+			db_file_name = db_file_path.string();
+		}
 		std::string ext_str = harlem::GetExtFromFileName( db_file_name );
 		boost::to_lower(ext_str);
 		
-//		PrintLog( " Load Residue Template file %s \n", db_file_name.c_str());
-		fp = fopen( db_file_name.c_str(),"r");
-		if(fp == NULL)
+		if(!fs::exists(db_file_name) )
 		{
-			sprintf(buf,"Can't find file %s", (*sitr).c_str() );
-			ErrorInMod("HaResDB::Init()",buf);
+			PrintLog("HaResDB::Init(): Can't find file %s \n", db_file_name);
 			continue;
 		}
-		fclose(fp);
 		if( ext_str == "hlm" )
 		{
-			LoadHarlemFile(db_file_name.c_str());
+			LoadHarlemFile(db_file_name);
 		}
 		else if (ext_str == "mol2")
 		{
-			LoadMol2File(db_file_name.c_str());
+			LoadMol2File(db_file_name);
 		}
-		else if( ext_str == "xml" )
+	}
+
+	for (HaMolecule* pmol : HostMolecules)  /// set map of residue templates 
+	{
+		std::string mol_name = pmol->GetName();
+
+		if (HaResidue::ResSynonym_to_std.count(mol_name) > 0) mol_name = HaResidue::ResSynonym_to_std[mol_name];
+
+		if (res_name_templ_map.count(mol_name) > 0)
 		{
-			LoadXMLFile( db_file_name );
+			PrintLog("HaResDB::Init():  Residue Template %s Is already in DB - overiding \n", mol_name);
 		}
+		res_name_templ_map[mol_name] = pmol;
+	}
+
+	// Modify templates with Instructions in XML files - Probably is too complicated - remove
+
+	for (std::string db_file_name : res_db_files)
+	{
+		fs::path db_file_path(pApp->res_db_dir);
+		if (!boost::starts_with(db_file_name, "."))
+		{
+			db_file_path /= db_file_name;
+			db_file_name = db_file_path.string();
+		}
+		std::string ext_str = harlem::GetExtFromFileName(db_file_name);
+		boost::to_lower(ext_str);
+
+		if (ext_str != "xml") continue;
+
+		if (!fs::exists(db_file_name))
+		{
+			PrintLog("HaResDB::Init(): Can't find file %s \n", db_file_name);
+			continue;
+		}
+		LoadXMLFile(db_file_name);
 	}
 
 	return TRUE;
@@ -146,34 +166,34 @@ int HaResDB::Init()
 HaResDB* HaResDB::GetDefaultResDB()
 {
 	MolSet* pmset_save = GetCurMolSet();
-	if( res_db == NULL ) res_db = new HaResDB;
+	if( res_db == nullptr) res_db = new HaResDB;
 	if( pmset_save) CurMolSet = pmset_save;
 	return res_db;
 }
 
 HaMolecule* HaResDB::GetMolTemplForRes(const std::string& res_templ_name)
 {
-//	PrintLog(" HaResDB::GetMolTemplForRes()  Residue Template: %s \n", res_templ_name.c_str() );
-	MoleculesType::iterator mol_itr;
-	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)
-	{
-		if( strcmp((*mol_itr)->GetObjName(),res_templ_name.c_str() ) == 0 )
-		{
-			return(*mol_itr);
-		}
-	}
-	return NULL;
+	std::string std_res_name = res_templ_name;
+	if (HaResidue::ResSynonym_to_std.count(std_res_name) > 0) std_res_name = HaResidue::ResSynonym_to_std[std_res_name];
+	
+	if (res_name_templ_map.count(std_res_name) == 0) return nullptr;
+
+	HaMolecule* p_templ = res_name_templ_map[std_res_name];
+	return p_templ;
 }
 
 HaResidue* HaResDB::GetTemplateForResidue(const std::string& res_full_name)
 {
-	std::string res_sh_name = HaResidue::GetResNameFromFullName(res_full_name.c_str());
+	std::string std_res_name = res_full_name;
+	if (HaResidue::ResSynonym_to_std.count(std_res_name) > 0) std_res_name = HaResidue::ResSynonym_to_std[std_res_name];
 
-	HaMolecule* templ_mol = GetMolTemplForRes(res_full_name);
+	std::string res_sh_name = HaResidue::GetResNameFromFullName(std_res_name);
+
+	HaMolecule* templ_mol = GetMolTemplForRes(std_res_name);
 	if( templ_mol == NULL)
 	{
-		PrintLog("Error in HaResDB::GetTemplateForResidue() \n Can't find template for residue %s in DB \n", res_full_name.c_str() );
-		return NULL;
+		PrintLog("Error in HaResDB::GetTemplateForResidue() \n Can't find template for residue %s in DB \n", res_full_name);
+		return nullptr;
 	}
 
 	HaResidue* prtempl;
@@ -191,7 +211,7 @@ HaResidue* HaResDB::GetTemplateForResidue(const std::string& res_full_name)
 	if (prtempl == NULL)
 	{
 		PrintLog(" HaResDB::GetTemplateForResidue \n Can't find residue named %s in the residue template %s",
-			       res_sh_name.c_str(), res_full_name.c_str() );
+			       res_sh_name, std_res_name);
 		return NULL;
 	}
 	
@@ -203,7 +223,7 @@ HaAtom* HaResDB::GetTemplateForAtom(HaAtom* aptr)
 {
 	HaResidue* pres = aptr->GetHostRes();
 	std::string full_res_name = pres->GetFullName();
-	HaResidue* prtempl = GetTemplateForResidue(full_res_name.c_str());
+	HaResidue* prtempl = GetTemplateForResidue(full_res_name);
 	if(prtempl == NULL) return NULL;
 
 	HaAtom* atempl = prtempl->GetAtomByName(aptr->GetName());
@@ -400,7 +420,7 @@ int HaResDB::GetTemplResAtNameAtomMap( HaResidue* pres, StrAtomMap& templ_atname
 
 int HaResDB::LoadXMLFile( const std::string& fname )
 {
-	PrintLog(" HaResDB::LoadXMLFile() fname = %s \n",fname.c_str());
+	// PrintLog(" HaResDB::LoadXMLFile() fname = %s \n", fname);
 	try
 	{
 		TiXmlDocument doc;
@@ -427,8 +447,8 @@ int HaResDB::LoadXMLFile( const std::string& fname )
 
 				if( action == "modify" )
 				{
-					p_res_templ = this->GetTemplateForResidue( res_name.c_str() );
-					if( p_res_templ == NULL ) throw std::runtime_error( "No residue template with name" + res_name );
+					p_res_templ = this->GetTemplateForResidue( res_name );
+					if( p_res_templ == NULL ) throw std::runtime_error( "No residue template with name " + res_name );
 				}
 				if( p_res_templ == NULL) throw std::runtime_error( "No residue template set to add " );
 			

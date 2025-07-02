@@ -392,10 +392,12 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			continue;
 		}
 
-		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate(res_fname);
+		std::string std_res_name = res_fname;
+		if (HaResidue::ResSynonym_to_std.count(res_fname) > 0) std_res_name = HaResidue::ResSynonym_to_std[res_fname];
+		ResFFTemplate* p_res_ff_templ = p_ff->GetResidueTemplate(std_res_name);
 		if (p_res_ff_templ == NULL)
 		{
-			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n", p_ff->GetFFType().label(), res_fname);
+			PrintLog(" Force field %s  doesn't have specific parameters for residue name %s\n", p_ff->GetFFType().label(), std_res_name);
 			PrintLog(" FF parameters will be set from residue template: %s for residue: %s \n", pres->GetFullName(), pres->GetRef());
 		}
 

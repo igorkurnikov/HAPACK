@@ -36,6 +36,7 @@ public:
 
 public:
 	std::vector<std::string> res_db_files; 
+	std::map<std::string, HaMolecule*> res_name_templ_map; // map of full residue names to residue templates
 
 protected:
 	static HaResDB* res_db;

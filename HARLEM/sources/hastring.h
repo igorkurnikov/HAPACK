@@ -127,14 +127,10 @@ class StrStrMap: public std::map<std::string, std::string>
 {
 public:
 
-	typedef StrStrMap_itr iterator;
+	using iterator = StrStrMap_itr;
 
-	void clear();
-	int count(const char* str);
-	int size();
-
-	const char* GetVal(const char* str);
-	void SetVal(const char* str, const char* val);
+	std::string GetVal(const std::string& key);
+	void SetVal(const std::string& key, const std::string& value);
 	int ierr; //!< indicate error
 
 };

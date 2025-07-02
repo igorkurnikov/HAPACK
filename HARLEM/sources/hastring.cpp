@@ -290,40 +290,26 @@ int StrStrMap_itr::GetNext()
    return( itr != int_map.end());
 }
 
-void StrStrMap::clear()
-{
-	std::map<std::string, std::string>::clear();
-}
-
-int StrStrMap::count(const char* str)
-{
-	return std::map<std::string, std::string>::count(str);
-}
-
-int StrStrMap::size()
-{
-	return std::map<std::string, std::string>::size();
-}
 
 static std::string empty_str;
 
-const char* StrStrMap::GetVal(const char* str)
+std::string StrStrMap::GetVal(const std::string& key)
 {
 	std::map<std::string, std::string>::iterator itr;
-	itr = this->find(str);
+	itr = this->find(key);
 	if(this->end() == itr) 
 	{
 		ierr = 1;
-		return empty_str.c_str();
+		return empty_str;
 	}
 	
 	ierr = 0;
-	return (*itr).second.c_str();
+	return (*itr).second;
 }
 
-void StrStrMap::SetVal(const char* str, const char* val)
+void StrStrMap::SetVal(const std::string& key, const std::string& value)
 {
-	(*this)[str] = val;
+	(*this)[key] = value;
 }
 
 int StrIntMap::count(const char* str)

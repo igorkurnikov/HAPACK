@@ -415,7 +415,7 @@ public:
 	std::string GetFullName() const; //!< Get Name of the residue with the modifier 
 
 //! Extract Short Residue name from the full residue name (with modifier)  
-	static std::string GetResNameFromFullName(const char* res_full_name);
+	static std::string GetResNameFromFullName(std::string res_full_name);
 
 	std::string GetRef() const;  //!< Get the text reference of the residue
 	virtual bool FillRef(char* buf,int mode = 0) const; //!< Write the text reference of the residue to the buffer
