@@ -15,6 +15,6 @@ git config --global user.email "user@example.com"
 ### Getting the copy of Harlem
 
 ```bash
-git clone https://gitlab.com/mkurnikovagroup/HAPACK.git
+git clone https://github.com/igorkurnikov/HAPACK.git
 ```
 
