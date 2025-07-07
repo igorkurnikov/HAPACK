@@ -138,6 +138,7 @@ public:
 	int SetCoordFromFile(std::string fname, int iform = FormatGUESS); //!< Set Molecular Set atom coordinates from File (in pdb, xyz or other format) 
 	int SetCrdFromArray( const HaVec_double& crd_arr ); //!< Set Molecular Set atom coordinates for coordinate array
 
+	int SaveFile(std::string filename, const AtomSaveOptions& opt = save_opt_default); //!< Save Molecular file in a format determined by file extension
 	int SavePDBFile(std::string filename,    const AtomSaveOptions& opt = save_opt_default ) const;      //!< Save molecules into a file in PDB format
 	int SaveHarlemFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );  //!< Save molecules into a file in current HARLEM format (XML) (*.hlm)
 	int SaveOldHarlemFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save molecules into a file in OLD HARLEM format (*.hlm)

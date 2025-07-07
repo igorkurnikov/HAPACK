@@ -172,8 +172,8 @@ int AtomMapping::Map2to1ByAtomDistance()
 
 	if( atoms_mapped.size() == p_ac_2->GetNAtoms() )
 	{
-		PrintLog("All Atoms of the child were matched to atoms of the parent \n");
-		PrintLog("As coinciding atoms and atoms in the specified direction \n");
+		PrintLog("All Atoms of the child were mapped to atoms of the parent \n");
+		PrintLog("As exactly matching atoms and atoms in a specified direction \n");
 		return TRUE;
 	}
 

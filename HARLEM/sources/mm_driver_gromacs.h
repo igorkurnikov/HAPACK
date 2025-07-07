@@ -15,6 +15,7 @@
 class MMDriverGromacs : public MMDriver
 {
 public:
+	MMDriverGromacs(MolSet* pmset);
 	MMDriverGromacs(HaMolMechMod* p_mm_mod_new);
 	virtual ~MMDriverGromacs();
 
@@ -22,6 +23,8 @@ public:
 
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Gromacs
+
+	bool InitForceField(std::string ff_name); //!< Initialize Force Field on the system with a name string
 
 	bool SetCompatibleParams(); //!< Insure MM parameters are consistent with GROMACS ( like enforce periodic box )
 	void PartitionAtomsToMolecules(); //!< Partition Atoms to GROMACS molecules 

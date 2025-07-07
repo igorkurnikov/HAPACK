@@ -3955,8 +3955,8 @@ int MolEditor::SplitToMolecules(AtomContainer* p_at_coll, std::vector<AtomGroup>
 			clusters.push_back(empty_atset);
 			p_last_atset = &(clusters.back());
 		}
-		if( atoms_left.size() % 1000 == 0)
-			PrintLog(" MolEditor::SplitToMolecules() N atoms_left = %d \n", atoms_left.size() );
+		//if( atoms_left.size() % 1000 == 0)
+		//	PrintLog(" MolEditor::SplitToMolecules() N atoms_left = %d \n", atoms_left.size() );
 		aptr = conn_atoms.front();
 		aptr->GetBondedAtoms(bonded_atoms);
 		int na = bonded_atoms.GetNAtoms();

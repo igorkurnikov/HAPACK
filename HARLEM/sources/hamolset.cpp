@@ -305,6 +305,23 @@ int MolSet::SavePDBToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 	return(TRUE);
 }
 
+int MolSet::SaveFile(std::string filename, const AtomSaveOptions& opt)
+{
+	std::string ext = harlem::GetExtFromFileName(filename);
+	boost::to_lower(ext);
+	if (ext == "pdb" || ext == "ent") this->SavePDBFile(filename, opt);
+	else if (ext == "hlm" ) this->SaveHarlemFile(filename, opt);
+	else if (ext == "hin") this->SaveHINFile(filename, opt);
+	else if (ext == "xyz") this->SaveXYZFile(filename, &opt);
+	else if (ext == "gro") this->SaveGROFile(filename, &opt);
+	else
+	{
+		PrintLog("Error in: MolSet::SaveFile() Unrecognized file extension in file %s \n", filename);
+		return FALSE;
+	}
+	return TRUE;
+}
+
 
 int MolSet::SavePDBFile(std::string filename, const AtomSaveOptions& opt ) const
 {
@@ -4341,7 +4358,18 @@ bool MolSet::SetStdProteinGroups()
 	ResidueIteratorMolSet ritr(this);
 	for (HaResidue* rptr : ritr)
 	{
-		if (!rptr->IsAmino()) continue;
+		if (!rptr->IsAmino())  // For not protein groups create Chemical groups from residues
+		{
+			std::string grp_name = rptr->GetRef() + "_CGRP";
+			
+			AtomGroup* group = this->AddAtomGroup(grp_name.c_str());
+			group->SetGroupType("CHEM_GROUP");
+
+			for (HaAtom* aptr : *rptr )
+			{
+				group->InsertAtom(aptr);
+			}
+		}
 
 		HaResidue* pres_next = rptr->GetNextResInChain();
 		if (pres_next) {
@@ -5141,9 +5169,9 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 				AtomGroup bnd_atoms_fat1;
 				AtomGroup bnd_atoms_at1;
 				aptr1->GetBondedAtoms(bnd_atoms_at1);
-				PrintLog("Function %s \nThe Number of atoms bonded to reference atom in orig molecule = %d \n", __PRETTY_FUNCTION__, bnd_atoms_at1.GetNAtoms());
+				// PrintLog("Function %s \nThe Number of atoms bonded to reference atom in orig molecule = %d \n", __PRETTY_FUNCTION__, bnd_atoms_at1.GetNAtoms());
 				faptr1->GetBondedAtoms(bnd_atoms_fat1);
-				PrintLog("Function %s \nThe Number of atoms bonded to reference atom = %d \n", __PRETTY_FUNCTION__,bnd_atoms_fat1.GetNAtoms());
+				// PrintLog("Function %s \nThe Number of atoms bonded to reference atom = %d \n", __PRETTY_FUNCTION__,bnd_atoms_fat1.GetNAtoms());
 				if (bnd_atoms_fat1.GetNAtoms() > 2)
 				{
 					HaAtom*  faptr_axx2 = bnd_atoms_fat1.at(0);
@@ -5151,13 +5179,13 @@ MolSet* MolSet::CreateFragmentFromSelection(std::string frag_name, StrStrMap* pa
 					if (faptr_axx2 == faptr2) faptr_axx2 = bnd_atoms_fat1.at(2);
 					if (faptr_axx3 == faptr2) faptr_axx3 = bnd_atoms_fat1.at(2);
 
-					PrintLog("Set Sync Rule for atom %s  using atoms %s - %s - %s \n",
-						faptr2->GetRef().c_str(), faptr1->GetRef().c_str(), faptr_axx2->GetRef().c_str(), faptr_axx3->GetRef().c_str());
+					// PrintLog("Set Sync Rule for atom %s  using atoms %s - %s - %s \n",
+					//	faptr2->GetRef(), faptr1->GetRef(), faptr_axx2->GetRef(), faptr_axx3->GetRef());
 
-					PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n", faptr2->GetX(), faptr2->GetY(), faptr2->GetZ());
-					PrintLog(" Crd faptr1 = %8.3f  %8.3f  %8.3f \n", faptr1->GetX(), faptr1->GetY(), faptr1->GetZ());
-					PrintLog(" Crd faptr_axx2 = %8.3f  %8.3f  %8.3f \n", faptr_axx2->GetX(), faptr_axx2->GetY(), faptr_axx2->GetZ());
-					PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n",     faptr_axx3->GetX(), faptr_axx3->GetY(), faptr_axx3->GetZ());
+					// PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n", faptr2->GetX(), faptr2->GetY(), faptr2->GetZ());
+					// PrintLog(" Crd faptr1 = %8.3f  %8.3f  %8.3f \n", faptr1->GetX(), faptr1->GetY(), faptr1->GetZ());
+					// PrintLog(" Crd faptr_axx2 = %8.3f  %8.3f  %8.3f \n", faptr_axx2->GetX(), faptr_axx2->GetY(), faptr_axx2->GetZ());
+					// PrintLog(" Crd faptr2 = %8.3f  %8.3f  %8.3f \n",     faptr_axx3->GetX(), faptr_axx3->GetY(), faptr_axx3->GetZ());
 
 					pat_map->SetAtom3PtSyncRule(faptr2, faptr1, faptr_axx2, faptr_axx3);
 				}
@@ -5395,8 +5423,7 @@ AtomDoubleMap* MolSet::CreateChargeMap(const char* map_name)
 
 }
 
-int 
-MolSet::SetChargeMapByCurrentCharges(const char* map_name)
+int MolSet::SetChargeMapByCurrentCharges(const char* map_name)
 {
 	AtomDoubleMap* charge_map = GetChargeMapByName(map_name);
     if(charge_map == NULL )

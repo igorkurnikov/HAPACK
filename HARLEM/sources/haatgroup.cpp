@@ -2756,18 +2756,30 @@ bool AlchemicalTransformation::SetTransformation(std::string alt_res_name)
 			HaBond* pbnd_templ = (*bitr).get();
 			HaAtom* pat1_templ = pbnd_templ->GetFirstAtom();
 			HaAtom* pat2_templ = pbnd_templ->GetSecondAtom();
+
 			if (processed_template_atoms.count(pat1_templ) > 0 || processed_template_atoms.count(pat2_templ)) continue;
+
+			HaResidue* pres_t1 = pat1_templ->GetHostRes();
+			HaResidue* pres_t2 = pat2_templ->GetHostRes();
+
+			std::string resn_t1 = pres_t1->GetName();
+			std::string resn_t2 = pres_t2->GetName();
+
+			// Skip bonds to Axxiliary atoms in residue templates
+			if (resn_t1 == "HED" || resn_t1 == "TAL") continue; 
+			if (resn_t2 == "HED" || resn_t2 == "TAL") continue;
+
 			HaAtom* pat1_b = atom_templ_b_to_atom_res_map[pat1_templ];
 			HaAtom* pat2_b = atom_templ_b_to_atom_res_map[pat2_templ];
 			
 			if (!pat1_b)
 			{
-				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat1_templ->GetRef().c_str());
+				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat1_templ->GetRef());
 				continue;
 			}
 			if (!pat2_b)
 			{
-				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat2_templ->GetRef().c_str());
+				PrintLog("AlchemicalTransformation::SetTransformation() Can not find atom %s in state b atom map \n", pat2_templ->GetRef());
 				continue;
 			}
 
