@@ -29,6 +29,9 @@ MMDriverGromacs::MMDriverGromacs(MolSet* pmset)
 {
 	this->pmset = pmset;
 	p_mm_mod = pmset->GetMolMechMod(true);
+	delete p_mm_mod->p_gromacs_driver;   // Need to modify this - to use shared_ptr<> ??
+	p_mm_mod->p_gromacs_driver = this;
+
 	p_mm_model = p_mm_mod->p_mm_model;
 
 	p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.TRR;

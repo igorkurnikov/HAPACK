@@ -410,7 +410,28 @@ int HaMolMechMod::Run( const harlem::HashMap* popt_par )
 
 bool HaMolMechMod::SetRunType(std::string run_type_str)
 {
-	if( !this->run_type.SetWithLabel(run_type_str.c_str()) ) return false;
+	boost::to_upper(run_type_str);
+	if (run_type_str == "MIN" || run_type_str == "MIN_RUN" || run_type_str.find("MINIM") != std::string::npos)
+	{
+		this->run_type = MMRunType::MIN_RUN;
+	}
+	else if (run_type_str == "MD" || run_type_str == "MD_RUN" || run_type_str.find("DYNAMICS") != std::string::npos)
+	{
+		this->run_type = MMRunType::MD_RUN;
+	}
+	else if (run_type_str == "ENE" || run_type_str == "ENER" || run_type_str == "ENER_RUN" || run_type_str.find("SINGLE ENERGY") != std::string::npos)
+	{
+		this->run_type = MMRunType::ENER_RUN;
+	}
+	else
+	{
+		PrintLog("HaMolMechMod::SetRunType(): Unrecognized Run Type: %s \n", run_type_str);
+		return false;
+	}
+
+	PrintLog("Set Run Type:  %s \n", this->run_type.label());
+
+	// if( !this->run_type.SetWithLabel(run_type_str.c_str()) ) return false;
 	MolSet* pmset = this->GetMolSet();
 	if (p_gromacs_driver) p_gromacs_driver->SetFileNamesWithPrefix(pmset->GetName());
 	if (p_arbalest_driver) p_arbalest_driver->SetFileNamesWithPrefix(pmset->GetName());
@@ -2473,6 +2494,11 @@ int  MMDriver::GetNumCpu()
 void MMDriver::SetNumCPU(int num_cpu)
 {
 	this->num_cpu = num_cpu;
+}
+
+bool MMDriver::SetRunType(std::string run_type_str)
+{
+	return this->p_mm_mod->SetRunType(run_type_str);
 }
 
 void MMDriver::SetRestrainedAtomsRasmolExpr(std::string rasmol_expr)
