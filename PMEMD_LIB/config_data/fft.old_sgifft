@@ -1,3 +1,0 @@
-FFT_DEFINES = -DOLD_SGIFFT
-FFT_INCLUDE =
-FFT_LIBS = -lcomplib.sgimath
