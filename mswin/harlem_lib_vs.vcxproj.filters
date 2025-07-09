@@ -111,6 +111,7 @@
     <ClCompile Include="obj\Release_x64\harlem_lib_vs\hamolset_wrap.cpp" />
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_driver_arbalest.cpp" />
+    <ClCompile Include="..\HARLEM\sources\pmemd_clib.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\FCMangle.h" />

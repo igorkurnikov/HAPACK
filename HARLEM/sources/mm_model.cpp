@@ -33,8 +33,10 @@
 
 extern "C" 
 {
+#if defined(WITH_LIB_PMEMD)
 	extern void FC_FUNC_MODULE(amoeba_induced_mod,get_ind_dip)(int* natom, double* ind_dip_d_out, double* ind_dip_p_out );
 	extern void FC_FUNC_MODULE(amoeba_multipoles_mod,get_global_multipole)( int* natom, double* global_multipole );
+#endif
 }
 
 MolMechModel::MolMechModel(HaMolMechMod* p_mm_mod_new)
@@ -3840,7 +3842,9 @@ int MolMechModel::GetIndDipolesFromFort()
 		ind_dip_d = 0.0;
 	}
 	
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(amoeba_induced_mod,get_ind_dip)( &na, ind_dip_d.v(), ind_dip_p.v() );
+#endif
 	
 	return TRUE;
 }
@@ -3855,7 +3859,9 @@ int MolMechModel::GetMultipolesFromFort()
 		global_multipole.resize(10*na);
 		global_multipole = 0.0;
 	}
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(amoeba_multipoles_mod,get_global_multipole)( &na, global_multipole.v() );
+#endif
 	
 	return TRUE;
 }

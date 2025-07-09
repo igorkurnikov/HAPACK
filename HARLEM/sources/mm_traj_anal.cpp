@@ -42,6 +42,8 @@ extern "C"
 //extern void pbc_mod_mp_wrap_molecules_(int* nspm, int* nsp, double* crd);
 //extern void pbc_mod_mp_wrap_to_(int* nspm, int* nsp, double* crd, double* box);
 //extern void runfiles_mod_mp_corpac_(int* iend, double* crd, int* istart, int* nf);
+
+#if defined(WITH_LIB_PMEMD)
 extern void FC_FUNC_MODULE(runfiles_mod,mdwrit)(int* imin, int* ntwr, int* ntxo, int* ntb_par, int* nstep, int* atm_cnt, double* crd, double* box, double* vel, double* tt);
 extern void FC_FUNC_MODULE(pbc_mod,wrap_molecules)(int* nspm, int* nsp, double* crd);
 extern void FC_FUNC_MODULE(pbc_mod,wrap_to)(int* nspm, int* nsp, double* crd, double* box);
@@ -54,6 +56,7 @@ extern void FC_FUNC_MODULE(runfiles_mod,mdeng)(int* nstep, double* time, double*
 //extern void gb_ene_mod_mp_print_born_radii_stat_(double* tspan);
 extern void FC_FUNC_MODULE(nmr_calls_mod,ndvptxs)(double* crd, double* frc, double* mass, int* mdout);
 extern void FC_FUNC_MODULE(gb_ene_mod,print_born_radii_stat)(double* tspan);
+#endif
 };
 
 MDTrajAnalMod::MDTrajAnalMod(HaMolMechMod* p_mm_mod_new)
@@ -1858,6 +1861,7 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 
 		if (write_restrt) 
 		{
+#if defined(WITH_LIB_PMEMD)
 			if (p_mm_mod->wrap_coord == 0) 
 			{
 				FC_FUNC_MODULE(runfiles_mod,mdwrit)(&p_mm_mod->run_type.value(),&p_mm_mod->wrt_rstrt_freq, &p_mm_mod->write_coord_format.value(), 
@@ -1876,7 +1880,9 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 					                    &p_mm_mod->period_bcond.value(), &nstep, &p_amber_model->natom, 
 					crd_copy.v(), p_mm_driver->pbc_box.v(), p_mm_driver->atm_vel.v(), &p_mm_driver->t);
 			}
+#endif
 		}
+
 
 		// Coordinate archive:
 
@@ -1884,6 +1890,7 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 		{
 			if ( (nstep % p_mm_mod->wrt_coord_freq) == 0) 
 			{
+#if defined(WITH_LIB_PMEMD)
 				if (p_mm_mod->wrap_coord == 0) 
 				{
 					 FC_FUNC_MODULE(runfiles_mod,corpac)(&n_saved_crd, p_mm_driver->atm_crd.v(),&i_1, &p_mm_driver->mdcrd);
@@ -1922,6 +1929,7 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 				{
 					FC_FUNC_MODULE(runfiles_mod,corpac)(&n_saved_crd, p_mm_driver->atm_vel.v(),&i_1, &p_mm_driver->mdcrd);
 				}
+#endif
 			}
 		} 
 		// Velocity archive:
@@ -1929,7 +1937,9 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 		{
 			if ((nstep % p_mm_mod->wrt_vel_freq) == 0) 
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(runfiles_mod,corpac)(&n_saved_crd, p_mm_driver->atm_vel.v(),&i_1, &p_mm_driver->mdvel);
+#endif
 			}
 		}
 
@@ -1939,7 +1949,9 @@ int MDTrajectoryIOAgent::AnalyzePt(int nstep, HaVec_double& sys_info )
 		{
 			if ( (nstep % p_mm_mod->wrt_ener_freq) == 0 && (nstep % p_mm_driver->nrespa) == 0 ) 
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(runfiles_mod,mdeng)(&nstep, &p_mm_driver->t, sys_info.v(), p_mm_driver->pbc_box.v());
+#endif
 			}
 		}
 
@@ -2083,7 +2095,9 @@ int MDTrajectoryIOAgent::Finalize(int nstep)
 				if (p_amber_model->rbornstat == 1) 
 				{
 					p_mm_driver->PrintLogMDOUT("   STATISTICS OF EFFECTIVE BORN RADII OVER  %7d  STEPS ",nstep);
+#if defined(WITH_LIB_PMEMD)
 					FC_FUNC_MODULE(gb_ene_mod,print_born_radii_stat)(&tspan);
+#endif
 				}
 			}
 		} // (nvalid > 0)

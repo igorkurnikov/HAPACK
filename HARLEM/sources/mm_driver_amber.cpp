@@ -50,6 +50,7 @@ int MMDriverAmber::stack_limit = 0;
 
 extern "C"
 {
+#if defined(WITH_LIB_PMEMD)
 extern char FC_FUNC_MODULE(file_io_dat_mod,mdout_name)[80];
 //extern char FC_FUNC_MODULE(file_io_dat_mod,mdinfo_name)[80];
 extern char FC_FUNC_MODULE(file_io_dat_mod,mdinfo_name)[80];
@@ -320,6 +321,8 @@ extern void FC_FUNC_MODULE(fft1d_mod,fft1d_destroy_test)();
 extern void FC_FUNC_MODULE(fft1d_mod,fft1d_forward_test)(double* fft_array);
 extern void FC_FUNC_MODULE(fft1d_mod,fft1d_back_test)   (double* fft_array);
 
+#endif
+
 void setup_alloc_error_() 
 { 
 	throw std::runtime_error("Setup Allocation Error"); 
@@ -330,8 +333,10 @@ void mol_mech_error_()
 	std::string msg;
 	msg.resize(300);
 	int i;
+#if defined(WITH_LIB_PMEMD)
 	for(i=0; i < 299; i++)
 		msg[i] = FC_FUNC_MODULE(file_io_dat_mod,error_msg)[i];
+#endif
 	throw std::runtime_error(msg); 
 }
 
@@ -555,6 +560,8 @@ void MMDriverAmber::SetupMasterNode()
 	if (p_amber_model->using_pme_potential) InitPMEParams();
 	
 	int inerr = FALSE;
+
+#if defined(WITH_LIB_PMEMD)
      
     if (p_amber_model->using_pme_potential) 
 	{
@@ -648,6 +655,9 @@ void MMDriverAmber::SetupMasterNode()
 		   }
 	   }
    }
+
+#endif
+
 }
 
 int MMDriverAmber::SetMPICommAllProcs()
@@ -771,18 +781,24 @@ void MMDriverAmber::ResizeCrdVelFrcArrays(int natom)
 
 void MMDriverAmber::SetupShakePars()
 {
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(shake_mod,shake_setup)( gbl_atm_owner_map.v() );
+#endif
 }
 
 void MMDriverAmber::SetupPME()
 {
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(pme_setup_mod,final_pme_setup)(p_amber_model->atm_igroup.v(), tranvec.v() );
 	if( p_mm_model->IsAmoebaFF() ) FC_FUNC_MODULE(amoeba_recip_mod,amoeba_recip_final_setup)();
+#endif
 }
 
 void MMDriverAmber::SetupGB()
 {
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(gb_ene_mod,final_gb_setup)( &p_amber_model->natom );
+#endif
 }
 
 void MMDriverAmber::ValidateCntrParams()
@@ -1266,6 +1282,7 @@ void MMDriverAmber::InitPMEParams()
 		throw std::runtime_error(error_msg.ToStdString().c_str());
 	}
 
+#if defined(WITH_LIB_PMEMD)
 	if (p_mm_model->pme_grid_nx == 0) FC_FUNC_MODULE(mdin_ewald_dat_mod,compute_even_nfft)(&pbc_box[0], &p_mm_model->fft_grids_per_ang, &p_mm_model->pme_grid_nx);
 	if (p_mm_model->pme_grid_ny == 0) FC_FUNC_MODULE(mdin_ewald_dat_mod,compute_nfft)(&pbc_box[1], &p_mm_model->fft_grids_per_ang, &p_mm_model->pme_grid_ny);
 	if (p_mm_model->pme_grid_nz == 0) FC_FUNC_MODULE(mdin_ewald_dat_mod,compute_nfft)(&pbc_box[2], &p_mm_model->fft_grids_per_ang, &p_mm_model->pme_grid_nz);
@@ -1294,6 +1311,7 @@ void MMDriverAmber::InitPMEParams()
 	  derfcfun_(&y, &erfc_val);
  	  p_mm_model->pme_dsum_tol = erfc_val / p_amber_model->es_cutoff;
   }
+#endif
 
   if( p_mm_model->pme_grid_nx < gridlo || p_mm_model->pme_grid_nx > gridhi )
   {
@@ -1398,7 +1416,9 @@ void MMDriverAmber::InitAddMDCtrlParams()
 		if( ndfmin > p_amber_model->num_deg_solute ) ndfmin = p_amber_model->num_deg_solute - 0.001;
 	}
 // This is needed for sander-consistent results
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(random_mod,amrset)(&p_mm_mod->random_seed);
+#endif
 
 	if(p_mm_mod->run_ti || numtasks > 1)
 	{
@@ -1437,13 +1457,17 @@ void MMDriverAmber::BCastAddMDCtrlParams(MPI_Comm& comm)
 
 void MMDriverAmber::SetAddMDCtrParamsFortran()
 {
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(mdin_ewald_dat_mod,set_netfrc)( &p_mm_model->subtract_avg_force_flag );
+#endif
 }
 
 void MMDriverAmber::AllGatherVec(HaVec_double& vec)
 {
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(parallel_mod,mpi_allgathervec)(&p_amber_model->natom, vec.v(), gbl_atm_owner_map.v(), 
 		                               gbl_my_atm_lst.v(), &my_atm_cnt);
+#endif
 }
 
 
@@ -1451,7 +1475,9 @@ void MMDriverAmber::ResetStackLimits()
 {
 	if( stack_limit == 0)
 	{
+#if defined(WITH_LIB_PMEMD)
 		unlimit_stack_(&stack_limit);
+#endif
 		if ( master && stack_limit > 0)
 		{
 //			PrintLog( " Stack usage limited by a hard resource limit of %d bytes!",stack_limit);
@@ -1886,15 +1912,19 @@ void AmberMMModel::CalcAddDihParams()
 	gbl_ipn.resize(nptra);
 	gbl_fmn.resize(nptra);
 
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(prmtop_dat_mod,calc_dihedral_parms)(&nptra, gbl_pk.begin(), gbl_pn.begin(), gbl_phase.begin(), 
 			                               gbl_gamc.begin(), gbl_gams.begin(), gbl_ipn.begin(), 
 										   gbl_fmn.begin());
+#endif
 }
 
 void MMDriverAmber::SaveModelToFortran()
 {
 //	PrintLog(" MMDriverAmber::SaveModelToFortran() pt 1 \n");
 	int i;	
+
+#if defined(WITH_LIB_PMEMD)
 	SetMDinCtrlIntFortran();
 	SetMDinCtrlDblFortran();
 	SetAddIntParsFortran();
@@ -2162,6 +2192,7 @@ void MMDriverAmber::SaveModelToFortran()
 		if( p_amber_model->natom == 0 ) iflag = 0;
 		FC_FUNC_MODULE(amoeba_induced_mod,set_valid_bit)(&iflag);
 	}
+#endif
 //	PrintLog(" MMDriverAmber::SaveModelToFortran() pt end \n");
 }
 
@@ -3465,6 +3496,8 @@ int MMDriverAmber::OpenOutputFiles()
 {
 	if(!master) return TRUE;
 	if( p_mm_mod->run_ti ) p_mm_mod->p_ti_mod->SetTI_OutputFileNames();
+
+#if defined(WITH_LIB_PMEMD)
 	strcpy_to_fort(FC_FUNC_MODULE(file_io_dat_mod,mdout_name),amber_out_file.c_str(),80);
 	strcpy_to_fort(FC_FUNC_MODULE(file_io_dat_mod,restrt_name),amber_rst_file.c_str(),80);
 	strcpy_to_fort(FC_FUNC_MODULE(file_io_dat_mod,mdcrd_name),amber_trj_coord_file.c_str(),80);
@@ -3474,6 +3507,7 @@ int MMDriverAmber::OpenOutputFiles()
 	strcpy_to_fort(FC_FUNC_MODULE(file_io_dat_mod,prmtop_name),amber_top_file.c_str(),80);
 
 	start_mdout_log_(pbc_box.v());
+#endif
 	PrintMDCntrData();
 
 	if( p_mm_mod->run_ti )
@@ -3501,6 +3535,8 @@ int MMDriverAmber::OpenOutputFiles()
 	PrintLogMDOUT(" REFC =    refc.dat \n");
 	PrintLogMDOUT(" MDVEL = %s   MDEN = %s\n",amber_trj_vel_file.c_str(),amber_trj_ene_file.c_str());
 	PrintLogMDOUT(" MDCRD = %s   \n", amber_trj_coord_file.c_str());
+
+#if defined(WITH_LIB_PMEMD)
 
 	if ( p_mm_mod->traj_wrt_format == p_mm_mod->traj_wrt_format.FORMATTED )               // Formatted dumping:
 	{
@@ -3532,6 +3568,7 @@ int MMDriverAmber::OpenOutputFiles()
 	{
 		open_restart_form_();
 	}
+#endif
 
 	if(p_mm_mod->run_ti) 
 	{
@@ -3550,6 +3587,7 @@ int MMDriverAmber::CloseOutputFiles()
 {
 	if(!master) return TRUE;
 	PrintLog(" MMDriverAmber::CloseOutputFiles() pt 1 \n ");
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(runfiles_mod,close_mdout)(); 
 	if( p_mm_mod->run_ti )
 	{	
@@ -3574,6 +3612,7 @@ int MMDriverAmber::CloseOutputFiles()
 	}
 	if (p_mm_mod->wrt_ener_freq > 0) close_mden_();
 	close_restart_();
+#endif
 	return TRUE;
 }
 
@@ -3664,7 +3703,9 @@ void MMDriverAmber::RunMinSlave()
 			{
         // Do a skin check to see if we will have to rebuild the pairlist.
 				new_list = CheckAllAtomMovement(p_amber_model->natom, atm_crd);
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(loadbal_mod,check_new_list_limit)(&new_list);
+#endif
 				p_tm->UpdateTime(TimerAmber::NONBOND_TIME);
 			}
 			else
@@ -3680,12 +3721,16 @@ void MMDriverAmber::RunMinSlave()
     // Potential energy info not used in slaves...
 		if (p_amber_model->using_pme_potential)
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,mpi_gathervec)(&p_amber_model->natom, atm_frc.v(), gbl_atm_owner_map.v(), 
 				                           gbl_my_atm_lst.v(), &my_atm_cnt);
+#endif
 		}
 		else if (p_amber_model->using_gb_potential)
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,gb_mpi_gathervec)(&p_amber_model->natom, atm_frc.v());
+#endif
 		}
 		p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 	}
@@ -3859,7 +3904,9 @@ void MMDriverAmber::RunMinMaster()
 				new_list = CheckAllAtomMovement(p_amber_model->natom, atm_crd);
 				if(numtasks > 1 )
 				{
+#if defined(WITH_LIB_PMEMD)
 					FC_FUNC_MODULE(loadbal_mod,check_new_list_limit)(&new_list);
+#endif
 				}
 				p_tm->UpdateTime(TimerAmber::NONBOND_TIME);
 			}
@@ -3876,12 +3923,16 @@ void MMDriverAmber::RunMinMaster()
 		{
 			if (p_amber_model->using_pme_potential)
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(parallel_mod,mpi_gathervec)(&p_amber_model->natom, atm_frc.v(), gbl_atm_owner_map.v(), 
 					                            gbl_my_atm_lst.v(), &my_atm_cnt);
+#endif
 			}
 			else if (p_amber_model->using_gb_potential) 
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(parallel_mod,gb_mpi_gathervec)(&p_amber_model->natom, atm_frc.v());
+#endif
 			}
 			p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 		}
@@ -4525,8 +4576,10 @@ void MMDriverAmber::CalcCurrEne()
 	if (ntc != 1)
 	{
 		atm_frc = atm_crd;
+#if defined(WITH_LIB_PMEMD)
 		FC_FUNC_MODULE(shake_mod,shake)(atm_frc.v(), atm_crd.v(),&p_mm_mod->period_bcond.value(),
 			                p_amber_model->atm_igroup.v(),pbc_box.v(),p_amber_model->atm_mass_inv.v(),&p_mm_mod->shake_tol);
+#endif
 		p_tm->UpdateTime(TimerAmber::SHAKE_TIME);
 	}
 	int ierr;
@@ -4548,7 +4601,9 @@ void MMDriverAmber::CalcCurrEne()
 			new_list = CheckAllAtomMovement(p_amber_model->natom, atm_crd);
 			if(numtasks > 1 )
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(loadbal_mod,check_new_list_limit)(&new_list);
+#endif
 			}
 			p_tm->UpdateTime(TimerAmber::NONBOND_TIME);
 		}
@@ -4566,12 +4621,16 @@ void MMDriverAmber::CalcCurrEne()
 	{
 		if (p_amber_model->using_pme_potential)
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,mpi_gathervec)(&p_amber_model->natom, atm_frc.v(), gbl_atm_owner_map.v(), 
 				                            gbl_my_atm_lst.v(), &my_atm_cnt);
+#endif
 		}
 		else if (p_amber_model->using_gb_potential) 
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,gb_mpi_gathervec)(&p_amber_model->natom, atm_frc.v());
+#endif
 		}
 		p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 	}
@@ -4677,6 +4736,7 @@ int MMDriverAmber::InitSimulationsStep2()
 	}
 
 	CalcNumDegFreedom();
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(alltasks_setup_mod,alltasks_setup)(atm_crd.v(),pbc_box.v(),atm_vel.v(),p_amber_model->atm_igroup.v(), 
 		                                  &p_mm_mod->run_type.value(), &p_mm_mod->period_bcond.value(),
 		                                  gbl_atm_owner_map.v(), gbl_my_atm_lst.v(),&my_atm_cnt,p_amber_model->atm_mass_inv.v());
@@ -4716,6 +4776,8 @@ int MMDriverAmber::InitSimulationsStep2()
 	FC_FUNC_MODULE(pme_force_mod,setup_not_done) = 1; 
 	FC_FUNC_MODULE(pme_force_mod,irespa) = 0;
 
+#endif
+
 	p_tm->EndSetupTimers();
 
 //	PrintLog("MMDriverAmber::InitSimulationsStep2() pt end \n");
@@ -4728,8 +4790,10 @@ void MMDriverAmber::CalcForceAndEne(int new_list, int ncalls)
 	{
 		if( !p_mm_model->IsAmoebaFF() )
 		{ 
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(loadbal_mod,do_load_balancing)(&new_list, &p_amber_model->natom, atm_crd.v(), atm_frc.v(),
 				                          gbl_atm_owner_map.v(), gbl_my_atm_lst.v(), &my_atm_cnt, p_amber_model->atm_mass.v() );
+#endif
 		}
 //		PrintLog("MMDriverAmber::CalcForceAndEne() pt 1 \n");
 		PMEForce(p_amber_model->natom, atm_crd, atm_vel, atm_frc, new_list, sys_info);
@@ -4919,9 +4983,12 @@ void MMDriverAmber::IncrementVelAndCrd(int nstep, HaVec_double& crd, HaVec_doubl
 			PrintLogMDOUT ("Setting new random velocities at step %d \n", nstep + 1 );
 		}
 		double temp0_adjust = p_mm_mod->ref_temp*(p_amber_model->num_deg - ndfmin) / p_amber_model->num_deg;
+
+#if defined(WITH_LIB_PMEMD)
 		
 		FC_FUNC_MODULE(dynamics_mod,vrand_set_velocities)(&p_amber_model->natom, atm_vel.v(), p_amber_model->atm_mass_inv.v(), 
 			                                  &temp0_adjust, gbl_atm_owner_map.v() );
+#endif
 		if (p_amber_model->ibelly > 0) ZeroVelFrozenAtoms();
 
       // At this point in the code, the velocities lag the positions
@@ -4966,9 +5033,10 @@ void MMDriverAmber::IncrementVelAndCrd(int nstep, HaVec_double& crd, HaVec_doubl
       // Loncharich, Brooks and Pastor, Biopolymers 32:523-535 (1992),
       // Eq. 11.  (Note that the first term on the rhs of Eq. 11b
       // should not be there.)
-      
+#if defined(WITH_LIB_PMEMD)
       FC_FUNC_MODULE(dynamics_mod,langevin_setvel)(&p_amber_model->natom, vel.v(), frc.v(), p_amber_model->atm_mass.v(), p_amber_model->atm_mass_inv.v(),
 									   &p_mm_mod->md_time_step, &p_mm_mod->ref_temp, &p_mm_mod->langevin_dump_const, gbl_atm_owner_map.v() );
+#endif
 
 	}    // (p_mm_mod->temp_control_method != CONST_TEMP_LANGEVIN)
 
@@ -5038,8 +5106,10 @@ void MMDriverAmber::IncrementVelAndCrd(int nstep, HaVec_double& crd, HaVec_doubl
     if (ntc != 1) 
 	{
 		p_tm->UpdateTime(TimerAmber::RUNMD_TIME);
+#if defined(WITH_LIB_PMEMD)
 		FC_FUNC_MODULE(shake_mod,shake)(frc.v(), crd.v(),&p_mm_mod->period_bcond.value(),
 			                p_amber_model->atm_igroup.v(),pbc_box.v(),p_amber_model->atm_mass_inv.v(),&p_mm_mod->shake_tol);
+#endif
 		p_tm->UpdateTime(TimerAmber::SHAKE_TIME);
 
       // Re-estimate velocities from differences in positions:
@@ -5158,6 +5228,7 @@ void MMDriverAmber::ScaleCoordConstPress(HaVec_double& crd, HaVec_double& box, H
       // computed for ewald is the general Nose Klein; however the cell response
       // needs a more general treatment.
 
+#if defined(WITH_LIB_PMEMD)
 		FC_FUNC_MODULE(pbc_mod,pressure_scale_pbc_data)(pbc_box.v(),rmu.v());
 		GetPBoxDataFromFortran();
 		
@@ -5170,6 +5241,7 @@ void MMDriverAmber::ScaleCoordConstPress(HaVec_double& crd, HaVec_double& box, H
 		{
 			pressure_scale_restraint_crds_proxy_(p_amber_model->atm_xc.v(), p_amber_model->atm_mass.v());
 		}
+#endif
 	}    //  ntp > 0
 }
 
@@ -5228,8 +5300,10 @@ void MMDriverAmber::InitPBC()
 {
 	double cut_vdw_with_skin = p_amber_model->vdw_cutoff + p_mm_model->skin_nb;
 
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(pbc_mod,init_pbc)(&pbc_box[0], &pbc_box[1], &pbc_box[2],
 			   &pbc_alpha, &pbc_beta, &pbc_gamma, &cut_vdw_with_skin);
+#endif
 
 	GetPBoxDataFromFortran();
 }
@@ -5610,7 +5684,9 @@ void MMDriverAmber::RemoveCOMVelAndResetCenter(int& all_crds_valid, int& all_vel
 		// below more-or-less as maintenance insurance...
 		if (!all_crds_valid)  // Currently always false...
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,gb_mpi_allgathervec)(&p_amber_model->natom, atm_crd.v());
+#endif
 			all_crds_valid  = TRUE;
 		}
 	}
@@ -5622,7 +5698,9 @@ void MMDriverAmber::RemoveCOMVelAndResetCenter(int& all_crds_valid, int& all_vel
 			//          forced by this scenario...
 			if (!all_vels_valid) //  Currently always true...
 			{
+#if defined(WITH_LIB_PMEMD)
 				FC_FUNC_MODULE(parallel_mod,gb_mpi_allgathervec)(&p_amber_model->natom, atm_vel.v());
+#endif
 				all_vels_valid = TRUE;
 			}
 		}
@@ -5778,7 +5856,9 @@ void MMDriverAmber::CollectCoords(int& new_list, int& nstep, int& collect_crds, 
 		if (p_amber_model->using_gb_potential) 
 		{
 			// Generalized Born has it's own coordinate distribution scheme...
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,gb_mpi_allgathervec)(&p_amber_model->natom, atm_crd.v());
+#endif
 			all_crds_valid = TRUE;
 		}
 		else if (new_list || p_mm_model->IsAmoebaFF() ) // IGOR TEMPORAL FIX
@@ -5793,16 +5873,19 @@ void MMDriverAmber::CollectCoords(int& new_list, int& nstep, int& collect_crds, 
 			{
 				if ( p_amber_model->natc > 0 ) 
 				{
+#if defined(WITH_LIB_PMEMD)
 					if (FC_FUNC_MODULE(loadbal_mod,get_atm_redist_needed)() || FC_FUNC_MODULE(loadbal_mod,get_fft_slab_redist_needed)()) 
 					{
 						AllGatherVec(p_amber_model->atm_xc);
 					}
+#endif
 				}
 			}
 			all_crds_valid = TRUE;
 		}
 		else // ( !using_gb_potential && !new_list ) 
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(parallel_mod,distribute_crds_proxy)(&p_amber_model->natom, &my_atm_cnt, atm_crd.v());
 
 			// It may be necessary for the master to have a complete copy of the
@@ -5830,6 +5913,7 @@ void MMDriverAmber::CollectCoords(int& new_list, int& nstep, int& collect_crds, 
 					                           gbl_my_atm_lst.v(), &my_atm_cnt);
 				all_crds_valid = TRUE;
 			}
+#endif
 		} // ( using_gb_potential )
 		
 	} // ! (numtasks > 1)
@@ -5848,6 +5932,7 @@ void MMDriverAmber::CollectVelocities(int& new_list, int& nstep, int& collect_cr
 
 		p_tm->UpdateTime(TimerAmber::RUNMD_TIME);
 
+#if defined(WITH_LIB_PMEMD)
 		if (p_amber_model->using_pme_potential && new_list && 
 			(FC_FUNC_MODULE(loadbal_mod,get_atm_redist_needed)() || FC_FUNC_MODULE(loadbal_mod,get_fft_slab_redist_needed)()) )
 		{
@@ -5888,6 +5973,7 @@ void MMDriverAmber::CollectVelocities(int& new_list, int& nstep, int& collect_cr
 			}
 			all_vels_valid = FALSE;  // ?? should it be TRUE is collect_vels happened???
 		}
+#endif
 		p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 	}  // (numtasks > 1)
 
@@ -5955,8 +6041,10 @@ int MMDriverAmber::CheckForNewNonBondList()
 
 		if( numtasks > 1) 
 		{
+#if defined(WITH_LIB_PMEMD)
 			FC_FUNC_MODULE(nb_pairlist_mod,check_my_atom_movement)(atm_crd.v(), gbl_atm_saved_crd.v(), pbc_box.v(), gbl_saved_box.v(), gbl_my_atm_lst.v(),&my_atm_cnt,
                                                        &p_mm_model->skin_nb, &ntp, &new_list);
+#endif
 		}
 		else
 		{
@@ -5993,7 +6081,9 @@ int MMDriverAmber::CheckForNewNonBondList()
 
         if (p_amber_model->using_pme_potential) 
 		{
+#if defined(WITH_LIB_PMEMD)
             FC_FUNC_MODULE(loadbal_mod,check_new_list_limit)(&new_list);
+#endif
 		}
 	}
 	return new_list;
@@ -6031,8 +6121,10 @@ void MMDriverAmber::SetPrmTopIntFortran()
     vals(25) = p_amber_model->gbl_angle_allocsize; 
     vals(26) = p_amber_model->gbl_dihed_allocsize; 
     vals(27) = p_amber_model->num_dist_constr;
-	
+
+#if defined(WITH_LIB_PMEMD)
 	set_prmtop_int_(vals.begin());
+#endif
 }
 
 
@@ -6104,8 +6196,10 @@ void MMDriverAmber::SetMDinCtrlIntFortran()
 	vals(61) = p_amber_model->beeman_integrator;
 	vals(62) = p_mm_model->dipole_scf_iter_max;
 	vals(63) = p_amber_model->amoeba_verbose;
- 
+
+#if defined(WITH_LIB_PMEMD)
 	set_mdin_ctrl_int_(vals.begin());
+#endif
 }
 
 void MMDriverAmber::SetMDinCtrlDblFortran()
@@ -6164,7 +6258,9 @@ void MMDriverAmber::SetMDinCtrlDblFortran()
 	vals(47) = p_mm_model->thole_expon_coeff; 
 	vals(48) = p_mm_model->vdw_taper; 
 	
+#if defined(WITH_LIB_PMEMD)
 	set_mdin_ctrl_dbl_(vals.begin());
+#endif
 }
 
 void MMDriverAmber::SetAddIntParsFortran()
@@ -6177,7 +6273,9 @@ void MMDriverAmber::SetAddIntParsFortran()
 	vals(4) = loadbal_verbose;
 	vals(5) = master;
 
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(mdin_ewald_dat_mod,set_add_pmemd_int_pars)(vals.begin());
+#endif
 }
 
 void MMDriverAmber::SetPMEParsFortran()
@@ -6194,7 +6292,9 @@ void MMDriverAmber::SetPMEParsFortran()
 	vals(6) = p_mm_model->vdw_correction_flag;
 	vals(7) = p_mm_model->pme_verbose;
 
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(mdin_ewald_dat_mod,set_pme_int_pars_to_fort)(vals.v());
+#endif
 
 	HaVec_double dvals(5);
 
@@ -6204,7 +6304,9 @@ void MMDriverAmber::SetPMEParsFortran()
 	dvals(4) = p_mm_model->pme_eedtbdns;
 	dvals(5) = p_mm_model->fft_grids_per_ang;
 
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(mdin_ewald_dat_mod,set_pme_dbl_pars_to_fort)(dvals.v());
+#endif
 }
 
 void MMDriverAmber::PrintLogMDOUT(const char* format, ... )
@@ -6336,12 +6438,14 @@ void MMDriverAmber::PMEForce(int atm_cnt, HaVec_double& crd, HaVec_double& vel, 
 
 //	PrintLog(" PMEForce pt 1 \n");
 
+#if defined(WITH_LIB_PMEMD)
 	pme_force_proxy_(&atm_cnt,crd.v(),gbl_atm_saved_crd.v(), pbc_box.v(), gbl_saved_box.v(),
 		             vel.v(),frc.v(),p_amber_model->atm_mass.v(),&new_list,
 		             p_amber_model->atm_jrc.v(), p_amber_model->atm_xc.v(), p_amber_model->atm_weight.v(), 
 					 p_amber_model->atm_igroup.v(), &p_amber_model->natc, sys_info.v(), 
 					 virial.v(), ekcmt.v(), &pme_err_est, gbl_atm_owner_map.v(), gbl_my_atm_lst.v(), &my_atm_cnt,
 					 tranvec.v(), &p_mm_mod->run_type.value() );
+#endif
 
 	if (p_amber_model->ibelly > 0) ZeroFrcFrozenAtoms();
 	
@@ -8653,6 +8757,7 @@ int MolMechModel::UpdateConstraints_2()
 		ires = MPI_Bcast(p_amber_model->dist_constr_idx.v(),   3*p_amber_model->num_dist_constr,MPI_INT,   0,comm);
 		ires = MPI_Bcast(p_amber_model->dist_constr_params.v(),2*p_amber_model->num_dist_constr,MPI_DOUBLE,0,comm);
 	}
+#if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(dist_constr_mod,dist_constr_alloc)( &p_amber_model->num_dist_constr );
 
 	if( p_amber_model->num_dist_constr > 0 )               
@@ -8667,6 +8772,7 @@ int MolMechModel::UpdateConstraints_2()
 	HaVec_int use_atm_map_loc(  this->GetNA(), 1 );
 
 	FC_FUNC_MODULE(dist_constr_mod,dist_constr_setup)( use_atm_map_loc.v(), p_mm_mod->p_amber_driver->gbl_atm_owner_map.v() );
+#endif
 
 	return TRUE;
 }
@@ -8785,6 +8891,8 @@ void MMDriverAmber::TestFFT1()
 
 	data_save = data;
 
+#if defined(WITH_LIB_PMEMD)
+
 	FC_FUNC_MODULE(fft1d_mod,fft1d_create_test)(&nsize);
 	
 	FC_FUNC_MODULE(fft1d_mod,fft1d_forward_test)(data.v());
@@ -8798,6 +8906,8 @@ void MMDriverAmber::TestFFT1()
 	FC_FUNC_MODULE(fft1d_mod,fft1d_back_test)(data.v());
 
 	FC_FUNC_MODULE(fft1d_mod,fft1d_destroy_test)();
+
+#endif
 
 	PrintLog("\n\nData after backward transformation : \n");
 	for(i = 0; i < 2*nsize; i++)

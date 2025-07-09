@@ -101,7 +101,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(PYTHON_HOME_PATH)\include;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\include;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -114,7 +114,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -157,7 +157,7 @@ $(SolutionDir)copy_dependencies.bat
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\include;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;WITH_LIB_PMEMD;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
@@ -170,7 +170,7 @@ $(SolutionDir)copy_dependencies.bat
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;pmemd_lib_vs.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
@@ -225,6 +225,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\mm_driver_arbalest.cpp" />
     <ClCompile Include="..\HARLEM\sources\mm_driver_gromacs.cpp" />
     <ClCompile Include="..\HARLEM\sources\ndo.cpp" />
+    <ClCompile Include="..\HARLEM\sources\pmemd_clib.c" />
     <ClCompile Include="..\HARLEM\sources\qc_params.cpp" />
     <ClCompile Include="..\HARLEM\sources\protonredox.cpp" />
     <ClCompile Include="..\HARLEM\sources\haflexmod.cpp" />
