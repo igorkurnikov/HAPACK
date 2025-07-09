@@ -5518,7 +5518,7 @@ void ResidueParamsDlgWX::OnMutateResidue(wxCommandEvent& event)
 	{
 		PrintLog("No Residue Selected \n");
 	}
-	std::string mut_res_type = p_mut_res_type_text->GetValue();
+	std::string mut_res_type = p_mut_res_type_text->GetValue().ToStdString();
 	if (!mut_res_type.empty())
 	{
 		PrintLog("Mutate Residue %s to type: %s \n", pres_sel->GetRef(), mut_res_type.c_str() );
@@ -5536,7 +5536,7 @@ void ResidueParamsDlgWX::OnSetTransformation(wxCommandEvent& event)
 		PrintLog("No Residue Selected \n");
 		return;
 	}
-	std::string mut_res_type = p_mut_res_type_text->GetValue();
+	std::string mut_res_type = p_mut_res_type_text->GetValue().ToStdString();
 	if (!mut_res_type.empty())
 	{
 		PrintLog("Set Alchemical Transformation for Residue %s to type: %s \n", pres_sel->GetRef(), mut_res_type);

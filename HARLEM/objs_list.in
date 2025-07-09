@@ -27,7 +27,6 @@ OBJS = \
 	apbsmod.o  \
 	hamolset.o \
 	harlemapp.o \
-	harlemapp_wx.o \
 	dialogs_wx_1.o \
 	dialogs_wx_2.o \
 	ha_wx_res_wdr.o \

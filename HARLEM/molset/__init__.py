@@ -31,6 +31,6 @@ __path__.append(os.path.join(os.path.dirname(__file__), "molset_ext"))
 
 from molset.harlempy import start_harlem
  
-HaAtom_FillStdAtomTypes()
-HaResidue_InitStdResNames()
-HaResidue_InitResSynonym()
+HaAtom.FillStdAtomTypes()
+HaResidue.InitStdResNames()
+HaResidue.InitResSynonym()

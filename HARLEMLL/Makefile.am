@@ -32,9 +32,9 @@ lib_molsetc_la_LIBADD = \
  $(top_srcdir)/libs/linux/x64/qcutil.a \
  $(top_builddir)/MORT_LIB/libmort.a 
 
-#if WITH_LIB_PMEMD
-lib_molsetc_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
-#endif
+##if WITH_LIB_PMEMD
+#lib_molsetc_la_LIBADD += $(top_builddir)/PMEMD_LIB/libpmemd.a
+##endif
 
 if WITH_CUDA
 lib_molsetc_la_LIBADD += $(NVCCLIBS)
@@ -53,7 +53,6 @@ harlem_wx_files = \
  $(top_srcdir)/HARLEM/sources/dialogs_wx_2.cpp \
  $(top_srcdir)/HARLEM/sources/mm_dialogs_wx.cpp \
  $(top_srcdir)/HARLEM/sources/qc_dialogs_wx.cpp \
- $(top_srcdir)/HARLEM/sources/harlemapp_wx.cpp \
  $(top_srcdir)/HARLEM/sources/hamainframe_wx.cpp \
  $(top_srcdir)/HARLEM/sources/edit_mut_map_dlg_wx.cpp \
  $(top_srcdir)/HARLEM/sources/wx_prot_redox_dlg.cpp \
@@ -133,7 +132,9 @@ harlem_main_files = \
  $(top_srcdir)/HARLEM/sources/hazindo.cpp \
  $(top_srcdir)/HARLEM/sources/march_cube.cpp \
  $(top_srcdir)/HARLEM/sources/mm_driver_amber.cpp \
+ $(top_srcdir)/HARLEM/sources/mm_driver_arbalest.cpp \
  $(top_srcdir)/HARLEM/sources/mm_driver_gromacs.cpp \
+ $(top_srcdir)/HARLEM/sources/mm_driver_tinker.cpp \
  $(top_srcdir)/HARLEM/sources/mm_elements.cpp \
  $(top_srcdir)/HARLEM/sources/mm_force_field.cpp \
  $(top_srcdir)/HARLEM/sources/mm_model.cpp \

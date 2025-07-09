@@ -407,14 +407,14 @@ std::ostream& operator<<(std::ostream &s, const const_Region2D<TNT_Array2D,T> &A
     size_t Nend=A.lbound() + A.num_cols() - 1;
 
 
-    s << A.num_rows() << "  " << A.num_cols() << endl;
+    s << A.num_rows() << "  " << A.num_cols() << std::endl;
     for (size_t i=start; i<=Mend; i++)
     {
         for (size_t j=start; j<=Nend; j++)
         {
             s << A(i,j) << " ";
         }
-        s << endl;
+        s << std::endl;
     }
 
 
@@ -429,14 +429,14 @@ std::ostream& operator<<(std::ostream &s, const Region2D<TNT_Array2D> &A)
     size_t Nend=A.lbound() + A.num_cols() - 1;
 
 
-    s << A.num_rows() << "  " << A.num_cols() << endl;
+    s << A.num_rows() << "  " << A.num_cols() << std::endl;
     for (size_t i=start; i<=Mend; i++)
     {
         for (size_t j=start; j<=Nend; j++)
         {
             s << A(i,j) << " ";
         }
-        s << endl;
+        s << std::endl;
     }
 
 

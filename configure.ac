@@ -31,11 +31,11 @@ AC_DEFINE([HAPACK],,[Define HAPACK variable to show compilation in the package])
 AC_ARG_WITH([libpmemd],
 	[AS_HELP_STRING([--with-libpmemd],[link to modified pmemd library])],
 	AS_IF([test "$with_libpmemd" == "yes"],WITH_LIB_PMEMD=1),
-	WITH_LIB_PMEMD=1)
+	WITH_LIB_PMEMD=0)
 
-if test -n "$WITH_LIB_PMEMD"; then
-	SANDER_DEFS="-DWITH_LIB_PMEMD" 
-fi
+#if test -n "$WITH_LIB_PMEMD"; then
+#	SANDER_DEFS="-DWITH_LIB_PMEMD" 
+#fi
 
 AM_CONDITIONAL([WITH_LIB_PMEMD], test -n "$WITH_LIB_PMEMD")
 
@@ -109,14 +109,14 @@ AC_ARG_WITH([boostinc],
 AC_SUBST(BOOST_LIBS," -lboost_filesystem -lboost_system ")
 
 #PLPLOT
-AC_SUBST(PLPLOT_LIBS,`pkg-config plplot --libs`)
-AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplot-c++ --libs`)
-AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplot-wxwidgets --libs`)
-AS_IF( test "x$PLPLOT_LIBS" = "x",
-AC_SUBST(PLPLOT_LIBS,`pkg-config plplotd --libs`)
-AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplotd-c++ --libs`)
-AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplotd-wxwidgets --libs`) 
-)
+#AC_SUBST(PLPLOT_LIBS,`pkg-config plplot --libs`)
+#AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplot-c++ --libs`)
+#AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplot-wxwidgets --libs`)
+#AS_IF( test "x$PLPLOT_LIBS" = "x",
+#AC_SUBST(PLPLOT_LIBS,`pkg-config plplotd --libs`)
+#AC_SUBST(PLPLOTCPP_LIBS,`pkg-config plplotd-c++ --libs`)
+#AC_SUBST(PLPLOTWX_LIBS,`pkg-config plplotd-wxwidgets --libs`) 
+#)
 ###SWIG
 AC_SUBST(SWIG,"swig")
 
@@ -217,7 +217,7 @@ AC_CONFIG_FILES([GEOBALL/Makefile])
 AC_CONFIG_FILES([JUMNA_LIB/Makefile])
 AC_CONFIG_FILES([HARLEMLL/Makefile])
 #AS_IF([test -n "$WITH_LIB_PMEMD"],
-AC_CONFIG_FILES([PMEMD_LIB/Makefile])
+#AC_CONFIG_FILES([PMEMD_LIB/Makefile])
 #Documentation
 AC_CONFIG_FILES([doc/Makefile doc/API/Makefile])
 #diffrent stuff

@@ -52,10 +52,14 @@ elif [[ "$PY_VER" = "3.7" ]] && [[ "$os_id"  = "Ubuntu" ]]; then
   echo "UBUNTU OS :  PY_VER = 3.7"
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_18.04/*  ${PREFIX}/lib
   cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_18.04/*  ${PREFIX}/bin
+elif [[ "$PY_VER" = "3.12" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
+  echo "UBUNTU OS :  PY_VER = 3.7"
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_22.04/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_22.04/*  ${PREFIX}/bin
 else
   echo "OS UNKNOWN : PY_VER = UNKNOWN "
-  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_20.04/*  ${PREFIX}/lib
-  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_20.04/*  ${PREFIX}/bin
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/LIBS_UBUNTU_22.04/*  ${PREFIX}/lib
+  cp -rp ${RECIPE_DIR}/../../MOLSET_BIN_LIBS/BIN_UBUNTU_22.04/*  ${PREFIX}/bin
 fi
 
 cp -rp ${RECIPE_DIR}/../HARLEM/molset/*  ${SP_DIR}/molset
@@ -66,7 +70,9 @@ cp -a ${RECIPE_DIR}/../examples/*     ${PREFIX}/opt/harlem/examples
 cp -a ${RECIPE_DIR}/../basis/*        ${PREFIX}/opt/harlem/basis
 cp -a ${RECIPE_DIR}/../residues_db/*  ${PREFIX}/opt/harlem/residues_db
 
-if [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
+if [[ "$PY_VER" = "3.12" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
+  pip install wxpython-4.2.4a1-cp312-cp312-linux_x86_64.whl 
+elif [[ "$PY_VER" = "3.9" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
   pip install wxPython-4.1.1-cp39-cp39-linux_x86_64.whl
 elif [[ "$PY_VER" = "3.8" ]] && [[ "$os_id"  = "Ubuntu" ]]; then 
   pip install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl

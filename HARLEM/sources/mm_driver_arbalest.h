@@ -31,7 +31,7 @@ public:
 	bool SaveConfigFile();      //!< Save MM run parameters in ARBALEST CONFIG format to File
 	bool SaveRunFiles();        //!< Save ARBALEST Run script
 	
-	int SaveConfigToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
+	int SaveConfigToStream( std::ostream& os );    //!< Save MM run parameters in ARBALEST format to std::stream
 
 	std::vector<std::string> GetPosRestraintsDescAndList(std::set<HaAtom*>& atoms_saved); //!< Get Positional Restraints Description and List in Arbalest Format
 	bool SavePosRestraintsStream(std::ostream& os_desc, std::ostream& os_list, std::set<HaAtom*>& saved_atoms); //!< Write Positional Restraints Description and List in Arbalest Format to Streams

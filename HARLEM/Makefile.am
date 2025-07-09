@@ -68,7 +68,6 @@ harlem_wx_files = \
  sources/qc_dialogs_wx.cpp \
  sources/wx_prot_redox_dlg.cpp \
  sources/hamainframe_wx.cpp \
- sources/harlemapp_wx.cpp \
  sources/ha_wx_aux_1.cpp \
  sources/ha_wx_ed_wdr.cpp \
  sources/ha_wx_res_wdr.cpp \
@@ -139,7 +138,9 @@ harlem_main_files = \
  sources/hazindo.cpp \
  sources/march_cube.cpp \
  sources/mm_driver_amber.cpp \
+ sources/mm_driver_arbalest.cpp \
  sources/mm_driver_gromacs.cpp \
+ sources/mm_driver_tinker.cpp \
  sources/mm_elements.cpp \
  sources/mm_force_field.cpp \
  sources/mm_model.cpp \

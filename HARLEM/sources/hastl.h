@@ -18,6 +18,7 @@
 #if !defined(linux)
 #   include <limits>
 #endif
+#include <memory>
 #include <stack>
 #include <list>
 #include <map>
