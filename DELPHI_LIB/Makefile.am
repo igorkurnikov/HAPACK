@@ -1,11 +1,6 @@
 noinst_LIBRARIES = libdelphi.a
 
-if WITH_GFORTRAN
 AM_FFLAGS = -ffixed-line-length-132 -fPIC
-else
-AM_FFLAGS = -132 -fPIC
-endif
-
 
 AM_CPPFLAGS = -I$(top_srcdir)/DELPHI_LIB/source
 libdelphi_a_SOURCES=\

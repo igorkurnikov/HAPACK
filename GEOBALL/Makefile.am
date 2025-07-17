@@ -2,7 +2,6 @@ lib_LTLIBRARIES = libgeoball.la
 
 AM_FFLAGS = -ffixed-line-length-132 -fPIC 
 AM_CPPFLAGS = -fPIC -I$(top_srcdir)/GEOBALL
-#AM_FFLAGS = -132
 
 libgeoball_la_SOURCES=\
 GeoBall.c \

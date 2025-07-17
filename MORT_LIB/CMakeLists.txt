@@ -1,9 +1,10 @@
 PROJECT(MORTLIB)
+cmake_minimum_required(VERSION 3.10)
 #SUBDIRS(pymort)
 
-include_directories(/home/kurnikov/SIM_PY39/include)
+include_directories(/srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING/include)
 
-SET(CMAKE_CXX_FLAGS  " -fPIC ")
+SET(CMAKE_CXX_FLAGS  "-I/srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING/include -fPIC ")
 
 SET(LIB_MORT_SOURCE
 ambfmt/ambfrc-amoeba.cpp
