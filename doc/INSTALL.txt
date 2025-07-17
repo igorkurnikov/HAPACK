@@ -1,4 +1,4 @@
-eLINUX:
+LINUX:
 
 UBUNTU(16.04/18.04/20.04/22.04) packages:
 
@@ -19,6 +19,30 @@ sudo apt install libwebkitgtk-dev libwebkitgtk-3.0-dev
 Only for UBUNTU 18.04:
 sudo apt install gfortran-7
 
+ON BCLN:
+conda activate /srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING
+
+conda install automake libtool 
+conda install -c conda-forge gtk3                       make sure it is using old GLIBC ( < GLIBC_2.17 for UBUNTU 20.14) 
+conda install -c conda-forge boost
+conda install -c conda-forge liblapack openblas
+conda install conda-build conda-verify
+
+manually edit libtoolize to set:
+: ${EGREP="/bin/grep -E"}              ( it comes with /usr/bin/grep )
+: ${FGREP="/bin/grep -F"}
+: ${GREP="/bin/grep"}
+: ${SED="/bin/sed"}
+
+export DOXYGEN=$CONDA_PREFIX/bin/doxygen
+
+export CC=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+export CXX=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-c++
+export PKG_CONFIG_PATH=$CONDA_PREFIX/lib/pkgconfig
+
+## manually deleting -ludev and -lz??   from the linking  - seems not needed if gtk3 libray with old GLIBC
+lib_molsetc.so.0.0.0 
+
 --------------------------------------------------------------------------------------
 configure HAPACK: 
  
@@ -37,9 +61,12 @@ cd MORT_LIB
 cmake ../../HAPACK/MORT_LIB/
 make
 cd .. ( BUILD_HARLEM dir )
-cd PMEMD_LIB
-make
+
+cd ../HAPACK
+conda build ./conda-recipe-molset --output-folder ../MOLSET_CONDA_CHANNEL 
+
 cd ..
+conda install -c ./MOLSET_CONDA_CHANNEL molset --force-reinstall
 
 -------------------------------------------------------------------------------------------------------------------
 Additional compilation flags:
@@ -53,38 +80,7 @@ remove -g                       flag for PMEMD_LIB - otherwise  a complain for n
 UBUNTU 18.04 ( gcc 7.4.0 ) ( may be needed LDFLAGS=-fno-lto  - for some python c++ interaction - right now seems ok without it )
 LDFLAGS=-fno-lto ../HAPACK/configure --prefix /share/apps/HARLEM --with-wx-config=/home/igor/MYPROG/Phoenix/build/wxbld/gtk3/wx-config 
 
---------------------------------------------------------------------------------------------------------------------
-Compilation on CENTOS 7 (Berkeley cluster) with conda compilers:
-
-need to make a link  $CONDA_PREFIX/include/GL/glx.h  -> /usr/include/glx.h
-                     $CONDA_PREFIX/include/GL/glxext.h  -> /usr/include/glxext.h
-                     $CONDA_PREFIX/lib/librdmacm.so  -> /usr/lib64/librdmacm.so
-                     $CONDA_PREFIX/lib/libibverbs.so  -> /usr/lib64/libibverbs.so
-                     $CONDA_PREFIX/lib/libudev.so  -> /usr/lib64/libudev.so
-
-hardcoded include dir to  MORT_LIB/CMakeLists.txt
-include_directories( $CONDA_PREFIX/include )
-
-This seems not needed anymore
-// need to copy  /lib64/libboost*                to $CONDA_PREFIX/lib
-//               /lib64/libxkbcommon.so.0        to $CONDA_PREFIX/lib
-   			     /lib64/libwayland-cursor.so.0   to $CONDA_PREFIX/lib   - needed to work on nodes
-			     /lib64/libwayland-egl.so.1      to $CONDA_PREFIX/lib
-				 /lib64/libopenblas.so.0         to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
-				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
-				 /lib64/libgtk-3.so.0            to $CONDA_PREFIX/lib   - may be can install the package or copy dll from conda
-			  
-
 ----------------------------------------------------------------------------------------------------------
-wxPython compilation and install:
-
-Unzip: wxPython-4.1.1_FIX_SIZER.tar.gz
-ln -s wxPython-4.1.1_FIX_SIZER Phoenix
-cd Phoenix
-
-python build.py build_wx          - build wxWidgets
-python build.py build_py          - build wxPython
-python build.py bdist_wheel       - build wxPython wheel file in dist subdirectory
 
 for UBUNTU-16.04 on chembeast had to get out of conda ( conda deactivate ) - some conflict with ld in conda environment?
 
@@ -230,6 +226,11 @@ conda install rdkit
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 BUILD HARLEM AND MOLSET CONDA PACKAGE:
+
+need conda-build to be installed:
+
+conda install -n base conda-build
+
 prep:
 copy MOLSET_BIN_LIBS to HAPACK/..  directory, symbolic link may not work
 
@@ -249,6 +250,7 @@ libXxf86vm.so.1
 libXtst.so.6 
 libffi.so.7
 
+
 change RPATH for _molsetc.so for specific set of shared libraries as libffi.so 
 first conda install molset 
 then copy $CONDA_PREFIX/lib to $CONDA_PREFIX/lib_molset 
@@ -264,6 +266,70 @@ error is
 ImportError: /lib/x86_64-linux-gnu/libwayland-client.so.0: undefined symbol: ffi_type_uint32, version LIBFFI_BASE_7.0
 fixed by:
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7
+---------------------------------------------------------------------------------------------------
+Install on BCLN - in conda environment:
+
+conda install -c defaults gtk3
+conda install --no-deps libtiff=4.0.9 -c conda-forge ( for libtiff.so.5 )
+conda install -c defaults gdk-pixbuf
+conda install -c defaults cairo
+conda install -c defaults pango
+conda install -c defaults libxkbcommon-devel-conda-x86_64
+conda install -c defaults libxkbcommon
+conda install -c defaults xorg-libxtst
+
+---------------------------------------------------------
+Install on BCLN for compiling WXPYTHON and MOLSET 
+
+conda activate /srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING  - works
+#conda activate /srv/data/permanent/apps/InterX_Simulations/CONDA_MOLSET  - wxwidgets not compiled - can not find gtk3  
+
+conda install -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make cmake pkg-config
+
+installed:
+/srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING/bin/x86_64-conda-linux-gnu-gcc gcc version 14.3.0
+/srv/data/permanent/apps/InterX_Simulations/CONDA_NN_SAMPLING/bin/x86_64-conda-linux-gnu-gfortran 
+
+conda install -c conda-forge gtk3 expat libopengl python-build setuptools wheel   ( without expat pkg-config gtk+-3.0 --cflags  doesn't work and gtk3 is not found by wxPython installer)
+conda install conda-forge::glfw   - may be ??
+conda install doxygen sip
+
+export DOXYGEN=$CONDA_PREFIX/bin/doxygen
+
+export CC=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+export CXX=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-c++
+export PKG_CONFIG_PATH=$CONDA_PREFIX/lib/pkgconfig
+
+wxPython compilation and install:
+
+From Preprocessed wxPython installation:
+
+untar Phoenix_4.2.4a1_dox_etg_sip.tar
+# Unzip: wxPython-4.1.1_FIX_SIZER.tar.gz
+# ln -s wxPython-4.1.1_FIX_SIZER Phoenix
+cd Phoenix
+
+from git: 
+git clone https://github.com/igorkurnikov/Phoenix.git 
+git submodule update --init --recursive
+
+conda install requests                  - for installing local doxygen
+conda install -c conda-forge graphviz   - for etg installation
+
+python build.py build_wx          - build wxWidgets
+python build.py dox etg --nodoc sip build
+python build.py build_py          - build wxPython
+python build.py bdist_wheel       - build wxPython wheel file in dist subdirectory
+
+python build.py install or 
+pip install wxpython-4.2.4a1-cp312-cp312-linux_x86_64.whl
+
+manually copy ( cp -a wx/libwx*  $CONDA_PREFIX/lib) - not properly installed by pip install 
+
+
+python build.py build_wx  fails because: in   ./build/wxbld/gtk3/config.log
+conftest.c:53:10: fatal error: gtk/gtk.h: No such file or directory
+   53 | #include <gtk/gtk.h
 
 -----------------------------------------------------------------------------------------------
 
