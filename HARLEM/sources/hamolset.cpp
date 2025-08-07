@@ -5497,7 +5497,7 @@ int MolSet::OrderAtomsInRes()
 }
 
 
-int MolSet::Solvate()
+int MolSet::Solvate(double buf_dist)
 {
 	MolSet* cur_mol_set = GetCurMolSet();
 
@@ -5512,6 +5512,7 @@ int MolSet::Solvate()
 	}
 	fclose(solv_file);
 
+	if (buf_dist > 0.1) p_mol_editor->solv_buffer_dist = buf_dist;
 
 	double a, b, c;
 	double xmin, ymin, zmin, xmax, ymax, zmax;

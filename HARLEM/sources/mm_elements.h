@@ -22,7 +22,7 @@ public:
 	virtual ~AtomFFParam(); 
 
 	void Clear(); //!< Clear content
-	int LoadXml(const TiXmlElement* xml_element, std::string at_name, int option=0 ); //!< Load Atom FF Template from XML element
+	int LoadXml(const TiXmlElement* xml_element, std::string at_name, const StrStrMap& options ); //!< Load Atom FF Template from XML element
 
 	int HasDipole() const;   //!< Check if atom has electic dipole parameter
 	int HasQPole()  const;   //!< Check if atom has electric quadrupole parameter
@@ -59,6 +59,7 @@ public:
 
 	//std::string at_name;    //!< Atom name in the residue or residue force field template 
 	std::string ff_symbol;  //!< Force field symbol of the atom
+	std::string nn_symbol;  //!< NN Force Field symbol of the atom
 	std::string ff_polar_symbol;  //!<  Force field symbol of the atom for electrostatic and polarization parameters
 	
 	StrVec    frame_atom_names;  //!< Array of atom names defining local frame of the atom 
@@ -77,7 +78,7 @@ public:
 
 	void Clear(); //!< Clear All content
 
-	bool LoadXml(const TiXmlElement* xml_element, int option=0 ); //!< Load Residue FF Template from XML element
+	bool LoadXml(const TiXmlElement* xml_element, StrStrMap& options ); //!< Load Residue FF Template from XML element
 
 	std::shared_ptr<AtomFFParam> GetAtomFFParam(const std::string& at_name); //!< Get Atom Force Field Parameters by Atom Name 
 	bool SetAtomFFParam(const std::string& at_name, std::shared_ptr<AtomFFParam> p_at_ff_param); //!< Set Atom Force Field parameters

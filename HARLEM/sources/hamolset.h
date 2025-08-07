@@ -417,7 +417,7 @@ public:
 	int OrderAtomsInRes();    //!< order atoms in residues according to residue templates
 
 
-	int Solvate(); //!< Solvate Molecular Set 
+	int Solvate(double buf_dist = 0.0); //!< Solvate Molecular Set 
 	int CenterSoluteInSolvent(); //!< Center solute in the center of periodic box
 	int CenterMolInPBox();  //!< Center Molecule in the center of periodic box
 	void AddIons(int n_na, int n_cl); //!< Add Na+ and CL- atoms 

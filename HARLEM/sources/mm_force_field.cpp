@@ -149,7 +149,7 @@ int MMForceField::Init()
 			file_name = amber_param_files[i];
 			PrintLog(" Force field parameter file (AMBER FORMAT) = %s \n",file_name.c_str());
 
-			bool file_exists = ::wxFileExists(file_name.c_str());
+			bool file_exists = fs::exists(file_name);
 			if( !file_exists ) throw std::runtime_error(" Parameter file " + file_name + " doesn't exist ");
 				
 			ires = LoadAmberParamFile(file_name);
@@ -161,22 +161,25 @@ int MMForceField::Init()
 			file_name = tinker_param_files[i];
 			//PrintLog(" Force field parameter file (TINKER FORMAT) = %s \n",file_name.c_str());
 
-			bool file_exists = ::wxFileExists(file_name.c_str());
+			bool file_exists = fs::exists(file_name);
 			if( !file_exists ) throw std::runtime_error(" Parameter file " + file_name + " doesn't exist ");
 				
 			ires = LoadTinkerParamFile(file_name);
 			if( !ires ) throw std::runtime_error(" Error loading Amber Parameter file " + file_name );
 		}
 
+		StrStrMap options_load_resff;
+		if (this->ff_type == this->ff_type.ARROW_NN) options_load_resff["LOAD_NN_TYPE"] = "1";
+
 		for(i = 0; i < resff_files.size(); i++)
 		{
 			file_name = resff_files[i];
-			PrintLog(" Residue Force field file = %s \n",file_name.c_str());
+			PrintLog(" Residue Force field file = %s \n",file_name );
 
-			bool file_exists = ::wxFileExists(file_name.c_str());
+			bool file_exists = fs::exists(file_name);
 			if( !file_exists ) throw std::runtime_error(" Residue FF file " + file_name + " doesn't exist ");
 				
-			ires = LoadResFFTemplateXMLFile( file_name.c_str() );
+			ires = LoadResFFTemplateXMLFile( file_name, options_load_resff );
 			if( !ires ) throw std::runtime_error(" Error loading Residue FF file " + file_name );
 		}
 
@@ -1100,6 +1103,11 @@ void MMForceField::SetDefaultParamFiles()
 		resff_files.push_back(res_dir + "resff_arrow_2.0_amino.xml");
 		resff_files.push_back(res_dir + "resff_arrow_solvents.xml");
 	}
+	else if (ff_type == ForceFieldType::ARROW_NN)
+	{
+		resff_files.push_back(res_dir + "resff_arrow_2.0_amino.xml");
+		resff_files.push_back(res_dir + "resff_arrow_solvents.xml");
+	}
 
 }
 
@@ -1343,14 +1351,12 @@ std::string MMForceField::GetAtNameFromAmber( const std::string& atname_amber_pa
 	return atname;
 }
 
-int MMForceField::LoadResFFTemplateXMLFile(const char* fname)
+int MMForceField::LoadResFFTemplateXMLFile(std::string fname, StrStrMap& options)
 {
-	char buf[256];
-//	PrintLog("MMForceField::LoadResFFTemplateXMLFile() pt 1 \n");
 	try
 	{
 		TiXmlDocument doc;
-		bool bres = doc.LoadFile(fname);
+		const bool bres = doc.LoadFile(fname);
 
 		if(!bres) throw std::runtime_error("Invalid XML file");
 
@@ -1371,8 +1377,7 @@ int MMForceField::LoadResFFTemplateXMLFile(const char* fname)
 			if( data_elem_type != "resff" ) throw std::runtime_error("Data Element type is not resff \n");
 			if( !data_element->CStrAttribute("rname") ) throw std::runtime_error("Empty Residue name of the template \n"); 
 			std::string res_name = data_element->CStrAttribute("rname");
-//			PrintLog(" MMForceField::LoadResFFTemplateXMLFile() pt 4  res_name = %s\n",res_name.c_str()); 
-			HaResidue* p_res_templ = p_res_db->GetTemplateForResidue(res_name.c_str());
+			HaResidue* p_res_templ = p_res_db->GetTemplateForResidue(res_name);
 			if( p_res_templ == NULL ) throw std::runtime_error("No residue template with name " + res_name );
 			
 			ResFFTemplate* p_res_ff_templ = new ResFFTemplate(p_res_templ);
@@ -1387,7 +1392,7 @@ int MMForceField::LoadResFFTemplateXMLFile(const char* fname)
 			//	p_res_ff_templ = new ResFFTemplate(p_res_templ);
 			//}
 
-			if( !p_res_ff_templ->LoadXml( data_element ) )
+			if( !p_res_ff_templ->LoadXml( data_element, options ) )
 			{
 				delete p_res_ff_templ;
 				throw std::runtime_error( "Error loading residue template " + res_name );

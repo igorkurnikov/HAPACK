@@ -322,6 +322,7 @@ int MolMechModel::InitForceField(std::string ff_type_str)
 	ForceFieldType ff_type_par = MMForceField::ff_type_default;
 
 	if (ff_type_str == "ARROW") ff_type_par = ff_type_par.ARROW_2_0;
+	if (ff_type_str == "ARROW_NN") ff_type_par = ff_type_par.ARROW_NN;
 	if (ff_type_str == "AMBER") ff_type_par = ff_type_par.AMBER_99_SB;
 	if (ff_type_str == "AMOEBA") ff_type_par = ff_type_par.AMOEBA;
 
@@ -537,7 +538,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 							aptr->SetCharge(0.0);
 						}
 					}
-					else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
+					else if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0 || ff_type == ForceFieldType::ARROW_NN )
 					{
 
 						if (num_hydrogens_host == 2)
@@ -665,7 +666,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 		}
 	}
 
-	if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0)
+	if (ff_type == ForceFieldType::ARROW_5_14_CT || ff_type == ForceFieldType::ARROW_2_0 || ff_type == ForceFieldType::ARROW_NN)
 	{
 		to_init_mm_model = FALSE;
 		return TRUE;

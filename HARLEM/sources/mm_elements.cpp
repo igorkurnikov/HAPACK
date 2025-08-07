@@ -63,7 +63,7 @@ void AtomFFParam::Clear()
 	screen_polar = 0.0;
 }
 
-int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, int option )
+int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, const StrStrMap& options)
 {
 	char buf[256];
 	if( xml_element == NULL) return FALSE;
@@ -85,6 +85,7 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, i
 
 		if( xml_element->CStrAttribute("pol_type_id") ) ff_polar_symbol = xml_element->CStrAttribute("pol_type_id");
 		if( xml_element->CStrAttribute("ff_type") )     ff_symbol       = xml_element->CStrAttribute("ff_type");
+		if (xml_element->CStrAttribute("nn_type"))      nn_symbol       = xml_element->CStrAttribute("nn_type");
 
 		const TiXmlElement* data_element;
 
@@ -388,7 +389,7 @@ bool ResFFTemplate::SetAtomFFParam(const std::string& at_name, std::shared_ptr<A
 	return true;
 }
 
-bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
+bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, StrStrMap& options )
 {
 	if( !xml_element) return false;
 	try
@@ -409,7 +410,7 @@ bool ResFFTemplate::LoadXml(const TiXmlElement* xml_element, int option )
 					throw std::runtime_error(msg);
 				}
 				std::shared_ptr<AtomFFParam> p_at_ff = std::make_shared<AtomFFParam>();
-				int ires = p_at_ff->LoadXml(data_element, at_name );
+				int ires = p_at_ff->LoadXml(data_element, at_name, options );
 				if( !ires )
 				{
 					throw std::runtime_error( (boost::format("Error Loading FF parameters for atom %s") % at_name).str() );

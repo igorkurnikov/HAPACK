@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="ISO-8859-15" ?>
 <HARLEM_DATA version="01/26/2012">
 <resff rname="ALA" ffname="ARROW_2.0" >
-  <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
-  <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
+  <atomff  name="N" ff_type="NAM" nn_type="NAMPEP" chg="0.0" >  </atomff>
+  <atomff  name="H" ff_type="HNAM" nn_type="HNAMPEP" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" nn_type="C2PEP" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C3" nn_type="C2PEP" chg="0.0" >  </atomff>
   <atomff  name="HB1" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC3" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OAM=" chg="0.0" >  </atomff>
+  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
    PREV.C  CA   N   H
    CA  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="ACE" ffname="ARROW_2.0" >
+  <atomff  name="H1" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="CH3" ff_type="C3" nn_type="C2PEP" chg="0.0" >  </atomff>
+  <atomff  name="H2" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="H3" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
+<improper_dihedrals>
+   CH3  NEXT.N   C   O
+</improper_dihedrals>
+</resff>
+<resff rname="NME" ffname="ARROW_2.0" >
+  <atomff  name="N" ff_type="NAM" nn_type="NAMPEP" chg="0.0" >  </atomff>
+  <atomff  name="H" ff_type="HNAM" nn_type="HNAMPEP" chg="0.0" >  </atomff>
+  <atomff  name="C" ff_type="C3" chg="0.0" >  </atomff>
+  <atomff  name="H1" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="H2" ff_type="HC3" chg="0.0" >  </atomff>
+  <atomff  name="H3" ff_type="HC3" chg="0.0" >  </atomff>
+<improper_dihedrals>
+   PREV.C  CA   N   H
 </improper_dihedrals>
 </resff>
 <resff rname="ALA#NT" ffname="ARROW_2.0" >
@@ -300,18 +322,18 @@
 </improper_dihedrals>
 </resff>
 <resff rname="ASP" ffname="ARROW_2.0" >
-  <atomff  name="N" ff_type="NAM" chg="0.0" >  </atomff>
-  <atomff  name="H" ff_type="HNAM" chg="0.0" >  </atomff>
-  <atomff  name="CA" ff_type="C2" chg="0.0" >  </atomff>
+  <atomff  name="N" ff_type="NAM" nn_type="NAMPEP"  chg="0.0" >  </atomff>
+  <atomff  name="H" ff_type="HNAM" nn_type="HNAMPEP" chg="0.0" >  </atomff>
+  <atomff  name="CA" ff_type="C2" nn_type="C2PEP" chg="0.0" >  </atomff>
   <atomff  name="HA" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
+  <atomff  name="CB" ff_type="C2" nn_type="C2ACE" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="COO" chg="0.0" >  </atomff>
-  <atomff  name="OD1" ff_type="OOC-" chg="-0.5" >  </atomff>
-  <atomff  name="OD2" ff_type="OOC-" chg="-0.5" >  </atomff>
-  <atomff  name="C" ff_type="CAM=" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OAM=" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="COO" nn_type="COO-ACE" chg="0.0" >  </atomff>
+  <atomff  name="OD1" ff_type="OOC-" nn_type="OOC-ACE" chg="-0.5" >  </atomff>
+  <atomff  name="OD2" ff_type="OOC-" nn_type="OOC-ACE" chg="-0.5" >  </atomff>
+  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
    PREV.C  CA   N   H
    CB  OD1   CG   OD2
