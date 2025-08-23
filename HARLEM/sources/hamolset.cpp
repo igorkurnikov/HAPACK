@@ -601,6 +601,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 		if (pmol_c->GetNAtoms() == 0) continue; // the molecule doesn't have any residues
 
+		std::ostringstream oss_nn_types;
+
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{
 			ResidueIteratorChain ritr_ch(chain);
@@ -610,7 +612,11 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 			{
 				if ((pres->IsSolvent() || pres->IsIon() || save_res_as_mol) && opt.save_sep_solv_mol)  // Split Molecules consisting of Water and Ions
 				{
-					if (ires_in_mol > 0)  os << "endmol " << imol << "\n";
+					if (ires_in_mol > 0)
+					{
+						os << "endmol " << imol << "\n";
+						imol++;
+					}
 
 					std::string mol_name_saved = pres->GetName();
 					os << "mol " << imol << " " << '\"' << mol_name_saved << '\"' << "\n";
@@ -681,6 +687,10 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					std::string ff_symbol = aptr->GetFFSymbol();
 					boost::trim(ff_symbol);
 					if (ff_symbol.empty()) ff_symbol = aptr->GetStdSymbol();
+
+					std::string nn_symbol = aptr->GetNNSymbol();
+					boost::trim(nn_symbol);
+
 					double at_ch = aptr->GetCharge();
 
 					if (opt.alchemical_state == AlchemicalState::STATE_B && pres->IsAlchemicalTransformationSet())
@@ -697,6 +707,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 					std::string std_symbol = HaAtom::GetStdSymbolElem(elemno);
 
 					os << "atom " << iat << " " << at_name << " " << std_symbol << " " << ff_symbol;
+
+					if (!nn_symbol.empty()) oss_nn_types << ";nntype " << iat << " " << nn_symbol << "\n";
 					
 					os << " s ";
 					
@@ -796,6 +808,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 				if (save_res_info)  os << "endres " << ires_in_mol << "\n";
 			} //  end res
 		} // end chain
+		std::string nn_types_str = oss_nn_types.str();
+		if (!nn_types_str.empty()) os << nn_types_str;
 		os << "endmol " << imol << "\n";
 	} // end mol
 

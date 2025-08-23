@@ -26,6 +26,7 @@ IntStrMap SetMMRunTypeLbls()
 	lmap[MMRunType::MD_RUN]   = "Molecular Dynamics";
 	lmap[MMRunType::MIN_RUN]  = "Energy Minimization";
 	lmap[MMRunType::ENER_RUN] = "Single Energy";
+	lmap[MMRunType::DG_MUT_RUN] = "DeltaG Mutation";
 	return lmap;
 }
 

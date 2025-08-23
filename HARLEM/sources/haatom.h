@@ -198,7 +198,10 @@ public:
 
   const std::string GetFFSymbol() const;             //!< Get Force Field Symbol of the Atom
   void SetFFSymbol(const std::string& new_ff_symbol); //!< Set Force Field Symbol of the Atom
-  
+
+  const std::string GetNNSymbol() const;             //!< Get NN Symbol of the Atom
+  void SetNNSymbol(const std::string& new_nn_symbol); //!< Set NN Symbol of the Atom
+
   double GetCharge() const;                  //!< Get Atom Charge (a.u.)
   void SetCharge(double new_charge);         //!< Set Atom Charge (a.u.)
   

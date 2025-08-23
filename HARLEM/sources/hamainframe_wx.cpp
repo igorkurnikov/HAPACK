@@ -833,7 +833,7 @@ BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
 END_EVENT_TABLE()
 
 HaMainFrameWX::HaMainFrameWX() :
-    wxMDIParentFrame(NULL, -1, "HARLEM", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
+    wxMDIParentFrame(NULL, -1, "FREECURVE", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
 {
 
     m_HaMainFrameWX = this;

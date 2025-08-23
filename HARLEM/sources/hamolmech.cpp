@@ -423,6 +423,10 @@ bool HaMolMechMod::SetRunType(std::string run_type_str)
 	{
 		this->run_type = MMRunType::ENER_RUN;
 	}
+	else if (run_type_str == "DG_MUT_RUN" || run_type_str == "DG_MUT" || run_type_str == "DeltaG Mutation" || run_type_str.find("MUTATION") != std::string::npos)
+	{
+		this->run_type = MMRunType::DG_MUT_RUN;
+	}
 	else
 	{
 		PrintLog("HaMolMechMod::SetRunType(): Unrecognized Run Type: %s \n", run_type_str);

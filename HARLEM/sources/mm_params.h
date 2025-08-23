@@ -57,7 +57,7 @@ public:
 	MMRunType();
 	virtual ~MMRunType();
 
-	enum Value { MD_RUN = 0, MIN_RUN = 1, ENER_RUN = 2};
+	enum Value { MD_RUN = 0, MIN_RUN = 1, ENER_RUN = 2, DG_MUT_RUN = 3};
     
 	MMRunType& operator=( int value) { SetWithValue(value); return (*this); }
 	operator int() const { return v_; }
@@ -80,6 +80,7 @@ namespace swig {
 	const MMRunType MD_RUN   = MMRunType::MD_RUN;
 	const MMRunType MIN_RUN  = MMRunType::MIN_RUN;
 	const MMRunType ENER_RUN = MMRunType::ENER_RUN;
+	const MMRunType DG_MUT_RUN = MMRunType::DG_MUT_RUN;
 }
 
 class TempCtrlMethod : public HaEnum1
@@ -468,7 +469,7 @@ public:
 	virtual ~ForceFieldType();
 
 	enum Value { AMBER_94 = 0, AMBER_99_SB = 1, AMBER_99_BSC0 = 2, AMBER_03 = 3, AMBER_10 = 4, 
-		         AMOEBA = 5, ARROW_5_14_CT=6, ARROW_2_0 = 7, ARROW_NN = 8, UNKNOWN_FF = 8};
+		         AMOEBA = 5, ARROW_5_14_CT=6, ARROW_2_0 = 7, ARROW_NN = 8, UNKNOWN_FF = 9};
     
 	ForceFieldType& operator=( int value) { SetWithValue(value); return (*this); }
 	operator int() const { return v_; }

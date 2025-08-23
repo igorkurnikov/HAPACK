@@ -1559,6 +1559,18 @@ void HaAtom::SetFFSymbol( const std::string& new_ff_symbol)
 	ps_ff_par->ff_symbol = new_ff_symbol; 
 }
 
+const std::string HaAtom::GetNNSymbol() const
+{
+	if (ps_ff_par) return ps_ff_par->nn_symbol;
+	return {};
+}
+
+void HaAtom::SetNNSymbol(const std::string& new_nn_symbol)
+{
+	if (!ps_ff_par) ps_ff_par = std::make_shared<AtomFFParam>();
+	ps_ff_par->nn_symbol = new_nn_symbol;
+}
+
 void HaAtom::SetCharge(double new_charge)
 { 
 	if (!ps_ff_par) ps_ff_par = std::make_shared<AtomFFParam>();
