@@ -90,7 +90,6 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, c
 		if( options.count("LOAD_NN_TYPE") > 0 )
 			if (xml_element->CStrAttribute("nn_type")) nn_symbol = xml_element->CStrAttribute("nn_type");
 
-		PrintLog(" ff_symbol= %s  nn_symbol= %s \n", ff_symbol, nn_symbol);
 		const TiXmlElement* data_element;
 
 		data_element = xml_element->FirstChildElement();

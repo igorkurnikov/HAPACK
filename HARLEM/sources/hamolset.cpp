@@ -708,7 +708,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 					os << "atom " << iat << " " << at_name << " " << std_symbol << " " << ff_symbol;
 
-					if (!nn_symbol.empty()) oss_nn_types << ";nntype " << iat << " " << nn_symbol << "\n";
+					if (!nn_symbol.empty()) 
+						oss_nn_types << ";nntype " << iat << " " << nn_symbol << "\n";
 					
 					os << " s ";
 					

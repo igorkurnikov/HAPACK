@@ -438,6 +438,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 			double charge = atempl ? atempl->GetCharge() : 0.0;
 			double mass = atempl ? atempl->GetMass() : 4.0;
 			std::string ff_symb = atempl ? atempl->GetFFSymbol() : "DU";
+			std::string nn_symb = {};
 
 			if (atempl && p_res_ff_templ != NULL)
 			{
@@ -446,6 +447,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				{
 					charge = p_at_ff->GetCharge();
 					ff_symb = p_at_ff->ff_symbol;
+					nn_symb = p_at_ff->nn_symbol;
 				}
 				else
 				{
@@ -453,6 +455,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				}
 			}
 			aptr->SetFFSymbol(ff_symb);
+			if (!nn_symb.empty()) aptr->SetNNSymbol(nn_symb);
 			aptr->SetCharge(charge);
 			aptr->SetMass(mass);
 		}
