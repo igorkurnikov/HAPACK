@@ -664,7 +664,8 @@ bool MMDriverArbalest::SaveMolDefToStream(std::ostream& os, HaMolecule* pmol, st
 				std::string res_name_a = pres->GetName();
 				std::string res_name_b = pres->p_res_transform->res_name_b;
 				std::string fname_map_a_b = std::string("map_") + res_name_a + "_" + res_name_b + ".xml";
-				int res_no = ir_seq;
+				//int res_no = ir_seq;  // For Arbalest version before July 15 2025  
+				int res_no = pres->GetSerNo();
 
 				pres->p_res_transform->SaveMutationMapArbalestFmt(fname_map_a_b);
 
@@ -820,9 +821,9 @@ bool MMDriverArbalest::SavePosRestraintsStream(std::ostream& os_desc, std::ostre
 			if (name_mod == "UNPROT")    res_name_save = "CYX";
 		}
 
-		//std::string res_n_str = harlem::ToString( pres->GetSerNo() );
-		std::string res_n_str = std::to_string(atom_res_seq_map[aptr]); // use sequence number of the residue - it looks like Arbalest uses sequential residue numbers
-
+		//std::string res_n_str = std::to_string(atom_res_seq_map[aptr]); // Arbalest versions before July 15 2025 used sequential residue numbers
+		std::string res_n_str = harlem::ToString( pres->GetSerNo() );
+		
 		std::string atom_id_arb;
 		std::string atom_restr_id;
 

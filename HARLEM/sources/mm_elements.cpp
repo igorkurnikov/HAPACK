@@ -49,6 +49,7 @@ void AtomFFParam::Clear()
 	mass = 4.0;
 	bisect_flag = FALSE;
 	ff_symbol.clear();
+	nn_symbol.clear();
 	ff_polar_symbol.clear();
 	frame_atom_names.clear();
 	frame_atoms.clear();
@@ -83,10 +84,13 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, c
 			charge = dval;
 		}
 
+
 		if( xml_element->CStrAttribute("pol_type_id") ) ff_polar_symbol = xml_element->CStrAttribute("pol_type_id");
 		if( xml_element->CStrAttribute("ff_type") )     ff_symbol       = xml_element->CStrAttribute("ff_type");
-		if (xml_element->CStrAttribute("nn_type"))      nn_symbol       = xml_element->CStrAttribute("nn_type");
+		if( options.count("LOAD_NN_TYPE") > 0 )
+			if (xml_element->CStrAttribute("nn_type")) nn_symbol = xml_element->CStrAttribute("nn_type");
 
+		PrintLog(" ff_symbol= %s  nn_symbol= %s \n", ff_symbol, nn_symbol);
 		const TiXmlElement* data_element;
 
 		data_element = xml_element->FirstChildElement();

@@ -1402,7 +1402,7 @@ int MMForceField::LoadResFFTemplateXMLFile(std::string fname, StrStrMap& options
 				if( res_name_ff_templ_map.count(res_name) > 0 )
 				{
 					delete res_name_ff_templ_map[res_name];
-					PrintLog(" Updating residue force field template %s from file %s \n", res_name.c_str(), fname );
+					PrintLog(" Updating residue force field template %s from file %s \n", res_name, fname );
 				}
 				res_name_ff_templ_map[res_name] = p_res_ff_templ;
 			}

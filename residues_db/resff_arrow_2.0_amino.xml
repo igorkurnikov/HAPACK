@@ -90,8 +90,8 @@
   <atomff  name="HE"   ff_type="HNGU" nn_type="HNGU1" chg="0.0" >  </atomff>
   <atomff  name="CZ"   ff_type="CGUA" nn_type="CGUAR" chg="0.0" >  </atomff>
   <atomff  name="NH1"  ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
-  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
-  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
+  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
+  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="NH2"  ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
   <atomff  name="HH21" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="HH22" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
@@ -126,11 +126,11 @@
   <atomff  name="HE" ff_type="HNGU" nn_type="HNGU1" chg="0.0" >  </atomff>
   <atomff  name="CZ" ff_type="CGUA" nn_type="CGUAR" chg="0.0" >  </atomff>
   <atomff  name="NH1" ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
-  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
-  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
+  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
+  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="NH2" ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
-  <atomff  name="HH21" ff_type="HNGU" nn_type="HNGU2"chg="0.0" >  </atomff>
-  <atomff  name="HH22" ff_type="HNGU" nn_type="HNGU2"chg="0.0" >  </atomff>
+  <atomff  name="HH21" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
+  <atomff  name="HH22" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
   <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
@@ -159,8 +159,8 @@
   <atomff  name="HE" ff_type="HNGU" nn_type="HNGU1" chg="0.0" >  </atomff>
   <atomff  name="CZ" ff_type="CGUA" nn_type="CGUAR" chg="0.0" >  </atomff>
   <atomff  name="NH1" ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
-  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
-  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2 chg="0.0" >  </atomff>
+  <atomff  name="HH11" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
+  <atomff  name="HH12" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="NH2" ff_type="NGUA" nn_type="NGUA2" chg="0.333333" >  </atomff>
   <atomff  name="HH21" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
   <atomff  name="HH22" ff_type="HNGU" nn_type="HNGU2" chg="0.0" >  </atomff>
@@ -332,8 +332,8 @@
   <atomff  name="CG" ff_type="COO" nn_type="COO-ACE" chg="0.0" >  </atomff>
   <atomff  name="OD1" ff_type="OOC-" nn_type="OOC-ACE" chg="-0.5" >  </atomff>
   <atomff  name="OD2" ff_type="OOC-" nn_type="OOC-ACE" chg="-0.5" >  </atomff>
-  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" nn_type="CAM=PEP" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" nn_type="OAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
    PREV.C  CA   N   H
    CB  OD1   CG   OD2
