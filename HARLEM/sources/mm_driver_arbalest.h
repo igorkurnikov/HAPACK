@@ -26,6 +26,9 @@ public:
 
 	bool InitForceField(std::string ff_name); //!< Initialize Force Field on the system with a name string
 
+	void SetTILambdas(const std::vector<double>& lambda_ti_values); //!< Set Lambdas for TI Free Energy calculations
+	std::vector<double> GetTILambdas(); //!< Get Lambdas for TI Free Energy calculations
+
 	void SetFileNamesWithPrefix(std::string prefix); //!< Set ARBALEST input and output file names with prefix
 	
 	bool SaveConfigFile();      //!< Save MM run parameters in ARBALEST CONFIG format to File

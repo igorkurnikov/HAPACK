@@ -92,6 +92,16 @@ bool MMDriverArbalest::InitForceField(std::string ff_name)
 	return p_mm_model->InitForceField(ff_name);
 }
 
+void MMDriverArbalest::SetTILambdas(const std::vector<double>& lambda_ti_values)
+{
+	p_mm_mod->SetTILambdas(lambda_ti_values);
+}
+
+std::vector<double> MMDriverArbalest::GetTILambdas()
+{
+	return p_mm_mod->GetTILambdas();
+}
+
 bool MMDriverArbalest::SaveConfigFile()
 {
 	if (p_mm_model->to_init_mm_model) p_mm_mod->InitMolMechModel();
@@ -466,6 +476,18 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 			os << "            <Param Title=\"RefPressure\">1.0</Param> \n";
 			os << "            <Param Title=\"RelaxTime\">0.5</Param> \n";
 			os << "            <Param Title=\"Compressibility\">4.5e-5</Param> \n";
+			os << "          </Settings> \n";
+			os << "          <FunctionalGroups> \n";
+			os << "            <Group>SYSTEM</Group> \n";
+			os << "          </FunctionalGroups> \n";
+			os << "        </Algorithm> \n";
+		}
+		if (p_mm_model->ff_type == p_mm_model->ff_type.ARROW_NN)
+		{
+			os << "        <Algorithm Type = \"FFNN_ADJUSTMENT\"> \n";
+			os << "          <Settings> \n";
+			os << "            <Param Title=\"BatchSize\">50000</Param> \n";
+			os << "            <Param Title=\"NNMapFile\">./Input/FFNNConfigFloat.xml</Param> \n";
 			os << "          </Settings> \n";
 			os << "          <FunctionalGroups> \n";
 			os << "            <Group>SYSTEM</Group> \n";
