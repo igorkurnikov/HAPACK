@@ -87,7 +87,7 @@ int MMDriverArbalest::SaveAllInpFiles()
 	return TRUE;
 }
 
-bool MMDriverArbalest::InitForceField(std::string ff_name)
+bool MMDriverArbalest::InitForceField(std::string ff_name, StrStrMap options )
 {
 	return p_mm_model->InitForceField(ff_name);
 }

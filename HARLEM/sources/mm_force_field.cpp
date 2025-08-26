@@ -1399,6 +1399,7 @@ int MMForceField::LoadResFFTemplateXMLFile(std::string fname, StrStrMap& options
 			}
 			else
 			{
+				PrintLog("MMForceField::LoadResFFTemplateXMLFile() res_name = %s \n", res_name);
 				if( res_name_ff_templ_map.count(res_name) > 0 )
 				{
 					delete res_name_ff_templ_map[res_name];

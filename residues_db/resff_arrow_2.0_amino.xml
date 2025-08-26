@@ -1152,16 +1152,16 @@
   <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
-  <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
-  <atomff  name="HE1" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE2" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE3" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="CG" ff_type="C2"   nn_type="C2DMS"   chg="0.0" >  </atomff>
+  <atomff  name="HG2" ff_type="HC2" nn_type="HC2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="HG3" ff_type="HC2" nn_type="HC2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="SD" ff_type="S"    nn_type="SDMS"    chg="0.0" >  </atomff>
+  <atomff  name="CE" ff_type="C3"   nn_type="C2DMS"   chg="0.0" >  </atomff>
+  <atomff  name="HE1" ff_type="HC3" nn_type="HC2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="HE2" ff_type="HC3" nn_type="HC2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="HE3" ff_type="HC3" nn_type="HC2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="C" ff_type="CAM="  nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O" ff_type="OAM="  nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
    PREV.C  CA   N   H
    CA  NEXT.N   C   O
@@ -1177,16 +1177,16 @@
   <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
-  <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
-  <atomff  name="HE1" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE2" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE3" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="C" ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="CG"  ff_type="C2"  nn_type="C2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HG2" ff_type="HC2" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HG3" ff_type="HC2" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="SD"  ff_type="S"   nn_type="SDMS" chg="0.0" >  </atomff>
+  <atomff  name="CE"  ff_type="C3"  nn_type="C2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HE1" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HE2" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HE3" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="C"   ff_type="CAM=" nn_type="CAM=PEP" chg="0.0" >  </atomff>
+  <atomff  name="O"  ff_type="OAM=" nn_type="OAM=PEP" chg="0.0" >  </atomff>
 <improper_dihedrals>
    CA  NEXT.N   C   O
 </improper_dihedrals>
@@ -1199,16 +1199,16 @@
   <atomff  name="CB" ff_type="C2" chg="0.0" >  </atomff>
   <atomff  name="HB2" ff_type="HC2" chg="0.0" >  </atomff>
   <atomff  name="HB3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="CG" ff_type="C2" chg="0.0" >  </atomff>
-  <atomff  name="HG2" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="HG3" ff_type="HC2" chg="0.0" >  </atomff>
-  <atomff  name="SD" ff_type="S" chg="0.0" >  </atomff>
-  <atomff  name="CE" ff_type="C3" chg="0.0" >  </atomff>
-  <atomff  name="HE1" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE2" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="HE3" ff_type="HC3" chg="0.0" >  </atomff>
-  <atomff  name="C" ff_type="COO" chg="0.0" >  </atomff>
-  <atomff  name="O" ff_type="OOC-" chg="-0.5" >  </atomff>
+  <atomff  name="CG"  ff_type="C2"  nn_type="C2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="HG2" ff_type="HC2" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HG3" ff_type="HC2" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="SD"  ff_type="S"   nn_type="SDMS"   chg="0.0" >  </atomff>
+  <atomff  name="CE"  ff_type="C3"  nn_type="C2DMS"  chg="0.0" >  </atomff>
+  <atomff  name="HE1" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HE2" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="HE3" ff_type="HC3" nn_type="HC2DMS" chg="0.0" >  </atomff>
+  <atomff  name="C"   ff_type="COO" chg="0.0" >  </atomff>
+  <atomff  name="O"   ff_type="OOC-" chg="-0.5" >  </atomff>
   <atomff  name="OXT" ff_type="OOC-" chg="-0.5" >  </atomff>
 <improper_dihedrals>
    PREV.C  CA   N   H

@@ -31,7 +31,6 @@
 <res name="K+"  no="1" /> 
   <atom>    6    K+  19      0.000000000      0.000000000      0.000000000 </atom>
 
-
 <molecule name="RB" />
 <chain  id=" " />
 <res name="RB"  no="1" /> 
@@ -41,7 +40,6 @@
 <chain  id=" " />
 <res name="RB+"  no="1" /> 
   <atom>    8    RB+  37      0.000000000      0.000000000      0.000000000 </atom>
-
 
 <molecule name="CS" />
 <chain  id=" " />
@@ -92,6 +90,21 @@
 <chain  id=" " />
 <res name="I-"  no="1" /> 
   <atom>    18    I-  53      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="CA" />
+<chain  id=" " />
+<res name="CA"  no="1" /> 
+  <atom>    19    CA  20      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="MG" />
+<chain  id=" " />
+<res name="MG"  no="1" /> 
+  <atom>    20    MG  12      0.000000000      0.000000000      0.000000000 </atom>
+  
+<molecule name="ZN" />
+<chain  id=" " />
+<res name="ZN"  no="1" /> 
+  <atom>    21    ZN  30      0.000000000      0.000000000      0.000000000 </atom>
 
 </molset>
 </HARLEM_DATA>

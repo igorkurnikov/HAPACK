@@ -24,7 +24,7 @@ public:
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Arbalest
 
-	bool InitForceField(std::string ff_name); //!< Initialize Force Field on the system with a name string
+	bool InitForceField(std::string ff_name, StrStrMap options = {} ); //!< Initialize Force Field on the system with a name string
 
 	void SetTILambdas(const std::vector<double>& lambda_ti_values); //!< Set Lambdas for TI Free Energy calculations
 	std::vector<double> GetTILambdas(); //!< Get Lambdas for TI Free Energy calculations

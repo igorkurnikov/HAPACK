@@ -232,13 +232,21 @@ void MolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_
 
 		ptr = pres_cur->AddNewAtom();
 
+
 		ptr->SetName(tmp.c_str());
 		string at_name = ptr->GetName();
-		if( !at_name.empty() )
+
+		std::string elem_str = line.substr(76, 2);
+		boost::trim(elem_str);
+		int elem_no = 0;
+		if (!elem_str.empty()) elem_no = HaAtom::GetElemNoFromName(elem_str);
+
+		if( elem_no == 0 && !at_name.empty() )
 		{
-			ptr->SetElemNo( HaAtom::GetElemNoFromChar(at_name[0]) );
+			elem_no = HaAtom::GetElemNoFromName(ptr->GetName(), pres_cur);
+			//ptr->SetElemNo( HaAtom::GetElemNoFromChar(at_name[0]) );
 		}
-		//	ptr->SetElemNo( HaAtom::GetElemNoFromName( ptr->GetName(), pres_cur ) );
+		ptr->SetElemNo(elem_no);
 
 		id_at_map[at_serno] = (void*)ptr;
 

@@ -315,7 +315,7 @@ struct FourPtrsEq {
 
 using FourAtoms = FourPtrs<HaAtom*>;
 
-int MolMechModel::InitForceField(std::string ff_type_str)
+int MolMechModel::InitForceField(std::string ff_type_str, StrStrMap options )
 {
 	boost::trim(ff_type_str);
 	boost::to_upper(ff_type_str);
@@ -329,7 +329,7 @@ int MolMechModel::InitForceField(std::string ff_type_str)
 	return InitModel(ff_type_par);
 }
 
-int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
+int MolMechModel::InitModel(const ForceFieldType& ff_type_par , StrStrMap options )
 {
 	int ires;
 	Clear();
@@ -454,6 +454,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 					PrintLog(" Can't find parameters for atom %s in residue template %s ", aptr->GetRef(), p_res_ff_templ->GetFullName());
 				}
 			}
+
 			aptr->SetFFSymbol(ff_symb);
 			if (!nn_symb.empty()) aptr->SetNNSymbol(nn_symb);
 			aptr->SetCharge(charge);
