@@ -476,6 +476,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par )
 				std::shared_ptr<AtomFFParam> p_at_mut_params = std::make_shared<AtomFFParam>();
 				p_at_mut_params->charge = atempl_mut->GetCharge();
 				p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+				p_at_mut_params->nn_symbol = atempl_mut->GetNNSymbol();
 				p_at_mut_params->mass = atempl_mut->GetMass();
 
 				if (p_res_mut_ff_templ)

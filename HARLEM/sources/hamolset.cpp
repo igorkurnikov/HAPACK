@@ -700,7 +700,8 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 							ff_symbol = pres->p_res_transform->at_ff_params[aptr]->ff_symbol;
 							at_ch = pres->p_res_transform->at_ff_params[aptr]->charge;
 						}
-						if (pres->p_res_transform->at_elem_b.count(aptr) > 0) elemno = pres->p_res_transform->at_elem_b[aptr];
+						if(pres->p_res_transform->at_names_b.count(aptr) > 0) at_name = pres->p_res_transform->at_names_b[aptr];
+						if(pres->p_res_transform->at_elem_b.count(aptr) > 0) elemno = pres->p_res_transform->at_elem_b[aptr];
 					}
 					iat++;
 
