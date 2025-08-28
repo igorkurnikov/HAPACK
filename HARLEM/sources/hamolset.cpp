@@ -811,7 +811,12 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 			} //  end res
 		} // end chain
 		std::string nn_types_str = oss_nn_types.str();
-		if (!nn_types_str.empty()) os << nn_types_str;
+		if (!nn_types_str.empty())
+		{
+			os << ";begin_nntype mol " << imol << "\n";
+			os << nn_types_str;
+			os << ";end_nntype" << "\n";
+		}
 		os << "endmol " << imol << "\n";
 	} // end mol
 
