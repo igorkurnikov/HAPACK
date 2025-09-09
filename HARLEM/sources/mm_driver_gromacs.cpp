@@ -67,6 +67,16 @@ bool MMDriverGromacs::InitForceField(std::string ff_name)
 	return p_mm_model->InitForceField(ff_name);
 }
 
+void MMDriverGromacs::SetTILambdas(const std::vector<double>& lambda_ti_values)
+{
+	p_mm_mod->SetTILambdas(lambda_ti_values);
+}
+
+std::vector<double> MMDriverGromacs::GetTILambdas()
+{
+	return p_mm_mod->GetTILambdas();
+}
+
 bool MMDriverGromacs::SetCompatibleParams()
 {
 	if (!pmset->per_bc->IsValid())
@@ -419,6 +429,11 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 				os << " nstcomm=" << p_mm_mod->remove_rb_motion_freq << "       ; frequency for center of mass motion removal \n";
 			}
 		}
+		else if (p_mm_mod->run_type == p_mm_mod->run_type.ENER_RUN)
+		{
+			os << " integrator=md            ; Single Energy Calculations - MD with 0 steps \n";
+			os << " nsteps= 0                ;  \n";
+		}
 		else
 		{
 			throw std::runtime_error((std::string)("Run type") + p_mm_mod->run_type.label() + " is not supported in GROMACS ");
@@ -472,9 +487,9 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		os << " cutoff-scheme=Verlet " << "        ;  Generate a pair list with buffering \n";
 		os << " rlist= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  Cut-off distance for the short-range neighbor list (nm). \n";
 
-		os << " rcoulomb= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the Coulomb cut-off (nm) \n";
+		os << " rcoulomb= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the Coulomb cut-off (nm) \n";
 		os << " vdwtype=Cut-off " << "        ;  Plain cut-off  " << std::endl;
-		os << " rvdw= " << (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) \n";
+		os << " rvdw= " << boost::format("%8.3f") % (p_mm_model->nb_cut_dist * 0.1) << "        ;  distance for the LJ cut-off (nm) \n";
 
 		// temperature regulation:
 		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
@@ -505,9 +520,9 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 				os << " gen-vel=yes " << "   ;  Generate velocities in gmx grompp according to a Maxwell distribution \n";
 				os << " gen-temp= " << p_mm_mod->init_temp << "\n";
 			}
-		}
 
-		os << std::endl << "; Pressure Control \n\n";
+			os << std::endl << "; Pressure Control \n\n";
+		}
 
 		if (p_mm_mod->period_bcond == p_mm_mod->period_bcond.NO_PERIODICITY)
 		{
@@ -546,7 +561,6 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 			}
 		}
 
-
 		if (p_mm_mod->run_ti)
 		{
 			os << " \n";
@@ -580,34 +594,38 @@ int MMDriverGromacs::SaveMdpToStream(std::ostream& os)
 		}
 
 		// Print out control:
-		os << std::endl << "; MM Run Output control \n\n";
 
-		if (p_mm_mod->wrt_log_freq != 1000)
+		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
 		{
-			os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
-		}
-		if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)  // does not work in GROMACS 2024
-		{
-			if (p_mm_mod->wrt_coord_freq > 0)
+			os << std::endl << "; MM Run Output control \n\n";
+
+			if (p_mm_mod->wrt_log_freq != 1000)
 			{
-				//os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
-				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates to the output trajectory file (trr file) \n";
+				os << " nstlog= " << p_mm_mod->wrt_log_freq << "        ;  number of steps that elapse between writing energies to the log file  \n";
 			}
-		}
-		else
-		{
-			if (p_mm_mod->wrt_coord_freq > 0)
+			if (p_mm_mod->traj_wrt_format = p_mm_mod->traj_wrt_format.XTC)  // does not work in GROMACS 2024
 			{
-				os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) \n";
+				if (p_mm_mod->wrt_coord_freq > 0)
+				{
+					//os << " nstxout-compressed= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates using lossy compression (xtc file) \n";
+					os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing position coordinates to the output trajectory file (trr file) \n";
+				}
 			}
-		}
-		if (p_mm_mod->wrt_vel_freq > 0)
-		{
-			os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  \n";
-		}
-		if (p_mm_mod->wrt_ener_freq != 1000)
-		{
-			os << " nstenergy= " << p_mm_mod->wrt_ener_freq << "        ;  number of steps that elapse between writing energies to energy file  \n";
+			else
+			{
+				if (p_mm_mod->wrt_coord_freq > 0)
+				{
+					os << " nstxout= " << p_mm_mod->wrt_coord_freq << "        ;  number of steps that elapse between writing coordinates to the output trajectory file (trr file) \n";
+				}
+			}
+			if (p_mm_mod->wrt_vel_freq > 0)
+			{
+				os << " nstvout= " << p_mm_mod->wrt_vel_freq << "        ;  number of steps that elapse between writing velocities to the output trajectory file  \n";
+			}
+			if (p_mm_mod->wrt_ener_freq != 1000)
+			{
+				os << " nstenergy= " << p_mm_mod->wrt_ener_freq << "        ;  number of steps that elapse between writing energies to energy file  \n";
+			}
 		}
 
 	}
@@ -878,7 +896,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		const int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
 
 		const double r0 = bnd.r0 * 0.1; // Ang -> nm
-		const double fc = bnd.fc*4.184*4.184*100; // kcal/mol/Ang^2  ->kJ/nm^2
+		const double fc = bnd.fc*4.184*100*2.0; // kcal/mol/Ang^2  ->kJ/nm^2  - for GROMACS there is 1/2 in bond energy term 
 
 		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
@@ -982,7 +1000,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		MMValAngle& ang = (MMValAngle&)(*vaitr);
 		
 		double a0 = ang.a0;
-		double fc = ang.fc * 4.184;
+		double fc = ang.fc * 4.184 * 2.0;  // convert to kJ/rad^2 and X 2 as Angle energy term in GROMACS has 1/2 compared to AMBER
 
 		HaAtom* aptr1 = (HaAtom*) ang.pt1;
 		HaAtom* aptr2 = (HaAtom*) ang.pt2;

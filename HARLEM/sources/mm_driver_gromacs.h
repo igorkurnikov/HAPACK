@@ -26,6 +26,9 @@ public:
 
 	bool InitForceField(std::string ff_name); //!< Initialize Force Field on the system with a name string
 
+	void SetTILambdas(const std::vector<double>& lambda_ti_values); //!< Set Lambdas for TI Free Energy calculations
+	std::vector<double> GetTILambdas(); //!< Get Lambdas for TI Free Energy calculations
+
 	bool SetCompatibleParams(); //!< Insure MM parameters are consistent with GROMACS ( like enforce periodic box )
 	void PartitionAtomsToMolecules(); //!< Partition Atoms to GROMACS molecules 
 

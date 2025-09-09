@@ -261,6 +261,13 @@ int MMDriverArbalest::SaveConfigToStream(std::ostream& os)
 	os << boost::format("      <RSwitch>%f</RSwitch> \n") % p_mm_model->nb_cut_dist;
 	os << boost::format("      <RCutOffVdW>%f</RCutOffVdW> \n") % p_mm_model->nb_cut_dist;
 	os << boost::format("      <RSwitchVdW>%f</RSwitchVdW> \n") % p_mm_model->nb_cut_dist;
+	if (p_mm_model->ff_type == p_mm_model->ff_type.ARROW_NN)
+	{
+		double nb_cut_dist_nn = 5.0;
+		double nb_switch_dist_nn = 5.0;
+		os << boost::format("      <RCutOffNN>%f</RCutOffNN> \n") % nb_cut_dist_nn;
+		os << boost::format("      <RSwitchNN>%f</RSwitchNN> \n") % nb_switch_dist_nn;
+	}
 	os << boost::format("      <dRCutOff>2.0</dRCutOff> \n");
 	os << boost::format("      <NLstRefresh>100</NLstRefresh> \n");
 

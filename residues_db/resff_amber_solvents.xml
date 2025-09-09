@@ -35,7 +35,7 @@
   <atomff  name="H2"  ff_type="H1"  chg="0.097600" >  </atomff>
   <atomff  name="H3"  ff_type="H1"  chg="0.097600" >  </atomff>
 <improper_dihedrals>
-   PREV.C CH3  N   H
+   PREV.C C  N   H
 </improper_dihedrals>
 </resff>
 <resff rname="NME#AMB03" >
