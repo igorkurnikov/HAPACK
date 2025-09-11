@@ -5517,6 +5517,22 @@ int MolSet::OrderAtomsInRes()
 	return p_mol_editor->OrderAtomsInRes(this);
 }
 
+void MolSet::SetPBox(double a, double b, double c, double alpha, double beta, double gamma)
+{
+	this->per_bc->SetBox(a, b, c, alpha, beta, gamma);
+}
+
+std::vector<double> MolSet::GetPBox() const
+{
+	std::vector<double> pbox(6);
+	pbox.at(0) = this->per_bc->GetA();
+	pbox.at(1) = this->per_bc->GetB();
+	pbox.at(2) = this->per_bc->GetC();
+	pbox.at(3) = this->per_bc->GetAlpha();
+	pbox.at(4) = this->per_bc->GetBeta();
+	pbox.at(5) = this->per_bc->GetGamma();
+	return pbox;
+}
 
 int MolSet::Solvate(double buf_dist)
 {

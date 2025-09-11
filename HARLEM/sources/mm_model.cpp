@@ -472,13 +472,24 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par , StrStrMap option
 				if (atempl_mut) pt_to_mut_templ_map[aptr] = atempl_mut;
 			}
 
-			if (pres->IsAlchemicalTransformationSet() && atempl_mut)
+			if (pres->IsAlchemicalTransformationSet())
 			{
 				std::shared_ptr<AtomFFParam> p_at_mut_params = std::make_shared<AtomFFParam>();
-				p_at_mut_params->charge = atempl_mut->GetCharge();
-				p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
-				p_at_mut_params->nn_symbol = atempl_mut->GetNNSymbol();
-				p_at_mut_params->mass = atempl_mut->GetMass();
+
+				if (atempl_mut)
+				{
+					p_at_mut_params->charge = atempl_mut->GetCharge();
+					p_at_mut_params->ff_symbol = atempl_mut->GetFFSymbol();
+					p_at_mut_params->nn_symbol = atempl_mut->GetNNSymbol();
+					p_at_mut_params->mass = atempl_mut->GetMass();
+				}
+				else
+				{
+					p_at_mut_params->charge = 0.0;
+					p_at_mut_params->ff_symbol = "DU";
+					p_at_mut_params->nn_symbol = "";
+					p_at_mut_params->mass = 4.0;
+				}
 
 				if (p_res_mut_ff_templ)
 				{
@@ -628,7 +639,7 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par , StrStrMap option
 			int i;
 			for (i = 0; i < n_impr; i++)
 			{
-				if (p_res_ff_templ->improper_dihedrals[i].size() != 4)
+				if (p_res_mut_ff_templ->improper_dihedrals[i].size() != 4)
 				{
 					PrintLog(" Improper angle templates have number of atoms not equal 4 \n");
 					continue;

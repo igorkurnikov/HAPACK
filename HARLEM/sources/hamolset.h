@@ -416,6 +416,9 @@ public:
 	int FixBondsUsingTempl(); //!< Fix Bonds of the selected residues according to residue templates
 	int OrderAtomsInRes();    //!< order atoms in residues according to residue templates
 
+	void SetPBox(double a, double b, double c,
+		       double alpha = 90.0 * DEG_TO_RAD, double beta = 90.0 * DEG_TO_RAD, double gamma = 90.0 * DEG_TO_RAD); //!< Set Periodic Box of the system
+	std::vector<double> GetPBox() const; // Get Periodic Box of the system [a,b,c,alpha,beta,gamma] Ang/Rad
 
 	int Solvate(double buf_dist = 0.0); //!< Solvate Molecular Set 
 	int CenterSoluteInSolvent(); //!< Center solute in the center of periodic box
