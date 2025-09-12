@@ -36,8 +36,8 @@ public:
 	
 	bool SaveMdpFile();         //!< Save MM run parameters in GROMACS MDP format to File
 	int  SaveGromacsTopFile();  //!< Save Molecular System Topology in GROMACS format to File
-	bool SaveInitCrdFiles();    //!< Save Initial Coordinates Files for the Run - possibly from previous MD or MIN runs 
 	bool SaveRunFiles();        //!< Save GROMACS Run script
+	bool SaveInitCrdFiles();    //!< Same GROMACS Init Coordinate Files
 	
 	int SaveMdpToStream( std::ostream& os );    //!< Save MM run parameters in GROMACS MDP format to std::stream
 	int SaveGromacsTopToStream( std::ostream& os );    //!< Save Molecular Sysytem Topology in GROMACS format to std::stream

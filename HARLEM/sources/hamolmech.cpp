@@ -2462,6 +2462,7 @@ MMDriver::MMDriver()
 	num_cpu = 4;
 	using_gpu = true;
 	gpu_id = 0;
+	start_with_ene_min = false;
 }
 
 MMDriver::~MMDriver()
@@ -2511,6 +2512,17 @@ void MMDriver::SetRestrainedAtomsRasmolExpr(std::string rasmol_expr)
 	pmset->SetAtomGroupFromSelection("RESTRAINED_ATOMS");
 	p_mm_model->SetRestrainedAtoms("RESTRAINED_ATOMS");
 }
+
+void MMDriver::SetRelaxedInitCrd(bool set_par)
+{
+	this->start_with_ene_min = set_par;
+}
+
+bool MMDriver::AreRelaxedInitCrd()
+{
+	return this->start_with_ene_min;
+}
+
 
 void MMDriver::SetEneMinMethod(const EneMinMethod& method)
 {

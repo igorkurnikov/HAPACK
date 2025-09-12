@@ -87,7 +87,6 @@ bool MMDriverGromacs::SetCompatibleParams()
 	return true;
 }
 
-
 std::set<std::string> MMDriverGromacs::std_gmx_mols = { "HOH","WAT","SOL","NA","CL","MG","NA+","CL-","MG2+"};
 
 void MMDriverGromacs::PartitionAtomsToMolecules()
@@ -162,8 +161,6 @@ int MMDriverGromacs::SaveAllInpFiles()
 	SaveMdpFile();
 	PrintLog("Save GROMACS top file %s\n", top_fname);
 	SaveGromacsTopFile();
-	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname);
-	pmset->SaveGROFile(init_crd_fname);
 	SaveInitCrdFiles();
 	PrintLog("Save GROMACS Restr Crd file %s \n", restr_crd_fname);
 	pmset->SaveGROFile(restr_crd_fname);
@@ -215,6 +212,9 @@ bool MMDriverGromacs::SaveMdpFile()
 
 bool MMDriverGromacs::SaveInitCrdFiles()
 {
+	PrintLog("Save GROMACS Init Crd file %s \n", init_crd_fname);
+	pmset->SaveGROFile(init_crd_fname);
+
 	fs::path p(this->inp_fname);
 	std::string prefix = p.stem().string();
 
@@ -227,50 +227,20 @@ bool MMDriverGromacs::SaveInitCrdFiles()
 
 			fs::path destination_file = init_crd_fname_lmb;
 			fs::path source_file = this->init_crd_fname;
-			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
-			{
-				std::string init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb, "_md", "_min");
-				init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb_min, "_init", "");
-				if (fs::exists(init_crd_fname_lmb_min))
-				{
-					source_file = init_crd_fname_lmb_min;
-				}
-			}
 			try {
-				fs::copy_file(source_file, destination_file, fs::copy_options::overwrite_existing); 
+				fs::copy_file(source_file, destination_file, fs::copy_options::overwrite_existing);
 				PrintLog("Copied %s to %s \n", source_file.string(), destination_file.string());
 			}
 			catch (const fs::filesystem_error& e) {
-				PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() copying file: %s %s %s", 
+				PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() \n copying file: %s to  %s  \n %s",
 					source_file.string(), destination_file.string(), e.what());
 				return false;
 			}
 		}
 	}
-	else
-	{
-		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN)
-		{
-			std::string init_crd_fname_min = boost::algorithm::replace_last_copy(this->init_crd_fname, "_md", "_min");
-			init_crd_fname_min = boost::algorithm::replace_last_copy(init_crd_fname_min, "_init", "");
-			if (fs::exists(init_crd_fname_min))
-			{
-				fs::path source_file = init_crd_fname_min;
-				fs::path destination_file = this->init_crd_fname;
-				try {
-					fs::copy_file(source_file, destination_file, fs::copy_options::overwrite_existing);
-					PrintLog("Copied %s to %s \n", source_file.string(), destination_file.string());
-				}
-				catch (const fs::filesystem_error& e) {
-					PrintLog("Error in MMDriverGromacs::SaveInitCrdFiles() copying file: %s %s %s",
-						source_file.string(), destination_file.string(), e.what());
-					return false;
-				}
-			}
-		}
-	}
 	return true;
 }
+
 
 bool MMDriverGromacs::SaveRunFiles()
 {
@@ -290,7 +260,17 @@ bool MMDriverGromacs::SaveRunFiles()
 		{
 			std::string prefix_lmb = prefix + "_L" + std::to_string(ilmb);
 			std::string inp_fname_lmb = prefix_lmb + ".mdp";
+
 			std::string init_crd_fname_lmb = prefix_lmb + "_init.gro";
+			if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN && this->AreRelaxedInitCrd())
+			{
+				std::string init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb, "_md", "_min");
+				init_crd_fname_lmb_min = boost::algorithm::replace_last_copy(init_crd_fname_lmb_min, "_init", "");
+
+				PrintLog("Set Initial Relaxed( Energy Optimized ) coordinates - file: %s \n", init_crd_fname_lmb_min);
+				init_crd_fname_lmb = init_crd_fname_lmb_min;
+			}
+			
 			std::string run_fname_lmb = prefix_lmb + ".sh";
 			std::string tpr_fname_lmb = prefix_lmb + ".tpr";
 
@@ -346,6 +326,17 @@ bool MMDriverGromacs::SaveRunFiles()
 			PrintLog("Can't create file %s \n", this->run_fname);
 			return false;
 		}
+
+		std::string init_crd_fname_loc = init_crd_fname;
+		if (p_mm_mod->run_type == p_mm_mod->run_type.MD_RUN && this->AreRelaxedInitCrd())
+		{
+			std::string init_crd_fname_min = boost::algorithm::replace_last_copy(init_crd_fname, "_md", "_min");
+			init_crd_fname_min = boost::algorithm::replace_last_copy(init_crd_fname_min, "_init", "");
+
+			PrintLog("Set Initial Relaxed( Energy Optimized ) coordinates - file: %s \n", init_crd_fname_min);
+			init_crd_fname_loc = init_crd_fname_min;
+		}
+
 		os << "#!/bin/sh \n";
 		os << "#SBATCH --job-name=" << job_prefix << "       # job name \n";
 		if (this->IsUsingGPU()) os << "#SBATCH --partition=gpu-part    # partition(queue) \n";
@@ -355,7 +346,7 @@ bool MMDriverGromacs::SaveRunFiles()
 		if (this->IsUsingGPU()) os << "#SBATCH --gpus-per-node=1             # number of GPU(s) per node \n";
 
 		os << boost::format("gmx grompp -f %s -p %s -c %s -r %s -o %s -maxwarn 5 ") %
-			inp_fname % top_fname % init_crd_fname % restr_crd_fname % tpr_fname << " \n";
+			inp_fname % top_fname % init_crd_fname_loc % restr_crd_fname % tpr_fname << " \n";
 		os << boost::format("gmx mdrun -nt 4 -gpu_id 0 -s %s -deffnm %s \n") % tpr_fname % prefix ;
 	}
 	

@@ -586,6 +586,9 @@ public:
 
 	void SetRestrainedAtomsRasmolExpr(std::string rasmol_expr); //!< Set Restrained Atoms with RASMOL expression
 
+	void SetRelaxedInitCrd(bool set_par = true); //!< Start Simulations with Relaxed( Energy minimized ) coordinates
+	bool AreRelaxedInitCrd();                    //!< Check if Starting with Relaxed( Energy minimized ) coordinates
+
 	void SetEneMinMethod(const EneMinMethod& method); //!< Set type of energy minimization
 	void SetNumMinSteps(int max_num_minim_steps_new);    //!< Set the maximal number of energy minimization steps
 	void SetNumMDSteps(int num_md_steps_new); //!< Set the number of MD steps
@@ -607,6 +610,7 @@ protected:
 	int  num_cpu;
 	bool using_gpu;
 	int  gpu_id;
+	bool start_with_ene_min; //!< Start Simulations with Energy minimized geometry
 
 public:
 
