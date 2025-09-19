@@ -2574,6 +2574,46 @@ void MMDriver::SetPerBoundaryCondType(const PerBoundaryCondType& type)
 	p_mm_mod->SetPerBoundaryCondType(type);
 }
 
+void MMDriver::SetWrtLogFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtLogFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtRstrtFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtRstrtFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtMDTrajFreq(int wrt_freq, int save_vel)
+{
+	p_mm_mod->SetWrtMDTrajFreq(wrt_freq, save_vel);
+}
+
+void MMDriver::SetWrtCoordFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtCoordFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtVelFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtVelFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtFrcFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtFrcFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtEnerFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtEnerFreq(wrt_freq);
+}
+
+void MMDriver::SetWrtConstrFreq(int wrt_freq)
+{
+	p_mm_mod->SetWrtConstrFreq(wrt_freq);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 MDTrajectory::MDTrajectory(MolSet* new_pmset)
 {

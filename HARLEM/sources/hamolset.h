@@ -331,16 +331,16 @@ public:
 
 //! \name Named Atom Groups:
 //@{
-	AtomGroup* AddAtomGroup( const char* id = ""); //!< Add new Atom Group with id
-    AtomGroup* GetAtomGroupByID( const char* id); //!< Get Atom Group By id
+	AtomGroup* AddAtomGroup( std::string id = ""); //!< Add new Atom Group with id
+    AtomGroup* GetAtomGroupByID( std::string id); //!< Get Atom Group By id
 
-	AtomGroup* SetAtomGroupFromSelection( const char* id); //!< Set Atom Group with id by selected atoms of the molset (create new group if needed)
+	AtomGroup* SetAtomGroupFromSelection(std::string id); //!< Set Atom Group with id by selected atoms of the molset (create new group if needed)
 
 	AtomGroupList NamedAtomGroups; //!< Named Atom Groups
 
-	bool DeleteAtomGroup(const char* id );         //!< Delete Atom Group with id
+	bool DeleteAtomGroup( std::string id );         //!< Delete Atom Group with id
 	bool DeleteAtomGroupPtr( AtomGroup* atgrp_ptr );     //!< Delete Atom Group by pointer
-    int CreateAxxMol(const char* mol_name, const char* id); //!< create axxiliary molecule from the group of atoms to set external charges or force centers
+    int CreateAxxMol( std::string mol_name, std::string id); //!< create axxiliary molecule from the group of atoms to set external charges or force centers
 
 	std::string GetAtomGroupNdxStr(const AtomGroup* p_atgrp) const; //!<  Get indexes of atoms in the group as a string for GROMACS NDX file
 	void SaveAtomGroupToNDXFile(const AtomGroup* p_atgrp, std::string fname); //!< Save Atom Group to GROMACS NDX file 

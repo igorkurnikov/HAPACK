@@ -603,6 +603,15 @@ public:
 	void SetNBListUpdateFreq(int freq); //!< Set Frequency (md steps) to update non-bonded atoms list
 	void SetPerBoundaryCondType(const PerBoundaryCondType& type); //!<  Set periodical boundary conditions type
 
+	void SetWrtLogFreq(int wrt_freq);    //!< Set frequency (num MD steps) to write to log file 
+	void SetWrtRstrtFreq(int wrt_freq);  //!< Set frequency to write restart file
+	void SetWrtMDTrajFreq(int wrt_freq, int save_vel = FALSE);  //!< Set frequency to write MD trajectory ( coordinates, energy and velocities(optional))
+	void SetWrtCoordFreq(int wrt_freq); //!< Set frequency to write MD coord to a file
+	void SetWrtVelFreq(int wrt_freq);   //!< Set frequency to write MD velocities to a file 
+	void SetWrtFrcFreq(int wrt_freq);   //!< Set frequency to write MD velocities to a file 
+	void SetWrtEnerFreq(int wrt_freq);  //!< Set frequency to write MD Atom Forces to a file
+	void SetWrtConstrFreq(int wrt_freq); //!< Set frequency to write MD constraints info file  
+
 	int to_save_input_files;     //!< Flag to indicate that input files are needed to be saved before running external program
 
 protected:

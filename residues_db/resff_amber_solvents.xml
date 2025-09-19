@@ -128,6 +128,9 @@
 <resff rname="CA#NEUTRAL"  >
   <atomff  name="CA"  ff_type="C0" chg="0.0" >  </atomff>
 </resff>
+<resff rname="ZN"  >
+  <atomff  name="ZN"  ff_type="Zn" chg="2.0" >  </atomff>
+</resff>
 <resff rname="LI"  >
   <atomff  name="LI"  ff_type="Li+" chg="1.0" >  </atomff>
 </resff>

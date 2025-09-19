@@ -2300,7 +2300,7 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 						if( secatset.size() != 0)
 						{
 							HaAtom* aptr = secatset[0];
-							AlignOverlapMol(firstatset,aptr->GetHostMol()); //modifies the coordinates of one molecule to overlap with the other
+							AlignOverlapMol(firstatset,aptr->GetHostMol()); // modifies the coordinates of one molecule to overlap with the other
 							RefreshAllViews(RFRefresh | RFApply); //plots the molecules
 						}
 					}
@@ -3424,13 +3424,14 @@ bool MolSet::DeleteChemGroupPtr( ChemGroup* grp_ptr  )
 	return false;
 }
 
-bool MolSet::DeleteAtomGroup(const char* id )
+bool MolSet::DeleteAtomGroup(std::string id )
 {
 	AtomGroupList::iterator gitr;
 	std::string gid = id;
 	for(gitr= NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
 	{
-		if(gid == (*gitr).GetID())
+		std::string gid_current = (*gitr).GetID();
+		if( gid == gid_current)
 		{
 			NamedAtomGroups.erase(gitr);
 			return true;
@@ -3454,7 +3455,7 @@ bool MolSet::DeleteAtomGroupPtr( AtomGroup* alist_ptr  )
 	return false;
 }
 
-int MolSet::CreateAxxMol(const char* mol_name, const char* id)
+int MolSet::CreateAxxMol(std::string mol_name, std::string id)
 {
 	AtomGroup* pgrp = GetAtomGroupByID(id);
 	if(pgrp == NULL)
@@ -3464,14 +3465,14 @@ int MolSet::CreateAxxMol(const char* mol_name, const char* id)
 		return FALSE;
 	}
 
-	HaMolecule* pmol = GetMolByName(mol_name);
+	HaMolecule* pmol = GetMolByName( mol_name.c_str() );
 	if(pmol != NULL)
 	{
 		DeleteMol(pmol);
 	}
 	
 	pmol = AddNewMolecule();
-	pmol->SetObjName(mol_name);
+	pmol->SetObjName( mol_name.c_str() );
 
 	AtomIteratorAtomGroup aitr(pgrp);
 	HaAtom* aptr;
@@ -4673,7 +4674,7 @@ ChemGroup* MolSet::GetChemGroupByAtom(const HaAtom* aptr)
 	return NULL;
 }
 
-AtomGroup* MolSet::SetAtomGroupFromSelection( const char* id)
+AtomGroup* MolSet::SetAtomGroupFromSelection( std::string id)
 {
 	AtomGroup* atlist = GetAtomGroupByID(id);
 	if( atlist == NULL) 
@@ -6003,7 +6004,7 @@ bool MolSet::DeleteObject3D(const std::string& obj_name)
 	return false;
 }
 
-AtomGroup* MolSet::AddAtomGroup(const char* id)
+AtomGroup* MolSet::AddAtomGroup(std::string id)
 {
 	NamedAtomGroups.push_back(AtomGroup());
 	AtomGroup& at_arr= NamedAtomGroups.back();
@@ -6011,12 +6012,13 @@ AtomGroup* MolSet::AddAtomGroup(const char* id)
 	return &at_arr;
 }
 
-AtomGroup* MolSet::GetAtomGroupByID( const char* id)
+AtomGroup* MolSet::GetAtomGroupByID( std::string id)
 {
 	AtomGroupList::iterator gitr;
 	for( gitr = NamedAtomGroups.begin(); gitr != NamedAtomGroups.end(); gitr++)
 	{
-		if( stricmp_loc((*gitr).GetID(),id) == 0 ) return &(*gitr);
+		std::string gid_current = (*gitr).GetID();
+		if( id == gid_current ) return &(*gitr);
 	}
 	return NULL;
 }
