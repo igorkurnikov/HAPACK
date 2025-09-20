@@ -97,62 +97,79 @@ const int PredSmall     =  57;
 const int PredSurface   =  58;
 
 
+#include <variant>
 #include "haatom.h"
+#include "haatgroup.h"
+
 
 class MolSet;
 
 class AtomExpr;
 class AtomContainer;
 
-typedef union {
-	AtomContainer  *set;
-	AtomExpr *ptr;
-    int limit;
-	long val;
-	double dval;
-	} Branch;  //!< A branch of a logical expression
+//typedef union {
+//	AtomContainer  *set;
+//	AtomExpr *ptr;
+//   int limit;
+//	long val;
+//	double dval;
+//	} Branch;  //!< A branch of a logical expression
 
+//using Branch = std::variant<
+//	std::shared_ptr<AtomContainer>,  // replaces AtomContainer*
+//	std::shared_ptr<AtomExpr>,       // replaces AtomExpr*
+//	int,
+//	long,
+//	double,
+//	void*
+//>;
+
+using AtomExprVal = std::variant<
+	bool,
+	char,
+	int,
+	long,
+	double,
+	std::string,
+	HaMolecule*,
+	HaResidue*,
+	HaChain*,
+	std::shared_ptr<AtomExpr>,
+	std::shared_ptr<AtomSet>
+>;
 
 class HaResidue;
 class HaChain;
-
 
 class AtomExpr
 //! Class to define logical or arithmetical expression on atoms
 {
 public:
    AtomExpr();
-   AtomExpr(int new_type, long rval, long lval);
+   AtomExpr(int new_type, AtomExprVal rval, AtomExprVal lval);
    virtual ~AtomExpr();
 
    int type;     //!< type of logical operation OpAnd, OpOr .. OpWithin etc
-   Branch rgt;   //!< left part of the expression
-   Branch lft;   //!< right part of the expression
+   AtomExprVal rgt;   //!< left part of the expression
+   AtomExprVal lft;   //!< right part of the expression
 
-   long EvaluateExprFor(HaAtom* aptr);  //!< evaluate the expression for the current atom
-   long EvaluateProperty(long prop );   //!< Evaluate given Property for a Current Atom
+   AtomExprVal EvaluatePropertyFor(HaAtom* aptr, long prop);  //!< evaluate property for the atom, 
 
-   static AtomExpr* LookUpAtGroupExpr( const char* grp_name, MolSet* pmset); //!< Create expression of atom group name
-   static AtomExpr* LookUpElement( const char* );    //!< create expression of element name       
-   static AtomExpr* ParsePrimitiveExpr( MolSet* pmset, const char* expr_str, size_t& cr_pos); //!< Build Logical expression corresponding to a text of atom specifications (possibly wild-carded)
+   static std::shared_ptr<AtomExpr> LookUpAtGroupExpr( std::string grp_name, MolSet* pmset); //!< Create expression of atom group name
+   static std::shared_ptr<AtomExpr> LookUpElement( const char* elem_name );    //!< create expression of element name       
+   static std::shared_ptr<AtomExpr> ParsePrimitiveExpr( MolSet* pmset, std::string expr_str, size_t& cr_pos); //!< Build Logical expression corresponding to a text of atom specifications (possibly wild-carded)
 
-   static AtomExpr* ParseExpression(const std::string& expr_str, MolSet* pmset); //!< Build Atom expression from expression string for Molecular set pmset
+   static std::shared_ptr<AtomExpr> ParseExpression(const std::string& expr_str, MolSet* pmset); //!< Build Atom expression from expression string for Molecular Set pmset
 
-   static AtomExpr* CreateTrueExpr(); //!< Create TRUE expression
-   static AtomExpr* CreateFalseExpr();  //!< Create FALSE Expression
+   static std::shared_ptr<AtomExpr> CreateTrueExpr(); //!< Create TRUE expression
+   static std::shared_ptr<AtomExpr> CreateFalseExpr();  //!< Create FALSE Expression
    static bool IsTrueExpr(AtomExpr* p_expr); //!< Check if Expression Is TRUE
    static bool IsFalseExpr(AtomExpr* p_expr); //!< Check if Expression Is FALSE
 
-
-protected:
+   // static AtomExprVal convertBranchToAtomExprVal(const Branch& b);
 
    inline int OpCode() { return(type & 0x0f); } //!< return  code of operation
-   long EvaluateExpr();                         //!< evaluate expression for current QAtom, QGroup, QChain
-	
-   static HaAtom*      QAtom;    //!<  Current Atom
-   static HaResidue*   QGroup;   //!<  Current Residue
-   static HaChain*     QChain;   //!<  Current Chain
-
+   AtomExprVal AtomExpr::EvaluateExprFor(HaAtom* aptr);
 };
 
 const double SelectRad = 0.4;

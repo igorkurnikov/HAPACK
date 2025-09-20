@@ -705,21 +705,19 @@ int CmdParser::ParseColour(int& RVal, int& GVal, int& BVal)
     return( True );
 }
 
-
-
-AtomExpr* CmdParser::ParseRange(int neg )
+std::shared_ptr<AtomExpr> CmdParser::ParseRange(int neg )
 {
-    AtomExpr *tmp1,*tmp2;
+    std::shared_ptr<AtomExpr> tmp1,tmp2;
     char ch;
 	
-    tmp1 = new AtomExpr();
+    tmp1 = std::make_shared<AtomExpr>();
     tmp1->type = OpLftProp|OpRgtVal;
-    tmp1->rgt.val = neg? -(int)TokenValue : (int)TokenValue;
-    tmp1->lft.val = PropResId;
+    tmp1->rgt = neg? -(long)TokenValue : (long)TokenValue;
+    tmp1->lft = (long) PropResId;
 
 	int line_size = CurLine.size();
 	
-    if( cursor_pos < line_size && CurLine[cursor_pos] == '-' )
+    if( cursor_pos < (line_size-1) && CurLine[cursor_pos] == '-' )
     {
 		cursor_pos++;
         neg = (CurLine[cursor_pos] == '-');
@@ -729,20 +727,19 @@ AtomExpr* CmdParser::ParseRange(int neg )
         if( CurToken != NumberTok )
         {
 			PrintLog("Integer value expected\n");;
-			delete tmp1;
             return( NULL );
         }
 		
         tmp1->type |= OpMoreEq;
-        tmp2 = new AtomExpr();
-        tmp2->rgt.ptr = tmp1;
-        tmp2->type = OpAnd;
+        tmp2 = std::make_shared<AtomExpr>();
+        tmp2->rgt = tmp1;
+        tmp2->type = (long) OpAnd;
 		
-        tmp1 = new AtomExpr();
+        tmp1 = std::make_shared<AtomExpr>();
         tmp1->type = OpLftProp|OpRgtVal|OpLessEq;
-        tmp1->rgt.val = neg? -(int)TokenValue : (int)TokenValue;
-        tmp1->lft.val = PropResId;
-        tmp2->lft.ptr = tmp1;
+        tmp1->rgt = neg? -(long)TokenValue : (long)TokenValue;
+        tmp1->lft = (long) PropResId;
+        tmp2->lft = tmp1;
         tmp1 = tmp2;
     }
 	else
@@ -768,16 +765,16 @@ AtomExpr* CmdParser::ParseRange(int neg )
 		ch = toupper(ch);
         cursor_pos++;
 		
-        tmp2 = new AtomExpr();
+        tmp2 = std::make_shared<AtomExpr>();
         tmp2->type = OpAnd;
-        tmp2->rgt.ptr = tmp1;
+        tmp2->rgt = tmp1;
 		
-        tmp1 = new AtomExpr();
+        tmp1 = std::make_shared<AtomExpr>();
         tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-        tmp1->lft.val = PropChain;
-        tmp1->rgt.val = ch;
+        tmp1->lft = (long) PropChain;
+        tmp1->rgt = ch;
 		
-        tmp2->lft.ptr = tmp1;
+        tmp2->lft = tmp1;
         tmp1 = tmp2;
     }
 	else if( (ch=='?') || (ch=='%') || (ch=='*') )
@@ -790,9 +787,9 @@ AtomExpr* CmdParser::ParseRange(int neg )
 }
 
 
-AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
+std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 {
-    AtomExpr *tmp1,*tmp2;
+    std::shared_ptr<AtomExpr> tmp1,tmp2;
     int done, pred;
     int neg;
 	double dtmp;
@@ -815,16 +812,15 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				FetchToken();
 			}
 			
-			tmp2 = new AtomExpr();
+			tmp2 = std::make_shared<AtomExpr>();
 			tmp2->type = OpOr;
-			tmp2->lft.ptr = tmp1;
-			tmp2->rgt.ptr = NULL;
+			tmp2->lft = tmp1;
+			tmp2->rgt = AtomExpr::CreateFalseExpr();
 			if( !(tmp1=ParseExpression(1,pmset)) )
 			{
-				delete tmp2;
 				return( tmp1 );
 			}
-			tmp2->rgt.ptr = tmp1;
+			tmp2->rgt = tmp1;
 			tmp1 = tmp2;
 		}
 		return( tmp1 );
@@ -842,16 +838,15 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				FetchToken();
 			}
 			
-			tmp2 = new AtomExpr;
+			tmp2 = std::make_shared<AtomExpr>();
 			tmp2->type = OpAnd;
-			tmp2->lft.ptr = tmp1;
-			tmp2->rgt.ptr = NULL;
+			tmp2->lft = tmp1;
+			tmp2->rgt = AtomExpr::CreateFalseExpr();
 			if( !(tmp1=ParseExpression(2,pmset)) )
 			{
-				delete tmp2;
 				return( tmp1 );
 			}
-			tmp2->rgt.ptr = tmp1;
+			tmp2->rgt = tmp1;
 			tmp1 = tmp2;
 		}
 		return( tmp1 );
@@ -900,16 +895,16 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				pred = PredAbsChr(PredTokOrd(CurToken));
 			}
 			
-			tmp1 = new AtomExpr();
+			tmp1 = std::make_shared<AtomExpr>();
 			tmp1->type = OpConst|OpLftProp|OpRgtVal;
-			tmp1->lft.val = pred;
+			tmp1->lft = (long)pred;
 			FetchToken();
 			return( tmp1 );
 		}
 		else if( IsPropTok(CurToken) )
 		{
 			int prop_code = 0;
-			tmp1 = new AtomExpr();
+			tmp1 = std::make_shared<AtomExpr>();
 			tmp1->type = OpLftProp|OpRgtVal;
 			switch( CurToken )
 			{
@@ -921,7 +916,7 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				case(ResNoTok):       pred = PropResId;   break;
 				case(ModelTok):       pred = PropModel;   break;
 			}
-			tmp1->lft.val = pred;
+			tmp1->lft = (long) pred;
 			prop_code = pred;
 			
 			FetchToken();
@@ -958,8 +953,7 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 			{
 				if( NextIf('=',"Syntax error in expression") )
 				{
-					delete tmp1;
-					return( (AtomExpr*)NULL );
+					return( std::make_shared<AtomExpr>() );
 				}
 				else
 				{
@@ -970,8 +964,7 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 			else
 			{
 				PrintLog("Syntax error in expression\n");
-				delete tmp1;
-				return( (AtomExpr*)NULL );
+				return( std::make_shared<AtomExpr>() );
 			}			
 			
 			if( CurToken == '-' )
@@ -987,32 +980,36 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				if( prop_code == PropAtGroup)
 				{
 					std::string grp_name = TokenIdent;
-					AtomGroup* patl = pmset->GetAtomGroupByID(grp_name.c_str());
+					AtomGroup* patl = pmset->GetAtomGroupByID(grp_name);
 					if(patl == NULL)
-                                        {
-						PrintLog(" No atom group with name %s \n",grp_name.c_str());
-                                                delete tmp1;
-				                return( (AtomExpr*)NULL );
+					{
+						PrintLog(" No atom group with name %s \n",grp_name);
+						return( std::make_shared<AtomExpr>() );
 					}
 					else
 					{
-						TokenValue = (int)patl;
+						std::shared_ptr<AtomSet>  pat_set;
+						for (HaAtom* aptr : *patl)
+							pat_set->insert(aptr);
+
+						tmp1->type = OpMember;
+						tmp1->rgt = pat_set;
+						return tmp1;
 					}
 				}
 				else
 				{
-				   PrintLog("Integer value expected\n");;
-				   delete tmp1;
-				   return( (AtomExpr*)NULL );
+				   PrintLog("Integer value expected\n");
+				   return( std::make_shared<AtomExpr>() );
 				}
 			}
 			
 			if( neg )
 			{
-				tmp1->rgt.val = -(int)TokenValue;
+				tmp1->rgt = -(long)TokenValue;
 			}
 			else
-				tmp1->rgt.val = (int)TokenValue;
+				tmp1->rgt = (long)TokenValue;
 			FetchToken();
 			return( tmp1 );
 		}
@@ -1022,13 +1019,12 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 			{
 			case('('):    FetchToken();
 				if( !(tmp1=ParseExpression(0,pmset)) )
-					return( (AtomExpr*)NULL );
+					return( AtomExpr::CreateFalseExpr() );
 				
 				if( CurToken!=')' )
 				{
 					PrintLog("Close parenthesis ')' expected\n");
-					delete tmp1;
-					return( (AtomExpr*)NULL );
+					return( AtomExpr::CreateFalseExpr() );
 				}
 				FetchToken();
 				return(tmp1);
@@ -1036,77 +1032,82 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 			case('!'): case('~'):
 			case(NotTok): FetchToken();
 				if( !(tmp1=ParseExpression(2,pmset)) )
-					return( (AtomExpr*)NULL );
+					return( AtomExpr::CreateFalseExpr() );
 				
-				tmp2 = new AtomExpr();
+				tmp2 = std::make_shared<AtomExpr>();
 				tmp2->type = OpNot | OpRgtVal;
-				tmp2->lft.ptr = tmp1;
+				tmp2->lft = tmp1;
 				return( tmp2 );
 				
 			case('-'):    if( NextIf(NumberTok,"Integer value expected") )
-							  return( (AtomExpr*)NULL );
+							  return( AtomExpr::CreateFalseExpr() );
 				return( ParseRange(True) );
 				
 			case(NumberTok):
 				return( ParseRange(False) );
 				
 			case(WithinTok):
-				if( NextIf('(',"Open parenthesis '(' expected") )
-					return( (AtomExpr*)NULL );
+			{
+				if (NextIf('(', "Open parenthesis '(' expected"))
+					return(AtomExpr::CreateFalseExpr());
 
 
-				dtmp =0.0;
+				dtmp = 0.0;
 				FetchToken();
-				if( CurToken==NumberTok )
+				if (CurToken == NumberTok)
 				{
-					dtmp= (double) TokenValue;
+					dtmp = (double)TokenValue;
 				}
-				else if( CurToken == FloatTok)
+				else if (CurToken == FloatTok)
 				{
 					dtmp = TokenValueFloat;
 				}
 				else
 				{
 					PrintLog("Integer or Float value expected\n");;
-					return( (AtomExpr*)NULL );
+					return(AtomExpr::CreateFalseExpr());
 				}
-				
-				if( dtmp > 50.0 )
+
+				if (dtmp > 50.0)
 				{
 					PrintLog("Parameter value too large\n");
-					return( (AtomExpr*)NULL );
+					return(AtomExpr::CreateFalseExpr());
 				}
-					
-				if( NextIf(',',"Comma separator missing") )
-					return( (AtomExpr*)NULL );
-				
+
+				if (NextIf(',', "Comma separator missing"))
+					return(AtomExpr::CreateFalseExpr());
+
 				FetchToken();
-				if( !(tmp1=ParseExpression(0,pmset)) )
-					return( (AtomExpr*)NULL );
-				
-				if( CurToken!=')' )
+				if (!(tmp1 = ParseExpression(0, pmset)))
+					return(AtomExpr::CreateFalseExpr());
+
+				if (CurToken != ')')
 				{
 					PrintLog("Close parenthesis ')' expected\n");
-					delete tmp1;
-					return( (AtomExpr*)NULL );
+					return(AtomExpr::CreateFalseExpr());
 				}
-				
+
 				FetchToken();
-				if( dtmp == 0.0 )
-					return( tmp1 );
-				
-				tmp2 = new AtomExpr();
+				if (dtmp == 0.0)
+					return(tmp1);
+
+				tmp2 = std::make_shared<AtomExpr>();
 				tmp2->type = OpWithin;
-				dtmp= dtmp;
-				tmp2->lft.dval = dtmp*dtmp;
-				tmp2->rgt.set = new AtomGroup(tmp1, pmset);
-				delete tmp1;
-				return( tmp2 );
+				dtmp = dtmp;
+				tmp2->lft = (double)dtmp * dtmp;
+
+				AtomGroup at_grp(tmp1.get(), pmset);
+				std::shared_ptr<AtomSet> pat_set;
+				for (HaAtom* aptr : at_grp)
+					pat_set->insert(aptr);
+				tmp2->rgt = pat_set;
+				return(tmp2);
+			}
 				
 			default:
 				if( CurToken==IdentTok )
 				{
-					tmp1 = AtomExpr::LookUpAtGroupExpr(TokenIdent.c_str(),pmset);
+					tmp1 = AtomExpr::LookUpAtGroupExpr(TokenIdent,pmset);
 					if( !tmp1 )
 						tmp1 = AtomExpr::LookUpElement(TokenIdent.c_str());
 					 
@@ -1118,22 +1119,18 @@ AtomExpr* CmdParser::ParseExpression(int level, MolSet* pmset )
 				}
 				
 				cursor_pos = str_start_pos;
-				AtomExpr* p_expr = AtomExpr::ParsePrimitiveExpr(pmset,CurLine.c_str(),cursor_pos);
+				std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParsePrimitiveExpr(pmset,CurLine,cursor_pos);
 				FetchToken();
-				
- 				if( p_expr == NULL )
+
+				if (p_expr->IsFalseExpr(p_expr.get()))
 				{
 					PrintLog("Syntax error in expression\n");
-					return( NULL );
 				}
-				else
-				{
-					return( p_expr );
-				}
+				return (p_expr);
             }
 		}
     }
-    return( (AtomExpr*)NULL );
+    return( AtomExpr::CreateFalseExpr() );
 }
 
 //#ifdef _WIN32

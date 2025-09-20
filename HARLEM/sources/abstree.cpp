@@ -10,7 +10,7 @@
    Version 2.6   
 
    \author Igor Kurnikov
-   \date 1997-2002  
+   \date 1997-2025  
     
 */
 #include "haconst.h"
@@ -18,9 +18,7 @@
 #ifdef _WIN32
 #include <malloc.h>
 #endif
-#ifndef sun386
 #include <stdlib.h>
-#endif
 #include <string>
 #include <ctype.h>
 #include <stdio.h>
@@ -36,13 +34,8 @@
 #include "hamolecule.h"
 #include "abstree.h"
 
-HaAtom*    AtomExpr::QAtom  =NULL;
-HaResidue* AtomExpr::QGroup =NULL;
-HaChain* AtomExpr::QChain =NULL;
-
 //static AtomExpr FalseExpr( (OpConst | OpLftVal | OpRgtVal), 0, 0 );
 //static AtomExpr TrueExpr( (OpConst | OpLftVal | OpRgtVal), 1, 1 );
-
 
 /* Macros for commonly used loops */
 
@@ -99,264 +92,300 @@ static int AminoProp[] = {
         };
 
 
-AtomExpr::AtomExpr(int new_type, long rval, long lval)
+AtomExpr::AtomExpr(int new_type, AtomExprVal rval, AtomExprVal lval)
 {
 	type=new_type;
-	rgt.val=rval;
-	lft.val=lval;
+	rgt=rval;
+	lft=lval;
 }
 
 AtomExpr::AtomExpr()
 {
 	type = 0;
-    rgt.ptr = NULL;
-    lft.ptr = NULL;
+    rgt = std::make_shared<AtomExpr>();
+    lft = std::make_shared<AtomExpr>();
 }
 
 AtomExpr::~AtomExpr()
 {
-    if( type!=OpWithin )
-    {
-		if( !( type&(OpLftProp|OpLftVal)) )
-            delete lft.ptr;
-        if( !( type&(OpRgtProp|OpRgtVal)) )
-            delete rgt.ptr;
-    }
-	else
-	{
-		delete rgt.set;
-	}
+
 }
 
-AtomExpr* AtomExpr::CreateTrueExpr()
+std::shared_ptr<AtomExpr> AtomExpr::CreateTrueExpr()
 {
-	return new AtomExpr( (OpConst | OpLftVal | OpRgtVal), 1, 1 );
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), (long)1, (long)1);
+	return pexpr;
 }
 
-AtomExpr* AtomExpr::CreateFalseExpr()
+std::shared_ptr<AtomExpr> AtomExpr::CreateFalseExpr()
 {
-	return new AtomExpr( (OpConst | OpLftVal | OpRgtVal), 0, 0 );
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), (long)1, (long)1);
+	return pexpr;
 }
 
 bool AtomExpr::IsTrueExpr(AtomExpr* p_expr)
 {
 	int type_t =  (OpConst | OpLftVal | OpRgtVal);
-	if( p_expr->type == type_t && p_expr->lft.val == 1 && p_expr->rgt.val == 1) return true;
+	if( p_expr->type == type_t 
+		&& std::holds_alternative<long>(p_expr->lft) && std::get<long>(p_expr->lft) == 1 
+		&& std::holds_alternative<long>(p_expr->rgt) && std::get<long>(p_expr->rgt) == 1) return true;
 	return false;
 }
    
 bool AtomExpr::IsFalseExpr(AtomExpr* p_expr)
 {
 	int type_t =  (OpConst | OpLftVal | OpRgtVal);
-	if( p_expr->type == type_t && p_expr->lft.val == 0 && p_expr->rgt.val == 0) return true;
+	if( p_expr->type == type_t  
+		&& std::holds_alternative<long>(p_expr->lft) && std::get<long>(p_expr->lft) == 0
+		&& std::holds_alternative<long>(p_expr->rgt) && std::get<long>(p_expr->rgt) == 0 ) return true;
 	return false;
 }
 
-long AtomExpr::EvaluateProperty(long prop )
-// Here to include new properties
+AtomExprVal AtomExpr::EvaluatePropertyFor(HaAtom* aptr, long prop)
 {
-    switch( prop )
-    {
-	case( PropIdent ):    return( (long) QAtom->GetSerNo() );
-	case( PropXCord ):    return( (long) (QAtom->GetX_Ang()*1000.0) );
-	case( PropYCord ):    return( (long) (QAtom->GetY_Ang()*1000.0) );
-	case( PropZCord ):    return( (long) (QAtom->GetZ_Ang()*1000.0) );
-	case( PropTemp ):     return( (long) (QAtom->tempf*1000.0) );
-	case( PropName ):     return( QAtom->refno );
-	case( PropResId ):    return( QGroup->serno );
-	case( PropResName ):  return( QGroup->refno );
-	case( PropChain ):    return( (long) QChain->ident );
-	case( PropSelect ):   return( QAtom->Selected() );
-	case( PropElemNo ):   return( QAtom->GetElemNo() );
-	case( PropChemGroup ):
-		if( QAtom->GetHostChemGroup() != NULL)
-			return( atoi( (QAtom->GetHostChemGroup())->GetID() ) );
-	case( PropMolPtr ):   return( (long)QAtom->GetHostMol());
-	case( PropRad ):      if( QAtom->IsDrawSphere() )
-						  {
-							  return( (long)( QAtom->radius*1000.0 ) );
-						  }
+	HaResidue* pres = aptr->GetHostRes();
+	HaChain* pchain = pres->GetHostChain();
+
+	switch (prop)
+	{
+	case(PropIdent):    return( aptr->GetSerNo() );
+	case(PropXCord):    return( aptr->GetX_Ang() );
+	case(PropYCord):    return( aptr->GetY_Ang() );
+	case(PropZCord):    return( aptr->GetZ_Ang() );
+	case(PropTemp):     return( aptr->tempf );
+	case(PropName):     return( aptr->refno);
+	case(PropResId):    return( pres->serno);
+	case(PropResName):  return( pres->refno);
+	case(PropChain):    return( pchain->ident );
+	case(PropSelect):   return( aptr->Selected());
+	case(PropElemNo):   return( aptr->GetElemNo());
+	case(PropChemGroup):
+		if (aptr->GetHostChemGroup() != NULL)
+		{
+			std::string chem_grp_id = aptr->GetHostChemGroup()->GetID();
+			return chem_grp_id;
+		}
+	case(PropMolPtr):   return( aptr->GetHostMol() );
+	case(PropRad):      
+		if ( aptr->IsDrawSphere() )
+		{
+			return(( aptr->radius));
+		}
 		else
-			return( 0 );
-		
+			return( (double) 0.0);
 
-        /* Predicates stored in flags */
-	case( PredBonded ):       return( !(QAtom->flag&NonBondFlag) );
-	case( PredHydrogen ):     return( QAtom->IsHydrogen() );
-	case( PredHetero ):       return( QAtom->flag&HeteroFlag );
-	case( PredCystine ):      return( QGroup->flag&CystineFlag );
-	case( PredHelix ):        return( QGroup->struc&HelixFlag );
-	case( PredSheet ):        return( QGroup->struc&SheetFlag );
-	case( PredTurn ):         return( QGroup->struc&TurnFlag );
-		
-        /* Residue type predicates */
-	case( PredDNA ):          return( QGroup->IsDNA() );
-	case( PredRNA ):          return( QGroup->IsRNA() );
-	case( PredNucleic ):      return( QGroup->IsNucleo() );
-	case( PredProtein ):      return( QGroup->IsProtein() );
-	case( PredAmino ):        return( QGroup->IsAmino() );
-	case( PredWater ):        return( QGroup->IsWater() );
-	case( PredSolvent ):      return( QGroup->IsSolvent() );
-	case( PredIon ):          return( QGroup->IsIon() );
-		
-        /* General Predicates */
-	case( PredAlpha ):        return( QGroup->IsAmino() &&
-								  QAtom->IsAlphaCarbon() );
-	case( PredMainChain ):    return( (QGroup->IsAmino() &&
-								  QAtom->IsAminoBackbone() ) ||
-								  (QGroup->IsNucleo() &&
-								  QAtom->IsNucleicBackbone() ) );
-	case( PredSidechain ):    return( QGroup->IsAmino() &&
-								  ! QAtom->IsAminoBackbone() );
-	case( PredLigand ):       return( (QAtom->flag&HeteroFlag) &&
-								  ! QGroup->IsSolvent() );
-		
-        /* Nucleic Acid Classifications */
-	case( PredAT ):           return( QGroup->IsAdenine() ||
-								  QGroup->IsThymine() );
-	case( PredCG ):           return( QGroup->IsCytosine() ||
-								  QGroup->IsGuanine() );
-	case( PredPyrimidine ):   return( QGroup->IsPyrimidine() );
-	case( PredPurine ):       return( QGroup->IsPurine() );
-		
-		
-        /* Amino Acid Classifications */
-	case( PredAcidic ):       return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitAcidic );
-		
-	case( PredAcyclic ):      return( QGroup->IsAmino() &&
-                                  !(AminoProp[QGroup->refno]&BitCyclic) );
-		
-	case( PredAliphatic ):    return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitAliphatic );
-		
-	case( PredAromatic ):     return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitAromatic );
-		
-	case( PredBasic ):        return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitBasic );
-		
-	case( PredBuried ):       return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitBuried );
-		
-	case( PredCharged ):      return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitCharged );
-		
-	case( PredCyclic ):       return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitCyclic );
-		
-	case( PredHydrophobic ):  return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitHydrophobic );
-		
-	case( PredLarge ):        return( QGroup->IsAmino() &&
-                                  !(AminoProp[QGroup->refno]&BitNotLarge) );
-		
-	case( PredMedium ):       return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitMedium );
-		
-	case( PredNeutral ):      return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitNeutral );
-		
-	case( PredPolar ):        return( QGroup->IsAmino() &&
-                                  !(AminoProp[QGroup->refno]&BitHydrophobic) );
-		
-	case( PredSmall ):        return( QGroup->IsAmino() &&
-                                  AminoProp[QGroup->refno]&BitSmall );
-		
-	case( PredSurface ):      return( QGroup->IsAmino() &&
-                                  !(AminoProp[QGroup->refno]&BitBuried) );
-		
-    }
-    return( True );
+
+		/* Predicates stored in flags */
+	case(PredBonded):       return(!(aptr->flag & NonBondFlag));
+	case(PredHydrogen):     return( aptr->IsHydrogen());
+	case(PredHetero):       return( (bool) (aptr->flag & HeteroFlag) );
+	case(PredCystine):      return( (bool) (pres->flag & CystineFlag) );
+	case(PredHelix):        return( (bool) (pres->struc & HelixFlag) );
+	case(PredSheet):        return( (bool) (pres->struc & SheetFlag) );
+	case(PredTurn):         return( (bool) (pres->struc & TurnFlag) );
+
+		/* Residue type predicates */
+	case(PredDNA):          return(pres->IsDNA());
+	case(PredRNA):          return(pres->IsRNA());
+	case(PredNucleic):      return(pres->IsNucleo());
+	case(PredProtein):      return(pres->IsProtein());
+	case(PredAmino):        return(pres->IsAmino());
+	case(PredWater):        return(pres->IsWater());
+	case(PredSolvent):      return(pres->IsSolvent());
+	case(PredIon):          return(pres->IsIon());
+
+		/* General Predicates */
+	case(PredAlpha):        return(pres->IsAmino() && aptr->IsAlphaCarbon());
+	case(PredMainChain):    return (pres->IsAmino() && aptr->IsAminoBackbone()) ||
+		                           (pres->IsNucleo() && aptr->IsNucleicBackbone());
+	case(PredSidechain):    return(pres->IsAmino() && !aptr->IsAminoBackbone());
+	case(PredLigand):       return((aptr->flag & HeteroFlag) && !pres->IsSolvent());
+
+		/* Nucleic Acid Classifications */
+	case(PredAT):           return(pres->IsAdenine()  || pres->IsThymine());
+	case(PredCG):           return(pres->IsCytosine() || pres->IsGuanine());
+	case(PredPyrimidine):   return(pres->IsPyrimidine());
+	case(PredPurine):       return(pres->IsPurine());
+
+		/* Amino Acid Classifications */
+	case(PredAcidic):       return(pres->IsAmino() && AminoProp[pres->refno] & BitAcidic);
+	case(PredAcyclic):      return(pres->IsAmino() && !(AminoProp[pres->refno] & BitCyclic));
+	case(PredAliphatic):    return(pres->IsAmino() && AminoProp[pres->refno] & BitAliphatic);
+	case(PredAromatic):     return(pres->IsAmino() && AminoProp[pres->refno] & BitAromatic);
+	case(PredBasic):        return(pres->IsAmino() && AminoProp[pres->refno] & BitBasic);
+	case(PredBuried):       return(pres->IsAmino() && AminoProp[pres->refno] & BitBuried);
+	case(PredCharged):      return(pres->IsAmino() && AminoProp[pres->refno] & BitCharged);
+	case(PredCyclic):       return(pres->IsAmino() && AminoProp[pres->refno] & BitCyclic);
+	case(PredHydrophobic):  return(pres->IsAmino() && AminoProp[pres->refno] & BitHydrophobic);
+	case(PredLarge):        return(pres->IsAmino() && !(AminoProp[pres->refno] & BitNotLarge));
+	case(PredMedium):       return(pres->IsAmino() && AminoProp[pres->refno] & BitMedium);
+	case(PredNeutral):      return(pres->IsAmino() && AminoProp[pres->refno] & BitNeutral);
+	case(PredPolar):        return(pres->IsAmino() && !(AminoProp[pres->refno] & BitHydrophobic));
+	case(PredSmall):        return(pres->IsAmino() && AminoProp[pres->refno] & BitSmall);
+	case(PredSurface):      return(pres->IsAmino() && !(AminoProp[pres->refno] & BitBuried));
+
+	}
+	return(True);
 }
 
+//static AtomExprVal convertBranchToAtomExprVal(const Branch& b)
+//{
+//	return std::visit([](auto&& val) -> AtomExprVal {
+//		using T = std::decay_t<decltype(val)>;
+//			if constexpr (std::is_same_v<T, int> ||
+//				std::is_same_v<T, long> ||
+//				std::is_same_v<T, double>) {
+//				return val;
+//			}
+//			else {
+//				return false; 
+//			}
+//		}, b);
+//}
 
-long AtomExpr::EvaluateExprFor(HaAtom* aptr)
-{
-	QAtom=aptr;
-    QChain=QAtom->GetHostChain();
-    QGroup=QAtom->GetHostRes();
-	return(EvaluateExpr());
-	
-}
 
-
-long AtomExpr::EvaluateExpr()
+AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
 // Logical, recursive evaluation of the logical expression
 {
-    long ilft, irgt;
+	AtomExprVal val_lft, val_rgt;
 
 // Within Expression Type
 
     if( type==OpWithin )
     {
-		if( lft.dval > 0.01 )
+		if (!std::holds_alternative<double>(lft) || !std::holds_alternative<std::shared_ptr<AtomSet>>(rgt))
+		{
+			PrintLog("Wrong parameters of Within(), should be: ( radius , atom set ) \n");
+			return false;
+		}
+
+		double radius = std::get<double>(lft);
+		std::shared_ptr<AtomSet> pat_set = std::get<std::shared_ptr<AtomSet>>(rgt);
+
+		if( radius > 0.01 )
         {
-			return( rgt.set->IsWithinRadius(QAtom, lft.dval) );
+			AtomGroup at_grp;
+			for (HaAtom* aptr : *pat_set.get())
+				at_grp.push_back(aptr);
+
+			return( at_grp.IsWithinRadius(aptr, radius) );
         }
 		else
-			return( rgt.set->HasAtom(QAtom) );
+			return( pat_set->count(aptr) > 0 );
     }
-	else if( type==OpMember )
-        return( rgt.set->HasAtom(QAtom) );
-
-//
+	else if (type == OpMember)
+	{
+		if (!std::holds_alternative<std::shared_ptr<AtomSet>>(rgt))
+		{
+			PrintLog("Wrong parameters of Member(), should be: ( Atom Set ) \n");
+			return false;
+		}
+		std::shared_ptr<AtomSet> pat_set = std::get<std::shared_ptr<AtomSet>>(rgt);
+		return(pat_set->count(aptr) > 0);
+	}
 
     if( type & OpLftVal )
     {
-		ilft = lft.val;
+		val_lft = lft;
     }
 	else if( type & OpLftProp )
     {
-		ilft = EvaluateProperty( lft.val );
+		if (std::holds_alternative<long>(lft))
+		{
+			long prop = std::get<long>(lft);
+			val_lft = EvaluatePropertyFor(aptr, prop);
+		}
+		else
+		{
+			PrintLog(" OpLftProp operator expects type long Property Code as an argument \n");
+			return false;
+		}
     }
 	else
-		ilft = lft.ptr->EvaluateExpr(); // resursively evaluate left hand side of the expression
+	{
+		if (std::holds_alternative<std::shared_ptr<AtomExpr>>(lft))
+		{
+			std::shared_ptr<AtomExpr> pexpr = std::get<std::shared_ptr<AtomExpr >>(lft);
+			val_lft = pexpr->EvaluateExprFor(aptr); // resursively evaluate left hand side of the expression
+		}
+	}
 
-    if( OpCode()==OpConst ) return( ilft );
-    if( (OpCode()==OpAnd) && !ilft ) return( False );
-    if( (OpCode()==OpOr) && ilft ) return( True );
-    if( OpCode()==OpNot ) return( !ilft );
+		if (std::holds_alternative<bool>(val_lft) )
+		{
+			bool bres = std::get<bool>(val_lft);
+			if ((OpCode() == OpAnd) && !bres) return(false);
+			if ((OpCode() == OpOr) && bres) return(true);
+			if (OpCode() == OpNot) return(!bres);
+		}
+		else
+		{
+			if (OpCode() == OpConst) return(val_lft);
+			else
+			{
+				PrintLog("At this point result of the evavluation of the left branch of the expression should be Const Value - return false \n");
+				return false;
+			}
+		}
 
 // Evaluation of the rigth side of the expression
 
     if( type & OpRgtVal )
     {
-		irgt = rgt.val;
+		val_rgt = rgt;
     }
 	else if( type & OpRgtProp )
     {
-		irgt = EvaluateProperty( rgt.val );
+		if (std::holds_alternative<long>(rgt))
+		{
+			long prop = std::get<long>(rgt);
+			val_rgt = EvaluatePropertyFor(aptr, prop);
+		}
+		else
+		{
+			PrintLog(" OpRgtProp operator expects type long Property Code as an argument \n");
+			return false;
+		}
     }
 	else
-		irgt = rgt.ptr->EvaluateExpr(); // resursively evaluate right hand side  of the expression
+	{
+		if (std::holds_alternative<std::shared_ptr<AtomExpr>>(rgt))
+		{
+			std::shared_ptr<AtomExpr> pexpr = std::get<std::shared_ptr<AtomExpr >>(rgt);
+			val_rgt = pexpr->EvaluateExprFor(aptr); // resursively evaluate right hand side of the expression
+		}
+	}
 
     switch( OpCode() )
     {
 	case(OpOr):
-        case(OpAnd):     return( irgt );
-        case(OpLess):    return( ilft < irgt );
-        case(OpMore):    return( ilft > irgt );
-        case(OpEqual):   return( ilft == irgt );
-        case(OpNotEq):   return( ilft != irgt );
-        case(OpLessEq):  return( ilft <= irgt );
-        case(OpMoreEq):  return( ilft >= irgt );
+        case(OpAnd):     return( val_rgt );
+		case(OpLess):    return( val_lft < val_rgt );
+        case(OpMore):    return( val_lft > val_rgt );
+        case(OpEqual):   return( val_lft == val_rgt );
+        case(OpNotEq):   return( val_lft != val_rgt );
+        case(OpLessEq):  return( val_lft <= val_rgt );
+        case(OpMoreEq):  return( val_lft >= val_rgt );
     }
-    return( True );
+    return( true );
 }
 
-AtomExpr* AtomExpr::LookUpAtGroupExpr(const char* grp_name, MolSet* pmset )
+std::shared_ptr<AtomExpr> AtomExpr::LookUpAtGroupExpr( std::string grp_name, MolSet* pmset )
 {
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>();
+
     AtomGroup* atl;
 	atl = pmset->GetAtomGroupByID(grp_name);
 	if(atl == NULL) 
-		return NULL;
+		return pexpr;
 	
-	AtomExpr* expr = new AtomExpr();
-    expr->type = OpMember;
-    expr->rgt.set = atl;
+	std::shared_ptr<AtomSet> pat_set;
+	for( HaAtom* aptr : *atl)
+		pat_set->insert(aptr);
 
-    return( expr );
+    pexpr->type = OpMember;
+	pexpr->rgt = pat_set;
+
+    return( pexpr );
 }
 
 
@@ -373,9 +402,9 @@ static int ElemCompare(const char* ident,const char* elem )
 }
 
 
-AtomExpr* AtomExpr::LookUpElement(const char* ident )
+std::shared_ptr<AtomExpr> AtomExpr::LookUpElement(const char* ident)
 {
-    AtomExpr *expr;
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>();
     int elem;
 
     for( elem=1; elem<MAXELEMNO; elem++ )
@@ -416,19 +445,15 @@ AtomExpr* AtomExpr::LookUpElement(const char* ident )
         }
     }
 
-    if( elem<MAXELEMNO )
-    {
-		expr = new AtomExpr();
-        expr->type = OpEqual|OpLftProp|OpRgtVal;
-        expr->lft.val = PropElemNo;
-        expr->rgt.val = elem;
-    }
-	else
-		expr = (AtomExpr*)0;
-    return( expr );
+	if (elem < MAXELEMNO)
+	{
+		pexpr->type = OpEqual | OpLftProp | OpRgtVal;
+		pexpr->lft = (long)PropElemNo;
+		pexpr->rgt = (long)elem;
+	}
+
+    return( pexpr );
 }
-
-
 
 static int MatchWildName(const char* src, const char* dst, int size, int len )
 {
@@ -468,7 +493,7 @@ static int MatchWildName(const char* src, const char* dst, int size, int len )
 }
 
 
-AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size_t& cr_pos )
+std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::string expr_str, size_t& cr_pos )
 //! 
 //! Generate a logical expression of subset of atoms of pmset corresponding to a string token 
 //! \param pmset    - Molecular Set atom expression is formed on
@@ -476,20 +501,28 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 //! \param cr_pos&   - current cursor position (input and output)
 {
 	std::string NameBuf;
-    AtomExpr *tmp1,*tmp2;
-    AtomExpr *wild;
+    std::shared_ptr<AtomExpr> tmp1,tmp2;
+	std::shared_ptr<AtomExpr> wild;
     
     int i, j;
     int neg;
     int ch;
 
-	AtomExpr* p_expr = CreateTrueExpr();
+	std::shared_ptr<AtomExpr> p_expr = CreateFalseExpr();
+	std::shared_ptr<AtomExpr> p_expr_false = CreateFalseExpr();
 
-	if(cr_pos >= strlen(expr_str)) return NULL;
+	if( cr_pos >= expr_str.size() ) return p_expr_false;
  
 	try
 	{
-		ch = expr_str[cr_pos++];	
+		cr_pos++;
+		if (cr_pos >= expr_str.size() )
+		{
+				cr_pos--;
+				return p_expr;
+		}
+		ch = expr_str[cr_pos];
+
 		if(ch == '$') // Process Molecule Name
 		{
 			NameBuf.clear();
@@ -516,60 +549,67 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 				HaMolecule* pMol= pmset->HostMolecules[i];
 				if( NameBuf == pMol->GetObjName() )
 				{
-					tmp1 = new AtomExpr();
+					tmp1 = std::make_shared<AtomExpr>();
 					tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-					tmp1->lft.val = PropMolPtr;
-					tmp1->rgt.val = (long)pMol;
+					tmp1->lft = (long)PropMolPtr;
+					tmp1->rgt = pMol;
 				
-					tmp2 = new AtomExpr();
+					tmp2 = std::make_shared<AtomExpr>();
 					tmp2->type = OpOr;
-					tmp2->lft.ptr = tmp1;
-					tmp2->rgt.ptr = wild;
+					tmp2->lft = tmp1;
+					tmp2->rgt = wild;
 					wild = tmp2;	
 				}
 			}
 			p_expr = wild;
-			ch = expr_str[cr_pos++];
+			cr_pos++;
+			if (cr_pos >= expr_str.size())
+			{
+				cr_pos--;
+				return p_expr;
+			}
+			ch = expr_str[cr_pos];
 		} // end of Molecule name parsing
 
-		if( !ch || isspace(ch))
+		if( isspace(ch))
 		{
 			cr_pos--;
 			return p_expr;
 		}
 
-		if( ch != ':' && ch != 0) // Parse Residue Name 
+		if( ch != ':' ) // Parse Residue Name 
 		{   
 			NameBuf.clear();
 			if( ch != '*' )
 			{
 				if( ch == '[' ) //Parse residue name in [ ] brackets
 				{
-					while( (ch = expr_str[cr_pos++]) != ']' )
+					while( true )
 					{
-						if( ch != 0 )
-						{
-							NameBuf += toupper(ch);
-						}
-						else
-						{
-							throw std::runtime_error("No closing ] in Residue Name");
-						}
+						cr_pos++;
+						if ( cr_pos >= expr_str.size() )  throw std::runtime_error("No closing ] in Residue Name");
+						ch = expr_str[cr_pos];
+						if (ch == ']') break;
+						NameBuf += toupper(ch);
 					}
 				}
 				else // Parse residue name without brackets
 				{
-					for( i=0; i< 20; i++ )
+					for( i=0; i < 20; i++ )
 					{
 						if( isalpha(ch) )
 						{
 							NameBuf += toupper(ch);
-							ch = expr_str[cr_pos++];
+							cr_pos++;
+							if (cr_pos >= expr_str.size()) break;
+							ch = expr_str[cr_pos];
 						}
 						else if( (ch == '?') || (ch == '%') )
 						{
 							NameBuf += '?';
-							ch = expr_str[cr_pos++];
+							cr_pos++;
+							if (cr_pos >= expr_str.size()) break;
+							ch = expr_str[cr_pos];
 						}
 						else
 						{
@@ -584,39 +624,43 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 				{
 					if( MatchWildName(NameBuf.c_str(),HaResidue::ResNames[j].c_str(), HaResidue::ResNames[j].size(),NameBuf.size() ) )
 					{
-						tmp1 = new AtomExpr();
+						tmp1 = std::make_shared<AtomExpr>();
 						tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-						tmp1->lft.val = PropResName;
-						tmp1->rgt.val = j;
+						tmp1->lft = (long)PropResName;
+						tmp1->rgt = (long)j;
 					
-						tmp2 = new AtomExpr();
+						tmp2 = std::make_shared<AtomExpr>();
 						tmp2->type = OpOr;
-						tmp2->lft.ptr = tmp1;
-						tmp2->rgt.ptr = wild;
+						tmp2->lft = tmp1;
+						tmp2->rgt = wild;
 						wild = tmp2;
 					}
 				}
 			
-				if( !IsTrueExpr(p_expr) )
+				if( !IsTrueExpr(p_expr.get()) )
 				{
-					tmp2 = new AtomExpr();
+					tmp2 = std::make_shared<AtomExpr>();
 					tmp2->type = OpAnd;
-					tmp2->lft.ptr = wild;
-					tmp2->rgt.ptr = p_expr;
+					tmp2->lft = wild;
+					tmp2->rgt = p_expr;
 					wild = tmp2;
 				}
 				p_expr = wild;
 			}
 			else // ch != '*' - for residue name
 			{
-				ch = expr_str[cr_pos++];
+				cr_pos++;
+				if (cr_pos > expr_str.size()) return p_expr;
+				ch = expr_str[cr_pos];
 			}
 
-			if( ch != '*' && ch != 0) // Parse Residue Number 
+			if( ch != '*') // Parse Residue Number 
 			{
 				if( ch == '-' )
 				{
-					ch = expr_str[cr_pos++];
+					cr_pos++;
+					if (cr_pos >= expr_str.size()) return p_expr;
+					ch = expr_str[cr_pos];
 					neg = True;
 				}
 				else
@@ -631,71 +675,85 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 					{
 						i = 10*i + (expr_str[cr_pos]-'0');
 						cr_pos++;
+						if (cr_pos >= expr_str.size()) break;
 					}
 
-					tmp1 = new AtomExpr();
+					tmp1 = std::make_shared<AtomExpr>();
 					tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-					tmp1->rgt.val = neg? -i : i;
-					tmp1->lft.val = PropResId;
-					if( !IsTrueExpr(p_expr) )
+					tmp1->rgt = neg? (long)-i : (long)i;
+					tmp1->lft = (long) PropResId;
+					if( !IsTrueExpr(p_expr.get()) )
 					{
-						tmp2 = new AtomExpr();
+						tmp2 = std::make_shared<AtomExpr>();
 						tmp2->type = OpAnd;
-						tmp2->rgt.ptr = p_expr;
-						tmp2->lft.ptr = tmp1;
+						tmp2->rgt = p_expr;
+						tmp2->lft = tmp1;
 						p_expr = tmp2;
 					}
 					else
 					{
 						p_expr = tmp1;
 					}
-					ch = expr_str[cr_pos++];
+					if (cr_pos >= expr_str.size()) return p_expr;
+					cr_pos++;
+					if (cr_pos >= expr_str.size()) return p_expr;
+					ch = expr_str[cr_pos];
 				}
 				else if( neg )
 				{
 					throw std::runtime_error("Only minus sign in place of residue number");
 				}
 			}
-			else if( ch != 0 )  // if (ch == '*') in place of residue number
+			else  // if (ch == '*') in place of residue number
 			{
-				ch = expr_str[cr_pos++];
+				cr_pos++;
+				if (cr_pos >= expr_str.size()) return p_expr;
+				ch = expr_str[cr_pos];
 			}
 		}	 
 
 		if( ch==':' ) // Parse Chain Ident 
 		{
-			ch = expr_str[cr_pos++];
+			cr_pos++;
+			if (cr_pos >= expr_str.size()) return p_expr;
+			ch = expr_str[cr_pos];
 		}
 
 		if( isalnum(ch) )
 		{
 			ch = toupper(ch);
 
-			tmp1 = new AtomExpr();
+			tmp1 = std::make_shared<AtomExpr>();
 			tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-			tmp1->lft.val = PropChain;
-			tmp1->rgt.val = (long) ch;
-			if( !IsTrueExpr(p_expr) )
+			tmp1->lft = (long) PropChain;
+			tmp1->rgt = (char) ch;
+			if( !IsTrueExpr(p_expr.get()) )
 			{
-				tmp2 = new AtomExpr();
+				tmp2 = std::make_shared<AtomExpr>();
 				tmp2->type = OpAnd;
-				tmp2->rgt.ptr = p_expr;
-				tmp2->lft.ptr = tmp1;
+				tmp2->rgt = p_expr;
+				tmp2->lft = tmp1;
 				p_expr = tmp2;
 			}
 			else
 			{
 				p_expr = tmp1;
 			}
-			ch = expr_str[cr_pos++];
+			cr_pos++;
+			if (cr_pos >= expr_str.size()) return p_expr;
+			ch = expr_str[cr_pos];
 		}
 		else if( (ch=='?') || (ch=='%') || (ch=='*') )
 		{
-			ch = expr_str[cr_pos++];
+			cr_pos++;
+			if (cr_pos >= expr_str.size()) return p_expr;
+			ch = expr_str[cr_pos];
 		}
 
 		if( ch == ':' ) // Parse Model Number 
 		{
+			cr_pos++;
+			if (cr_pos >= expr_str.size()) return p_expr;
 			ch = expr_str[cr_pos++];
 			if( isdigit(ch) )
 			{
@@ -704,25 +762,29 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 				{
 					i = 10*i + (expr_str[cr_pos]-'0');
 					cr_pos++;
+					if (cr_pos >= expr_str.size()) break;
 				}
 
-				tmp1 = new AtomExpr();
+				tmp1 = std::make_shared<AtomExpr>();
 				tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-				tmp1->lft.val = PropModel;
-				tmp1->rgt.val = i;
-				if( IsTrueExpr(p_expr) )
+				tmp1->lft = (long)PropModel;
+				tmp1->rgt = (long)i;
+				if( IsTrueExpr(p_expr.get()) )
 				{
-					tmp2 = new AtomExpr();
+					tmp2 = std::make_shared<AtomExpr>();
 					tmp2->type = OpAnd;
-					tmp2->rgt.ptr = p_expr;
-					tmp2->lft.ptr = tmp1;
+					tmp2->rgt = p_expr;
+					tmp2->lft = tmp1;
 					p_expr = tmp2;
 				}
 				else
 				{
 					p_expr = tmp1;
 				}
-				ch = expr_str[cr_pos++];
+				if (cr_pos >= expr_str.size()) return p_expr;
+				cr_pos++;
+				if (cr_pos >= expr_str.size()) return p_expr;
+				ch = expr_str[cr_pos];
 			}
 			else
 			{
@@ -733,7 +795,9 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 		if( ch == '.' ) // Parse Atom Name 
 		{
 			NameBuf.clear();
-			ch = expr_str[cr_pos++];
+			cr_pos++;
+			if (cr_pos >= expr_str.size()) return p_expr;
+			ch = expr_str[cr_pos];
 			if( ch != '*' )
 			{
 				for( i=0; i< 20; i++ )
@@ -741,12 +805,16 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 					if( isalnum(ch) || ch=='\'' || ch=='*' )
 					{
 						NameBuf += toupper(ch);
-						ch = expr_str[cr_pos++];
+						cr_pos++;
+						if(cr_pos >= expr_str.size()) break;
+						ch = expr_str[cr_pos];
 					}
 					else if( (ch=='?') || (ch=='%') || (ch=='#') )
 					{
 						NameBuf += '?';
-						ch = expr_str[cr_pos++];
+						cr_pos++;
+						if (cr_pos >= expr_str.size()) break;
+						ch = expr_str[cr_pos];
 					}
 					else
 					{
@@ -755,43 +823,43 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 				}
 				if( NameBuf.empty() ) throw std::runtime_error("Empty Atom Name");  
 			
-//				wild = &FalseExpr;
 				wild = CreateFalseExpr();
 				for( j=0; j< HaAtom::ElemDesc.size(); j++ )
 				{
 					if( MatchWildName(NameBuf.c_str(), HaAtom::ElemDesc[j].c_str(), HaAtom::ElemDesc[j].size(),NameBuf.size()) )
 					{
-						tmp1 = new AtomExpr();
+						tmp1 = std::make_shared<AtomExpr>();
 						tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-						tmp1->lft.val = PropName;
-						tmp1->rgt.val = j;
+						tmp1->lft = PropName;
+						tmp1->rgt = (long) j;
 
-						tmp2 = new AtomExpr();
+						tmp2 = std::make_shared<AtomExpr>();
 						tmp2->type = OpOr;
-						tmp2->lft.ptr = tmp1;
-						tmp2->rgt.ptr = wild;
+						tmp2->lft = tmp1;
+						tmp2->rgt = wild;
 
 						wild = tmp2;
 					}
 				}
 
-				if( IsTrueExpr(p_expr) || IsFalseExpr(wild) )
+				if( IsTrueExpr(p_expr.get()) || IsFalseExpr(wild.get()) )
 				{
-					delete p_expr;
 					p_expr = wild;
 				}
 				else
 				{
-					tmp1 = new AtomExpr();
+					tmp1 = std::make_shared<AtomExpr>();
 					tmp1->type = OpAnd;
-					tmp1->lft.ptr = p_expr;
-					tmp1->rgt.ptr = wild;
+					tmp1->lft = p_expr;
+					tmp1->rgt = wild;
 					p_expr = tmp1;
 				}
 			}
 			else // if( ch == '*' )
 			{
-				ch = expr_str[cr_pos++];
+				cr_pos++;
+				if( cr_pos >= expr_str.size())
+				ch = expr_str[cr_pos];
 			}
 		} // if(ch == '.') End Parse Atom Name
 	}
@@ -799,30 +867,27 @@ AtomExpr* AtomExpr::ParsePrimitiveExpr(MolSet* pmset, const char* expr_str, size
 	{
 		PrintLog(" Parsing Error %s \n", ex.what());
 		cr_pos--;
-		delete p_expr;
-		return NULL;
+		return p_expr;
 	}
     cr_pos--;
     if( !ch || isspace(ch) || ispunct(ch) )
 	{
 		return p_expr;
 	}
-	delete p_expr;
-	return NULL;
+	return p_expr;
 } 
 
-AtomExpr* AtomExpr::ParseExpression(const std::string& expr_str, MolSet* pmset)
+std::shared_ptr<AtomExpr> AtomExpr::ParseExpression(const std::string& expr_str, MolSet* pmset)
 {
 	CmdParser cmd_parser;
 	cmd_parser.SetCmdLine(expr_str);
 	cmd_parser.FetchToken();
-	AtomExpr* p_expr = cmd_parser.ParseExpression(0,pmset);
+	std::shared_ptr<AtomExpr> p_expr = cmd_parser.ParseExpression(0,pmset);
 	if( cmd_parser.CurToken )
 	{   
 		PrintLog("Error in AtomExpr::ParseExpression() \n");
 		PrintLog("Invalid Expression String syntax \n");
-		if(p_expr) delete p_expr;
-		p_expr = NULL;
+		p_expr = std::make_shared<AtomExpr>();
 	} 
 	return p_expr; 
 }

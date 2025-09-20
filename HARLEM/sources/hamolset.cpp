@@ -2191,18 +2191,17 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 		} 
 		else
 		{
-			AtomExpr* p_expr;
+			std::shared_ptr<AtomExpr> p_expr;
 			if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
 			{   
 				if( !cmd_pr.CurToken )
 				{   
-					SelectAtomsExprObj(p_expr);
+					SelectAtomsExprObj(p_expr.get());
 				} 
 				else 
 				{
 					PrintLog("Invalid command syntax\n");
 				}
-				delete p_expr;
 			}
 		}
 		break;
@@ -2234,12 +2233,12 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
         } 
 		else
 		{
-			AtomExpr* p_expr;
+			std::shared_ptr<AtomExpr> p_expr;
 			if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
 			{   
 				if( !cmd_pr.CurToken )
 				{   
-					SelectAtomsExprObj(p_expr);
+					SelectAtomsExprObj(p_expr.get());
 					pView->RestrictSelected();
 					pView->ReDrawFlag |= RFRefresh;
 				} 
@@ -2247,10 +2246,10 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 				{
 					PrintLog("Invalid command syntax\n");
 				}
-				delete p_expr;
 			} 
 		}
 		break;
+
 	case(OverlapMolTok):
 		try
 		{
@@ -2259,16 +2258,16 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 				
 			AtomGroup* group1;
 			AtomGroup* group2;
-			group1 = GetAtomGroupByID(cmd_pr.TokenIdent.c_str());
+			group1 = GetAtomGroupByID(cmd_pr.TokenIdent);
 			if( group1 == NULL ) throw std::runtime_error(" First argument should be an atom group name ");
 
 			cmd_pr.FetchToken();
 			if( cmd_pr.CurToken != IdentTok ) throw std::runtime_error(" Second argument should be an atom group name ");
 						
-			group2 = GetAtomGroupByID(cmd_pr.TokenIdent.c_str());
+			group2 = GetAtomGroupByID(cmd_pr.TokenIdent);
 			if( group2 == NULL ) throw std::runtime_error(" Second argument should be an atom group name ");
 					
-			OverlapMol(*group1,*group2); //modifies the coordinates of one molecule to overlap with the other
+			OverlapMol(*group1,*group2);   // modifies the coordinates of the second molecule to overlap with the first
 			RefreshAllViews(RFRefresh | RFApply); //plots the molecule
 		}
 		catch(std::exception& ex)
@@ -2286,21 +2285,19 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 		}
 		else
 		{
-			AtomExpr* p_expr;
-			if( (p_expr=cmd_pr.ParseExpression(0,this)) != NULL) //read an expression from command line
+			std::shared_ptr<AtomExpr> p_expr;
+			if( (p_expr=cmd_pr.ParseExpression(0,this)) != NULL) // read an expression from command line
 			{
-				AtomGroup firstatset(p_expr,this); //constructs atom set out of expression
-				delete p_expr;
+				AtomGroup group1(p_expr.get(),this); // constructs atom group from the expression
 				if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
 				{
-					AtomGroup secatset(p_expr,this); // reads the second expression separated by space
-					delete p_expr;
+					AtomGroup group2(p_expr.get(),this); // reads the second expression separated by space
 					if( !cmd_pr.CurToken )
 					{
-						if( secatset.size() != 0)
+						if( group2.size() != 0)
 						{
-							HaAtom* aptr = secatset[0];
-							AlignOverlapMol(firstatset,aptr->GetHostMol()); // modifies the coordinates of one molecule to overlap with the other
+							HaAtom* aptr = group2[0];
+							OverlapMol(group1, group2); // modifies the coordinates of one molecule to overlap with the other
 							RefreshAllViews(RFRefresh | RFApply); //plots the molecules
 						}
 					}
@@ -2337,18 +2334,15 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 				
 			if( cmd_pr.FetchToken() )
 			{   
-				AtomExpr* p_expr;
+				std::shared_ptr<AtomExpr> p_expr;
 				if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
 				{   
-					pgroup->SetFromExpr(p_expr,this);
-					delete p_expr;
+					pgroup->SetFromExpr(p_expr.get(),this);
 				} 
 			}
 			if(pgroup)
 			{
-				sprintf(buf," Atom group %s defined with %d atoms",
-					group_name.c_str(),pgroup->GetNAtoms());
-				PrintMessage(buf);
+				PrintLog(" Atom group %s defined with %d atoms \n", group_name,pgroup->GetNAtoms());
 			}
 		}
 		break;
@@ -7794,7 +7788,12 @@ void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 	AtomIteratorMolSet aitr(this);
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		if( expr->EvaluateExprFor(aptr) )
+		AtomExprVal res = expr->EvaluateExprFor(aptr);
+		bool bres = false;
+		if (std::holds_alternative<bool>(res))
+			bres = std::get<bool>(res);
+
+		if( bres )
 		{   
 			aptr->Select();
 		} 

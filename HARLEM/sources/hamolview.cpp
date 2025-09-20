@@ -1711,12 +1711,18 @@ static void CentreZoneExpr(AtomExpr* expr)
 
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
-		if( expr->EvaluateExprFor(aptr) )
+		AtomExprVal res = expr->EvaluateExprFor(aptr);
+
+		if( std::holds_alternative<bool>(res) )
 		{   
-			x += (double)aptr->GetX();
-			y += (double)aptr->GetY();
-			z += (double)aptr->GetZ();
-			count++;
+			bool bres = std::get<bool>(res);
+			if (bres)
+			{
+				x += (double)aptr->GetX();
+				y += (double)aptr->GetY();
+				z += (double)aptr->GetZ();
+				count++;
+			}
 		}
 	}
 
@@ -2318,18 +2324,17 @@ int HaMolView::ExecuteCommand(CmdParser& cmd_pr)
 			} 
 			else
 			{
-				AtomExpr* p_expr;
+				std::shared_ptr<AtomExpr> p_expr;
 				if( (p_expr = cmd_pr.ParseExpression(0,pmset)) != NULL )
 				{   
 					if( !cmd_pr.CurToken )
 					{   
-						CentreZoneExpr(p_expr);
+						CentreZoneExpr(p_expr.get());
 					} 
 					else 
 					{
 						PrintLog("Invalid command syntax\n");
 					}
-					delete p_expr;
 				}
 			}
 			break;

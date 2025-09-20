@@ -81,8 +81,8 @@ public:
 	int FetchToken();                        //!< Get Next token in the line after CursorPtr
 	int NextIf(int token, const char* error );
 	int ParseColour(int& RVal, int& GVal, int& BVal); //!< Set RGB value corresponging to the colour
-	AtomExpr* ParseRange(int neg );
-	AtomExpr* ParseExpression(int level, MolSet* pmset); //!< Parse str_parse and form a logical expression in QParse
+	std::shared_ptr<AtomExpr> ParseRange(int neg );
+	std::shared_ptr<AtomExpr> ParseExpression(int level, MolSet* pmset); //!< Parse str_parse and form a logical expression in QParse
 
 protected:
 	std::string CurLine;    //!< Line with the command to process

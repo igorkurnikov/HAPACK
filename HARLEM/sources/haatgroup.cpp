@@ -374,8 +374,13 @@ void AtomGroup::SetFromExpr(AtomExpr* expr, MolSet* pmset)
 	    AtomIteratorMolSet aitr(pmset);
 	    for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 		{
-			if( expr->EvaluateExprFor(aptr) )
-				this->push_back(aptr);
+			AtomExprVal res = expr->EvaluateExprFor(aptr);
+			if (std::holds_alternative<bool>(res))
+			{
+				bool bres = std::get<bool>(res);
+				if (bres)
+					this->push_back(aptr);
+			}
 		}
 	}
 }
@@ -383,11 +388,10 @@ void AtomGroup::SetFromExpr(AtomExpr* expr, MolSet* pmset)
 void AtomGroup::SetFromExprStr(const char* expr_str, MolSet* pmset )
 {
 	clear();
-	AtomExpr* p_expr;
-	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
+	std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParseExpression(expr_str, pmset);
+	if( !p_expr->IsFalseExpr(p_expr.get()))
 	{   
-		SetFromExpr(p_expr, pmset);
-		delete p_expr;
+		SetFromExpr(p_expr.get(), pmset);
 	}
 }
 
@@ -407,17 +411,23 @@ void AtomGroup::AddFromExpr(AtomExpr* expr, MolSet* pmset)
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
 		if( old_atoms.count(aptr) > 0 ) continue;
-		if( expr->EvaluateExprFor(aptr) ) this->push_back(aptr);
+		AtomExprVal res = expr->EvaluateExprFor(aptr);
+
+		if (std::holds_alternative<bool>(res))
+		{
+			bool bres = std::get<bool>(res);
+			if (bres) this->push_back(aptr);
+		}
 	}
 }
 
 void AtomGroup::AddFromExprStr(const char* expr_str, MolSet* pmset )
 {
-	AtomExpr* p_expr;
-	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
+	std::shared_ptr<AtomExpr> p_expr;
+	p_expr = AtomExpr::ParseExpression(expr_str, pmset);
+	if( !p_expr->IsFalseExpr(p_expr.get()) )
 	{      
-		AddFromExpr(p_expr, pmset);
-		delete p_expr;
+		AddFromExpr(p_expr.get(), pmset);
 	}
 }
 
@@ -437,18 +447,22 @@ void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, MolSet* pmset)
 	AtomIteratorMolSet aitr(pmset);
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
-		if( old_atoms.count(aptr) > 0 && !expr->EvaluateExprFor(aptr) )
-			this->push_back(aptr);
+		AtomExprVal res = expr->EvaluateExprFor(aptr);
+		if (std::holds_alternative<bool>(res))
+		{
+			bool bres = std::get<bool>(res);
+			if (old_atoms.count(aptr) > 0 && !bres)
+				this->push_back(aptr);
+		}
 	}
 }
 
 void AtomGroup::DeleteAtomsExprStr(const char* expr_str, MolSet* pmset )
 {
-	AtomExpr* p_expr;
-	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
+	std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParseExpression(expr_str, pmset);
+	if( p_expr->IsFalseExpr(p_expr.get()) )
 	{   
-		DeleteAtomsExpr(p_expr, pmset);
-		delete p_expr;
+		DeleteAtomsExpr(p_expr.get(), pmset);
 	}
 }
 
@@ -468,19 +482,20 @@ void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, MolSet* pmset)
 	AtomIteratorMolSet aitr(pmset);
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
-		if( old_atoms.count(aptr) > 0 && expr->EvaluateExprFor(aptr) )
-			this->push_back(aptr);
+		AtomExprVal res = expr->EvaluateExprFor(aptr);
+		if (std::holds_alternative<bool>(res))
+		{
+			bool bres = std::get<bool>(res);
+			if (old_atoms.count(aptr) > 0 && bres)
+				this->push_back(aptr);
+		}
 	}
 }
 
 void AtomGroup::KeepOnlyAtomsExprStr(const char* expr_str, MolSet* pmset )
 {
-	AtomExpr* p_expr;
-	if( (p_expr = AtomExpr::ParseExpression(expr_str,pmset)) != NULL )
-	{      
-		KeepOnlyAtomsExpr(p_expr, pmset);
-		delete p_expr;
-	}
+	std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParseExpression(expr_str, pmset);
+	KeepOnlyAtomsExpr(p_expr.get(), pmset);
 }
 
 
