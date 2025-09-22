@@ -511,8 +511,8 @@ static int MatchWildName(const char* src, const char* dst, int size, int len )
 std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::string expr_str, size_t& cr_pos )
 //! 
 //! Generate a logical expression of subset of atoms of pmset corresponding to a string token 
-//! \param pmset    - Molecular Set atom expression is formed on
-//! \param expr_str& - string with expression
+//! \param pmset    - Molecular Set the atom expression is formed on
+//! \param expr_str  - string with the atom expression
 //! \param cr_pos&   - current cursor position (input and output)
 {
 	std::string NameBuf;
@@ -691,9 +691,11 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 					i = ch-'0';
 					while( isdigit(expr_str[cr_pos]) )
 					{
-						i = 10*i + (expr_str[cr_pos]-'0');
 						cr_pos++;
 						if (cr_pos >= expr_str.size()) break;
+						ch = expr_str[cr_pos];
+						if (!isdigit(ch)) break;
+						i = 10*i + (ch-'0');
 					}
 
 					tmp1 = std::make_shared<AtomExpr>();
@@ -887,8 +889,8 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 		cr_pos--;
 		return p_expr;
 	}
-    cr_pos--;
-    if( !ch || isspace(ch) || ispunct(ch) )
+    // cr_pos--;
+    if(cr_pos >= expr_str.size() || isspace(ch) || ispunct(ch) )
 	{
 		return p_expr;
 	}
