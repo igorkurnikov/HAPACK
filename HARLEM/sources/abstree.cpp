@@ -154,7 +154,7 @@ AtomExprVal AtomExpr::EvaluatePropertyFor(HaAtom* aptr, long prop)
 	case(PropZCord):    return( aptr->GetZ_Ang() );
 	case(PropTemp):     return( aptr->tempf );
 	case(PropName):     return( aptr->refno);
-	case(PropResId):    return( pres->serno);
+	case(PropResId):    return( (int) pres->serno);
 	case(PropResName):  return( pres->refno);
 	case(PropChain):    return( pchain->ident );
 	case(PropSelect):   return( aptr->Selected());
@@ -698,7 +698,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 
 					tmp1 = std::make_shared<AtomExpr>();
 					tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-					tmp1->rgt = neg? (long)-i : (long)i;
+					tmp1->rgt = neg? (int)-i : (int)i;
 					tmp1->lft = (long) PropResId;
 					if( !IsTrueExpr(p_expr.get()) )
 					{

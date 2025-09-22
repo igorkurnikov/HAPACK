@@ -712,7 +712,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseRange(int neg )
 	
     tmp1 = std::make_shared<AtomExpr>();
     tmp1->type = OpLftProp|OpRgtVal;
-    tmp1->rgt = neg? -(long)TokenValue : (long)TokenValue;
+    tmp1->rgt = neg? -(int)TokenValue : (int)TokenValue;
     tmp1->lft = (long) PropResId;
 
 	int line_size = CurLine.size();
