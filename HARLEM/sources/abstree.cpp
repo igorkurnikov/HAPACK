@@ -542,7 +542,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
     int neg;
     int ch;
 
-	std::shared_ptr<AtomExpr> p_expr = CreateFalseExpr();
+	std::shared_ptr<AtomExpr> p_expr = CreateTrueExpr();
 	std::shared_ptr<AtomExpr> p_expr_false = CreateFalseExpr();
 
 	if( cr_pos >= expr_str.size() ) return p_expr_false;
@@ -684,9 +684,9 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 			}
 			else // ch != '*' - for residue name
 			{
-				cr_pos++;
-				if (cr_pos > expr_str.size()) return p_expr;
-				ch = expr_str[cr_pos];
+				//cr_pos++;
+				//if (cr_pos > expr_str.size()) return p_expr;
+				//ch = expr_str[cr_pos];
 			}
 
 			if (cr_pos >= expr_str.size()) return p_expr;
