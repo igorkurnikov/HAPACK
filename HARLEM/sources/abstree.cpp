@@ -313,9 +313,10 @@ bool AtomExpr::EvaluateExprFor( HaAtom* aptr )
 	if (std::holds_alternative<bool>(val_lft) )
 	{
 		bool bres = std::get<bool>(val_lft);
-		if ((OpCode() == OpAnd) && !bres) return(false);
-		if ((OpCode() == OpOr) && bres) return(true);
-		if (OpCode() == OpNot) return(!bres);
+		int op_code = OpCode();
+		if (op_code == OpAnd && !bres) return(false);
+		if (op_code == OpOr && bres) return(true);
+		if (op_code == OpNot) return(!bres);
 	}
 	else
 	{
@@ -355,7 +356,8 @@ bool AtomExpr::EvaluateExprFor( HaAtom* aptr )
 		}
 	}
 
-    switch( OpCode() )
+	int op_code = OpCode();
+    switch(op_code)
     {
 		case(OpOr):
         case(OpAnd):     
@@ -527,7 +529,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
  
 	try
 	{
-		cr_pos++;
+		//cr_pos++;
 		if (cr_pos >= expr_str.size() )
 		{
 				cr_pos--;
@@ -634,7 +636,8 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				wild = CreateFalseExpr();
 				for( j=0; j < HaResidue::ResNames.size(); j++ )
 				{
-					if( MatchWildName(NameBuf.c_str(),HaResidue::ResNames[j].c_str(), HaResidue::ResNames[j].size(),NameBuf.size() ) )
+					bool bmatched = MatchWildName(NameBuf.c_str(), HaResidue::ResNames[j].c_str(), HaResidue::ResNames[j].size(), NameBuf.size());
+					if( bmatched )
 					{
 						tmp1 = std::make_shared<AtomExpr>();
 						tmp1->type = OpEqual | OpLftProp | OpRgtVal;
@@ -649,7 +652,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 					}
 				}
 			
-				if( !IsTrueExpr(p_expr.get()) )
+				if( !IsFalseExpr(p_expr.get()) )
 				{
 					tmp2 = std::make_shared<AtomExpr>();
 					tmp2->type = OpAnd;
@@ -665,6 +668,8 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				if (cr_pos > expr_str.size()) return p_expr;
 				ch = expr_str[cr_pos];
 			}
+
+			if (cr_pos >= expr_str.size()) return p_expr;
 
 			if( ch != '*') // Parse Residue Number 
 			{
@@ -724,42 +729,42 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 			}
 		}	 
 
-		if( ch==':' ) // Parse Chain Ident 
+		if (ch == ':') // Parse Chain Ident 
 		{
 			cr_pos++;
 			if (cr_pos >= expr_str.size()) return p_expr;
 			ch = expr_str[cr_pos];
-		}
 
-		if( isalnum(ch) )
-		{
-			ch = toupper(ch);
+			if (isalnum(ch))
+			{
+				ch = toupper(ch);
 
-			tmp1 = std::make_shared<AtomExpr>();
-			tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-			tmp1->lft = (long) PropChain;
-			tmp1->rgt = (char) ch;
-			if( !IsTrueExpr(p_expr.get()) )
-			{
-				tmp2 = std::make_shared<AtomExpr>();
-				tmp2->type = OpAnd;
-				tmp2->rgt = p_expr;
-				tmp2->lft = tmp1;
-				p_expr = tmp2;
+				tmp1 = std::make_shared<AtomExpr>();
+				tmp1->type = OpEqual | OpLftProp | OpRgtVal;
+				tmp1->lft = (long)PropChain;
+				tmp1->rgt = (char)ch;
+				if (!IsTrueExpr(p_expr.get()))
+				{
+					tmp2 = std::make_shared<AtomExpr>();
+					tmp2->type = OpAnd;
+					tmp2->rgt = p_expr;
+					tmp2->lft = tmp1;
+					p_expr = tmp2;
+				}
+				else
+				{
+					p_expr = tmp1;
+				}
+				cr_pos++;
+				if (cr_pos >= expr_str.size()) return p_expr;
+				ch = expr_str[cr_pos];
 			}
-			else
+			else if ((ch == '?') || (ch == '%') || (ch == '*'))
 			{
-				p_expr = tmp1;
+				cr_pos++;
+				if (cr_pos >= expr_str.size()) return p_expr;
+				ch = expr_str[cr_pos];
 			}
-			cr_pos++;
-			if (cr_pos >= expr_str.size()) return p_expr;
-			ch = expr_str[cr_pos];
-		}
-		else if( (ch=='?') || (ch=='%') || (ch=='*') )
-		{
-			cr_pos++;
-			if (cr_pos >= expr_str.size()) return p_expr;
-			ch = expr_str[cr_pos];
 		}
 
 		if( ch == ':' ) // Parse Model Number 

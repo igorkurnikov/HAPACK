@@ -2191,8 +2191,8 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 		} 
 		else
 		{
-			std::shared_ptr<AtomExpr> p_expr;
-			if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
+			std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this);
+			if( !AtomExpr::IsFalseExpr(p_expr.get()) )
 			{   
 				if( !cmd_pr.CurToken )
 				{   
@@ -2233,8 +2233,8 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
         } 
 		else
 		{
-			std::shared_ptr<AtomExpr> p_expr;
-			if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
+			std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this);
+			if( !AtomExpr::IsFalseExpr(p_expr.get()) )
 			{   
 				if( !cmd_pr.CurToken )
 				{   
@@ -2285,11 +2285,12 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 		}
 		else
 		{
-			std::shared_ptr<AtomExpr> p_expr;
-			if( (p_expr=cmd_pr.ParseExpression(0,this)) != NULL) // read an expression from command line
+			std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
+			if (!AtomExpr::IsFalseExpr(p_expr.get()))
 			{
 				AtomGroup group1(p_expr.get(),this); // constructs atom group from the expression
-				if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
+				std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
+				if (!AtomExpr::IsFalseExpr(p_expr.get()))
 				{
 					AtomGroup group2(p_expr.get(),this); // reads the second expression separated by space
 					if( !cmd_pr.CurToken )
@@ -2334,8 +2335,8 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 				
 			if( cmd_pr.FetchToken() )
 			{   
-				std::shared_ptr<AtomExpr> p_expr;
-				if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
+				std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
+				if (!AtomExpr::IsFalseExpr(p_expr.get()))
 				{   
 					pgroup->SetFromExpr(p_expr.get(),this);
 				} 
@@ -7788,7 +7789,8 @@ void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 	AtomIteratorMolSet aitr(this);
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-		if(expr->EvaluateExprFor(aptr))
+		bool bres = expr->EvaluateExprFor(aptr);
+		if( bres )
 		{   
 			aptr->Select();
 		} 
@@ -7845,8 +7847,8 @@ void MolSet::SelectAtomsExpr( const char* expr_str)
 
 	/*CmdParser cmd_pr;
 	cmd_pr.SetCmdLine(expr_str);
-	AtomExpr* p_expr;
-	if( (p_expr = cmd_pr.ParseExpression(0,this)) != NULL )
+	std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
+	if (!AtomExpr::IsFalseExpr(p_expr.get()))
 	{   
 		if( !cmd_pr.CurToken )
 		{   
