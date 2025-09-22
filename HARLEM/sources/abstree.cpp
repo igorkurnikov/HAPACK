@@ -317,6 +317,7 @@ bool AtomExpr::EvaluateExprFor( HaAtom* aptr )
 		if (op_code == OpAnd && !bres) return(false);
 		if (op_code == OpOr && bres) return(true);
 		if (op_code == OpNot) return(!bres);
+		if (op_code == OpConst) return bres;
 	}
 	else
 	{
@@ -518,7 +519,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
     std::shared_ptr<AtomExpr> tmp1,tmp2;
 	std::shared_ptr<AtomExpr> wild;
     
-    int i, j;
+    int i;
     int neg;
     int ch;
 
@@ -634,7 +635,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				if( NameBuf.empty() ) throw std::runtime_error(" Empty Residue name ");
 
 				wild = CreateFalseExpr();
-				for( j=0; j < HaResidue::ResNames.size(); j++ )
+				for( int j=0; j < HaResidue::ResNames.size(); j++ )
 				{
 					bool bmatched = MatchWildName(NameBuf.c_str(), HaResidue::ResNames[j].c_str(), HaResidue::ResNames[j].size(), NameBuf.size());
 					if( bmatched )
@@ -642,7 +643,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 						tmp1 = std::make_shared<AtomExpr>();
 						tmp1->type = OpEqual | OpLftProp | OpRgtVal;
 						tmp1->lft = (long)PropResName;
-						tmp1->rgt = (long)j;
+						tmp1->rgt = j;
 					
 						tmp2 = std::make_shared<AtomExpr>();
 						tmp2->type = OpOr;
@@ -841,7 +842,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				if( NameBuf.empty() ) throw std::runtime_error("Empty Atom Name");  
 			
 				wild = CreateFalseExpr();
-				for( j=0; j< HaAtom::ElemDesc.size(); j++ )
+				for( int j=0; j< HaAtom::ElemDesc.size(); j++ )
 				{
 					if( MatchWildName(NameBuf.c_str(), HaAtom::ElemDesc[j].c_str(), HaAtom::ElemDesc[j].size(),NameBuf.size()) )
 					{
