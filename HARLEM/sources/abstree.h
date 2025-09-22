@@ -168,8 +168,8 @@ public:
 
    // static AtomExprVal convertBranchToAtomExprVal(const Branch& b);
 
-   inline int OpCode() { return(type & 0x0f); } //!< return  code of operation
-   AtomExprVal AtomExpr::EvaluateExprFor(HaAtom* aptr);
+   inline int OpCode() { return(type & 0x0f); }   //!< return  code of operation
+   bool EvaluateExprFor(HaAtom* aptr);  //!< Evaluate Expression for an atom
 };
 
 const double SelectRad = 0.4;

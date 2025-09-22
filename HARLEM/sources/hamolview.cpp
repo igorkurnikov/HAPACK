@@ -1711,18 +1711,12 @@ static void CentreZoneExpr(AtomExpr* expr)
 
 	for(aptr= aitr.GetFirstAtom(); aptr; aptr= aitr.GetNextAtom())
 	{
-		AtomExprVal res = expr->EvaluateExprFor(aptr);
-
-		if( std::holds_alternative<bool>(res) )
-		{   
-			bool bres = std::get<bool>(res);
-			if (bres)
-			{
-				x += (double)aptr->GetX();
-				y += (double)aptr->GetY();
-				z += (double)aptr->GetZ();
-				count++;
-			}
+		if (expr->EvaluateExprFor(aptr))
+		{
+			x += (double)aptr->GetX();
+			y += (double)aptr->GetY();
+			z += (double)aptr->GetZ();
+			count++;
 		}
 	}
 

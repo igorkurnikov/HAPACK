@@ -904,7 +904,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 		else if( IsPropTok(CurToken) )
 		{
 			int prop_code = 0;
-			tmp1 = std::make_shared<AtomExpr>();
+			tmp1 = AtomExpr::CreateFalseExpr();
 			tmp1->type = OpLftProp|OpRgtVal;
 			switch( CurToken )
 			{
@@ -953,7 +953,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 			{
 				if( NextIf('=',"Syntax error in expression") )
 				{
-					return( std::make_shared<AtomExpr>() );
+					return( AtomExpr::CreateFalseExpr() );
 				}
 				else
 				{
@@ -964,7 +964,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 			else
 			{
 				PrintLog("Syntax error in expression\n");
-				return( std::make_shared<AtomExpr>() );
+				return( AtomExpr::CreateFalseExpr() );
 			}			
 			
 			if( CurToken == '-' )
@@ -984,7 +984,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 					if(patl == NULL)
 					{
 						PrintLog(" No atom group with name %s \n",grp_name);
-						return( std::make_shared<AtomExpr>() );
+						return( AtomExpr::CreateFalseExpr() );
 					}
 					else
 					{
@@ -1000,7 +1000,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 				else
 				{
 				   PrintLog("Integer value expected\n");
-				   return( std::make_shared<AtomExpr>() );
+				   return( AtomExpr::CreateFalseExpr() );
 				}
 			}
 			
@@ -1049,7 +1049,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 			case(WithinTok):
 			{
 				if (NextIf('(', "Open parenthesis '(' expected"))
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 
 
 				dtmp = 0.0;
@@ -1065,26 +1065,26 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 				else
 				{
 					PrintLog("Integer or Float value expected\n");;
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 				}
 
 				if (dtmp > 50.0)
 				{
 					PrintLog("Parameter value too large\n");
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 				}
 
 				if (NextIf(',', "Comma separator missing"))
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 
 				FetchToken();
 				if (!(tmp1 = ParseExpression(0, pmset)))
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 
 				if (CurToken != ')')
 				{
 					PrintLog("Close parenthesis ')' expected\n");
-					return(AtomExpr::CreateFalseExpr());
+					return( AtomExpr::CreateFalseExpr() );
 				}
 
 				FetchToken();
@@ -1107,11 +1107,11 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 			default:
 				if( CurToken==IdentTok )
 				{
-					tmp1 = AtomExpr::LookUpAtGroupExpr(TokenIdent,pmset);
-					if( !tmp1 )
+					tmp1 = AtomExpr::LookUpAtGroupExpr(TokenIdent,pmset); 
+					if( tmp1->IsFalseExpr(tmp1.get()) )
 						tmp1 = AtomExpr::LookUpElement(TokenIdent.c_str());
 					 
-					if( tmp1 )
+					if( !tmp1->IsFalseExpr(tmp1.get()))
 					{
 						FetchToken();
 						return(tmp1);

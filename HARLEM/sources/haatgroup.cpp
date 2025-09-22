@@ -374,13 +374,8 @@ void AtomGroup::SetFromExpr(AtomExpr* expr, MolSet* pmset)
 	    AtomIteratorMolSet aitr(pmset);
 	    for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 		{
-			AtomExprVal res = expr->EvaluateExprFor(aptr);
-			if (std::holds_alternative<bool>(res))
-			{
-				bool bres = std::get<bool>(res);
-				if (bres)
-					this->push_back(aptr);
-			}
+			if (expr->EvaluateExprFor(aptr))
+				this->push_back(aptr);
 		}
 	}
 }
@@ -411,13 +406,7 @@ void AtomGroup::AddFromExpr(AtomExpr* expr, MolSet* pmset)
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
 		if( old_atoms.count(aptr) > 0 ) continue;
-		AtomExprVal res = expr->EvaluateExprFor(aptr);
-
-		if (std::holds_alternative<bool>(res))
-		{
-			bool bres = std::get<bool>(res);
-			if (bres) this->push_back(aptr);
-		}
+		if (expr->EvaluateExprFor(aptr)) this->push_back(aptr);
 	}
 }
 
@@ -447,13 +436,9 @@ void AtomGroup::DeleteAtomsExpr(AtomExpr* expr, MolSet* pmset)
 	AtomIteratorMolSet aitr(pmset);
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
-		AtomExprVal res = expr->EvaluateExprFor(aptr);
-		if (std::holds_alternative<bool>(res))
-		{
-			bool bres = std::get<bool>(res);
-			if (old_atoms.count(aptr) > 0 && !bres)
-				this->push_back(aptr);
-		}
+		bool bres = expr->EvaluateExprFor(aptr);
+		if (old_atoms.count(aptr) > 0 && !bres)
+			this->push_back(aptr);
 	}
 }
 
@@ -482,13 +467,9 @@ void AtomGroup::KeepOnlyAtomsExpr(AtomExpr* expr, MolSet* pmset)
 	AtomIteratorMolSet aitr(pmset);
 	for(aptr = aitr.GetFirstAtom(); aptr ; aptr = aitr.GetNextAtom())
 	{
-		AtomExprVal res = expr->EvaluateExprFor(aptr);
-		if (std::holds_alternative<bool>(res))
-		{
-			bool bres = std::get<bool>(res);
-			if (old_atoms.count(aptr) > 0 && bres)
-				this->push_back(aptr);
-		}
+		bool bres = expr->EvaluateExprFor(aptr);
+		if (old_atoms.count(aptr) > 0 && bres)
+			this->push_back(aptr);
 	}
 }
 

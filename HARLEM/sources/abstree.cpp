@@ -101,9 +101,9 @@ AtomExpr::AtomExpr(int new_type, AtomExprVal rval, AtomExprVal lval)
 
 AtomExpr::AtomExpr()
 {
-	type = 0;
-    rgt = std::make_shared<AtomExpr>();
-    lft = std::make_shared<AtomExpr>();
+	type = (OpConst | OpLftVal | OpRgtVal);
+	rgt = false;
+	lft = false;
 }
 
 AtomExpr::~AtomExpr()
@@ -113,13 +113,13 @@ AtomExpr::~AtomExpr()
 
 std::shared_ptr<AtomExpr> AtomExpr::CreateTrueExpr()
 {
-	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), (long)1, (long)1);
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), true, true);
 	return pexpr;
 }
 
 std::shared_ptr<AtomExpr> AtomExpr::CreateFalseExpr()
 {
-	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), (long)1, (long)1);
+	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>((OpConst | OpLftVal | OpRgtVal), false, false);
 	return pexpr;
 }
 
@@ -127,8 +127,8 @@ bool AtomExpr::IsTrueExpr(AtomExpr* p_expr)
 {
 	int type_t =  (OpConst | OpLftVal | OpRgtVal);
 	if( p_expr->type == type_t 
-		&& std::holds_alternative<long>(p_expr->lft) && std::get<long>(p_expr->lft) == 1 
-		&& std::holds_alternative<long>(p_expr->rgt) && std::get<long>(p_expr->rgt) == 1) return true;
+		&& std::holds_alternative<bool>(p_expr->lft) && std::get<bool>(p_expr->lft) == true 
+		&& std::holds_alternative<bool>(p_expr->rgt) && std::get<bool>(p_expr->rgt) == true) return true;
 	return false;
 }
    
@@ -136,8 +136,8 @@ bool AtomExpr::IsFalseExpr(AtomExpr* p_expr)
 {
 	int type_t =  (OpConst | OpLftVal | OpRgtVal);
 	if( p_expr->type == type_t  
-		&& std::holds_alternative<long>(p_expr->lft) && std::get<long>(p_expr->lft) == 0
-		&& std::holds_alternative<long>(p_expr->rgt) && std::get<long>(p_expr->rgt) == 0 ) return true;
+		&& std::holds_alternative<bool>(p_expr->lft) && std::get<bool>(p_expr->lft) == false
+		&& std::holds_alternative<bool>(p_expr->rgt) && std::get<bool>(p_expr->rgt) == false ) return true;
 	return false;
 }
 
@@ -244,7 +244,7 @@ AtomExprVal AtomExpr::EvaluatePropertyFor(HaAtom* aptr, long prop)
 //}
 
 
-AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
+bool AtomExpr::EvaluateExprFor( HaAtom* aptr )
 // Logical, recursive evaluation of the logical expression
 {
 	AtomExprVal val_lft, val_rgt;
@@ -255,7 +255,7 @@ AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
     {
 		if (!std::holds_alternative<double>(lft) || !std::holds_alternative<std::shared_ptr<AtomSet>>(rgt))
 		{
-			PrintLog("Wrong parameters of Within(), should be: ( radius , atom set ) \n");
+			PrintLog("Wrong parameters of Within(), should be: ( radius , atom expr ) \n");
 			return false;
 		}
 
@@ -310,24 +310,24 @@ AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
 		}
 	}
 
-		if (std::holds_alternative<bool>(val_lft) )
-		{
-			bool bres = std::get<bool>(val_lft);
-			if ((OpCode() == OpAnd) && !bres) return(false);
-			if ((OpCode() == OpOr) && bres) return(true);
-			if (OpCode() == OpNot) return(!bres);
-		}
-		else
-		{
-			if (OpCode() == OpConst) return(val_lft);
-			else
-			{
-				PrintLog("At this point result of the evavluation of the left branch of the expression should be Const Value - return false \n");
-				return false;
-			}
-		}
+	if (std::holds_alternative<bool>(val_lft) )
+	{
+		bool bres = std::get<bool>(val_lft);
+		if ((OpCode() == OpAnd) && !bres) return(false);
+		if ((OpCode() == OpOr) && bres) return(true);
+		if (OpCode() == OpNot) return(!bres);
+	}
+	else
+	{
+		// if (OpCode() == OpConst) return(val_lft);  //IGOR_TMP - not sure how OpConst processed
+		//else
+		//{
+		//	PrintLog("At this point result of the evaluation of the left branch of the expression should be Const Value - return false \n");
+		//	return false;
+		//}
+	}
 
-// Evaluation of the rigth side of the expression
+// Evaluation of the right side of the expression
 
     if( type & OpRgtVal )
     {
@@ -357,8 +357,21 @@ AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
 
     switch( OpCode() )
     {
-	case(OpOr):
-        case(OpAnd):     return( val_rgt );
+		case(OpOr):
+        case(OpAnd):     
+		{
+			if (std::holds_alternative<bool>(val_rgt))
+			{
+				bool bres = std::get<bool>(val_rgt);
+				return(bres);
+			}
+			else
+			{
+				PrintLog("At This point val_rgt should be bool \n");
+				return false;
+			}
+		}
+
 		case(OpLess):    return( val_lft < val_rgt );
         case(OpMore):    return( val_lft > val_rgt );
         case(OpEqual):   return( val_lft == val_rgt );
@@ -371,21 +384,20 @@ AtomExprVal AtomExpr::EvaluateExprFor( HaAtom* aptr )
 
 std::shared_ptr<AtomExpr> AtomExpr::LookUpAtGroupExpr( std::string grp_name, MolSet* pmset )
 {
-	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>();
+	std::shared_ptr<AtomExpr> p_expr = AtomExpr::CreateFalseExpr();
 
     AtomGroup* atl;
 	atl = pmset->GetAtomGroupByID(grp_name);
-	if(atl == NULL) 
-		return pexpr;
+	if(atl == NULL) return p_expr;
 	
 	std::shared_ptr<AtomSet> pat_set;
 	for( HaAtom* aptr : *atl)
 		pat_set->insert(aptr);
 
-    pexpr->type = OpMember;
-	pexpr->rgt = pat_set;
+    p_expr->type = OpMember;
+	p_expr->rgt = pat_set;
 
-    return( pexpr );
+    return( p_expr );
 }
 
 
@@ -404,7 +416,7 @@ static int ElemCompare(const char* ident,const char* elem )
 
 std::shared_ptr<AtomExpr> AtomExpr::LookUpElement(const char* ident)
 {
-	std::shared_ptr<AtomExpr> pexpr = std::make_shared<AtomExpr>();
+	std::shared_ptr<AtomExpr> pexpr = AtomExpr::CreateFalseExpr();
     int elem;
 
     for( elem=1; elem<MAXELEMNO; elem++ )
