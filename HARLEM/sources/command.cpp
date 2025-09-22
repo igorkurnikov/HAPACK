@@ -1078,7 +1078,9 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 					return( AtomExpr::CreateFalseExpr() );
 
 				FetchToken();
-				if (!(tmp1 = ParseExpression(0, pmset)))
+
+				tmp1 = ParseExpression(0, pmset);
+				if (!tmp1)
 					return( AtomExpr::CreateFalseExpr() );
 
 				if (CurToken != ')')

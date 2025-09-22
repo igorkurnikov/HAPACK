@@ -470,41 +470,60 @@ std::shared_ptr<AtomExpr> AtomExpr::LookUpElement(const char* ident)
     return( pexpr );
 }
 
-static int MatchWildName(const char* src, const char* dst, int size, int len )
+static bool MatchWildName(std::string src_str, std::string dst_str )
 {
-    int i, left;
+	int size = dst_str.size();
+	int len = src_str.size();
 
-    left = size;
-    while( *dst==' ' )
+	if (dst_str.size() == 0 || src_str.size() == 0) return false;
+
+	int src_pos = 0;
+	int dst_pos = 0;
+
+    int left = dst_str.size();
+    while( true )
     {
-		dst++; left--;
+		if (dst_pos >= dst_str.size()) return false;
+		if (dst_str[dst_pos] != ' ') break;
+		dst_pos++;
+		left--;
     }
 
-    for( i=0; i<len; i++ )
-    {
-		if( left )
-        {
-			if( (*dst==*src) || (*src=='?') )
-            {
-				dst++;  src++;  left--;
-            }
+	for (int i = 0; i < src_str.size(); i++)
+	{
+		if (left)
+		{
+			if (dst_str[dst_pos] == src_str[src_pos] || src_str[src_pos] == '?')
+			{
+				dst_pos++;
+				src_pos++;
+				left--;
+			}
 			else
-				return( False );
-        }
-		else if( *src++ != '?' )
-            return( False );
+				return(false);
+		}
+		else
+		{
+			src_pos++;
+			if (src_pos >= src_str.size()) return false;
+			if (src_str[src_pos] != '?') return false;
+				return(false);
+		}
     }
 
     while( left )
 	{
-         if( *dst++!=' ' )
-         {
-			 return( False );
-         }
-		 else
-			 left--;
+		if (dst_str[dst_pos] != ' ')
+		{
+			return false;
+		}
+		else
+		{
+			dst_pos++;
+			left--;
+		}
 	}
-    return( True );
+    return( true );
 }
 
 
@@ -637,7 +656,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				wild = CreateFalseExpr();
 				for( int j=0; j < HaResidue::ResNames.size(); j++ )
 				{
-					bool bmatched = MatchWildName(NameBuf.c_str(), HaResidue::ResNames[j].c_str(), HaResidue::ResNames[j].size(), NameBuf.size());
+					bool bmatched = MatchWildName(NameBuf, HaResidue::ResNames[j]);
 					if( bmatched )
 					{
 						tmp1 = std::make_shared<AtomExpr>();
@@ -846,12 +865,13 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 				wild = CreateFalseExpr();
 				for( int j=0; j< HaAtom::ElemDesc.size(); j++ )
 				{
-					if( MatchWildName(NameBuf.c_str(), HaAtom::ElemDesc[j].c_str(), HaAtom::ElemDesc[j].size(),NameBuf.size()) )
+					bool bmatched = MatchWildName(NameBuf, HaAtom::ElemDesc[j]);
+					if( bmatched )
 					{
 						tmp1 = std::make_shared<AtomExpr>();
 						tmp1->type = OpEqual | OpLftProp | OpRgtVal;
-						tmp1->lft = PropName;
-						tmp1->rgt = (long) j;
+						tmp1->lft = (long) PropName;
+						tmp1->rgt = j;
 
 						tmp2 = std::make_shared<AtomExpr>();
 						tmp2->type = OpOr;
