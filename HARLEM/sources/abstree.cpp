@@ -735,7 +735,11 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 					}
 					if (cr_pos >= expr_str.size()) return p_expr;
 					cr_pos++;
-					if (cr_pos >= expr_str.size()) return p_expr;
+					if (cr_pos >= expr_str.size())
+					{
+						cr_pos--;
+						return p_expr;
+					}
 					ch = expr_str[cr_pos];
 				}
 				else if( neg )
@@ -912,6 +916,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
     // cr_pos--;
     if(cr_pos >= expr_str.size() || isspace(ch) || ispunct(ch) )
 	{
+		//cr_pos--;
 		return p_expr;
 	}
 	return p_expr;

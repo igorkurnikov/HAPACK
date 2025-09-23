@@ -1083,6 +1083,8 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 				if (!tmp1)
 					return( AtomExpr::CreateFalseExpr() );
 
+				//FetchToken(); // IGOR TMP
+
 				if (CurToken != ')')
 				{
 					PrintLog("Close parenthesis ')' expected\n");
@@ -1099,7 +1101,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 				tmp2->lft = (double)dtmp * dtmp;
 
 				AtomGroup at_grp(tmp1.get(), pmset);
-				std::shared_ptr<AtomSet> pat_set;
+				std::shared_ptr<AtomSet> pat_set = std::make_shared<AtomSet>();
 				for (HaAtom* aptr : at_grp)
 					pat_set->insert(aptr);
 				tmp2->rgt = pat_set;
@@ -1121,7 +1123,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseExpression(int level, MolSet* pmset )
 				}
 				
 				cursor_pos = str_start_pos;
-				std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParsePrimitiveExpr(pmset,CurLine,cursor_pos);
+ 				std::shared_ptr<AtomExpr> p_expr = AtomExpr::ParsePrimitiveExpr(pmset,CurLine,cursor_pos);
 				FetchToken();
 
 				if (p_expr->IsFalseExpr(p_expr.get()))
