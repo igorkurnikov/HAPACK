@@ -336,7 +336,8 @@ const int  ElStaticTok = 2180;
 const int  SaveAmberParmTok = 2190;
 const int  LoadAmberRestartTok = 2200;
 const int  CombineBondingAtomsTok = 2210;
-const int  AlignOverlapMolTok = 2220;
+const int  AlignMolTok = 2220;
+const int  AlignMolMatchTok = 2230;
 
 /* Edit Molecule Tokens */
 const int  EditTok     = 2310;

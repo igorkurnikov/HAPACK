@@ -383,7 +383,8 @@ int HarlemApp::ExecuteCommand()
 	case(RenumTok): 
     case(StructureTok):
     case(OverlapMolTok):
-	case(AlignOverlapMolTok):
+	case(AlignMolTok):
+	case(AlignMolMatchTok):
 	case(DefineTok):
 	case(RefreshTok): 
 	case(ConnectTok):

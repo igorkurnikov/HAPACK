@@ -104,7 +104,7 @@ public:
 //! \name Superimpose molecules functions:
 //@{
 	double OverlapMol(AtomGroup& fmolatset, AtomGroup& smolatset); //!< Superimpose two molecules containing atom sets fmolatset and smolatset 2-> 1
-    double AlignOverlapMol(AtomGroup& fmolatset, HaMolecule* pMol2, 
+    double AlignMol(AtomGroup& fmolatset, HaMolecule* pMol2, 
 		PtrPtrMap* fit=NULL, HaVec_double* p_trans=NULL, HaMat_double* p_rot=NULL); //!< Align Sequences and Overlap two molecules containing atom sets fmolatset and smolatset, return RMS of atoms 2->1 
 //@}
 //! \name Input/Output geometry from/to files

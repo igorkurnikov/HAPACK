@@ -359,7 +359,8 @@ int CmdParser::InitKeywords()
 	RegisterKeyword( "TEMPERATURE", TemperatureTok);
 	RegisterKeyword( "TRANSPARENT", TransparentTok);
 	RegisterKeyword( "SAVEAMBERPARM", SaveAmberParmTok);
-	RegisterKeyword( "ALIGNOVERLAPMOL", AlignOverlapMolTok);
+	RegisterKeyword( "ALIGNMOL", AlignMolTok);
+	RegisterKeyword("ALIGNMOLMATCH", AlignMolMatchTok);
 	RegisterKeyword( "LOADAMBERRESTART", LoadAmberRestartTok);
 	RegisterKeyword( "COMBINEBONDINGATOMS", CombineBondingAtomsTok);
 	

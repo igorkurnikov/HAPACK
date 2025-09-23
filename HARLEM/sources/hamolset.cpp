@@ -2277,9 +2277,15 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 		}
 		break;
 
-	case(AlignOverlapMolTok):
+	case(AlignMolTok):
+	case(AlignMolMatchTok):
+	{
+		bool match_at_id = false;
+		if (cmd_pr.CurToken == AlignMolMatchTok)  match_at_id = true;
+
 		cmd_pr.FetchToken(); //this worked
-		if(!cmd_pr.CurToken)
+
+		if (!cmd_pr.CurToken)
 		{
 			PrintLog("Invalid command syntax\n");
 		}
@@ -2288,14 +2294,42 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 			std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
 			if (!AtomExpr::IsFalseExpr(p_expr.get()))
 			{
-				AtomGroup group1(p_expr.get(),this); // constructs atom group from the expression
+				AtomGroup group1(p_expr.get(), this); // constructs atom group from the expression
 				std::shared_ptr<AtomExpr> p_expr = cmd_pr.ParseExpression(0, this); // read an expression from the command line
 				if (!AtomExpr::IsFalseExpr(p_expr.get()))
 				{
-					AtomGroup group2(p_expr.get(),this); // reads the second expression separated by space
-					if( !cmd_pr.CurToken )
+					AtomGroup group2(p_expr.get(), this); // reads the second expression separated by space
+					if (match_at_id)
 					{
-						if( group2.size() != 0)
+						AtomGroup grp1_m, grp2_m;
+						for (HaAtom* aptr1 : group1)
+						{
+							std::string at_ref1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL);
+							HaAtom* aptr_m = nullptr;
+							for (HaAtom* aptr2 : group2)
+							{
+								std::string at_ref2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL);
+								if (at_ref1 == at_ref2)
+								{
+									aptr_m = aptr2;
+									break;
+								}
+							}
+							if (aptr_m)
+							{
+								grp1_m.push_back(aptr1);
+								grp2_m.push_back(aptr_m);
+							}	
+						}
+						group1 = grp1_m;
+						group2 = grp2_m;
+						PrintLog("Group1 has %s matched atoms,  Group2 has %s matched atoms \n", 
+							group1.size(), group2.size());
+					}
+
+					if (!cmd_pr.CurToken)
+					{
+						if (group2.size() != 0)
 						{
 							HaAtom* aptr = group2[0];
 							OverlapMol(group1, group2); // modifies the coordinates of one molecule to overlap with the other
@@ -2306,7 +2340,7 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 					{
 						PrintLog("Invalid command syntax\n");
 					}
-				}		
+				}
 			}
 			else
 			{
@@ -2314,6 +2348,7 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 			}
 		}
 		break;
+	}
 
     case(DefineTok):  
 		cmd_pr.FetchToken();
@@ -6760,7 +6795,7 @@ bool visit_f1(int n, node_id ni1[], node_id ni2[], void *usr_data)
 }
 
 
-double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
+double MolSet::AlignMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, HaVec_double* p_trans, HaMat_double* p_rot)
 //! Input Parameters:
 //! atset1 - list of atoms of the molecule1 that will be superimposed by the corresponding 
 //!          atoms of the molecule 2 
@@ -6972,7 +7007,7 @@ double MolSet::AlignOverlapMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* 
 
 	if(!ires)
 	{
-		ErrorInMod(" MolSet::AlignOverlapMol()","Failed to superimpose atom sets");
+		ErrorInMod(" MolSet::AlignMol()","Failed to superimpose atom sets");
 		return -1.0;
 	}
 	if(p_rot != NULL) (*p_rot) = rot_mat;
