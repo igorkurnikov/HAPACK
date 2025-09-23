@@ -560,16 +560,15 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 		if(ch == '$') // Process Molecule Name
 		{
 			NameBuf.clear();
-			while( (ch = expr_str[cr_pos++]) != '$')
+
+			while( true )
 			{
-				if( ch != 0 )
-				{
-					NameBuf += toupper(ch);
-				}
-				else
-				{
+				cr_pos++;
+				ch = expr_str[cr_pos];
+				if( cr_pos >= expr_str.size() )
 					throw std::runtime_error("No closing $ in molecule name ");
-				}
+				if (ch == '$') break;
+				NameBuf += toupper(ch);
 			}
 			if( NameBuf.size() == 0 )
 			{
@@ -599,7 +598,7 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 			cr_pos++;
 			if (cr_pos >= expr_str.size())
 			{
-				cr_pos--;
+				//cr_pos--;
 				return p_expr;
 			}
 			ch = expr_str[cr_pos];
