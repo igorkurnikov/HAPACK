@@ -733,13 +733,13 @@ std::shared_ptr<AtomExpr> AtomExpr::ParsePrimitiveExpr(MolSet* pmset, std::strin
 						p_expr = tmp1;
 					}
 					if (cr_pos >= expr_str.size()) return p_expr;
-					cr_pos++;
-					if (cr_pos >= expr_str.size())
-					{
-						cr_pos--;
-						return p_expr;
-					}
-					ch = expr_str[cr_pos];
+					//cr_pos++;
+					//if (cr_pos >= expr_str.size())
+					//{
+					//	cr_pos--;
+					//	return p_expr;
+					//}
+					//ch = expr_str[cr_pos];
 				}
 				else if( neg )
 				{
