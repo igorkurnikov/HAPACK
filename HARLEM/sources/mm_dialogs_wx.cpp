@@ -1623,11 +1623,10 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 	  if(sel_type_str == "Valence Bonds")
 	  {
 		  int idx = 0;
-		  std::set<MMBond>::iterator mbitr = ptr_mm_mod->p_mm_model->MBonds.begin();
-          
-		  for( ; mbitr != ptr_mm_mod->p_mm_model->MBonds.end(); mbitr++ )
+		        
+		  for( auto spb : ptr_mm_mod->p_mm_model->MBonds )
 		  {
-			  MMBond* pbond = (MMBond*) &(*mbitr);
+			  MMBond* pbond = spb.get();
 			  if(pbond->pt1->Selected() && pbond->pt2->Selected())
 			  {
 				  mref = HaAtom::ATOMREF_FULL;
@@ -1645,10 +1644,9 @@ void MolMechDlgWX::OnUpdateElemList(wxCommandEvent& event)
 	  if(sel_type_str == "Valence Angles")
 	  {
 		  int idx = 0;
-		  std::set<MMValAngle>::iterator vaitr = ptr_mm_mod->p_mm_model->ValAngles.begin();
-		  for(; vaitr != ptr_mm_mod->p_mm_model->ValAngles.end(); vaitr++ )
+		  for( auto spa : ptr_mm_mod->p_mm_model->ValAngles )
 		  {
-			  MMValAngle* pval = (MMValAngle*) &(*vaitr);
+			  MMValAngle* pval = spa.get();
 			  if(pval->pt1->Selected() && pval->pt2->Selected() && pval->pt3->Selected())
 			  {
 				  mref = HaAtom::ATOMREF_FULL;

@@ -2000,11 +2000,10 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 		}
 
 		int nv = 0;
-		std::set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
 
-		for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
+		for( auto spb : p_mm_model->MBonds )
 		{
-			MMBond& bnd = (MMBond&) *mbitr;
+			MMBond& bnd = *(spb.get());
 			if( bnd.set_type == MolMechModel::SET_SPEC)
 			{
 				if( nv == 0) os << "SPECIAL VALENCE BONDS" << "\n";
@@ -2025,11 +2024,9 @@ int MolSet::SaveOldHarlemStream(std::ostream& os, const AtomSaveOptions& opt)
 
 		nv = 0;
 
-		std::set<MMValAngle>::iterator vaitr = p_mm_model->ValAngles.begin();
-
-		for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
+		for(auto spa : p_mm_model->ValAngles )
 		{
-			MMValAngle& vang = (MMValAngle&) *vaitr;
+			MMValAngle& vang = *(spa.get());
 			if( vang.set_type == MolMechModel::SET_SPEC)
 			{
 				if( nv == 0) os << "SPECIAL VALENCE ANGLES" << "\n";

@@ -1049,21 +1049,17 @@ int HaMolMechMod::CalcEnergySimple()
 	double val;
 	double delt;
 
-	std::set<MMBond>::iterator mbitr = p_mm_model->MBonds.begin();
-
-	for(; mbitr != p_mm_model->MBonds.end(); mbitr++)
+	for(auto spb :  p_mm_model->MBonds)
 	{
-		MMBond& bond = (MMBond&) *mbitr;
+		MMBond& bond = *(spb.get());
 		val = Vec3D::CalcDistance(bond.pt1,bond.pt2,ANGSTROM_U);
 		delt = val - bond.r0;
 		p_mm_info->bond_ene += bond.fc * delt * delt; 
 	}
 
-	std::set<MMValAngle>::iterator vaitr = p_mm_model->ValAngles.begin();
-
-	for(; vaitr != p_mm_model->ValAngles.end(); vaitr++)
+	for(auto spa : p_mm_model->ValAngles)
 	{
-		MMValAngle& ang = (MMValAngle&)(*vaitr);
+		MMValAngle& ang = *(spa.get());
 		val = Vec3D::CalcAngle(ang.pt1,ang.pt2,ang.pt3);
 		delt = val - ang.a0*DEG_TO_RAD;
 		p_mm_info->vang_ene += ang.fc * delt * delt; 
@@ -1409,31 +1405,23 @@ int HaMolMechMod::OnDelAtoms(AtomContainer& del_atoms)
 			mpitr++;
 	}
 
-	std::set<MMBond>::iterator mbitr;
-	std::set<MMBond>::iterator mbitr2;
-	for( mbitr= p_mm_model->MBonds.begin(); mbitr != p_mm_model->MBonds.end();  mbitr++ )
+	std::vector<std::shared_ptr<MMBond>>::iterator mbitr = mbitr = p_mm_model->MBonds.begin();
+	for( ; mbitr != p_mm_model->MBonds.end(); )
 	{
-		if( pt_set.HasAtom( (*mbitr).pt1 ) || pt_set.HasAtom( (*mbitr).pt2 ) ) 
+		if( pt_set.HasAtom( (*mbitr)->pt1 ) || pt_set.HasAtom( (*mbitr)->pt2 ) ) 
 		{
-			mbitr2 = mbitr;
-			mbitr2++;
-			p_mm_model->MBonds.erase( mbitr );
-			mbitr = mbitr2;
+			mbitr = p_mm_model->MBonds.erase( mbitr );
 		}
 		else
 			mbitr++;
 	}
 
-	std::set<MMValAngle>::iterator ang_itr;
-	std::set<MMValAngle>::iterator ang_itr2;
-	for( ang_itr= p_mm_model->ValAngles.begin(); ang_itr != p_mm_model->ValAngles.end(); )
+	std::vector<std::shared_ptr<MMValAngle>>::iterator ang_itr = p_mm_model->ValAngles.begin();
+	for( ; ang_itr != p_mm_model->ValAngles.end(); )
 	{
-		if( pt_set.HasAtom( (*ang_itr).pt1 ) || pt_set.HasAtom( (*ang_itr).pt2 ) || pt_set.HasAtom( (*ang_itr).pt3 ) )
+		if( pt_set.HasAtom( (*ang_itr)->pt1 ) || pt_set.HasAtom( (*ang_itr)->pt2 ) || pt_set.HasAtom( (*ang_itr)->pt3 ) )
 		{
-			ang_itr2 = ang_itr;
-			ang_itr2++;
-			p_mm_model->ValAngles.erase( ang_itr );
-			ang_itr = ang_itr2;
+			ang_itr = p_mm_model->ValAngles.erase( ang_itr );
 		}
 		else
 			ang_itr++;

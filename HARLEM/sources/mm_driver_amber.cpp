@@ -7036,11 +7036,9 @@ int AmberMMModel::UpdateAmberData()
 	std::map<HaVec_double, int>::iterator mbitr;
 	numbnd = 0;
 
-	std::set<MMBond>::iterator bndset_itr = p_mm_model->MBonds.begin();
-
-	for( ; bndset_itr != p_mm_model->MBonds.end(); bndset_itr++)
+	for( auto spb : p_mm_model->MBonds)
 	{
-		MMBond& mb = (MMBond&) (*bndset_itr);
+		MMBond& mb = *(spb.get());
         
 		bpar[0] = mb.r0;
 		bpar[1] = mb.fc;
@@ -7088,11 +7086,10 @@ int AmberMMModel::UpdateAmberData()
 	numang = 0;
 
 	std::map<HaVec_double,int>::iterator vaitr;
-	std::set<MMValAngle>::iterator vaset_itr = p_mm_model->ValAngles.begin();
 
-	for( ; vaset_itr != p_mm_model->ValAngles.end(); vaset_itr++)
+	for( auto spa : p_mm_model->ValAngles)
 	{
-		MMValAngle& va =  (MMValAngle&) (*vaset_itr);
+		MMValAngle& va =  *(spa.get());
 
 		vang_par[0] = va.a0;
 		vang_par[1] = va.fc;

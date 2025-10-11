@@ -200,11 +200,10 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 	}
 
 	int nv = 0;
-	std::set<MMBond>::const_iterator mbitr = MBonds.begin();
-
-	for(; mbitr != MBonds.end(); mbitr++)
+	
+	for(auto spb : MBonds )
 	{
-		const MMBond& bnd = (const MMBond&) *mbitr;
+		const MMBond& bnd = *(spb.get());
 		if( bnd.set_type == MolMechModel::SET_SPEC)
 		{
 			os << "<bond set=\"spec\" ";
@@ -225,11 +224,9 @@ int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 		}
 	}
 
-	std::set<MMValAngle>::const_iterator vaitr = ValAngles.begin();
-
-	for(; vaitr != ValAngles.end(); vaitr++)
+	for(auto spa: ValAngles)
 	{
-		const MMValAngle& vang = (const MMValAngle&) *vaitr;
+		const MMValAngle& vang = *(spa.get());
 		if( vang.set_type == MolMechModel::SET_SPEC)
 		{
 			os << "<angle set=\"spec\" ";
@@ -917,67 +914,61 @@ AtomFFParam* MolMechModel::GetAtomFFParamMut(HaAtom* aptr)
 	return nullptr;
 }
 
-
 MMBond* MolMechModel::GetMMBond(HaAtom* pt1, HaAtom* pt2, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL) return NULL;
 
-    MMBond bnd;
-	
-	if( pt1 < pt2)
-	{
-		bnd.pt1 = pt1;
-		bnd.pt2 = pt2;
-	}
-	else
-	{
-		bnd.pt1 = pt1;
-		bnd.pt2 = pt2;
-	}
-
-	std::set<MMBond>::iterator itr;
+	std::vector<std::shared_ptr<MMBond>>::iterator itr;
 	
 	if (mutated_state)
 	{
-		itr = MBonds_mut.find(bnd);
+		itr = std::find_if(MBonds_mut.begin(), MBonds_mut.end(),
+			[&](const std::shared_ptr<MMBond>& spb)
+			{
+				return spb->pt1 == pt1 && spb->pt2 == pt2 || spb->pt1 == pt2 && spb->pt2 == pt1;
+
+			}
+		);
 		if(itr == MBonds_mut.end()) return nullptr;
 	}
 	else
 	{
-		itr = MBonds.find(bnd);
-		if(itr == MBonds.end()) return nullptr;
+		itr = std::find_if(MBonds.begin(), MBonds.end(),
+			[&](const std::shared_ptr<MMBond>& spb)
+			{
+				return spb->pt1 == pt1 && spb->pt2 == pt2 || spb->pt1 == pt2 && spb->pt2 == pt1;
+			}
+		);
+		if (itr == MBonds.end()) return nullptr;
 	}
-	return (MMBond*)&(*itr);
+	return (*itr).get();
 }
 
 MMValAngle* MolMechModel::GetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, bool mutated_state)
 {
 	if( pt1 == NULL || pt2 == NULL || pt3 == NULL) return NULL;
 
-	MMValAngle va;
-
-	if( pt1 < pt3)
-	{
-		va.pt1 = pt1;
-		va.pt2 = pt2;
-		va.pt3 = pt3;
-	}
-	else
-	{
-		va.pt1 = pt3;
-		va.pt2 = pt2;
-		va.pt3 = pt1;
-	}
-
-	std::set<MMValAngle>::iterator itr;
+	std::vector<std::shared_ptr<MMValAngle>>::iterator itr;
 	if (mutated_state)
 	{
-		itr = ValAngles_mut.find(va);
+		itr = std::find_if(ValAngles_mut.begin(), ValAngles_mut.end(),
+			[&](const std::shared_ptr<MMValAngle>& spa)
+			{
+				if (spa->pt2 != pt2) return false;
+				return spa->pt1 == pt1 && spa->pt3 == pt3 || spa->pt1 == pt3 && spa->pt3 == pt1;
+			}
+		);
 		if (itr == ValAngles_mut.end()) return nullptr;
 	}
 	else
 	{
-		itr = ValAngles.find(va);
+		itr = std::find_if(ValAngles.begin(), ValAngles.end(),
+			[&](const std::shared_ptr<MMValAngle>& spa)
+			{
+				if (spa->pt2 != pt2) return false;
+				return spa->pt1 == pt1 && spa->pt3 == pt3 || spa->pt1 == pt3 && spa->pt3 == pt1;
+			}
+		);
 		if (itr == ValAngles.end()) return nullptr;
 	}
 	return (MMValAngle*)&(*itr);
@@ -1078,8 +1069,8 @@ int MolMechModel::SetMMBond(HaAtom* pt1, HaAtom* pt2, double r0, double fc, int 
 	
 	if(pbnd == NULL)
 	{
-		MMBond& bnd = (MMBond&) *((MBonds.insert(MMBond(pt1_loc,pt2_loc))).first);
-		pbnd = &bnd;
+		MBonds.push_back(std::make_shared<MMBond>(pt1_loc, pt2_loc));
+		pbnd = MBonds.back().get();
 	}
 	
 	if( pbnd->set_type <= set_type)
@@ -1124,8 +1115,8 @@ int MolMechModel::SetValAngle(HaAtom* pt1, HaAtom* pt2, HaAtom* pt3, double a0, 
 	
 	if(pang == NULL)
 	{
-		MMValAngle& va = (MMValAngle&) *((ValAngles.insert(MMValAngle(pt1_loc,pt2_loc,pt3_loc))).first);
-		pang = &va;
+		ValAngles.push_back(std::make_shared<MMValAngle>(pt1_loc, pt2_loc, pt3_loc));
+		pang = ValAngles.back().get();
 	}
 	
 	if( pang->set_type <= set_type)
@@ -1145,8 +1136,9 @@ int MolMechModel::Set14interDihFlags()
 	AtomAtomMultiMap forbid_14_map;
 	AtomAtomMultiMap forbid_14_map_mut;
 	
-	for(const MMBond& bnd : MBonds)
+	for(auto spb : MBonds)
 	{
+		const MMBond& bnd = *(spb.get());
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 		AtomAtomMultiMap::value_type p(pt1,pt2);
@@ -1155,8 +1147,9 @@ int MolMechModel::Set14interDihFlags()
 		forbid_14_map.insert(p2);
 	}
 
-	for (const MMBond& bnd : MBonds_mut)
+	for (auto spb : MBonds_mut)
 	{
+		const MMBond& bnd = *(spb.get());
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 		AtomAtomMultiMap::value_type p(pt1, pt2);
@@ -1165,8 +1158,9 @@ int MolMechModel::Set14interDihFlags()
 		forbid_14_map_mut.insert(p2);
 	}
 
-	for( const MMValAngle& va : ValAngles)
+	for(auto spa : ValAngles)
 	{
+		const MMValAngle& va = *(spa.get());
 		HaAtom* pt1 = va.pt1;
 		HaAtom* pt3 = va.pt3;
 		AtomAtomMultiMap::value_type p(pt1,pt3);
@@ -1175,8 +1169,9 @@ int MolMechModel::Set14interDihFlags()
 		forbid_14_map.insert(p2);
 	}
 
-	for (const MMValAngle& va : ValAngles_mut)
+	for (auto spa : ValAngles_mut)
 	{
+		const MMValAngle& va = *(spa.get());
 		HaAtom* pt1 = va.pt1;
 		HaAtom* pt3 = va.pt3;
 		AtomAtomMultiMap::value_type p(pt1, pt3);
@@ -1275,10 +1270,9 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 	
 	PrintLog("Set OPEP Bonds params \n");
 
-	std::set<MMBond>::iterator bitr;
-	for( bitr = MBonds.begin(); bitr != MBonds.end(); bitr++)
+	for( auto spb : MBonds )
 	{
-        MMBond* bptr = (MMBond*)&(*bitr);
+        MMBond* bptr = spb.get();
 		HaAtom* aptr1 = bptr->pt1; 
 		HaAtom* aptr2 = bptr->pt2;
 
@@ -1306,10 +1300,9 @@ int MolMechModel::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under constru
 
 	PrintLog("Set OPEP Valence params \n");
 
-	std::set<MMValAngle>::iterator vaitr;
-	for( vaitr = ValAngles.begin(); vaitr != ValAngles.end(); vaitr++)
+	for( auto spa:  ValAngles)
 	{
-        MMValAngle* pang = (MMValAngle*) &(*vaitr);
+        MMValAngle* pang = spa.get();
 		HaAtom* aptr1 = pang->pt1; 
 		HaAtom* aptr2 = pang->pt2;
 		HaAtom* aptr3 = pang->pt3;
@@ -1463,10 +1456,9 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Bonds params \n");
 
-	std::set<MMBond>::iterator bitr;
-	for( bitr = MBonds.begin(); bitr != MBonds.end(); bitr++)
+	for( auto spb : MBonds )
 	{
-        MMBond* bptr = (MMBond*)&(*bitr);
+        MMBond* bptr = spb.get();
 		HaAtom* aptr1 = bptr->pt1; 
 		HaAtom* aptr2 = bptr->pt2;
 
@@ -1542,10 +1534,9 @@ int MolMechModel::SetCoarseGrainedDNAParams()
 
 	PrintLog(" Set DNA Valence Angles params \n");
 
-	std::set<MMValAngle>::iterator vaitr;
-	for( vaitr = ValAngles.begin(); vaitr != ValAngles.end(); vaitr++)
+	for( auto spa : ValAngles)
 	{
-        MMValAngle* pang = (MMValAngle*) &(*vaitr);
+        MMValAngle* pang = spa.get();
 		HaAtom* aptr1 = pang->pt1; 
 		HaAtom* aptr2 = pang->pt2;
 		HaAtom* aptr3 = pang->pt3;
@@ -2543,10 +2534,9 @@ int MolMechModel::SetStdValParams()
 		return FALSE;
 	}
 
-	std::set<MMBond>::iterator mbitr = MBonds.begin();
-	for(; mbitr != MBonds.end(); mbitr++)
+	for(auto spb : MBonds)
 	{
-		MMBond& bnd = (MMBond&)(*mbitr);
+		MMBond& bnd = *(spb.get());
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 
@@ -2579,10 +2569,9 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	mbitr = MBonds_mut.begin();
-	for (; mbitr != MBonds_mut.end(); mbitr++)
+	for (auto spb : MBonds_mut)
 	{
-		MMBond& bnd = (MMBond&)(*mbitr);
+		MMBond& bnd = *(spb.get());
 		HaAtom* pt1 = bnd.pt1;
 		HaAtom* pt2 = bnd.pt2;
 
@@ -2618,9 +2607,9 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for(auto vitr = ValAngles.begin(); vitr != ValAngles.end(); vitr++)
+	for (auto spa : ValAngles)
 	{
-		MMValAngle& va = (MMValAngle&)(*vitr);
+		MMValAngle& va = *(spa.get());
 		HaAtom* pt1 = va.pt1;
 		HaAtom* pt2 = va.pt2;
 		HaAtom* pt3 = va.pt3;
@@ -2658,9 +2647,9 @@ int MolMechModel::SetStdValParams()
 		}
 	}
 
-	for (auto vitr = ValAngles_mut.begin(); vitr != ValAngles_mut.end(); vitr++)
+	for (auto spa : ValAngles_mut)
 	{
-		MMValAngle& va = (MMValAngle&)(*vitr);
+		MMValAngle& va = *(spa.get());
 		HaAtom* pt1 = va.pt1;
 		HaAtom* pt2 = va.pt2;
 		HaAtom* pt3 = va.pt3;
@@ -2994,24 +2983,28 @@ bool MolMechModel::BuildExcludedAtomList()
 // include into the excluded list atoms separated by one, two or
 // three bonds
 // 
-	for(const MMBond& bond : MBonds )
+	for(std::shared_ptr<MMBond> spb : MBonds )
 	{
+		const MMBond& bond = *(spb.get());
 		AddAtomsToExcludedAtomList(bond.pt1, bond.pt2, pt_indx_map);
 	}
-	for (const MMBond& bond : MBonds_mut)
+	for(std::shared_ptr<MMBond> spb : MBonds_mut)
 	{
+		const MMBond& bond = *(spb.get());
 		AddAtomsToExcludedAtomList(bond.pt1, bond.pt2, pt_indx_map, true);
 	}
 
-	for(const MMValAngle& vang : ValAngles)
+	for(std::shared_ptr<MMValAngle> spa : ValAngles)
 	{
+		const MMValAngle& vang = *(spa.get());
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt2,pt_indx_map);
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt3,pt_indx_map);
 		AddAtomsToExcludedAtomList(vang.pt2, vang.pt3,pt_indx_map);
 	}
 
-	for (const MMValAngle& vang : ValAngles_mut)
+	for (std::shared_ptr<MMValAngle> spa: ValAngles_mut)
 	{
+		const MMValAngle& vang = *(spa.get());
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt2, pt_indx_map, true);
 		AddAtomsToExcludedAtomList(vang.pt1, vang.pt3, pt_indx_map, true);
 		AddAtomsToExcludedAtomList(vang.pt2, vang.pt3, pt_indx_map, true);

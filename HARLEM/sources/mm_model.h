@@ -59,15 +59,15 @@ public:
 	int GetNA() const { return Atoms.size(); } //!< Get Number of Atoms
 
 	std::vector<HaAtom*> Atoms;                              //!<  Atoms 
-	std::set<MMBond>  MBonds;                  //!<  Valence Bonds
-	std::set<MMValAngle>   ValAngles;      //!<  Valence angles
+	std::vector<std::shared_ptr<MMBond>>     MBonds;         //!<  Valence Bonds
+	std::vector<std::shared_ptr<MMValAngle>> ValAngles;      //!<  Valence angles
 	std::vector<std::shared_ptr<MMDihedral>> Dihedrals;      //!<  Dihedrals
 	std::vector<std::shared_ptr<MMDihedral>> ImprDihedrals;  //!<  Improper dihedral angles
 
-	std::set<MMBond> MBonds_mut;                  //!<  Valence Bonds for Mutated State
-	std::set<MMValAngle> ValAngles_mut;       //!<  Valence angles for Mutated State
-	std::vector<std::shared_ptr<MMDihedral>> Dihedrals_mut;      //!<  Dihedrals for Mutated State
-	std::vector<std::shared_ptr<MMDihedral>> ImprDihedrals_mut;  //!<  Improper dihedral angles for Mutated State
+	std::vector<std::shared_ptr<MMBond>>     MBonds_mut;          //!<  Valence Bonds for Mutated State
+	std::vector<std::shared_ptr<MMValAngle>> ValAngles_mut;       //!<  Valence angles for Mutated State
+	std::vector<std::shared_ptr<MMDihedral>> Dihedrals_mut;       //!<  Dihedrals for Mutated State
+	std::vector<std::shared_ptr<MMDihedral>> ImprDihedrals_mut;   //!<  Improper dihedral angles for Mutated State
 		
 	std::vector<AtomSet> excluded_atom_list;    //!< Excluded atom list: atoms for which non-bonded calculations are not computed 
 	std::vector<AtomSet> nonbond_contact_list;  //!< Non-bonded contacts lists: atoms for which non-bonded interactions are computed

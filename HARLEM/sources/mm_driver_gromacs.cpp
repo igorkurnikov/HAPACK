@@ -18,6 +18,7 @@
 namespace fs = std::filesystem;
 
 #include "harlemapp.h"
+#include "haatom.h"
 #include "hamolecule.h"
 #include "hamolset.h"
 #include "hamolmech.h"
@@ -860,13 +861,38 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 	return TRUE;
 }
 
+struct CompareMMBond {
+	AtomIntMap* pat_idx_map;
+	CompareMMBond(AtomIntMap& at_idx_map_par) : pat_idx_map(&at_idx_map_par) {}
+
+	bool operator()(const std::shared_ptr<MMBond> spb_a, const std::shared_ptr<MMBond> spb_b) const {
+		int ia = -1;
+		int ja = -1;
+		int ib = -1; 
+		int jb = -1;
+
+		if( pat_idx_map->count(spb_a->pt1) > 0) ia = pat_idx_map->at(spb_a->pt1);
+		if( pat_idx_map->count(spb_a->pt2) > 0) ja = pat_idx_map->at(spb_a->pt2);
+		if( pat_idx_map->count(spb_b->pt1) > 0) ib = pat_idx_map->at(spb_b->pt1);
+		if( pat_idx_map->count(spb_b->pt2) > 0) jb = pat_idx_map->at(spb_b->pt2);
+
+		if (ia > ja) std::swap(ia, ja);
+		if (ib > jb) std::swap(ib, jb);
+
+		if (ia > ib) return true;
+		if (ia > ib) return false;
+
+		return(ja > jb);
+	}
+};
+
 bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	bool has_mut_atoms = group.has_mut_atoms();
 
 	os << "[ bonds ]\n";
-	if(has_mut_atoms)
-	{ 
+	if (has_mut_atoms)
+	{
 		os << ";   ai      aj funct      r1              k1             r2             k2\n";
 	}
 	else
@@ -874,17 +900,23 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		os << ";   ai      aj funct      r               k   \n";
 	}
 
-	for(auto mbitr = p_mm_model->MBonds.begin(); mbitr != p_mm_model->MBonds.end(); mbitr++)
+	std::sort(p_mm_model->MBonds.begin(), p_mm_model->MBonds.end(), CompareMMBond(at_idx_map));
+
+	for(std::shared_ptr<MMBond> sp_bnd : p_mm_model->MBonds )
 	{
-		MMBond& bnd = (MMBond&) *mbitr;		
-		HaAtom* aptr1 = (HaAtom*) bnd.pt1;
-		HaAtom* aptr2 = (HaAtom*) bnd.pt2;
+		const MMBond& bnd = *(sp_bnd.get());
+		HaAtom* aptr1 = (HaAtom*)bnd.pt1;
+		HaAtom* aptr2 = (HaAtom*)bnd.pt2;
 
-		if( at_idx_map.count(aptr1) == 0 ) continue;
-		if( at_idx_map.count(aptr2) == 0 ) continue;
+		PrintLog(" Bond: %s - %s \n", aptr1->GetRef(), aptr2->GetRef());
 
-		const int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
-		const int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
+		if (at_idx_map.count(aptr1) == 0) continue;
+		if (at_idx_map.count(aptr2) == 0) continue;
+
+		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
+		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
+
+		if (idx1 > idx2) std::swap(idx1, idx2);
 
 		const double r0 = bnd.r0 * 0.1; // Ang -> nm
 		const double fc = bnd.fc*4.184*100*2.0; // kcal/mol/Ang^2  ->kJ/nm^2  - for GROMACS there is 1/2 in bond energy term 
@@ -895,11 +927,17 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		os << boost::format("%6d  %6d   1 %14.4e %14.4e ") % idx1 % idx2 % r0 % fc;
 		if (has_mut_atoms)
 		{
-			auto mbitr_mut = p_mm_model->MBonds_mut.find(bnd);
+			// auto mbitr_mut = p_mm_model->MBonds_mut.find(*bnd);
+			auto mbitr_mut = std::find_if(p_mm_model->MBonds_mut.begin(), p_mm_model->MBonds_mut.end(),
+				[&](const std::shared_ptr<MMBond>& b)
+				{
+					return (b->pt1 == aptr1 && b->pt2 == aptr2 || b->pt1 == aptr2 && b->pt2 == aptr1);
+				}
+			);
 			if (mbitr_mut != p_mm_model->MBonds_mut.end())
 			{
-				const double r0_m = mbitr_mut->r0 * 0.1; // Ang -> nm
-				const double fc_m = mbitr_mut->fc * 4.184 * 4.184 * 100; // kcal/mol/Ang^2  ->kJ/nm^2
+				const double r0_m = (*mbitr_mut)->r0 * 0.1; // Ang -> nm
+				const double fc_m = (*mbitr_mut)->fc * 4.184 * 4.184 * 100; // kcal/mol/Ang^2  ->kJ/nm^2
 				os << boost::format(" %14.4e %14.4e ") % r0_m % fc_m;
 			}
 			else
@@ -912,9 +950,11 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 
 	if (has_mut_atoms)
 	{
-		for (auto mbitr = p_mm_model->MBonds_mut.begin(); mbitr != p_mm_model->MBonds_mut.end(); mbitr++)  // Mutated bonds not found in p_mm_model->MBonds
+		std::sort(p_mm_model->MBonds_mut.begin(), p_mm_model->MBonds_mut.end(), CompareMMBond(at_idx_map));
+
+		for (std::shared_ptr<MMBond> sp_bnd_mut : p_mm_model->MBonds_mut) // Mutated bonds not found in p_mm_model->MBonds
 		{
-			MMBond& bnd_m = (MMBond&)*mbitr;
+			const MMBond& bnd_m = *(sp_bnd_mut.get());
 			HaAtom* aptr1 = (HaAtom*)bnd_m.pt1;
 			HaAtom* aptr2 = (HaAtom*)bnd_m.pt2;
 
@@ -986,9 +1026,9 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		os << ";   ai     aj     ak funct    theta          k \n";
 	}
 
-	for(auto vaitr = p_mm_model->ValAngles.begin(); vaitr != p_mm_model->ValAngles.end(); vaitr++)
+	for(auto sp_va : p_mm_model->ValAngles)
 	{
-		MMValAngle& ang = (MMValAngle&)(*vaitr);
+		MMValAngle& ang = *(sp_va.get());
 		
 		double a0 = ang.a0;
 		double fc = ang.fc * 4.184 * 2.0;  // convert to kJ/rad^2 and X 2 as Angle energy term in GROMACS has 1/2 compared to AMBER
@@ -1012,11 +1052,19 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		os << boost::format("%6d %6d %6d  1 %14.4e%14.4e ") % idx1 % idx2 % idx3 % a0 % fc;
 		if (has_mut_atoms)
 		{
-			auto vitr_mut = p_mm_model->ValAngles_mut.find(ang);
+			// auto vitr_mut = p_mm_model->ValAngles_mut.find(ang);
+			auto vitr_mut = std::find_if(p_mm_model->ValAngles_mut.begin(), p_mm_model->ValAngles_mut.end(),
+				[&](const std::shared_ptr<MMValAngle>& spa)
+				{
+					if (spa->pt2 != aptr2) return false;
+					return (spa->pt1 == aptr1 && spa->pt3 == aptr3 || spa->pt1 == aptr3 && spa->pt3 == aptr1);
+				}
+			);
+
 			if (vitr_mut != p_mm_model->ValAngles_mut.end())
 			{
-				const double a0_m = vitr_mut->a0; // degrees
-				const double fc_m = vitr_mut->fc * 4.184; // kJ/rad^2  ??
+				const double a0_m = (*vitr_mut)->a0; // degrees
+				const double fc_m = (*vitr_mut)->fc * 4.184; // kJ/rad^2  ??
 				os << boost::format(" %14.4e%14.4e ") % a0_m % fc_m;
 			}
 			else
@@ -1029,9 +1077,9 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 
 	if (has_mut_atoms)
 	{
-		for (auto vaitr = p_mm_model->ValAngles_mut.begin(); vaitr != p_mm_model->ValAngles_mut.end(); vaitr++)  // Mutated Valence Angles not found in p_mm_model->ValAngles
+		for (auto sp_va_m : p_mm_model->ValAngles_mut) // Mutated Valence Angles not found in p_mm_model->ValAngles
 		{
-			MMValAngle& ang_m = (MMValAngle&)(*vaitr);
+			MMValAngle& ang_m = *(sp_va_m.get());
 
 			double a0 = ang_m.a0;
 			double fc = ang_m.fc * 4.184;

@@ -6803,10 +6803,9 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 	
 	PrintLog("Set OPEP Bonds params \n");
 
-	std::set<MMBond>::iterator bitr;
-	for( bitr = MolMechModule->p_mm_model->MBonds.begin(); bitr != MolMechModule->p_mm_model->MBonds.end(); bitr++)
+	for( auto sbptr : MolMechModule->p_mm_model->MBonds )
 	{
-        MMBond* bptr = (MMBond*)&(*bitr);
+        MMBond* bptr = sbptr.get();
 		HaAtom* aptr1 = bptr->pt1; 
 		HaAtom* aptr2 = bptr->pt2;
 
@@ -6834,10 +6833,9 @@ int HaMolMembraneMod::SetCoarseGrainedOPEPParams()  // jose 11/04/2008 under con
 
 	PrintLog("Set OPEP Valence params \n");
 
-	std::set<MMValAngle>::iterator vaitr;
-	for( vaitr = MolMechModule->p_mm_model->ValAngles.begin(); vaitr != MolMechModule->p_mm_model->ValAngles.end(); vaitr++)
+	for( auto sbptr : MolMechModule->p_mm_model->ValAngles )
 	{
-        MMValAngle* pang = (MMValAngle*) &(*vaitr);
+		MMValAngle* pang = sbptr.get();
 		HaAtom* aptr1 = pang->pt1; 
 		HaAtom* aptr2 = pang->pt2;
 		HaAtom* aptr3 = pang->pt3;
