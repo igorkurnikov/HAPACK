@@ -91,7 +91,7 @@ int AtomMapping::SetAtom3PtSyncRule(HaAtom* aptr_mng, HaAtom* aref_1, HaAtom* ar
 int AtomMapping::Map2to1ByAtomDistance()
 {
 	ClearSyncRules2from1();
-	std::unique_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
+	std::shared_ptr<AtomIterator> p_aitr_2 = p_ac_2->GetAtomIteratorPtr();
 
 	double xmin,xmax,ymin,ymax,zmin,zmax;
 
@@ -216,8 +216,8 @@ int AtomMapping::Map2to1ByAtomDistance()
 int AtomMapping::Map2to1ByAtomRef()
 {
 	ClearSyncRules2from1();
-    std::unique_ptr<AtomIterator> p_aitr_1(p_ac_1->GetAtomIteratorPtr());
-	std::unique_ptr<AtomIterator> p_aitr_2(p_ac_2->GetAtomIteratorPtr());
+    std::shared_ptr<AtomIterator> p_aitr_1 = p_ac_1->GetAtomIteratorPtr();
+	std::shared_ptr<AtomIterator> p_aitr_2 = p_ac_2->GetAtomIteratorPtr();
 
 	AtomGroup mapped_atoms;
 	std::map<std::string, HaAtom*> ref_atom_map_1;
@@ -283,7 +283,7 @@ int AtomMapping::BuildSyncRulesForMissingAtoms(AtomContainer& all_atoms, AtomCon
 	rules.clear();
 
 	std::set<HaAtom*> mapped_atoms, mapped_atoms_orig;
-	std::unique_ptr<AtomIterator> p_aitr_known( known_atoms.GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr_known = known_atoms.GetAtomIteratorPtr();
 	HaAtom* aptr;
 	for( aptr = p_aitr_known->GetFirstAtom(); aptr; aptr = p_aitr_known->GetNextAtom() )
 	{
@@ -296,7 +296,7 @@ int AtomMapping::BuildSyncRulesForMissingAtoms(AtomContainer& all_atoms, AtomCon
 	std::map<HaAtom*,AtomGroup> mapped_nb;   // mapped neigbors of the atom
 	std::map<HaAtom*,AtomGroup> unmapped_nb; // unmapped neigbors of the atom
 	
-	std::unique_ptr<AtomIterator> p_aitr_all( all_atoms.GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr_all = all_atoms.GetAtomIteratorPtr();
 	
 	for( aptr = p_aitr_all->GetFirstAtom(); aptr; aptr = p_aitr_all->GetNextAtom() )
 	{
@@ -622,7 +622,7 @@ void AtomMapping::PrintInfo(int detailed)
 	int n_map_dir_2 = atmap_2to1.size();
 
 	std::set<HaAtom*> unmapped_atoms;
-	std::unique_ptr<AtomIterator> p_aitr_2( p_ac_2->GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr_2 = p_ac_2->GetAtomIteratorPtr();
 
 	HaAtom* aptr2;
 	for( aptr2 = (*p_aitr_2).GetFirstAtom(); aptr2; aptr2 = (*p_aitr_2).GetNextAtom() )

@@ -642,20 +642,20 @@ int MolMechModel::InitModel(const ForceFieldType& ff_type_par , StrStrMap option
 					continue;
 				}
 				std::string at_ref = p_res_mut_ff_templ->improper_dihedrals[i][0];
-				HaAtom* aptr1 = pres->GetAtomByName(at_ref);
-				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());
+				HaAtom* aptr1 = pres->p_res_transform->FindAtomByMutName(at_ref);
+				if (aptr1 == NULL) PrintLog(" Can't map atom %s \n", at_ref);
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][1];
 				HaAtom* aptr2 = pres->GetAtomByName(at_ref);
-				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref.c_str());;
+				if (aptr2 == NULL) PrintLog(" Can't map atom %s \n", at_ref);;
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][2];
 				HaAtom* aptr3 = pres->GetAtomByName(at_ref);
-				if (aptr3 == NULL) PrintLog(" Can't map atom %s\n", at_ref.c_str());
+				if (aptr3 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
 
 				at_ref = p_res_mut_ff_templ->improper_dihedrals[i][3];
 				HaAtom* aptr4 = pres->GetAtomByName(at_ref);
-				if (aptr4 == NULL) PrintLog(" Can't map atom %s\n", at_ref.c_str());
+				if (aptr4 == NULL) PrintLog(" Can't map atom %s\n", at_ref);
 
 				if (aptr1 && aptr2 && aptr3 && aptr4)
 				{

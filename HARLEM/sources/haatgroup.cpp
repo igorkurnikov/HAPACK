@@ -480,26 +480,29 @@ void AtomGroup::KeepOnlyAtomsExprStr(const char* expr_str, MolSet* pmset )
 }
 
 
-AtomIterator* AtomGroup::GetAtomIteratorPtr() 
+std::shared_ptr<AtomIterator> AtomGroup::GetAtomIteratorPtr()
 { 
-	return new AtomIteratorAtomGroup(this); 
+	return std::make_shared<AtomIteratorAtomGroup>(this);
 }
 
-int
-AtomGroup::GetNAtoms() const
+std::shared_ptr<AtomIterator_const> AtomGroup::GetAtomIteratorPtr_const() const
+{
+	return std::make_shared<AtomIteratorAtomGroup_const>(this);
+}
+
+int AtomGroup::GetNAtoms() const
 {
 	return size();
 }
 
-PointIterator* 
-AtomGroup::GetPointIteratorPtr() 
+std::shared_ptr<PointIterator> AtomGroup::GetPointIteratorPtr() 
 { 
-	return new AtomIteratorAtomGroup(this); 
+	return std::make_shared<AtomIteratorAtomGroup>(this); 
 }
 
-PointIterator_const* AtomGroup::GetPointIteratorPtr() const 
+std::shared_ptr<PointIterator_const> AtomGroup::GetPointIteratorPtr_const() const
 { 
-	return new AtomIteratorAtomGroup_const(this); 
+	return std::make_shared<AtomIteratorAtomGroup_const>(this);
 }
 
 void AtomGroup::SetID(const std::string& new_id)
@@ -1624,7 +1627,7 @@ AtomIteratorGen::AtomIteratorGen( const AtomIteratorGen& ref)
 
 AtomIteratorGen::~AtomIteratorGen()
 {
-	delete pat_itr;
+
 }
 
 AtomIteratorGen AtomIteratorGen::__iter__() const
@@ -1947,14 +1950,14 @@ bool HaChain::SetParamFrom(const HaChain& chain_ref)
 	return true;
 }
 
-PointIterator* HaChain::GetPointIteratorPtr()
+std::shared_ptr<PointIterator> HaChain::GetPointIteratorPtr()
 {
 	return GetAtomIteratorPtr();
 }
 
-PointIterator_const* HaChain::GetPointIteratorPtr() const
+std::shared_ptr<PointIterator_const> HaChain::GetPointIteratorPtr_const() const
 {
-	return GetAtomIteratorPtr();
+	return GetAtomIteratorPtr_const();
 }
 
 HaResidue* HaChain::AddResidue(int res_ser_no)
@@ -2048,12 +2051,22 @@ HaResidue* HaChain::GetResBySerNo(const int res_ser_no)
 	return NULL;
 }
 
-HaAtom* HaResidue::GetAtomByName(const std::string& at_ref )
+HaAtom* HaResidue::GetAtomByName(const std::string& at_ref, bool mut_state )
 {
-	vector<HaAtom*>::iterator aitr;
-    for( aitr=begin(); aitr != end(); aitr++ )
+	if (mut_state)
 	{
-        if( !stricmp_trunc( (*aitr)->GetName(), at_ref.c_str() )) return( *aitr );
+		if (this->has_mut_atoms())
+		{
+			HaAtom* aptr = this->p_res_transform->FindAtomByMutName(at_ref);
+			if (aptr) return aptr;
+		}
+	}
+	else
+	{
+		for (HaAtom* aptr : (*this))
+		{
+			if (aptr->GetName() == at_ref) return aptr;
+		}
 	}
 
 	int ipos = at_ref.find('.');
@@ -2081,12 +2094,22 @@ HaAtom* HaResidue::GetAtomByName(const std::string& at_ref )
     return( NULL );	
 }
 
-const HaAtom* HaResidue::GetAtomByName(const std::string& at_ref) const
+const HaAtom* HaResidue::GetAtomByName(const std::string& at_ref, bool mut_state) const
 {
-    vector<HaAtom*>::const_iterator aitr;
-    for( aitr=begin(); aitr != end(); aitr++ )
+	if (mut_state)
 	{
-        if( !stricmp_trunc( (*aitr)->GetName(), at_ref.c_str() )) return( *aitr );
+		if (this->has_mut_atoms())
+		{
+			const HaAtom* aptr = this->p_res_transform->FindAtomByMutName(at_ref);
+			if (aptr) return aptr;
+		}
+	}
+	else
+	{
+		for (const HaAtom* aptr : (*this))
+		{
+			if (aptr->GetName() == at_ref) return aptr;
+		}
 	}
 	
 	int ipos = at_ref.find('.');
@@ -2849,6 +2872,15 @@ AtomFFParam* AlchemicalTransformation::GetAtomFFParamMut(HaAtom* aptr)
 	return nullptr;
 }
 
+HaAtom* AlchemicalTransformation::FindAtomByMutName(std::string at_name_b)
+{
+	for (const auto& [aptr, name] : at_names_b) {
+		if (name == at_name_b)
+			return aptr;
+	}
+	return nullptr; // not found
+}
+
 
 HaAtom* HaAtom::AddAtomFromTempl( HaAtom* aptr2, HaAtom* aptr3, HaAtom* aptr4, 
 		                     const HaAtom* aptr_templ, const HaAtom* aptr_templ_2, const HaAtom* aptr_templ_3, 
@@ -3328,15 +3360,15 @@ int AtomContainer::SetQuaternionTrans(const Quaternion& q, const Vec3D& trans)
 	return SetPositionMomInertia(rot,trans);
 }
 
-bool AtomContainer::has_mut_atoms()
+bool AtomContainer::has_mut_atoms() const
 {
 	bool has_mut_atoms = false;
 
-	std::unique_ptr<AtomIterator> p_at_itr(this->GetAtomIteratorPtr());
+	std::shared_ptr<AtomIterator_const> p_at_itr = this->GetAtomIteratorPtr_const();
 
-	for (HaAtom* aptr = p_at_itr->GetFirstAtom(); aptr; aptr = p_at_itr->GetNextAtom())
+	for (const HaAtom* aptr = p_at_itr->GetFirstAtom(); aptr; aptr = p_at_itr->GetNextAtom())
 	{
-		HaResidue* pres = aptr->GetHostRes();
+		const HaResidue* pres = aptr->GetHostRes();
 		if (pres->IsAlchemicalTransformationSet())
 		{
 			has_mut_atoms = true;
@@ -3634,7 +3666,7 @@ void AtomSaveOptions::SetStdOptions()
 
 void AtomSaveOptions::SetSavedAtoms(AtomContainer& atoms)
 {
-	std::unique_ptr<AtomIterator> paitr( atoms.GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> paitr = atoms.GetAtomIteratorPtr();
 
 	saved_atoms.clear();
 	for (HaAtom* aptr = paitr->GetFirstAtom(); aptr; aptr = paitr->GetNextAtom())
@@ -3733,7 +3765,7 @@ int CrdSnapshot::SaveCurrentAtomCrd()
 	
 	crd.resize(ncrd);
 
-	std::unique_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr = p_at_cont->GetAtomIteratorPtr();
 	int j = 0;
 	HaAtom* aptr;
 	for( aptr = p_aitr->GetFirstAtom(); aptr; aptr = p_aitr->GetNextAtom() )
@@ -3770,7 +3802,7 @@ int CrdSnapshot::SetAtomCrd()
 		return FALSE;
 	}
 
-	std::unique_ptr<AtomIterator> p_aitr( p_at_cont->GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr = p_at_cont->GetAtomIteratorPtr();
 	int j = 0;
 	HaAtom* aptr;
 	for( aptr = p_aitr->GetFirstAtom(); aptr; aptr = p_aitr->GetNextAtom() )

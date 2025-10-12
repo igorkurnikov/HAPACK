@@ -1371,8 +1371,7 @@ ElectrostMod::CalcRedoxPotShft()
 	return true;
 }
 
-double
-ElectrostMod::CalcAvgPotOn(PointContainer* ptlist)
+double ElectrostMod::CalcAvgPotOn(PointContainer* ptlist)
 {
 	if(el_pot_map.GetNx() < 1 || el_pot_map.GetNx() < 1 || el_pot_map.GetNz() < 1)
 	{
@@ -1389,7 +1388,7 @@ ElectrostMod::CalcAvgPotOn(PointContainer* ptlist)
         return 0.0;		
 	}
 
-	PointIterator* pt_itr = ptlist->GetPointIteratorPtr();
+	std::shared_ptr<PointIterator> pt_itr = ptlist->GetPointIteratorPtr();
 	if(pt_itr == NULL) return 0.0;
 	Vec3D* pt;
 	
@@ -1402,7 +1401,6 @@ ElectrostMod::CalcAvgPotOn(PointContainer* ptlist)
 		double val = el_pot_map.GetInterpolValAtPoint(x,y,z);
 		av += val;
 	}
-	delete pt_itr;
 
 	av = av/n;
 	return av;

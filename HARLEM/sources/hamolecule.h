@@ -108,13 +108,14 @@ public:
 // virtual overidable finctions of AtomContainer
 
     virtual int GetNAtoms() const;                   //!< return the number of atoms in molecule
-	virtual AtomIterator* GetAtomIteratorPtr();         //!< Create AtomIterator for the molecule
+	virtual std::shared_ptr<AtomIterator> GetAtomIteratorPtr();              //!< Create AtomIterator for the molecule
+	virtual std::shared_ptr<AtomIterator_const> GetAtomIteratorPtr_const() const;  //!< Create const AtomIterator for the molecule
     virtual int HasAtom(const HaAtom* aptr) const;  //!< Check if the atom belongs to the Molecule
 
 // Overidables of PointContainer:
 
-    virtual PointIterator*       GetPointIteratorPtr();
-	virtual PointIterator_const* GetPointIteratorPtr() const; 
+    virtual std::shared_ptr<PointIterator> GetPointIteratorPtr();
+	virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const;
 	int GetNumPt() const  { return GetNAtoms(); }
 
 // Bonds Related functions:

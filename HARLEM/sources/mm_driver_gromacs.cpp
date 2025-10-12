@@ -778,8 +778,7 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 		std::set<std::string> at_ff_names;
 
 		os << "[ atomtypes ]" << std::endl;
-		os << ";name   bond_type     mass     charge   ptype   sigma         epsilon       Amb" << std::endl;
-//		os << ";   c        c           0.00000  0.00000   A     3.39967e-01   3.59824e-01 ; 1.91  0.0860" << std::endl;
+		os << ";name   bond_type     mass     charge   ptype   sigma         epsilon       Amb \n";
 
 		int i;
 		for( i = 0; i < p_mm_model->Atoms.size(); i++ )
@@ -795,21 +794,19 @@ int MMDriverGromacs::SaveAtomTypesToStream(std::ostream& os)
 
 			double sigma   = 2*vdw_rad*0.1/pow(2.0,1.0/6.0);
 			double epsilon = 4.184*ew;
-			
-			sprintf( buf, "%4s %4s    0.00000    0.00000  A  %14.5e %14.5e  ;  %9.5f  %9.6f ",
-				           ff_s.c_str(),ff_s.c_str(), sigma, epsilon, vdw_rad, ew );
-			os << buf << std::endl;
+
+			os << boost::format("%4s %4s    0.00000    0.00000  A %14.5e %14.5e;  %9.5f  %9.6f \n") % ff_s % ff_s % sigma % epsilon % vdw_rad % ew;
 		}
-		os << "  " << std::endl;
+		os << "  \n";
 		return TRUE;
 }
 
 bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {		
-	bool has_mut_atoms = group.has_mut_atoms();
+	bool has_mut_atoms_sys = group.has_mut_atoms();
 
 	os << "[ atoms ]\n";
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		os << ";   nr   type resnr residue atom   cgnr     charge       mass     typeB    chargeB      massB \n";
 	}
@@ -831,9 +828,12 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 		int resi = pres->GetSerNo();
 		qtot += ch;
 
+		bool has_mut_atoms_res = pres->has_mut_atoms();
+
 		std::string ff_s_mut = ff_s;
 		double ch_mut = ch;
 		double mass_mut = mass;
+
 		
 		AtomFFParam* p_at_ff_param_mut = p_mm_model->GetAtomFFParamMut(aptr);
 		if (p_at_ff_param_mut)
@@ -843,15 +843,16 @@ bool MMDriverGromacs::SaveAtomsToStream(std::ostream& os, AtomGroup& group, Atom
 			mass_mut = p_at_ff_param_mut->mass;  
 		}
 		qtot_mut += ch_mut;
+		
 
 		int idx = at_idx_map[aptr] + 1;
 		os << boost::format("%6d %5s %6d %5s %5s %6d %12.6f %12.6f ") % idx % ff_s % resi % res_name % atn % idx % ch % mass;
-		if (has_mut_atoms)
+		if (has_mut_atoms_res)
 		{
 			os << boost::format("%5s %12.6f %12.6f ") % ff_s_mut % ch_mut % mass_mut;
 		}
 		os << boost::format("; qtot %7.3f ") % qtot;
-		if (has_mut_atoms)
+		if (has_mut_atoms_sys)
 		{
 			os << boost::format("  qtot_mut %7.3f ") % qtot_mut;
 		}
@@ -888,10 +889,10 @@ struct CompareMMBond {
 
 bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = group.has_mut_atoms();
+	bool has_mut_atoms_sys = group.has_mut_atoms();
 
 	os << "[ bonds ]\n";
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		os << ";   ai      aj funct      r1              k1             r2             k2\n";
 	}
@@ -910,6 +911,10 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 
 		if (at_idx_map.count(aptr1) == 0) continue;
 		if (at_idx_map.count(aptr2) == 0) continue;
+
+		bool has_mut_atoms = false;
+		if (aptr1->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+		if (aptr2->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
 
 		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
 		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
@@ -946,7 +951,7 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		os << boost::format("  ; %s - %s \n") % at_lbl_1 % at_lbl_2;
 	}
 
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		std::sort(p_mm_model->MBonds_mut.begin(), p_mm_model->MBonds_mut.end(), CompareMMBond(at_idx_map));
 
@@ -1001,15 +1006,15 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 
 	std::set<IdxPairWithLabels> idx_pair_lbl_set;
 
-	for (auto* p_dih_list : {&(p_mm_model->Dihedrals), &(p_mm_model->Dihedrals_mut)} )
+	os << "[ pairs ]\n";
+	os << ";   ai      aj funct\n";
+
+	for (auto* p_dih_list : { &(p_mm_model->Dihedrals), &(p_mm_model->Dihedrals_mut) })
 	{
 		im++;
 		if (im == 1 && !has_mut_atoms) continue;
 
-		os << "[ pairs ]\n";
-		os << ";   ai      aj funct\n";
-
-		for (std::shared_ptr<MMDihedral> ditr : *p_dih_list )
+		for (std::shared_ptr<MMDihedral> ditr : *p_dih_list)
 		{
 			HaAtom* aptr1 = ditr->pt1;
 			HaAtom* aptr2 = ditr->pt4;
@@ -1032,14 +1037,14 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 
 			idx_pair_lbl_set.insert(idx_pair_lbl);
 		}
-
-		for (auto ip : idx_pair_lbl_set)
-		{
-			os << boost::format("%6d  %6d  1   ; %s - %s \n") % ip.id1 % ip.id2 % ip.name1 % ip.name2;
-		}
-		os << " \n";
-
 	}
+
+	for (auto ip : idx_pair_lbl_set)
+	{
+		os << boost::format("%6d  %6d  1   ; %s - %s \n") % ip.id1 % ip.id2 % ip.name1 % ip.name2;
+	}
+	os << " \n";
+
 	return true;
 }
 
@@ -1078,10 +1083,10 @@ struct CompareMMValAngle {
 
 bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = group.has_mut_atoms();
+	bool has_mut_atoms_sys = group.has_mut_atoms();
 
 	os << "[ angles ] \n";
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		os << ";   ai     aj     ak funct    theta1         k1             theta2         k2 \n";
 	}
@@ -1106,6 +1111,11 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		if( at_idx_map.count(aptr1) == 0 ) continue;
 		if( at_idx_map.count(aptr2) == 0 ) continue;
 		if( at_idx_map.count(aptr3) == 0 ) continue;
+
+		bool has_mut_atoms = false;
+		if (aptr1->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+		if (aptr2->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+		if (aptr3->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
 
 		int idx1 = at_idx_map[aptr1]+1;  // convert to 1-based index
 		int idx2 = at_idx_map[aptr2]+1;  // convert to 1-based index
@@ -1147,7 +1157,7 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		os << boost::format("  ; %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3;
 	}
 
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		for (auto sp_va_m : p_mm_model->ValAngles_mut) // Mutated Valence Angles not found in p_mm_model->ValAngles
 		{
@@ -1269,10 +1279,10 @@ struct CompareImprDihedral {
 
 bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
-	bool has_mut_atoms = group.has_mut_atoms();
+	bool has_mut_atoms_sys = group.has_mut_atoms();
 
 	os << "[ dihedrals ] ; proper dihedrals \n";
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		os << ";    i      j      k      l  func      phase           kd      pn       phase2          kd2      pn2 \n";
 	}
@@ -1305,6 +1315,12 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 			if (at_idx_map.count(aptr3) == 0) continue;
 			if (at_idx_map.count(aptr4) == 0) continue;
 
+			bool has_mut_atoms = false;
+			if (aptr1->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+			if (aptr2->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+			if (aptr3->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+			if (aptr4->GetHostRes()->has_mut_atoms()) has_mut_atoms = true;
+
 			int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
 			int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
 			int idx3 = at_idx_map[aptr3] + 1;  // convert to 1-based index
@@ -1329,10 +1345,8 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 				os << boost::format("%6d %6d %6d %6d   9 ") % idx1 % idx2 % idx3 % idx4;
 				if (mutated_state)
 				{
-					double phase1 = 0.0;
 					double pk1 = 0.0;
-					double pn1 = pn[i];  // periodicity can not be perturbed in GROMACS
-					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk1 % pn[i];  // Do not change phase and periodicity - just 0 force const
 					if (has_mut_atoms)
 					{
 						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
@@ -1343,11 +1357,10 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					os << boost::format( " %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 					if (has_mut_atoms)
 					{
-						double phase_mut = 0.0;
 						double pk_mut = 0.0;
-						double pn_mut = pn[i];
-						os << boost::format(" %14.4e %14.4e %2.0f") % phase_mut % pk_mut % pn_mut;
-					}				}
+						os << boost::format(" %14.4e %14.4e %2.0f") % phase[i] % pk_mut % pn[i]; // Do not change phase and periodicity - just 0 force const
+					}				
+				}
 				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
 			}
 		}
@@ -1356,7 +1369,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	os << "  " << std::endl;
 
 	os << "[ dihedrals ] ; improper dihedrals \n";
-	if (has_mut_atoms)
+	if (has_mut_atoms_sys)
 	{
 		os << ";    i      j      k      l  func      phase           kd      pn        phase2          kd2     pn2 \n";
 	}
@@ -1389,6 +1402,9 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 			if (at_idx_map.count(aptr3) == 0) continue;
 			if (at_idx_map.count(aptr4) == 0) continue;
 
+			bool in_mut_res = false;
+			if (aptr3->GetHostRes()->has_mut_atoms()) in_mut_res = true;   // Improper Angle is associated with third atom in the Improper Angle
+
 			int idx1 = at_idx_map[aptr1] + 1;  // convert to 1-based index
 			int idx2 = at_idx_map[aptr2] + 1;  // convert to 1-based index
 			int idx3 = at_idx_map[aptr3] + 1;  // convert to 1-based index
@@ -1406,24 +1422,17 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 				os << boost::format("%6d %6d %6d %6d   4 ") % idx1 % idx2 % idx3 % idx4;
 				if (mutated_state)
 				{
-					double phase1 = 0.0;
 					double pk1 = 0.0;
-					double pn1 = pn[i]; // Periodicity can not be perturbed in GROMACS
-					os << boost::format(" %14.4e %14.4e %2.0f ") % phase1 % pk1 % pn1;
-					if (has_mut_atoms)
-					{
-						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
-					}
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk1 % pn[i]; // Do not change phase and periodicity - just 0 force const
+					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
 				}
 				else
 				{
 					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
-					if (has_mut_atoms)
+					if (in_mut_res) // if belongs to the mutating residue - it will disappear in the mutated state
 					{
-						double phase_mut = 0.0;
 						double pk_mut = 0.0;
-						double pn_mut = pn[i];  // Periodicity can not be perturbed in GROMACS
-						os << boost::format(" %14.4e %14.4e %2.0f ") % phase_mut % pk_mut % pn_mut;
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk_mut % pn[i]; // Do not change phase and periodicity - just 0 force const
 					}
 				}
 				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;

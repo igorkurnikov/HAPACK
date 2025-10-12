@@ -137,7 +137,8 @@ class  AtomContainer: public PointContainer
 //! Abstract class for a collection of Atoms
 {
 public:
-    virtual AtomIterator* GetAtomIteratorPtr() = 0;                   //!< get atom iterator for the given atom container
+    virtual std::shared_ptr<AtomIterator> GetAtomIteratorPtr() = 0;                     //!< get atom iterator for the given atom container
+	virtual std::shared_ptr<AtomIterator_const> GetAtomIteratorPtr_const() const = 0;   //!< get const atom iterator for the given atom container
 	virtual int GetNAtoms() const = 0;   
 	virtual int HasAtom(const HaAtom* aptr) const = 0;  //!< check if atom belongs to the container
 
@@ -146,7 +147,7 @@ public:
 
 // Functions for Alechemical Transformations
 
-	bool has_mut_atoms(); //!< Check if the containter has atoms involved in Alchemical Transformations
+	bool has_mut_atoms() const; //!< Check if the containter has atoms involved in Alchemical Transformations
 
 // Manipulate position and orientation of Atom Collection in 3D space 
 
@@ -206,7 +207,7 @@ try {
 	AtomIteratorGen __iter__() const; //!< Get a copy of the iterator ( Python compatibility )
 
 private:
-	AtomIterator*   pat_itr;
+	std::shared_ptr<AtomIterator> pat_itr;
 	AtomContainer*  pat_cont;
 
 	int first_called;
@@ -267,14 +268,15 @@ public:
 
 // Overidables of AtomContainer:
 
-	virtual AtomIterator* GetAtomIteratorPtr();  //!< Return pointer to the corresponing Atom Iterator
+	virtual std::shared_ptr<AtomIterator> GetAtomIteratorPtr();  //!< Return pointer to the corresponing Atom Iterator
+	virtual std::shared_ptr<AtomIterator_const> GetAtomIteratorPtr_const() const;  //!< Return pointer to the corresponing Atom Iterator
 	int GetNAtoms() const;                   //!< Return the number of atoms in the list
 	int HasAtom(const HaAtom* aptr) const;  //!< Check if the atom is a member of the group
 
 // Overidables of PointContainer:
 
-    virtual PointIterator*       GetPointIteratorPtr();
-	virtual PointIterator_const* GetPointIteratorPtr() const; 
+    virtual std::shared_ptr<PointIterator>       GetPointIteratorPtr();
+	virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const;
 	int GetNumPt() const  { return size(); }
 	
 	HaAtom* GetAtomByName(const std::string& at_name); //!< Get Atom of the Group by name 
@@ -387,8 +389,8 @@ public:
 
 	HaAtom* AddNewAtom(); //!< Add new atom to the residue
 
-	HaAtom* GetAtomByName(const std::string& atname);      //!< Get Atom of the residue by its name
-	const HaAtom* GetAtomByName(const std::string& atname) const;   //!< Get Atom of the residue by its name (const version)
+	HaAtom* GetAtomByName(const std::string& atname, bool mut_state = false);             //!< Get Atom of the residue by its name ( possibly by its name in the mutated state ) 
+	const HaAtom* GetAtomByName(const std::string& atname, bool mut_state = false) const; //!< Get Atom of the residue by its name (const version)
 	 
 	HaChain* GetHostChain() { return phost_ch; } //!< Get the chain of the residue belongs to 
 	bool SetHostChain(HaChain* new_phost) { phost_ch=new_phost; return true;} //!< Set the chain of the residue belongs to 
@@ -524,6 +526,8 @@ public:
 
 	AtomFFParam* GetAtomFFParamMut(HaAtom* aptr); //!< Get Atom FF Parameters for atom in the mutated state
 
+	HaAtom* FindAtomByMutName(std::string at_name_b); //! Find Atom in the Residue by its name in the Mutated State B 
+
 	std::string res_name_b;
 	std::set<HaAtom*> atoms_a;
 	std::set<HaAtom*> atoms_b;
@@ -541,8 +545,8 @@ public:
 protected:
 	HaResidue* p_res_a;
 	bool is_set;
-
 };
+
 
 class AtomIteratorChain : public AtomIterator
 //! Atom iterator class to browse atoms of a chain (HaChain class)
@@ -623,15 +627,16 @@ public:
 
 // Overidable of AtomContainer:
 
-	AtomIterator* GetAtomIteratorPtr() { return new AtomIteratorChain(this); }
-	AtomIterator_const* GetAtomIteratorPtr() const { return new AtomIteratorChain_const(this); }
+	std::shared_ptr<AtomIterator> GetAtomIteratorPtr() { return std::make_shared<AtomIteratorChain>(this); }
+	std::shared_ptr<AtomIterator_const> GetAtomIteratorPtr_const() const { return std::make_shared<AtomIteratorChain_const>(this); }
+
 	int GetNAtoms() const; //!< Return the number of atoms in the chain
 	int HasAtom(const HaAtom* aptr) const;       //!< Check if the atom is a member of the chain
 
 // Overidable of PointContainer:
 
-    PointIterator* GetPointIteratorPtr();
-	PointIterator_const* GetPointIteratorPtr() const;
+    virtual std::shared_ptr<PointIterator> GetPointIteratorPtr();
+	virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const;
 	int GetNumPt() const;
 
 // RASMOL Chain structure parameters

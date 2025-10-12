@@ -87,6 +87,25 @@ int AtomFFParam::LoadXml(const TiXmlElement* xml_element, std::string at_name, c
 
 		if( xml_element->CStrAttribute("pol_type_id") ) ff_polar_symbol = xml_element->CStrAttribute("pol_type_id");
 		if( xml_element->CStrAttribute("ff_type") )     ff_symbol       = xml_element->CStrAttribute("ff_type");
+		if( xml_element->CStrAttribute("mass") ) 
+		{
+			std::string mass_str = xml_element->CStrAttribute("mass");
+			try {
+				this->mass = std::stod(mass_str);
+			}
+			catch (const std::invalid_argument& e) {
+				PrintLog("Invalid mass value %s in FF Residue template \n", mass_str);
+			}
+		}
+		else
+		{
+			if (!ff_symbol.empty() && ff_symbol != "DU")
+			{
+				int elemno = HaAtom::GetElemNoFromChar(ff_symbol[0]);
+				this->mass = HaAtom::StdElemMass(elemno);
+			}
+		}
+
 		if( options.count("LOAD_NN_TYPE") > 0 )
 			if (xml_element->CStrAttribute("nn_type")) nn_symbol = xml_element->CStrAttribute("nn_type");
 

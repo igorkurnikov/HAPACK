@@ -1172,8 +1172,8 @@ int PointContainer::GetSuperimposeMat( PointContainer& grp1,  PointContainer& gr
 		return FALSE;
 	}
 
-	PointIterator* p_itr1 = grp1.GetPointIteratorPtr();
-	PointIterator* p_itr2 = grp2.GetPointIteratorPtr();
+	std::shared_ptr<PointIterator> p_itr1 = grp1.GetPointIteratorPtr();
+	std::shared_ptr<PointIterator> p_itr2 = grp2.GetPointIteratorPtr();
 
 	HaVec_double xfmol(3*n+6,0.0), xsmol(3*n+6,0.0); // fitstr_() can add up two extra axxiliary points therefore allocate spare for 3 more coordinates
     
@@ -1186,7 +1186,6 @@ int PointContainer::GetSuperimposeMat( PointContainer& grp1,  PointContainer& gr
 		xfmol[3*i+2] = ppt->GetZ();
 		i++;
 	}
-	delete p_itr1;
 
 	i=0;
 	for (ppt= p_itr2->GetFirstPt(); ppt; ppt= p_itr2->GetNextPt())
@@ -1196,7 +1195,6 @@ int PointContainer::GetSuperimposeMat( PointContainer& grp1,  PointContainer& gr
 		xsmol[3*i+2] = ppt->GetZ();
 		i++;
 	}
-	delete p_itr2;
 
 // create variables needed for fortran subroutine and call it	
 
@@ -1237,10 +1235,8 @@ double PointContainer::CalcRMSD(PointContainer& g1, PointContainer& g2, int tran
 	}
 	else
 	{
-		std::unique_ptr<PointIterator> p_auto1( g1.GetPointIteratorPtr() );
-		PointIterator* p_itr1 = p_auto1.get();
-		std::unique_ptr<PointIterator> p_auto2( g2.GetPointIteratorPtr() );
-		PointIterator* p_itr2 = p_auto2.get();
+		std::shared_ptr<PointIterator> p_itr1 = g1.GetPointIteratorPtr();
+		std::shared_ptr<PointIterator> p_itr2 = g2.GetPointIteratorPtr();
 
 		Vec3D* ppt1 = p_itr1->GetFirstPt();
 		Vec3D* ppt2 = p_itr2->GetFirstPt();
@@ -1258,7 +1254,7 @@ double PointContainer::CalcRMSD(PointContainer& g1, PointContainer& g2, int tran
 int PointContainer::Transform( const HaMat_double& rot_mat, const HaVec_double& trans_vec)
 {
 	Vec3D* pp;
-	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::shared_ptr<PointIterator> pitr = GetPointIteratorPtr();
 	
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
 	{
@@ -1283,7 +1279,7 @@ int PointContainer::SaveCrdToArray(HaVec_double& crd_arr)
 	crd_arr.resize(3*npt);
 	
 	Vec3D* pp;
-	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::shared_ptr<PointIterator> pitr = GetPointIteratorPtr();
 	
 	int i = 0;
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
@@ -1315,7 +1311,7 @@ int PointContainer::SetCrdFromArray( const HaVec_double& crd_arr)
 	}
 	
 	Vec3D* pp;
-	std::unique_ptr<PointIterator> pitr(GetPointIteratorPtr());
+	std::shared_ptr<PointIterator> pitr = GetPointIteratorPtr();
 	int i = 0;
 	for (pp = pitr->GetFirstPt();pp; pp = pitr->GetNextPt() )
 	{
@@ -1558,8 +1554,7 @@ Vec3DValArrayIterator_const::GetFirstPt()
 	return &((*cur_arr)[0]);
 }
 
-const Vec3D*
-Vec3DValArrayIterator_const::GetNextPt()
+const Vec3D* Vec3DValArrayIterator_const::GetNextPt()
 {
 	if(cur_arr == NULL) return NULL;
 	cur_idx++;
@@ -1583,20 +1578,17 @@ Vec3DValArray::~Vec3DValArray()
 
 }
 
-PointIterator* 
-Vec3DValArray::GetPointIteratorPtr() 
+std::shared_ptr<PointIterator> Vec3DValArray::GetPointIteratorPtr() 
 { 
-	return new Vec3DValArrayIterator(this); 
+	return std::make_shared<Vec3DValArrayIterator>(this); 
 }
 
-PointIterator_const* 
-Vec3DValArray::GetPointIteratorPtr() const
+std::shared_ptr<PointIterator_const> Vec3DValArray::GetPointIteratorPtr_const() const
 { 
-	return new Vec3DValArrayIterator_const(this); 
+	return std::make_shared<Vec3DValArrayIterator_const>(this);
 }
 
-int
-Vec3DValArray::GetNumPt() const
+int Vec3DValArray::GetNumPt() const
 { 
 	return size(); 
 }

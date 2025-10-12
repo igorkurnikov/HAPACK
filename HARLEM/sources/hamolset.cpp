@@ -2713,14 +2713,14 @@ void MolSet::OnChangePeriodicity()
 	if( p_mm_mod ) p_mm_mod->OnChangePeriodicity();
 }
 
-PointIterator* MolSet::GetPointIteratorPtr()
+std::shared_ptr<PointIterator> MolSet::GetPointIteratorPtr()
 {
 	return GetAtomIteratorPtr();
 }
 
-PointIterator_const* MolSet::GetPointIteratorPtr() const
+std::shared_ptr<PointIterator_const> MolSet::GetPointIteratorPtr_const() const
 {
-	return GetAtomIteratorPtr();
+	return GetAtomIteratorPtr_const();
 }
 
 int MolSet::GetNumPt() const
@@ -2728,16 +2728,14 @@ int MolSet::GetNumPt() const
 	return GetNAtoms();
 }
 
-AtomIterator* MolSet::GetAtomIteratorPtr()
+std::shared_ptr<AtomIterator>  MolSet::GetAtomIteratorPtr()
 {
-	AtomIteratorMolSet* p_aitr = new AtomIteratorMolSet(this);
-	return p_aitr;
+	return std::make_shared<AtomIteratorMolSet>(this);
 }
 
-AtomIterator_const* MolSet::GetAtomIteratorPtr() const
+std::shared_ptr<AtomIterator_const> MolSet::GetAtomIteratorPtr_const() const
 {
-	AtomIteratorMolSet_const* p_aitr = new AtomIteratorMolSet_const(this);
-	return p_aitr;
+	return std::make_shared<AtomIteratorMolSet_const>(this);
 }
 
 int MolSet::HasAtom(const HaAtom* aptr) const 

@@ -3329,7 +3329,7 @@ int HaMolView::AnimateEigenVectorInternal( HaVec_double& evec, AtomContainer* p_
 	MolSet* pmset = GetMolSet();
 	try
 	{
-		std::unique_ptr<AtomIterator> paitr(p_at_coll->GetAtomIteratorPtr());
+		std::shared_ptr<AtomIterator> paitr = p_at_coll->GetAtomIteratorPtr();
 		HaAtom* aptr;
 		AtomGroup atgrp;
 		for(aptr = paitr->GetFirstAtom(); aptr ; aptr = paitr->GetNextAtom())

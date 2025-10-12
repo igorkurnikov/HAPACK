@@ -151,8 +151,8 @@ class PointContainer
 //! Abstract class of a container (group) of points in 3D space
 {
 public:
-    virtual PointIterator*       GetPointIteratorPtr() = 0; //!< create Point Interator and return pointer (should be deleted when done)
-    virtual PointIterator_const* GetPointIteratorPtr() const = 0; //!< create const Point Interator and return pointer (should be deleted when done)
+    virtual std::shared_ptr<PointIterator>       GetPointIteratorPtr() = 0; //!< create Point Interator 
+    virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const = 0; //!< create const Point Interator 
 	virtual int GetNumPt() const = 0;                        //!< Get total of number of points in the collection
     
 //  virtual std::string GetRef() const = 0;  //!< Get the text reference for a point collection
@@ -201,14 +201,14 @@ class PointIteratorGen
 public: 
 	PointIteratorGen( PointContainer& pt_col) { ppt_col = &pt_col; ppt_itr = pt_col.GetPointIteratorPtr(); }
 	PointIteratorGen( PointIteratorGen& pitr) { ppt_col = pitr.ppt_col; ppt_itr = ppt_col->GetPointIteratorPtr(); }
-	virtual ~PointIteratorGen() { delete ppt_itr; }
+	virtual ~PointIteratorGen() {}
 
 	Vec3D* GetFirstPt() { return ppt_itr->GetFirstPt(); }
 	Vec3D* GetNextPt()  { return ppt_itr->GetNextPt();  }
 	int    GetNumPt()      { return ppt_col->GetNumPt(); }
 
 private:
-	PointIterator*   ppt_itr;
+	std::shared_ptr<PointIterator>   ppt_itr;
 	PointContainer* ppt_col;
 
 };
@@ -216,16 +216,16 @@ private:
 class PointIteratorGen_const
 {
 public: 
-	PointIteratorGen_const( const PointContainer& pt_col) { ppt_col = &pt_col; ppt_itr = pt_col.GetPointIteratorPtr(); }
-	PointIteratorGen_const( PointIteratorGen_const& pitr) { ppt_col = pitr.ppt_col; ppt_itr = ppt_col->GetPointIteratorPtr(); }
-	virtual ~PointIteratorGen_const() { delete ppt_itr; }
+	PointIteratorGen_const( const PointContainer& pt_col) { ppt_col = &pt_col; ppt_itr = pt_col.GetPointIteratorPtr_const(); }
+	PointIteratorGen_const( PointIteratorGen_const& pitr) { ppt_col = pitr.ppt_col; ppt_itr = ppt_col->GetPointIteratorPtr_const(); }
+	virtual ~PointIteratorGen_const() {}
 
 	const Vec3D* GetFirstPt() { return ppt_itr->GetFirstPt(); }
 	const Vec3D* GetNextPt()  { return ppt_itr->GetNextPt();  }
 	int   GetNumPt()          { return ppt_col->GetNumPt(); }
 
 private:
-    PointIterator_const*   ppt_itr;
+    std::shared_ptr<PointIterator_const> ppt_itr;
 	const PointContainer* ppt_col;
 
 };
@@ -268,8 +268,8 @@ public:
     Vec3DValArray(int n);
 	virtual ~Vec3DValArray();
 
-	virtual PointIterator*       GetPointIteratorPtr();
-	virtual PointIterator_const* GetPointIteratorPtr() const;
+	virtual std::shared_ptr<PointIterator> GetPointIteratorPtr();
+	virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const;
     virtual int GetNumPt() const;
 };
 

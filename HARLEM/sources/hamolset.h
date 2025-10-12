@@ -201,11 +201,11 @@ public:
 //@}
 //! \name Iterations over atoms: implementations of AtomContainer and PointContainer functions:
 //@{
-	virtual PointIterator*       GetPointIteratorPtr();
-	virtual PointIterator_const* GetPointIteratorPtr() const;
+	virtual std::shared_ptr<PointIterator>  GetPointIteratorPtr();
+	virtual std::shared_ptr<PointIterator_const> GetPointIteratorPtr_const() const;
 	virtual int GetNumPt() const; 
-	virtual AtomIterator*       GetAtomIteratorPtr(); 
-	virtual AtomIterator_const* GetAtomIteratorPtr() const; 
+	virtual std::shared_ptr<AtomIterator>      GetAtomIteratorPtr(); 
+	virtual std::shared_ptr<AtomIterator_const> GetAtomIteratorPtr_const() const; 
 	virtual int HasAtom(const HaAtom* aptr) const;
 //@}
 //! \name Molecular Structure Info

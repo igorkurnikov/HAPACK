@@ -543,7 +543,7 @@ int AtomContainer::SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_op
 	
 	int set_atm_idx_maps = FALSE;
 	
-	std::unique_ptr<AtomIterator> p_aitr( this->GetAtomIteratorPtr() );
+	std::shared_ptr<AtomIterator> p_aitr = this->GetAtomIteratorPtr();
 	HaAtom* aptr;
 
 	AtomGroup selected_atoms;
@@ -553,7 +553,7 @@ int AtomContainer::SaveXYZStream(std::ostream& sout, const AtomSaveOptions* p_op
 		{
 			selected_atoms.push_back(aptr);
 		}
-		p_aitr.reset( selected_atoms.GetAtomIteratorPtr() );
+		p_aitr = selected_atoms.GetAtomIteratorPtr();
 		na = selected_atoms.size();
 	}
 	
@@ -682,7 +682,7 @@ int AtomContainer::SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_op
 
 	int set_atm_idx_maps = FALSE;
 
-	std::unique_ptr<AtomIterator> p_aitr(this->GetAtomIteratorPtr());
+	std::shared_ptr<AtomIterator> p_aitr = this->GetAtomIteratorPtr();
 	HaAtom* aptr;
 
 	AtomGroup selected_atoms;
@@ -692,7 +692,7 @@ int AtomContainer::SaveGROStream(std::ostream& sout, const AtomSaveOptions* p_op
 		{
 			selected_atoms.push_back(aptr);
 		}
-		p_aitr.reset(selected_atoms.GetAtomIteratorPtr());
+		p_aitr = selected_atoms.GetAtomIteratorPtr();
 		na = selected_atoms.size();
 	}
 
@@ -1661,15 +1661,15 @@ HaChain* ChainIteratorMolecule::GetNextChain()
   return &(*ch_itr);
 }
 
-PointIterator* HaMolecule::GetPointIteratorPtr() 
+std::shared_ptr<PointIterator> HaMolecule::GetPointIteratorPtr() 
 { 
-	return new AtomIteratorMolecule(this); 
-}
-PointIterator_const* HaMolecule::GetPointIteratorPtr() const
-{ 
-	return new AtomIteratorMolecule_const(this); 
+	return std::make_shared<AtomIteratorMolecule>(this); 
 }
 
+std::shared_ptr<PointIterator_const> HaMolecule::GetPointIteratorPtr_const() const
+{ 
+	return std::make_shared<AtomIteratorMolecule_const>(this);
+}
 
 int HaMolecule::HasAtom(const HaAtom* aptr) const
 {
@@ -1677,9 +1677,15 @@ int HaMolecule::HasAtom(const HaAtom* aptr) const
 	if(aptr->GetHostMol() == this) return TRUE;
 	return FALSE;
 }
-AtomIterator* HaMolecule::GetAtomIteratorPtr()
+
+std::shared_ptr<AtomIterator> HaMolecule::GetAtomIteratorPtr()
 {
-	return new AtomIteratorMolecule(this); 
+	return std::make_shared<AtomIteratorMolecule>(this);
+}
+
+std::shared_ptr<AtomIterator_const> HaMolecule::GetAtomIteratorPtr_const() const
+{
+	return std::make_shared<AtomIteratorMolecule_const>(this);
 }
 
 int HaMolecule::GetNBonds()  const  
