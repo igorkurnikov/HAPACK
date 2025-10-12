@@ -1043,6 +1043,39 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 	return true;
 }
 
+struct CompareMMValAngle {
+	AtomIntMap* pat_idx_map;
+	CompareMMValAngle (AtomIntMap& at_idx_map_par) : pat_idx_map(&at_idx_map_par) {}
+
+	bool operator()(const std::shared_ptr<MMValAngle> spb_a, const std::shared_ptr<MMValAngle> spb_b) const {
+		int ia = -1;
+		int ja = -1;
+		int ka = -1;
+		int ib = -1;
+		int jb = -1;
+		int kb = -1;
+
+		if (pat_idx_map->count(spb_a->pt1) > 0) ia = pat_idx_map->at(spb_a->pt1);
+		if (pat_idx_map->count(spb_a->pt2) > 0) ja = pat_idx_map->at(spb_a->pt2);
+		if (pat_idx_map->count(spb_a->pt3) > 0) ka = pat_idx_map->at(spb_a->pt3);
+		if (pat_idx_map->count(spb_b->pt1) > 0) ib = pat_idx_map->at(spb_b->pt1);
+		if (pat_idx_map->count(spb_b->pt2) > 0) jb = pat_idx_map->at(spb_b->pt2);
+		if (pat_idx_map->count(spb_b->pt3) > 0) kb = pat_idx_map->at(spb_b->pt3);
+
+		if (ia > ka) std::swap(ia, ka);
+		if (ib > kb) std::swap(ib, kb);
+
+		if (ja != jb)
+			return(ja < jb);
+
+		if (ia != ib)
+			return(ia < ib);
+
+		return(ka < kb);
+	}
+};
+
+
 bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	bool has_mut_atoms = group.has_mut_atoms();
@@ -1056,6 +1089,8 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 	{
 		os << ";   ai     aj     ak funct    theta          k \n";
 	}
+
+	std::sort(p_mm_model->ValAngles.begin(), p_mm_model->ValAngles.end(), CompareMMValAngle(at_idx_map));
 
 	for(auto sp_va : p_mm_model->ValAngles)
 	{
@@ -1079,6 +1114,12 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 		std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 		std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
+
+		if (idx1 > idx3)
+		{
+			std::swap(idx1, idx3);
+			std::swap(at_lbl_1, at_lbl_3);
+		}
 
 		os << boost::format("%6d %6d %6d  1 %14.4e%14.4e ") % idx1 % idx2 % idx3 % a0 % fc;
 		if (has_mut_atoms)
@@ -1140,6 +1181,92 @@ bool MMDriverGromacs::SaveAnglesToStream(std::ostream& os, AtomGroup& group, Ato
 	return true;
 }
 
+
+struct CompareMMDihedral {
+	AtomIntMap* pat_idx_map;
+	CompareMMDihedral(AtomIntMap& at_idx_map_par) : pat_idx_map(&at_idx_map_par) {}
+
+	bool operator()(const std::shared_ptr<MMDihedral> spd_a, const std::shared_ptr<MMDihedral> spd_b) const {
+		int ia = -1;
+		int ja = -1;
+		int ka = -1;
+		int la = -1;
+		int ib = -1;
+		int jb = -1;
+		int kb = -1;
+		int lb = -1;
+
+		if (pat_idx_map->count(spd_a->pt1) > 0) ia = pat_idx_map->at(spd_a->pt1);
+		if (pat_idx_map->count(spd_a->pt2) > 0) ja = pat_idx_map->at(spd_a->pt2);
+		if (pat_idx_map->count(spd_a->pt3) > 0) ka = pat_idx_map->at(spd_a->pt3);
+		if (pat_idx_map->count(spd_a->pt4) > 0) la = pat_idx_map->at(spd_a->pt4);
+		if (pat_idx_map->count(spd_b->pt1) > 0) ib = pat_idx_map->at(spd_b->pt1);
+		if (pat_idx_map->count(spd_b->pt2) > 0) jb = pat_idx_map->at(spd_b->pt2);
+		if (pat_idx_map->count(spd_b->pt3) > 0) kb = pat_idx_map->at(spd_b->pt3);
+		if (pat_idx_map->count(spd_b->pt4) > 0) lb = pat_idx_map->at(spd_b->pt4);
+
+
+		if (ja > ka) {
+			std::swap(ja, ka); 
+			std::swap(ia, la);
+		}
+
+		if (jb > kb) {
+			std::swap(jb, kb);
+			std::swap(ib, lb);
+		}
+
+		if (ja != jb)
+			return(ja < jb);
+
+		if (ka != kb)
+			return(ka < kb);
+
+		if (ia != ib)
+			return(ia < ib);
+
+		return(la < lb);
+	}
+};
+
+
+struct CompareImprDihedral {
+	AtomIntMap* pat_idx_map;
+	CompareImprDihedral(AtomIntMap& at_idx_map_par) : pat_idx_map(&at_idx_map_par) {}
+
+	bool operator()(const std::shared_ptr<MMDihedral> spd_a, const std::shared_ptr<MMDihedral> spd_b) const {
+		int ia = -1;
+		int ja = -1;
+		int ka = -1;
+		int la = -1;
+		int ib = -1;
+		int jb = -1;
+		int kb = -1;
+		int lb = -1;
+
+		if (pat_idx_map->count(spd_a->pt1) > 0) ia = pat_idx_map->at(spd_a->pt1);
+		if (pat_idx_map->count(spd_a->pt2) > 0) ja = pat_idx_map->at(spd_a->pt2);
+		if (pat_idx_map->count(spd_a->pt3) > 0) ka = pat_idx_map->at(spd_a->pt3);
+		if (pat_idx_map->count(spd_a->pt4) > 0) la = pat_idx_map->at(spd_a->pt4);
+		if (pat_idx_map->count(spd_b->pt1) > 0) ib = pat_idx_map->at(spd_b->pt1);
+		if (pat_idx_map->count(spd_b->pt2) > 0) jb = pat_idx_map->at(spd_b->pt2);
+		if (pat_idx_map->count(spd_b->pt3) > 0) kb = pat_idx_map->at(spd_b->pt3);
+		if (pat_idx_map->count(spd_b->pt4) > 0) lb = pat_idx_map->at(spd_b->pt4);
+
+		if (ia != ib)
+			return(ia < ib);
+
+		if (ja != jb)
+			return(ja < jb);
+
+		if (ka != kb)
+			return(ka < kb);
+
+		return(la < lb);
+	}
+};
+
+
 bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	bool has_mut_atoms = group.has_mut_atoms();
@@ -1153,6 +1280,9 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	{
 		os << ";    i      j      k      l  func      phase           kd      pn \n";
 	}
+
+	std::sort(p_mm_model->Dihedrals.begin(), p_mm_model->Dihedrals.end(), CompareMMDihedral(at_idx_map));
+	std::sort(p_mm_model->Dihedrals_mut.begin(), p_mm_model->Dihedrals_mut.end(), CompareMMDihedral(at_idx_map));
 
 	bool mutated_state = false;
 	for (auto* p_dih_list : { &(p_mm_model->Dihedrals),&(p_mm_model->Dihedrals_mut) })
@@ -1185,11 +1315,18 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 			std::string at_lbl_3 = aptr3->GetRef(HaAtom::ATOMREF_STD);
 			std::string at_lbl_4 = aptr4->GetRef(HaAtom::ATOMREF_STD);
 
+			if (idx2 > idx3) {
+				std::swap(idx2, idx3);
+				std::swap(idx1, idx4);
+				std::swap(at_lbl_2, at_lbl_3);
+				std::swap(at_lbl_1, at_lbl_4);
+			}
+
 			for (int i = 0; i < pk.size(); i++)
 			{
 				pk[i] *= 4.184;
 
-				os << boost::format("%6d %6d %6d %6d   1 ") % idx1 % idx2 % idx3 % idx4;
+				os << boost::format("%6d %6d %6d %6d   9 ") % idx1 % idx2 % idx3 % idx4;
 				if (mutated_state)
 				{
 					double phase1 = 0.0;
@@ -1227,6 +1364,9 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	{
 		os << ";    i      j      k      l  func      phase           kd      pn \n";
 	}
+
+	std::sort(p_mm_model->ImprDihedrals.begin(),     p_mm_model->ImprDihedrals.end(),     CompareImprDihedral(at_idx_map));
+	std::sort(p_mm_model->ImprDihedrals_mut.begin(), p_mm_model->ImprDihedrals_mut.end(), CompareImprDihedral(at_idx_map));
 	
 	mutated_state = false;
 	for (auto* p_dih_list : { &(p_mm_model->ImprDihedrals),&(p_mm_model->ImprDihedrals_mut) })
@@ -1263,7 +1403,7 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 			{
 				pk[i] *= 4.184;
 
-				os << boost::format("%6d %6d %6d %6d   1 ") % idx1 % idx2 % idx3 % idx4;
+				os << boost::format("%6d %6d %6d %6d   4 ") % idx1 % idx2 % idx3 % idx4;
 				if (mutated_state)
 				{
 					double phase1 = 0.0;
