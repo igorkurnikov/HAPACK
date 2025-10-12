@@ -879,10 +879,10 @@ struct CompareMMBond {
 		if (ia > ja) std::swap(ia, ja);
 		if (ib > jb) std::swap(ib, jb);
 
-		if (ia > ib) return true;
+		if (ia < ib) return true;
 		if (ia > ib) return false;
 
-		return(ja > jb);
+		return(ja < jb);
 	}
 };
 
@@ -907,8 +907,6 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 		const MMBond& bnd = *(sp_bnd.get());
 		HaAtom* aptr1 = (HaAtom*)bnd.pt1;
 		HaAtom* aptr2 = (HaAtom*)bnd.pt2;
-
-		PrintLog(" Bond: %s - %s \n", aptr1->GetRef(), aptr2->GetRef());
 
 		if (at_idx_map.count(aptr1) == 0) continue;
 		if (at_idx_map.count(aptr2) == 0) continue;
@@ -979,10 +977,30 @@ bool MMDriverGromacs::SaveBondsToStream(std::ostream& os, AtomGroup& group, Atom
 	return true;
 }
 
+
+struct IdxPairWithLabels {
+	int id1;
+	int id2;
+	std::string name1;
+	std::string name2;
+
+	IdxPairWithLabels(int i1, int i2, std::string n1, std::string n2)
+		: id1(i1), id2(i2), name1(std::move(n1)), name2(std::move(n2)) {}
+
+	bool operator<(const IdxPairWithLabels& other) const {
+		if (id1 != other.id1)
+			return id1 < other.id1;
+		return id2 < other.id2;
+	}
+};
+
 bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, AtomIntMap& at_idx_map)
 {
 	bool has_mut_atoms = group.has_mut_atoms();
 	int im = -1;
+
+	std::set<IdxPairWithLabels> idx_pair_lbl_set;
+
 	for (auto* p_dih_list : {&(p_mm_model->Dihedrals), &(p_mm_model->Dihedrals_mut)} )
 	{
 		im++;
@@ -1005,9 +1023,22 @@ bool MMDriverGromacs::Save14PairsToStream(std::ostream& os, AtomGroup& group, At
 			std::string at_lbl_1 = aptr1->GetRef(HaAtom::ATOMREF_STD);
 			std::string at_lbl_2 = aptr2->GetRef(HaAtom::ATOMREF_STD);
 
-			os << boost::format("%6d  %6d  1   ; %s - %s \n") % idx1 % idx2 % at_lbl_1 % at_lbl_2;
+			if (idx1 > idx2)
+			{
+				std::swap(idx1, idx2);
+				std::swap(at_lbl_1, at_lbl_2);
+			}
+			IdxPairWithLabels idx_pair_lbl(idx1, idx2, at_lbl_1, at_lbl_2);
+
+			idx_pair_lbl_set.insert(idx_pair_lbl);
+		}
+
+		for (auto ip : idx_pair_lbl_set)
+		{
+			os << boost::format("%6d  %6d  1   ; %s - %s \n") % ip.id1 % ip.id2 % ip.name1 % ip.name2;
 		}
 		os << " \n";
+
 	}
 	return true;
 }
