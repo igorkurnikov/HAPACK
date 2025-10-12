@@ -179,7 +179,7 @@ int MMForceField::Init()
 			bool file_exists = fs::exists(file_name);
 			if( !file_exists ) throw std::runtime_error(" Residue FF file " + file_name + " doesn't exist ");
 				
-			ires = LoadResFFTemplateXMLFile( file_name, options_load_resff );
+ 			ires = LoadResFFTemplateXMLFile( file_name, options_load_resff );
 			if( !ires ) throw std::runtime_error(" Error loading Residue FF file " + file_name );
 		}
 

@@ -116,6 +116,7 @@ int HaResDB::Init()
 		}
 		if( ext_str == "hlm" )
 		{
+			PrintLog("HARLEM FILE: %s \n", db_file_name);
 			LoadHarlemFile(db_file_name);
 		}
 		else if (ext_str == "mol2")
