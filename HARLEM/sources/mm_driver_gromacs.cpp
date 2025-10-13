@@ -1381,9 +1381,12 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 	std::sort(p_mm_model->ImprDihedrals.begin(),     p_mm_model->ImprDihedrals.end(),     CompareImprDihedral(at_idx_map));
 	std::sort(p_mm_model->ImprDihedrals_mut.begin(), p_mm_model->ImprDihedrals_mut.end(), CompareImprDihedral(at_idx_map));
 	
-	mutated_state = false;
+
 	for (auto* p_dih_list : { &(p_mm_model->ImprDihedrals),&(p_mm_model->ImprDihedrals_mut) })
 	{
+		mutated_state = false;
+		if (p_dih_list == &(p_mm_model->ImprDihedrals_mut)) mutated_state = true;
+
 		for (std::shared_ptr<MMDihedral> ditr : (*p_dih_list))
 		{
 			MMDihedral& dih = (MMDihedral&)(*ditr);
@@ -1425,6 +1428,21 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 					double pk1 = 0.0;
 					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk1 % pn[i]; // Do not change phase and periodicity - just 0 force const
 					os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i];
+					os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+
+					auto ditr = std::find_if( p_mm_model->ImprDihedrals.begin(), p_mm_model->ImprDihedrals.end(),
+						[&]( const std::shared_ptr<MMDihedral>& spd)
+							{
+								return spd->pt1 == aptr1 && spd->pt2 == aptr2 && spd->pt3 == aptr3 && spd->pt4 == aptr4;
+							}
+					);
+					if (ditr == p_mm_model->ImprDihedrals.end())  // the improper angle is unique to mutated state
+					{
+						os << boost::format("%6d %6d %6d %6d   4 ") % idx1 % idx2 % idx3 % idx4;
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk[i] % pn[i]; // Do not change phase and periodicity - just 0 force const
+						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk1 % pn[i];
+						os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
+					}
 				}
 				else
 				{
@@ -1434,11 +1452,10 @@ bool MMDriverGromacs::SaveDihedralsToStream(std::ostream& os, AtomGroup& group, 
 						double pk_mut = 0.0;
 						os << boost::format(" %14.4e %14.4e %2.0f ") % phase[i] % pk_mut % pn[i]; // Do not change phase and periodicity - just 0 force const
 					}
+					os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
 				}
-				os << boost::format("  ; %s - %s - %s - %s \n") % at_lbl_1 % at_lbl_2 % at_lbl_3 % at_lbl_4;
 			}
 		}
-		mutated_state = true;
 	}
 	os << "  \n";
 	return TRUE;
