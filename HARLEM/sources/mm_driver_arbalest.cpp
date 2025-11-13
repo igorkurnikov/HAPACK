@@ -691,6 +691,8 @@ bool MMDriverArbalest::SaveMolDefToStream(std::ostream& os, HaMolecule* pmol, st
 			if (pres->has_mut_atoms())
 			{
 				std::string res_name_a = pres->GetName();
+				std::string chain_lbl(1,pres->GetHostChain()->ident);
+
 				std::string res_name_b = pres->p_res_transform->res_name_b;
 				std::string fname_map_a_b = std::string("map_") + res_name_a + "_" + res_name_b + ".xml";
 				//int res_no = ir_seq;  // For Arbalest version before July 15 2025  
@@ -698,7 +700,7 @@ bool MMDriverArbalest::SaveMolDefToStream(std::ostream& os, HaMolecule* pmol, st
 
 				pres->p_res_transform->SaveMutationMapArbalestFmt(fname_map_a_b);
 
-				os << boost::format("            <Map ResID=\"%d\"> \n") % res_no;
+				os << boost::format("            <Map ResID=\"%d\"  ChainLabel=\"%s\"> \n") % res_no % chain_lbl;
 				os << boost::format("              <ResA Title=\"%s\">%s</ResA> \n") % res_name_a % res_name_a;
 				os << boost::format("              <ResB Title=\"%s\">%s</ResB> \n") % res_name_b % res_name_b;
 				os << boost::format("              <MapFile>%s</MapFile> \n") % fname_map_a_b;

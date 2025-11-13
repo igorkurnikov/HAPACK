@@ -601,7 +601,7 @@ int MolSet::SaveHINToStream(std::ostream& os, const AtomSaveOptions& opt ) const
 
 		if (pmol_c->GetNAtoms() == 0) continue; // the molecule doesn't have any residues
 
-		std::ostringstream oss_nn_types;
+ 		std::ostringstream oss_nn_types;
 
 		for(chain = ch_itr.GetFirstChain(); chain; chain = ch_itr.GetNextChain())
 		{

@@ -1,4 +1,4 @@
-/*! \file moleditor.cpp
+﻿/*! \file moleditor.cpp
  
     Classes to Edit Molecular Structures 
    
@@ -1417,49 +1417,26 @@ int MolEditor::OrderAtomsInRes(MolSet* pmset)
 	HaResidue* pres;
 	for(pres = ritr.GetFirstRes(); pres ; pres = ritr.GetNextRes())
 	{
-		try
+		if (!pres->HasSelectedAtoms()) continue;
+		HaResidue* res_templ = pres->GetTemplate();
+		if (res_templ == NULL) continue;
+
+		int na_t = res_templ->GetNAtoms();
+
+		std::unordered_map<std::string, size_t> order_map;  // lookup map: atom name → order index
+		for (size_t i = 0; i < na_t; ++i)
 		{
-			if(pres->size() == 0) continue;
-			HaAtom* aptr = (*pres)[0];
-			if(!aptr->Selected()) continue;
-			HaResidue* res_templ = pres->GetTemplate();
-			if(res_templ == NULL) continue;
-
-			int na = res_templ->GetNAtoms();
-			int n_nproxy = res_templ->GetNAtomsNonProxy();
-			
-			if( pres->GetNAtoms() != n_nproxy ) throw std::runtime_error( "Number of atoms in Residue " + pres->GetRef() + " is not equal to that of the template ");
-			
-			int i,j;
-			for(i = 0; i < na; i++)
-			{
-				HaAtom* aptr_t = (*res_templ)[i];
-				if( aptr_t->IsProxy() ) continue;
-
-				HaAtom* aptr_r = (*pres)[i];
-				
-				std::string atn_t = aptr_t->GetName(); 
-
-				if( stricmp_loc(aptr_r->GetName(), atn_t.c_str() ) == 0) continue;
-
-				aptr_r = pres->GetAtomByName( atn_t.c_str() );
-				if( aptr_r == NULL)  throw std::runtime_error( "Can not find atom " + atn_t + " in the residue " + pres->GetRef() + " found in its template ");
-				
-				int atom_found = FALSE;
-				for(j = na-1; j >= i; j--)
-				{
-					HaAtom* aptr2 = (*pres)[j];
-					if( atom_found ) (*pres)[j+1] = aptr2;
-					if( aptr2 == aptr_r) atom_found = TRUE;
-				}
-				(*pres)[i] = aptr_r;
-			}
+			HaAtom* aptr_t = res_templ->at(i);
+			order_map[aptr_t->GetName()] = i;
 		}
-		catch(std::exception& ex)
-		{
-			PrintLog("Error in MolEditor::OrderAtomsInRes() \n");
-			PrintLog("%s\n",ex.what());
-		}
+
+		// Sort pointers by the canonical order
+		std::sort(pres->begin(), pres->end(),
+			[&](const HaAtom* a, const HaAtom* b) {
+				size_t ia = order_map.count(a->GetName()) ? order_map.at(a->GetName()) : na_t;
+				size_t ib = order_map.count(b->GetName()) ? order_map.at(b->GetName()) : na_t;
+				return ia < ib;
+			});
 	}
 	return TRUE;
 }
