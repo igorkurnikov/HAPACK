@@ -108,10 +108,10 @@ namespace std {
 #include "hatests.h"
 #include "moleditor.h" 
 #include "protonredox.h"
-#ifndef HA_NOGUI
-#include "dialogs_wx_2.h"
-void StartHaMainFrameWX();
-#endif
+
+//#include "dialogs_wx_2.h"    //  move to harlem?
+//void StartHaMainFrameWX();   //  move to harlem?
+
 void StartHarlemApp();
 %}
 
@@ -189,10 +189,7 @@ void StartHarlemApp();
 %include "moleditor.h" 
 %include "protonredox.h"
 
-#ifndef HA_NOGUI
-%include "dialogs_wx_2.h"
-
-void StartHaMainFrameWX();
-#endif
+// %include "dialogs_wx_2.h"   // Move to Harlem ?
+// void StartHaMainFrameWX();  // Move to Harlem ?
 
 void StartHarlemApp();

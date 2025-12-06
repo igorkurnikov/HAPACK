@@ -1332,7 +1332,7 @@ InterMolMCSimulator::RunMCEmpirical()
 		}
 	} // end MC step
 //	sprintf(buf," Total effective energy is %14.6f kcal/mol ",intermol_ene_accepted);
-//	PrintMessage(buf);
+//	PrintLog(buf);
 //	pmset->info_str.push_back(buf);
 	
 	t=0; 
@@ -1867,7 +1867,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 		}
 	} // end MC step
 //	sprintf(buf," Total effective energy is %14.6f kcal/mol ",intermol_ene_accepted);
-//	PrintMessage(buf);
+//	PrintLog(buf);
 //	pmset->info_str.push_back(buf);
 	
 	t=0; 
@@ -2758,7 +2758,7 @@ int InterMolMCSimulator::RunMCEmpiricalNMA()
 	} // Enr of istep loop
 	
 	//	sprintf(buf," Total effective energy is %14.6f kcal/mol ",intermol_ene_accepted);
-	//	PrintMessage(buf);
+	//	PrintLog(buf);
 	//	pmset->info_str.push_back(buf);
 	
 	t=0; 
@@ -4214,7 +4214,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 		{
 			pmset->info_str.pop_back();
 			sprintf(buf,"Step %d Minimized energy is %14.6f kcal/mol ", istep, ene_cur);
-			PrintMessage(buf);
+			PrintLog(buf);
 			pmset->info_str.push_back(buf);
 			return TRUE;
 		}
@@ -4348,7 +4348,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 		{
 			pmset->info_str.clear();
 			sprintf(buf,"Step %d Minimized energy is %14.6f kcal/mol ", istep, ene_cur);
-			PrintMessage(buf);
+			PrintLog(buf);
 			pmset->info_str.push_back(buf);
 		}
 		

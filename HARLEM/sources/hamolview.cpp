@@ -3301,6 +3301,18 @@ void HaMolView::SetMouseMode(int mode )
     MouseMode = mode;
 }
 
+void HaMolView::UpdateThisView(int lHint)
+{
+	lHint |= RFRefresh;
+	ReDrawFlag |= lHint;
+	MolSet* pmset = GetMolSet();
+
+	for (auto& spv : pmset->views)
+		spv->UpdateThisView(ReDrawFlag);
+
+//	if (pmset->canvas_wx) pmset->canvas_wx->Refresh();
+}
+
 
 bool HaMolView::CreateImage()
 {
@@ -3448,18 +3460,15 @@ bool Monitor::ToShowValue()
 	return false;
 }
 
-
-#if defined(HA_NOGUI)
-int 
-HaMolView::BroadcastCurrAtom()
+void HaMolView::SetTitle(std::string title_str)
 {
-	return TRUE;
+
 }
 
-void 
-HaMolView::UpdateThisView( int lHint)
+void HaMolView::BroadcastCurrAtom()
 {
-   
+	for (auto& spv : host_mol_set->views)
+		spv->BroadcastCurrAtom();
+	
 }
 
-#endif

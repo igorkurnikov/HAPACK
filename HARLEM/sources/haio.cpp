@@ -143,7 +143,7 @@ void write_log_(const char* str, int n)
 
 int ErrorMessage(const char* str)
 {
-	PrintMessage(str);
+	PrintLog(str);
 	return 1;
 }
 
@@ -221,6 +221,12 @@ int RestoreIOToConsole()
 //		ios::sync_with_stdio();
 	
 	return True;
+}
+
+void PrintMessage(std::string str)
+{
+	if (!g_messenger) g_messenger = &g_defaultMessenger;
+	g_messenger->PrintMessage(str);
 }
 
 

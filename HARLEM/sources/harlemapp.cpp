@@ -58,13 +58,12 @@ int __argc_save;
 char** __argv_save;
 #endif
 
-#if defined(HA_NOGUI)
-int PrintMessage(const char* str)
-{
-	printf("%s\n",str);
-	return TRUE;
-}
-#endif
+//#if defined(HA_NOGUI)
+//void PrintMessage(const char* str)
+//{
+//	printf("%s\n",str);
+//}
+//#endif
 
 HarlemApp* HarlemApp::m_HarlemApp = NULL;
 

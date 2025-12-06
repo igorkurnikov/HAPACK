@@ -703,20 +703,18 @@ void SaveImageFileDlg::OnSaveFile( wxCommandEvent &event )
 	delete this;
 }
 
-int PrintMessage(const char* str)
-{
-	HaMainFrameWX* frame_main = GetHaMainFrameWX();
-	if(frame_main)
-	{
-		wxTextCtrl* log_win = (wxTextCtrl*) frame_main->FindWindow(IDC_LOG_WIN);
-		log_win->SetInsertionPoint(0);
-		log_win->WriteText(str);
-		log_win->WriteText("\n");
-	}
-//	printf("%s\n", str);
-	PrintLog("%s\n", str); 
-	return TRUE;
-}
+//void PrintMessage(const char* str)
+//{
+//	HaMainFrameWX* frame_main = GetHaMainFrameWX();
+//	if(frame_main)
+//	{
+//		wxTextCtrl* log_win = (wxTextCtrl*) frame_main->FindWindow(IDC_LOG_WIN);
+//		log_win->SetInsertionPoint(0);
+//		log_win->WriteText(str);
+//		log_win->WriteText("\n");
+//	}
+//	PrintLog("%s\n", str); 
+//}
 
 //----------------------------------------------------------------------------
 // LoadScriptDlgWX
@@ -802,9 +800,9 @@ void LoadScriptDlgWX::OnExecScriptFile( wxCommandEvent &event )
     
     int isel = file_types_ch->GetSelection();
 
-	wxString msg = "Execute Script from file ";
+	std::string msg = "Execute Script from file ";
 	msg += file_name;
-	PrintMessage(msg.c_str());
+	PrintMessage(msg);
     
 	switch( isel )
     {
@@ -8633,7 +8631,7 @@ int wxAtomEdit::OnAtomPicked(HaAtom* PickAtom)
 	return TRUE;
 }
 
-int HaMolView::BroadcastCurrAtom()
+void MolViewWX::BroadcastCurrAtom()
 //! This function send message IDU_ATOM_SELECT to Dialog classes that are able 
 //! to prosess this info and call 
 //! AtomEdit::BroadCastPickedAtom(PkAtom) - for atom select edit boxes
@@ -8669,11 +8667,10 @@ int HaMolView::BroadcastCurrAtom()
 	return True;
 }
 
-void
-HaMainFrameWX::OnShowResDb(wxCommandEvent &event)
+void HaMainFrameWX::OnShowResDb(wxCommandEvent &event)
 {
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
-	MolViewWX* mol_vew_wx = CreateMolView(p_res_db);
+	CreateMolView(p_res_db);
 
 	if(ResDBDlg::dlg_open) return; 
 	ResDBDlg* ptr_res_db_dlg = new ResDBDlg(this);

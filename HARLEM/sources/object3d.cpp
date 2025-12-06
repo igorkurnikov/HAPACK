@@ -927,7 +927,7 @@ TubeObj3D::TubeObj3D(const char* new_name,int r,int g,int b,float the_x0,float t
   y1=the_y1;
   z1=the_z1;
   hstep=5.0;
-  phistep=PI/6.0;
+  phistep=(float)PI/6.0;
   Style=0;
 }
 TubeObj3D::~TubeObj3D()
@@ -942,7 +942,7 @@ void TubeObj3D::SetBox(float the_x0,float the_y0,float the_z0,float the_x1,float
   y1=the_y1;
   z1=the_z1;
   hstep=(x1-x0)/5.0;
-  phistep=PI/6.0;
+  phistep=(float)PI/6.0;
 }
 void TubeObj3D::SetTube3d(float the_mem_z1,float the_mem_z2,float the_mem_x,float the_mem_y,float the_R1,float the_R2)
 {
@@ -1073,7 +1073,7 @@ int TubeObj3D::DrawObj(HaMolView* mview)
   mview->pCanv->ClipTwinVector(r3[0],r3[1],r3[2],r7[0],r7[1],r7[2], Color,Color);
   mview->pCanv->ClipTwinVector(r4[0],r4[1],r4[2],r8[0],r8[1],r8[2], Color,Color);
   //net on top
-  float phi=0.0,dphi=PI/32.0;
+  float phi=0.0,dphi=(float)PI/32.0;
   int j;
   
   
@@ -1108,7 +1108,7 @@ int TubeObj3D::DrawObj(HaMolView* mview)
     fz=mem_z2;
   }
   //lines beside circles
-  dphi=PI/16.0;
+  dphi=(float)PI/16.0;
   if(R1!=0.0)
   {
 	for(phi=0.0;phi<2*PI;phi+=dphi)

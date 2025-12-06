@@ -110,10 +110,10 @@ double fminbr(				// An estimate to the min location
     			// Decide on the interpolation  
     if( fabs(x-w) >= tol_act  )		// If x and w are distinct
     {					// interpolatiom may be tried
-      register double p; 		// Interpolation step is calcula-
-      register double q;              	// ted as p/q; division operation
+      double p; 		// Interpolation step is calcula-
+      double q;              	// ted as p/q; division operation
                                         // is delayed until last moment
-      register double t;
+      double t;
 
       t = (x-w) * (fx-fv);
       q = (x-v) * (fx-fw);
@@ -140,8 +140,8 @@ double fminbr(				// An estimate to the min location
 
 				// Obtain the next approximation to min
     				// and reduce the encompassing interval
-    register const double t = x + new_step;  // Tentative point for the min
-    register const double ft = f(t);
+    const double t = x + new_step;  // Tentative point for the min
+    const double ft = f(t);
     if( ft <= fx )
     {                                 	// t is a better approximation
       ( t < x ? b : a ) = x;		// Reduce the interval so that

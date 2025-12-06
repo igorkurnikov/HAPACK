@@ -9,16 +9,9 @@
 #if !defined(MM_DIALOGS_WX_H)
 #define MM_DIALOGS_WX_H
 
-class MMBond;
-class MMValAngle;
-class MMDihedral;
-class MolEditor;
-class HaMolMechMod;
-class MMSysInfo;
-class MMInfoDlg;
-class RMSDAgent;
+#include "hamolmech.h";
 
-class MolMechDlgWX : public wxFrame
+class MolMechDlgWX : public wxFrame, public MMView
 {
 public:
 	MolMechDlgWX(HaMolMechMod* ptr_mm_mod_new, wxWindow *parent);   

@@ -593,7 +593,7 @@ bool ETCouplMod::path_coupl_calc()
 			sprintf(buf, " best PATHWAY coupling value between donor and acceptor is %12.6e ",
 			             exp(coupl_map[acc_found].coupling) );
 
-			PrintMessage(buf);
+			PrintLog(buf);
 			PrintLog("\n\n");
 
 			PrintLog(" structure of the best path \n");

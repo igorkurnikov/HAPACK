@@ -109,7 +109,6 @@ MolSet::MolSet()
 	debug_flag = 0;
 
 	mset_pview = NULL;
-	canvas_wx = NULL;
 
 	per_bc = new PeriodicUnitInfo();
 
@@ -2816,8 +2815,7 @@ int MolSet::GetNRes() const
 	return(nres);
 }
 
-int
-MolSet::GetNChains() const
+int MolSet::GetNChains() const
 {
 	int nchains=0;
 	for(int i=0; i < HostMolecules.size(); i++)
@@ -2836,6 +2834,11 @@ HaMolView* MolSet::GetActiveMolView()
 const HaMolView* MolSet::GetActiveMolView() const
 {
 	return mset_pview;
+}
+
+void MolSet::AddMolView(std::shared_ptr<BaseMolView>& sp_v)
+{
+	views.push_back(sp_v);
 }
 
 
@@ -6609,13 +6612,13 @@ double MolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
     nat = firstatset.size();
 	if (nat == 0)
 	{
-		PrintMessage("ERROR: First Atom Set is empty \n");
+		PrintLog("ERROR: First Atom Set is empty \n");
 		return -1.0;
 	}
 
 	if (secatset.size() != nat)
 	{
-		PrintMessage("ERROR: number of atoms in two sets must be the same");
+		PrintLog("ERROR: number of atoms in two sets must be the same");
 		return -1.0;
 	}
 
@@ -6634,7 +6637,7 @@ double MolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
     {
 		if(aptr->GetHostMol() != pMol1)
 		{
-			PrintMessage("Atoms in set 1 do not belong to the same molecule");
+			PrintLog("Atoms in set 1 do not belong to the same molecule");
 			return -1.0;
 		}
 	}
@@ -6646,7 +6649,7 @@ double MolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
 
 	if (pMol1 == pMol2 )
 	{
-		PrintMessage(" Sets must be from different molecules");
+		PrintLog(" Sets must be from different molecules");
 		return -1.0;
 	}
 
@@ -6655,7 +6658,7 @@ double MolSet::OverlapMol(AtomGroup& firstatset, AtomGroup& secatset)
     {
 		if(aptr->GetHostMol() != pMol2)
 		{
-			PrintMessage("Atoms in set 2 do not belong to the same molecule");
+			PrintLog("Atoms in set 2 do not belong to the same molecule");
 			return -1.0;
 		}
 	}
@@ -6809,7 +6812,7 @@ double MolSet::AlignMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
     nat = atset1.size();
 	if (nat == 0)
 	{
-		PrintMessage("ERROR: First Atom Set is empty \n");
+		PrintLog("ERROR: First Atom Set is empty \n");
 		return FALSE;
 	}
 
@@ -6829,14 +6832,14 @@ double MolSet::AlignMol(AtomGroup& atset1, HaMolecule* pMol2, PtrPtrMap* fit, Ha
     {
 		if(aptr->GetHostMol() != pMol1)
 		{
-			PrintMessage("Atoms in set 1 do not belong to the same molecule");
+			PrintLog("Atoms in set 1 do not belong to the same molecule");
 			return FALSE;
 		}
 	}
 
 	if (pMol1 == pMol2 )
 	{
-		PrintMessage(" Sets must be from different molecules");
+		PrintLog(" Sets must be from different molecules");
 		return FALSE;
 	}
 
@@ -8435,13 +8438,26 @@ void PyAccMolSetProp::WriteAtomParamFileForPNP(const char *filename,\
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-#if defined(HA_NOGUI)
+
 void MolSet::RefreshAllViews(long lHint)
 {
+	lHint |= RFRefresh;
+	for(auto& pv : this->views)
+	{
+		pv->UpdateThisView(lHint);
+	}
 
+	//if (canvas_wx != NULL)
+	//{
+	//	canvas_wx->mol_view->ReDrawFlag |= lHint;
+	//	canvas_wx->Refresh();
+	//}
 }
-void MolSet::SetName(const char* new_name)
+
+void MolSet::SetName(std::string new_name)
 {
-    name_mset = new_name;
+	name_mset = new_name;
+	for (auto pv : this->views)
+		pv->SetTitle(new_name);
 }
-#endif
+

@@ -2182,7 +2182,7 @@ int pKaCalcMod::PrintPopulation()
 	pnpPrint("PrintPopulation\n");
 	
 	
-	int ipH, NpH=roundf((pHmax-pHmin)/pHstep)+1;
+	int ipH, NpH=(int) roundf((pHmax-pHmin)/pHstep)+1;
 	double pH;
 	
 	pnpPrint("pH");
@@ -2215,7 +2215,7 @@ int pKaCalcMod::PrintPop4Homooligamer(bool PrintOnlyIfAltPopMoreThenSmth,float S
 	
 	
 	
-	int ipH, NpH=roundf((pHmax-pHmin)/pHstep)+1;
+	int ipH, NpH=(int) roundf((pHmax-pHmin)/pHstep)+1;
 	double pH;
 	
 	int i,iAltSt,iCh;
@@ -2328,7 +2328,7 @@ int pKaCalcMod::PrintResults()
 		pnpPrint("\n");
 	}
 	
-	int ipH, NpH=roundf((pHmax-pHmin)/pHstep)+1;
+	int ipH, NpH=(int) roundf((pHmax-pHmin)/pHstep)+1;
 	double pH;
 	
 	pnpPrint("pH");
@@ -3280,7 +3280,7 @@ int pKaCalcMod::CalcpKaWithInteraction()
 {
 	int i;
 	AltChemState* alt_st;
-	int ipH, NpH=roundf((pHmax-pHmin)/pHstep)+1;
+	int ipH, NpH=(int) roundf((pHmax-pHmin)/pHstep)+1;
 	double pH;
 	
 	HaVec_double alt_pop(NumberOfAltStates), delt_e(NumberOfAltStates);

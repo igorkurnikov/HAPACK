@@ -35,7 +35,7 @@ class MinEneMod;
 class TISimMod;
 class MDTrajAnalMod;
 class MolMechModel;
-class MolMechDlgWX;
+class MMView;
 
 namespace harlem
 {
@@ -155,9 +155,6 @@ public:
 	int CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2); //!< Check consistency of MM models for TI calculations
 	static void CallMMFunctionOnSlaves(int id); //!< Call MM function on Slave Nodes with the given id using remote HA_MOL_MECH_EVENT event
 	
-	
-	
-
 	int SetMPICommSplit2();   //!< Set MPI communicators splitting MPI_COMM_WORLD into two equal sets of processors 
 	MPI_Comm inter_model_comm;  //!< MPI communicator between corresponding nodes for two MM models in mixed hamiltonian 
 	int inter_model_rank;       //!< rank of the processor in inter_model_comm
@@ -382,10 +379,8 @@ private:
 //@{
 public: 
 
-#if !defined(HA_NOGUI)
-	MolMechDlgWX* p_mm_dlg; 
-#endif
-	void OnChangePeriodicity(); //!< Function to execute on creating/deleting periodical box
+	std::shared_ptr<MMView> ps_mm_view; 
+	void OnChangePeriodicity(); //!< Function to execute on creating/deleting periodical box 
 
 //@}
 
@@ -626,6 +621,14 @@ public:
 	MolSet* pmset;
 	MolMechModel* p_mm_model;      //!< MolMechModel corresponding to the class
 	HaMolMechMod* p_mm_mod;        //!< HaMolMech Module associated with the model
+};
+
+class MMView
+//! Abstract class for interface class to Molecular Mechanics module
+{
+public:
+	virtual ~MMView() = default;
+	virtual void OnChangePeriodicity() = 0;  //!< Update MM View on the chage of the periodicity of the MM module
 };
 
 #endif // end if !defined(HAMOLMECH_H) 

@@ -32,6 +32,8 @@
 #include "wx/sizer.h"
 #include "wx/filename.h"
 #include <wx/splitter.h>
+#include "wx/wfstream.h"
+
 #include "ha_wx_res_wdr.h"
 #include "haconst.h"
 
@@ -73,11 +75,26 @@
 
 #define IsClose(u,v) (((u)>=(v)-1) && ((u)<=(v)+1))
 
-
 HaMainFrameWX *m_HaMainFrameWX = nullptr;
 HaMainFrameWX* GetHaMainFrameWX() { return m_HaMainFrameWX; }
 
 const wxEventType wxEVT_HARLEM_APP = wxNewEventType();
+
+struct MessengerWX : Messenger
+{
+	void PrintMessage(std::string str) override {
+		HaMainFrameWX* frame_main = GetHaMainFrameWX();
+		if (frame_main)
+		{
+			wxTextCtrl* log_win = (wxTextCtrl*)frame_main->FindWindow(IDC_LOG_WIN);
+			log_win->SetInsertionPoint(0);
+			log_win->WriteText(str);
+			log_win->WriteText("\n");
+		}
+		PrintLog("%s\n", str);
+	}
+};
+
 
 void StartHaMainFrameWX()
 {
@@ -95,14 +112,31 @@ void StartHaMainFrameWX()
 
     wxTheApp->SetTopWindow(m_mainFrame);
 
+	Messenger* m = new MessengerWX();
+	setMessenger(m);
+
     MolSet* pmset = GetCurMolSet();
     if (pmset != NULL)
     {
-        pmset->canvas_wx = m_mainFrame->CreateMolView(pmset);
-        pmset->canvas_wx->mol_view->InitialTransform();
-        pmset->canvas_wx->mol_view->DefaultRepresentation();
+        std::shared_ptr<MolViewWX> sp_v_wx = std::static_pointer_cast<MolViewWX>(m_mainFrame->CreateMolView(pmset));
+		if (sp_v_wx)
+		{
+			sp_v_wx->mol_view->InitialTransform();
+			sp_v_wx->mol_view->DefaultRepresentation();
+		}
         pmset->RefreshAllViews();
     }
+}
+
+void MolViewWX::UpdateThisView(int lHint)
+{
+	mol_view->ReDrawFlag |= lHint;
+	Refresh();
+}
+
+void MolViewWX::SetTitle(std::string title_str)
+{
+	mol_frame->SetTitle(title_str);
 }
 
 // For drawing lines in a canvas
@@ -236,7 +270,7 @@ void MolViewWX::OnDraw(wxDC& dc)
 #else
 
     wxImage img(x_src,y_src);
-    mol_view->SetWXImage(img);
+    SetWXImage(img);
 
     wxBitmap btm_img(img);
 
@@ -543,7 +577,6 @@ void MolViewWX::OnClose(wxCloseEvent& event)
     }
 	else
 	{
-		pmset->canvas_wx  = NULL;
 		pmset->mset_pview = NULL;
 	}
 
@@ -552,15 +585,15 @@ void MolViewWX::OnClose(wxCloseEvent& event)
 //    PrintLog(" MolViewWX::OnClose() \n");
 }
 
-int HaMolView::SetWXImage(wxImage& wx_image) //!< Set wxImage with the current image data
+int MolViewWX::SetWXImage(wxImage& wx_image) //!< Set wxImage with the current image data
 {
-    unsigned int x_src = pCanv->XRange();
-    unsigned int y_src = pCanv->YRange();
+    unsigned int x_src = mol_view->pCanv->XRange();
+    unsigned int y_src = mol_view->pCanv->YRange();
 
     wx_image.Rescale(x_src,y_src);
-    if( pCanv->FBuffer == NULL || x_src == 0 || y_src == 0) 
+    if(mol_view->pCanv->FBuffer == NULL || x_src == 0 || y_src == 0)
     {
-        PrintLog("HaMolView::SetWXImage() \n");
+        PrintLog("MolViewWX::SetWXImage() \n");
         PrintLog(" Image data not set");
         return FALSE;
     }
@@ -571,7 +604,7 @@ int HaMolView::SetWXImage(wxImage& wx_image) //!< Set wxImage with the current i
     unsigned int i;
     int j = 0;
 
-    uint_4* ptr_src = pCanv->FBuffer + x_src*y_src;
+    uint_4* ptr_src = mol_view->pCanv->FBuffer + x_src*y_src;
     unsigned char* ptr_dst = img_data;
     unsigned char* ptr_cur;
 
@@ -590,6 +623,76 @@ int HaMolView::SetWXImage(wxImage& wx_image) //!< Set wxImage with the current i
     }
     wx_image.SetData(img_data); 
     return TRUE;
+}
+
+int MolViewWX::WriteBMPFile(std::string name)
+{
+	//	::wxInitAllImageHandlers();
+	unsigned int x_src = pCanv->XRange();
+	unsigned int y_src = pCanv->YRange();
+	wxImage img(x_src, y_src);
+	int ires = SetWXImage(img);
+	if (!ires) return FALSE;
+
+	wxFFileOutputStream fstream(name);
+	img.SaveFile(fstream, wxBITMAP_TYPE_BMP);
+	return ires;
+}
+
+int MolViewWX::WriteJPEGFile(std::string name)
+{
+	::wxInitAllImageHandlers();
+	unsigned int x_src = pCanv->XRange();
+	unsigned int y_src = pCanv->YRange();
+	wxImage img(x_src, y_src);
+	int ires = SetWXImage(img);
+	if (!ires) return FALSE;
+
+	wxFFileOutputStream fstream(name);
+	img.SaveFile(fstream, wxBITMAP_TYPE_JPEG);
+	return ires;
+}
+
+int MolViewWX::WriteTIFFFile(std::string name)
+{
+	::wxInitAllImageHandlers();
+	unsigned int x_src = pCanv->XRange();
+	unsigned int y_src = pCanv->YRange();
+	wxImage img(x_src, y_src);
+	int ires = SetWXImage(img);
+	if (!ires) return FALSE;
+
+	wxFFileOutputStream fstream(name);
+	img.SaveFile(fstream, wxBITMAP_TYPE_TIF);
+	return ires;
+}
+
+int MolViewWX::WritePNGFile(std::string name)
+{
+	::wxInitAllImageHandlers();
+	unsigned int x_src = pCanv->XRange();
+	unsigned int y_src = pCanv->YRange();
+	wxImage img(x_src, y_src);
+	int ires = SetWXImage(img);
+	if (!ires) return FALSE;
+
+	wxFFileOutputStream fstream(name);
+	img.SaveFile(fstream, wxBITMAP_TYPE_PNG);
+	return ires;
+}
+
+int MolViewWX::WritePCXFile(std::string name)
+{
+	::wxInitAllImageHandlers();
+	unsigned int x_src = pCanv->XRange();
+	unsigned int y_src = pCanv->YRange();
+	wxImage img(x_src, y_src);
+	int ires = SetWXImage(img);
+	if (!ires) return FALSE;
+
+	wxFFileOutputStream fstream(name);
+	img.SaveFile(fstream, wxBITMAP_TYPE_PCX);
+	return ires;
 }
 
 MolViewFrame::MolViewFrame(wxMDIParentFrame* parent,wxString& mset_name):
@@ -627,7 +730,7 @@ void MolViewFrame::OnActivate(wxActivateEvent& event)
 	event.Skip();
 }
 
-MolViewWX* HaMainFrameWX::CreateMolView(MolSet* pmset)
+std::shared_ptr<BaseMolView> HaMainFrameWX::CreateMolView(MolSet* pmset)
 {
     MolViewFrame* subframe;
     wxString mset_name= "EMPTY MOLSET";
@@ -644,15 +747,22 @@ MolViewWX* HaMainFrameWX::CreateMolView(MolSet* pmset)
   int width, height;
   subframe->GetClientSize(&width, &height);
 
-  MolViewWX* pview_wx = new MolViewWX(pmset, subframe, wxPoint(0,0), wxSize(width, height),0); 
+  //MolViewWX* pview_wx = new MolViewWX(pmset, subframe, wxPoint(0,0), wxSize(width, height),0); 
 
-  subframe->mol_view_wx = pview_wx;
-  wxCursor curs(wxCURSOR_ARROW);  
-  pview_wx->SetCursor(curs);
-//  pview_wx->SetCursor(wxCursor(wxCURSOR_PENCIL));
+  std::shared_ptr<BaseMolView> sp_v = std::make_shared<MolViewWX>(pmset, subframe, wxPoint(0, 0), wxSize(width, height), 0);
+  std::shared_ptr<MolViewWX> sp_v_wx = std::dynamic_pointer_cast<MolViewWX>(sp_v);
+
+  subframe->mol_view_wx = sp_v_wx.get();
   
-  pmset->mset_pview = pview_wx->mol_view;
-  pmset->canvas_wx = pview_wx;
+  if (sp_v_wx)
+  {
+	  wxCursor curs(wxCURSOR_ARROW);
+	  sp_v_wx->SetCursor(curs);
+	  pmset->AddMolView(sp_v);
+	  pmset->mset_pview = sp_v_wx->mol_view;
+  }
+  
+  // pmset->canvas_wx = pview_wx;
   
 #ifdef __X__
     // X seems to require a forced resize
@@ -662,10 +772,13 @@ MolViewWX* HaMainFrameWX::CreateMolView(MolSet* pmset)
 #endif
 
   subframe->Show(TRUE);
-  pview_wx->mol_view->InitialTransform();
-  pview_wx->mol_view->DefaultRepresentation();
+  if (sp_v_wx)
+  {
+	  sp_v_wx->mol_view->InitialTransform();
+	  sp_v_wx->mol_view->DefaultRepresentation();
+  }
   pmset->RefreshAllViews(RFRefresh | RFColour | RFApply);
-  return subframe->mol_view_wx;
+  return sp_v;
 }
 
 //IMPLEMENT_CLASS(HaMainFrameWX, wxMDIParentFrame)
@@ -951,19 +1064,6 @@ void HaMainFrameWX::OnSize(wxSizeEvent& event)
 	wxLayoutAlgorithm().LayoutMDIFrame(this);
 }
 
-void MolSet::SetName(const char* new_name)
-{
-    name_mset = new_name;
-    if(canvas_wx != NULL) canvas_wx->mol_frame->SetTitle(new_name);
-}
-
-void HaMolView::UpdateThisView( int lHint)
-{
-    lHint |= RFRefresh;
-    ReDrawFlag |= lHint;
-    MolSet* pmset = GetMolSet();
-    if(pmset->canvas_wx) pmset->canvas_wx->Refresh();
-}
 
 // File Menu
 void HaMainFrameWX::OnFileNew(wxCommandEvent &event)
@@ -971,7 +1071,7 @@ void HaMainFrameWX::OnFileNew(wxCommandEvent &event)
 	MolSet* pmset = new MolSet();
 	if(pmset)
 	{
-		pmset->canvas_wx = CreateMolView(pmset);
+		CreateMolView(pmset);
 	}
 }
 
@@ -1002,7 +1102,7 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
     if( pmset == NULL || pmset->canvas_wx == NULL)
 	{
         pmset = new MolSet();
-        pmset->canvas_wx = CreateMolView(pmset);        
+        CreateMolView(pmset);        
     }
 
 	AtomLoadOptions load_opt;
@@ -1482,8 +1582,6 @@ void HaMainFrameWX::DoNuclAcidDialog(wxCommandEvent &event)
 	NuclAcidDlgWX* nucl_acid_dlg = new NuclAcidDlgWX(ptr_nucl_acid_mod, this);
 	nucl_acid_dlg->Show(TRUE);
 }
-
-
 
 
 // Display Menu
@@ -2520,16 +2618,6 @@ void HaMainFrameWX::OnWorldConnect(wxCommandEvent &event)
 	PrintMessage(" Transform Dials Connected to the World ");
 }
 
-void MolSet::RefreshAllViews( long lHint  )
-{
-	lHint |= RFRefresh;
-    if( canvas_wx != NULL)
-    {
-        canvas_wx->mol_view->ReDrawFlag |= lHint;
-        canvas_wx->Refresh();
-    }
-}
-
 
 void HaMainFrameWX::OnTestGraph1( wxCommandEvent &event )
 {
@@ -2989,10 +3077,10 @@ void HaLogWindow::OnFrameDelete(wxFrame* WXUNUSED(frame))
 	m_pLogFrame = (HaLogFrame*)NULL;
 }
 
-int HarlemApp::RedirectIOLogWindow()
+int HaMainFrameWX::RedirectIOLogWindow()
 {
 	wxLog* p_log = new wxLogWindow(NULL,"HARLEM LOG WINDOW");
-	HaMainFrameWX* frame_main = GetHaMainFrameWX();
+	// HaMainFrameWX* frame_main = GetHaMainFrameWX();
 	// wxLog* p_log = new HaLogWindow(frame_main);
 	wxLog::SetActiveTarget(p_log);
 	wxLog::EnableLogging(true);

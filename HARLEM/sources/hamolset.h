@@ -20,6 +20,7 @@ class HaBond;
 class AtomGroup;
 class ZMatCrd;
 class HaMat_double;
+class BaseMolView;
 class HaMolView;
 class HaQCMod;
 class ChemGroup;
@@ -169,9 +170,9 @@ protected:
 //@{
 public:
 
-	static MolSet* CurMolSet;                            //!< Currently active Molecular Set
-	std::vector<HaMolecule*> HostMolecules;                   //!< Molecules in the molecular set  
-	std::multimap<int, HaMolecule*> serno_mol_map; //!< map of serial numbers of molecules to molecular pointers
+	static MolSet* CurMolSet;                             //!< Currently active Molecular Set
+	std::vector<HaMolecule*> HostMolecules;               //!< Molecules in the molecular set  
+	std::multimap<int, HaMolecule*> serno_mol_map;        //!< map of serial numbers of molecules to molecular pointers
 	std::multimap<std::string, HaMolecule*> name_mol_map; //!< map of names of molecules to molecular pointers
 	 
 	HaMolecule* AddNewMolecule( int mol_ser_no = -1 );  //!< function to add a new molecule to the set 
@@ -192,7 +193,7 @@ public:
 	bool DeleteAtoms(AtomContainer& atset);    //!< Delete Atoms
 
 	void OnAtomSeqChange(); //!<  Invalidate atom indexes when atoms are added, deleted or rearranged
-	void OnChangePeriodicity(); //!< Notify Views and modules that periodical box was create or deleted
+	void OnChangePeriodicity(); //!< Notify Views and modules that periodical box was created, deleted or modified
 
 	int RenumberSelectedRes(int start_num = 1); //!< Renumber Selected Residues (should be in one chain) 
 
@@ -293,8 +294,8 @@ public:
 //@}
 //! \name Names of Molecules and Molecular Set
 //@{
-	void SetName(const char* new_name); //!< Set the name of the molecular set
-	const char* GetName() const;              //!< Get the name of the molecular set
+	void SetName(std::string new_name); //!< Set the name of the molecular set
+	const char* GetName() const;        //!< Get the name of the molecular set
 	std::string GetUniqueMolName(const std::string& suggest_name); //!< Modify a suggested name of the molecule to avoid a conflict with the existing names of the molecules in the set
 
 	std::string name_mset; //!< the name of the molecular set
@@ -494,9 +495,13 @@ public:
 	void RefreshAllViews(long lHint = 0L); //!< Refresh Molecular Views associated with molecular set
 	HaMolView* GetActiveMolView();   //!< Get Active HaMolView object associated with molecular set 
 	const HaMolView* GetActiveMolView() const;   //!< Get Active HaMolView object associated with molecular set (const version)
+	void AddMolView(std::shared_ptr<BaseMolView>& sp_v); //!< Add a Molecular View to the Molecular Set
 
+	std::vector<std::shared_ptr<BaseMolView>> views; //!< Views associated with the Molecular Set
+	
 	HaMolView* mset_pview;  //!< A pointer to the Molecular View object associated with the molecular set 
-	MolViewWX* canvas_wx;   //!< A pointer to the wxWindows Molecular Canvas View associated with the molecular set
+	//MolViewWX* canvas_wx;   //!< A pointer to the wxWindows Molecular Canvas View associated with the molecular set
+
 	bool AddObject3D(Object3D* new_view_object);   //!< Add a new 3D object to the list
 	bool DeleteObject3D(Object3D* pobj);           //!< Delete 3D object from the list using the pointer 
 	bool DeleteObject3D(const std::string& obj_name);  //!< Delete 3D object from the list using its name
@@ -519,6 +524,17 @@ public:
 	int SaveSDFMort(const char* fname); //!< Save SDF file using MORT Library
 //@}
 
+};
+
+class BaseMolView
+//! Abstract Base Class for a View of a Molecular System 
+{
+public:
+	virtual ~BaseMolView() = default;
+	
+	virtual void UpdateThisView(int lHint = 0) = 0;   //!< Update the view
+	virtual void SetTitle(std::string title_str) = 0; //!< Set Title for the view
+	virtual void BroadcastCurrAtom() = 0;             //!< Broadcast that the current atom changed  
 };
 
 typedef std::vector<HaMolecule*> MoleculesType;

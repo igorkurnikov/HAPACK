@@ -761,11 +761,6 @@ void MolMechDlgWX::OnChangePeriodicity()
 	//TransferDataToWindow();
 }
 
-void HaMolMechMod::OnChangePeriodicity()
-{
-	if( p_mm_dlg ) p_mm_dlg->OnChangePeriodicity();	
-}
-
 void MolMechDlgWX::TransferRunTypeDataToWindow()
 {
 	int ic;

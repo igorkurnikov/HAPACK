@@ -14,7 +14,6 @@
 #ifndef HAMOLVIEW_H
 #define HAMOLVIEW_H
 
-
 #include "hastl.h"
 #include "habond.h"
 #include "haatgroup.h"
@@ -69,8 +68,8 @@ typedef void* PSItemPtr;
 class wxImage;
 
 
-class HaMolView 
-//!  Class for 3D representation of a set of molecules
+class HaMolView : public BaseMolView
+//!  Class for 3D representation of a Molecular Set
 {
 public:
 
@@ -78,7 +77,8 @@ public:
 	virtual ~HaMolView();
 
 public:
-	MolSet* GetMolSet(); //!< Get Molecular Set that the view displays
+
+	MolSet* GetMolSet(); //!< Get the Molecular Set that the view displays
 	
 	int debug_level;
 
@@ -108,7 +108,7 @@ public:
 	int DrawMonitDistance;
 	int DrawBetaArrows;
 	
-  int DrawObj3D;//draw *Obj3D (BoxObj3D,etc) //mikola 30july06
+	int DrawObj3D;//draw *Obj3D (BoxObj3D,etc) //mikola 30july06
 public:
 	MolSet* host_mol_set;
 
@@ -118,7 +118,7 @@ public:
 	int XOffset, YOffset;
 	int ideltx, idelty;  //!< Current translation values along X and Y axis
 
-  double CenX, CenY, CenZ;          //!< Coordinates of the Center of the Zone
+    double CenX, CenY, CenZ;          //!< Coordinates of the Center of the Zone
 
 	double CurRX; //!< Current value of rotation of the view around X axis  ( in [-1.1] interval)
 	double CurRY; //!< Current value of rotation of the view around Y axis  ( in [-1.1] interval)
@@ -182,7 +182,6 @@ public:
 	int ExecuteColourCommand(CmdParser& cmd_pr);
 	void ConnectObject(Object3D* pObj);
 
-	int BroadcastCurrAtom();
 	int FillCurrAtomRef(char* buf);
 
 	int GetImageSize();
@@ -212,8 +211,12 @@ public:
 	void WrapShiftVal(int iaxis, double value ); //!< Shift current rotation value around X,Y or Z axis, wraping them to [-1,1] interval
 
 public:
+	// Implement BaseMolView virtual functions:
 
-	virtual void UpdateThisView(int lHint=0);
+	void UpdateThisView(int lHint=0) override; 
+	void SetTitle(std::string title_str) override;
+	void BroadcastCurrAtom() override;
+
 	virtual void RefreshScreen() {}
 	bool CreateImage();
 	virtual void ClearImage(){}
@@ -444,10 +447,6 @@ protected:
 	void WriteScriptHBonds( char* obj );
 
 public:
-
-#if !defined(HA_NOGUI)
-    int SetWXImage(wxImage& wx_image); //!< Set wxImage with the current image data
-#endif
 
 	Canvas3D* pCanv;  //!< Pointer to the canvas object that contains the PixelMap buffer to plot different objects 
 	

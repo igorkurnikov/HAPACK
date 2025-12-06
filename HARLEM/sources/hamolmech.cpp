@@ -167,9 +167,7 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 
 	internal_mm_running = false;
 	ctrl_thread_running = false;
-#if !defined(HA_NOGUI)
-	p_mm_dlg    = NULL;
-#endif
+
 	p_axx_mm_model = NULL;
 
 	SetStdParams();
@@ -499,7 +497,7 @@ int HaMolMechMod::ControlCalc()
 			{
 				UpdateMolInfo();
 				UpdateMolView();
-				PrintMessage("Internal Molecular Mechanics Execution Process has completed");
+				PrintLog("Internal Molecular Mechanics Execution Process has completed");
 				break;
 			}
 		}
@@ -509,7 +507,7 @@ int HaMolMechMod::ControlCalc()
 			if(!active_flag)
 			{
 				ext_proc_id = 0;
-				PrintMessage("External Molecular Mechanics Execution Process has completed");
+				PrintLog("External Molecular Mechanics Execution Process has completed");
 				break;
 			}
 		}
@@ -1710,13 +1708,13 @@ void HaMolMechMod::SetShakeTol( double shake_tol_new )
 	shake_tol = shake_tol_new;
 }
 
-#if defined(HA_NOGUI)
 void HaMolMechMod::OnChangePeriodicity()
 {
-	period_bcond.SetCompatValue();
-	p_mm_model->electr_method.SetCompatValue();
+	// period_bcond.SetCompatValue();
+	// p_mm_model->electr_method.SetCompatValue();
+	if (ps_mm_view) ps_mm_view->OnChangePeriodicity();
 }
-#endif
+
 
 void HaMolMechMod::TestSaveAmoebaTopFile1()
 {

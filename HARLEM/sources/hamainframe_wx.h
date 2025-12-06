@@ -182,7 +182,9 @@ class HaMainFrameWX : public wxMDIParentFrame
 		void OnOpenQstFromNindexInHaMolView(wxCommandEvent& event);
     //AddOn options
 
-    MolViewWX* CreateMolView(MolSet* pmset);
+    std::shared_ptr<BaseMolView> CreateMolView(MolSet* pmset);
+
+    int RedirectIOLogWindow(); //!< Create Log Window and redirect to it STDOUT and STDERR
 
 	wxSashLayoutWindow* sash_win;
 
@@ -216,19 +218,31 @@ private:
   DECLARE_EVENT_TABLE();
 };
 
-class MolViewWX: public wxWindow
+class MolViewWX: public wxWindow, public BaseMolView
 {
 public:    
     MolViewWX( MolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos, 
                const wxSize& size, long style);
 	virtual ~MolViewWX();
     virtual void OnDraw(wxDC& dc);
+
+    int  SetWXImage(wxImage& wx_image); //!< Construct wxImage with from the Molecular View
     void OnMouseEvent(wxMouseEvent& event);
     void OnEraseBackground(wxEraseEvent& event);
     void OnPaint(wxPaintEvent& event);
     void OnSize(wxSizeEvent& event);
     void OnClose(wxCloseEvent& event);
     void MouseMove( wxMouseEvent& event, int dx, int dy );
+    
+    void UpdateThisView(int lHint = 0) override;   //!< Update the View 
+    void SetTitle(std::string title_str) override; //!< Set View Title
+    void BroadcastCurrAtom() override;             //!< Broadcast change of the selected atom
+
+    int WriteBMPFile(std::string name);
+    int WriteJPEGFile(std::string name);
+    int WriteTIFFFile(std::string name);
+    int WritePNGFile(std::string name);
+    int WritePCXFile(std::string name);
 
     MolViewFrame* mol_frame;
     HaMolView* mol_view;

@@ -40,7 +40,7 @@ public:
 	int InitRemoteComp();
 	void InitCommand();   //!< Init RASMOL command Processing 
 
-	int RedirectIOLogWindow(); //!<  Create Log Window (if necessary) and redirect stdout and stderr to it
+	//int RedirectIOLogWindow(); //!<  Create Log Window (if necessary) and redirect stdout and stderr to it
 	int RedirectIOLogFile(const std::string& fname = ""); //!< Redirect stdout and stderr to log file by default: with the name harlem_nproc.log (nproc - MPI rank)
 
 	int CreateCommandWindow(); //!< Create PYTHON command window 
@@ -118,11 +118,6 @@ public:
 
 //! HarlemApp starter for python runs
 void StartHarlemApp();
-
-/////////////////////////////////////////////////////////////////////////////
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 
 extern "C" {
 #if defined(HARLEMAPP_CPP)

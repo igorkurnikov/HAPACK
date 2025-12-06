@@ -15,17 +15,6 @@
 */
 #define OUTFILE
 
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#if(wxUSE_GUI != 0)
-#include "wx/image.h"
-#endif
-#include "wx/wfstream.h"
-
 #include "vec3d.h"
 
 #include "haconst.h"
@@ -109,28 +98,24 @@ static int VectSolid;
 static int VectCol;
 
 
-void 
-HaMolView::WriteByte(int  val )
+void HaMolView::WriteByte(int  val )
 {
     putc( val, OutFile );
 }
 
-void 
-HaMolView::WriteLSBShort(int  val )
+void HaMolView::WriteLSBShort(int  val )
 {
     putc( val&0xff, OutFile );
     putc( (val>>8)&0xff, OutFile );
 }
 
-void 
-HaMolView::WriteMSBShort(int  val )
+void HaMolView::WriteMSBShort(int  val )
 {
     putc( (val>>8)&0xff, OutFile );
     putc( val&0xff, OutFile );
 }
 
-void 
-HaMolView::WriteMSBLong(unsigned int val )
+void HaMolView::WriteMSBLong(unsigned int val )
 {
     putc((int)((val>>24)&0xff),OutFile);
     putc((int)((val>>16)&0xff),OutFile);
@@ -138,8 +123,7 @@ HaMolView::WriteMSBLong(unsigned int val )
     putc((int)(val&0xff),OutFile);
 }
 
-void 
-HaMolView::WritePPMWord(int i )
+void HaMolView::WritePPMWord(int i )
 {
     if( i>99 )
     {   
@@ -154,8 +138,7 @@ HaMolView::WritePPMWord(int i )
 }
 
 
-int 
-HaMolView::WritePPMFile( const char* name,int raw )
+int HaMolView::WritePPMFile( const char* name, int raw )
 {
     ColorVal  *ptr;
     int i,col;
@@ -239,8 +222,7 @@ void HaMolView::WriteGIFCode(int code )
     }
 }
 
-int 
-HaMolView::WriteGIFFile( const char* name )
+int HaMolView::WriteGIFFile( const char* name )
 {
     int i,j,cols;
     int pref,next,last;
@@ -403,103 +385,38 @@ HaMolView::WriteGIFFile( const char* name )
 
 }
 
-int 
-HaMolView::WriteBMPFile( const char* name )
+int HaMolView::WriteBMPFile( const char* name )
 {
-#if !defined(HA_NOGUI)
-//	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
-	wxImage img(x_src,y_src);
-	int ires = SetWXImage(img);
-    if(!ires) return FALSE;
-	
-    wxFFileOutputStream fstream(name);
-	img.SaveFile(fstream, wxBITMAP_TYPE_BMP);
-	return ires;
-#else
-	return FALSE;
-#endif
+    PrintLog("BMP File Saving implemented only when lined to wxWidgets \n");
+    return FALSE;
 }
 
 int HaMolView::WriteJPEGFile( const char* name )
 {
-#if !defined(HA_NOGUI)
-	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
-	wxImage img(x_src,y_src);
-	int ires = SetWXImage(img);
-    if(!ires) return FALSE;
-	
-    wxFFileOutputStream fstream(name);
-	img.SaveFile(fstream, wxBITMAP_TYPE_JPEG);
-	return ires;
-#else
-	return FALSE;
-#endif
+    PrintLog("JPEG File Saving implemented only when lined to wxWidgets \n");
+    return FALSE;
 }
 
-int 
-HaMolView::WriteTIFFFile( const char* name )
+int HaMolView::WriteTIFFFile( const char* name )
 {
-#if !defined(HA_NOGUI)
-	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
-	wxImage img(x_src,y_src);
-	int ires = SetWXImage(img);
-    if(!ires) return FALSE;
-	
-    wxFFileOutputStream fstream(name);
-	img.SaveFile(fstream, wxBITMAP_TYPE_TIF );
-	return ires;
-#else
-	return FALSE;
-#endif
+    PrintLog("TIFF File Saving implemented only when lined to wxWidgets \n");
+    return FALSE;
 }
 
-int 
-HaMolView::WritePNGFile( const char* name )
+int HaMolView::WritePNGFile( const char* name )
 {
-#if !defined(HA_NOGUI)
-	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
-	wxImage img(x_src,y_src);
-	int ires = SetWXImage(img);
-    if(!ires) return FALSE;
-	
-    wxFFileOutputStream fstream(name);
-	img.SaveFile(fstream, wxBITMAP_TYPE_PNG);
-	return ires;
-#else
-	return FALSE;
-#endif
+    PrintLog("PNG File Saving implemented only when lined to wxWidgets \n");
+    return FALSE;
 }
 
-int 
-HaMolView::WritePCXFile( const char* name )
+int HaMolView::WritePCXFile( const char* name )
 {
-#if !defined(HA_NOGUI)
-	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
-	wxImage img(x_src,y_src);
-	int ires = SetWXImage(img);
-    if(!ires) return FALSE;
-	
-    wxFFileOutputStream fstream(name);
-	img.SaveFile(fstream, wxBITMAP_TYPE_PCX);
-	return ires;
-#else
+    PrintLog("PCX File Saving implemented only when lined to wxWidgets \n");
 	return FALSE;
-#endif
 }
 
 
-int 
-HaMolView::FindDepth( PSItemPtr item, int type )
+int HaMolView::FindDepth( PSItemPtr item, int type )
 {
     Monitor  *monit;
     HaHBond  *hbond;
@@ -581,7 +498,6 @@ void HaMolView::DepthSort(PSItemPtr* data, char* type, int count )
         }
     }
 }
-
 
 int HaMolView::ClipVectSphere(HaAtom* ptr )
 {
