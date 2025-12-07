@@ -24,14 +24,19 @@
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/process.hpp>
+
+//#include <functional>
+//#include <memory>
+
 //#include <boost/process.hpp>
 //#include <boost/process/child.hpp>
 
-#include <wx/event.h>
-#include <wx/filename.h>
-#include <wx/process.h>
+//#include <wx/event.h>
+//#include <wx/filename.h>
+//#include <wx/process.h>
 
-#include "hawx_add.h"
+//#include "hawx_add.h"
 
 #include "rapidxml.hpp"
 
@@ -881,7 +886,7 @@ void MMDriverAmber::ValidateCntrParams()
 	{
 		inerr = TRUE;
 		error_msg += "rgbmax must be at least ";
-		error_msg += (wxString::Format("%f\n",5.0 * p_amber_model->gb_fs_max)).c_str();
+		error_msg += ( boost::format("%f\n") % (5.0 * p_amber_model->gb_fs_max)).str();
 	}
 
 	if (p_amber_model->rbornstat != 0 && p_amber_model->rbornstat != 1) 
@@ -1268,18 +1273,18 @@ void MMDriverAmber::InitPMEParams()
 	const double denslo = 100.0;
 	const double denshi = 25000.0;
 
-	wxString error_msg = "Error in MMDriverAmber::InitPMEParams() \n";
+	std::string error_msg = "Error in MMDriverAmber::InitPMEParams() \n";
 	int inerr = FALSE;
 
 	if( pbc_box[0] < 1.0 || pbc_box[1] < 1.0 || pbc_box[2] < 1.0 ||
         pbc_alpha < 1.0 || pbc_beta < 1.0 || pbc_gamma < 1.0) 
 	{
-		error_msg += wxString::Format("pbc_box = %12.6f %12.6f %12.6f \n",
-			                          pbc_box[0],pbc_box[1],pbc_box[2]);
-		error_msg += wxString::Format("pbc_angles = %12.6f %12.6f %12.6f \n",
-			                          pbc_alpha,pbc_beta,pbc_gamma);
+		error_msg += (boost::format("pbc_box = %12.6f %12.6f %12.6f \n")
+			                        % pbc_box[0] % pbc_box[1] % pbc_box[2]).str();
+		error_msg += (boost::format("pbc_angles = %12.6f %12.6f %12.6f \n")
+			                        % pbc_alpha % pbc_beta % pbc_gamma).str();
 			             
-		throw std::runtime_error(error_msg.ToStdString().c_str());
+		throw std::runtime_error(error_msg);
 	}
 
 #if defined(WITH_LIB_PMEMD)
@@ -1316,52 +1321,52 @@ void MMDriverAmber::InitPMEParams()
   if( p_mm_model->pme_grid_nx < gridlo || p_mm_model->pme_grid_nx > gridhi )
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of pme_grid_nx %d \n",p_mm_model->pme_grid_nx );
+	error_msg +=  (boost::format("Invalid value of pme_grid_nx %d \n") % p_mm_model->pme_grid_nx ).str();
   }
   if( p_mm_model->pme_grid_ny < gridlo || p_mm_model->pme_grid_ny > gridhi )
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of pme_grid_ny %d \n",p_mm_model->pme_grid_ny );
+	error_msg += (boost::format("Invalid value of pme_grid_ny %d \n") % p_mm_model->pme_grid_ny ).str();
   }
   if( p_mm_model->pme_grid_nz < gridlo || p_mm_model->pme_grid_nz > gridhi )
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of pme_grid_nz %d \n",p_mm_model->pme_grid_nz );
+	error_msg += (boost::format("Invalid value of pme_grid_nz %d \n") % p_mm_model->pme_grid_nz ).str();
   }
 
   if( p_mm_model->pme_spline_order < orderlo || p_mm_model->pme_spline_order > orderhi)
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of bspl_order %d \n",p_mm_model->pme_spline_order );
+	error_msg += (boost::format("Invalid value of bspl_order %d \n") % p_mm_model->pme_spline_order ).str();
   }
 
   if( p_mm_model->skin_nb < skinlo || p_mm_model->skin_nb > skinhi)
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of skinnb %12.6f \n",p_mm_model->skin_nb);
+	error_msg += (boost::format("Invalid value of skinnb %12.6f \n") % p_mm_model->skin_nb).str();
   }
 
   if( p_mm_model->vdw_correction_flag < 0 || p_mm_model->vdw_correction_flag > 1)
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of vdw_correction_flag %d \n",p_mm_model->vdw_correction_flag);
+	error_msg += (boost::format("Invalid value of vdw_correction_flag %d \n") % p_mm_model->vdw_correction_flag).str();
   }
 
   if( p_mm_model->pme_eedtbdns < denslo || p_mm_model->pme_eedtbdns > denshi)
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Invalid value of eedtbdns %12.6e \n",p_mm_model->pme_eedtbdns);
+	error_msg += (boost::format("Invalid value of eedtbdns %12.6e \n") % p_mm_model->pme_eedtbdns).str();
   }
 
   if ( (p_amber_model->vdw_cutoff + p_mm_model->skin_nb) < 6.0)
   {
 	inerr = TRUE;
-	error_msg +=  wxString::Format("Pairlist cutoff is less than 6.0 Ang  = %12.6f \n",(p_amber_model->vdw_cutoff + p_mm_model->skin_nb));
+	error_msg += (boost::format("Pairlist cutoff is less than 6.0 Ang  = %12.6f \n") % (p_amber_model->vdw_cutoff + p_mm_model->skin_nb)).str();
   }
 
   if (inerr) 
   {
-    throw std::runtime_error(error_msg.ToStdString().c_str());
+    throw std::runtime_error(error_msg);
   }
 
   SetPMEParsFortran();
@@ -8621,20 +8626,35 @@ int AmberMMModel::AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* 
 	return TRUE;
 }
 
-class AmberProcess : public wxProcess
+class AmberProcess 
 {
 public:
-	AmberProcess() { p_mm_mod = NULL; }
+	AmberProcess() : p_mm_mod(nullptr) {}
 
 	HaMolMechMod* p_mm_mod;
 
-	virtual
-		void OnTerminate(int pid, int status)
+	// Launch the external process asynchronously
+	void Run(const std::string& command)
 	{
-		if (p_mm_mod) p_mm_mod->StopCalc();
-		//		::wxMessageBox("AMBER Process Has Stopped \n");
+		namespace bp = boost::process;
 
-		PrintLog("AMBER Process Has Stopped \n");
+		// Start async process
+		auto child = std::make_unique<bp::child>(
+			command,
+			bp::on_exit([this](int exit_code, const std::error_code& ec)
+				{
+					this->OnTerminate(exit_code);
+				})
+			);
+	}
+
+	// Equivalent to wxProcess::OnTerminate
+	void OnTerminate(int status)
+	{
+		if (p_mm_mod)
+			p_mm_mod->StopCalc();
+
+		PrintLog("AMBER Process Has Stopped\n");
 	}
 };
 
@@ -8691,16 +8711,24 @@ int MMDriverAmber::RunAmberProg(int sync)
 		exe_fname = "pmemd";
 	}
 
+	namespace fs = std::filesystem;
+	fs::path base_dir{ pApp->harlem_home_dir };
+	fs::path exe_path;
+
 #if defined(_MSC_VER)
-	exe_fname = pApp->harlem_home_dir + std::filesystem::path::preferred_separator + exe_fname;
+	exe_path = base_dir / exe_fname;
 #else
-	std::string exe_fname_test = pApp->harlem_home_dir + std::filesystem::path::preferred_separator + "bin" + std::filesystem::path::preferred_separator + exe_fname;
-	PrintLog("exe_fname_test = %s \n", exe_fname_test.c_str() );
-	if (std::filesystem::exists(exe_fname_test)) exe_fname = exe_fname_test;
-	PrintLog("exe_fname_test = %s \n", exe_fname.c_str() );
+	fs::path candidate = base_dir / "bin" / exe_fname;
+	PrintLog("exe_fname_test = %s\n", candidate.string());
+
+	if (fs::exists(candidate))
+		exe_path = candidate;
+	else
+		exe_path = base_dir / exe_fname;  // fallback
+	PrintLog("exe_fname = %s\n", exe_path.string());
 #endif
 
-	std::string cmd_line = exe_fname.c_str();
+	std::string cmd_line = exe_fname;
 	for( i =0; i < sander_args.size(); i++)
 	{
 		cmd_line += " ";
@@ -8713,20 +8741,53 @@ int MMDriverAmber::RunAmberProg(int sync)
 	AmberProcess* p_sander_proc = new AmberProcess();
 	p_sander_proc->p_mm_mod = p_mm_mod;
 
-	// namespace bp = ::boost::process;
+	namespace bp = boost::process;
 
-	int res;
+	int res = -1;
 	if( sync )
 	{
-//		bp::context ctx;
-//		ctx.stdout_behavior = bp::silence_stream();
-//		p_mm_mod->ext_proc_id = bp::launch(exec, args, ctx);
+		// Synchronous: wait until finished, then call StopCalc like wxProcess::OnTerminate
+		bp::child c(
+			cmd_line,
+			bp::shell   // interpret cmd_line through the system shell (similar to wxExecute)
+		);
 
-		res = wxExecute(cmd_line,wxEXEC_SYNC,p_sander_proc);
+		p_mm_mod->ext_proc_id = static_cast<int>(c.id());  // optional, if you use it
+
+		c.wait();                         // block until process exits
+		res = c.exit_code();              // like wxEXEC_SYNC result
+
+		if (p_mm_mod)
+			p_mm_mod->StopCalc();
+
+		PrintLog("AMBER Process Has Stopped (sync)\n");
+
+		// res = wxExecute(cmd_line,wxEXEC_SYNC,p_sander_proc);
 	}
 	else
 	{
-		res = wxExecute(cmd_line,wxEXEC_ASYNC,p_sander_proc);
+		// Asynchronous: don't wait; install an on-exit handler
+		bp::child c(
+			cmd_line,
+			bp::shell,
+			bp::on_exit([this](int exit_code, const std::error_code& ec)
+				{
+					// This is called when the process terminates
+					if (p_mm_mod)
+						p_mm_mod->StopCalc();
+
+					PrintLog("AMBER Process Has Stopped (async), exit_code = %d, ec = %d\n",
+						exit_code, (int)ec.value());
+				})
+		);
+
+		p_mm_mod->ext_proc_id = static_cast<int>(c.id());
+		res = static_cast<int>(c.id());   // like wxExecute(..., wxEXEC_ASYNC, ...) return value
+
+		// Important: do not wait() here; let it run in background.
+		c.detach();  // let Boost manage the lifetime until exit handler fires
+
+		//res = wxExecute(cmd_line,wxEXEC_ASYNC,p_sander_proc);
 	}
     
 	p_mm_mod->ext_proc_id = res;

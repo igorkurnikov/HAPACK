@@ -59,8 +59,6 @@
 #include "haobject.h"
 #include "apbsmod.h"
 
-// #include "wx/log.h"
-#include "hawx_add.h"
 #include "hamatdb.h"
 
 AtomLoadOptions MolSet::load_opt_default;
@@ -8446,12 +8444,6 @@ void MolSet::RefreshAllViews(long lHint)
 	{
 		pv->UpdateThisView(lHint);
 	}
-
-	//if (canvas_wx != NULL)
-	//{
-	//	canvas_wx->mol_view->ReDrawFlag |= lHint;
-	//	canvas_wx->Refresh();
-	//}
 }
 
 void MolSet::SetName(std::string new_name)

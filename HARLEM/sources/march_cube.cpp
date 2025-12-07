@@ -847,7 +847,7 @@ static int marching( float ptGRID[], int xdim, int ydim, int zdim,
     iy = 7 * npolygons;
     ii = ix + iy;
     /*$dir vector */
-    for (jj=0; jj<ii; jj++)  Pol_f_Vert[jj] = BIG_NEG;  /* Vectorized */
+    for (jj=0; jj<ii; jj++)  Pol_f_Vert[jj] = (int) BIG_NEG;  /* Vectorized */
     /*$dir vector */
     for (jj=8; jj<ix; jj+=9) Pol_f_Vert[jj] = 0;        /* Vectorized */
     /*$dir vector */

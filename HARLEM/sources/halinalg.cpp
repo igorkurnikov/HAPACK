@@ -153,7 +153,7 @@ int HaMat_double::mat_sdiag(const HaMat_double& aa,  HaMat_double& cc, HaVec_dou
 	int lwork = -1;
 // Call to determine an optimal size of work array:
 	dsyev_(&jobz[0],&uplo[0],&nn, cc.begin(),&nn,eig.begin(),&wk_opt, &lwork, &info);
-	lwork = wk_opt;
+	lwork = (int)wk_opt;
 	HaVec_double work(lwork+1);
 	dsyev_(&jobz[0],&uplo[0],&nn, cc.begin(),&nn,eig.begin(),work.begin(), &lwork, &info); 
     if (info < 0)
@@ -538,7 +538,7 @@ int HaMat_double::DiagMat(HaMat_double& hmat, HaMat_double& ss, HaMat_double& ei
 		dsygv_(&itype,&jobz[0],&uplo[0],&nb, 
 			eigv.begin(),&nb, ss_copy.begin(), &nb, 
 			eig_ene.begin(),&wk_opt, &lwork, &info);
-		lwork = wk_opt;
+		lwork = (int)wk_opt;
 		HaVec_double work(lwork+1);
 		dsygv_(&itype,&jobz[0],&uplo[0],&nb, 
 			eigv.begin(),&nb, ss_copy.begin(), &nb, 
@@ -1009,7 +1009,7 @@ LanzPars::~LanzPars()
 ///////////////////////////////////////////////////////////////////////////////
 HaHist::HaHist(double min,double max,double binsize)
 {
-	int nbins=((max-min)/binsize);
+	int nbins= (int) ((max-min)/binsize);
 	nbins++;
 	rleft.resize(nbins);
 	ibins.resize(nbins);

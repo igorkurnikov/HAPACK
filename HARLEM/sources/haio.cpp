@@ -12,9 +12,6 @@
 
 #include <mpi.h>
 
-#include <wx/string.h>
-#include <wx/log.h>
-
 #include "haconst.h"
 #include "stdarg.h"
 #include "hastring.h"
@@ -58,8 +55,6 @@ int PrintLogC(const char* str, ... )
 		}
 		else if( pApp->mpi_driver != NULL && pApp->mpi_driver->myrank == 0 )
 		{
-	//		wxVLogGeneric(wxLOG_Message,str,arg_list);
-	//		wxVLogMessage(str,arg_list);
 			vprintf(str, arg_list);
 		}
 		else
@@ -68,8 +63,6 @@ int PrintLogC(const char* str, ... )
 		}					
 #endif
 	}
-
-//	wxLog::OnLog(1,wxString::FormatV(str, arg_list),0);
 	va_end(arg_list);              /* Reset variable arguments.      */
 	return TRUE;
 }

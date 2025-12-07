@@ -29,9 +29,6 @@
 #include "mm_elements.h"
 #include "mm_model.h"
 
-#include <wx/string.h>
-#include <wx/filename.h> 
-
 #include "haio.h"
 #include "tokens.h"
 #include "hampi.h"
@@ -1135,152 +1132,177 @@ int HaMolMechMod::CalcEnergySimple()
 	return True;
 }
 
-void HaMolMechMod::PrintEneStr(MMSysInfo& info,std::string& str_out)
+#include <boost/format.hpp>
+#include <cmath>    // for std::fabs
+
+void HaMolMechMod::PrintEneStr(MMSysInfo& info, std::string& str_out)
 {
-	wxString str;
+	std::string str;
 
-	str += wxString::Format(" NSTEP = %9d TIME(PS) =  %10.3f TEMP(K) = %7.2f PRESS = %7.1f\n",    
-		info.nstep,info.time, info.temp, info.press);
-	str += wxString::Format(" Etot   = %14.4f  EKtot   = %14.4f EPtot     = %14.4f\n",
-		info.tot_energy,info.kin_ene,info.pot_ene);
-	str += wxString::Format(" BOND   = %14.4f  ANGLE   = %14.4f DIHED     = %14.4f\n",
-		info.bond_ene,info.vang_ene,info.dihed_ene);
-	str += wxString::Format(" 1-4 NB = %14.4f  1-4 EEL = %14.4f VDWAALS   = %14.4f\n",
-		info.vdw_ene_14,info.electr_ene_14,info.vdw_ene);
+	str += (boost::format(" NSTEP = %9d TIME(PS) =  %10.3f TEMP(K) = %7.2f PRESS = %7.1f\n")
+		% info.nstep % info.time % info.temp % info.press).str();
 
-	if (p_mm_model->p_amber_model->using_pme_potential) 
+	str += (boost::format(" Etot   = %14.4f  EKtot   = %14.4f EPtot     = %14.4f\n")
+		% info.tot_energy % info.kin_ene % info.pot_ene).str();
+
+	str += (boost::format(" BOND   = %14.4f  ANGLE   = %14.4f DIHED     = %14.4f\n")
+		% info.bond_ene % info.vang_ene % info.dihed_ene).str();
+
+	str += (boost::format(" 1-4 NB = %14.4f  1-4 EEL = %14.4f VDWAALS   = %14.4f\n")
+		% info.vdw_ene_14 % info.electr_ene_14 % info.vdw_ene).str();
+
+	const bool using_pme =
+		p_mm_model && p_mm_model->p_amber_model &&
+		p_mm_model->p_amber_model->using_pme_potential;
+
+	if (using_pme)
 	{
-		str += wxString::Format(" EELEC = %14.4f  EHBOND = %14.4f RESTRAINT = %14.4f\n",
-			info.electr_ene,info.hbond_ene,info.constraints_ene);
-	}  
+		str += (boost::format(" EELEC = %14.4f  EHBOND = %14.4f RESTRAINT = %14.4f\n")
+			% info.electr_ene % info.hbond_ene % info.constraints_ene).str();
+	}
 	else
 	{
-		str += wxString::Format(" EELEC = %14.4f  EGB   =  %14.4f RESTRAINT = %14.4f\n",
-			info.electr_ene,info.gb_ene,info.constraints_ene);
-	}
-	if( fabs(info.constraints_ene) > 0)
-	{
-		str += wxString::Format(" EAMBER (non-restraint) = %14.4f\n",
-			(info.pot_ene - info.constraints_ene) );
-	}
-	if( fabs(info.dv_dlambda) > 0)
-	{
-		str += wxString::Format(" DV/DL  = %14.4f\n", info.dv_dlambda );
-	}
-	if( info.volume != 0.0)
-	{
-		str += wxString::Format(" EKCMT  = %14.4f  VIRIAL  = %14.4f  VOLUME =   %14.4f\n",
-			info.kin_ene_com,info.virial_tot,info.volume);
-	}
-	if( info.kin_ene_solvent != 0.0 )
-	{
-//		str += wxString::Format(" EK_solv = %14.4f \n", info.kin_ene_solvent );
-	}
-	if( info.epol != 0.0 || info.e3body != 0.0 )
-	{
-		str += wxString::Format(" EPOLZ  = %14.4f  E3BODY  = %14.4f\n",
-			info.epol,info.e3body);
+		str += (boost::format(" EELEC = %14.4f  EGB   =  %14.4f RESTRAINT = %14.4f\n")
+			% info.electr_ene % info.gb_ene % info.constraints_ene).str();
 	}
 
-	if(info.polar_ene != 0.0)
+	if (std::fabs(info.constraints_ene) > 0.0)
 	{
-		str += wxString::Format(" E_POLAR = %14.4f \n ", info.polar_ene );
+		str += (boost::format(" EAMBER (non-restraint) = %14.4f\n")
+			% (info.pot_ene - info.constraints_ene)).str();
 	}
-	if(info.density != 0.0)
+
+	if (std::fabs(info.dv_dlambda) > 0.0)
 	{
-		str += wxString::Format("                                              Density    = %14.4f\n", info.density );
+		str += (boost::format(" DV/DL  = %14.4f\n")
+			% info.dv_dlambda).str();
 	}
-	if(p_mm_model->p_amber_model->using_pme_potential)
+
+	if (info.volume != 0.0)
 	{
-		str += wxString::Format(" Ewald error estimate: %12.4e\n", info.pme_err_est ); 
+		str += (boost::format(" EKCMT  = %14.4f  VIRIAL  = %14.4f  VOLUME =   %14.4f\n")
+			% info.kin_ene_com % info.virial_tot % info.volume).str();
 	}
+
+	if (info.kin_ene_solvent != 0.0)
+	{
+		// If needed:
+		// str += (boost::format(" EK_solv = %14.4f\n") % info.kin_ene_solvent).str();
+	}
+
+	if (info.epol != 0.0 || info.e3body != 0.0)
+	{
+		str += (boost::format(" EPOLZ  = %14.4f  E3BODY  = %14.4f\n")
+			% info.epol % info.e3body).str();
+	}
+
+	if (info.polar_ene != 0.0)
+	{
+		str += (boost::format(" E_POLAR = %14.4f\n")
+			% info.polar_ene).str();
+	}
+
+	if (info.density != 0.0)
+	{
+		str += (boost::format("                                              Density    = %14.4f\n")
+			% info.density).str();
+	}
+
+	if (using_pme)
+	{
+		str += (boost::format(" Ewald error estimate: %12.4e\n")
+			% info.pme_err_est).str();
+	}
+
 	str += "----------------------------------------------------------------------------\n";
-	//str += "Detailed ENE: \n";
-	//str += wxString::Format(" NSTEP = %9d TIME(PS) =  %10.3f TEMP(K) = %7.2f PRESS = %16.9f\n",    
-	//	info.nstep,info.time, info.temp, info.press);
-	//str += wxString::Format(" Etot   = %16.9f  EKtot   = %16.9f EPtot     = %16.9f\n",
-	//	info.tot_energy,info.kin_ene,info.pot_ene);
-	//str += wxString::Format(" BOND   = %16.9f  ANGLE   = %16.9f DIHED     = %16.9f\n",
-	//	info.bond_ene,info.vang_ene,info.dihed_ene);
-	//str += wxString::Format(" 1-4 NB = %16.9f  1-4 EEL = %16.9f VDWAALS   = %16.9f\n",
-	//	info.vdw_ene_14,info.electr_ene_14,info.vdw_ene);
-	//if (p_mm_model->p_amber_model->using_pme_potential) 
-	//{
-	//	str += wxString::Format(" EELEC = %16.9f  EHBOND = %16.9f RESTRAINT = %16.9f\n",
-	//		info.electr_ene,info.hbond_ene,info.constraints_ene);
-	//}  
-	//else
-	//{
-	//	str += wxString::Format(" EELEC = %16.9f  EGB   =  %16.9f RESTRAINT = %16.9f\n",
-	//		info.electr_ene,info.gb_ene,info.constraints_ene);
-	//}
-	//str += "----------------------------------------------------------------------------\n";
+
 	str_out = str;
 }
 
 void HaMolMechMod::PrintEneStrAccurate(MMSysInfo& info,std::string& str_out)
 {
-	wxString str;
+	std::string str;
 
-	str += wxString::Format(" NSTEP = %9d TIME(PS) =  %10.3f TEMP(K) = %7.2f PRESS = %7.1f\n",    
-		info.nstep,info.time, info.temp, info.press);
-	str += wxString::Format(" Etot = %18.11f EKtot = %18.11f\n",
-		info.tot_energy,info.kin_ene);
-	str += wxString::Format(" EPtot = %18.11f\n",info.pot_ene);
-	str += wxString::Format(" BOND = %18.11f  ANGLE = %18.11f\n",
-		info.bond_ene,info.vang_ene);
-	str += wxString::Format(" DIHED = %18.11f\n",info.dihed_ene);
-	str += wxString::Format(" 1-4 NB = %18.11f  1-4 EEL = %18.11f \n",
-		info.vdw_ene_14,info.electr_ene_14);
-	str += wxString::Format(" VDWAALS = %18.11f\n",info.vdw_ene);
+	str += (boost::format(" NSTEP = %9d TIME(PS) =  %10.3f TEMP(K) = %7.2f PRESS = %7.1f\n")
+		% info.nstep % info.time % info.temp % info.press).str();
 
-	if (p_mm_model->p_amber_model->using_pme_potential) 
+	str += (boost::format(" Etot   = %18.11f EKtot   = %18.11f\n")
+		% info.tot_energy % info.kin_ene).str();
+
+	str += (boost::format(" EPtot  = %18.11f\n") % info.pot_ene).str();
+
+	str += (boost::format(" BOND   = %18.11f ANGLE   = %18.11f\n")
+		% info.bond_ene % info.vang_ene).str();
+
+	str += (boost::format(" DIHED  = %18.11f\n") % info.dihed_ene).str();
+
+	str += (boost::format(" 1-4 NB = %18.11f  1-4 EEL = %18.11f\n")
+		% info.vdw_ene_14 % info.electr_ene_14).str();
+
+	str += (boost::format(" VDWAALS = %18.11f\n") % info.vdw_ene).str();
+
+	if (p_mm_model && p_mm_model->p_amber_model &&
+		p_mm_model->p_amber_model->using_pme_potential)
 	{
-		str += wxString::Format(" EELEC = %18.11f EHBOND = %18.11f \n",
-			info.electr_ene,info.hbond_ene);
-	}  
+		str += (boost::format(" EELEC = %18.11f EHBOND = %18.11f\n")
+			% info.electr_ene % info.hbond_ene).str();
+	}
 	else
 	{
-		str += wxString::Format(" EELEC = %18.11f EGB    =  %18.11f\n",
-			info.electr_ene,info.gb_ene);
+		str += (boost::format(" EELEC = %18.11f EGB    = %18.11f\n")
+			% info.electr_ene % info.gb_ene).str();
 	}
-	str += wxString::Format(" RESTRAINT = %18.11f\n",info.constraints_ene);
-	if( fabs(info.constraints_ene) > 0)
+
+	str += (boost::format(" RESTRAINT = %18.11f\n") % info.constraints_ene).str();
+
+	if (std::fabs(info.constraints_ene) > 0.0)
 	{
-		str += wxString::Format(" EAMBER (non-restraint) = %18.11f\n",
-			(info.pot_ene - info.constraints_ene) );
+		str += (boost::format(" EAMBER (non-restraint) = %18.11f\n")
+			% (info.pot_ene - info.constraints_ene)).str();
 	}
-	if( fabs(info.dv_dlambda) > 0)
+
+	if (std::fabs(info.dv_dlambda) > 0.0)
 	{
-		str += wxString::Format(" DV/DL  = %18.11f\n", info.dv_dlambda );
+		str += (boost::format(" DV/DL  = %18.11f\n") % info.dv_dlambda).str();
 	}
-	if( info.volume != 0.0)
+
+	if (info.volume != 0.0)
 	{
-		str += wxString::Format(" EKCMT = %18.11f  VIRIAL  = %18.11f\n",
-			info.kin_ene_com,info.virial_tot);
-		str += wxString::Format(" VOLUME = %18.11f\n",info.volume);
+		str += (boost::format(" EKCMT  = %18.11f  VIRIAL = %18.11f\n")
+			% info.kin_ene_com % info.virial_tot).str();
+
+		str += (boost::format(" VOLUME = %18.11f\n") % info.volume).str();
 	}
-	if( info.kin_ene_solvent != 0.0 ) 
+
+	if (info.kin_ene_solvent != 0.0)
 	{
-//		str += wxString::Format(" EK_solv = %14.4f \n", info.kin_ene_solvent );
+		// Uncomment and adapt if you want a line for solvent kinetic energy:
+		// str += (boost::format(" EK_solv = %18.11f\n") % info.kin_ene_solvent).str();
 	}
-	if( info.epol != 0.0 || info.e3body != 0.0 )
+	if (info.epol != 0.0 || info.e3body != 0.0)
 	{
-		str += wxString::Format(" EPOLZ  = %18.11f  E3BODY  = %18.11f\n",
-			info.epol,info.e3body);
+		str += (boost::format(" EPOLZ  = %18.11f  E3BODY = %18.11f\n")
+			% info.epol % info.e3body).str();
 	}
-	if(info.polar_ene != 0.0)
+
+	if (info.polar_ene != 0.0)
 	{
-		str += wxString::Format(" E_POLAR = %18.11f \n ", info.polar_ene );
+		str += (boost::format(" E_POLAR = %18.11f\n") % info.polar_ene).str();
 	}
-	if(info.density != 0.0)
+
+	if (info.density != 0.0)
 	{
-		str += wxString::Format("                                  Density    = %18.11f\n", info.density );
+		str += (boost::format("                                  Density    = %18.11f\n")
+			% info.density).str();
 	}
-	if(p_mm_model->p_amber_model->using_pme_potential)
+
+	if (p_mm_model && p_mm_model->p_amber_model &&
+		p_mm_model->p_amber_model->using_pme_potential)
 	{
-		str += wxString::Format(" Ewald error estimate: %18.11e\n", info.pme_err_est ); 
+		str += (boost::format(" Ewald error estimate: %18.11e\n")
+			% info.pme_err_est).str();
 	}
+
 	str += "----------------------------------------------------------------------------\n";
 	str_out = str;
 }
@@ -1990,7 +2012,7 @@ void TISimMod::SetTI_OutputFileNames()
 	MMDriverAmber* p_amber_driver = p_mm_mod->p_amber_driver;
 	if(!p_amber_driver->master) return;
 
-	wxString cur_prefix = GetCurFilePrefix();
+	std::string cur_prefix = GetCurFilePrefix();
 	
 	p_amber_driver->amber_out_file        = cur_prefix + ".out";
 	p_amber_driver->amber_rst_file        = cur_prefix + ".rst";
@@ -2426,14 +2448,14 @@ std::string TISimMod::GetFilePrefixIdx(int idx)
 	}
 
 	std::string cur_prefix = file_prefix.c_str();
-	wxString str_idx = wxString::Format("%d",idx);
-	str_idx = str_idx.Strip(wxString::both);
-	wxString str_num = wxString::Format("%d",num_lmb);
-	str_num = str_num.Strip(wxString::both);
+	std::string str_idx = (boost::format("%d") % idx).str();
+	boost::trim(str_idx);
+	std::string str_num = (boost::format("%d") % num_lmb).str();
+	boost::trim(str_num);
 	cur_prefix += "_lmb_";
-	cur_prefix += str_idx.c_str();
+	cur_prefix += str_idx;
 	cur_prefix += "_";
-	cur_prefix += str_num.c_str();
+	cur_prefix += str_num;
 	return cur_prefix;
 }
 
@@ -2651,24 +2673,33 @@ MDTrajectory::~MDTrajectory()
 int MDTrajectory::Open()
 {
 	PrintLog("MDTrajectory::Open\n");
-	wxString wxCrd(CrdFileName.c_str());
-	if(!wxCrd.IsEmpty())
+
+	if (!CrdFileName.empty())
 	{
-		wxFileName wxFN(wxCrd);
-		wxString wxFileExt=wxFN.GetExt();
-		if(wxFileExt.IsSameAs("mdcrd",false)||wxFileExt.IsSameAs("crd",false))
+		std::filesystem::path path(CrdFileName);
+		std::string ext = path.extension().string();   // includes the dot, e.g. ".xtc"
+
+		// Convert extension to lowercase (case-insensitive match)
+		boost::algorithm::to_lower(ext);
+
+		if (ext == ".mdcrd" || ext == ".crd")
 		{
-			format=AMBER_CRD;
-			if(OpenAMBER_CRD(wxCrd.mb_str())==FALSE) return FALSE;
+			format = AMBER_CRD;
+			if (!OpenAMBER_CRD(CrdFileName.c_str()))
+				return 0;   // FALSE
 		}
-		else if(wxFileExt.IsSameAs("xtc",false))
+		else if (ext == ".xtc")
 		{
-			format=GMX_XTC;
-			if(OpenXTC(wxCrd.c_str())==FALSE) return FALSE;
+			format = GMX_XTC;
+			if (!OpenXTC(CrdFileName.c_str()))
+				return 0;   // FALSE
 		}
 	}
-	return TRUE;
+
+	return 1;   // TRUE
 }
+
+
 int MDTrajectory::Close()
 {
 	if(CrdFile!=NULL)
