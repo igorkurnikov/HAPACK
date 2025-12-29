@@ -58,8 +58,6 @@ class ChainIteratorMolSet;
 class MolSetEvtHandler; 
 class CrdSnapshotIterator;
 
-class MolViewWX;
-
 class ForceFieldType;
 namespace mort { class molecule_t; }
 typedef std::vector<CrdSnapshot*> CrdSnapshotVector;

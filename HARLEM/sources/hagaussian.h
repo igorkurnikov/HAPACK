@@ -25,8 +25,6 @@ public:
 	QCDriverGaussian(MolSet* new_phost_mset);
 	virtual ~QCDriverGaussian();
 
-	friend class QChemParDlgWX;
-
 	void SetStdFileNames();  //!< Set default names of Gaussian files
 	void SetStdJobFlags(); //!< Set default job parameters
 	bool SaveInpFile();  //!< Save Gaussian input files

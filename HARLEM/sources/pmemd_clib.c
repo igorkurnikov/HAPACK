@@ -18,8 +18,7 @@ void    get_bytesize_(void * start, void * end, int * bytes);
 void    get_wall_time_(int * sec, int * usec);
 void    unlimit_stack_(int * new_limit);
 
-void
-get_bytesize_(void * start, void * end, int * bytes)
+void get_bytesize_(void * start, void * end, int * bytes)
 {
   *bytes = ((char *)end - (char *)start);
 }

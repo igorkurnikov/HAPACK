@@ -130,6 +130,5 @@ const int AdvImage       = 6;
 const int AdvPickCoord   = 7;
 
 #undef HARLEM_PYTHON_NO
-#undef HARLEM_WX_PLPLOT_NO
 
 #endif /* !defined(HACONST_H) */

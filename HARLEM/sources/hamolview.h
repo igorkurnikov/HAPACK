@@ -65,8 +65,6 @@ const int WideKnotFlag =  0x0e;
 
 typedef void* PSItemPtr;
 
-class wxImage;
-
 
 class HaMolView : public BaseMolView
 //!  Class for 3D representation of a Molecular Set

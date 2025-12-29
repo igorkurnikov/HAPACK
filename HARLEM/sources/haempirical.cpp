@@ -1963,8 +1963,7 @@ HaEmpiricalMod::SoftSqrWellPotential(double& current_value, double& average, dou
 	return potential*weight;
 }
 
-double
-HaEmpiricalMod::SqrPotential(double& current_value, double& average, double& stdev, double& weight)
+double HaEmpiricalMod::SqrPotential(double& current_value, double& average, double& stdev, double& weight)
 {
 	double potential =0.0 ;
 	double denom = stdev*stdev;
@@ -1982,7 +1981,7 @@ HaEmpiricalMod::FindAxes()
 	}
 
 	HaAtom* aptr;
-	wxString name ;
+	std::string name ;
 	Vec3D vec_com1;
 	Vec3D vec_com2;
 	HaMolecule* pMol;
@@ -2959,7 +2958,7 @@ double HaEmpiricalMod::CheckNeighbor(int i, int j)
 
 void HaEmpiricalMod::ResidueTypeList()
 {
-	//	vector <wxString> res_type;
+	//	vector std::string res_type;
 	HaMolecule* pMol;
 	HaResidue* res_ptr;
 	HaAtom* aptr;

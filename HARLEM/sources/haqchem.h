@@ -47,7 +47,6 @@ namespace harlem
 class HaQCMod: public HaCompMod
 {
 	friend class QCDriverGaussian;
-	friend class QChemParDlgWX;
 	friend class HaTests;
 
 public:
