@@ -564,8 +564,6 @@ public:
 	MMDriver();
 	virtual ~MMDriver();
 
-	virtual std::string GetClassName() = 0;
-
 	virtual int CalcEnergy() = 0; //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod 
 	
 	bool IsUsingGPU();

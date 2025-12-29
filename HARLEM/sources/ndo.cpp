@@ -910,8 +910,8 @@ int HaQCMod::SetNDOCore(int natoms, int nbasis,
 	if(p_ndo_pars_db == NULL) p_ndo_pars_db = new HaMatDB();
 	if(!p_ndo_pars_db->is_open())
 	{
-		std::string db_name = pApp->harlem_home_dir + "basis/" + "ndo_pars_1.db";
-		FILE* fdb = fopen(db_name.c_str(),"r");
+		std::filesystem::path db_path = pApp->harlem_home_dir / "basis" / "ndo_pars_1.db";
+		FILE* fdb = fopen(db_path.string().c_str(),"r");
 		int fexist = FALSE;	
 		if(fdb != NULL) 
 		{
@@ -921,12 +921,12 @@ int HaQCMod::SetNDOCore(int natoms, int nbasis,
 		int ires = 0;
 		if(fexist)
 		{
-		    ires = p_ndo_pars_db->open(db_name.c_str(),"r");
+		    ires = p_ndo_pars_db->open(db_path.string().c_str(),"r");
 //			p_ndo_pars_db->ListKeys();
 		}
 		if(!ires)
 		{
-			PrintLog("Unable to open DB file %s \n",db_name.c_str());
+			PrintLog("Unable to open DB file %s \n",db_path.string());
 		}
 	}
 

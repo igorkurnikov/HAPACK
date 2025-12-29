@@ -20,14 +20,6 @@
 #include <filesystem>
 #include <boost/algorithm/string.hpp>
 
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include <wx/process.h>
-
 #include <chrono>
 #include <thread>
 
@@ -168,7 +160,7 @@ HarlemApp::~HarlemApp()
 int HarlemApp::InitFirst()
 {
 	pApp = this;
-	std::string doc_dir;
+	std::filesystem::path doc_dir;
 
 // Set HARLEM HOME directory
 	std::filesystem::path harlem_home_path = ".";
@@ -176,18 +168,18 @@ int HarlemApp::InitFirst()
 	if( std::getenv("MOLSET_HOME") != NULL ) harlem_home_path = std::getenv("MOLSET_HOME");
 	if (std::getenv("HARLEM_HOME") != NULL)  harlem_home_path = std::getenv("HARLEM_HOME");
 
-	harlem_home_dir = harlem_home_path.string() + std::filesystem::path::preferred_separator;
-	res_db_dir = harlem_home_dir + "residues_db" + std::filesystem::path::preferred_separator;
-	doc_dir    = harlem_home_dir + "doc" + std::filesystem::path::preferred_separator;
+	harlem_home_dir = harlem_home_path;
+	res_db_dir = harlem_home_dir / "residues_db";
+	doc_dir    = harlem_home_dir / "doc" ;
 	//PrintLog("%s(): harlem_home_dir = %s \n", __func__, harlem_home_dir.c_str());
 #if(_MSC_VER)
-	word_editor = harlem_home_dir + "scite.exe";
+	word_editor = harlem_home_dir / "scite.exe";
 #else
 	word_editor = "scite";
 #endif
 	
-	manual_main_page = doc_dir + "advanced_manual_html" + std::filesystem::path::preferred_separator + "index.html" ;
-	cmd_line_help_main_page = doc_dir +  "HARLEM_BeginnerUserManual.htm";
+	manual_main_page = (doc_dir / "advanced_manual_html" / "index.html").string() ;
+	cmd_line_help_main_page = (doc_dir / "HARLEM_BeginnerUserManual.htm").string();
 	
 	InitParallel();
 
@@ -274,10 +266,9 @@ int HarlemApp::InitParallel()
 
 int HarlemApp::InitRemoteComp()
 {
-	std::string comp_acc_file_name = harlem_home_dir;
-	comp_acc_file_name +=  "/local/available_computers";
+	std::filesystem::path comp_acc_file_path = harlem_home_dir / "/local/available_computers";
 	
-	FILE* comp_acc_file = fopen(comp_acc_file_name.c_str(),"r");
+	FILE* comp_acc_file = fopen(comp_acc_file_path.string().c_str(),"r");
 
 	if(comp_acc_file != NULL)
 	{
@@ -517,7 +508,7 @@ int HarlemApp::RedirectIOLogFile(const std::string& fname_new )
 
 	if(fname.empty()) fname = "harlem_proc_" + harlem::ToString(mpi_driver->myrank) + ".log";
 
-	PrintLog(" HarlemApp::RedirectIOLogFile()  fname = %s\n", fname.c_str() ); 
+	PrintLog(" HarlemApp::RedirectIOLogFile()  fname = %s\n", fname ); 
 	
 	if( file_log != NULL) 
 	{
@@ -534,8 +525,8 @@ int HarlemApp::RedirectIOLogFile(const std::string& fname_new )
 		
 		std::ios::sync_with_stdio();
 
-	    wxLog* p_log = new wxLogStderr();
-        wxLog::SetActiveTarget(p_log);
+	    //wxLog* p_log = new wxLogStderr();
+        //wxLog::SetActiveTarget(p_log);
 
 		return TRUE;
 	}
@@ -696,9 +687,9 @@ int HarlemApp::ProcessOptions()
 					PrintLog("No Working Directory Name supplied for --wd option\n");
 					continue;
 				}
-				wxString work_dir = option_next;
-				PrintLog("Set working directory to %s \n",work_dir.ToStdString().c_str());
-				::wxSetWorkingDirectory(work_dir);
+				std::string work_dir = option_next;
+				PrintLog("Set working directory to %s \n",work_dir);
+				boost::filesystem::current_path(work_dir);
 				continue;
 			}
 		}
@@ -795,30 +786,30 @@ void HarlemApp::EndWait()
 
 }
 
-int HarlemApp::CheckProcIsActive(long proc_id)
-{
+//int HarlemApp::CheckProcIsActive(long proc_id)
+//{
 //	PrintLog(" Process %d ",proc_id);
-	bool bres = wxProcess::Exists(proc_id);
-	if(bres) 
-	{
+//	bool bres = wxProcess::Exists(proc_id);
+//	if(bres) 
+//	{
 //		PrintLog(" Running \n");
-	}
-	else
-	{
+//	}
+//	else
+//	{
 //		PrintLog(" Does not exist \n");
-	}
-	if( bres ) return TRUE;
-    return FALSE;
-}
+//	}
+//	if( bres ) return TRUE;
+//   return FALSE;
+//}
 
-int HarlemApp::KillProc(long proc_id)
-{
-	int ires;
-	wxKillError error;
+//int HarlemApp::KillProc(long proc_id)
+//{
+//	int ires;
+//	wxKillError error;
 //	int ires = wxKill(proc_id,wxSIGTERM,&error);
-    ires = wxKill(proc_id,wxSIGKILL,&error);
-	return ires;
-}
+//    ires = wxKill(proc_id,wxSIGKILL,&error);
+//	return ires;
+//}
 
 int HarlemApp::SwitchThread()
 {
@@ -945,168 +936,93 @@ int HarlemApp::ShowAccountsLoad()
 	return TRUE;
 }
 
+static std::string quote_for_log(const std::string& s)
+{
+	if (s.find_first_of(" \t\"") == std::string::npos) return s;
+	std::string q = "\"";
+	for (char c : s)
+		q += (c == '"') ? "\\\"" : std::string(1, c);
+	q += "\"";
+	return q;
+}
+
+namespace bp = boost::process;
+
 long HarlemApp::RunExternalProgram(RunMode rmode, const std::string& prog_name, StrVec& prog_args,
 							  StrVec& prog_output, int get_prog_output )
 {
-	int narg = prog_args.size();
-	const char** argv_p = (const char**) malloc( (narg + 1)* sizeof( const char* )); 
+	std::ostringstream cmd_line;
+	cmd_line << quote_for_log(prog_name);
+	for (const auto& a : prog_args) cmd_line << " " << quote_for_log(a);
+
+	PrintLog("HarlemApp::RunExternalProgram() cmd_line: %s\n", cmd_line.str());
 	
-	long i, result;
-	std::string cmd_line = prog_name;
-	for( i =0; i < narg; i++)
+	try
 	{
-		argv_p[i] = prog_args[i].c_str();
-		cmd_line += " " + prog_args[i];
-	}
+		const bool want_output = (get_prog_output != 0);
 
-	argv_p[narg] = NULL;
-	result = 0;
+		if (rmode == RUN_FOREGROUND)
+		{
+			prog_output.clear();
 
-	long pid = 0;
- 
-	char buf[256];
-	std::string cmd_output;
+			if (want_output)
+			{
+				bp::ipstream out; // child's stdout
+				bp::child c(
+					bp::search_path(prog_name),
+					bp::args(prog_args),
+					bp::std_out > out,
+					bp::std_err > out
+					// If you want stderr too, add: , bp::std_err > out
+				);
 
-	int sync_wx = wxEXEC_ASYNC;
-   
-#if defined(_MSC_VER) 
-	if(rmode == RUN_BACKGROUND)
-	{
-        sync_wx = wxEXEC_ASYNC;
-	}
-	else if(rmode == RUN_FOREGROUND )
-	{
-		sync_wx = wxEXEC_SYNC;
-	}
-
-	HANDLE hSaveStdout,hChildStdoutRdDup,hChildStdoutWr,hChildStdoutRd;
-
-	if(get_prog_output)
-	{
-		hSaveStdout = GetStdHandle(STD_OUTPUT_HANDLE); 
-				
-		SECURITY_ATTRIBUTES saAttr; 
-        // Set the bInheritHandle flag so pipe handles are inherited. 
-        saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
-        saAttr.bInheritHandle = TRUE; 
-        saAttr.lpSecurityDescriptor = NULL; 
-		
-	    // Create a pipe for the child process's STDOUT. 
-		
-		if( !CreatePipe(&hChildStdoutRd, &hChildStdoutWr, &saAttr, 0) ) 
-		{
-			PrintLog("Stdout pipe creation failed\n"); 
-			return FALSE;
-		}
-		
-	    // Set a write handle to the pipe to be STDOUT. 
-		
-		if (!SetStdHandle(STD_OUTPUT_HANDLE, hChildStdoutWr))
-		{
-			PrintLog("Redirecting STDOUT failed \n"); 
-			return FALSE;
-		}
-		// Create noninheritable read handle and close the inheritable read 
-		// handle. 
-		
-		int fSuccess = DuplicateHandle(GetCurrentProcess(), hChildStdoutRd,
-			GetCurrentProcess(), &hChildStdoutRdDup , 0,
-			FALSE,
-			DUPLICATE_SAME_ACCESS);
-		if( !fSuccess )
-		{
-			PrintLog("DuplicateHandle failed \n");
-			return FALSE;
-		}
-		CloseHandle(hChildStdoutRd);
-	}
-
-//	pid = _spawnvp(mode, prog_name.c_str(), argv_p);
-    
-	wxString cmd_line_wx = cmd_line.c_str();
-    pid = ::wxExecute( cmd_line_wx, sync_wx);
-
-	if(pid == -1)
-	{
-		PrintLog(" Error in submitting job %s\n",prog_name.c_str());;
-		if(errno == E2BIG)
-		{
-			PrintLog(" Argument list exceeds 1024 bytes \n");
-		}
-		else if( errno == EINVAL)
-		{
-			PrintLog( " Mode argument is invalid \n");
-		}
-		else if( errno == ENOENT)
-		{
-			PrintLog( " File or path is not found \n");
-		}
-		else if( errno == ENOEXEC)
-		{
-			PrintLog( " Specified file is not executable or has invalid executable-file format \n");
-		}
-		else if( errno == ENOMEM )
-		{
-			PrintLog( " Not enough memory is available to execute new process \n");
-		}
-	}		
-
-	if(get_prog_output)
-	{		
-		// Duplicate copy of original stdout back into stdout
-		
-		if (!SetStdHandle(STD_OUTPUT_HANDLE, hSaveStdout)) 
-		{
-			PrintLog("Re-redirecting Stdout failed\n"); 
-			return FALSE;
-		}
-				
-		if (!CloseHandle(hChildStdoutWr)) 
-		{
-			PrintLog("Closing handle failed \n"); 
-			return FALSE;
-		}
-		
-		prog_output.clear();
-
-		std::string empty_str;
-				
-		if(pid)
-		{
-			prog_output.push_back(empty_str);
-			std::string* pstr = &(prog_output.back());
-			int isactive = TRUE;
-			DWORD nOutRead;
-			
-			for (;;) 
-			{ 	
-				if( !ReadFile( hChildStdoutRdDup, buf, 255, &nOutRead, 
-					NULL) || nOutRead == 0) break; 
-				for(i=0 ; i < nOutRead; i++)
+				std::string line;
+				while (std::getline(out, line))
 				{
-					if(buf[i] == '\n')
-					{
-						prog_output.push_back(empty_str);
-						pstr = &(prog_output.back());
-					}
-					else
-					{
-						(*pstr) += buf[i];
-					}
+					if (!line.empty() && line.back() == '\r') line.pop_back(); // CRLF -> LF
+					prog_output.push_back(line);
 				}
+
+				c.wait();
+				return static_cast<long>(c.exit_code());
+			}
+			else
+			{
+				bp::child c(
+					bp::search_path(prog_name),
+					bp::args(prog_args)
+				);
+
+				c.wait();
+				return static_cast<long>(c.exit_code());
 			}
 		}
+		else // RUN_BACKGROUND
+		{
+			// Launch and return immediately.
+			// Note: Output capture cannot be returned here because the process continues running.
+			bp::child c(
+				bp::search_path(prog_name),
+				bp::args(prog_args),
+				bp::std_out > bp::null,
+				bp::std_err > bp::null
+			);
+
+			const auto pid = static_cast<long>(c.id());
+			c.detach();
+			return pid;
+		}
 	}
-	
-	
-#else
-	PrintLog("Command line = :\n %s \n ",cmd_line.c_str());
-	system(cmd_line.c_str());
+	catch (const bp::process_error& e)
+	{
+		PrintLog("Error launching program '%s': %s\n", prog_name, e.what());
+	}
+	catch (const std::exception& e)
+	{
+		PrintLog("Unexpected error launching program '%s': %s\n", prog_name, e.what());
+	}
 
-#endif
-
-	free(argv_p);
-	return pid;
+	return -1;
 }
 
 MolSet* HarlemApp::GetMolSetByName(const char* name)

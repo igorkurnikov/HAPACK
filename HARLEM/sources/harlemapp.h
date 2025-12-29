@@ -11,6 +11,7 @@
 
 #include "hastring.h"
 #include "command.h"
+#include <filesystem>
 
 class HaMolView;
 class MolSet;
@@ -52,8 +53,8 @@ public:
 
 	static long RunExternalProgram(RunMode rmode, const std::string& prog_name, StrVec& prog_args,
 		                                          StrVec& prog_output, int get_prog_output = 0); //!< Run external program 
-	static int CheckProcIsActive(long proc_id); //!< Check if the process specified by proc id is running
-	static int KillProc(long proc_id);     //!< Terminate the process specified by proc id
+	// static int CheckProcIsActive(long proc_id); //!< Check if the process specified by proc id is running
+	// static int KillProc(long proc_id);     //!< Terminate the process specified by proc id
 	static int SwitchThread();             //!< Switch execution to an another thread 
 	static int SleepThread(int ms_delay);  //!< Delay execution of the thread for ms_delay ms 
 
@@ -95,13 +96,13 @@ public:
 
 	int FileFormat;
 
-	std::string harlem_home_dir;   //!< HARLEM home directory
-	std::string res_db_dir;        //!< Directory of residue templates
-	std::string script_dir;        //!< HARLEM script directory
-	std::string basis_dir;         //!< HARLEM quantum chemical gaussian basis set directory
-	std::string word_editor;       //!< external word editor name 
-	std::string manual_main_page;  //!< URL of the advanced manual page 
-	std::string cmd_line_help_main_page;  //!< URL of beginners manual 
+	std::filesystem::path harlem_home_dir;   //!< HARLEM home directory
+	std::filesystem::path res_db_dir;        //!< Directory of residue templates
+	std::filesystem::path script_dir;        //!< HARLEM script directory
+	std::filesystem::path basis_dir;         //!< HARLEM quantum chemical gaussian basis set directory
+	std::filesystem::path word_editor;       //!< external word editor name 
+	std::string manual_main_page;            //!< URL of the advanced manual page 
+	std::string cmd_line_help_main_page;     //!< URL of beginners manual 
 
 	HaMPI* mpi_driver; 
 //	void* python_thread;  //!< Thread for Python execution

@@ -19,8 +19,6 @@ public:
 	MMDriverArbalest(HaMolMechMod* p_mm_mod_new);
 	virtual ~MMDriverArbalest();
 
-	virtual std::string GetClassName() { return "MMDriverArbalest"; }
-
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Arbalest
 

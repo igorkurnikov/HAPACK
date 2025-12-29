@@ -27,7 +27,7 @@ class ChemGroup;
 class HaCompMod;
 class ETCouplMod;
 class HaDaltonMod;
-class HaGaussMod;
+class QCDriverGaussian;
 class ElectrostMod;
 class PNPMod;
 class ElMod;
@@ -462,7 +462,7 @@ public:
 	HaQCMod*       GetQCMod( const bool create_module = false);       //!< Get Quantum Chemical module associated with the molecular set 
 	const HaQCMod* GetQCMod() const;   //!< Get Quantum Chemical module associated with the molecular set (const version)   
 	ETCouplMod*       GetETCouplMod( const bool create_module = false);  //!< Get Electron Transfer computational module associated with the molecular set 	
-	HaGaussMod*    GetGaussMod( const bool create_module = false);    //!< Get Gaussian qchem package interaction module associated with the molecular set 
+	QCDriverGaussian*    GetGaussMod( const bool create_module = false);    //!< Get Gaussian qchem package interaction module associated with the molecular set 
 	HaDaltonMod*      GetDaltonMod( const bool create_module = false);   //!< Get Dalton qchem package  interaction module associated with the molecular set 
 	ElectrostMod*   GetElectrostMod( const bool create_module = false);   //!< Get Continuum Electrostatic computational module associated with the molecular set 
 #ifdef ELMOD_COMPILE
@@ -480,7 +480,7 @@ public:
 	NuclAcidMod*     GetNuclAcidMod( const bool create_module = false); //!< Get Nucleic Acid modeling module 
 	HaZindoMod*      GetZindoMod( const bool create_module = false);    //!< Get ZINDO interface module associated with the molecular set 
 	ProtonRedoxMod*  GetProtonRedoxMod( const bool create_module = false);    //!<  Get Chemical Transformations Module
-    HaEmpiricalMod* GetEmpiricalMod( const bool create_module = false);    //!<  Get  Empirical calculations module
+    HaEmpiricalMod* GetEmpiricalMod( const bool create_module = false);    //!<  Get Empirical FF module
     HaMolMembraneMod* GetMolMembraneMod(const bool create_module = false); //!< Get Membrane model calculations module jose
 	HaFlexMod*        GetFlexMod(const bool create_module = false);        //!< Get Molecular Flexibility Module
 	MolEditor*        GetMolEditor(const bool create_module = false);      //!< Get Molecular Editor Module

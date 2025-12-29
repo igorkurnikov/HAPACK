@@ -23,8 +23,6 @@ public:
 
 	void SetStdParams();  //!< Set Standard Parameters to Data
 
-	virtual std::string GetClassName() const { return "LinCombOrb3D"; }
-
 	bool IsEmpty();  //!< Check if the collection doesn't contain any orbitals
 	void Clear();  //!< Delete All Orbitals in the collection
 

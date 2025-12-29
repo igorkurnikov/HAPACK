@@ -211,6 +211,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\haconsts.cpp" />
     <ClCompile Include="..\HARLEM\sources\hacoord.cpp" />
     <ClCompile Include="..\HARLEM\sources\hadalton.cpp" />
+    <ClCompile Include="..\HARLEM\sources\haempirical.cpp" />
     <ClCompile Include="..\HARLEM\sources\hagaussian.cpp" />
     <ClCompile Include="..\HARLEM\sources\haintengine.cpp" />
     <ClCompile Include="..\HARLEM\sources\halocorb.cpp" />
@@ -234,7 +235,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\harpavec.cpp" />
     <ClCompile Include="..\HARLEM\sources\nuclacidmod.cpp" />
     <ClCompile Include="..\HARLEM\sources\stmmod.cpp" />
-    <ClCompile Include="..\HARLEM\sources\haempirical.cpp" />
     <ClCompile Include="..\HARLEM\sources\hasimulator.cpp" />
     <ClCompile Include="..\HARLEM\sources\tinyxml.cpp" />
     <ClCompile Include="..\HARLEM\sources\tinyxmlerror.cpp" />
@@ -276,7 +276,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\outfile.cpp" />
     <ClCompile Include="..\HARLEM\sources\repres.cpp" />
     <ClCompile Include="..\HARLEM\sources\transfor.cpp" />
-    <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
     <ClCompile Include="..\HARLEM\sources\abstree.cpp" />
     <ClCompile Include="..\HARLEM\sources\command.cpp" />
     <ClCompile Include="..\HARLEM\sources\script.cpp" />
@@ -308,6 +307,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\haatombasis.h" />
     <ClInclude Include="..\HARLEM\sources\haconsts.h" />
     <ClInclude Include="..\HARLEM\sources\hadalton.h" />
+    <ClInclude Include="..\HARLEM\sources\haempirical.h" />
     <ClInclude Include="..\HARLEM\sources\hagaussian.h" />
     <ClInclude Include="..\HARLEM\sources\haintengine.h" />
     <ClInclude Include="..\HARLEM\sources\halocorb.h" />
@@ -329,7 +329,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\harpavec.h" />
     <ClInclude Include="..\HARLEM\sources\nuclacidmod.h" />
     <ClInclude Include="..\HARLEM\sources\stmmod.h" />
-    <ClInclude Include="..\HARLEM\sources\haempirical.h" />
     <ClInclude Include="..\HARLEM\sources\haenefunc.h" />
     <ClInclude Include="..\HARLEM\sources\hasimulator.h" />
     <ClInclude Include="..\HARLEM\sources\tinyxml.h" />
@@ -368,12 +367,10 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\rapidxml_iterators.hpp" />
     <ClInclude Include="..\HARLEM\sources\rapidxml_print.hpp" />
     <ClInclude Include="..\HARLEM\sources\rapidxml_utils.hpp" />
-    <ClInclude Include="..\HARLEM\sources\ctrl_wx.h" />
     <ClInclude Include="..\HARLEM\sources\canvas3d.h" />
     <ClInclude Include="..\HARLEM\sources\font.h" />
     <ClInclude Include="..\HARLEM\sources\hamolview.h" />
     <ClInclude Include="..\HARLEM\sources\object3d.h" />
-    <ClInclude Include="..\HARLEM\sources\hachart.h" />
     <ClInclude Include="..\HARLEM\sources\abstree.h" />
     <ClInclude Include="..\HARLEM\sources\command.h" />
     <ClInclude Include="..\HARLEM\sources\tokens.h" />

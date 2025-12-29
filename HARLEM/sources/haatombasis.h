@@ -23,8 +23,7 @@ class HaBasisSet
 //! Abstract class to describe a basis set of orbitals or configurations
 {
 public:
-    virtual int GetNBfunc() const = 0;       //!< Return the number of basis functions in the set
-	virtual std::string GetClassName() const = 0; //!< Return Class Name (Type)  
+    virtual int GetNBfunc() const = 0;       //!< Return the number of basis functions in the set 
 	virtual std::string GetLabel(int idx) = 0;  //!< Get label of the basis function ( 0-base index)
 	virtual Vec3D* GetHostPt(int idx) = 0;   //!< Get 3D point the function is associated with ( 0-base index)
 	virtual const Vec3D* GetHostPt(int idx) const = 0;   //!< Get 3D point the function is associated with ( 0-base index)
@@ -81,7 +80,6 @@ public:
   virtual Vec3D* GetHostPt(int idx){ return NULL; }  //!< Get 3D point the function is associated with
   virtual const Vec3D* GetHostPt(int idx) const{ return NULL; }  //!< Get 3D point the function is associated with
 
-  virtual std::string GetClassName() const { return "GauShell"; } 
   virtual int GetNBfunc() const;     //!< return a number of basis functions in the shell
 
   virtual int GetTransfMat(HaMat_double& trans_mat, const HaMat_double& rot_mat); //!< Set Transformation matrix for coefficients of vectors expanded in the basis when the basis rotated by rot_mat
@@ -168,8 +166,6 @@ public:
   virtual int GetNBfunc() const;      //!<  return the number of Basis functions in that the AtomBasis
   int GetNBfuncCart() const;  //!< Compute the number basis functions if converted to Cartesian Basis Functions 
 
-  virtual std::string GetClassName() const { return "GauAtomBasis"; } //!< Return Class Name 
-
   bool AddShell(GauShell & shl);         //!< Add Gaussian Shell to the Basis
 //  int Normalize(); //!< Normalize coefficients of all shells of the Atomic Basis
   
@@ -225,7 +221,6 @@ public:
 	InternalBasis* CreateIPackBas();   //!< Create and return a pointer to IPACK InternalBasis object with Basis Set info
 
   	virtual int GetNBfunc() const;     //!< Compute the number of basis functions in the basis set
-	virtual std::string GetClassName() const { return "GauBasisSet"; } 
     int GetNBfuncCart() const;         //!< Compute the number basis functions if converted to Cartesian Basis Functions 
 	int pure_fun_flag;                 //!< if !=0 pure functions are assumed otherwise cartesian function are used 
 

@@ -38,8 +38,8 @@ harlem::Coord* RigidBodyCoord::clone()
 
 int RigidBodyCoord::SetFrom(const harlem::Coord* ref_crd)
 {
-	if( ref_crd->GetClassName() != "RigidBodyCoord") return FALSE;
-	RigidBodyCoord* rb_crd = (RigidBodyCoord*) ref_crd;
+	const RigidBodyCoord* rb_crd = dynamic_cast<const RigidBodyCoord*>(ref_crd);
+	if (!rb_crd) return FALSE;
 	n_obj      = rb_crd->n_obj;
 	crd_v      = rb_crd->crd_v;
 	frozen_idx = rb_crd->frozen_idx; 
@@ -366,8 +366,8 @@ harlem::Coord* RigidBodyCoordDiscretized::clone()
 
 int RigidBodyCoordDiscretized::SetFrom(const harlem::Coord* pcrd)
 {
-	if( pcrd->GetClassName() != "RigidBodyCoordDiscretized") return FALSE;
-	const RigidBodyCoordDiscretized* p_from = (RigidBodyCoordDiscretized*) pcrd;
+	const RigidBodyCoordDiscretized* p_from = dynamic_cast<const RigidBodyCoordDiscretized*>(pcrd);
+	if (!p_from) return FALSE;
 	RigidBodyCoord* p_to   = (RigidBodyCoord*) this; 
 	p_to->SetFrom(p_from);
 

@@ -149,12 +149,10 @@ int HaRPAvec::SetFromLOGrpMat(const std::string& gid1,const std::string& gid2,
 
 	HaMat_double td; // transitional density matrix in atomic basis set functions
 	
-	std::string bas_type = phost->ActBas->GetClassName();
+	LinCombOrb3D* lcmb = dynamic_cast<LinCombOrb3D*>(phost->ActBas);
 
-	if(bas_type == "LinCombOrb3D" )
+	if( lcmb )
 	{
-		LinCombOrb3D* lcmb = (LinCombOrb3D*) phost->ActBas;
-
 		HaMat_double vl2(nb,nlorb2);
 		int j;
 		for(i=0; i < nlorb2; i++)

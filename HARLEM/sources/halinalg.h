@@ -34,8 +34,8 @@ class TiXmlElement;
 
 
 #if defined(SWIG)
-%template(std_vector_double)  vector<double>;
-%template(std_vector_int)  vector<int>;
+%template(std_vector_double)  std::vector<double>;
+%template(std_vector_int)  std::vector<int>;
 
 	class HaVec_int_parent
 	{

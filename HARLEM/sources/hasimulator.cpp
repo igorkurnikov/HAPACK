@@ -301,7 +301,9 @@ TrajIOAgent* MCSimulator::GetTrajectoryIOAgent()
 	for( i = 0; i < na; i++)
 	{
 		TrajAnalAgent* p_ag = agents[i];
-		if( p_ag->GetClassName() == "TrajIOAgent") return (TrajIOAgent*)p_ag;
+		TrajIOAgent* p_io_ag = dynamic_cast<TrajIOAgent*>(p_ag);
+
+		if( p_io_ag ) p_ag;
 	}
 	TrajIOAgent* p_ene_ag = new TrajIOAgent(this);
 	agents.push_back(p_ene_ag);
@@ -315,7 +317,8 @@ TraceMolAgent* MCSimulator::GetTrajectoryTraceAgent(int create_agent)
 	for( i = 0; i < na; i++)
 	{
 		TrajAnalAgent* p_ag = agents[i];
-		if( p_ag->GetClassName() == "TraceMolAgent") return (TraceMolAgent*)p_ag;
+		TraceMolAgent* p_tr_mol_ag = dynamic_cast<TraceMolAgent*>(p_ag);
+		if (p_tr_mol_ag) return p_tr_mol_ag;
 	}
 	if( create_agent )
 	{
@@ -333,7 +336,8 @@ UpdateMolViewNotifyAgent*  MCSimulator::GetMolViewNotifyAgent(int create_agent)
 	for( i = 0; i < na; i++)
 	{
 		TrajAnalAgent* p_ag = agents[i];
-		if( p_ag->GetClassName() == "UpdateMolViewNotifyAgent") return (UpdateMolViewNotifyAgent*)p_ag;
+		UpdateMolViewNotifyAgent* p_tr_mol_ag = dynamic_cast<UpdateMolViewNotifyAgent*>(p_ag);
+		if(p_tr_mol_ag ) return p_tr_mol_ag;
 	}
 	if( create_agent )
 	{

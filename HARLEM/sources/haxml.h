@@ -32,9 +32,7 @@ class HaAutoTreeObject;
 //!pointer on HaObjects creators
 typedef HaAutoTreeObject* (*CreateHaAutoTreeObject)(HaAutoTreeObject*,const char*,int);
 
-
 #include "haobject.h"
-
 
 TiXmlElement* BldXmlEltFromCstr(const char* Cstr);
 //!@brief like HaTreeObject plus more automatic stuff

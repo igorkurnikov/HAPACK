@@ -176,7 +176,6 @@ public:
 
 	void PrintAgents(); //!< Print to stdout Trajectory Analysis Agents associated with the module 
 
-	TrajAnalAgent*  GetTrajAnalAgent(const char* agent_class_name, int create_flag); //!< Get Trajectory Analysis by class name 
 	RMSDAgent*      GetRMSDAgent( int create_flag = FALSE);      //!< Get Atom Superimpose MD analysis agent 
 	AtomCorrAgent*  GetAtomCorrAgent( int create_flag = FALSE);  //!< Get Atom Pairwise Correlation agent 
 	
@@ -219,8 +218,6 @@ public:
 	MDTrajectoryIOAgent(MMDriverAmber* p_mm_driver_new);
 	virtual ~MDTrajectoryIOAgent();
 
-	virtual std::string GetClassName() const; //!< Get Class Name 
-
 	virtual int Init();      //!< Initiate analysis of trajectory assume initial point info is supplied  
 	virtual int AnalyzePt(int nstep, HaVec_double& si); //!< Compute properties for a trajectory point 
 	virtual int Finalize(int nstep);                                         //!< Finalize trajectory analysis
@@ -254,7 +251,6 @@ public:
 
 //! \name  Overide virtuals from TrajAnalAgent
 //@{
-	virtual std::string GetClassName() const { return "RMSDAgent"; }  //!< Get Class Name
 	virtual int IsActive() const;           //!< Check if agent is activated
 	virtual void SetActive(int active_flag); //!< Set active status (TRUE or FALSE)
 
@@ -320,12 +316,11 @@ class AtomCorrAgent : public TrajAnalAgent
 //!< Class to compute pairwise corrleation functions between atoms along MD trajectory 
 {
 public:
-	AtomCorrAgent( MolSet* pmset);
+	AtomCorrAgent( MolSet* pmset );
 	virtual ~AtomCorrAgent();
 
 //! \name  Overide virtuals from TrajAnalAgent
 //@{
-	virtual std::string GetClassName() const { return "AtomCorrAgent"; }  //!< Get Class Name
 	virtual int IsActive() const;           //!< Check if agent is activated
 	virtual void SetActive(int active_flag); //!< Set active status (TRUE or FALSE)
 

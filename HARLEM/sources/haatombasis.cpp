@@ -21,8 +21,6 @@
 #include "haatbasdb.h"
 #include "gaufile.h"
 
-#include "wx/wfstream.h"
-
 #ifdef USE_IPACK  // IPACK headers
 //#include "memchk.h"
 #include "basis.h"
@@ -1337,8 +1335,8 @@ HaAtom* GauAtomBasis::GetAtHost()
 
 void GauAtomBasis::SaveGaussianInp(std::ostream& os) const
 {
-	wxString str;
-	os << "-" << AtomType.c_str() << " " << std::endl;
+	std::string str;
+	os << "-" << AtomType << " " << std::endl;
 	
 	ShellsType::const_iterator itr;
 	for(itr=Shells.begin(); itr != Shells.end(); itr++)

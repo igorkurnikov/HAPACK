@@ -105,7 +105,7 @@ int NuclAcidMod::SetStdParams()
 	SetFFtype("Flex");
 	SetDielSlope(0.16);
 	SetPhosChrg(-0.5);
-	std::string nucl_dir = pApp->res_db_dir;
+	std::string nucl_dir = pApp->res_db_dir.string();
 
 #if defined(INT_JUMNA)
 	strcpy_to_fort(&jmdirs_.libn[0], nucl_dir.c_str(),80);

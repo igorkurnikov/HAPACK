@@ -13,6 +13,7 @@
 
 #include "hastl.h"
 #include "hastring.h"
+#include <filesystem>
 
 #include <boost/algorithm/string.hpp>
 
@@ -799,27 +800,26 @@ get_Dalton_Bas_file_line(std::ifstream & is)
 
 bool HaAtBasDB::SetFromDaltonFile(const std::string& BName, const std::string & Atomlbl)
 {
-	std::string BasDir;
+	std::filesystem::path BasDir;
 
-    PrintLog(" Harlem Home Dir = %s\n",pApp->harlem_home_dir.c_str());
+    PrintLog(" Harlem Home Dir = %s\n",pApp->harlem_home_dir.string());
 
 	if(!pApp->harlem_home_dir.empty())
 	{
-		BasDir= pApp->harlem_home_dir;
-		BasDir+="basis/";
+		BasDir = pApp->harlem_home_dir / "basis";
 	}
 	
-	std::string BName_full(BasDir);
-	BName_full+=BName;
+	std::filesystem::path BName_full = BasDir / BName;
         
-        PrintLog(" Full Name of the basis file: %s \n",BName_full.c_str());
+        PrintLog(" Full Name of the basis file: %s \n",BName_full.string());
         
 //        BName_full = "/usr/local/lib/harlem/basis/3-21G";	
-		std::ifstream is(BName_full.c_str());
+
+	std::ifstream is(BName_full);
 	if(is.fail())
 	{
 		PrintLog("Error in HaAtBasDB::SetFromDaltonFile \n");
-		PrintLog("File %s is not found \n",BName_full.c_str());
+		PrintLog("File %s is not found \n",BName_full.string());
 		PrintLog("File QUQU  is not found \n");
 		return false;
 	}

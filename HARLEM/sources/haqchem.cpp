@@ -436,11 +436,10 @@ int HaQCMod::ProjMatToActBas(HaMat_double& fmat, HaMat_double& fmat_lb)
 		return TRUE;
 	}
 
-	std::string bas_type_1 = ActBas->GetClassName();
+	LinCombOrb3D* lcmb = dynamic_cast<LinCombOrb3D*>(ActBas);
 
-	if(bas_type_1 == "LinCombOrb3D")
+	if( lcmb )
 	{
-		LinCombOrb3D* lcmb = (LinCombOrb3D*)ActBas;
         LinCombOrb3D::Eval1eOp(lcmb,lcmb,fmat,fmat_lb);
 	}
 
@@ -1016,13 +1015,12 @@ bool HaQCMod::EvalLinCombOnGrid(const HaVec_double& orb_coef, ArrayOrb3D& bas_se
 	ny= mo_field.GetNy();
 	nz= mo_field.GetNz();
 
-	std::string bas_type = bas_set.GetClassName();
-	
-	if( bas_type == "GauBasisSet" )
+	GauBasisSet* p_gau_basis_set = dynamic_cast<GauBasisSet*>(&bas_set);
+ 	
+	if( p_gau_basis_set )
 	{
-		GauBasisSet& gau_bas = (GauBasisSet&)bas_set;
 		AtBasisType::iterator bitr;
-		for(bitr = gau_bas.at_bas_vec.begin(); bitr != gau_bas.at_bas_vec.end(); bitr++)
+		for(bitr = p_gau_basis_set->at_bas_vec.begin(); bitr != p_gau_basis_set->at_bas_vec.end(); bitr++)
 		{
 			ShellsType::iterator shitr;
 			const HaAtom* aptr= (*bitr).GetAtHost();
@@ -1052,11 +1050,12 @@ bool HaQCMod::EvalLinCombOnGrid(const HaVec_double& orb_coef, ArrayOrb3D& bas_se
 			}
 		}
 	}
-	else if( bas_type == "LinCombOrb3D" )
+	
+	LinCombOrb3D* p_lcmb = dynamic_cast<LinCombOrb3D*>(&bas_set);
+	if ( p_lcmb )
 	{
-		LinCombOrb3D& lcmb =  (LinCombOrb3D&) bas_set;
-		int norb = lcmb.GetNOrbs();
-		int nb_in = lcmb.bas->GetNBfunc();
+		int norb  = p_lcmb->GetNOrbs();
+		int nb_in = p_lcmb->bas->GetNBfunc();
 		HaVec_double cf_red(nb_in,0.0);
 
 		int i,j;
@@ -1064,10 +1063,10 @@ bool HaQCMod::EvalLinCombOnGrid(const HaVec_double& orb_coef, ArrayOrb3D& bas_se
 		{
 			for( j = 0; j < norb; j++)
 			{
-				cf_red[i] += orb_coef[j]*lcmb.coef.GetVal_idx0(i,j);
+				cf_red[i] += orb_coef[j]*p_lcmb->coef.GetVal_idx0(i,j);
 			}
 		}
-		EvalLinCombOnGrid(cf_red,*(lcmb.bas), mo_field);
+		EvalLinCombOnGrid(cf_red,*(p_lcmb->bas), mo_field);
 	}
 
 	if(False) // Print 3D field
@@ -1366,11 +1365,10 @@ int HaQCMod::InitHuckHam(HaMat_double& hmat, HaMat_double& ss, ArrayOrb3D& bas)
 	hmat.newsize(nb,nb);
 	hmat = 0.0;
 
-	std::string bas_type = bas.GetClassName();
+	GauBasisSet* pgbas = dynamic_cast<GauBasisSet*>(&bas);
 
-	if( bas_type == "GauBasisSet" )
+	if( pgbas )
 	{
-		GauBasisSet* pgbas = (GauBasisSet*) &bas;
 		int i;
 		for(i = 0; i < nb; i++)
 		{
@@ -1412,7 +1410,6 @@ int HaQCMod::InitHuckHam(HaMat_double& hmat, HaMat_double& ss, ArrayOrb3D& bas)
 	return FALSE;
 }
 
-
 bool HaQCMod::InitBasOvlp()
 {
 	if(AtBasis.GetNBfunc() != ovlp_mat.num_cols() ) 
@@ -1428,10 +1425,11 @@ int HaQCMod::GetNumAlphaEl(int active_bas) const
 
 	if(active_bas && ActBas != NULL)
 	{
-		std::string bas_type = ActBas->GetClassName();
-		if( bas_type == "GauBasisSet")
+		GauBasisSet* p_gbas = dynamic_cast<GauBasisSet*>(ActBas);
+
+		if(p_gbas)
 		{
-			nel = ((GauBasisSet*)ActBas)->GetNumElectr();
+			nel = p_gbas->GetNumElectr();
 		}
 	}
 	else
@@ -1448,12 +1446,13 @@ int HaQCMod::GetNumBetaEl(int active_bas) const
 {
 	int nel=0;
 
-	std::string bas_type = ActBas->GetClassName();
 	if(active_bas && ActBas != NULL)
 	{
-		if( bas_type == "GauBasisSet")
+		GauBasisSet* p_gbas = dynamic_cast<GauBasisSet*>(ActBas);
+
+		if( p_gbas )
 		{
-			nel = ((GauBasisSet*)ActBas)->GetNumElectr();
+			nel = p_gbas->GetNumElectr();
 		}
 	}
 	else
@@ -1781,7 +1780,7 @@ int HaQCMod::Run(const RunOptions* popt_par )
 	if( popt == NULL ) popt = &run_opt_default;
 
 	MolSet* pmset = GetMolSet();
-	HaGaussMod* p_gauss = pmset->GetGaussMod(true);
+	QCDriverGaussian* p_gauss = pmset->GetGaussMod(true);
 	p_gauss->SaveInpFile();
 	p_gauss->Run();
 	return TRUE;

@@ -22,8 +22,7 @@ namespace harlem
 	class Coord
 	{
 	public:
-		virtual std::string GetClassName() const = 0;   //!< Get Class Name of the Coordinate
-
+		
 		virtual Coord* clone() = 0;                   //!< Get a copy of coordinates
 		virtual HaVec_double AsVecDouble() const = 0;   //!< Transform Coordinates to a Vector of double values 
 		virtual int SetFrom(const Coord* pcrd) = 0;   //!< Set Coordinates from the other coordinate object   

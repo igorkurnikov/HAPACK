@@ -5,21 +5,6 @@
 #include <cstddef>
 #include <Python.h>
 
-#ifndef HA_NOGUI
-#include "wx/wxprec.h" 
-#include <wx/app.h>
-#include <wx/docmdi.h>
-#include <wx/image.h>
-#include <wx/tooltip.h>  
-#include <wx/filedlg.h>
-#include "wx/clipbrd.h"
-#include "wx/printdlg.h"
-
-#include "wx/wx.h"
-#include "wx/filename.h"  
-#include <wx/splitter.h>    
-#endif
-
 %}
          
 %include typemaps.i            
@@ -83,6 +68,7 @@ namespace std {
 #include "trajanal.h"
 #include "haenefunc.h"
 #include "haintermol.h"
+#include "haempirical.h"
 #include "etcoupl.h"
 #include "hamatdb.h"
 #include "hatypes.h"
@@ -129,7 +115,7 @@ void StartHarlemApp();
 %include "hatypes.h"
 %include "haconsts.h"
 %include "tinyxml.h"
-%include "haxml.h"
+// %include "haxml.h"
 %include "haobject.h"
 %include "halinalg.h"
 %include "command.h"

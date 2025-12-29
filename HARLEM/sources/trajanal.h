@@ -39,7 +39,6 @@ class TrajAnalAgent
 //! Abstract class for object to Compute properties along Simulation Trajectory 
 {
 public:
-	virtual std::string GetClassName() const { return "TrajAnalAgent"; };  //!< Get Class Name 
 	virtual int IsActive() const  { return TRUE; }                         //!< Check if module is activated
 	virtual void SetActive(int active_flag) {}  //!< Set active status (TRUE or FALSE)
 
@@ -54,7 +53,6 @@ public:
 	TrajIOAgent(MCSimulator* p_sim_new);
 	virtual ~TrajIOAgent();
 
-	virtual std::string GetClassName() const { return "TrajIOAgent"; }
 	virtual int IsActive() const;            //!< Check if module is activated
 	virtual void SetActive(int active_flag);  //!< Set active status (TRUE or FALSE)
 
@@ -103,7 +101,6 @@ public:
 	TraceMolAgent(MolSet* pmset_new);
 	virtual ~TraceMolAgent();
 
-	virtual std::string GetClassName() const { return "TraceMolAgent"; }
 	virtual int IsActive() const;            //!< Check if module is activated
 	virtual void SetActive(int active_flag);  //!< Set active status (TRUE or FALSE)
 
@@ -129,7 +126,6 @@ public:
 	UpdateMolViewNotifyAgent(MolSet* pmset_new);
 	virtual ~UpdateMolViewNotifyAgent();
 
-	virtual std::string GetClassName() const { return "UpdateMolViewNotifyAgent"; }
 	virtual int IsActive() const;            //!< Check if module is activated
 	virtual void SetActive(int active_flag);  //!< Set active status (TRUE or FALSE)
 

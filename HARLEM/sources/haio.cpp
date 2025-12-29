@@ -23,15 +23,11 @@
 #else 
 #include <io.h>
 #include <fcntl.h>
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <winbase.h>
 #include <errno.h>
 #endif
 
 #include "hampi.h"
 #include "harlemapp.h"
-
 
 // extern "C" DllExport 
 int PrintLogC(const char* str, ... )
@@ -100,8 +96,6 @@ int PrintLogCount(int type, const char* str,  ...)
 		}
 		else if (pApp->mpi_driver != NULL && pApp->mpi_driver->myrank == 0)
 		{
-			//		wxVLogGeneric(wxLOG_Message,str,arg_list);
-			//		wxVLogMessage(str,arg_list);
 			vprintf(str, arg_list);
 		}
 		else
@@ -110,8 +104,6 @@ int PrintLogCount(int type, const char* str,  ...)
 		}
 #endif
 	}
-
-	//	wxLog::OnLog(1,wxString::FormatV(str, arg_list),0);
 	va_end(arg_list);              /* Reset variable arguments.      */
 	return TRUE;
 }
@@ -234,36 +226,26 @@ int ErrorInMod(const char* module, const char* msg)
 
 int ha_copy_file(const char* src, const char* tgt, const int mode )
 {
-	int result;
-#ifdef _MSC_VER
-	BOOL fail_if_exist;
-	if(mode == 0) 
-		fail_if_exist = FALSE;
-	else
-		fail_if_exist = TRUE;
-	result = CopyFileA(src, tgt, fail_if_exist);
-#else
-	std::string cmd;
-	cmd = " cp ";
-	cmd += src;
-	cmd += " ";
-	cmd += tgt;
-	system(cmd.c_str());
-	result = 1;
-#endif
-	return result;
+	namespace fs = std::filesystem;
+
+	std::error_code ec;
+	fs::copy_options opts = (mode == 0)
+		? fs::copy_options::overwrite_existing
+		: fs::copy_options::none;
+
+	bool ok = fs::copy_file(fs::path(src), fs::path(tgt), opts, ec);
+	if (!ok || ec) return 0;   // 0 == failure (matches CopyFileA FALSE)
+	return 1;                  // 1 == success
 }
 
 int ha_delete_file(const char* fname )
 {
-	int result;
-#ifdef _MSC_VER
-	_unlink(fname);
-#else
-	unlink(fname);
-#endif
-	result = 1;
-	return result;
+	namespace fs = std::filesystem;
+
+	std::error_code ec;
+	const bool removed = fs::remove(fs::path(fname), ec); // removed==false if not found
+	if (ec || !removed) return 0;
+	return 1;
 }
 
 

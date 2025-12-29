@@ -23,6 +23,7 @@
     <ClCompile Include="..\HARLEM\sources\hachart_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
+    <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\ctrl_wx.h" />

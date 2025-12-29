@@ -147,15 +147,15 @@ int MMForceField::InitMortFF()
 	int i;
 	try 
 	{
-		std::string amber_lib_dir;
-		std::string amber_parm_dir;
-		amber_lib_dir  = pApp->res_db_dir + "amber_lib"  + path_sep;
-		amber_parm_dir = pApp->res_db_dir + "amber_parm" + path_sep;
+		std::filesystem::path amber_lib_dir;
+		std::filesystem::path amber_parm_dir;
+		amber_lib_dir  = pApp->res_db_dir / "amber_lib";
+		amber_parm_dir = pApp->res_db_dir / "amber_parm";
 
 		for( i = 0; i < res_files.size(); i++)
 		{
-			std::string res_fname = amber_lib_dir + res_files[i];
-			std::ifstream stream( res_fname.c_str() );
+			std::filesystem::path res_fpath = amber_lib_dir / res_files[i];
+			std::ifstream stream( res_fpath );
 			if( !stream.is_open() )
 			{
 				std::string msg = "Can not open residue file ";
@@ -181,8 +181,8 @@ int MMForceField::InitMortFF()
 			{
 //				std::string parm_path = amber_parm_dir + parm_files[i];
 				std::string parm_path = tinker_param_files[i];
-				PrintLog(" Loading Parameter File %s \n", parm_path.c_str());
-				std::ifstream stream_parm( parm_path.c_str() );
+				PrintLog(" Loading Parameter File %s \n", parm_path);
+				std::ifstream stream_parm( parm_path );
 				mort::read_amoeba_frc( stream_parm, (*p_mort_ff->p_atomff), (*p_mort_ff->p_poleff ) );
 			}
 		}
@@ -191,9 +191,9 @@ int MMForceField::InitMortFF()
 		{
 			for( i = 0; i < parm_files.size(); i++)
 			{
-				std::string parm_path = amber_parm_dir + parm_files[i];
-				PrintLog(" Loading Parameter File %s \n", parm_path.c_str());
-				std::ifstream stream_parm( parm_path.c_str() );
+				std::filesystem::path parm_path = amber_parm_dir / parm_files[i];
+				PrintLog(" Loading Parameter File %s \n", parm_path.string() );
+				std::ifstream stream_parm( parm_path );
 				mort::read_frc( stream_parm, (*p_mort_ff->p_atomff) );
 			}	
 			p_mort_ff->p_atomff->set_s(mort::NAME,"_amberffp");

@@ -86,7 +86,7 @@ public:
 	int compute_pk;    //!< flag to compute dynamical changes of pKs of ionizable groups in binding
     int electr_model;  //!< method to compute electrostatic energy (NO_ELECTR=0, CONTINUUM_ELECTR = 1, COULOMB_ELECTR = 2, CHARGES_IN_FIELD_ELECTR = 3)
 	int calc_et_rate;  //!< Flag to add to the energy the effective addition from ET rate, default = 0 
-	int empirical_flag;  //!< run simulations with empirical potential
+	int _flag;  //!< run simulations with  potential
 
 public:
 	InterMolMCSimulator*      p_mc_sim;        //!< MC Simulator
@@ -123,7 +123,7 @@ public:
 	int equil_conf_vol_vdw;   //!< if TRUE run equilibration trajectory in a confined volume with volume constraint
 	int amber_flag;      //!< run energy minimization of the system on each step of MC trajectory
 	int rex_flag;        //!< turn on replica exchange
-	int xy_mc_flag;      //!< flag to run RunMCEmpiricalXY()
+	int xy_mc_flag;      //!< flag to run RunMCXY()
 
     int mc_steps_betw_loc_min;  //!< Number of MC steps between local minimization runs 
 	
@@ -140,10 +140,10 @@ public:
 	virtual int IncrementCrd(harlem::Coord* pcrd); //!< Make a MC move changing coordinates of the system 
 	virtual int SetCoord(harlem::Coord* pcrd);     //!< Set Coordinates of the system for pcrd
 
-	int RunMCEmpirical() ;     //!< run MC using empirical scoring function
+	int RunMC() ;     //!< run MC using  scoring function
 	int RunMCQuantSampling();  //!< run MC in XYZ using N cylinders and quantitative sampling analysis
-	int RunMCEmpiricalXY();    //!< run MC in XY plane using smooth cylinders
-    int RunMCEmpiricalNMA() ;  //!<  run MC using empirical scoring function and Normal Modes
+	int RunMCXY();    //!< run MC in XY plane using smooth cylinders
+    int RunMCNMA() ;  //!<  run MC using  scoring function and Normal Modes
 	int RunQuasiREM();         //!< Run "quasi" replica exchange on single processor
 
 	int SetDiscretizedMoves(); //!< Set Discretized Moves

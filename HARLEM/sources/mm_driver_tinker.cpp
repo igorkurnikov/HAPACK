@@ -38,25 +38,33 @@ int MMDriverTinker::SaveAllInpFiles()
 
 int MMDriverTinker::InitFFNumMap()
 {
-    DIR *dir = opendir(pApp->res_db_dir.c_str());    
-    if(dir)
-    {
-        struct dirent *entry;
-        while((entry = readdir(dir)) != 0)
-        {
-//            PrintLog( " res file %s \n",entry->d_name);
-			std::string prm_file_name = entry->d_name;
-			if( boost::starts_with(prm_file_name,"prm_") && boost::ends_with(prm_file_name,".xml") )
+	namespace fs = std::filesystem;
+
+	std::error_code ec;
+	const fs::path res_dir = pApp->res_db_dir;
+
+	if (fs::exists(res_dir, ec) && fs::is_directory(res_dir, ec))
+	{
+		for (const fs::directory_entry& de : fs::directory_iterator(res_dir, ec))
+		{
+			if (ec) break;
+
+			if (!de.is_regular_file(ec)) continue;
+
+			const std::string fname = de.path().filename().string();
+			if (boost::starts_with(fname, "prm_") && boost::ends_with(fname, ".xml"))
 			{
-				LoadFFNumMapFromFile(prm_file_name.c_str());
+				LoadFFNumMapFromFile(de.path().string().c_str());
 			}
-        }
-        closedir(dir);
-		to_init_ff_map = FALSE;
+		}
+
+		if (!ec) {
+			to_init_ff_map = FALSE;
+		}
     }
     else
     {
-        ErrorInMod("HaResDB::Init()"," Can't find residue template directory "); 
+        PrintLog("HaResDB::Init():  Can't find residue template directory %s ", res_dir.string());
 		return FALSE;
     }
 	return TRUE;

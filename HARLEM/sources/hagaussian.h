@@ -10,19 +10,20 @@
 #define HAGAUSSIAN_H
 
 #include "hacompmod.h" 
+#include <boost/process.hpp>
 
 namespace harlem
 {
 	class RunOptions;
 };
 
-class HaGaussMod: public HaCompMod
+class QCDriverGaussian: public HaCompMod
 //!  Class to control quantum chemical calculations with the GAUSSIAN program   
 {
 public:
 
-	HaGaussMod(MolSet* new_phost_mset);
-	virtual ~HaGaussMod();
+	QCDriverGaussian(MolSet* new_phost_mset);
+	virtual ~QCDriverGaussian();
 
 	friend class QChemParDlgWX;
 
@@ -35,7 +36,8 @@ public:
 	int LoadOutSummary( std::string summary_str ); //!< Load info from summary string of Gaussian output 
 
 	int Run(const harlem::RunOptions* popt = NULL); //!< Run GAUSSIAN program ( if sync == TRUE - no return before GAUSSIAN process exited )
-	int RunFormChk(const char* fname_chk, const char* fname_fchk); //!< Convert checkpoint(or rwf) file to Formatted form using formchk program
+	int RunFormChk(std::string fname_chk, std::string fname_fchk); //!< Convert checkpoint(or rwf) file to Formatted form using formchk program
+	bool Stop(); //!< Stop Calculations
 
 	static void PrintCurBcommon(); //!< Print Gaussian common/B/ 
     
@@ -80,8 +82,6 @@ public:
 	void SetNoStdOrient( bool set_par = true );
 	void SetSaveBasisSetGen( bool set_par = true ); //!< Set Saving Basis Set as generic 
 
-	
-
 protected:
  
 	HaQCMod* p_qc_mod;     //!< The pointer to Quantum Chemical module associated with the Gaussian module 
@@ -108,6 +108,15 @@ protected:
 	bool read_init_geom_chk_file; //!< read initial geometry from checkpoint file
 	bool read_hf_guess_chk_file;  //!< read inital guess of Hatree Fock functions from Checkpoint File 
 	bool save_basis_set_gen; //!< save basis set to gaussian input file as generic 
+
+	// Keep handles alive for async mode
+	std::shared_ptr<boost::process::child> child_;
+	std::thread watcher_;
+	std::atomic<bool> running_{ false };            //!< Flag to indicate that the external Gaussian process is running 
+	//std::atomic<bool> stop_requested_{ false };     //!< Flag to indicate that termination of the Gaussian process is requested
+
+	void CleanupAsync(); //!< Set running state to false - thread safe
+	void OnGaussianTerminate(int pid, int exit_code);
 
 };
 

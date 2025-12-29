@@ -761,7 +761,7 @@ int HaMolView::ComputeRevColourMap()
 
 
 void HaMolView::RefreshColors()
-//! This function is called in HaMolViewWX::RefreshScreen
+//! This function is called in HaMolViewWX::RefreshScreen()
 //! when RFColour flag in ReDrawFlag is set
 //!
 //! Management of colors in HARLEM:

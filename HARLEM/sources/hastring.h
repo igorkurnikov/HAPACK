@@ -61,6 +61,7 @@ namespace harlem
 	bool IsInt  (const std::string& str);    //!< Check if the string integer number
 	std::string ToString(int ival);   //!< Convert integer value to String
 	double ToDouble(std::string str); //!< Convert string to double  
+	int ToInt(std::string str);       //!< Convert string to Integer
 
 	std::string StdXMLHeader();      //!< first line of XML files created by HARLEM 
 	std::string HarlemDataHeader();  //!< main element (HARLEM_DATA) header of XML files ceated by HARLEM

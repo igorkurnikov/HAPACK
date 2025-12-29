@@ -794,15 +794,18 @@ int HaOperR::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
 {
 	if(pbas1 == NULL) return FALSE;
     
-	std::string bas_type = pbas1->GetClassName();
-	if(bas_type == "GauBasisSet")
+	GauBasisSet* p_gau_bas_1 = dynamic_cast<GauBasisSet*>(pbas1);
+
+	if( p_gau_bas_1 )
 	{
-		return EvalGauBasisSet((GauBasisSet*)pbas1,rmats);
+		return EvalGauBasisSet( p_gau_bas_1 ,rmats);
 	}
-	if(bas_type == "LinCombOrb3D")
+
+	LinCombOrb3D* lcmb1 = dynamic_cast<LinCombOrb3D*>(pbas1);
+
+	if(lcmb1)
 	{
         HaMat_doubleArr rmat_b;
-		LinCombOrb3D* lcmb1 = (LinCombOrb3D*) pbas1;
         int ires = FillMat(lcmb1->bas,rmat_b);
 		if(!ires || rmat_b.size() != 3) return FALSE;
 		if(rmats.size() != 3) rmats.resize(3);
@@ -816,19 +819,22 @@ int HaOperR::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
 	return FALSE;
 }
 
-int
-HaOperRDelt::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
+int HaOperRDelt::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
 {
 	if(pbas1 == NULL) return FALSE;
-	std::string bas_type_1 = pbas1->GetClassName();
-	if(bas_type_1 == "GauBasisSet")
+
+	GauBasisSet* p_gau_bas = dynamic_cast<GauBasisSet*>(pbas1);
+
+	if( p_gau_bas )
 	{
-		return EvalGauBasisSet((GauBasisSet*)pbas1,rmats);
+		return EvalGauBasisSet(p_gau_bas,rmats);
 	}
-	if(bas_type_1 == "LinCombOrb3D")
+
+	LinCombOrb3D* lcmb1 = dynamic_cast<LinCombOrb3D*>(pbas1);
+
+	if(lcmb1)
 	{
         HaMat_doubleArr rmat_b;
-		LinCombOrb3D* lcmb1 = (LinCombOrb3D*)pbas1;
         int ires = FillMat(lcmb1->bas,rmat_b);
 		if(!ires || rmat_b.size() != 3) return FALSE;
 		if(rmats.size() != 3) rmats.resize(3);
@@ -842,20 +848,22 @@ HaOperRDelt::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
 	return FALSE;
 }
 
-int
-HaOperGrad::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
+int HaOperGrad::FillMat(HaBasisSet* pbas1, HaMat_doubleArr& rmats)
 {
 	if(pbas1 == NULL) return FALSE;
 
-	std::string bas_type_1 = pbas1->GetClassName();
-	if(bas_type_1 == "GauBasisSet" )
+	GauBasisSet* p_gau_bas = dynamic_cast<GauBasisSet*>(pbas1);
+
+	if( p_gau_bas )
 	{
-		return EvalGauBasisSet((GauBasisSet*)pbas1,rmats);
+		return EvalGauBasisSet(p_gau_bas,rmats);
 	}
-	if(bas_type_1 == "LinCombOrb3D")
+
+	LinCombOrb3D* lcmb1 = dynamic_cast<LinCombOrb3D*>(pbas1);
+
+	if(lcmb1)
 	{
         HaMat_doubleArr rmat_b;
-		LinCombOrb3D* lcmb1 = (LinCombOrb3D*)pbas1;
         int ires = FillMat(lcmb1->bas,rmat_b);
 		if(!ires || rmat_b.size() != 3) return FALSE;
 		if(rmats.size() != 3) rmats.resize(3);

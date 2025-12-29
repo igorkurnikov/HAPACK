@@ -497,9 +497,9 @@ HaVec_double DihedralAngleCoord::AsVecDouble() const
 
 int DihedralAngleCoord::SetFrom(const Coord* pcrd)
 {
-	if( pcrd->GetClassName() != "DihedralAngleCoord") return FALSE;
-	DihedralAngleCoord* p_da_crd = (DihedralAngleCoord*) pcrd;
-
+	auto p_da_crd = dynamic_cast<const DihedralAngleCoord*>(pcrd);
+	if (!p_da_crd) return FALSE;
+	
 	aptr1 = p_da_crd->aptr1;
 	aptr2 = p_da_crd->aptr2;
 	aptr3 = p_da_crd->aptr3;

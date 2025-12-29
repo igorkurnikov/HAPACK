@@ -171,7 +171,6 @@ public:
     virtual ~DihedralAngleCoord();
 
 // Virtual from HaCoord:
-	virtual std::string GetClassName() const { return "DihedralAngleCoord";}  //!< Get Class Name of the Coordinate
 
 	virtual harlem::Coord* clone();                     //!< Get a copy of coordinates
 	virtual HaVec_double AsVecDouble() const;     //!< Transform Coordinates to a Vector of double values 

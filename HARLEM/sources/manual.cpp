@@ -50,7 +50,7 @@
 
   In the design of computational algorithms for quantum chemical problems a very important
 and probably most time-consuming part is the design of a computer code, which implement
-this algorithm. A wide use of ab initio and semiempirical methods for electronic struc-
+this algorithm. A wide use of ab initio and semi methods for electronic struc-
 ture calculations in a great part due to the availability of su.ciently convinient Quantum
 Chemical programs. "Black Box" program packages GAUSSIAN, SPARTAN, GAMESS,
 MOPAC, HYPERCHEM and others allowed increasingly wide community of scientists to

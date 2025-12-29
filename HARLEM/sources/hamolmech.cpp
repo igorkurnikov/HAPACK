@@ -476,9 +476,11 @@ int HaMolMechMod::ControlCalc()
 		}
 		if(!run_internal_flag && to_stop_simulations)
 		{
-			PrintLog("Killing External MM Process: %ld \n", ext_proc_id);  
-			HarlemApp::KillProc(ext_proc_id);
-			to_stop_simulations = FALSE;
+			// Rewrite with STD C++ and boost
+			// 
+			//PrintLog("Killing External MM Process: %ld \n", ext_proc_id);  
+			//HarlemApp::KillProc(ext_proc_id);
+			//to_stop_simulations = FALSE;
 		}
 		if(update_view_flag && update_time < Time::now() )
 		{
@@ -500,13 +502,15 @@ int HaMolMechMod::ControlCalc()
 		}
 		else
 		{
-			int active_flag = HarlemApp::CheckProcIsActive(ext_proc_id);
-			if(!active_flag)
-			{
-				ext_proc_id = 0;
-				PrintLog("External Molecular Mechanics Execution Process has completed");
-				break;
-			}
+			// Rewrite with STD C++ and boost
+
+			//int active_flag = HarlemApp::CheckProcIsActive(ext_proc_id);
+			//if(!active_flag)
+			//{
+			//	ext_proc_id = 0;
+			//	PrintLog("External Molecular Mechanics Execution Process has completed");
+			//	break;
+			//}
 		}
 	}
 	return TRUE;

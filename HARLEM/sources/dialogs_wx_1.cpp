@@ -2050,7 +2050,7 @@ bool QChemParDlgWX::TransferDataFromWindow()
 
 	long ival;
 	wxString str;
-	HaGaussMod* p_gauss_mod = pmset->GetGaussMod(true);
+	QCDriverGaussian* p_gauss_mod = pmset->GetGaussMod(true);
 
 	check_ctrl = (wxCheckBox*) FindWindow(IDC_QC_SAVE_BASIS_GEN);
 	p_gauss_mod->SetSaveBasisSetGen( check_ctrl->GetValue() );
@@ -2115,7 +2115,7 @@ bool QChemParDlgWX::TransferDataToWindow()
 
 	long ival;
 	wxString str;
-	HaGaussMod* p_gauss_mod = pmset->GetGaussMod(true);
+	QCDriverGaussian* p_gauss_mod = pmset->GetGaussMod(true);
 
 	check_ctrl = (wxCheckBox*) FindWindow(IDC_QC_SAVE_BASIS_GEN);
 	check_ctrl->SetValue( p_gauss_mod->save_basis_set_gen );
@@ -2169,7 +2169,7 @@ void QChemParDlgWX::OnSaveInpFile(wxCommandEvent& event)
 	
 	if( isel == 1 )
 	{
-		HaGaussMod* gauss_mod = pmset->GetGaussMod(true);
+		QCDriverGaussian* gauss_mod = pmset->GetGaussMod(true);
         gauss_mod->SetFilePrefix(str.c_str());
 		gauss_mod->SaveInpFile();
 	}
@@ -2223,7 +2223,7 @@ void QChemParDlgWX::OnRunCalc(wxCommandEvent& event)
 
 	if( imeth == 1)
 	{
-		HaGaussMod* gauss_mod = pmset->GetGaussMod(true);
+		QCDriverGaussian* gauss_mod = pmset->GetGaussMod(true);
 		gauss_mod->SaveInpFile();
 		harlem::RunOptions ropt;
 		if( ifg == 0 ) ropt.SetRunSync( false );
@@ -2258,8 +2258,8 @@ void QChemParDlgWX::OnRunCalc(wxCommandEvent& event)
 void QChemParDlgWX::OnConvertChkToFchk(wxCommandEvent& event)
 {
 	MolSet* pmset = p_qc_mod->GetMolSet();
-	HaGaussMod* gauss_mod = pmset->GetGaussMod(true);
-	gauss_mod->RunFormChk(gauss_mod->GetCHKFileName().c_str(),gauss_mod->GetFCHKFileName().c_str());
+	QCDriverGaussian* gauss_mod = pmset->GetGaussMod(true);
+	gauss_mod->RunFormChk(gauss_mod->GetCHKFileName(),gauss_mod->GetFCHKFileName());
 }
 
 void QChemParDlgWX::OnStopCalc(wxCommandEvent& event) 

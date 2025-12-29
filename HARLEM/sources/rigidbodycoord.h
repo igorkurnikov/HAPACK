@@ -21,9 +21,7 @@ namespace harlem
 	public:
 		RigidBodyCoord();
 		RigidBodyCoord( const RigidBodyCoord& ref );
-		virtual ~RigidBodyCoord();
-
-		virtual std::string GetClassName() const { return "RigidBodyCoord"; } 
+		virtual ~RigidBodyCoord(); 
 
 		virtual harlem::Coord* clone(); 
 		virtual int SetFrom(const harlem::Coord* pcrd);
@@ -73,7 +71,6 @@ namespace harlem
 
 		virtual harlem::Coord* clone(); 
 		virtual int SetFrom(const harlem::Coord* pcrd); 
-		virtual std::string GetClassName() const { return "RigidBodyCoordDiscretized"; } 
 
 		virtual void SetNumObj(int n_obj_new);    //!< Set Number of objects which positions are described by these coordinates
 

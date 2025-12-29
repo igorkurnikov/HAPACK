@@ -46,7 +46,7 @@ namespace harlem
 //! \nosubgrouping
 class HaQCMod: public HaCompMod
 {
-	friend class HaGaussMod;
+	friend class QCDriverGaussian;
 	friend class QChemParDlgWX;
 	friend class HaTests;
 
@@ -342,7 +342,7 @@ protected:
 	static harlem::RunOptions run_opt_default;
 
 	bool calc_polar; //!< Calculate polarizabilties flag
-
+ 
 };
 
 extern "C"

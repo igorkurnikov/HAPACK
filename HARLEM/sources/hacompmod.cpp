@@ -22,11 +22,11 @@
 #include "haintermol.h"
 #include "hamolmech.h"
 #include "hascattermod.h"
+#include "haempirical.h"
 #include "stmmod.h"
 #include "nuclacidmod.h"
 #include "hazindo.h"
 #include "protonredox.h"
-#include "haempirical.h"
 #include "apbsmod.h"
 #include "elmod.h"
 #include "haflexmod.h"
@@ -79,7 +79,7 @@ HaCompMod* HaCompMod::CreateCompMod( const int mtype, MolSet* new_phost_mset )
 	}
 	else if ( mtype == COMP_MOD_GAUSSIAN )
 	{
-		pmod = new HaGaussMod(new_phost_mset);
+		pmod = new QCDriverGaussian(new_phost_mset);
 	}
 	else if ( mtype == COMP_MOD_DALTON )
 	{

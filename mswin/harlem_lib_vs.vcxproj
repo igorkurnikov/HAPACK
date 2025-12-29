@@ -203,6 +203,7 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_2.cpp" />
+    <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_aux_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_ed_wdr.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_res_2_wdr.cpp" />

@@ -1251,7 +1251,7 @@ void HaTests::dump_mol_info()
 
 void HaTests::dump_gauss_bcommon()
 {
-	HaGaussMod::PrintCurBcommon();
+	QCDriverGaussian::PrintCurBcommon();
 }
 
 void HaTests::dump_overlap()

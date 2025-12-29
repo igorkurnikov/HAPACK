@@ -3417,12 +3417,12 @@ int MolEditor::Solvate(MolSet* pmset)
 	MolSet* cur_mol_set = GetCurMolSet();
 
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
-	std::string solv_fname = pApp->res_db_dir + solv_name + ".hlm";
-	FILE* solv_file = fopen(solv_fname.c_str(),"r");
+	std::filesystem::path solv_path = pApp->res_db_dir / (solv_name + ".hlm");
+	FILE* solv_file = fopen(solv_path.string().c_str(),"r");
 	if(solv_file == NULL)
 	{
 		PrintLog("Error In MolEditor::Solvate() \n");
-	    PrintLog(" No solvent file %s in the residues_db directory", solv_fname.c_str() );
+	    PrintLog(" No solvent file %s in the residues_db directory", solv_path.string() );
 		return FALSE;
 	}
 	fclose(solv_file);
@@ -3449,12 +3449,12 @@ int MolEditor::Solvate(MolSet* pmset)
 	pmset->GetMinMaxCrd(xmin, ymin, zmin, xmax, ymax, zmax);
 	
 	MolSet* solvent = new MolSet();
-	solvent->LoadHarlemFile(solv_fname.c_str());
+	solvent->LoadHarlemFile(solv_path.string());
 
     if( !solvent->per_bc->IsSet() )
 	{
 		PrintLog("MolEditor::Solvate() \n");
-	    PrintLog("Solvent file %s Does not have periodic box information \n", solv_fname.c_str());
+	    PrintLog("Solvent file %s Does not have periodic box information \n", solv_path.string());
 	      
 //		delete solvent; // some errors when deleting solvent  TO FIX ?
 

@@ -14,9 +14,9 @@
 #include "mm_force_field.h"
 
 #if defined(SWIG) 
-%template(vector_MMDihedral)  vector<MMDihedral>; 
-%template(vector_VdWContact)  vector<AtomContact>;
-%template(vector_MMBond)      vector<MMBond>;	
+%template(vector_MMDihedral)  std::vector<MMDihedral>; 
+%template(vector_VdWContact)  std::vector<AtomContact>;
+%template(vector_MMBond)      std::vector<MMBond>;
 #endif
 
 class AmberMMModel;

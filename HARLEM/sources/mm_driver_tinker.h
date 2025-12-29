@@ -18,8 +18,6 @@ public:
 	MMDriverTinker(HaMolMechMod* p_mm_mod_new);
 	virtual ~MMDriverTinker();
 
-	virtual std::string GetClassName() { return "MMDriverTinker"; }
-
 	virtual int CalcEnergy() { return FALSE;} //!< Calculate energy of the system and save results to p_mm_info member of p_mm_mod
 	virtual int SaveAllInpFiles(); //!< Save input files for Tinker 
 

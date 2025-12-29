@@ -2813,16 +2813,15 @@ int ETCouplMod::LoadFragmHeffXml(FILE* file_inp)
 		return FALSE;
 	}
 
-	std::string bas_type = this->ptr_qc_mod->ActBas->GetClassName();
+	GauBasisSet* act_bas = dynamic_cast<GauBasisSet*>(this->ptr_qc_mod->ActBas);
 	
-	if( bas_type != "GauBasisSet")
+	if( !act_bas)
 	{
 		PrintLog("Error in ETCouplMod::LoadFragmHeffXml() \n");
 		PrintLog("Active Basis is not GauBasisSet - not supported yet \n");
 		return FALSE;
 	}
 
-	GauBasisSet* act_bas = (GauBasisSet*) this->ptr_qc_mod->ActBas;
     int nb = act_bas->GetNBfunc();
 
 	if(heff_mat.num_rows() != nb || heff_mat.num_cols() != nb ) 

@@ -211,16 +211,21 @@ int HaIntEngine::IntCanonToSq(double *pcan, HaMat_double & SqInt, int N)
 int HaBasisSet::CalcOvlpMat(const HaBasisSet* pbas1, const HaBasisSet* pbas2, HaMat_double& ovlp_mat)
 {
 	if( pbas1 == NULL || pbas2 == NULL) return FALSE;
-	std::string bas_type_1 = pbas1->GetClassName();
-	std::string bas_type_2 = pbas2->GetClassName();
 
-	if(bas_type_1 == "GauBasisSet" || bas_type_2 == "GauBasisSet" )
+	const GauBasisSet* p_gbas_1 = dynamic_cast<const GauBasisSet*>(pbas1);
+	const GauBasisSet* p_gbas_2 = dynamic_cast<const GauBasisSet*>(pbas2);
+
+	if( p_gbas_1  && p_gbas_2 )
 	{
-		return GauBasisSet::CalcOvlpMat((GauBasisSet*)pbas1,(GauBasisSet*)pbas2,ovlp_mat);
+		return GauBasisSet::CalcOvlpMat((GauBasisSet*)p_gbas_1,(GauBasisSet*)p_gbas_2,ovlp_mat);
 	}
-	if(bas_type_1 == "LinCombOrb3D" || bas_type_2 == "LinCombOrb3D" )
+
+	const LinCombOrb3D* p_lin_comb_orb_1 = dynamic_cast<const LinCombOrb3D*>(pbas1);
+	const LinCombOrb3D* p_lin_comb_orb_2 = dynamic_cast<const LinCombOrb3D*>(pbas2);
+
+	if( p_lin_comb_orb_1 && p_lin_comb_orb_2 )
 	{
-        return LinCombOrb3D::CalcOvlpMat((LinCombOrb3D*)pbas1, (LinCombOrb3D*)pbas2, ovlp_mat);
+        return LinCombOrb3D::CalcOvlpMat((LinCombOrb3D*)p_lin_comb_orb_1, (LinCombOrb3D*)p_lin_comb_orb_2, ovlp_mat);
 	}
 	return FALSE;
 }
@@ -230,14 +235,12 @@ int HaBasisSet::CalcOvlpMat(const HaBasisSet* pbas1, const HaBasisSet* pbas2, Ha
 //HaIntEngine::Eval1eOp(HaBasisSet* pbas1, HaBasisSet* pbas2, HaMat_double& oper_mat,int oper_type)
 //{
 //	if( pbas1 == NULL || pbas2 == NULL) return FALSE;
-//	std::string bas_type_1  = pbas1->GetClassName();
-//	std::string bas_type_2 = pbas2->GetClassName();
 //
-//	if(bas_type_1 == "GauBasisSet" || bas_type_2 == "GauBasisSet" )
+//	if( dynamic_cast<GauBasisSet*>(pbas1) && dynamic_cast<GauBasisSet*>(pbas2) )
 //	{
 //		return GauBasisSet::Eval1eOp((GauBasisSet*)pbas1,(GauBasisSet*)pbas2,oper_mat);
 //	}
-//	if(bas_type_1 == "LinCombOrb3D" || bas_type_2 == "LinCombOrb3D" )
+//	if( ynamic_cast<LinCombOrb3D*>(pbas1) && dynamic_cast<LinCombOrb3D*>(pbas2) )
 //	{
 //      return LinCombOrb3D::Eval1eOp((LinCombOrb3D*)pbas1, (LinCombOrb3D*)pbas2, oper_mat);
 //	}

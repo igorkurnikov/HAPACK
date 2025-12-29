@@ -451,6 +451,16 @@ double harlem::ToDouble(std::string str)
 	return dval;
 }
 
+int harlem::ToInt(std::string str)
+{
+	int ival = 0;
+	std::istringstream is(str);
+	is >> ival;
+	return ival;
+
+}
+
+
 std::string harlem::StdXMLHeader()
 {
 	return "<?xml version=\"1.0\" encoding=\"ISO-8859-15\" ?>";

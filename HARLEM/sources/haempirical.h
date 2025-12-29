@@ -18,7 +18,6 @@ class HaMolecule;
 #include "halinalg.h"
 #include "vec3d.h"
 #include "haatom.h"
-#include "wx/tokenzr.h"
 #include "hasurface.h"
 #include "mm_elements.h"
 #include "mm_model.h"
@@ -167,10 +166,10 @@ protected:
 	Vec3DValArray axis_arr;//  Array of helix longest axes
     HaVec_double la_value; //Array of lipid accessibility values (LA scale)
     HaVec_double la_weight_value; //Array of lipid accessibility weights (LA scale)
-	wxArrayString residue_arr; //Array of residue names (LA scale)
+	std::vector<std::string> residue_arr; //Array of residue names (LA scale)
 	HaVec_double sc_vdwradius; // UNRES SC radius
-	wxArrayString residue_unres_arr ; //// UNRES residues
-	wxArrayString pairwise_name_arr ; //// Pairwise potential, residue raw names
+	std::vector<std::string> residue_unres_arr ; //// UNRES residues
+	std::vector<std::string> pairwise_name_arr ; //// Pairwise potential, residue raw names
 	HaField3D pairwise_energy_arr; //// Pairwise potential, residue energy values
 	HaField3D pairwise_energy_arr_sa; //// Pairwise potential, residue energy values for solvent accesible residues
 	int com_flag; // flag to perform calculation of function
@@ -268,7 +267,7 @@ public:
 	VecPtr segment_vec; //!< contains the ends of helix segments
 	VecPtr atm_sc_array; // array of sidechain atom pointers
 	VecPtr atm_ca_array; // array of Calpha atom pointers
-	wxArrayString residue_unres_arr ; //// UNRES residues
+	std::vector<std::string> residue_unres_arr ; //// UNRES residues
 	double anglevar;
 
 protected:

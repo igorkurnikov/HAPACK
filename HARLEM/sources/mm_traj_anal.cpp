@@ -861,48 +861,39 @@ void MDTrajAnalMod::PrintAgents()
 }
 
 
-TrajAnalAgent* MDTrajAnalMod::GetTrajAnalAgent(const char* agent_class_name, int create_flag)
-{
-	TrajAnalAgent* p_agent = NULL;
-	int i;
-	int n = agents.size();
-	for(i = 0; i < n; i++)
-	{
-		if (agents[i]->GetClassName() ==  agent_class_name)
-		{
-			p_agent = agents[i];
-			break;
-		}
-	}
-	return p_agent;
-}
-
-
 RMSDAgent* MDTrajAnalMod::GetRMSDAgent( int create_flag )
 {
-	RMSDAgent* p_agent = (RMSDAgent*) GetTrajAnalAgent("RMSDAgent", FALSE );
-	if( p_agent != NULL) return p_agent;
-	p_agent = NULL;
+	RMSDAgent* p_rmsd_agent = nullptr;
+	for (TrajAnalAgent* p_agent : agents)
+	{
+		p_rmsd_agent = dynamic_cast<RMSDAgent*>(p_agent);
+		if (p_rmsd_agent) return p_rmsd_agent;
+	}
+	
 	if( create_flag ) 
 	{
-		p_agent = new RMSDAgent();
-		agents.push_back(p_agent);
-		p_agent->SetMolSet(pmset);
+		p_rmsd_agent = new RMSDAgent();
+		agents.push_back(p_rmsd_agent);
+		p_rmsd_agent->SetMolSet(pmset);
 	}
-	return p_agent;
+	return p_rmsd_agent;
 }
 
 AtomCorrAgent*  MDTrajAnalMod::GetAtomCorrAgent( int create_flag )
 {
-	AtomCorrAgent* p_agent = (AtomCorrAgent*) GetTrajAnalAgent("AtomCorrAgent", FALSE );
-	if( p_agent != NULL) return p_agent;
-	p_agent = NULL;
-	if( create_flag ) 
+	AtomCorrAgent* p_atcorr_agent = nullptr;
+	for (TrajAnalAgent* p_agent : agents)
 	{
-		p_agent = new AtomCorrAgent(pmset);
-		agents.push_back(p_agent);
+		p_atcorr_agent = dynamic_cast<AtomCorrAgent*>(p_agent);
+		if (p_atcorr_agent) return p_atcorr_agent;
 	}
-	return p_agent;
+
+	if (create_flag)
+	{
+		p_atcorr_agent = new AtomCorrAgent(pmset);
+		agents.push_back(p_atcorr_agent);
+	}
+	return p_atcorr_agent;
 }
 
 HaMolMechMod* MDTrajAnalMod::GetMolMechMod()
@@ -1770,12 +1761,7 @@ MDTrajectoryIOAgent::MDTrajectoryIOAgent(MMDriverAmber* p_mm_driver_new)
 MDTrajectoryIOAgent::~MDTrajectoryIOAgent()
 {
 
-}
-
-std::string MDTrajectoryIOAgent::GetClassName() const 
-{ 
-	return "MDTrajectoryIOAgent";
-}  
+} 
 
 int MDTrajectoryIOAgent::Init()
 {	

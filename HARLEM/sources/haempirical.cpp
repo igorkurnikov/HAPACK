@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <memory>
 
+#include <boost/algorithm/string/predicate.hpp>
+
 #include "haatom.h"
 #include "hamolset.h"
 #include "hamolecule.h"
@@ -577,8 +579,7 @@ HaEmpiricalMod::PenaltyContact()
 }
 
 
-double
-HaEmpiricalMod::PenaltyBured()
+double HaEmpiricalMod::PenaltyBured()
 {
 	int output_yes = 1;
 	std::fstream component_file;
@@ -587,7 +588,7 @@ HaEmpiricalMod::PenaltyBured()
 
 
 	MolSet* pmset = GetMolSet();
-	wxString name, name1 ;
+	std::string name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
 	HaAtom* aptr2;
@@ -748,11 +749,10 @@ if (output_yes){
 }
 
 /*
-double
-HaEmpiricalMod::PenaltyPairwise()
+double HaEmpiricalMod::PenaltyPairwise()
 {
 	MolSet* pmset = GetMolSet();
-	wxString name, name1 ;
+	std::string name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
 	HaAtom* aptr2;
@@ -931,11 +931,10 @@ double depth = 20/(double) nmol;
 */
 
 
-double
-HaEmpiricalMod::PenaltyPairwise()
+double HaEmpiricalMod::PenaltyPairwise()
 {
 	MolSet* pmset = GetMolSet();  // assign the Van der Waals radius of each CA and SC residue on HaMolMech
-	wxString name, name1 ;
+	std::string name, name1;
 	HaAtom* aptr;
 	HaAtom* aptr1;
 	HaAtom* aptr2;
@@ -1185,11 +1184,10 @@ HaEmpiricalMod::PenaltyPairwise()
 
 
 
-double
-HaEmpiricalMod::PenaltyVDW_Bured()
+double HaEmpiricalMod::PenaltyVDW_Bured()
 {
 	MolSet* pmset = GetMolSet();
-	wxString name, name1 ;
+	std::string name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
 	HaAtom* aptr2;
@@ -1687,7 +1685,7 @@ HaEmpiricalMod::LoadEmpConstrains()
 	emp_dist.newsize(npt_dist);
 	atm_dist.resize(npt_dist);
 	atm2_dist.resize(npt_dist);
-	wxString str;
+	std::string str;
 	int i;
 	//	PrintLog("npt_dist %d\n", npt_dist);
 
@@ -1706,24 +1704,25 @@ HaEmpiricalMod::LoadEmpConstrains()
 				if(buf[0] == '#') continue;
 				if( strncmp(buf,"DONE",4) == 0) break;
 				
-				str = buf;  
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+				std::string str = buf;  
+				std::istringstream iss(str);
+
+				std::vector<std::string> sub_str;
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
-				int nsub_str = sub_str.Count();
+
+				int nsub_str = sub_str.size();
 				for(i =0; i < nsub_str; i++)
 				{
-					aptr1 = pmset->GetAtomByRef( sub_str[0].ToStdString() );
-					aptr2 = pmset->GetAtomByRef( sub_str[1].ToStdString() );
+					aptr1 = pmset->GetAtomByRef( sub_str[0] );
+					aptr2 = pmset->GetAtomByRef( sub_str[1] );
 					if (aptr1 != NULL && aptr2 != NULL )
 					{
 						atm_dist[ires]=  aptr1 ;
 						atm2_dist[ires]=  aptr2 ;
-						bool res = sub_str[2].ToDouble(&emp_dist[ires]) ;
+						emp_dist[ires] = harlem::ToDouble(sub_str[2]);
 					}
 					else
 					{
@@ -1743,8 +1742,8 @@ HaEmpiricalMod::LoadEmpConstrains()
 		if (ires ==0) PrintLog("No distance constrains loaded.\n\n");
 		}
 		
-		wxString  mol_name;
-		wxString  mol_name1;
+		std::string  mol_name;
+		std::string  mol_name1;
 		HaMolecule* pmol;
 		
 		if( strncmp(buf,"TOPOLOGY",8) == 0)
@@ -1755,34 +1754,31 @@ HaEmpiricalMod::LoadEmpConstrains()
 				cres = fgets(buf,255,finfo); 
 				if(buf[0] == '#') continue;
 				if( strncmp(buf,"DONE",4) == 0) break;
-				
-				str = buf;  
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+
+				std::string str = buf;
+				std::istringstream iss(str);
+
+				std::vector<std::string> sub_str;
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
 				mol_name = sub_str[0];
 				
 				for( imol =0; imol < nmol ; imol++)
 				{
-					pmol = pmset -> GetMolByIdx(imol);
-					mol_name1 = (pmol ->GetRef()).c_str();
-					mol_name1.Append("$") ;
-					mol_name1.Prepend("$") ;
+					pmol = pmset->GetMolByIdx(imol);
+					mol_name1 = pmol->GetRef();
+					mol_name1.append("$$") ;
+
 					if (mol_name == mol_name1)
 					{
-						PrintLog ("Molecule# %d %s   %s \n", imol, mol_name.ToStdString().c_str(), (sub_str[1]).ToStdString().c_str());
-						if ( strncmp(sub_str[1].mb_str(),"Inside",6) == 0 )	topology_arr[imol] = 1;
-						if ( strncmp(sub_str[1].mb_str(),"inside",6) == 0 )	topology_arr[imol] = 1;
-						if ( strncmp(sub_str[1].mb_str(),"INSIDE",6) == 0 )	topology_arr[imol] = 1;
-						
+						PrintLog ("Molecule# %d %s   %s \n", imol, mol_name, sub_str[1]);
+						if (boost::algorithm::istarts_with(sub_str[1], "INSIDE")) topology_arr[imol] = 1;
 					}
 				}
 			}
-			if (mol_name.Len() == 0) PrintLog("No topology loaded.\n\n"); 
+			if (mol_name.empty()) PrintLog("No topology loaded.\n\n"); 
 			
 		}
 		if(cres == NULL) break ;
@@ -1852,7 +1848,7 @@ HaEmpiricalMod::LoadSolventAccessibleAtoms()
 
 	atm_solacces.resize(n_sa_atoms );
 
-	wxString str;
+	std::string str;
 	i = 0;
 	fseek(finfo,0,SEEK_SET);
 	PrintLog ("Load Solvent Accessible Residues \n");
@@ -1863,18 +1859,18 @@ HaEmpiricalMod::LoadSolventAccessibleAtoms()
 		if(cres == NULL) break;
 		if(buf[0] == '#') continue;
 		str = buf;  
-		wxArrayString sub_str;
-		wxStringTokenizer tkz(str," ");
-		while ( tkz.HasMoreTokens())
+		std::istringstream iss(str);
+		std::vector<std::string> sub_str;
+		for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 		{
-			wxString token = tkz.GetNextToken();
-			sub_str.Add(token);
+			sub_str.push_back(tok);
 		}
-		int nsub_str = sub_str.Count();
+
+		int nsub_str = sub_str.size();
 		if (sub_str[0] == "\n") break; 
 		for(int i =0; i < nsub_str; i++)
 		{
-			aptr1 = pmset->GetAtomByRef(sub_str[0].ToStdString() );
+			aptr1 = pmset->GetAtomByRef(sub_str[0]);
 			if (aptr1 != NULL )
 			{
 				atm_solacces[ires]=  aptr1 ;
@@ -2303,7 +2299,7 @@ int HaEmpiricalMod::LoadEmpParam()
 	sc_vdwradius.newsize(32);
 	pairwise_energy_arr.SetDimensions(32,32,32);
 	pairwise_energy_arr_sa.SetDimensions(32,32,32);
-	wxString str;
+	std::string str;
 
 	FILE* finfo = fopen(fname.c_str(),"r");
 	if(finfo == NULL)
@@ -2340,19 +2336,21 @@ int HaEmpiricalMod::LoadEmpParam()
 				if( strncmp(buf,"DONE",4) == 0) break;
 
 				str = buf;  
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+				std::istringstream iss(str);
+
+				std::vector<std::string> sub_str;
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
 
-				pairwise_name_arr.Add(sub_str[0]);
-				residue_arr.Add(sub_str[0]);
-				bool res = sub_str[1].ToDouble(&la_value[i]) ;
-				bool res1 = sub_str[2].ToDouble(&la_weight_value[i]) ;
-				PrintLog ("%s  Value %5.2f Weigth %5.2f\n", residue_arr[i].ToStdString().c_str(), la_value[i], la_weight_value[i]);  // Printout of Read Values
+				pairwise_name_arr.push_back(sub_str[0]);
+				residue_arr.push_back(sub_str[0]);
+
+				la_value[i] = harlem::ToDouble(sub_str[1]);
+				la_weight_value[i] = harlem::ToDouble(sub_str[2]);
+
+				PrintLog ("%s  Value %5.2f Weigth %5.2f\n", residue_arr[i], la_value[i], la_weight_value[i]);  // Printout of Read Values
 				i++;
 			}
 		}
@@ -2367,24 +2365,24 @@ int HaEmpiricalMod::LoadEmpParam()
 				if( strncmp(buf,"DONE",4) == 0) break;
 
 				str = buf;  
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+				std::istringstream iss(str);
+
+				std::vector<std::string> sub_str;
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
 	
-				residue_unres_arr.Add(sub_str[0]);
-				bool res3 = sub_str[1].ToDouble(&sc_vdwradius[i]) ;
+				residue_unres_arr.push_back(sub_str[0]);
+				sc_vdwradius[i] = harlem::ToDouble(sub_str[1]);
 				
-				PrintLog ("%s  Side Chain vdW radius %5.2f\n", residue_unres_arr[i].ToStdString().c_str(), sc_vdwradius[i]);  // Printout of Values
+				PrintLog ("%s  Side Chain vdW radius %5.2f\n", residue_unres_arr[i], sc_vdwradius[i]);  // Printout of Values
 				i++;
 			}
 
-			if (residue_unres_arr.GetCount() != residue_arr.GetCount()) 
+			if (residue_unres_arr.size() != residue_arr.size() ) 
 			{
-				PrintLog("Only %d radii is recorded! Add radius to UNRES_PARAMS.\n", residue_unres_arr.GetCount() );
+				PrintLog("Only %d radii is recorded! Add radius to UNRES_PARAMS.\n", residue_unres_arr.size() );
 			}
 		}
 		if( strncmp(buf,"PAIRWISE_PARAMS",15) == 0)
@@ -2393,11 +2391,10 @@ int HaEmpiricalMod::LoadEmpParam()
 			int j;
 			double tmp;
 			str = buf;  
-			wxArrayString sub_str;
-			wxStringTokenizer tkz(str," ");
+			std::vector<std::string> sub_str;
 			pairwise_energy_arr.FillZeros();
 			i=0;
-			ncount_pair = pairwise_name_arr.GetCount();
+			ncount_pair = pairwise_name_arr.size();
 
 			if (ncount_pair ==0)
 			{
@@ -2412,13 +2409,14 @@ int HaEmpiricalMod::LoadEmpParam()
 				if(buf[0] == '#') continue;
 				if( strncmp(buf,"DONE",4) == 0) break;
 				str = buf;  
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+
+				std::vector<std::string> sub_str;
+				std::istringstream iss(str);
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
+
 				for(j=0; j< ncount_pair; j++)
 				{
 					if (pairwise_name_arr[j] == sub_str[0]) col =j ;
@@ -2430,18 +2428,18 @@ int HaEmpiricalMod::LoadEmpParam()
 
 				if (col == 100) 
 				{
-					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[0].ToStdString().c_str());
+					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[0]);
 					break;
 				}
 				if (raw == 100) 
 				{
-					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[1].ToStdString().c_str());
+					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[1]);
 					break;
 				}
 
-				sub_str[3].ToLong(&bin);
+				bin = harlem::ToInt(sub_str[3]);
 				bin -= 1; 
-				sub_str[2].ToDouble(&ene);
+				ene = harlem::ToDouble(sub_str[2]);
 
 				pairwise_energy_arr.SetValue( col, raw, bin, ene);
 //				PrintLog("pairwise_energy_arr( %d, %d,%d)= %2.3f \n", col, raw, bin, pairwise_energy_arr.GetValue( col, raw, bin) );
@@ -2456,12 +2454,11 @@ int HaEmpiricalMod::LoadEmpParam()
 			PrintLog ("Read pairwise energies for solvent-accessible residues \n");
 			double tmp;
 			str = buf;  
-			wxArrayString sub_str;
-			wxStringTokenizer tkz(str," ");
+			std::vector<std::string> sub_str;
 			pairwise_energy_arr_sa.FillZeros();
 			i=0;
 			j=0;
-			ncount_pair = pairwise_name_arr.GetCount();
+			ncount_pair = pairwise_name_arr.size();
 
 			if (ncount_pair ==0)
 			{
@@ -2477,13 +2474,15 @@ int HaEmpiricalMod::LoadEmpParam()
 				str = buf; 
 				col = 100;
 				raw =100;
-				wxArrayString sub_str;
-				wxStringTokenizer tkz(str," ");
-				while ( tkz.HasMoreTokens())
+
+				std::istringstream iss(str);
+
+				std::vector<std::string> sub_str;
+				for (std::string tok; iss >> tok; )  // operator>> splits on any whitespace
 				{
-					wxString token = tkz.GetNextToken();
-					sub_str.Add(token);
+					sub_str.push_back(tok);
 				}
+
 				for(j=0; j< ncount_pair; j++)
 				{
 					if (pairwise_name_arr[j] == sub_str[0]) col =j ;
@@ -2493,19 +2492,18 @@ int HaEmpiricalMod::LoadEmpParam()
 					if (pairwise_name_arr[j] == sub_str[1]) raw =j ;
 				}
 			
-				
-				sub_str[3].ToLong(&bin);
+				bin = harlem::ToInt(sub_str[3]);
 				bin -= 1; 
-				sub_str[2].ToDouble(&ene);
+				ene = harlem::ToDouble(sub_str[2]);
 
 				if (col == 100) 
 				{
-					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[0].ToStdString().c_str());
+					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[0]);
 					break;
 				}
 				if (raw == 100) 
 				{
-					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[1].ToStdString().c_str());
+					PrintLog("Found unknown residue %s. Add residue to lipid accessible scale.\n", sub_str[1]);
 					break;
 				}
 
@@ -2522,7 +2520,7 @@ int HaEmpiricalMod::LoadEmpParam()
 		if(cres == NULL) break ;
 	}
 	
-	ncount_pair = pairwise_name_arr.GetCount();
+	ncount_pair = pairwise_name_arr.size();
 	for(i=0; i< ncount_pair; i++)
 	{
 		for(j=0; j< ncount_pair; j++)
@@ -2561,7 +2559,7 @@ int HaEmpiricalMod::CbettaSetUp()
 	std::string res_name;
 	std::string atm_name;
 	int res_num; 
-	wxString atm_ref; 
+	std::string atm_ref; 
 	HaAtom* aptr ;
 	HaAtom* aptr1 ;
 	HaResidue* res_ptr ;
@@ -2583,7 +2581,7 @@ int HaEmpiricalMod::CbettaSetUp()
 	int nres = pmset -> GetNRes();
 	atm_sc_array.resize(nres);
 	atm_ca_array.resize(nres);
-	int ncont_res = residue_unres_arr.GetCount();
+	int ncont_res = residue_unres_arr.size();
 
 	
 	MolSet::ResidueIterator ritr(pmset);
@@ -2886,12 +2884,11 @@ HaEmpiricalMod::FindCentralAxis()
 
 
 
-int
-HaEmpiricalMod::Neighborhood()
+int HaEmpiricalMod::Neighborhood()
 {
 	
 	MolSet* pmset = GetMolSet();
-	wxString name, name1 ;
+	std::string name, name1 ;
 	HaAtom* aptr;
 	HaAtom* aptr1;
 	HaAtom* aptr_ca;
@@ -2955,21 +2952,19 @@ HaEmpiricalMod::Neighborhood()
 }
 
 
-double
-HaEmpiricalMod::CheckNeighbor(int i, int j)
+double HaEmpiricalMod::CheckNeighbor(int i, int j)
 {
 	return neighbor_mat.GetVal_idx0(i,j);
 }
 
-void
-HaEmpiricalMod::ResidueTypeList()
+void HaEmpiricalMod::ResidueTypeList()
 {
 	//	vector <wxString> res_type;
 	HaMolecule* pMol;
 	HaResidue* res_ptr;
 	HaAtom* aptr;
-	wxString res_name;
-	wxString name;
+	std::string res_name;
+	std::string name;
 	int res_num, res_num_old;
 	std::string fname = "empir_param.dat";
 	FILE* finfo = fopen(fname.c_str(),"r");
@@ -2978,66 +2973,66 @@ HaEmpiricalMod::ResidueTypeList()
 		ErrorInMod("HaEmpiricalMod::ResidueTypeList",
 		"Can not open EMPIR_PARAM.DAT file");
 
-		pairwise_name_arr.Add("ALA") ;
-		pairwise_name_arr.Add("ARG") ;
-		pairwise_name_arr.Add("ASN") ;
-		pairwise_name_arr.Add("ASP") ;
-		pairwise_name_arr.Add("CYS") ;
-		pairwise_name_arr.Add("GLN");
-		pairwise_name_arr.Add("GLU") ;
-		pairwise_name_arr.Add("GLY") ;
-		pairwise_name_arr.Add("HIS") ;
-		pairwise_name_arr.Add("ILE") ;
-		pairwise_name_arr.Add("LEU") ;
-		pairwise_name_arr.Add("LYS") ;
-		pairwise_name_arr.Add("MET") ;
-		pairwise_name_arr.Add("PHE") ;
-		pairwise_name_arr.Add("PRO") ;
-		pairwise_name_arr.Add("SER") ;
-		pairwise_name_arr.Add("THR") ;
-		pairwise_name_arr.Add("TRP") ;
-		pairwise_name_arr.Add("TYR") ;
-		pairwise_name_arr.Add("VAL") ;
-		residue_arr.Add("ALA") ;
-		residue_arr.Add("ARG") ;
-		residue_arr.Add("ASN") ;
-		residue_arr.Add("ASP") ;
-		residue_arr.Add("CYS") ;
-		residue_arr.Add("GLN") ;
-		residue_arr.Add("GLU") ;
-		residue_arr.Add("GLY") ;
-		residue_arr.Add("HIS") ;
-		residue_arr.Add("ILE") ;
-		residue_arr.Add("LEU");
-		residue_arr.Add("LYS");
-		residue_arr.Add("MET");
-		residue_arr.Add("PHE");
-		residue_arr.Add("PRO");
-		residue_arr.Add("SER");
-		residue_arr.Add("THR");
-		residue_arr.Add("TRP");
-		residue_arr.Add("TYR");
-		residue_arr.Add("VAL");
-		residue_unres_arr.Add("ALA") ;
-		residue_unres_arr.Add("ARG") ;
-		residue_unres_arr.Add("ASN") ;
-		residue_unres_arr.Add("ASP") ;
-		residue_unres_arr.Add("CYS") ;
-		residue_unres_arr.Add("GLN") ;
-		residue_unres_arr.Add("GLU") ;
-		residue_unres_arr.Add("GLY") ;
-		residue_unres_arr.Add("HIS") ;
-		residue_unres_arr.Add("ILE") ;
-		residue_unres_arr.Add("LEU");
-		residue_unres_arr.Add("LYS");
-		residue_unres_arr.Add("MET");
-		residue_unres_arr.Add("PHE");
-		residue_unres_arr.Add("PRO");
-		residue_unres_arr.Add("SER");
-		residue_unres_arr.Add("THR");
-		residue_unres_arr.Add("TRP");
-		residue_unres_arr.Add("TYR");
-		residue_unres_arr.Add("VAL");
+		pairwise_name_arr.push_back("ALA") ;
+		pairwise_name_arr.push_back("ARG") ;
+		pairwise_name_arr.push_back("ASN") ;
+		pairwise_name_arr.push_back("ASP") ;
+		pairwise_name_arr.push_back("CYS") ;
+		pairwise_name_arr.push_back("GLN");
+		pairwise_name_arr.push_back("GLU") ;
+		pairwise_name_arr.push_back("GLY") ;
+		pairwise_name_arr.push_back("HIS") ;
+		pairwise_name_arr.push_back("ILE") ;
+		pairwise_name_arr.push_back("LEU") ;
+		pairwise_name_arr.push_back("LYS") ;
+		pairwise_name_arr.push_back("MET") ;
+		pairwise_name_arr.push_back("PHE") ;
+		pairwise_name_arr.push_back("PRO") ;
+		pairwise_name_arr.push_back("SER") ;
+		pairwise_name_arr.push_back("THR") ;
+		pairwise_name_arr.push_back("TRP") ;
+		pairwise_name_arr.push_back("TYR") ;
+		pairwise_name_arr.push_back("VAL") ;
+		residue_arr.push_back("ALA") ;
+		residue_arr.push_back("ARG") ;
+		residue_arr.push_back("ASN") ;
+		residue_arr.push_back("ASP") ;
+		residue_arr.push_back("CYS") ;
+		residue_arr.push_back("GLN") ;
+		residue_arr.push_back("GLU") ;
+		residue_arr.push_back("GLY") ;
+		residue_arr.push_back("HIS") ;
+		residue_arr.push_back("ILE") ;
+		residue_arr.push_back("LEU");
+		residue_arr.push_back("LYS");
+		residue_arr.push_back("MET");
+		residue_arr.push_back("PHE");
+		residue_arr.push_back("PRO");
+		residue_arr.push_back("SER");
+		residue_arr.push_back("THR");
+		residue_arr.push_back("TRP");
+		residue_arr.push_back("TYR");
+		residue_arr.push_back("VAL");
+		residue_unres_arr.push_back("ALA") ;
+		residue_unres_arr.push_back("ARG") ;
+		residue_unres_arr.push_back("ASN") ;
+		residue_unres_arr.push_back("ASP") ;
+		residue_unres_arr.push_back("CYS") ;
+		residue_unres_arr.push_back("GLN") ;
+		residue_unres_arr.push_back("GLU") ;
+		residue_unres_arr.push_back("GLY") ;
+		residue_unres_arr.push_back("HIS") ;
+		residue_unres_arr.push_back("ILE") ;
+		residue_unres_arr.push_back("LEU");
+		residue_unres_arr.push_back("LYS");
+		residue_unres_arr.push_back("MET");
+		residue_unres_arr.push_back("PHE");
+		residue_unres_arr.push_back("PRO");
+		residue_unres_arr.push_back("SER");
+		residue_unres_arr.push_back("THR");
+		residue_unres_arr.push_back("TRP");
+		residue_unres_arr.push_back("TYR");
+		residue_unres_arr.push_back("VAL");
 	}
 
 	MolSet* pmset = GetMolSet();
@@ -3047,9 +3042,9 @@ HaEmpiricalMod::ResidueTypeList()
 	int type_number =0;
 	int type_number_la =0;
 	int j= 0;
-	int nres = pmset-> GetNRes();
-	int ncount_pair = pairwise_name_arr.GetCount();
-	int ncount_res = residue_arr.GetCount();
+	int nres = pmset->GetNRes();
+	int ncount_pair = pairwise_name_arr.size();
+	int ncount_res = residue_arr.size();
 
 	first_res_mol.newsize(nmol);
 	mol_res_correspond.newsize(nres*nmol);
@@ -3082,11 +3077,10 @@ if(finfo != NULL) fclose(finfo);
 
 
 
-int
-HaEmpiricalMod::LineSegments()
+int HaEmpiricalMod::LineSegments()
 {
 	MolSet* pmset = GetMolSet();
-	wxString name ;
+	std::string name ;
 	HaAtom* aptr;
 	HaMolecule* pMol;
 	HaResidue* res_ptr;
@@ -3171,9 +3165,9 @@ HaEmpiricalMod::PenaltyVDW()
 	repulse_vdw_ene = 0.0;
 //	HaAtom* aptr1;
 //	double dist1 = 0 ;
-	wxString name ;
+	std::string name ;
 	HaResidue* res;
-	wxString resname ;
+	std::string resname ;
 
 	for( imol =0; imol < nmol ; imol++)
 	{
@@ -7063,11 +7057,10 @@ HaMolMembraneMod::FindAxes()
 	return axis_arr ;
 }
 
-int
-HaMolMembraneMod::LineSegments()
+int HaMolMembraneMod::LineSegments()
 {
 	MolSet* pmset = GetMolSet();
-	wxString name ;
+	std::string name;
 	HaAtom* aptr;
 	HaMolecule* pMol;
 	HaResidue* res_ptr;
@@ -7112,8 +7105,7 @@ HaMolMembraneMod::LineSegments()
 	return TRUE;
 }
 
-int 
-HaMolMembraneMod::CbettaSetUp()
+int  HaMolMembraneMod::CbettaSetUp()
 {
 	MolSet* pmset = GetMolSet();
 	char buf[256];
@@ -7121,7 +7113,7 @@ HaMolMembraneMod::CbettaSetUp()
 	std::string res_name;
 	std::string atm_name;
 	int res_num; 
-	wxString atm_ref; 
+	std::string atm_ref; 
 	HaAtom* aptr ;
 	HaAtom* aptr1 ;
 	HaResidue* res_ptr ;
@@ -7143,7 +7135,7 @@ HaMolMembraneMod::CbettaSetUp()
 	int nres = pmset -> GetNRes();
 	atm_sc_array.resize(nres);
 	atm_ca_array.resize(nres);
-	int ncont_res = residue_unres_arr.GetCount();
+	int ncont_res = residue_unres_arr.size();
 
 	
 	MolSet::ResidueIterator ritr(pmset);

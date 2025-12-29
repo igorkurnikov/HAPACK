@@ -171,18 +171,18 @@ int LinCombOrb3D::ProjectToBasis(HaMat_double& coef_new, const ArrayOrb3D* basis
 		return TRUE;
 	}
 
-	std::string class_name_new  = basis_new->GetClassName();
-	std::string class_name_old  = bas->GetClassName();
+	const GauBasisSet* p_gbas_new = dynamic_cast<const GauBasisSet*>(basis_new);
+	GauBasisSet* p_gbas_old = dynamic_cast<GauBasisSet*>(this->bas);
 
 	int nb_old = this->bas->GetNBfunc();
 	int nb_new = basis_new->GetNBfunc();
 
 	int nf = this->coef.num_cols();
 
-	if( class_name_new == "GauBasisSet" && class_name_old == "GauBasisSet" )
+	if(p_gbas_new && p_gbas_old)
 	{
 		IntIntMap frag_bas_fun_map;
-        ((GauBasisSet*) basis_new)->MatchBasisSet((GauBasisSet*)bas,frag_bas_fun_map);
+		((GauBasisSet*)p_gbas_new)->MatchBasisSet(p_gbas_old,frag_bas_fun_map);
 
 		if(frag_bas_fun_map.size() != nb_old )
 		{

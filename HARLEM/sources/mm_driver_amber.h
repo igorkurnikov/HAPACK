@@ -26,8 +26,6 @@ public:
 	MMDriverAmber(HaMolMechMod* p_mm_mod_new);
 	virtual ~MMDriverAmber();
 
-	virtual std::string GetClassName() { return "MMDriverAmber"; }
-
 	virtual int CalcEnergy() { return FALSE; } //!< Calculate energy of the system and save resluts to p_mm_info member of p_mm_mod
 
 	TimerAmber*  p_tm;    //!< Timer object associated with the driver

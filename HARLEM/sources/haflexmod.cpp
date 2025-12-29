@@ -3,10 +3,6 @@
 #include <iostream>
 #include <cstdio>
 
-#include <wx/string.h>
-#include <wx/filename.h>
-#include <wx/process.h>
-
 #include <assert.h>
 #include <float.h>
 #include <math.h>

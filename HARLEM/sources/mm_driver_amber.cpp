@@ -32,12 +32,6 @@
 //#include <boost/process.hpp>
 //#include <boost/process/child.hpp>
 
-//#include <wx/event.h>
-//#include <wx/filename.h>
-//#include <wx/process.h>
-
-//#include "hawx_add.h"
-
 #include "rapidxml.hpp"
 
 #include "FCMangle.h"
@@ -8626,38 +8620,6 @@ int AmberMMModel::AddAtomFrames(HaAtom* aptr, AtomFFParam* p_at_ff, StrAtomMap* 
 	return TRUE;
 }
 
-class AmberProcess 
-{
-public:
-	AmberProcess() : p_mm_mod(nullptr) {}
-
-	HaMolMechMod* p_mm_mod;
-
-	// Launch the external process asynchronously
-	void Run(const std::string& command)
-	{
-		namespace bp = boost::process;
-
-		// Start async process
-		auto child = std::make_unique<bp::child>(
-			command,
-			bp::on_exit([this](int exit_code, const std::error_code& ec)
-				{
-					this->OnTerminate(exit_code);
-				})
-			);
-	}
-
-	// Equivalent to wxProcess::OnTerminate
-	void OnTerminate(int status)
-	{
-		if (p_mm_mod)
-			p_mm_mod->StopCalc();
-
-		PrintLog("AMBER Process Has Stopped\n");
-	}
-};
-
 
 int MMDriverAmber::RunAmberProg(int sync)
 {
@@ -8738,8 +8700,8 @@ int MMDriverAmber::RunAmberProg(int sync)
 	PrintLog(" MMDriverAmber::RunAmberProg()  cmd_line:\n");
 	PrintLog(" %s \n", cmd_line.c_str() );
 
-	AmberProcess* p_sander_proc = new AmberProcess();
-	p_sander_proc->p_mm_mod = p_mm_mod;
+	// AmberProcess* p_sander_proc = new AmberProcess();
+	//p_sander_proc->p_mm_mod = p_mm_mod;
 
 	namespace bp = boost::process;
 
@@ -8752,8 +8714,6 @@ int MMDriverAmber::RunAmberProg(int sync)
 			bp::shell   // interpret cmd_line through the system shell (similar to wxExecute)
 		);
 
-		p_mm_mod->ext_proc_id = static_cast<int>(c.id());  // optional, if you use it
-
 		c.wait();                         // block until process exits
 		res = c.exit_code();              // like wxEXEC_SYNC result
 
@@ -8761,8 +8721,6 @@ int MMDriverAmber::RunAmberProg(int sync)
 			p_mm_mod->StopCalc();
 
 		PrintLog("AMBER Process Has Stopped (sync)\n");
-
-		// res = wxExecute(cmd_line,wxEXEC_SYNC,p_sander_proc);
 	}
 	else
 	{
@@ -8786,8 +8744,6 @@ int MMDriverAmber::RunAmberProg(int sync)
 
 		// Important: do not wait() here; let it run in background.
 		c.detach();  // let Boost manage the lifetime until exit handler fires
-
-		//res = wxExecute(cmd_line,wxEXEC_ASYNC,p_sander_proc);
 	}
     
 	p_mm_mod->ext_proc_id = res;

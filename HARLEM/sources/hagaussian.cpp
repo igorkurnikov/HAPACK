@@ -13,9 +13,7 @@
 
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
-
-#include <wx/filename.h>
-#include <wx/process.h>
+#include <boost/process.hpp>
 
 #include <assert.h>
 #include "f2c.h"
@@ -35,27 +33,27 @@
 #include "math.h"
 
 
-harlem::RunOptions HaGaussMod::run_opt_default;
+harlem::RunOptions QCDriverGaussian::run_opt_default;
 
-HaGaussMod::HaGaussMod(MolSet* pmset_new): HaCompMod(COMP_MOD_GAUSSIAN, pmset_new )
+QCDriverGaussian::QCDriverGaussian(MolSet* pmset_new): HaCompMod(COMP_MOD_GAUSSIAN, pmset_new )
 {
 	if( pmset_new != NULL) p_qc_mod = pmset_new->GetQCMod(true); 
 	SetStdFileNames();
 	SetStdJobFlags();
 }
 
-HaGaussMod::~HaGaussMod()
+QCDriverGaussian::~QCDriverGaussian()
 {
 
 }
 
-void HaGaussMod::SetStdFileNames()
+void QCDriverGaussian::SetStdFileNames()
 {
 	gaussian_version = "09";
 	gaussian_exe     = (std::string)"g" + gaussian_version;
 }
 
-void HaGaussMod::SetStdJobFlags()
+void QCDriverGaussian::SetStdJobFlags()
 {
 	pseudo_pot_flag = false;
 
@@ -74,46 +72,46 @@ void HaGaussMod::SetStdJobFlags()
 }
 
 
-int HaGaussMod::SetFilePrefix(const char* new_prefix)
+int QCDriverGaussian::SetFilePrefix(const char* new_prefix)
 {
 	inp_file_prefix = new_prefix;
 	return TRUE;
 }
 
-std::string HaGaussMod::GetFilePrefix() const 
+std::string QCDriverGaussian::GetFilePrefix() const 
 {
 	std::string prefix_loc = inp_file_prefix;
 	if( prefix_loc.empty() ) prefix_loc = p_qc_mod->GetPrefix();
 	return prefix_loc;
 }
 
-std::string HaGaussMod::GetInpFileName() const
+std::string QCDriverGaussian::GetInpFileName() const
 {
 	return (GetFilePrefix() + ".gjf");
 }
 
 
-std::string HaGaussMod::GetCHKFileName() const
+std::string QCDriverGaussian::GetCHKFileName() const
 {
 	return (GetFilePrefix() + ".chk");
 }
 
-std::string HaGaussMod::GetFCHKFileName() const
+std::string QCDriverGaussian::GetFCHKFileName() const
 {
 	return (GetFilePrefix() + ".fchk");
 }
 
-std::string HaGaussMod::GetRWFFileName() const
+std::string QCDriverGaussian::GetRWFFileName() const
 {
 	return (GetFilePrefix() + ".rwf");
 }
 
-std::string HaGaussMod::GetOutFileName() const
+std::string QCDriverGaussian::GetOutFileName() const
 {
 	return (GetFilePrefix() + ".out");
 }
 
-bool HaGaussMod::SaveInpFile()
+bool QCDriverGaussian::SaveInpFile()
 {
     MolSet* pmset = this->GetMolSet();
 	std::string str;
@@ -144,60 +142,150 @@ bool HaGaussMod::SaveInpFile()
 	return true;
 }
 
-class GaussianProcess : public wxProcess
+void QCDriverGaussian::OnGaussianTerminate(int pid, int exit_code)
 {
-public:
-	GaussianProcess() {  p_qc_mod = NULL; }
+	if (p_qc_mod) p_qc_mod->StopCalc();
+	PrintLog("GAUSSIAN Process Has Stopped (pid=%d, exit_code=%d)\n", pid, exit_code);
+}
 
-	HaQCMod* p_qc_mod;
-	
-	virtual void OnTerminate(int pid, int status)
-	{
-		if(p_qc_mod) p_qc_mod->StopCalc();
-		PrintLog("GAUSSIAN Process Has Stopped \n");
+void QCDriverGaussian::CleanupAsync()
+{
+	// Join watcher if it exists and is joinable
+	if (watcher_.joinable()) {
+		watcher_.join();
 	}
-};
 
-int HaGaussMod::Run( const harlem::RunOptions* popt_par )
+	child_.reset();
+	running_ = false; 
+	// stop_requested_ = false;
+}
+
+int QCDriverGaussian::Run( const harlem::RunOptions* popt_par )
 {
-	const harlem::RunOptions* popt = popt_par;
-	if( popt == NULL ) popt = &run_opt_default; 
+	const harlem::RunOptions& opt = popt_par ? *popt_par : run_opt_default;
+
+	if (running_ && watcher_.joinable()) {
+		watcher_.join();
+	}
+
+	if (running_ && child_ && child_->running())
+	{
+		PrintLog("HaGaussMod::Run(): Gaussian is already running; Run request ignored.\n");
+		return FALSE;
+		
+	}
+
+	// Normalize state if it drifted
+	running_ = false;
+	// stop_requested_ = false;
 
 	int result;
-	if( popt->ToSaveInpFile() ) SaveInpFile();
+	if( opt.ToSaveInpFile() ) SaveInpFile();
 
-	wxString cmd_line = gaussian_exe.c_str();
-	cmd_line += " ";
-	cmd_line += GetInpFileName();
+	std::string inp_fname = GetInpFileName();
 
-	PrintLog(" HaGaussMod::Run()  cmd_line: ");
-	PrintLog(" %s \n", cmd_line.ToStdString().c_str() );
+	std::string cmd_line = gaussian_exe + " " + inp_fname;
 
-	GaussianProcess* p_gauss_proc = new GaussianProcess();
-	p_gauss_proc->p_qc_mod = this->p_qc_mod;
+	PrintLog(" HaGaussMod::Run() cmd_line:  %s \n", cmd_line );
 
-	int res;
-	if( popt->ToRunSync() )
+	namespace bp = boost::process;
+	std::error_code ec;
+
+	if( opt.ToRunSync() )
 	{
-		res = wxExecute(cmd_line,wxEXEC_SYNC,p_gauss_proc);
+		bp::child c(
+			bp::exe = gaussian_exe,
+			bp::args = std::vector<std::string>{ inp_fname },
+			ec
+		);
+
+		if (ec) {
+			PrintLog("Failed to start %s: %s\n", gaussian_exe, ec.message());
+			return FALSE;
+		}
+
+		c.wait();
+		const int exit_code = c.exit_code();
+
+		OnGaussianTerminate(static_cast<int>(c.id()), exit_code);
+
+		if (opt.ToLoadOutput()) LoadOutput();
+		return TRUE;
 	}
-	else
-	{
-		res = wxExecute(cmd_line,wxEXEC_ASYNC,p_gauss_proc);
+	// Async run: store the child + a watcher thread
+
+	child_ = std::make_unique<bp::child>(
+		bp::exe = gaussian_exe,
+		bp::args = std::vector<std::string>{ inp_fname },
+		ec
+		);
+
+	if (ec) {
+		PrintLog("Failed to start: %s: %s\n", gaussian_exe, ec.message());
+		child_.reset();
+		return FALSE;
 	}
 
-	if( popt->ToLoadOutput() ) LoadOutput();
+	running_ = true;
+
+	// Ensure we are not overwriting a joinable thread object
+	if (watcher_.joinable()) {
+		watcher_.join();
+	}
+
+	// IMPORTANT: ensure HaGaussMod outlives this thread.
+	watcher_ = std::thread([this, loadOutput = opt.ToLoadOutput()]{
+		child_->wait();
+		const int exit_code = child_->exit_code();
+		const int pid = static_cast<int>(child_->id());
+
+		OnGaussianTerminate(pid, exit_code);
+
+		if (loadOutput) LoadOutput();
+		// If user requested stop, do not attempt to load/parse output
+		//if (loadOutput && !stop_requested_.load(std::memory_order_acquire)) {
+		//	LoadOutput();
+		//}
+
+		// Mark finished; do not join here (thread is "this" thread).
+		running_ = false;
+		});
+	// Optional: free the handle after completion.
+	// child_.reset();  // do this only if no other thread touches child_ concurrently
 
 	return TRUE;
 }
 
-int HaGaussMod::LoadOutput()
+bool QCDriverGaussian::Stop()
+{
+	// Mark cancellation so watcher thread can skip LoadOutput()
+	// stop_requested_ = true;
+
+	// If no process is running, nothing to do
+	if (!running_) {
+		// Still join a finished watcher if needed (defensive)
+		if (watcher_.joinable()) watcher_.join();
+		return false;
+	}
+
+	// Terminate external process (forceful)
+	if (child_ && child_->running()) {
+		child_->terminate();
+	}
+
+	// Join watcher and release resources safely
+	CleanupAsync();
+	return true;
+}
+
+
+int QCDriverGaussian::LoadOutput()
 {
 	LoadOutFile( GetOutFileName() );
 	return TRUE;	
 }
 
-int HaGaussMod::LoadOutFile(const std::string& fname)
+int QCDriverGaussian::LoadOutFile(const std::string& fname)
 {
 	std::ifstream is(fname.c_str());
 	if(is.fail()) 
@@ -219,7 +307,7 @@ static int skip_lines( std::istream& is, std::string& line, int n )
 	return TRUE;
 }
 	
-int HaGaussMod::LoadOutFromStream( std::istream& is )
+int QCDriverGaussian::LoadOutFromStream( std::istream& is )
 {
 	std::string line;
 	try
@@ -456,7 +544,7 @@ int HaGaussMod::LoadOutFromStream( std::istream& is )
 	return TRUE;
 }
 
-int HaGaussMod::LoadOutSummary( std::string summary_str )
+int QCDriverGaussian::LoadOutSummary( std::string summary_str )
 {
 //	PrintLog(" HaGaussMod::LoadOutSummary() pt 1 \n");
 	boost::trim(summary_str);
@@ -512,26 +600,40 @@ int HaGaussMod::LoadOutSummary( std::string summary_str )
 	return TRUE;
 }
 
-int HaGaussMod::RunFormChk(const char* fname_chk, const char* fname_fchk )
+int QCDriverGaussian::RunFormChk(std::string fname_chk, std::string fname_fchk )
 {
-	GaussianProcess* p_gauss_proc = new GaussianProcess();
-	p_gauss_proc->p_qc_mod = this->p_qc_mod;
+	namespace bp = boost::process;
 
-	wxString cmd_line = "formchk ";
-	cmd_line += fname_chk;
-	cmd_line += " ";
-	cmd_line += fname_fchk;
+	const std::string fname_exe = "formchk";
 
-	PrintLog(" HaGaussMod::RunFormChk()  cmd_line: ");
-	PrintLog(" %s \n", cmd_line.ToStdString().c_str() );
+	PrintLog("QCDriverGaussian::RunFormChk() cmd_line: %s %s %s\n",
+		fname_exe, fname_chk, fname_fchk);
 
-	int res = wxExecute(cmd_line,wxEXEC_SYNC,p_gauss_proc);
+	std::error_code ec;
+	bp::child c(
+		bp::exe = fname_exe,
+		bp::args = std::vector<std::string>{ fname_chk, fname_fchk },
+		ec
+	);
 
-	PrintLog(" Finished converting .chk to .fchk file \n"); 
+	if (ec) {
+		PrintLog("RunFormChk: failed to start formchk: %s\n", ec.message());
+		return FALSE;
+	}
+
+	c.wait();
+	const int exit_code = c.exit_code();
+
+	if (exit_code != 0) {
+		PrintLog("RunFormChk: formchk exited with code %d\n", exit_code);
+		return FALSE;
+	}
+
+	PrintLog("Finished converting .chk to .fchk file\n");
 	return TRUE;
 }
 
-void HaGaussMod::FillSectionProcCommands(std::ostream& os) const
+void QCDriverGaussian::FillSectionProcCommands(std::ostream& os) const
 {
 	if( n_sh_cores > 1 ) 
 	{
@@ -541,7 +643,7 @@ void HaGaussMod::FillSectionProcCommands(std::ostream& os) const
 	os << "%chk=" << GetCHKFileName() << std::endl;
 }
 
-void HaGaussMod::FillSectionJob(std::ostream& os) const
+void QCDriverGaussian::FillSectionJob(std::ostream& os) const
 {
 	if(p_qc_mod == NULL ) throw std::runtime_error("QChem Module is not set up");
 	
@@ -700,7 +802,7 @@ void HaGaussMod::FillSectionJob(std::ostream& os) const
 }
 
 
-void HaGaussMod::FillSectionCoord(std::ostream& os) const
+void QCDriverGaussian::FillSectionCoord(std::ostream& os) const
 {
 	char buf[120];
 	MolSet* phmol_set= p_qc_mod->GetMolSet();
@@ -737,7 +839,7 @@ void HaGaussMod::FillSectionCoord(std::ostream& os) const
 	os << "  " << std::endl;
 }
 
-void HaGaussMod::FillSectionBasis(std::ostream& os) const
+void QCDriverGaussian::FillSectionBasis(std::ostream& os) const
 {
 	if(p_qc_mod->wave_fun_type == harlem::qc::NDO) return;
 	if( !p_qc_mod->IsGenBasisSet() && !save_basis_set_gen ) return;
@@ -776,7 +878,7 @@ void HaGaussMod::FillSectionBasis(std::ostream& os) const
 	os <<  "    " << std::endl;
 }
 
-void HaGaussMod::FillSectionExtCharges(std::ostream& os) const
+void QCDriverGaussian::FillSectionExtCharges(std::ostream& os) const
 {
 	char buf[120];
 	MolSet* pmset = p_qc_mod->GetMolSet();
@@ -840,7 +942,7 @@ void HaGaussMod::FillSectionExtCharges(std::ostream& os) const
 	os << " " << std::endl;
 }
 
-void HaGaussMod::FillSectionInitMO(std::ostream& os) const
+void QCDriverGaussian::FillSectionInitMO(std::ostream& os) const
 {
 	if( !p_qc_mod->set_guess_from_mos || p_qc_mod->MO_coef.num_cols() == 0 ) return;
 	char buf[120];
@@ -862,7 +964,7 @@ void HaGaussMod::FillSectionInitMO(std::ostream& os) const
 	os << "  " << std::endl;
 }
 
-void HaGaussMod::PrintCurBcommon()
+void QCDriverGaussian::PrintCurBcommon()
 {
 #if defined(GAUSSVER)
 
@@ -947,72 +1049,72 @@ void HaGaussMod::PrintCurBcommon()
 //}
 
 
-void HaGaussMod::SetNumSharedMemCores(int n_sh_cores_new)
+void QCDriverGaussian::SetNumSharedMemCores(int n_sh_cores_new)
 {
 	n_sh_cores = n_sh_cores_new; 
 }
 
-void HaGaussMod::SetNumProc(int n_proc_new)
+void QCDriverGaussian::SetNumProc(int n_proc_new)
 {
 	n_proc = n_proc_new;
 }
 
-void HaGaussMod::SetMaxMem(int max_mem_new )
+void QCDriverGaussian::SetMaxMem(int max_mem_new )
 {
 	max_mem = max_mem_new;
 }
 
-int  HaGaussMod::GetNumSharedMemCores() const
+int  QCDriverGaussian::GetNumSharedMemCores() const
 {
 	return n_sh_cores;
 }
 
-int  HaGaussMod::GetNumProc() const
+int  QCDriverGaussian::GetNumProc() const
 {
 	return n_proc;
 }
 
-int  HaGaussMod::GetMaxMem()  const
+int  QCDriverGaussian::GetMaxMem()  const
 {
 	return max_mem;
 }	
 
-void  HaGaussMod::SetLoadNonOptGeom( bool set_par )
+void  QCDriverGaussian::SetLoadNonOptGeom( bool set_par )
 {
 	load_non_opt_geom = set_par;
 }
 
-void HaGaussMod::SetLoadGeomZMatOrient( bool set_par )
+void QCDriverGaussian::SetLoadGeomZMatOrient( bool set_par )
 {
 	load_geom_zmat_orient = set_par;
 }
 	
-void HaGaussMod::SetLoadGeomStdOrient ( bool set_par )
+void QCDriverGaussian::SetLoadGeomStdOrient ( bool set_par )
 {
 	load_geom_std_orient = set_par;
 }
 
-void HaGaussMod::SetReadInitGeomChkFile( bool set_par )
+void QCDriverGaussian::SetReadInitGeomChkFile( bool set_par )
 {
 	read_init_geom_chk_file = set_par;
 }
 
-void HaGaussMod::SetReadHFGuessChkFile( bool set_par )
+void QCDriverGaussian::SetReadHFGuessChkFile( bool set_par )
 {
 	read_hf_guess_chk_file = set_par;
 }
 
-void HaGaussMod::SetNoStdOrient( bool set_par )
+void QCDriverGaussian::SetNoStdOrient( bool set_par )
 {
 	no_std_orient = set_par;
 }
 
-void HaGaussMod::SetSaveBasisSetGen( bool set_par  )
+void QCDriverGaussian::SetSaveBasisSetGen( bool set_par  )
 {
 	save_basis_set_gen = set_par;
 }
 
-void HaGaussMod::SetAddKWStr( const std::string& add_kw_str_par )
+void QCDriverGaussian::SetAddKWStr( const std::string& add_kw_str_par )
 {
 	add_kw_str = add_kw_str_par;
 }

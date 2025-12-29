@@ -30,13 +30,13 @@
 #include "haintermol.h"
 #include "hamolset.h"
 #include "hamolmech.h"
+#include "haempirical.h"
 #include "mm_driver_amber.h"
 #include "hamolecule.h"
 #include "electrostmod.h"
 #include "protonredox.h"
 #include "hamolview.h"
 #include "etcoupl.h"
-#include "haempirical.h"
 #include "protonredox.h"
 
 #include <stdlib.h>
@@ -83,7 +83,7 @@ void HaInterMolMod::SetStdParams()
 
 	calc_et_rate = FALSE;
 	compute_pk = 0;
-	empirical_flag = FALSE;
+	_flag = FALSE;
 
 	to_build_nb_contact_list = TRUE;
 	to_build_intermol_excl_atom_list = TRUE;
@@ -226,11 +226,12 @@ HaInterMolMod::AddInteractGroup(AtomContainer* p_at_cont)
 
 int HaInterMolMod::SetCoord(harlem::Coord* pcrd)
 {
-	if( pcrd->GetClassName() == "RigidBodyCoord" )
+	RigidBodyCoord* pcrd_rb = dynamic_cast<RigidBodyCoord*>(pcrd);
+	if( pcrd_rb )
 	{
-		this->SetRigidBodyCoord( (RigidBodyCoord*) pcrd);
+		this->SetRigidBodyCoord( pcrd_rb );
 	}
-	return TRUE;
+	return FALSE;
 }
 
 int HaInterMolMod::SetRigidBodyCoord(RigidBodyCoord* pcrd)
@@ -641,17 +642,17 @@ void intermol_doc_run(InterMolMCSimulator* ptr_im_mc_sim)
 	HaInterMolMod* ptr_im_mod = ptr_im_mc_sim->GetInterMolMod();
 
 	int rex_flag = ptr_im_mc_sim->rex_flag;
-	int empirical_flag = ptr_im_mod->empirical_flag;
-	if (!rex_flag && !empirical_flag)
+	int _flag = ptr_im_mod->_flag;
+	if (!rex_flag && !_flag)
 	{
 		ptr_im_mc_sim->RunMC();
 	}
-	else if (!rex_flag && empirical_flag)
+	else if (!rex_flag && _flag)
 	{
-		//ptr_im_mod -> RunMCEmpirical();
+		//ptr_im_mod -> RunMC();
 		ptr_im_mc_sim->RunMCQuantSampling();
 	}
-	else if (rex_flag && empirical_flag)
+	else if (rex_flag && _flag)
 	{
 		ptr_im_mc_sim->RunQuasiREM();
 	}
@@ -690,7 +691,8 @@ int InterMolMCSimulator::SetInitPoint(harlem::Coord* p_crd_new)
 		p_rb_crd->SetFromCurrAtomCrd(p_im_mod->interact_groups);
 		return TRUE;
 	}
-	if( p_crd_new->GetClassName() == "RigidBodyCoord" || p_crd_new->GetClassName() == "RigidBodyCoordDiscretized")
+
+	if( dynamic_cast<RigidBodyCoord*>(p_crd_new) || dynamic_cast<RigidBodyCoordDiscretized*>(p_crd_new) )
 	{
 		RigidBodyCoord* p_rb_crd_new = (RigidBodyCoord*) p_crd_new;
 		int num_obj = p_rb_crd_new->GetNumObj();
@@ -702,7 +704,7 @@ int InterMolMCSimulator::SetInitPoint(harlem::Coord* p_crd_new)
 		}
 		p_crd->SetFrom(p_crd_new);
 	}
-	if( p_crd_new->GetClassName() == "RigidBodyCoordDiscretized" )
+	if( dynamic_cast<RigidBodyCoordDiscretized*>(p_crd_new) )
 	{
 		this->SetDiscretizedMoves();
 	}
@@ -727,7 +729,7 @@ int InterMolMCSimulator::SetDiscretizedMoves()
 int InterMolMCSimulator::IsDiscretizedMoves()
 {
 	if( p_crd == NULL) return FALSE;
-	if( p_crd->GetClassName() == "RigidBodyCoordDiscretized") return TRUE;
+	if( dynamic_cast<RigidBodyCoordDiscretized*>(p_crd) ) return TRUE;
 	return FALSE;
 }
 
@@ -913,10 +915,10 @@ HaInterMolMod::CalcChargesInFieldEne()
 
 int InterMolMCSimulator::IncrementCrd(Coord* pcrd) 
 {
-	std::string crd_class_name = pcrd->GetClassName();
-	if(crd_class_name == "RigidBodyCoordDiscretized" )
+	RigidBodyCoordDiscretized* pcrd_d = dynamic_cast<RigidBodyCoordDiscretized*>(pcrd);
+
+	if( pcrd_d )
 	{
-		RigidBodyCoordDiscretized* pcrd_d = (RigidBodyCoordDiscretized*) pcrd;
 		int n = pcrd_d->GetNumCrd();
 		int i;
 		for(i = 0; i < n; i++)
@@ -951,11 +953,12 @@ int InterMolMCSimulator::IncrementCrd(Coord* pcrd)
 	}
 	else
 	{
-		if( crd_class_name.find("RigidBodyCoord") == std::string::npos )
+		RigidBodyCoord* pcrd_rb = dynamic_cast<RigidBodyCoord*>(pcrd); 
+		if( !pcrd_rb )
 		{
 			throw "Error in InterMolMCSimulator::IncrementCrd() \n crd_class_name != RigidBodyCoord \n";
 		}
-		RigidBodyCoord* pcrd_rb = (RigidBodyCoord*) pcrd;
+
 		int nmol = pcrd_rb->GetNumObj();
 		int im;
 		for( im = 0; im < nmol; im++)
@@ -1004,7 +1007,7 @@ HaInterMolMod* InterMolMCSimulator::GetInterMolMod()
 
 
 
-int InterMolMCSimulator::RunMCEmpirical() 
+int InterMolMCSimulator::RunMC() 
 {	
 	return TRUE;
 }
@@ -1013,11 +1016,11 @@ int InterMolMCSimulator::RunMCEmpirical()
 /*
 
 int 
-InterMolMCSimulator::RunMCEmpirical() 
+InterMolMCSimulator::RunMC() 
 {	
 	if(p_im_mod->interact_groups.size() < 2)
 	{
-		PrintLog(" Error in HaInterMolMod::RunMCEmpirical() \n");
+		PrintLog(" Error in HaInterMolMod::RunMC() \n");
 		PrintLog(" Less than 2 Interacting Atom Groups are set \n");
 		return FALSE;
 	}
@@ -1035,7 +1038,7 @@ InterMolMCSimulator::RunMCEmpirical()
 	
 	MolSet* pmset = p_im_mod->GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
-	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
+	HaMod* emp_mod = pmset->GetMod(true);
     
 
 	if(emp_mod->module_to_init_flag)
@@ -1106,7 +1109,7 @@ InterMolMCSimulator::RunMCEmpirical()
 	
 	if( traj_file.fail())
 	{
-		ErrorInMod("HaInterMolMod::RunMCEmpirical()",
+		ErrorInMod("HaInterMolMod::RunMC()",
 			"Can't open file to write MC trajectory ");
 		return FALSE;
 	}
@@ -1378,7 +1381,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 
 int InterMolMCSimulator::RunMCQuantSampling()   
    // Added by jose
-{	// This is a copy of RunMCEmpirical()
+{	// This is a copy of RunMC()
 
 	if(module_to_init_flag)
 	{
@@ -1399,7 +1402,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 	
 	MolSet* pmset = GetMolSet();
 //	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true); jose
-	//HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
+	//HaMod* emp_mod = pmset->GetMod(true);
 	HaMolMembraneMod* mem_mod = pmset->GetMolMembraneMod(true); //jose
 	if (mem_mod->module_to_init_flag) //jose
 	{
@@ -1499,7 +1502,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 		
 		if( traj_file.fail())
 		{
-			ErrorInMod("HaInterMolMod::RunMCEmpirical()",
+			ErrorInMod("HaInterMolMod::RunMC()",
 				"Can't open file to write MC trajectory ");
 			return FALSE;
 		}
@@ -1904,14 +1907,14 @@ int InterMolMCSimulator::RunMCQuantSampling()
 
 */
 
-int InterMolMCSimulator::RunMCEmpiricalXY() 
+int InterMolMCSimulator::RunMCXY() 
 {
 	return TRUE;
 }
 
 /*
 
-int InterMolMCSimulator::RunMCEmpiricalXY() 
+int InterMolMCSimulator::RunMCXY() 
 {	
 
 	if(module_to_init_flag)
@@ -1931,7 +1934,7 @@ int InterMolMCSimulator::RunMCEmpiricalXY()
 	
 	MolSet* pmset = GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
-	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
+	HaMod* emp_mod = pmset->GetMod(true);
 	if(emp_mod -> module_to_init_flag)
 	{
 		emp_mod -> Initialize();
@@ -2001,7 +2004,7 @@ int InterMolMCSimulator::RunMCEmpiricalXY()
 		
 		if( traj_file.fail())
 		{
-			ErrorInMod("HaInterMolMod::RunMCEmpirical()",
+			ErrorInMod("HaInterMolMod::RunMC()",
 				"Can't open file to write MC trajectory ");
 			return FALSE;
 		}
@@ -2284,14 +2287,14 @@ int InterMolMCSimulator::RunMCEmpiricalXY()
 
 */
 
-int InterMolMCSimulator::RunMCEmpiricalNMA() 
+int InterMolMCSimulator::RunMCNMA() 
 {
 	return TRUE;
 }
 
 /*
 
-int InterMolMCSimulator::RunMCEmpiricalNMA() 
+int InterMolMCSimulator::RunMCNMA() 
 {	
 	if(module_to_init_flag)
 	{
@@ -2310,7 +2313,7 @@ int InterMolMCSimulator::RunMCEmpiricalNMA()
 	
 	MolSet* pmset = GetMolSet();
 	HaMolMechMod* pmm_mod = pmset->GetMolMechMod(true);
-	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
+	HaMod* emp_mod = pmset->GetMod(true);
 	if(emp_mod -> module_to_init_flag)
 	{
 		emp_mod -> Initialize();
@@ -2379,7 +2382,7 @@ int InterMolMCSimulator::RunMCEmpiricalNMA()
 	
 	if( traj_file.fail())
 	{
-		ErrorInMod("HaInterMolMod::RunMCEmpiricalNMA()",
+		ErrorInMod("HaInterMolMod::RunMCNMA()",
 			"Can't open file to write MC trajectory ");
 		return FALSE;
 	}
@@ -2904,7 +2907,7 @@ InterMolMCSimulator::RunQuasiREM()
 	int imol;
 	double acc_ratio_coef =0;
 
-	//HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true); jose
+	//HaMod* emp_mod = pmset->GetMod(true); jose
 	HaMolMembraneMod* mem_mod = pmset->GetMolMembraneMod(true);
 	
 	for( ireplica= 0; ireplica < nreplicas; ireplica++) 
@@ -3207,10 +3210,10 @@ InterMolMCSimulator::RunQuasiREM()
 			ang_ratio = (rand_expo*rand_expo*p_acc_ratio[exchange_arr[ireplica]]+ acc_ratio_coef*0.01)*0.1; 
 			//		sprintf(buf,"%s%i%s", "MC_replica", ireplica,jstep,".hlm");
 			//		pmset->SaveHarlemFile(buf);
-			if(empirical_flag)
+			if(_flag)
 			{
 				
-					if (xy_mc_flag) RunMCEmpiricalXY();
+					if (xy_mc_flag) RunMCXY();
 					else RunMCQuantSampling(); // This should be a function with number of MC steps as input parameters
 			}
 			else
@@ -3370,7 +3373,7 @@ HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 	}
 	MolSet* pmset = GetMolSet();
 
-//  HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
+//  HaMod* emp_mod = pmset->GetMod(true);
 	//	if (emp_mod ->inertia_axes.GetVal_idx0(0,0) == NULL )	emp_mod -> FindAxes();
 
 	double incr = 0;
@@ -3483,8 +3486,7 @@ HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 }
 
 
-HaMat_double
-HaInterMolMod::Hessian(int energy_type, VecPtr ptmol)
+HaMat_double HaInterMolMod::Hessian(int energy_type, VecPtr ptmol)
 {
 	std::fstream eigen;
 	eigen.open("eigenvector.dat", std::ios::out );
@@ -3957,8 +3959,7 @@ HaInterMolMod::Hessian(int energy_type, VecPtr ptmol)
 	return hessian;
 }
 
-HaVec_double
-HaInterMolMod::Jacobian(int energy_type, VecPtr ptmol)
+HaVec_double HaInterMolMod::Jacobian(int energy_type, VecPtr ptmol)
 {
 	if(module_to_init_flag)
 	{
@@ -4360,8 +4361,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 }
 
 
-int
-InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_double g, HaVec_double p, double *f_return, double stpmax)
+int InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_double g, HaVec_double p, double *f_return, double stpmax)
 {
 //	fstream enefile;
 //	enefile.open("gradient.dat", ios::out|ios::app );
@@ -4533,8 +4533,7 @@ InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_double 
 	}
 }
 
-int
-InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
+int InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
 {
 	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
@@ -4655,8 +4654,7 @@ InterMolEnergyMinimizer::SteepestDescentMinimizer(int nsteps)
 }
 	
 
-double
-InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& force_array, Vec3DValArray& torque_array, double& tol)
+double InterMolEnergyMinimizer::GoldenSectionSearch(HaVec_double& xold, Vec3DValArray& force_array, Vec3DValArray& torque_array, double& tol)
 {
 	MolSet* pmset = p_inter_mol->GetMolSet();
 	HaEmpiricalMod* emp_mod = pmset->GetEmpiricalMod(true);
