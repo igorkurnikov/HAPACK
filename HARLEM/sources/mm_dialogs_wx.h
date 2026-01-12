@@ -9,7 +9,10 @@
 #if !defined(MM_DIALOGS_WX_H)
 #define MM_DIALOGS_WX_H
 
+#include "mm_elements.h";
 #include "hamolmech.h";
+
+class MMInfoDlg;
 
 class MolMechDlgWX : public wxFrame, public MMView
 {

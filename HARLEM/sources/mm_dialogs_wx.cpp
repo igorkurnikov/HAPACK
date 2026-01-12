@@ -71,7 +71,7 @@ wxFrame( parent, -1, "Molecular Mechanics Module")
 //    wxMenuBar* edit_groups_menu_bar = edit_groups_menu();
 //    SetMenuBar(edit_groups_menu_bar); 
 
-	ptr_mm_mod->p_mm_dlg = this;
+	// ptr_mm_mod->p_mm_dlg = this;
 
 	
 
@@ -546,7 +546,7 @@ void MolMechDlgWX::OnEditMDAnalScript(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_traj_anal_mod->traj_script.empty() && fname.FileExists() )
 	{
-		std::string cmd_line = pApp->word_editor;
+		std::string cmd_line = pApp->word_editor.string();
 		cmd_line += " ";
 		cmd_line += ptr_mm_mod->p_traj_anal_mod->traj_script;
 
@@ -1322,7 +1322,7 @@ void MolMechDlgWX::OnLoadLogFile(wxCommandEvent& event)
 {
 	if(ptr_mm_mod == NULL ) return;
 
-	std::string cmd_line = pApp->word_editor;
+	std::string cmd_line = pApp->word_editor.string();
 	cmd_line += " ";
 	cmd_line += ptr_mm_mod->p_amber_driver->amber_out_file;
 
@@ -1449,7 +1449,7 @@ void MolMechDlgWX::OnEditAmberInp(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_inp_file.empty() && fname.FileExists() )
 	{
-		std::string cmd_line = pApp->word_editor;
+		std::string cmd_line = pApp->word_editor.string();
 		cmd_line += " ";
 		cmd_line += ptr_mm_mod->p_amber_driver->amber_inp_file;
 		std::system(cmd_line.c_str());
@@ -1468,7 +1468,7 @@ void MolMechDlgWX::OnEditAmberTop(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_top_file.empty() && fname.FileExists() )
 	{
-		std::string cmd_line = pApp->word_editor;
+		std::string cmd_line = pApp->word_editor.string();
 		cmd_line += " ";
 		cmd_line += ptr_mm_mod->p_amber_driver->amber_top_file;
 		std::system(cmd_line.c_str());
@@ -1487,7 +1487,7 @@ void MolMechDlgWX::OnEditAmberRun(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_run_file.empty() && fname.FileExists() )
 	{
-		std::string cmd_line = pApp->word_editor;
+		std::string cmd_line = pApp->word_editor.string();
 		cmd_line += " ";
 		cmd_line += ptr_mm_mod->p_amber_driver->amber_run_file;
 
@@ -1507,7 +1507,7 @@ void MolMechDlgWX::OnEditAmberRst(wxCommandEvent& event)
 
 	if(!ptr_mm_mod->p_amber_driver->amber_rst_file.empty() && fname.FileExists() )
 	{
-		std::string cmd_line = pApp->word_editor;
+		std::string cmd_line = pApp->word_editor.string();
 		cmd_line += " ";
 		cmd_line += ptr_mm_mod->p_amber_driver->amber_rst_file;
 

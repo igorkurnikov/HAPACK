@@ -251,8 +251,6 @@ public:
 	void SetPrefix( const std::string& prefix ); //!< Set prefix for files created during calculations
 	std::string GetPrefix() const; //!< //!< Get prefix for files created during calculations
 
-protected:
-
 	std::string prefix;
 
 	int FormDenMat(const HaMat_double& cmo, double* pa, int nel, double* pene_mo = NULL, double temp_fermi = 0.0); //!< Form density matrix in pa
@@ -317,7 +315,7 @@ public:
 	HaMat_double MO_coef; 
 	HaVec_double MOene;
 
-protected:
+public:
 
 	double ene;     //!< Total energy of the system 
 	double ene_hf;  //!< Hartree-Fock Energy 

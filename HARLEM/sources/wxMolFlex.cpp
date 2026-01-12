@@ -2,92 +2,43 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include <mpi.h>
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
 #include "wx/wx.h"
-#endif
+
+#include "ctrl_wx.h"
 
 #include "wx/valgen.h"
 #include "wx/grid.h"
-#include "wx/dir.h"
-#include "wx/filename.h"
 #include "wx/listctrl.h"
 #include "wx/tokenzr.h"
 #include "wx/notebook.h"
-#include "wx/process.h"
 
-#ifdef HAOGL
-#include <wx/glcanvas.h>
-#endif
-
-#include "ctrl_wx.h"
-#include "ha_wx_aux_1.h"
-#include "mm_dialogs_wx.h"
-#include "halocorb.h"
-#include "haqchem.h"
-#include "etcoupl.h"
-#include "hagaussian.h"
-#include "hazindo.h"
-#include "hadalton.h"
 #include "harlemapp.h"
 #include "hamolset.h"
+#include "canvas3d.h"
 #include "hamolview.h"
-#include "hamolecule.h"
 #include "moleditor.h"
-#include "hamolmech.h"
-#include "haintermol.h"
-#include "haresdb.h"
-#include "nuclacidmod.h"
-#include "hascattermod.h"
 
 #include "dialogs_wx_1.h"
-//#include "ha_wx_res_wdr.h"
 
+#include "ha_wx_aux_1.h"
+#include "mm_dialogs_wx.h"
+//#include "halocorb.h"
+//#include "haqchem.h"
+//#include "etcoupl.h"
+//#include "hagaussian.h"
+//#include "hazindo.h"
+//#include "hadalton.h"
 
-#if defined(__WXMSW__)
-// undefined MFC MACROS conflicting WX functions
-#ifdef DrawText
-#undef DrawText
-#endif
+//#include "hamolecule.h"
 
-#ifdef StartDoc
-#undef StartDoc
-#endif
-
-#ifdef GetCharWidth
-#undef GetCharWidth
-#endif
-
-#ifdef FindWindow
-#undef FindWindow
-#endif
-
-#endif
+//#include "hamolmech.h"
+//#include "haintermol.h"
+//#include "haresdb.h"
+//#include "nuclacidmod.h"
+//#include "hascattermod.h"
 
 #include "wxMolFlex.h"
 #include "ha_wx_res_molflex_wdr.h"
-
-
-#if defined(__WXMSW__)
-// undefined MFC MACROS conflicting WX functions
-#ifdef DrawText
-#undef DrawText
-#endif
-
-#ifdef StartDoc
-#undef StartDoc
-#endif
-
-#ifdef GetCharWidth
-#undef GetCharWidth
-#endif
-
-#ifdef FindWindow
-#undef FindWindow
-#endif
-
-#endif
 
 #include "haflexmod.h"
 //////////////////////////////////////////////////////////////////////
@@ -160,15 +111,13 @@ void wxMolFlex::OnInitDialog(wxInitDialogEvent& event)
 	event.Skip();
 }
 
-bool
-wxMolFlex::TransferDataFromWindow()
+bool wxMolFlex::TransferDataFromWindow()
 {	
 	bool bres = wxDialog::TransferDataFromWindow();
 	return bres;
 }
 
-bool
-wxMolFlex::TransferDataToWindow()
+bool wxMolFlex::TransferDataToWindow()
 {	
 	bool bres = wxDialog::TransferDataToWindow();
 	UpdateGrids();
@@ -350,7 +299,7 @@ void wxMolFlex::OnRunFirst(wxCommandEvent& event)
 {
 	MolSet* pmset = myHaFlexMod->GetMolSet();
 
-	std::string cmdLine = pApp->harlem_home_dir + "first.exe";  
+	std::string cmdLine = (pApp->harlem_home_dir / "first.exe").string();  
     cmdLine += " -non ";
     cmdLine += " -hbin ";
     cmdLine += " -phin ";
@@ -384,8 +333,7 @@ void wxMolFlex::OnChangeSelectedHB(wxListEvent& event)
 	pmset->RefreshAllViews();
 }
 
-void
-wxMolFlex::OnChangeSelectedPH(wxListEvent& event)
+void wxMolFlex::OnChangeSelectedPH(wxListEvent& event)
 {
 	MolSet* pmset = myHaFlexMod->GetMolSet();
 	long idx = -1;

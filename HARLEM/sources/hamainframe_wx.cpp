@@ -178,7 +178,6 @@ MolViewWX::MolViewWX(MolSet* pmset_new, MolViewFrame *frame, const wxPoint& pos,
 }
  MolViewWX::~MolViewWX()
  {
-	 pmset->canvas_wx  = NULL;
 	 pmset->mset_pview = NULL;
  }
 void MolViewWX::OnPaint(wxPaintEvent& event)
@@ -628,8 +627,8 @@ int MolViewWX::SetWXImage(wxImage& wx_image) //!< Set wxImage with the current i
 int MolViewWX::WriteBMPFile(std::string name)
 {
 	//	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
+	unsigned int x_src = mol_view->pCanv->XRange();
+	unsigned int y_src = mol_view->pCanv->YRange();
 	wxImage img(x_src, y_src);
 	int ires = SetWXImage(img);
 	if (!ires) return FALSE;
@@ -642,8 +641,8 @@ int MolViewWX::WriteBMPFile(std::string name)
 int MolViewWX::WriteJPEGFile(std::string name)
 {
 	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
+	unsigned int x_src = mol_view->pCanv->XRange();
+	unsigned int y_src = mol_view->pCanv->YRange();
 	wxImage img(x_src, y_src);
 	int ires = SetWXImage(img);
 	if (!ires) return FALSE;
@@ -656,8 +655,8 @@ int MolViewWX::WriteJPEGFile(std::string name)
 int MolViewWX::WriteTIFFFile(std::string name)
 {
 	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
+	unsigned int x_src = mol_view->pCanv->XRange();
+	unsigned int y_src = mol_view->pCanv->YRange();
 	wxImage img(x_src, y_src);
 	int ires = SetWXImage(img);
 	if (!ires) return FALSE;
@@ -670,8 +669,8 @@ int MolViewWX::WriteTIFFFile(std::string name)
 int MolViewWX::WritePNGFile(std::string name)
 {
 	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
+	unsigned int x_src = mol_view->pCanv->XRange();
+	unsigned int y_src = mol_view->pCanv->YRange();
 	wxImage img(x_src, y_src);
 	int ires = SetWXImage(img);
 	if (!ires) return FALSE;
@@ -684,8 +683,8 @@ int MolViewWX::WritePNGFile(std::string name)
 int MolViewWX::WritePCXFile(std::string name)
 {
 	::wxInitAllImageHandlers();
-	unsigned int x_src = pCanv->XRange();
-	unsigned int y_src = pCanv->YRange();
+	unsigned int x_src = mol_view->pCanv->XRange();
+	unsigned int y_src = mol_view->pCanv->YRange();
 	wxImage img(x_src, y_src);
 	int ires = SetWXImage(img);
 	if (!ires) return FALSE;
@@ -1099,7 +1098,7 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 //	::wxSetWorkingDirectory(load_dlg.dir_name);
      
     MolSet* pmset = GetCurMolSet();
-    if( pmset == NULL || pmset->canvas_wx == NULL)
+    if( pmset == NULL )
 	{
         pmset = new MolSet();
         CreateMolView(pmset);        
@@ -1119,8 +1118,8 @@ void HaMainFrameWX::OnFileOpen(wxCommandEvent &event)
 		pmset->FetchFile(load_dlg.file_format, fname.c_str() );
 		// pmset->FetchFile(load_dlg.file_format, load_dlg.file_name_full.c_str());
 	}
-	pmset->canvas_wx->mol_view->InitialTransform();
-    pmset->canvas_wx->mol_view->DefaultRepresentation();
+	pmset->mset_pview->InitialTransform();
+    pmset->mset_pview->DefaultRepresentation();
     pmset->RefreshAllViews(RFRefresh | RFColour | RFApply);
 }
 
@@ -1165,13 +1164,17 @@ void HaMainFrameWX::SaveOutputFile(wxCommandEvent &event)
 void HaMainFrameWX::OnSaveImageClipboard(wxCommandEvent &event)
 {
 	HaMolView* pview = CurMolView;
+
+	wxMDIChildFrame* active_child = this->GetActiveChild();
+	MolViewFrame* pmol_view_frame = dynamic_cast<MolViewFrame*>(active_child);
+
 	
-	if(pview != NULL)
+	if( pmol_view_frame )
 	{
 		unsigned int x_src = pview->pCanv->XRange();
 		unsigned int y_src = pview->pCanv->YRange();
 		wxImage img(x_src,y_src);
-		int ires = pview->SetWXImage(img);
+		int ires = pmol_view_frame->mol_view_wx->SetWXImage(img);
 		if(!ires) return;
 		
 		wxBitmap btm_img(img);

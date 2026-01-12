@@ -13,7 +13,6 @@
 
 #include "wx/validate.h"
 
-
 class wxDoubleValidator: public wxValidator
 //! Validator for double numbers
 {

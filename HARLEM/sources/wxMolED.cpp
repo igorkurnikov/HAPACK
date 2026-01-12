@@ -328,15 +328,15 @@ void wxMolED::OnNextButtonClick(wxCommandEvent& event)
 	wxString fullPathName = fname_full.GetFullPath();
 	PrintLog("File Name is %s", fullPathName.ToStdString().c_str());
 
-	if( pmset == NULL || pmset->canvas_wx == NULL)
+	if( pmset == NULL || pmset->mset_pview == NULL)
     {
         pmset = new MolSet();
-        pmset->canvas_wx = frame_main->CreateMolView(pmset);        
+        frame_main->CreateMolView(pmset);        
     }
 	pmset->FetchFile(FormatPDB, fullPathName.ToStdString()); 
 
-	pmset->canvas_wx->mol_view->InitialTransform();
-    pmset->canvas_wx->mol_view->DefaultRepresentation();
+	pmset->mset_pview->InitialTransform();
+    pmset->mset_pview->DefaultRepresentation();
     pmset->RefreshAllViews(RFRefresh | RFColour | RFApply);
 
 	// Now close this dialog box and show the next dialog

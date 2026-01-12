@@ -8,6 +8,8 @@
 #if !defined(HAMAINFRAME_WX_H)
 #define HAMAINFRAME_WX_H
 
+#include "hamolview.h"
+
 class MolViewWX;
 class HaMolView;
 class MolSet;

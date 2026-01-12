@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "harlem_vs", "harlem_vs.vcxproj", "{7AB0F266-A0A8-47DD-8C82-49E28CF5D872}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2983D105-9456-41FF-A6DB-41FCE625AE90} = {2983D105-9456-41FF-A6DB-41FCE625AE90}
+		{E2F54A5F-4472-4983-A83C-5E78002C744F} = {E2F54A5F-4472-4983-A83C-5E78002C744F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "geoball_lib_c", "geoball_lib_c.vcxproj", "{0CC84782-AB73-4963-9CFE-F57C9E546651}"

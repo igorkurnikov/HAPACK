@@ -14,38 +14,9 @@
 #include "g94_globals.h"
 #include "g94_protos.h"
 
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include "wx/valgen.h"
-#include "wx/grid.h"
-#include "wx/dir.h"
-#include "wx/filename.h"
-#include "wx/listctrl.h"
-#include "wx/tokenzr.h"
-#include "wx/notebook.h"
-#include "wx/evtloop.h"
-#include "wx/spinbutt.h"
-
-#ifdef HAOGL
-#include <wx/glcanvas.h>
-#endif
-
-#include "hampi.h"
-
 #include "rapidxml.hpp"
 
-#include "hamainframe_wx.h"
-#include "ctrl_wx.h"
-#include "ha_wx_aux_1.h"
 #include "canvas3d.h"
-#include "dialogs_wx_1.h"
-#include "dialogs_wx_2.h"
-#include "qc_dialogs_wx.h"
-#include "ha_wx_res_wdr.h"
 #include "abstree.h"
 #include "halocorb.h"
 #include "hacoord.h"
@@ -75,44 +46,45 @@
 #include "nuclacidmod.h"
 #include "hascattermod.h"
 #include "haempirical.h"
-#include "edit_mut_map_dlg_wx.h"
 
 #include "gaufile.h"
+
+#include "wx/wx.h"
+#include <wx/evtloop.h>
+#include "wx/valgen.h"
+#include "wx/grid.h"
+#include "wx/dir.h"
+#include "wx/filename.h"
+#include "wx/listctrl.h"
+#include "wx/tokenzr.h"
+#include "wx/notebook.h"
+#include "wx/spinbutt.h"
+
+//#ifdef HAOGL
+//#include <wx/glcanvas.h>
+//#endif
+
+#include "hamainframe_wx.h"
+#include "ctrl_wx.h"
+#include "ha_wx_aux_1.h"
+
+#include "dialogs_wx_1.h"
+#include "dialogs_wx_2.h"
+#include "qc_dialogs_wx.h"
+#include "ha_wx_res_wdr.h"
+
+#include "edit_mut_map_dlg_wx.h"
+
 //>mikola to make some wxstuff to work under win
 //#include "planview.h"
 //#include "wxpnp_wdr.h"
 #include <wx/dcbuffer.h>
-#include <wx/wx.h>
+// #include <wx/wx.h>
 #include <wx/spinctrl.h>
 //#include <wxPlot/wxPlot.h>
 #include <wx/scrolwin.h>
-//<mikola
-//#include "mysql.h"
 
-#if defined(__WXMSW__)
-// undefined MFC MACROS conflicting WX functions
-#ifdef DrawText
-#undef DrawText
-#endif
-
-#ifdef StartDoc
-#undef StartDoc
-#endif
-
-#ifdef GetCharWidth
-#undef GetCharWidth
-#endif
-
-#ifdef FindWindow
-#undef FindWindow
-#endif
-
-#endif
-
-#include <filesystem>
-#include <boost/algorithm/string.hpp>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/format.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 
 CmdTextCtrl::CmdTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value,
 		const wxPoint& pos,const wxSize& size, long style, const wxValidator& validator,
@@ -826,7 +798,7 @@ void LoadScriptDlgWX::OnExecScriptWindow( wxCommandEvent &event )
     int isel = file_types_ch->GetSelection();
 
 	wxString msg = "Execute Script from the text window ";
-	PrintMessage(msg.c_str());
+	PrintMessage(msg.ToStdString());
     
 	switch( isel )
     {
@@ -5067,15 +5039,13 @@ void AtomParamsDlgWX::OnTransferFromWin(wxCommandEvent& event)
 	pmset->RefreshAllViews(RFRefresh);
 }
 
-void
-AtomParamsDlgWX::OnClose(wxCloseEvent& event)
+void AtomParamsDlgWX::OnClose(wxCloseEvent& event)
 {
 	AtomParamsDlgWX::dlg_open = false;
 	event.Skip();
 }
 
-void
-AtomParamsDlgWX::OnCloseBtn(wxCommandEvent& event)
+void AtomParamsDlgWX::OnCloseBtn(wxCommandEvent& event)
 {
 	Close();
 }
@@ -7343,7 +7313,7 @@ bool MolSetParDlg::TransferDataFromWindow()
 		wxTextCtrl*    name_edt=  (wxTextCtrl*)  FindWindow(IDC_MSPAR_MSET_NAME);
 		
 		wxString str = name_edt->GetValue();
-		pmset->SetName(str.c_str());
+		pmset->SetName(str.ToStdString());
 	}
 	return wxFrame::TransferDataFromWindow();
 }
@@ -8636,7 +8606,7 @@ void MolViewWX::BroadcastCurrAtom()
 //! to prosess this info and call 
 //! AtomEdit::BroadCastPickedAtom(PkAtom) - for atom select edit boxes
 {
-	MolSet* mset= GetMolSet();
+	// MolSet* mset = this->pmset;
 
 	if( EditGroupsDlg::dlg_open)
 	{
@@ -8664,7 +8634,6 @@ void MolViewWX::BroadcastCurrAtom()
 	
 //	wxAtomEdit::BroadCastPickedAtom(PkAtom);
 
-	return True;
 }
 
 void HaMainFrameWX::OnShowResDb(wxCommandEvent &event)

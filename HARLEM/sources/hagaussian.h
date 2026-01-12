@@ -53,7 +53,7 @@ public:
 
 	void SetAddKWStr( const std::string& add_kw_str ); //!< Set string of additional GAUSSIAN keywords
 
-protected:
+public:
 
 	std::string inp_file_prefix; //!< Prefix for Gaussian input files
 //	std::string inp_file;        //!< Gaussian input file name
@@ -80,7 +80,7 @@ public:
 	void SetNoStdOrient( bool set_par = true );
 	void SetSaveBasisSetGen( bool set_par = true ); //!< Set Saving Basis Set as generic 
 
-protected:
+public:
  
 	HaQCMod* p_qc_mod;     //!< The pointer to Quantum Chemical module associated with the Gaussian module 
 	

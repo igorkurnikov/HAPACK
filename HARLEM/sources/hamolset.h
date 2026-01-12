@@ -498,7 +498,6 @@ public:
 	std::vector<std::shared_ptr<BaseMolView>> views; //!< Views associated with the Molecular Set
 	
 	HaMolView* mset_pview;  //!< A pointer to the Molecular View object associated with the molecular set 
-	//MolViewWX* canvas_wx;   //!< A pointer to the wxWindows Molecular Canvas View associated with the molecular set
 
 	bool AddObject3D(Object3D* new_view_object);   //!< Add a new 3D object to the list
 	bool DeleteObject3D(Object3D* pobj);           //!< Delete 3D object from the list using the pointer 
