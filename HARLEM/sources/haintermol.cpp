@@ -83,7 +83,7 @@ void HaInterMolMod::SetStdParams()
 
 	calc_et_rate = FALSE;
 	compute_pk = 0;
-	_flag = FALSE;
+	empirical_flag = FALSE;
 
 	to_build_nb_contact_list = TRUE;
 	to_build_intermol_excl_atom_list = TRUE;
@@ -642,17 +642,17 @@ void intermol_doc_run(InterMolMCSimulator* ptr_im_mc_sim)
 	HaInterMolMod* ptr_im_mod = ptr_im_mc_sim->GetInterMolMod();
 
 	int rex_flag = ptr_im_mc_sim->rex_flag;
-	int _flag = ptr_im_mod->_flag;
-	if (!rex_flag && !_flag)
+	int empirical_flag = ptr_im_mod->empirical_flag;
+	if (!rex_flag && !empirical_flag)
 	{
 		ptr_im_mc_sim->RunMC();
 	}
-	else if (!rex_flag && _flag)
+	else if (!rex_flag && empirical_flag)
 	{
 		//ptr_im_mod -> RunMC();
 		ptr_im_mc_sim->RunMCQuantSampling();
 	}
-	else if (rex_flag && _flag)
+	else if (rex_flag && empirical_flag)
 	{
 		ptr_im_mc_sim->RunQuasiREM();
 	}

@@ -86,7 +86,7 @@ public:
 	int compute_pk;    //!< flag to compute dynamical changes of pKs of ionizable groups in binding
     int electr_model;  //!< method to compute electrostatic energy (NO_ELECTR=0, CONTINUUM_ELECTR = 1, COULOMB_ELECTR = 2, CHARGES_IN_FIELD_ELECTR = 3)
 	int calc_et_rate;  //!< Flag to add to the energy the effective addition from ET rate, default = 0 
-	int _flag;  //!< run simulations with  potential
+	int empirical_flag;  //!< run simulations with Empirical Coarse Grained potential
 
 public:
 	InterMolMCSimulator*      p_mc_sim;        //!< MC Simulator
