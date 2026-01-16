@@ -17,7 +17,7 @@ namespace harlem
 	class Coord;
 };
 
-class TrajPointInfo
+class MSET_API TrajPointInfo
 //! Class to provide information about trajectory point to TrajAnalAgent
 {
 public:
@@ -35,7 +35,7 @@ public:
 	double energy_rejected; //!< Energy of rejected point
 };
 
-class TrajAnalAgent
+class MSET_API TrajAnalAgent
 //! Abstract class for object to Compute properties along Simulation Trajectory 
 {
 public:
@@ -47,7 +47,7 @@ public:
 	virtual int Finalize() { return TRUE;}                     //!< Finalize trajectory analysis
 };
 
-class TrajIOAgent : public TrajAnalAgent
+class MSET_API TrajIOAgent : public TrajAnalAgent
 {
 public:
 	TrajIOAgent(MCSimulator* p_sim_new);
@@ -95,7 +95,7 @@ private:
 	int active_flag;
 };
 
-class TraceMolAgent : public TrajAnalAgent
+class MSET_API TraceMolAgent : public TrajAnalAgent
 {
 public:
 	TraceMolAgent(MolSet* pmset_new);
@@ -120,7 +120,7 @@ protected:
 	int active_flag;
 };
 
-class UpdateMolViewNotifyAgent : public TrajAnalAgent
+class MSET_API UpdateMolViewNotifyAgent : public TrajAnalAgent
 {
 public:
 	UpdateMolViewNotifyAgent(MolSet* pmset_new);

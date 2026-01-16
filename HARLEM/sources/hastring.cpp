@@ -337,16 +337,6 @@ void StrIntMap::SetVal(const char* str, int val)
 }
 
 
-const char* StrVec::GetVal(size_t idx)
-{
-	return ((*this)[idx]).c_str();
-}
-
-void StrVec::SetVal(size_t idx, const char* val)
-{
-	(*this)[idx] = val;
-}
- 
 std::string harlem::GetDirFromFileName(const std::string& fname)
 {
 	std::string dir_name = fname;

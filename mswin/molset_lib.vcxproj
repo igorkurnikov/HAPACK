@@ -95,13 +95,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>_molsetc</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(PYTHON_HOME_PATH)\include;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\include;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_AFXDLL;_DEBUG;MSET_BUILD_DLL;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -157,7 +157,7 @@ $(SolutionDir)copy_dependencies.bat
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\HARLEM\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\HALIB\include;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\include;$(ProjectDir)\..\..\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;MSET_BUILD_DLL;_WINDOWS;_AFXDLL;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;HA_MORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
@@ -289,8 +289,14 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\hasurface.cpp" />
     <ClCompile Include="..\HARLEM\sources\march_cube.cpp" />
     <ClCompile Include="..\HARLEM\sources\hatests.cpp" />
+    <ClCompile Include="obj\Debug_x64\molset_lib\hamolset_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj   %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="obj\Release_x64\molset_lib\hamolset_wrap.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -412,7 +418,7 @@ copy $(IntDir)molsetc.py $(OutputPath)
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface hamolset_wrap.cpp file with SWIG</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -DMSET_BUILD_DLL -o $(IntDir)hamolset_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
 copy $(IntDir)molsetc.py $(OutputPath)
 
 </Command>

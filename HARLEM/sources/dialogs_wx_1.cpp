@@ -8050,7 +8050,7 @@ void NuclAcidDlgWX::OnUpdateContent()
 		m_nRows = nr;		
 	}
 
-	StrVec lbl_res(nr*4);
+	std::vector<std::string> lbl_res(nr*4);
 
 	HaResidue* pres;
 

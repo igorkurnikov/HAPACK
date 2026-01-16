@@ -9,6 +9,7 @@
 #define HABOND_H
 
 #include "haconst.h"
+#include "hastl.h"
 
 class Vec3D;
 class HaAtom;
@@ -28,7 +29,7 @@ const int DoubBondFlag  =  0x20;
 const int TripBondFlag  =  0x40;
 const int AromBondFlag  =  0x80;
 
-class HaBond
+class MSET_API HaBond
 //!  Class to define Bond object 
 {
 public:
@@ -94,7 +95,7 @@ protected:
 
 typedef std::vector<HaBond*> BondArray;
 
-class HaHBond
+class MSET_API HaHBond
 //!  Class to define Hydrogen Bond object 
 {
 public:

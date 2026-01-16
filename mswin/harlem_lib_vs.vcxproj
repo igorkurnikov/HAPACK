@@ -86,9 +86,9 @@
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>_molsetc_d</TargetName>
+    <TargetName>_harlem_d</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlem\</OutDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <LibraryPath>$(oneMKLLibDir);$(IFORT_COMPILER21)compile\lib\intel64_win\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -114,7 +114,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;molset_lib.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;_molsetc_d.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -122,7 +122,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(oneMKLLibDir);$(IFORT_COMPILER22)compiler\lib\intel64_win;$(IFORT_COMPILER21)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)_$(PlatformName);$(SolutionDir)$(Configuration)_$(PlatformName)\molset;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(oneMKLLibDir);$(IFORT_COMPILER22)compiler\lib\intel64_win;$(IFORT_COMPILER21)compiler\lib\intel64_win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Message>Copy Python Scripts and Other Dependencies</Message>
@@ -170,7 +170,7 @@ $(SolutionDir)copy_dependencies.bat
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;delphi_lib.lib;harlem_vs_fort.lib;jumna_lib_fort.lib;geoball_lib_fort.lib;mpir.lib;msmpi.lib;msmpifec.lib;_molsetc.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
@@ -198,6 +198,9 @@ $(SolutionDir)copy_dependencies.bat
 
 </Command>
     </PostBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
@@ -218,8 +221,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClCompile Include="..\HARLEM\sources\wxMolED.cpp" />
     <ClCompile Include="..\HARLEM\sources\wxMolFlex.cpp" />
     <ClCompile Include="..\HARLEM\sources\wxpymod.cpp" />
-    <ClCompile Include="..\HARLEM\sources\hacolors.cpp" />
-    <ClCompile Include="..\HARLEM\sources\hamolview.cpp" />
     <ClCompile Include="..\HARLEM\sources\oglview.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -249,7 +250,6 @@ $(SolutionDir)copy_dependencies.bat
     <ClInclude Include="..\HARLEM\sources\wxMolFlex.h" />
     <ClInclude Include="..\HARLEM\sources\wxpymod.h" />
     <ClInclude Include="..\HARLEM\sources\font.h" />
-    <ClInclude Include="..\HARLEM\sources\hamolview.h" />
     <ClInclude Include="..\HARLEM\sources\oglview.h" />
     <ClInclude Include="..\HARLEM\sources\hachart.h" />
     <ClInclude Include="..\HARLEM\sources\hachart_wx.h" />
@@ -298,12 +298,18 @@ $(SolutionDir)copy_dependencies.bat
       <Project>{5fa1f25a-7f2a-42c5-83b1-a6684b8f342e}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="molset_lib.vcxproj">
+      <Project>{e2f54a5f-4472-4983-a83c-5e78002c744f}</Project>
+    </ProjectReference>
     <ProjectReference Include="mortlib.vcxproj">
       <Project>{cd7149ea-ed1a-44c9-a7e7-f9a15ea1470e}</Project>
     </ProjectReference>
     <ProjectReference Include="pmemd_lib_c.vcxproj">
       <Project>{4e65a9c1-a2bd-42b3-9155-5531fe33009f}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="pnplib_vs.vcxproj">
+      <Project>{00332771-f366-4c97-80a8-51519a1ff394}</Project>
     </ProjectReference>
     <ProjectReference Include="vf_lib.vcxproj">
       <Project>{f70239d1-0a54-4f2f-a7ff-37f0ead8939a}</Project>

@@ -12,11 +12,12 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "hastl.h"
 
 class TiXmlElement;
 class HaContext;
 
-class HaObject
+class MSET_API HaObject
 //! Basic object in HARLEM serves as a parent class for many objects in the program  
 //! Provides functionality of saving to and reading from XML elements 
 //! Returns its Name identificator 

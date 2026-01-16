@@ -51,8 +51,8 @@ public:
 	int ExecuteScriptFromFile(const char* script_fname);  //!< Execute script from file
 	int ExecuteScriptInString(const char* script_str);    //!< Execute script in the string
 
-	static long RunExternalProgram(RunMode rmode, const std::string& prog_name, StrVec& prog_args,
-		                                          StrVec& prog_output, int get_prog_output = 0); //!< Run external program 
+	static long RunExternalProgram(RunMode rmode, const std::string& prog_name, std::vector<std::string>& prog_args,
+		std::vector<std::string>& prog_output, int get_prog_output = 0); //!< Run external program 
 	// static int CheckProcIsActive(long proc_id); //!< Check if the process specified by proc id is running
 	// static int KillProc(long proc_id);     //!< Terminate the process specified by proc id
 	static int SwitchThread();             //!< Switch execution to an another thread 
@@ -64,7 +64,7 @@ public:
 
 	ComputerAccount* GetAccountByID(const char* acc_id);
 	int ShowAccountsLoad(); //!< Show load of remote accounts
-	int ExecuteRemoteCmd(ComputerAccount* pacc, const char* cmd, StrVec& prog_output, int get_prog_output); //!< Execute Command on a remote computer 
+	int ExecuteRemoteCmd(ComputerAccount* pacc, const char* cmd, std::vector<std::string>& prog_output, int get_prog_output); //!< Execute Command on a remote computer 
 
 	virtual void Exit() {}
 

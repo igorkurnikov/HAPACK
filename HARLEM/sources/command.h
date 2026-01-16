@@ -47,7 +47,7 @@ const int FormatGUESS    = 0;
 class AtomExpr;
 class MolSet;
 
-class CmdParser
+class MSET_API CmdParser
 //! Class to process RASMOL-like text commands
 {
 public:

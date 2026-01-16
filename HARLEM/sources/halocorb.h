@@ -13,7 +13,7 @@
 
 class HaQCMod;
 
-class LinCombOrb3D:  public ArrayOrb3D
+class MSET_API LinCombOrb3D:  public ArrayOrb3D
 //! An Array of 3D orbitals as linear combination of basis set functions 
 {
 public:
@@ -50,7 +50,7 @@ public:
 	HaMat_double coef;  //!< expansion coefficients - number of columns = number of vectors in the array
 	ArrayOrb3D* bas;    //!< the basis set for orbitals 
 
-	StrVec ids;    //!< String identificators of orbitals
+	std::vector<std::string> ids;    //!< String identificators of orbitals
 	VecPtr at_ptr; //!< Pointers to atoms that orbitals are located on
 
 //! Compute overlap matrix between to arrays of orbitals 

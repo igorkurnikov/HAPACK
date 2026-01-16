@@ -42,7 +42,7 @@ protected:
 
 #endif
 
-class HaDaltonMod :  public HaCompMod
+class MSET_API HaDaltonMod :  public HaCompMod
 //!  Class to control Quantum Chemical calculations using Dalton program   
 {
 public:

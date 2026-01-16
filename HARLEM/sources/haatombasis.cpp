@@ -1634,7 +1634,7 @@ std::string GauBasisSet::GetLabel(int idx)
 	return lbl;
 }
 
-static StrVec lbls_minb[10];
+static std::vector<std::string> lbls_minb[10];
 
 int GauBasisSet::InitForMolSet(const char* bname_str, MolSet* pmset)
 {

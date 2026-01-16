@@ -9,6 +9,7 @@
 #ifndef HAGAUSSIAN_H
 #define HAGAUSSIAN_H
 
+#include "hastl.h"
 #include "hacompmod.h" 
 #include <boost/process.hpp>
 
@@ -17,7 +18,7 @@ namespace harlem
 	class RunOptions;
 };
 
-class QCDriverGaussian: public HaCompMod
+class MSET_API QCDriverGaussian: public HaCompMod
 //!  Class to control quantum chemical calculations with the GAUSSIAN program   
 {
 public:
@@ -108,11 +109,13 @@ public:
 	bool save_basis_set_gen; //!< save basis set to gaussian input file as generic 
 
 	// Keep handles alive for async mode
+private:
 	std::shared_ptr<boost::process::child> child_;
 	std::thread watcher_;
 	std::atomic<bool> running_{ false };            //!< Flag to indicate that the external Gaussian process is running 
 	//std::atomic<bool> stop_requested_{ false };     //!< Flag to indicate that termination of the Gaussian process is requested
 
+public:
 	void CleanupAsync(); //!< Set running state to false - thread safe
 	void OnGaussianTerminate(int pid, int exit_code);
 

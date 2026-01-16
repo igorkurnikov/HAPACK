@@ -44,7 +44,7 @@ namespace harlem
 
 //! \brief Computational module to perform Quantum Chemical calculations
 //! \nosubgrouping
-class HaQCMod: public HaCompMod
+class MSET_API HaQCMod: public HaCompMod
 {
 	friend class QCDriverGaussian;
 	friend class HaTests;

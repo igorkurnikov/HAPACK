@@ -203,7 +203,7 @@ extern const wxEventType wxEVT_HARLEM_APP;
 const int HARLEM_APP_EXIT_ID = 20001;
 
 //! HaMainFrameWX starter for starting GUI from python
-void StartHaMainFrameWX();
+MSET_API void StartHaMainFrameWX();
 
 class MolViewWX;
 

@@ -1485,7 +1485,7 @@ void MMDriverAmber::ResetStackLimits()
 	}
 }
 
-static int write_string_array_chuncks(std::ostream& os, StrVec& str_vec, 
+static int write_string_array_chuncks(std::ostream& os, std::vector<std::string> &str_vec,
 									  int field_len, int num_of_fields)
 {
 	int loc_idx  = 0;
@@ -8626,7 +8626,7 @@ int MMDriverAmber::RunAmberProg(int sync)
 	int ires = DeleteOutputFiles();
 
 	int i;
-	StrVec sander_args;
+	std::vector<std::string> sander_args;
 
 	sander_args.push_back("-O");
 	sander_args.push_back("-i"); 

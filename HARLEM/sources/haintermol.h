@@ -39,7 +39,7 @@ class TrajIOAgent;
 class UpdateMolViewNotifyAgent;
 
 //! Class to simulate docking between two molecules
-class HaInterMolMod : public HaCompMod
+class MSET_API HaInterMolMod : public HaCompMod
 {
 public:
 	HaInterMolMod(MolSet* new_phost_mset);
@@ -107,7 +107,7 @@ private:
 
 
 
-class InterMolMCSimulator : public MCSimulator
+class MSET_API InterMolMCSimulator : public MCSimulator
 {
 public:
 	InterMolMCSimulator( HaInterMolMod* p_im_mod_new);
@@ -154,7 +154,7 @@ private:
 	
 };
 
-class InterMolEnergyMinimizer
+class MSET_API InterMolEnergyMinimizer
 {
 public:
 	InterMolEnergyMinimizer(HaInterMolMod* p_inter_mol_new) { p_inter_mol = p_inter_mol_new;}
@@ -173,7 +173,7 @@ private:
 	HaInterMolMod* p_inter_mol;
 };
 
-class InterMolRepExchSimulator
+class MSET_API InterMolRepExchSimulator
 {
 public:
 	InterMolRepExchSimulator(HaInterMolMod* p_inter_mol_new) { p_inter_mol = p_inter_mol_new;}

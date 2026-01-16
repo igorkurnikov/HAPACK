@@ -110,7 +110,7 @@ Electrostatic Module, replacement of ElectrostMod, mimic its behaviour
 @author mikola
 */
 #ifdef ELMOD_COMPILE
-class ElMod : public ElectrostMod
+class MSET_API ElMod : public ElectrostMod
 {
 	public:
 		ElMod(MolSet* new_phost_mset = NULL);

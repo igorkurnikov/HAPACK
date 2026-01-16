@@ -76,7 +76,7 @@ public:
   int PutMat(const char* key_str, const HaMat_double& fmat );
   int GetMat(const char* key_str, HaMat_double& fmat);
 	
-  int ExtractToFile(const StrVec& keys, const char* fname);
+  int ExtractToFile(const std::vector<std::string>& keys, const char* fname);
   int ExtractAllToFile(const char* fname);
   int AddFromFile(const char* fname);
 

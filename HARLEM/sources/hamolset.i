@@ -27,11 +27,11 @@ namespace std {
 %{                                                           
                                                             
 #include <hampi.h>                                                                   
-#include "hastl.h"                 
+#include "hastl.h"
+#include "hastring.h"
 #include "hatypes.h"                                                                    
 #include "abstree.h"                     
-#include "rapidxml.hpp"                                             
-#include "hastring.h"                            
+#include "rapidxml.hpp"                                                    
 #include "harlemapp.h"                     
 #include "hampi.h"   
 #include "haconst.h"

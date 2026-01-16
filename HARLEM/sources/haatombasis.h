@@ -19,7 +19,7 @@ class AtomContainer;
 
 struct b_type;
 
-class HaBasisSet
+class MSET_API HaBasisSet
 //! Abstract class to describe a basis set of orbitals or configurations
 {
 public:
@@ -42,7 +42,7 @@ protected:
 	static StrPtrMap ovlp_map_cache;
 };
 
-class ArrayOrb3D : public HaBasisSet
+class MSET_API ArrayOrb3D : public HaBasisSet
 //!< An abstract class to describe an array of orbitals in 3D space
 {
 public:
@@ -60,7 +60,7 @@ public:
 	static ArrayOrb3D* CreateObjectWithType(const char* type); //!< Create Empty Basis of a given type
 };
 
-class GauShell: public ArrayOrb3D 
+class MSET_API GauShell: public ArrayOrb3D 
 //! Class to represent a group of Gaussian Basis functions with the same radial functions 
 //! and different angular dependence 
 {
@@ -124,7 +124,7 @@ typedef std::vector<GauShell> ShellsType;
 
 class HaPseudoPot;
 
-class GauAtomBasis: public ArrayOrb3D 
+class MSET_API GauAtomBasis: public ArrayOrb3D 
 //! Class for Gaussian Atomic Basis set 
 //! currently identified by the name of the basis set (like "6-31G")
 //! and the nuclear charge of the atom. 
@@ -200,7 +200,7 @@ public:
 };
 
 
-class GauBasisSet:  public ArrayOrb3D
+class MSET_API GauBasisSet:  public ArrayOrb3D
 //! Class to represent Gaussian Basis Set in HARLEM 
 {
 public:
@@ -255,7 +255,7 @@ public:
 	std::vector<GauAtomBasis> at_bas_vec;           //!< vector of atom bases    
 	HaVec_int atom_bas_idx;                    //!< Atom basis indexes of basis functions 
 	HaVec_int fst_bas_fun_idx;                 //!< Index of the first orbitals of the atomic basis sets in the GauBasSet
-	StrVec bf_lbls;                            //!< Labels of basis functions
+	std::vector<std::string> bf_lbls;                            //!< Labels of basis functions
 
 protected:
 	std::string bset_name; 

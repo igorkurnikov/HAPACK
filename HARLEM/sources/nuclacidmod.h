@@ -24,7 +24,7 @@ const int AMBER94_FF = 2;
 class HaMolecule;
 
 //! Computational module to model Nucleic Acids
-class NuclAcidMod : public HaCompMod
+class MSET_API NuclAcidMod : public HaCompMod
 {
 public:
 	 NuclAcidMod(MolSet* new_pmset=NULL);

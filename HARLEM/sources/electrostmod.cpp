@@ -1586,12 +1586,12 @@ bool ElectrostMod::RunDelphi(RunMode rmode)
  
 #endif
 	
-	StrVec delphi_args;
+	std::vector<std::string> delphi_args;
 
 #if defined(_MSC_VER)
 	delphi_args.push_back(" > ");
 #endif
-    StrVec prog_output;
+	std::vector<std::string> prog_output;
 
 #if defined(INT_DELPHI)
 	MolSet* pmset = GetMolSet();

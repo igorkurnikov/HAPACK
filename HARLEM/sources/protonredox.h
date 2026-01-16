@@ -108,7 +108,7 @@ namespace swig {
 }
 
 
-class ProtonRedoxMod: public HaCompMod
+class MSET_API ProtonRedoxMod: public HaCompMod
 //!  Class to compute properties of chemical tranformation in the system such as protonation and redox changes
 {
 public:

@@ -26,6 +26,18 @@
 #include <set>
 #include <string>
 
+#if defined(SWIG) 
+	#define MSET_API
+#elif defined(_MSC_VER)
+	#if defined(MSET_BUILD_DLL) 
+		#define MSET_API __declspec(dllexport) 
+	#else 
+		#define MSET_API __declspec(dllimport) 
+	#endif
+#else
+	#define MSET_API
+#endif
+
 #ifdef linux
 #include <new>
 #endif
@@ -292,7 +304,7 @@ public:
 	int HasAtom(void* const ptr) const;
 };
 
-class VecPtr: public std::vector<void*>
+class MSET_API VecPtr: public std::vector<void*>
 {
 //! Vector of pointers
 public:

@@ -9,8 +9,9 @@
 #if !defined(HATESTS_H)
 #define HATESTS_H
 
+#include "hastl.h"
 
-class HaTests
+class MSET_API HaTests
 {
 public:
 	static void calc_polar_gcontr();

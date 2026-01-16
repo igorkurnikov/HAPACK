@@ -122,7 +122,7 @@ class AmberMMModel;
   typedef _object PyObject;
 #endif
 
-class MDTrajAnalMod
+class MSET_API MDTrajAnalMod
 //!< Module to perform analysis of MD trajectory
 {
 public:
@@ -242,7 +242,7 @@ protected:
 };
 
 
-class RMSDAgent : public TrajAnalAgent
+class MSET_API RMSDAgent : public TrajAnalAgent
 //!< Agent to superimpose atoms on a reference coordinates along MD trajectory and compute relevant statistics
 {
 public:

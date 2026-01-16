@@ -26,7 +26,7 @@ namespace mort
 };
 
 
-class MolMechModel
+class MSET_API MolMechModel
 {
 public:
 	MolMechModel(HaMolMechMod* p_mm_mod_new);

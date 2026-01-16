@@ -34,7 +34,7 @@ using StrAtomMap = std::map<std::string, HaAtom*>;
 //	namespace rapidxml { template<class Ch = char> class xml_node; }
 //#endif
 
-class AtomIterator : public PointIterator
+class MSET_API AtomIterator : public PointIterator
 //! Abstract class for an iterator on collections of atoms 
 {
 public:
@@ -50,7 +50,7 @@ public:
 
 };
 
-class AtomIterator_const : public PointIterator_const
+class MSET_API AtomIterator_const : public PointIterator_const
 //! Abstract class for a constant iterator on collections of atoms 
 {
 public:
@@ -68,7 +68,7 @@ public:
 
 class AtomIteratorGen;
 
-class AtomLoadOptions : public harlem::HashMap
+class MSET_API AtomLoadOptions : public harlem::HashMap
 //! Class to define options for loading atoms from stream or file
 {
 public:
@@ -104,7 +104,7 @@ protected:
 
 enum class AlchemicalState : int;
 
-class AtomSaveOptions : public harlem::SaveOptions
+class MSET_API AtomSaveOptions : public harlem::SaveOptions
 //! Class to define options for saving atoms to stream or file
 {
 public:
@@ -133,7 +133,7 @@ public:
 protected:
 };
 
-class  AtomContainer: public PointContainer
+class MSET_API AtomContainer: public PointContainer
 //! Abstract class for a collection of Atoms
 {
 public:
@@ -176,7 +176,7 @@ public:
 };
 
 
-class AtomIteratorGen
+class MSET_API AtomIteratorGen
 //! General Atom Iterator for a collection of Atoms
 {
 public: 
@@ -213,7 +213,7 @@ private:
 	int first_called;
 };
 
-class AtomIteratorAtomGroup : public AtomIterator
+class MSET_API AtomIteratorAtomGroup : public AtomIterator
 //! Atom iterator class to browse atoms of the Atom Group
 {
 public:
@@ -240,7 +240,7 @@ protected:
 	AtomGroup* p_at_group;
 };
 
-class AtomIteratorAtomGroup_const : public AtomIterator_const
+class MSET_API AtomIteratorAtomGroup_const : public AtomIterator_const
 //! Atom iterator class to browse atoms of the Atom Group
 {
 public:
@@ -257,7 +257,7 @@ protected:
 };
 
 
-class AtomGroup : public std::vector<HaAtom*>, public AtomContainer
+class MSET_API AtomGroup : public std::vector<HaAtom*>, public AtomContainer
 //! Class to define a group of atoms
 {	
 public:
@@ -319,7 +319,7 @@ class MolSet;
 
 // Beware AddAtom is defined in winbase.h (WIN32)!!
 
-class ChemGroup : public AtomGroup
+class MSET_API ChemGroup : public AtomGroup
 //!  Class to define Chemical(Functional) Atom Group object
 {
 public:
@@ -375,7 +375,7 @@ enum class AlchemicalState : int
 };
 
 //!  Class to define Residue in a polymer or biopolymer chain   
-class HaResidue : public AtomGroup
+class MSET_API HaResidue : public AtomGroup
 {
 public:
 	HaResidue();
@@ -512,7 +512,7 @@ protected:
 	void Clear();	
 };
 
-class AlchemicalTransformation
+class MSET_API AlchemicalTransformation
 //!< Alchemical Residue Mutation 
 {
 public:
@@ -548,7 +548,7 @@ protected:
 };
 
 
-class AtomIteratorChain : public AtomIterator
+class MSET_API AtomIteratorChain : public AtomIterator
 //! Atom iterator class to browse atoms of a chain (HaChain class)
 {
 public:
@@ -568,7 +568,7 @@ protected:
 	HaChain* chain;
 };
 
-class AtomIteratorChain_const : public AtomIterator_const
+class MSET_API AtomIteratorChain_const : public AtomIterator_const
 //! Atom iterator class to browse atoms of a chain (HaChain class)
 {
 public:
@@ -588,7 +588,7 @@ protected:
 	const HaChain* chain;
 };
 
-class ResidueIteratorChain
+class MSET_API ResidueIteratorChain
 //! Residue iterator class to browse residues of the chain
 {
 public:
@@ -604,7 +604,7 @@ protected:
 	HaChain* chain;
 };
 
-class HaChain : public AtomContainer
+class MSET_API HaChain : public AtomContainer
 //!< Class to define chain of residues 
 {
 public:
@@ -657,7 +657,7 @@ protected:
   HaMolecule* phost_mol; //!< The Molecule chain belongs to
 };
 
-class PeriodicUnitInfo
+class MSET_API PeriodicUnitInfo
 //! class to describe periodicity of the system
 {
 public:
@@ -710,7 +710,7 @@ public:
 };
 
 
-class CrdSnapshot
+class MSET_API CrdSnapshot
 //!< Snapshot of atom coordinates of Atom Container
 {
 public:
@@ -746,7 +746,7 @@ protected:
 	HaVec_double pbox; //!< periodical box info, if size=3 only box side sizes if size = 6 - directional angles (in radians)
 };
 
-class CrdSnapshotIterator
+class MSET_API CrdSnapshotIterator
 //!< Iterator on CrdSnapshot objects associated with Molecular Set
 {
 public:
@@ -780,7 +780,7 @@ protected:
 	std::vector<CrdSnapshot*>::iterator itr_end;
 };
 
-class MutationMap
+class MSET_API MutationMap
 //!< Mutaton Map between atoms of two molecules
 {
 public:

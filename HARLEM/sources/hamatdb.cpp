@@ -219,7 +219,7 @@ int HaMatDB::GetMat(const char* key_str, HaMat_double& fmat)
 	return (int) get(key,fmat);
 }
 
-int  HaMatDB::ExtractToFile(const StrVec& keys, const char* fname)
+int  HaMatDB::ExtractToFile(const std::vector<std::string>& keys, const char* fname)
 {
 	FILE* fout = fopen(fname,"w");
 	if(fout == NULL) return FALSE;
@@ -258,7 +258,7 @@ int HaMatDB::ExtractAllToFile(const char* fname)
 
     // Walk through the Database, printing the keys.
     StrKey key;
-	StrVec keys;
+	std::vector<std::string> keys;
  
 	return ExtractToFile(keys,fname);
 }

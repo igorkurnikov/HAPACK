@@ -26,7 +26,7 @@ const double VERTEX_SCALE  = 10000.0;
 class AtomContainer;
 
 //! Class for a scalar field on a rectangular grid
-class HaField3D:public HaObject
+class MSET_API HaField3D:public HaObject
 {
 public:
 
@@ -110,7 +110,7 @@ protected:
 };
 
 
-class HaNonLocField3D_2 : public HaField3D
+class MSET_API HaNonLocField3D_2 : public HaField3D
 {
 public:
 	HaNonLocField3D_2();
@@ -146,7 +146,7 @@ public:
 	double val;
 };
 
-class HaNonLocField3D : public HaField3D
+class MSET_API HaNonLocField3D : public HaField3D
 {
 public:
 	HaNonLocField3D();
@@ -160,7 +160,7 @@ protected:
 
 };
 
-class HaSurface
+class MSET_API HaSurface
 //! class to define surface build from triangles
 {	
 public:

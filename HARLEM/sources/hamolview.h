@@ -15,6 +15,7 @@
 #define HAMOLVIEW_H
 
 #include "hastl.h"
+#include "haio.h"
 #include "habond.h"
 #include "haatgroup.h"
 #include "canvas3d.h"
@@ -31,7 +32,7 @@ class HaMolecule;
 class AtomExpr;
 class Object3D;
 
-class Monitor
+class MSET_API Monitor
 {
 public:
     Monitor();
@@ -66,7 +67,7 @@ const int WideKnotFlag =  0x0e;
 typedef void* PSItemPtr;
 
 
-class HaMolView : public BaseMolView
+class MSET_API HaMolView : public BaseMolView
 //!  Class for 3D representation of a Molecular Set
 {
 public:
@@ -139,7 +140,8 @@ public:
 	int InitX;  //!< reference X screen coordinate of the point of mouse click in mouse motion tracking 
 	int InitY;  //!< reference Y screen coordinate of the point of mouse click in mouse motion tracking
 
-	static int FakeSpecular,SpecPower;
+	static int FakeSpecular;
+	static int SpecPower;
 	int UseLabelCol;
 	static int UseBackFade;
 	static double Ambient;
@@ -528,11 +530,11 @@ unsigned int isqrt( unsigned int );
 
 #ifdef HAMOLVIEW_CPP
 
-HaMolView*  CurMolView;
+MSET_API HaMolView*  CurMolView;
 
 #else
 
-extern HaMolView* CurMolView;
+MSET_API extern HaMolView* CurMolView;
 
 #endif
 

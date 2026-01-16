@@ -18,7 +18,7 @@ class HaMolView;
 class HBondAvg;
 class HaHydrophobicTether;
 
-class HaFlexMod: public HaCompMod 
+class MSET_API HaFlexMod: public HaCompMod 
 {
 public:
 	HaFlexMod(MolSet* new_pmset=NULL);

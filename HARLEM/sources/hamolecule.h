@@ -54,7 +54,7 @@ protected:
 class ResidueIteratorMolecule;
 
 //!  Class to define a single Molecule object
-class HaMolecule: public Object3D, public AtomContainer
+class MSET_API HaMolecule: public Object3D, public AtomContainer
 {
 public:
 	HaMolecule(MolSet* new_phost_mset, std::string new_name="MOL");
@@ -207,7 +207,7 @@ public:
 };
 
 
-class AtomIteratorMolecule: public AtomIterator
+class MSET_API AtomIteratorMolecule: public AtomIterator
 //! Atom iterator class to browse atoms of the molecule
 {
 public:
@@ -226,7 +226,7 @@ protected:
 	HaMolecule* pMol;
 };
 
-class AtomIteratorMolecule_const: public AtomIterator_const
+class MSET_API AtomIteratorMolecule_const: public AtomIterator_const
 //! Atom iterator class to browse atoms of the molecule
 {
 public:
@@ -245,7 +245,7 @@ protected:
 	const HaMolecule* pMol;
 };
 
-class ResidueIteratorMolecule
+class MSET_API ResidueIteratorMolecule
 //! Residue iterator class to browse residues of the molecule
 {
 public:
@@ -263,7 +263,7 @@ protected:
 	HaMolecule* pmol;
 };
 
-class ResidueIteratorMolecule_const
+class MSET_API ResidueIteratorMolecule_const
 	//! Residue iterator class to browse residues of the molecule
 {
 public:
@@ -283,7 +283,7 @@ protected:
 
 
 
-class ChainIteratorMolecule
+class MSET_API ChainIteratorMolecule
 //! Chain iterator class to browse chains of the molecule
 {
 public:

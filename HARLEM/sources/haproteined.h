@@ -14,7 +14,7 @@
 class AtomGroup;
 class MDTrajectory;
 
-class CollectCrdAnalType : public HaEnum1
+class MSET_API CollectCrdAnalType : public HaEnum1
 //! Extended Enum class for Collective Coordinates Analysis Type 
 {
 public:
@@ -49,7 +49,7 @@ namespace swig {
 	const CollectCrdAnalType CCRD_TEMPORAL_ISFA   = CollectCrdAnalType::CCRD_TEMPORAL_ISFA;
 }
 
-class CollectCrdAnalMod: public HaCompMod
+class MSET_API CollectCrdAnalMod: public HaCompMod
 //!  Class to perform Collective Coordinates Analysis of MD trajectory
 {
 public:

@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include "hastl.h"
 
 #include "haatom.h"
 #include "habond.h"
 
 
-class HBondAvg: public HaHBond
+class MSET_API HBondAvg: public HaHBond
 //! Class for H-Bond averaged over MD trajectory
 {
 protected:
@@ -39,7 +40,7 @@ public:
 	bool operator == (const HBondAvg& hbond);
 };
 
-class HaHydrophobicTether
+class MSET_API HaHydrophobicTether
 {
 protected:
 	HaAtom*	firstAtom;		// The first atom in the tether

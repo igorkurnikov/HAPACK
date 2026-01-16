@@ -33,7 +33,7 @@ enum ELPOT_FILE_FORMAT { HLM_F3D_BIN = 0, HLM_F3D_FORM = 1, ELPOT_DELPHI_BIN = 2
 
 
 //! Class to perform continuum electrostatic calculations on the grid
-class ElectrostMod : public HaCompMod
+class MSET_API ElectrostMod : public HaCompMod
 {
 public:
 	ElectrostMod(MolSet* new_phost_mset = NULL,const int new_mtype=COMP_MOD_ELECTROST);

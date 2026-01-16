@@ -23,7 +23,7 @@ namespace harlem
 	std::string unhash(const HashID& id);
     HashID hash(const std::string& name);
 
-	class HashMap
+	class MSET_API HashMap
 	{
 	public:
 		HashMap();
@@ -79,7 +79,7 @@ namespace harlem
 		std::map< HashID, boost::any >  a_params;
 	};
 
-	class SaveOptions : public harlem::HashMap
+	class MSET_API SaveOptions : public harlem::HashMap
 	{
 	public:
 
@@ -112,7 +112,7 @@ namespace harlem
 	};
 }
 
-class HaEnum
+class MSET_API HaEnum
 //!< Enum-like Class in HARLEM to be used as enumerated parameters
 {
 public:
@@ -130,7 +130,7 @@ public:
 	virtual std::vector<std::string> GetActiveLabels() { return GetAllLabels(); }
 };
 
-class HaEnum1: public HaEnum
+class MSET_API HaEnum1: public HaEnum
 //! Enum-like class with int to string map
 {	
 public:

@@ -83,7 +83,7 @@ namespace harlem
 }
 
  
-class HaCompMod
+class MSET_API HaCompMod
 //! Parent class for computational modules in HARLEM
 {
 public:

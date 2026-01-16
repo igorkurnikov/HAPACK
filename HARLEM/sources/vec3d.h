@@ -12,6 +12,7 @@ enum CoordUnits{ BOHR_U,   ANGSTROM_U };
 enum AngleUnits{ DEGREE_U, RADIAN_U };
 
 #include "hastl.h"
+#include "haio.h"
 #include "haconst.h"
 
 class HaMat_double;
@@ -21,7 +22,7 @@ class AtomGroup;
 
 
 //! class to define 3D vector or a point in 3D space
-class Vec3D 
+class MSET_API Vec3D
 {
 protected:
   double pos[3];
@@ -114,7 +115,7 @@ static int SetAtomPos( Vec3D* pptr, const Vec3D* ptr1, const Vec3D* pptr2, const
 };   
 
 
-class PointIterator
+class MSET_API PointIterator
 //! Abstract class for an iterator on collections of points in 3D space (3D vectors)
 {
 public:
@@ -130,7 +131,7 @@ public:
 //	virtual    int GetNumPt() = 0;          //!< Get total of number of points in the collection
 };
 
-class PointIterator_const
+class MSET_API PointIterator_const
 //! Abstract class for an iterator on collections of points in 3D space (3D vectors)
 {
 public:
@@ -147,7 +148,7 @@ public:
 };
 
 
-class PointContainer
+class MSET_API PointContainer
 //! Abstract class of a container (group) of points in 3D space
 {
 public:
@@ -196,7 +197,7 @@ namespace harlem
 	}
 }
 
-class PointIteratorGen
+class MSET_API PointIteratorGen
 {
 public: 
 	PointIteratorGen( PointContainer& pt_col) { ppt_col = &pt_col; ppt_itr = pt_col.GetPointIteratorPtr(); }
@@ -213,7 +214,7 @@ private:
 
 };
 
-class PointIteratorGen_const
+class MSET_API PointIteratorGen_const
 {
 public: 
 	PointIteratorGen_const( const PointContainer& pt_col) { ppt_col = &pt_col; ppt_itr = pt_col.GetPointIteratorPtr_const(); }
@@ -233,7 +234,7 @@ private:
 
 class Vec3DValArray;
 
-class Vec3DValArrayIterator: public PointIterator
+class MSET_API Vec3DValArrayIterator: public PointIterator
 {
 public:
     Vec3DValArrayIterator(Vec3DValArray* pt_array);
@@ -247,7 +248,7 @@ protected:
 	Vec3DValArray* cur_arr;
 };
 
-class Vec3DValArrayIterator_const: public PointIterator_const
+class MSET_API Vec3DValArrayIterator_const: public PointIterator_const
 {
 public:
     Vec3DValArrayIterator_const(const Vec3DValArray* pt_array);
@@ -261,7 +262,7 @@ protected:
 	const Vec3DValArray* cur_arr;
 };
 
-class Vec3DValArray: public std::vector<Vec3D>, public PointContainer
+class MSET_API Vec3DValArray: public std::vector<Vec3D>, public PointContainer
 {
 public:
     Vec3DValArray();

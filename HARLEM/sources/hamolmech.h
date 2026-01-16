@@ -55,7 +55,7 @@ const int MM_UPDATE_CONSTR_2 = 3007;
 
 //! \brief Computational module to perform Molecular Mechanics computations
 //!  \nosubgrouping
-class HaMolMechMod : public HaCompMod
+class MSET_API HaMolMechMod : public HaCompMod
 {
 public:
 
@@ -404,7 +404,7 @@ public: // Tests:
 
 };
 
-class MMSysInfo
+class MSET_API MMSysInfo
 {
 public:
 	MMSysInfo(HaMolMechMod* p_mm_mod_new);
@@ -496,7 +496,7 @@ protected:
 	HaMolMechMod* p_mm_mod;
 };
 
-class MinEneMod
+class MSET_API MinEneMod
 //! Class to perform Energy minimization simulations
 {
 public:
@@ -507,7 +507,7 @@ protected:
 	HaMolMechMod* p_mm_mod;
 };
 
-class TISimMod
+class MSET_API TISimMod
 //!< Module to perform Free Fnergy calculation change for transition between hamiltonians 
 {
 public:
@@ -558,7 +558,7 @@ public:
 	double delta_g;        //!< Computed Delta G value
 };
 
-class MMDriver
+class MSET_API MMDriver
 {
 public:
 	MMDriver();

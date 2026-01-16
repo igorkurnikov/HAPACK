@@ -859,11 +859,11 @@ ComputerAccount* HarlemApp::GetAccountByID(const char* acc_id)
 	return pacc;
 }
 
-int HarlemApp::ExecuteRemoteCmd(ComputerAccount* pacc, const char* cmd, StrVec& prog_output, int get_prog_output)
+int HarlemApp::ExecuteRemoteCmd(ComputerAccount* pacc, const char* cmd, std::vector<std::string>& prog_output, int get_prog_output)
 {
 	if(pacc == NULL) return FALSE;
 	
-	StrVec prog_args;
+	std::vector<std::string> prog_args;
 
 	std::string loc_cmd_str;
 	
@@ -915,7 +915,7 @@ int HarlemApp::ShowAccountsLoad()
 		cmd_str += '\"';
 		cmd_str += "%p%C";
 		cmd_str += '\"';
-		StrVec prog_output;
+		std::vector<std::string> prog_output;
 		ExecuteRemoteCmd(&comp_accounts[i],cmd_str.c_str(),prog_output,TRUE);
 		
 		double tot_cpu = 0.0;
@@ -948,8 +948,8 @@ static std::string quote_for_log(const std::string& s)
 
 namespace bp = boost::process;
 
-long HarlemApp::RunExternalProgram(RunMode rmode, const std::string& prog_name, StrVec& prog_args,
-							  StrVec& prog_output, int get_prog_output )
+long HarlemApp::RunExternalProgram(RunMode rmode, const std::string& prog_name, std::vector<std::string>& prog_args,
+			std::vector<std::string>& prog_output, int get_prog_output )
 {
 	std::ostringstream cmd_line;
 	cmd_line << quote_for_log(prog_name);

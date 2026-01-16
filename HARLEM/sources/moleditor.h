@@ -8,7 +8,7 @@
 #ifndef MOLEDITOR_H_HARLEM
 #define MOLEDITOR_H_HARLEM
 
-class MolEditor
+class MSET_API MolEditor
 //!< Class to edit molecules  
 {
 public:

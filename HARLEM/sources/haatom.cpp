@@ -668,7 +668,7 @@ bool HaAtom::FillRef(char* buf, int ref_type) const
 	return true;	
 }
 
-StrVec HaAtom::ElemDesc;
+std::vector<std::string> HaAtom::ElemDesc;
 StrIntMap HaAtom::at_name_refno_map;
 
 int HaAtom::RegisterAtName(const std::string& at_name)

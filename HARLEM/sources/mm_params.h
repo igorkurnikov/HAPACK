@@ -50,7 +50,7 @@
 class HaMolMechMod;
 class MolMechModel;
 
-class MMRunType : public HaEnum1
+class MSET_API MMRunType : public HaEnum1
 //! Enum class for Molecular Mechanics simulation type 
 {
 public:
@@ -83,7 +83,7 @@ namespace swig {
 	const MMRunType DG_MUT_RUN = MMRunType::DG_MUT_RUN;
 }
 
-class TempCtrlMethod : public HaEnum1
+class MSET_API TempCtrlMethod : public HaEnum1
 //! Extended Enum class for Molecular Dynamics Temperature Control Method 
 {
 public:
@@ -117,7 +117,7 @@ namespace swig {
 	const TempCtrlMethod CONST_TEMP_LANGEVIN   = TempCtrlMethod::CONST_TEMP_LANGEVIN;
 }
 
-class EneMinMethod : public HaEnum1
+class MSET_API EneMinMethod : public HaEnum1
 //! Enum class for Energy Minimization Method 
 {
 public:
@@ -148,7 +148,7 @@ namespace swig {
 	const EneMinMethod STEEPEST_DESCENT = EneMinMethod::STEEPEST_DESCENT;
 }
 
-class MMReadInitCrdType : public HaEnum1
+class MSET_API MMReadInitCrdType : public HaEnum1
 //! Enum class for type of inital coordinates read  
 {
 public:
@@ -183,7 +183,7 @@ namespace swig {
 	const MMReadInitCrdType READ_XVBOX_FORM = MMReadInitCrdType::READ_XVBOX_FORM;
 }
 
-class CrdFormatParam : public HaEnum1
+class MSET_API CrdFormatParam : public HaEnum1
 //! Enum class for format of saved coordinates   
 {
 public:
@@ -209,7 +209,7 @@ private:
 };
 
 
-class PerBoundaryCondType : public HaEnum1
+class MSET_API PerBoundaryCondType : public HaEnum1
 //! Enum class for Periodical Boundary conditions type 
 {
 public:
@@ -248,7 +248,7 @@ namespace swig {
 }
 
 
-class PressureRegMethod : public HaEnum1
+class MSET_API PressureRegMethod : public HaEnum1
 //! Enum class for Pressure Regulation method in Molecular Mechanics simulation 
 {
 public:
@@ -285,7 +285,7 @@ namespace swig {
 	const PressureRegMethod CRD_SCALING_YZ_AND_X   = PressureRegMethod::CRD_SCALING_YZ_AND_X;
 }
 
-class MMElectrMethod : public HaEnum1
+class MSET_API MMElectrMethod : public HaEnum1
 //! Enum class for method of modeling of electrostatic interactions in MM calculations
 {
 public:
@@ -324,7 +324,7 @@ namespace swig {
 }
 
 
-class StartVelMethod : public HaEnum1
+class MSET_API StartVelMethod : public HaEnum1
 //! Enum class for Method to generate starting velocities 
 {
 public:
@@ -355,7 +355,7 @@ namespace swig {
 }
 
 
-class OmitInteractionsParam : public HaEnum1
+class MSET_API OmitInteractionsParam : public HaEnum1
 //! Enum class for a parameter to omit certain interaction terms in MM Model 
 {
 public:
@@ -391,7 +391,7 @@ namespace swig {
 	const OmitInteractionsParam OMIT_BONDS_VANG_DIH    = OmitInteractionsParam::OMIT_BONDS_VANG_DIH;
 }
 
-class MMShakeParam : public HaEnum1
+class MSET_API MMShakeParam : public HaEnum1
 //! Enum class for Molecular Mechanics Shake Algorithm to freeze bonds 
 {
 public:
@@ -422,7 +422,7 @@ namespace swig {
 	const MMShakeParam ALL_BOND_SHAKE = MMShakeParam::ALL_BOND_SHAKE;
 }
 
-class MMExternalProg : public HaEnum1
+class MSET_API MMExternalProg : public HaEnum1
 //! Enum class for parameter defining external Molecular Mechanics simulation program
 {
 public:
@@ -461,7 +461,7 @@ namespace swig {
 	const MMExternalProg ARBALEST_25 = MMExternalProg::ARBALEST_25;
 }
 
-class ForceFieldType : public HaEnum1
+class MSET_API ForceFieldType : public HaEnum1
 //! Enum class for Molecular Mechanics Force Field Type 
 {
 public:
@@ -501,7 +501,7 @@ namespace swig {
 	const ForceFieldType UNKNOWN_FF    = ForceFieldType::UNKNOWN_FF;
 }
 
-class AtomContactType : public HaEnum1
+class MSET_API AtomContactType : public HaEnum1
 //! Enum class for Type of Atom Atom Distance Constraint Type 
 {
 public:

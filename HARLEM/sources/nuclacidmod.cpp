@@ -1529,8 +1529,7 @@ static double diff_ang(double a1,double a2)
 	return diff;
 }
 
-int 
-NuclAcidMod::CalcGlobHlxCrd()
+int NuclAcidMod::CalcGlobHlxCrd()
 {
 	if(p_dna_mol == NULL)
 	{
@@ -1553,7 +1552,7 @@ NuclAcidMod::CalcGlobHlxCrd()
 
 	int nr = ch1->GetNRes();
 
-	StrVec lbl(nr*4);
+	std::vector<std::string> lbl(nr*4);
 
 	HaResidue* pres;
 
@@ -1807,7 +1806,7 @@ int NuclAcidMod::CalcBBCrd()
 
 	int nr = ch1->GetNRes();
 
-	StrVec lbl(nr*4);
+	std::vector<std::string> lbl(nr*4);
 
 	HaResidue* pres;
 
@@ -2198,7 +2197,7 @@ int NuclAcidMod::CalcLocHlxCrd(int for_bp)
 
 	int nr = ch1->GetNRes();
 
-	StrVec lbl(nr*4);
+	std::vector<std::string> lbl(nr*4);
 
 	HaResidue* pres;
 

@@ -18,7 +18,7 @@ namespace mort
 	class molecule_t;
 }
 
-class MMForceField
+class MSET_API MMForceField
 {
 public:
 	MMForceField();
@@ -50,7 +50,7 @@ public:
  
 	int LoadAmberParamFile(const std::string& ff_param_fname );  //!< Load Force-Field parameters from file in AMBER format
 	int LoadTinkerParamFile(const std::string& ff_param_fname );  //!< Load Force-Field parameters from file in TINKER format
-	StrVec GetAmberParamFiles() const; //!< Get file names of Force Field parameter files in AMBER format
+	std::vector<std::string> GetAmberParamFiles() const; //!< Get file names of Force Field parameter files in AMBER format
 
 	static std::vector< MMForceField* > ff_arr;  //!< Array of initialized Force fields
 	static MMForceField* GetMMForceField(const ForceFieldType& ff_type, int create = FALSE ); //!< Get and initialize MM Force Field by name, create empty if not foud and create = TRUE  
@@ -70,16 +70,16 @@ public:
 
 	ResFFTemplate* GetResidueTemplate(const std::string& full_res_name); //!< Get Residue Force Field Template by a full Residue name
 
-	static StrVec resff_files_add;        //!< Additional Residue force field templates files
-	static StrVec tinker_param_files_add; //!< Additional force field parameters files in TINKER format
-	static StrVec amber_param_files_add;  //!< Additional force field parameters files in AMBER format
+	static std::vector<std::string> resff_files_add;        //!< Additional Residue force field templates files
+	static std::vector<std::string> tinker_param_files_add; //!< Additional force field parameters files in TINKER format
+	static std::vector<std::string> amber_param_files_add;  //!< Additional force field parameters files in AMBER format
 
 private:
 	ForceFieldType ff_type;  //!< Force Field Type (AMBER94, CHARMM22 etc..) 
 	 
-	StrVec amber_param_files;   //!< Names of force field parameter files in AMBER format
-	StrVec tinker_param_files;  //!< Names of force field parameter files in TINKER format
-	StrVec resff_files;  //!< Names of files of Force field residue templates
+	std::vector<std::string> amber_param_files;   //!< Names of force field parameter files in AMBER format
+	std::vector<std::string> tinker_param_files;  //!< Names of force field parameter files in TINKER format
+	std::vector<std::string> resff_files;  //!< Names of files of Force field residue templates
 
 	std::vector<ResFFTemplate*>           res_ff_templates;        //!< Residue Force Field Templates
 	std::map<std::string,ResFFTemplate*>  res_name_ff_templ_map;   //!< Map of Residue Names to Residue Force Field Templates

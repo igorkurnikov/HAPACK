@@ -76,7 +76,7 @@ private:
 	Vec3D crd; 
 };
 
-class SameAtomCrdRule : public SingleAtomCrdRule
+class MSET_API SameAtomCrdRule : public SingleAtomCrdRule
 //!< Atom coordinate synchronization rule: Managed Atom coordinates are set to those of the reference atom  
 {
 public:
@@ -99,7 +99,7 @@ private:
 	HaAtom* p_ref_atom; //!< Reference Atom to synchronize coordinates
 };
 
-class Pt2CrdRule : public SingleAtomCrdRule
+class MSET_API Pt2CrdRule : public SingleAtomCrdRule
 //!< Atom coordinate synchronization rule: Managed Atom coordinates are set to lay on a line between two reference atoms  
 {
 public:
@@ -124,7 +124,7 @@ private:
 	double bond_len; //!< Distance between p_mng_atom and p_ref_1
 };
 
-class Pt3CrdRule : public SingleAtomCrdRule
+class MSET_API Pt3CrdRule : public SingleAtomCrdRule
 //!< Atom coordinates synchronization rule: Managed Atom coordinates are set from 3 points positions, a bond length, a val angle and a torsional angle 
 {
 public:
@@ -162,7 +162,7 @@ private:
 	double dih_ang; //!< Dihedral angle betweem p_mng_atom, p_ref_1, p_ref_2 and p_ref_3
 };
 
-class DihedralAngleCoord : public harlem::Coord
+class MSET_API DihedralAngleCoord : public harlem::Coord
 //! Internal coordinate node to specify dihedral angle  
 {
 public:
@@ -195,7 +195,7 @@ public:
 enum ElemCrdType { UNDEF_ELEM_CRD, X_ELEM_CRD, Y_ELEM_CRD, Z_ELEM_CRD, 
                    LEN_ELEM_CRD, ANG_ELEM_CRD, DIH_ELEM_CRD };
   
-class ElemCrd
+class MSET_API ElemCrd
 {
 public:
 	ElemCrd();
@@ -227,7 +227,7 @@ protected:
 	ElemCrdType type;
 };
 
-class ZMatLoadOptions : public harlem::HashMap
+class MSET_API ZMatLoadOptions : public harlem::HashMap
 {
 public:
 	ZMatLoadOptions();
@@ -252,7 +252,7 @@ protected:
 
 };
 
-class ZMatSaveOptions : public harlem::HashMap
+class MSET_API ZMatSaveOptions : public harlem::HashMap
 //!< Class with options to write Z-matrix 
 {
 public:
@@ -286,7 +286,7 @@ protected:
 
 };
 
-class ZMatCrd 
+class MSET_API ZMatCrd 
 {
 public:
 	ZMatCrd(MolSet* pmset_new);

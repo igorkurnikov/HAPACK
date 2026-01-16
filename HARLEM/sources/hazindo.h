@@ -11,7 +11,7 @@
 
 #include "hacompmod.h" 
 
-class HaZindoMod: public HaCompMod
+class MSET_API HaZindoMod: public HaCompMod
 //!  Class to control semi quantum chemical calculations with ZINDO program   
 {
 public:

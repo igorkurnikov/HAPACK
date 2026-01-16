@@ -756,7 +756,7 @@ bool HaQCMod::InitLocOrb(const char* setid)
 	int nb = AtBasis.GetNBfunc();
 
 	HaMat_double cf_axx(nb,nb,0.0); // orbital expansion coefficients
-	StrVec orb_lbs;  // orbital labels
+	std::vector<std::string> orb_lbs;  // orbital labels
 
 	int nabf = 0;  // the number of active basis functions
 	int i_fst = 0;

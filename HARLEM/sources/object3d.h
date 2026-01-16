@@ -25,7 +25,7 @@ class HaMolView;//<mikola 30July06
 class Canvas3D;//<mikola 30July06
 class HaField3D;//<mikola 26March08
 
-class Object3D 
+class MSET_API Object3D 
 //! Class to define 3D objects that can be displayed and manipulated
 {
 public:
@@ -73,7 +73,7 @@ protected:
 const int SCREEN_ORIENTATION = 0;
 const int REFERENCE_ORIENTATION   = 1;
 //>mikola 30July06
-class BoxObj3D : public Object3D
+class MSET_API BoxObj3D : public Object3D
 {
   public:
 
@@ -94,7 +94,7 @@ class BoxObj3D : public Object3D
 	virtual bool GetObjectMinMaxCrd(double& MinX_v, double& MinY_v, double& MinZ_v,
 		double& MaxX_v, double& MaxY_v, double& MaxZ_v) const;
 };
-class MatrixObj3D : public Object3D
+class MSET_API MatrixObj3D : public Object3D
 {
   public:
 
@@ -114,7 +114,8 @@ class MatrixObj3D : public Object3D
 
     virtual int DrawObj(HaMolView* molview);
 };
-class MembraneZObj3D : public Object3D
+
+class MSET_API MembraneZObj3D : public Object3D
 {
   public:
 
@@ -135,7 +136,8 @@ class MembraneZObj3D : public Object3D
 
     virtual int DrawObj(HaMolView* molview);
 };
-class TubeObj3D : public Object3D
+
+class MSET_API TubeObj3D : public Object3D
 {
   public:
 
@@ -163,7 +165,7 @@ class TubeObj3D : public Object3D
 };
 //<mikola 30July06
 //<mikola 26March08
-class PlaneViewOfHaField3D : public Object3D
+class MSET_API PlaneViewOfHaField3D : public Object3D
 {
 	public:
 

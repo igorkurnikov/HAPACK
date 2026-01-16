@@ -20,7 +20,7 @@ class AmberMMModel;
 class AtomFFParam;
 
 
-class MMDriverAmber : public MMDriver
+class MSET_API MMDriverAmber : public MMDriver
 {
 public:
 	MMDriverAmber(HaMolMechMod* p_mm_mod_new);
@@ -306,7 +306,7 @@ public:
 };
 
 
-class AmberMMModel
+class MSET_API AmberMMModel
 //!< Molecular Mechanics Model in a representation matching AMBER program data structures 
 {
 public:
@@ -439,9 +439,9 @@ public:
 	HaVec_int atm_iac;      //!< (Fortran based 1) indexes of atoms in the array of atom types
 	HaVec_int typ_ico;      //!< Array (ntypes x ntypes) of VdW parameters indexes
 	HaVec_int atm_nsp;      //!< the atom submolecule index array
-	StrVec atm_igraph;          //!< Atom Names
-	StrVec atm_isymbl;          //!< Atom force field symbols
-	StrVec atm_itree;           //!< Atom tree symbols
+	std::vector<std::string> atm_igraph;          //!< Atom Names
+	std::vector<std::string> atm_isymbl;          //!< Atom force field symbols
+	std::vector<std::string> atm_itree;           //!< Atom tree symbols
 	HaVec_double  atm_charge;   //!< The atom partial charge array for amber pme scaled by diel_const (not used in AMOEBA calculations).
 	HaVec_double  atm_mass;     //!< Array of Atomic Masses
 	HaVec_double  atm_mass_inv; //!< Arrays of Inverse Atomic Masses
@@ -481,7 +481,7 @@ public:
 
 	std::vector<HaResidue*> amber_residues;      //!< List of pointers of HARLEM residues that correspond to AMBER residues 
 	std::vector<int>        nat_amber_residues;  //!< Number of atoms in AMBER residues
-	StrVec res_labels;  //!< AMBER residue labels
+	std::vector<std::string> res_labels;  //!< AMBER residue labels
 
 	std::vector<HaVec_double> loc_point_params;                   //!< Array of Locally used Point Parameters
 	std::map<HaVec_double,int> ppar_idx_map; //!< Map between Point Params and their position in loc_point_params
@@ -505,7 +505,7 @@ public:
 // AMOEBA parameters:
 	HaVec_int atm_poltype;    //!< AMOEBA_ATOM_TYPE_INDEX
 	HaVec_int atm_element;    //!< AMOEBA_ATOMIC_NUMBER  (Atom elements)
-	StrVec  atm_class_idx;    //!< AMOEBA_ATOM_CLASS_INDEX  
+	std::vector<std::string> atm_class_idx;    //!< AMOEBA_ATOM_CLASS_INDEX  
 
 	int n_bond_amoeba;         //!< Number of AMOEBA Valence bonds
 	int n_bond_amoeba_params;  //!< Number of AMOEBA Valence bonds parameters 

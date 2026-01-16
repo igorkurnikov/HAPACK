@@ -21,7 +21,7 @@
 #include "hacompmod.h"
 
 
-class StmMod : public HaCompMod
+class MSET_API StmMod : public HaCompMod
 {
 public:
 	StmMod(MolSet* new_phost_mset = NULL);

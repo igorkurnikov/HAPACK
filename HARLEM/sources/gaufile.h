@@ -12,9 +12,10 @@
 #include "g94_globals.h"
 #include "g94_protos.h" 
 
+#include "hastl.h"
 #include "hastring.h"
 
-class GauFile
+class MSET_API GauFile
 //! Class to represent Gaussian RWF file and its IO operations:
 {
 public:

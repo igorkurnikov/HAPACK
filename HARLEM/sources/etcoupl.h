@@ -81,7 +81,7 @@ const int HAM_S_DIP_TR = 0, HAM_TR = 1; //!< for ETCouplMod::ham_trunc_type
 enum REDOX_ORB_TYPE {REDOX_ORB_DONOR = 0, REDOX_ORB_ACCEPTOR};
 
 //! The module to perform computations of donor/acceptor ET coupling
-class ETCouplMod: public HaCompMod
+class MSET_API ETCouplMod: public HaCompMod
 {
 public:
 

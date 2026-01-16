@@ -25,7 +25,7 @@ namespace harlem
 	class Coord;
 };
 
-class MCSimulator
+class MSET_API MCSimulator
 //!< Basic MC Simulator
 {
 public:

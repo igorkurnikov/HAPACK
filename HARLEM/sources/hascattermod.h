@@ -16,7 +16,7 @@
 class HaNonLocField3D;
 
 
-class HaScatterMod : public HaCompMod
+class MSET_API HaScatterMod : public HaCompMod
 {
 public:
 	HaScatterMod(MolSet* new_phost_mset = NULL);

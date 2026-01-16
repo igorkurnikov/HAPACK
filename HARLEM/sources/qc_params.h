@@ -12,7 +12,7 @@
 #include "hastring.h"
 #include "hatypes.h"
 
-class QCIntEngineType : public HaEnum1
+class MSET_API QCIntEngineType : public HaEnum1
 //! Enum class for Quantum Chemical Integral Engine type 
 {
 public:

@@ -9,6 +9,7 @@
 #define HAMOLSET_H
 
 #include "hastl.h"
+#include "haio.h"
 #include "rapidxml.hpp"
 #include "command.h"
 #include "haatgroup.h"
@@ -68,7 +69,7 @@ typedef std::vector<CrdSnapshot*> CrdSnapshotVector;
 
 //! \brief Class to describe a collection of molecules - Central Class of HARLEM
 //! \nosubgrouping
-class MolSet : public AtomContainer
+class MSET_API MolSet : public AtomContainer
 {
 	friend class MolSetParDlg;
 	
@@ -508,7 +509,7 @@ public:
 	void ClearPickedAtoms(); //!< Clear Picked Atoms Set
 	AtomGroup picked_atoms;
 
-	StrVec info_str; //!< vector of string to display on the screen
+	std::vector<std::string> info_str; //!< vector of string to display on the screen
 	std::vector<std::string> comments1; //!< Comments strings set 1
 	std::vector<std::string> comments2; //!< Comments strings set 2
 
@@ -523,7 +524,7 @@ public:
 
 };
 
-class BaseMolView
+class MSET_API BaseMolView
 //! Abstract Base Class for a View of a Molecular System 
 {
 public:
@@ -539,7 +540,7 @@ typedef std::vector<HaMolecule*> MoleculesType;
 class AtomIteratorMolecule;
 class AtomIteratorMolecule_const;
 
-class AtomIteratorMolSet: public AtomIterator
+class MSET_API AtomIteratorMolSet: public AtomIterator
 //! Atom iterator class to browse atoms of the molecular set
 {
 public:
@@ -595,7 +596,7 @@ protected:
 };
 
 
-class AtomIteratorMolSet_const : public AtomIterator_const
+class MSET_API AtomIteratorMolSet_const : public AtomIterator_const
 //! Const Atom iterator class to browse atoms of the molecular set
 {
 public:
@@ -634,7 +635,7 @@ protected:
 };
 
 
-class ResidueIteratorMolSet
+class MSET_API ResidueIteratorMolSet
 //! Residue iterator class to browse residues of the molecular set
 {
 public:
@@ -694,7 +695,7 @@ protected:
 	int first_called;
 };
 
-class ResidueIteratorMolSet_const
+class MSET_API ResidueIteratorMolSet_const
 //! Const Residue iterator class to browse residues of the molecular set
 {
 public:
@@ -713,7 +714,7 @@ protected:
 	MoleculesType::const_iterator mol_itr_end;
 };
 
-class ChainIteratorMolSet
+class MSET_API ChainIteratorMolSet
 //! Chain iterator class to browse chains of the molecular set
 {
 public:
@@ -730,7 +731,7 @@ protected:
 	MolSet* pmset;
 };
 
-class ChemGroupIterator
+class MSET_API ChemGroupIterator
 //! Iterator class to browse Chemical Groups of the molecular set
 {
 public:
@@ -745,7 +746,7 @@ protected:
 	MolSet* pmset;
 };
 
-class AtomGroupIteratorMolSet
+class MSET_API AtomGroupIteratorMolSet
 //! Iterator class to browse Named Atom Groups of the molecular set
 {
 public:
@@ -760,7 +761,7 @@ protected:
 	MolSet* pmset;
 };
 
-class AtomGroupIteratorMolSet_const
+class MSET_API AtomGroupIteratorMolSet_const
 //! Iterator class to browse Named Atom Groups of the molecular set (const version)
  {
 public:
@@ -776,7 +777,7 @@ protected:
 };
 
 
-class BondIteratorMolSet
+class MSET_API BondIteratorMolSet
 //! Bond iterator class to browse bonds of the molecular set
 {
 public:
@@ -811,7 +812,7 @@ protected:
 	MolSet* pmset;
 };
 
-class HBondIteratorMolSet
+class MSET_API HBondIteratorMolSet
 //! Bond iterator class to browse Hydrogen Bonds of the molecular set
 {
 public:
@@ -829,7 +830,7 @@ protected:
 };
 
 
-class PyAccMolSetProp
+class MSET_API PyAccMolSetProp
 //! class for python accellerated access to molset properties
 {
 public:
@@ -858,12 +859,12 @@ public:
 
 extern "C" {
 #if defined(HAMOLSET_CPP)
-	MolSet* GetCurMolSet() { return MolSet::CurMolSet; }
-	void SetCurMolSet(MolSet* pmset);
+	MSET_API MolSet* GetCurMolSet() { return MolSet::CurMolSet; }
+	MSET_API void SetCurMolSet(MolSet* pmset);
 	
 #else
-	extern MolSet* GetCurMolSet();
-	extern void SetCurMolSet(MolSet* pmset);
+	MSET_API extern MolSet* GetCurMolSet();
+	MSET_API extern void SetCurMolSet(MolSet* pmset);
 #endif
 }
 

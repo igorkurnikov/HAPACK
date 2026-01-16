@@ -1541,7 +1541,7 @@ int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_re
 				continue;
 			}
 			int n_in_res = 0;
-			StrVec at_str(4);
+			std::vector<std::string> at_str(4);
 			for( i = 0; i < 4; i++)
 			{
 				int at_id = ar[i].get_i(mort::ID);

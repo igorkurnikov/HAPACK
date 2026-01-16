@@ -12,7 +12,7 @@
 
 #include "hamolmech.h"
 
-class MMDriverGromacs : public MMDriver
+class MSET_API MMDriverGromacs : public MMDriver
 {
 public:
 	MMDriverGromacs(MolSet* pmset);

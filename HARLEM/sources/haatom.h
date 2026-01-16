@@ -47,7 +47,7 @@ class TiXmlElement;
 
 //! \brief Class to define Atom object
 //! \nosubgrouping
-class HaAtom : public Vec3D
+class MSET_API HaAtom : public Vec3D
 {
 public:
 //! \name Constructors, Destructors, Set Parameters 
@@ -155,9 +155,9 @@ public:
 //@}
 
   static int RegisterAtName( const std::string& at_name); //!< return Reference number of the atom name 
-  static void FillStdAtomTypes();     //!< Fill list of names of atoms with standard names
-  static StrVec ElemDesc;   //!< list of names of atoms
-  static StrIntMap at_name_refno_map;  //!< map of atom names to ref_no 
+  static void FillStdAtomTypes();            //!< Fill list of names of atoms with standard names
+  static std::vector<std::string> ElemDesc;  //!< list of names of atoms
+  static StrIntMap at_name_refno_map;        //!< map of atom names to ref_no 
 
   bool IsSameName(const HaAtom* aptr_ref) const; //!< Check if atom has the same name
   bool IsMatch(const HaAtom* atempl) const; //!< Check if Atom match template atom 

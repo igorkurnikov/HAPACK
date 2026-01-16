@@ -28,9 +28,9 @@
 ForceFieldType MMForceField::ff_type_default = ForceFieldType::AMBER_99_SB;
 std::vector<MMForceField*> MMForceField::ff_arr;
 
-StrVec  MMForceField::resff_files_add;        
-StrVec  MMForceField::tinker_param_files_add; 
-StrVec  MMForceField::amber_param_files_add;
+std::vector<std::string>  MMForceField::resff_files_add;        
+std::vector<std::string>  MMForceField::tinker_param_files_add;
+std::vector<std::string>  MMForceField::amber_param_files_add;
 
 MMForceField::MMForceField()
 {
@@ -600,7 +600,7 @@ int MMForceField::LoadAmberParamFile(const std::string& ff_param_fname )
 {
 	char buf[256]; 
 	std::string str_inp;
-	StrVec tokens;
+	std::vector<std::string> tokens;
 
 	try
 	{
@@ -974,7 +974,7 @@ int MMForceField::LoadTinkerParamFile(const std::string& ff_param_fname )
 {
 	char buf[256]; 
 	std::string str_inp;
-	StrVec tokens;
+	std::vector<std::string> tokens;
 	std::string token;
 
 	try
@@ -1022,7 +1022,7 @@ int MMForceField::LoadTinkerParamFile(const std::string& ff_param_fname )
 	return TRUE;
 }
 
-StrVec MMForceField::GetAmberParamFiles() const
+std::vector<std::string> MMForceField::GetAmberParamFiles() const
 {
 	return amber_param_files;
 }

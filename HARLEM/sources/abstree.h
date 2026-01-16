@@ -176,11 +176,11 @@ const double SelectRad = 0.4;
 
 #ifdef ABSTREE_CPP
 
-HaAtom  *PkAtom=NULL;
+MSET_API HaAtom  *PkAtom=NULL;
 
 #else
 
-extern HaAtom  *PkAtom;
+MSET_API extern HaAtom  *PkAtom;
 
 #endif // end ifdef ABSTREE_CPP
 

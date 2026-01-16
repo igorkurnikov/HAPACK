@@ -27,8 +27,7 @@
 #endif 
 
 #include "hastl.h"
-
-class StrVec;
+#include "haio.h"
 
 //class HaString: public std::string
 ////! Character string object in HARLEM based on STL string
@@ -55,11 +54,11 @@ namespace harlem
 {
 	std::string GetDirFromFileName(const std::string& fname);     //!< Extract directory name from the full file name
 	std::string GetPrefixFromFullName(const std::string& fname);  //!< Get prefix from the file name 
-	std::string GetExtFromFileName(const std::string& fname);     //!< Get extention from the file name
+	MSET_API std::string GetExtFromFileName(const std::string& fname);     //!< Get extention from the file name
 
 	bool IsFloat(const std::string& str);    //!< Check if the string represent floating point number (return false if integer ) 
 	bool IsInt  (const std::string& str);    //!< Check if the string integer number
-	std::string ToString(int ival);   //!< Convert integer value to String
+	MSET_API std::string ToString(int ival);   //!< Convert integer value to String
 	double ToDouble(std::string str); //!< Convert string to double  
 	int ToInt(std::string str);       //!< Convert string to Integer
 
@@ -136,7 +135,7 @@ public:
 
 };
 
-class StrIntMap: public std::map<std::string, int>
+class MSET_API StrIntMap: public std::map<std::string, int>
 //! Map of strings to integer numbers
 {
 public:
@@ -151,26 +150,6 @@ public:
 	int GetVal(const char* str);
 	void SetVal(const char* str, int val);
 	int ierr; //!< indicate error
-};
-
-class StrVec: public std::vector<std::string>
-//! class for a vector of strings 
-{
-public:
-	StrVec() {}
-	StrVec(size_t n): std::vector<std::string>(n) {}
-	StrVec(const std::vector<std::string>& str_vec): std::vector<std::string>(str_vec) {}
-
-#if defined(SWIG) 	
-  void reserve(size_t n); 
-  void resize(size_t n, const char* str);
-  size_t size();
-  void push_back(const char* str);
-#endif  
-	
-    const char* GetVal(size_t idx);
-	void SetVal(size_t idx, const char* val);
-    
 };
 
 typedef std::map<std::string, void*> StrPtrMap;

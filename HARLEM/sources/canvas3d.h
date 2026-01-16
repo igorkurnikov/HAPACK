@@ -11,6 +11,7 @@
 #define CANVAS3D_H
 
 #include "haconst.h"
+#include "hastl.h"
 #include "hastring.h"
 
 // These values set the sizes of the sphere rendering
@@ -118,7 +119,7 @@ const int ColBits    =  24;
 #define GComp(x)   (((x)>>8)&0xff)   //!< Green Component of color x
 #define BComp(x)   ((x)&0xff)        //!< Blue Component of color x
 
-class HaColor
+class MSET_API HaColor
 //! \brief public specifying Color in HARLEM
 //!
 //! Derivatives of this color (lower intensity are in Lut[] array)
@@ -171,7 +172,7 @@ public:
  }
 };
 
-class HaColorMap
+class MSET_API HaColorMap
 //! Class to represent an array of colors to represent some property 
 {
 public:
@@ -190,7 +191,7 @@ public:
 	virtual int GetIdxByProp(void* prop) { return 0; } //!< function to map a property to index 
 };
 
-class StrColorMap: public HaColorMap
+class MSET_API StrColorMap: public HaColorMap
 //! Class for mapping string to colors
 {
 public:
@@ -204,7 +205,7 @@ public:
 	IntIntMap cval_idx_map;
 };
 
-class IValColorMap: public HaColorMap
+class MSET_API IValColorMap: public HaColorMap
 //! Class for mapping string to colors
 {
 public:
@@ -218,7 +219,7 @@ public:
 	IntIntMap cval_idx_map;
 };
 
-class DRangeColorMap: public HaColorMap
+class MSET_API DRangeColorMap: public HaColorMap
 //! Class for mapping continjuos range of real values to colors
 {
 public:
@@ -231,7 +232,7 @@ public:
 	double max_val;
 };
 
-class DValColorMap: public HaColorMap
+class MSET_API DValColorMap: public HaColorMap
 //! Class for specified ranges of real values to colors
 {
 public:
@@ -252,7 +253,7 @@ public:
 
 
 
-class Canvas3D
+class MSET_API Canvas3D
 //!  Class to define Window to Plot 3D Images 
 {
 public:
@@ -361,7 +362,6 @@ protected:
 
 
 };
-
 
 
 #endif /* !CANVAS3D_H */

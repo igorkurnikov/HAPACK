@@ -13,7 +13,7 @@
 #ifdef _MSC_VER
 	#pragma warning (disable:4786)
 	#define DllImport   __declspec( dllimport ) 
-	#define DllExport   __declspec( dllexport )
+	#define DllExport   __declspec( dllexport ) 
 #else
 	#define DllExport 
 	#define DllImport  extern
@@ -30,6 +30,7 @@
 #include <strstream>
 #include <type_traits>
 #include <iomanip>
+#include "hastl.h"
 
 #if defined(_MSC_VER)
   
@@ -139,10 +140,10 @@ struct DefaultMessenger : Messenger {
 extern "C" 
 {
 extern int ErrorMessage(const char* str); //!< Print error message
-extern void PrintMessage(std::string str); //!< Print a message to a standard output and control window if opened
+MSET_API extern void PrintMessage(std::string str); //!< Print a message to a standard output and control window if opened
 extern int ha_copy_file(const char* src, const char* tgt, const int mode = 0); //!< copy file named src to file named tgt
 extern int ha_delete_file( const char* fname);  //!< delete file with the name fname
-extern int RedirectIOToFile(const char* fname); //!< Redirect STDOUT (standart output channel) to file
+MSET_API extern int RedirectIOToFile(const char* fname); //!< Redirect STDOUT (standart output channel) to file
 extern int RedirectIOToMultipleFilesMPI(const char* fname); //!< Redirect STDOUT (standart output channel) to multiple files useful then run harlem in parallel
 extern void write_log_(const char* str, int n); //!< Fortran function to write string to STDOUT 
 
@@ -153,14 +154,14 @@ extern int RestoreIOToConsole();                //!< Restore STDOUT to console t
 
 extern int ha_debug_level;                     //!< HARLEM debug level 
 extern int PrintLogCount(int type, const char* str,  ... ); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
-extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
+MSET_API extern int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 
-extern void setMessenger(Messenger* m);
+MSET_API extern void setMessenger(Messenger* m);
 
 #else
 	int ha_debug_level = 0;  //!< HARLEM debug level 
 	int PrintLogCount(int type, const char* str,  ...); //!< Print info counting the number of messages of a given type - stop printing after limit exceeded
-	int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
+	MSET_API int ErrorInMod(const char* module, const char* msg);  //!< HARLEM standard function to print info about error in function
 
 	static Messenger* g_messenger = nullptr;
 	static DefaultMessenger g_defaultMessenger;
@@ -169,7 +170,7 @@ extern void setMessenger(Messenger* m);
 		PrintLog(str);
 	};
 
-	void setMessenger(Messenger* m) {
+	MSET_API void setMessenger(Messenger* m) {
 		g_messenger = m ? m : &g_defaultMessenger;
 	}
 

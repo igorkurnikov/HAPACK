@@ -11,9 +11,10 @@
 
 #include "haatgroup.h"
 #include "mm_params.h"
+#include "haio.h"
 
 
-class AtomFFParam
+class MSET_API AtomFFParam
 //! Atom Force Field parameters 
 {
 public:
@@ -62,7 +63,7 @@ public:
 	std::string nn_symbol;  //!< NN Force Field symbol of the atom
 	std::string ff_polar_symbol;  //!<  Force field symbol of the atom for electrostatic and polarization parameters
 	
-	StrVec    frame_atom_names;  //!< Array of atom names defining local frame of the atom 
+	std::vector<std::string>    frame_atom_names;  //!< Array of atom names defining local frame of the atom 
 	AtomGroup frame_atoms;       //!< Array of atom pointer defing local frame of the atom
 	int bisect_flag;             //!< Flag to specify that Z-axis of the local frame of the atom is defined as a bisector 
 
@@ -88,10 +89,10 @@ public:
 
 	HaResidue* GetResTemplate(); //!< Get Residue structure template associated with the Force Field residue template
 	
-	std::vector<StrVec> bonds;
-	std::vector<StrVec> angles;
-	std::vector<StrVec> dihedrals;
-	std::vector<StrVec> improper_dihedrals;
+	std::vector<std::vector<std::string>> bonds;
+	std::vector<std::vector<std::string>> angles;
+	std::vector<std::vector<std::string>> dihedrals;
+	std::vector<std::vector<std::string>> improper_dihedrals;
 
 private:
 	std::string res_name;       //!< Full Residue Name in Residue Database

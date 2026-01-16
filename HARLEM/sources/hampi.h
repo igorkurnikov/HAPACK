@@ -13,13 +13,14 @@
 #include <mpi.h>
 #include <string>
 #include <vector>
+#include "hastl.h"
 
 class HaVec_int;
 
 //!
 //! Class to support parallel calculation in HARLEM
 //!
-class HaMPI
+class MSET_API HaMPI
 {
 public:
 	HaMPI();
