@@ -15,6 +15,8 @@
 #if !defined(ABSTREE_H)
 #define ABSTREE_H
 
+#include "hastl.h" 
+
 /* Operator Types */
 const int OpAnd =        0x01;
 const int OpOr  =        0x02;
@@ -96,14 +98,12 @@ const int PredPolar     =  56;
 const int PredSmall     =  57;
 const int PredSurface   =  58;
 
-
 #include <variant>
 #include "haatom.h"
 #include "haatgroup.h"
 
 
 class MolSet;
-
 class AtomExpr;
 class AtomContainer;
 
@@ -180,7 +180,7 @@ MSET_API HaAtom  *PkAtom=NULL;
 
 #else
 
-MSET_API extern HaAtom  *PkAtom;
+MSET_API extern HaAtom *PkAtom;
 
 #endif // end ifdef ABSTREE_CPP
 

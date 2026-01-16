@@ -25,9 +25,9 @@ namespace std {
 }                    
                                                   
 %{                                                           
-                                                            
-#include <hampi.h>                                                                   
+                
 #include "hastl.h"
+#include <hampi.h>                                                                   
 #include "hastring.h"
 #include "hatypes.h"                                                                    
 #include "abstree.h"                     
@@ -106,11 +106,10 @@ void StartHarlemApp();
 %pointer_cast(int*,void*,intp_to_voidp)
 %pointer_cast(void*,int*,voidp_to_intp)
 
+%include "hastl.h"
+%include "haio.h"
 %include "abstree.h"
 %include "haconst.h"
-
-%include "haio.h"
-%include "hastl.h"
 %include "hastring.h"  
 %include "hatypes.h"
 %include "haconsts.h"

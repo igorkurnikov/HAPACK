@@ -157,7 +157,7 @@ namespace mort
         }
         else
         {
-            for_each( mol.resd_begin(), mol.resd_end(), std::ptr_fun(mark_resd) );
+            for_each( mol.resd_begin(), mol.resd_end(), mark_resd );
         }
     }
         

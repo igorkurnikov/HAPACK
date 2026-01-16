@@ -43,12 +43,12 @@ namespace mort
 
     double eval_bond( const molecule_t& mol )
     {
-        return mort::sum( mol.bond_begin(), mol.bond_end(), 0.0, std::ptr_fun( &eval_each_bond ) );
+        return mort::sum( mol.bond_begin(), mol.bond_end(), 0.0,  &eval_each_bond  );
     }
     
     double eval_angl( const molecule_t& mol )
     {
-        return mort::sum( mol.angl_begin(), mol.angl_end(), 0.0, std::ptr_fun( &eval_each_angl ) );
+        return mort::sum( mol.angl_begin(), mol.angl_end(), 0.0,  &eval_each_angl );
     }
 
     double eval_tors( const molecule_t& mol )
@@ -66,7 +66,7 @@ namespace mort
 
     double eval_oops( const molecule_t& mol )
     {
-        return mort::sum( mol.impr_begin(), mol.impr_end(), 0.0, std::ptr_fun( &eval_each_oops ) );
+        return mort::sum( mol.impr_begin(), mol.impr_end(), 0.0,  &eval_each_oops  );
     }
 
 }
