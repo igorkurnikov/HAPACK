@@ -19,7 +19,6 @@
     <ClCompile Include="..\HARLEM\sources\wxpymod.cpp" />
     <ClCompile Include="..\HARLEM\sources\oglview.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart_wx.cpp" />
-    <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
     <ClCompile Include="obj\Release_x64\harlem_lib_vs\harlem_wrap.cpp" />
@@ -47,7 +46,6 @@
     <ClInclude Include="..\HARLEM\sources\oglview.h" />
     <ClInclude Include="..\HARLEM\sources\hachart.h" />
     <ClInclude Include="..\HARLEM\sources\hachart_wx.h" />
-    <ClInclude Include="..\HARLEM\sources\harlemapp.h" />
     <ClInclude Include="..\HARLEM\sources\edit_mut_map_dlg_wx.h" />
   </ItemGroup>
   <ItemGroup>

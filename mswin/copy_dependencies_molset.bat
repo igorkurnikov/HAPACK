@@ -110,7 +110,7 @@ FOR %%G IN (%BOOST_LIBS%) DO (
 
 REM OTHERS
 if "%IS_DEBUG%" == "Y" (
-    set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll 
+    set OTHER_LIBS=mpir.dll jpeg62.dll freetyped.dll libbz2d.dll libpng16d.dll lzma.dll tiffd.dll zlibd1.dll openblas.dll
 ) else (
 REM    set OTHER_LIBS=mpir.dll jpeg62.dll freetype.dll libbz2.dll libpng16.dll lzma.dll tiff.dll zlib1.dll
     set OTHER_LIBS=mpir.dll jpeg62.dll tiff.dll zlib1.dll openblas.dll  

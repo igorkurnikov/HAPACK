@@ -11,9 +11,7 @@
 #include <wx/wx.h>
 #include "dialogs_wx_2.h"  
 void StartHaMainFrameWX();  
-void StartHarlemApp();
 %}
 
 %include "dialogs_wx_2.h"  
 void StartHaMainFrameWX(); 
-void StartHarlemApp();

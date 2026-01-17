@@ -170,7 +170,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;mpir.lib;msmpi.lib;msmpifec.lib;_molsetc.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;mpir.lib;_molsetc.lib;Rpcrt4.lib;wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
@@ -229,7 +229,6 @@ $(SolutionDir)copy_dependencies_harlem.bat
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\HARLEM\sources\hachart_wx.cpp" />
-    <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
     <ClCompile Include="obj\Debug_x64\harlem_lib_vs\harlem_wrap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -260,7 +259,6 @@ $(SolutionDir)copy_dependencies_harlem.bat
     <ClInclude Include="..\HARLEM\sources\oglview.h" />
     <ClInclude Include="..\HARLEM\sources\hachart.h" />
     <ClInclude Include="..\HARLEM\sources\hachart_wx.h" />
-    <ClInclude Include="..\HARLEM\sources\harlemapp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\doc\INSTALL_harlem_1.txt" />

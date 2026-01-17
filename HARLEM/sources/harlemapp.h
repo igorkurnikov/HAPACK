@@ -28,7 +28,7 @@ public:
 };
 
 //! Class for the HARLEM application
-class HarlemApp 
+class MSET_API HarlemApp 
 {
 public:
 	HarlemApp();
@@ -118,15 +118,15 @@ public:
 };
 
 //! HarlemApp starter for python runs
-void StartHarlemApp();
+MSET_API void StartHarlemApp();
 
 extern "C" {
 #if defined(HARLEMAPP_CPP)
-	HarlemApp* pApp;
-	HarlemApp* GetHarlemApp();
+	MSET_API HarlemApp* pApp;
+	MSET_API HarlemApp* GetHarlemApp();
 #else
-	extern HarlemApp* pApp;          //!< pointer to the current HARLEM application instance
-	extern HarlemApp* GetHarlemApp();   //!< get pointer to the current HARLEM application instance
+	MSET_API extern HarlemApp* pApp;          //!< pointer to the current HARLEM application instance
+	MSET_API extern HarlemApp* GetHarlemApp();   //!< get pointer to the current HARLEM application instance
 #endif
 }
 

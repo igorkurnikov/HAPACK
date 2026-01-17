@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f5d6ba9d-d3ab-4a71-a8c1-68bd307c4033</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>molset\harlempy\start_harlem.py</StartupFile>
     <SearchPath>..\mswin\Release_x64;..\mswin\Release_x64\Lib\site-packages;..\HARLEM</SearchPath>
     <WorkingDirectory>C:\harlem\examples\MD\BPTI</WorkingDirectory>
     <OutputPath>.</OutputPath>
