@@ -132,13 +132,12 @@ set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\debug\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
 set PYTHON_BIN_PATH="$(PYTHON_BIN_PATH)"
 set PYTHON_DLLS_PATH="$(PYTHON_DLLS_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
 set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
-$(SolutionDir)copy_dependencies.bat
+$(SolutionDir)copy_dependencies_molset.bat
 
 </Command>
     </PostBuildEvent>
@@ -188,13 +187,12 @@ $(SolutionDir)copy_dependencies.bat
 
 set VCPKG_DLL_PATH=$(VcpkgRoot)\installed\x64-windows\bin
 set PYTHON_HOME_PATH="$(PYTHON_HOME_PATH)"
-set WX_DLLS_PATH="$(WX_DLLS_PATH)"
 set MKL_DLL_PATH="$(oneMKLProductDir)\redist\intel64"
 set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
-$(SolutionDir)copy_dependencies.bat
+$(SolutionDir)copy_dependencies_molset.bat
 
 </Command>
     </PostBuildEvent>
@@ -426,10 +424,10 @@ copy $(IntDir)molsetc.py $(OutputPath)
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)hamolset_wrap.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="clean.bat" />
-    <None Include="copy_dependencies.bat" />
     <None Include="..\doc\DEVELOP_NOTES\amoeba_func.txt" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
     <None Include="..\doc\DEVELOP_NOTES\thole_coef.txt" />
+    <None Include="copy_dependencies_molset.bat" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\HARLEM\sources\harlemwin.rc" />

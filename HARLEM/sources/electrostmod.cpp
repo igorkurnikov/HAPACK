@@ -1,9 +1,9 @@
 /*! electrostmod.cpp
 
-    Classes to perform Continuum Elctrostatics Calculations in HARLEM  
+    Classes to perform Continuum Electrostatics Calculations in HARLEM  
 
     \author Igor Kurnikov 
-    \date   1999-2002
+    \date   1999-
 */
 
 #define ELECTROSTMOD_CPP

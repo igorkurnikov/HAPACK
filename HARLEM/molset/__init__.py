@@ -1,6 +1,8 @@
 # __init__.py file for molset package
 import os
 import sys 
+import importlib
+
 if( os.getenv("HARLEM_HOME") != None ): 
     os.environ["MOLSET_HOME"] = os.getenv("HARLEM_HOME")
 
@@ -25,11 +27,18 @@ pkg_sub_dir = "python" + str(sys.version_info[0]) + "." + str(sys.version_info[1
 pkg_dir = os.path.join(molset_dir,"..","lib",pkg_sub_dir)
 sys.path.append( pkg_dir )
 
-from .molsetc import *      
-
+from .molsetc import *     
 __path__.append(os.path.join(os.path.dirname(__file__), "molset_ext"))
 
-from molset.harlempy import start_harlem
+try:
+    #importlib.import_module(".harlemc")
+    from .harlemc import *
+    harlem_gui = True
+    from molset.harlempy import start_harlem
+    print("load harlem GUI")
+except ImportError:
+    harlem_gui = False
+    print("Harlem GUI is not loaded")
  
 HaAtom.FillStdAtomTypes()
 HaResidue.InitStdResNames()

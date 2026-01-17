@@ -22,6 +22,8 @@
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
+    <ClCompile Include="obj\Release_x64\harlem_lib_vs\harlem_wrap.cpp" />
+    <ClCompile Include="obj\Debug_x64\harlem_lib_vs\harlem_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\ctrl_wx.h" />
@@ -65,5 +67,9 @@
     <None Include="..\HARLEM\sources\osgview.i" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
     <None Include="..\HARLEM\molset\__init__.py" />
+    <None Include="copy_dependencies_harlem.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\HARLEM\sources\harlem.i" />
   </ItemGroup>
 </Project>

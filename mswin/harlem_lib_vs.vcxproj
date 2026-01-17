@@ -86,16 +86,16 @@
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>_harlem_d</TargetName>
+    <TargetName>_harlemc_d</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlem\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <LibraryPath>$(oneMKLLibDir);$(IFORT_COMPILER21)compile\lib\intel64_win\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>_harlemc</TargetName>
     <TargetExt>.pyd</TargetExt>
-    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\harlem\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -138,7 +138,7 @@ set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
-$(SolutionDir)copy_dependencies.bat
+$(SolutionDir)copy_dependencies_harlem.bat
 
 </Command>
     </PostBuildEvent>
@@ -194,7 +194,7 @@ set IFORT_DLL_PATH="$(IFORT_COMPILER22)redist\intel64_win\compiler"
 
 set CONF="$(Configuration)_$(PlatformName)"
 
-$(SolutionDir)copy_dependencies.bat
+$(SolutionDir)copy_dependencies_harlem.bat
 
 </Command>
     </PostBuildEvent>
@@ -230,6 +230,12 @@ $(SolutionDir)copy_dependencies.bat
     </ClCompile>
     <ClCompile Include="..\HARLEM\sources\hachart_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\harlemapp.cpp" />
+    <ClCompile Include="obj\Debug_x64\harlem_lib_vs\harlem_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="obj\Release_x64\harlem_lib_vs\harlem_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\edit_mut_map_dlg_wx.h" />
@@ -259,6 +265,18 @@ $(SolutionDir)copy_dependencies.bat
   <ItemGroup>
     <None Include="..\doc\INSTALL_harlem_1.txt" />
     <None Include="..\HARLEM\molset\__init__.py" />
+    <CustomBuild Include="..\HARLEM\sources\harlem.i">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)harlem_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+copy $(IntDir)harlemc.py $(OutputPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python Interface for Main HARLEM executable</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)harlem_wrap.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)harlem_wrap.cpp  %(RootDir)%(Directory)\%(Filename)%(Extension)
+copy $(IntDir)harlemc.py $(OutputPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate Python Interface for Main HARLEM executable</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)harlem_wrap.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
     <None Include="..\HARLEM\sources\ha_wx_ed.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res_2.wdr" />
@@ -270,6 +288,7 @@ $(SolutionDir)copy_dependencies.bat
     <None Include="..\HARLEM\sources\harlem_i.ico" />
     <None Include="..\HARLEM\sources\osgview.i" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
+    <None Include="copy_dependencies_harlem.bat" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\HARLEM\sources\harlemwin.rc" />
