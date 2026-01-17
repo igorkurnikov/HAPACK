@@ -9,7 +9,7 @@
 
 #define HAGAUSSIAN_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>

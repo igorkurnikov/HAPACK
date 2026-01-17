@@ -12,7 +12,7 @@
 
 #pragma warning (disable:4786)
 
-#include <mpi.h>
+#include "hampi.h"
 #include <chrono>
 #include <thread>
 #include <boost/algorithm/string.hpp>

@@ -1,5 +1,5 @@
-#define HARLEM_MPI 1
-#include <mpi.h>
+#include "hampi.h"
+
 #if !defined(_MSC_VER)
 #include <dlfcn.h>
 #endif
@@ -18,18 +18,21 @@
 
 #include "harlemapp.h"
 #include "hamolset.h"
-#include "hampi.h"
 
 HaMPI::HaMPI()
 {
 	myrank = 0;
 	nprocs = 1;
+
+#ifdef HARLEM_MPI
 	world_group = MPI_GROUP_NULL;
+#endif
 
 	msg_buffer.resize(10000);
 
 	int ires = -1;
 
+#ifdef HARLEM_MPI
 #if !defined(_MSC_VER)
 	dlopen("libmpi.so", RTLD_NOW | RTLD_GLOBAL | RTLD_NOLOAD);
 #endif
@@ -46,12 +49,15 @@ HaMPI::HaMPI()
 //		fclose(ftest);
 //		printf("MYRANK rank = %d : Num Processors= %d : after MPI_Init \n", myrank,nprocs);
 	}
+#endif // HARLEM_MPI
 }
 
 HaMPI::~HaMPI()
 {
+#ifdef HARLEM_MPI
 	if( world_group != MPI_GROUP_NULL) MPI_Group_free(&world_group);
 	MPI_Finalize();
+#endif
 }
 
 class ha_event
@@ -67,6 +73,8 @@ int HaMPI::Listen()
 {
 	using namespace rapidxml; 
 
+#ifdef HARLEM_MPI 
+
 	MPI_Status status;
 	int i;
 	int done = TRUE;
@@ -75,7 +83,7 @@ int HaMPI::Listen()
 
 	MolSet* pmset = new MolSet();
 	std::string mset_name = "MOLSET_MIRROR_" + harlem::ToString(myrank);
-	pmset->SetName(mset_name.c_str());
+	pmset->SetName(mset_name);
 	HaMolMechMod* p_mm_mod = pmset->GetMolMechMod(true);
 
 	std::vector< ha_event > ha_events;
@@ -154,6 +162,8 @@ int HaMPI::Listen()
 		}
 	}
 	// printf("\n HaMPI::Listen() pt end \n");
+#endif
+
 	return TRUE;
 }
 
@@ -174,13 +184,15 @@ std::string HaMPI::BuildXMLwxCmdEventBasic(int type, int id, bool add_header)
 
 int HaMPI::SendXmlMsgAllProc(const char* str)
 {
+	int ierr = 0;
+#ifdef HARLEM_MPI
 	// PrintLog(" HaMPI::SendXmlMsgAllProc() \n %s\n",str);
 	if( myrank != 0) 
 	{
 		PrintLog("Error in HaMPI::MPI_SendSignal(): Only Master can call it \n");
 		return FALSE;
 	}  
-	int ierr = 0;
+
 
 	int len = strlen(str);
 
@@ -212,8 +224,7 @@ int HaMPI::SendXmlMsgAllProc(const char* str)
 	
 	ierr = MPI_Bcast((void*)&msg_buffer[0],len,MPI_CHAR,0,MPI_COMM_WORLD);
 
-
-	
+#endif
 	return ierr;
 }
 

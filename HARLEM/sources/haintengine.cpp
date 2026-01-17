@@ -9,7 +9,7 @@
     \date 1998-2004
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haintengine.h"
 #include "haqchem.h"

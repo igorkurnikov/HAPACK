@@ -7,7 +7,7 @@
     \file Igor Kurnikov , University of Pittsburgh 
     \date 1998-2002
 */
-#include <mpi.h>
+#include "hampi.h"
 
 #include "g94_globals.h"
 #include "g94_protos.h"

@@ -9,9 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifdef MPI_PARALLEL
-#include <mpi.h>
-#endif
+
+#include "hampi.h"
 
 #include "sissgausps.h"
 #include "tinyxml.h"

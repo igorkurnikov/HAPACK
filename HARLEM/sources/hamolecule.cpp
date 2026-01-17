@@ -8,7 +8,7 @@
 
 #define HAMOLECULE_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <assert.h>
 #include <float.h>

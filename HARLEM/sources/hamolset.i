@@ -1,7 +1,7 @@
 %module molsetc
 
 %begin %{
-#include <mpi.h>  
+//#include <mpi.h>  
 #include <cstddef>
 #include <Python.h>
 
@@ -27,7 +27,7 @@ namespace std {
 %{                                                           
                 
 #include "hastl.h"
-#include <hampi.h>                                                                   
+#include "hampi.h"  
 #include "hastring.h"
 #include "hatypes.h"                                                                    
 #include "abstree.h"                     

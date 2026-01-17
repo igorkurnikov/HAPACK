@@ -11,7 +11,7 @@
 */
 #define COMMAND_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haconst.h" 
 #include "Python.h"

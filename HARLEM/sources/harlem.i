@@ -1,7 +1,7 @@
 %module harlemc
 
 %begin %{
-#include <mpi.h>  
+//#include <mpi.h>  
 #include <cstddef>
 #include <Python.h>
 

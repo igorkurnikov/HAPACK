@@ -12,9 +12,7 @@
 #ifndef PNPPROCESS_H
 #define PNPPROCESS_H
 
-#ifdef MPI_PARALLEL
-#  include "mpi.h"
-#endif
+#include "hampi.h"
 
 #include <stdarg.h>
 #include <stdio.h>

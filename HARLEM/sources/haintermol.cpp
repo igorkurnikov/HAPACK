@@ -8,8 +8,6 @@
 
 #define HAINTERMOL_CPP
 
-#include <mpi.h>
-
 #include <chrono>
 #include <thread>
 
@@ -41,7 +39,6 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include "mpi.h"
   
 #include "randomip.h"
 

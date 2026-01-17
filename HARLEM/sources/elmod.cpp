@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#define HARLEM_MPI 1
-#include <mpi.h>
+
+#include "hampi.h"
 
 #include <regex>
 
@@ -65,8 +65,6 @@ extern "C" {
 //#include "haconsts.h"
 
 #include <sstream>
-
-#include "mpi.h"
 ///////////////////////////////////////////////////////////////////////////////
 HaAtomParmEntry::HaAtomParmEntry(const char* cName,double _dbl0,double _dbl1)
 {
@@ -2352,13 +2350,18 @@ int pKaCalcMod::PrintResults()
 	phost_mset->save_opt_default.save_selected=old_save_selected;
 	return EXIT_SUCCESS;
 }
+
+
 int pKaCalcMod::CalcpKaUsingElectrostMod()
 {
 	pnpPrint("Number OfAltStates : %d\n",NumberOfAltStates);
 	
-	int myrank, nprocs;
+	int myrank = 0, nprocs =1;
+
+#ifdef HARLEM_MPI
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+#endif
 	
 	MakeAltStList();
 	RunCalcUsingElectrostMod();
@@ -2370,13 +2373,17 @@ int pKaCalcMod::CalcpKaUsingElectrostMod()
 	}
 	return EXIT_SUCCESS;
 }
+
 int pKaCalcMod::CalcpKaUsingElMod()
 {
 	pnpPrint("Number OfAltStates : %d\n",NumberOfAltStates);
 	
-	int myrank, nprocs;
+	int myrank = 0, nprocs = 0;
+
+#ifdef HARLEM_MPI
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+#endif
 	
 	MakeAltStList();
 	RunCalcUsingElMod();
@@ -2388,6 +2395,8 @@ int pKaCalcMod::CalcpKaUsingElMod()
 	}
 	return EXIT_SUCCESS;
 }
+
+
 int pKaCalcMod::ReadCalculatedEnergies(const char *filename)
 {
 	FILE *in=fopen(filename,"r");
@@ -2397,6 +2406,8 @@ int pKaCalcMod::ReadCalculatedEnergies(const char *filename)
 	fclose(in);
 	return EXIT_SUCCESS;
 }
+
+
 int pKaCalcMod::MakeAltStList()
 {
 	PNP_EXIT_FAIL_NULL(phost_mset,"pKaCalcMod does not assign to any MolSet\n");
@@ -2506,9 +2517,11 @@ int pKaCalcMod::RunCalcUsingElectrostMod()
 	int old_save_selected=phost_mset->save_opt_default.save_selected;
 	phost_mset->save_opt_default.save_selected = TRUE;
 	
-	int myrank, nprocs;
+	int myrank=0, nprocs=1;
+#ifdef HARLEM_MPI
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+#endif
 	
 	bool bres;
 	double xmin, xmax, ymin, ymax, zmin, zmax;

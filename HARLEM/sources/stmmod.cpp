@@ -10,7 +10,7 @@
 
 #define STMMOD_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "stmmod.h"
 #include "haqchem.h"

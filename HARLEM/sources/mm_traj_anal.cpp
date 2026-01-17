@@ -6,7 +6,7 @@
     \date 2010-
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <math.h>
 #include <stdexcept>

@@ -1,6 +1,5 @@
-#ifdef MPI_PARALLEL
-#  include <mpi.h>
-#endif
+
+#include "hampi.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,4 +1,4 @@
-#include <mpi.h>
+#include "hampi.h"
 #include "haflexmod.h"
 #include <iostream>
 #include <cstdio>

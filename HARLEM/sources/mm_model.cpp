@@ -10,7 +10,7 @@
 
 #include <float.h>
 #include <math.h>
-#include "mpi.h"
+#include "hampi.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -21,7 +21,6 @@
 #include "FCMangle.h"
 
 #include "harlemapp.h"
-#include "hampi.h"
 #include "hamolset.h"
 #include "moleditor.h"
 #include "hamolmech.h"
@@ -141,6 +140,7 @@ int MolMechModel::SetStdParams()
    return TRUE;
 }
 
+#ifdef HARLEM_MPI
 void MolMechModel::Bcast(MPI_Comm& comm)
 {
 	int ires;
@@ -159,6 +159,7 @@ void MolMechModel::Bcast(MPI_Comm& comm)
 	p_amber_model->Bcast(comm);
 //	PrintLog(" MolMechModel::Bcast() pt end \n");
 }
+#endif
 
 int MolMechModel::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt ) const
 {
@@ -3384,8 +3385,11 @@ int MolMechModel::UpdateConstraints()
 {
 //	PrintLog(" MolMechModel::UpdateConstraints() pt 1 \n");
 	p_amber_model->SetDistConstrData();
+
+#ifdef HARLEM_MPI
 //	if( p_mm_mod->p_amber_driver->numtasks > 1 ) HaMolMechMod::CallMMFunctionOnSlaves(MM_UPDATE_CONSTR_2);
 	if( pApp->mpi_driver->nprocs > 1 ) HaMolMechMod::CallMMFunctionOnSlaves(MM_UPDATE_CONSTR_2);
+#endif
 	UpdateConstraints_2();
 	return TRUE;
 }

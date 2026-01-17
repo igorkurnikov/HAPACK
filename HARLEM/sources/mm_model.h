@@ -42,7 +42,9 @@ public:
 	int UpdateConstraints_2(); //!< Second part of Update of internal arrays for constraints for internal MM simulations ( for MPI )
 	int ClearMortModel(); //!< Clear MORT molecule(model) associated with Molecular Mechanics model
 	
+#ifdef HARLEM_MPI
 	void Bcast(MPI_Comm& comm); //!< Broadcast Class data over MPI Communicator 
+#endif
 
 	virtual int SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt = NULL ) const; //!< Save model data to stream in XML format   
 	

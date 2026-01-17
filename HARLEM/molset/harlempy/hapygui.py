@@ -11,7 +11,7 @@ def NewID():
 
 
 def GetMainFrame():
-    return wx.FindWindowByName("FREECURVE")
+    return wx.FindWindowByName("HARLEM")
 
 
 def GetMainMenu():

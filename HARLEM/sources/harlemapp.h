@@ -104,7 +104,7 @@ public:
 	std::string manual_main_page;            //!< URL of the advanced manual page 
 	std::string cmd_line_help_main_page;     //!< URL of beginners manual 
 
-	HaMPI* mpi_driver; 
+    HaMPI* mpi_driver; 
 //	void* python_thread;  //!< Thread for Python execution
 	
 	FILE* file_log; //!< Log file

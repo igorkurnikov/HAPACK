@@ -38,8 +38,10 @@ public:
 	int amber_version;  //!< version of the AMBER program  
     int min_md_cpp_flag; //!< flag to do MIN and MD using C++ main functions 
 
+#ifdef HARLEM_MPI
 	MPI_Comm   driver_mpi_comm;  //!< MPI Communicator associated with the driver
 	MPI_Group  driver_mpi_group; //!< MPI Group        associated with the driver
+#endif
 
 	int SaveAmberRunFile();  //!< Save script to run AMBER on UNIX 
 	int SaveAmberInpFile();  //!< Save AMBER Input Parameters File
@@ -69,10 +71,12 @@ public:
 
 	void ResizeCrdVelFrcArrays(int natom); //!< Resize atm_crd, atm_vel, atm_last_vel and atm_frc arrays and initialize with 0.0
 
+#ifdef HARLEM_MPI
 	void BcastCrd(MPI_Comm& comm); //!< Broadcast atm_crd Array
 	void BcastVel(MPI_Comm& comm); //!< Broadcast atm_vel Array
 	void BcastFrc(MPI_Comm& comm); //!< Broadcast atm_frc Array
 	void BcastPBox(MPI_Comm& comm); //!< Broadcast Periodical Box
+#endif
 
 	void SetupMasterNode(); //!< Perform FORTRAN MM LIB Setup specific for Master Node
 	void SetupShakePars();  //!< Setup Amber Shake Params
@@ -82,7 +86,9 @@ public:
 	void PrintMDCntrData();    //!< Print MD/Min control Data to Output File
 	void InitPMEParams();      //!< Initialize parameters of PME model  
 	void InitAddMDCtrlParams();      //!< Setup Additional control parameters dependent on chosen MM Simulation method
+#ifdef HARLEM_MPI
 	void BCastAddMDCtrlParams(MPI_Comm& comm);  //!< BroadCast Additional MD Control Parameters
+#endif
 	void SetAddMDCtrParamsFortran();             //!< Set Additional MD control parameters to Fortran structures
 
 	void AllGatherVec(HaVec_double& vec); //!< Gather Atom properties Vector (coord,vel,frc...) on MPI Nodes 
@@ -324,8 +330,10 @@ public:
     void CalcAddDihParams();     //!< Compute Additional parameters for vectorized Dihedral angles processing gbl_gamc, gbl_gams, gbl_ipn, gbl_fmn
 	int SetAtomPosRestrData();  //!< Set data arrays for Harmonic Atomic Position Restraints
 	
+#ifdef HARLEM_MPI
 	void Bcast(MPI_Comm& comm); //!< Broadcast Class Data
 	void BcastAtmMass(MPI_Comm& comm); //!< Broadcast atom masses Array
+#endif
 	
 	void Clear();  //!< Clear Amber data structures
 	void SetUpdateDataFlag(int to_update_flag_new = TRUE ); //!< Set flag to update AMBER data structures from MolMechModel before using them

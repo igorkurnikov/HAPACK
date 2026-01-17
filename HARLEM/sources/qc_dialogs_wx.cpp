@@ -8,7 +8,7 @@
 
 #define QC_DIALOGS_WX_CPP
 
-#include <mpi.h>
+#include <hampi.h>
 
 #include "vec3d.h"
 #include "g94_globals.h"

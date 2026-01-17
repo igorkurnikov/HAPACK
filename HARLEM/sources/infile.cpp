@@ -11,7 +11,7 @@
  */
 #include "haconst.h"
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <malloc.h>
 

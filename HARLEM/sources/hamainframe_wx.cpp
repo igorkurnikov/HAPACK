@@ -9,11 +9,7 @@
 
 #define HAMAINFRAME_WX_CPP
 
-#include <mpi.h>
-
-#if !defined(HARLEM_PYTHON_NO)
 #include <Python.h>
-#endif
 
 #include "vec3d.h"
 
@@ -993,11 +989,13 @@ void HaMainFrameWX::OnExecuteCommand( wxCommandEvent &event )
 
 void HaMainFrameWX::OnClose(wxCloseEvent& event)
 {
+#ifdef HARLEM_MPI
     if( pApp->mpi_driver->nprocs > 1 )
     {
-        std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_HARLEM_APP, HARLEM_APP_EXIT_ID);
+       std::string msg = HaMPI::BuildXMLwxCmdEventBasic(wxEVT_HARLEM_APP, HARLEM_APP_EXIT_ID);
         pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
     }
+#endif
     // wxMDIParentFrame::Close(true);
     // this->DestroyChildren();
     this->Destroy();

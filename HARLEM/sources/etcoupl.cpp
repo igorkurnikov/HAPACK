@@ -9,7 +9,7 @@
 
 #define ETCOUPL_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 #include <math.h>
 
 #include <boost/algorithm/string.hpp>

@@ -7,7 +7,7 @@
 
 #define PROTONREDOX_CPP
 
-#include "mpi.h"
+#include "hampi.h"
 
 #include <bitset>
 

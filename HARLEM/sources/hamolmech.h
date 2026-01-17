@@ -72,9 +72,11 @@ public:
 	int InitMMSimulations();           //!< Init MM Simulations (Single or Mixed Hamiltonians dep on run_ti flag) 
 	int InitSingleHamMMSimulations();  //!< Init MM Simulations with a single hamiltonian inside HARLEM
 	int InitMixedHamSimulations(MolMechModel* p_mm_model_2); //!< Init Simulations with mixed hamiltonian (TI and other)
-	int InitMixedHamSimulations_node(MolMechModel* p_mm_model_2); //!< Init Simulations with mixed hamiltonian (TI and other) executed on MPI node
 
+#ifdef HARLEM_MPI
+	int InitMixedHamSimulations_node(MolMechModel* p_mm_model_2); //!< Init Simulations with mixed hamiltonian (TI and other) executed on MPI node
 	void BcastCtrlParams(MPI_Comm& comm); //!< Broadcast simulation control parameters
+#endif
 
 	int to_init_simulations;  //!< Flag to initiate module structures at next calls to module functions
 	int to_stop_simulations;  //!< Flag to stop current simulations
@@ -154,11 +156,15 @@ public:
 public:
 	int CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2); //!< Check consistency of MM models for TI calculations
 	static void CallMMFunctionOnSlaves(int id); //!< Call MM function on Slave Nodes with the given id using remote HA_MOL_MECH_EVENT event
-	
+
 	int SetMPICommSplit2();   //!< Set MPI communicators splitting MPI_COMM_WORLD into two equal sets of processors 
+#ifdef HARLEM_MPI
 	MPI_Comm inter_model_comm;  //!< MPI communicator between corresponding nodes for two MM models in mixed hamiltonian 
+#endif
 	int inter_model_rank;       //!< rank of the processor in inter_model_comm
+#ifdef HARLEM_MPI
 	MPI_Comm single_job_comm;   //!< communicator between all nodes of the MM job(with pure or mixed hamiltonian)
+#endif
 	int single_job_rank;        //!< rank of the processor in single_job_comm
 
 private:
@@ -537,8 +543,10 @@ public:
 	double GetIntegWtByIdx(int idx); //!< Get value of weight in Numerical Integration corresponding to current num_lmb and idx (0-bazed)
 	void SetNumEqPoints(int num_eq_pt_new); //!< Set the number of points to skip when computing <dV/dL>
 	
+#ifdef HARLEM_MPI
 	void CollectForceAndEneTI(HaVec_double& si); //!< Collect Forces and energies for TI calculations
 	void SincCrdAndVelTI(); //!< Sync Coordinates and Velocities for 2 hamiltonians of TI calculations
+#endif
 
 	int ComputeDvDlAvg(); //!< Compute DV/DL values averages for different lambdas from accumulated values in dv/dl output files 
 	double CalcDeltaG(int recalc_dvdl_avg = TRUE);  //!< Calculate Delta G using free computed 

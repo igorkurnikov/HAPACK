@@ -15,7 +15,7 @@
 #define HASCATTERMOD_CPP
 
 #include <math.h>
-#include <mpi.h>
+#include "hampi.h"
 
 #include "tokens.h"
 #include "hasurface.h"

@@ -10,8 +10,6 @@
 #include <process.h>
 #endif
 
-#include <mpi.h>
-
 #include "command.h"
 #include "stdlib.h"
 #include <fcntl.h>

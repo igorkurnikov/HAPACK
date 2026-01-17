@@ -12,8 +12,8 @@
 #include <float.h>  
 #include <math.h> 
 
-#define HARLEM_MPI 1
-#include <mpi.h>
+#include "hampi.h"
+
 #include <stdexcept>
 
 #pragma warning (disable:4786)
@@ -31,7 +31,6 @@
 
 #include "haio.h"
 #include "tokens.h"
-#include "hampi.h"
 #include "harlemapp.h"
 
 #include "haintermol.h"
@@ -157,9 +156,11 @@ HaCompMod(COMP_MOD_MOLMECH,new_phost_mset)
 
 	period_bcond.SetMolMechMod(this);
 
+#ifdef HARLEM_MPI
 	inter_model_comm = MPI_COMM_NULL;
+	single_job_comm = MPI_COMM_NULL;
+#endif
 	inter_model_rank = 0;
-	single_job_comm  = MPI_COMM_NULL;
 	single_job_rank  = 0;
 
 	internal_mm_running = false;
@@ -606,11 +607,13 @@ int HaMolMechMod::InitSingleHamMMSimulations()
 	int ires;
 	try 
 	{
+#ifdef HARLEM_MPI
 		if(pApp->mpi_driver->nprocs > 1) 
 		{
 		    CallMMFunctionOnSlaves(MM_SET_MPI_COMM_ALL_PROCS);
 			p_amber_driver->SetMPICommAllProcs();
 		}
+#endif
 		p_amber_driver->InitParallelDatMod(); 
 		
 //		PrintLog(" HaMolMechMod::InitSingleHamMMSimulations() pt 1 \n");
@@ -654,10 +657,14 @@ int HaMolMechMod::InitMixedHamSimulations(MolMechModel* p_mm_model_2)
 	if(!CheckModelsForTI(p_mm_model,p_mm_model_2)) return FALSE;
 	this->p_axx_mm_model = p_mm_model_2;
 
+#ifdef HARLEM_MPI
 	CallMMFunctionOnSlaves(MM_MOD_INIT_MIXED_HAMILTONIAN);
 	ires = InitMixedHamSimulations_node(p_mm_model_2);
+#endif
 	return ires;
 }
+
+#if defined(HARLEM_MPI)
 
 int HaMolMechMod::InitMixedHamSimulations_node(MolMechModel* p_mm_model_2)
 {
@@ -726,8 +733,7 @@ int HaMolMechMod::InitMixedHamSimulations_node(MolMechModel* p_mm_model_2)
 void HaMolMechMod::BcastCtrlParams(MPI_Comm& comm)
 {
 	int ires;
-#if defined(HARLEM_MPI)
-	
+
 	ires = run_type.Bcast(comm);
 	ires = init_read_coord.Bcast(comm);
 	ires = MPI_Bcast(&restart_flag,1,MPI_INT,0,comm);
@@ -793,8 +799,9 @@ void HaMolMechMod::BcastCtrlParams(MPI_Comm& comm)
 
 	ires = MPI_Bcast(&p_amber_driver->dbg_atom_redistribution,1,MPI_INT,0,comm);
 	ires = MPI_Bcast(&p_amber_driver->loadbal_verbose,1,MPI_INT,0,comm);
-#endif
+
 }
+#endif
 
 int HaMolMechMod::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt ) const
 {
@@ -810,7 +817,9 @@ int HaMolMechMod::SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* p
 
 int HaMolMechMod::RunInternal()
 {
+#ifdef HARLEM_MPI
 	if(pApp->mpi_driver->nprocs > 1 ) HaMolMechMod::CallMMFunctionOnSlaves(MM_DRIVER_AMBER_RUN_INTERNAL);
+#endif
 	RunInternal_node();
 
 	return TRUE;
@@ -822,7 +831,9 @@ void HaMolMechMod::RunInternal_node()
 	MolSet* pmset = this->GetMolSet();
 	p_amber_driver->p_tm->InitTimers();
 
+#ifdef HARLEM_MPI
 	if(pApp->mpi_driver->nprocs > 1 ) run_type.Bcast(single_job_comm);
+#endif
 
 	try
 	{
@@ -884,6 +895,7 @@ void HaMolMechMod::SaveAllInpFiles()
 
 int HaMolMechMod::CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_mm_model_2)
 {
+#ifdef HARLEM_MPI
 	if(pApp->mpi_driver->nprocs < 2) 
 	{
 		PrintLog("Error in HaMolMechMod::CheckModelsForTI() \n");
@@ -897,6 +909,7 @@ int HaMolMechMod::CheckModelsForTI(MolMechModel* p_mm_model_1, MolMechModel* p_m
 		PrintLog("Number of processes should be a multiple of 2 \n");
 		return FALSE;
 	}
+#endif
 	if(p_mm_model_1->Atoms.size() == 0 )
 	{
 		PrintLog("Error in HaMolMechMod::CheckModelsForTI() \n");
@@ -934,7 +947,9 @@ void HaMolMechMod::CallMMFunctionOnSlaves(int id)
 //	PrintLog(" HaMolMechMod::CallMMFunctionOnSlaves() pt 1 id= %d \n", id);
 	std::string msg = HaMPI::BuildXMLwxCmdEventBasic(HA_MOL_MECH_EVENT,id);
 	// printf("HaMolMechMod::CallMMFunctionOnSlaves() %s \n", msg.c_str());
+#ifdef HARLEM_MPI
 	pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
+#endif
 }
 
 int HaMolMechMod::SetMPICommSplit2()
@@ -1385,7 +1400,9 @@ int HaMolMechMod::ProcessEvent(int type, int id)
 			break;
 		case MM_MOD_INIT_MIXED_HAMILTONIAN:
 			PrintLog("About to Execute HaMolMechMod::InitMixedHamSimulations_node()  \n");
+#ifdef HARLEM_MPI
 			this->InitMixedHamSimulations_node(this->p_mm_model);
+#endif
 			break;
 		case MM_UPDATE_CONSTR_2:
 			PrintLog("About to Execute MolMechModel::UpdateConstraints_2() \n");
@@ -2025,6 +2042,7 @@ void TISimMod::SetTI_OutputFileNames()
 	p_amber_driver->amber_trj_ene_file    = cur_prefix + ".mden";
 }
 
+#ifdef HARLEM_MPI
 void TISimMod::CollectForceAndEneTI(HaVec_double& sys_info)
 {
 	int TAG_F = 301;
@@ -2184,7 +2202,6 @@ void TISimMod::SincCrdAndVelTI()
 	MMDriverAmber* p_amber_driver = p_mm_mod->p_amber_driver;
 	AmberMMModel*  p_amber_model  = p_amber_driver->p_amber_model;
 
-#if defined(HARLEM_MPI)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if( p_amber_driver->numtasks > 1 && p_mm_mod->inter_model_rank == 0 && !p_amber_driver->all_crds_valid) 
 	{
@@ -2221,8 +2238,9 @@ void TISimMod::SincCrdAndVelTI()
 	}
 	p_amber_driver->all_crds_valid = TRUE;
 	p_amber_driver->all_vels_valid = TRUE;
-#endif
+
 }
+#endif
 
 
 int TISimMod::ComputeDvDlAvg()

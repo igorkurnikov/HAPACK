@@ -8,8 +8,7 @@
 
 #define MM_DIALOGS_WX_CPP
 
-#include <mpi.h>
-
+#include "hampi.h"
 #include "hastl.h"
 #include <cstdlib>
 
@@ -26,7 +25,6 @@
 #include "dialogs_wx_1.h"
 
 #include "harlemapp.h"
-#include "hampi.h"
 #include "hamolset.h"
 #include "hamolview.h"
 #include "haatgroup.h"
@@ -1950,7 +1948,9 @@ void MolMechDlgWX::OnSendMPIMsg1(wxCommandEvent& event)
 	msg+= "</wxCommandEvent>";              msg += "\n";
 	PrintLog("XML Message: \n%s",msg.c_str());
 
+#ifdef HARLEM_MPI
 	pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
+#endif
 }
 
 void MolMechDlgWX::OnSetDnaCSPars(wxCommandEvent& event) 

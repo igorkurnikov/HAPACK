@@ -1,6 +1,6 @@
 /*! \file hampi.h
 
-	Class for parallel computing 
+	Class for MPI parallel computing 
 
     \date 2005
     \author Igor Kurnikov 
@@ -10,15 +10,18 @@
 #if !defined(HARLEM_MPI_H)
 #define HARLEM_MPI_H
 
+#undef HARLEM_MPI 
+
+#ifdef HARLEM_MPI
 #include <mpi.h>
-#include <string>
-#include <vector>
+#endif
+
 #include "hastl.h"
 
 class HaVec_int;
 
 //!
-//! Class to support parallel calculation in HARLEM
+//! Class to support MPI parallel calculation in HARLEM
 //!
 class MSET_API HaMPI
 {
@@ -36,7 +39,9 @@ public:
 	int myrank; //!< Rank in  MPI_COMM_WORLD
 	int nprocs; //!< Number of processes in MPI_COMM_WORLD
 
+#ifdef HARLEM_MPI
     MPI_Group world_group; //!< MPI_Group corresponding to MPI_COMM_WORLD
+#endif
 
     static const int BASIC_SIGNAL_DIM = 4; 
 

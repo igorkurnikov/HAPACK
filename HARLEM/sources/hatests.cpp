@@ -12,10 +12,8 @@
 
 #include "haconst.h"
 
-#include <mpi.h>
-#if !defined(HARLEM_PYTHON_NO)
+#include "hampi.h"
 #include "Python.h"
-#endif
 #include "wx/wfstream.h"
 
 #include "haio.h"

@@ -9,7 +9,6 @@
 
 #define HARLEMAPP_CPP
 
-#include <mpi.h> 
 #include "haconst.h"
 #include <wchar.h>
 
@@ -109,8 +108,8 @@ HarlemApp::HarlemApp()
 	HaResidue::InitStdResNames();
 	HaResidue::InitResSynonym();
 
-	mpi_driver    = NULL;
-	file_log      = NULL;
+	mpi_driver    = nullptr;
+	file_log      = nullptr;
 
 	max_num_log_msg = 50;
 }
@@ -142,11 +141,13 @@ HarlemApp::~HarlemApp()
 //			PrintLog("HarlemApp::~HarlemApp() pt 3 \n");
 //		}
 // }
+#ifdef HARLEM_MPI
    if( mpi_driver->nprocs > 1)
    {
 	   MPI_Abort(MPI_COMM_WORLD, -1);
    }
-   delete mpi_driver;
+#endif
+   if(mpi_driver) delete mpi_driver;
 }
 
 

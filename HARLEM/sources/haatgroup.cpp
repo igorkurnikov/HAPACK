@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <mutex>
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>

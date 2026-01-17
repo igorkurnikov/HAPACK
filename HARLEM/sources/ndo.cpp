@@ -7,7 +7,7 @@
 
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <string>
 #include "harlemapp.h"

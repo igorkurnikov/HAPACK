@@ -6,14 +6,16 @@
     \date 2010-
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "hatypes.h"
 
+#ifdef HARLEM_MPI
 int HaEnum::Bcast(MPI_Comm &comm, int root)
 {
 	return MPI_Bcast(&this->value(),1,MPI_INT,root,comm);	
 }
+#endif
 
 std::vector<int> HaEnum1::all_values() const
 {

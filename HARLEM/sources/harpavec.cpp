@@ -9,7 +9,7 @@
 
 #define HARPAVEC_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #define exception math_exception
 #include <math.h>

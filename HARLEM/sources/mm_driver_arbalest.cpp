@@ -6,7 +6,7 @@
     \date 2025-
 
 */
-#include <mpi.h>
+#include "hampi.h"
 #include <math.h>
 #include <tinyxml.h>
 

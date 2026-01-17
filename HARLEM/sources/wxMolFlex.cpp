@@ -1,7 +1,7 @@
 // wxMolFlex.cpp: implementation of the wxMolFlex class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <mpi.h>
+#include "hampi.h"
 #include "wx/wx.h"
 
 #include "ctrl_wx.h"

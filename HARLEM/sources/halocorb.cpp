@@ -8,7 +8,7 @@
     \date 1997-2004
 
 */
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haqchem.h"
 #include "halocorb.h"

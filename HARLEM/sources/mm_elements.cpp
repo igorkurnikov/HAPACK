@@ -9,7 +9,7 @@
 
 #define MM_ELEMENTS_CPP
 
-#include "mpi.h"
+#include "hampi.h"
 
 #include <float.h>
 #include <math.h>

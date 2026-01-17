@@ -8,7 +8,7 @@
 
 #define ELECTROSTMOD_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #if defined(_MSC_VER)
 #include <process.h>

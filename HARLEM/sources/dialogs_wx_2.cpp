@@ -6,7 +6,7 @@
     \date 2005-
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "wx/wxprec.h"
 

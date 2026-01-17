@@ -8,7 +8,7 @@
 
 #define MM_FORCE_FIELD_CPP
 
-#include "mpi.h"
+#include "hampi.h"
 
 #include <math.h>
 

@@ -9,7 +9,7 @@
 
 #define HARPAHAM_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "halinalg.h"
 #include "halocexcit.h"

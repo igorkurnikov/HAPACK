@@ -12,7 +12,7 @@
 
 #define HADALTON_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include <assert.h>
 

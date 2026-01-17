@@ -7,7 +7,7 @@
 
 */
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "wx/wx.h"
 #include "wx/valgen.h"

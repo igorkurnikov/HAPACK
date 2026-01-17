@@ -24,7 +24,10 @@
 
 #ifndef PARALLEL_H
 #define PARALLEL_H
-#include <mpi.h>
+
+#ifdef MPI
+#include "mpi.h"
+#endif
 #include <stringc.h>
 #include <tarray.h>
 #include <errorip.h>
@@ -107,7 +110,9 @@ class MPIParMachine : public ParMachine
   int world_id;
   int world_numprocs;
 
+#ifdef MPI
   ARRAY<MPI_Request*> rq;
+#endif
   
 public:
      MPIParMachine(int *argc,char*** argv);

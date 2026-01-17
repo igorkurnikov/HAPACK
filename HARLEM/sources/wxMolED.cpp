@@ -8,7 +8,7 @@
 
 #define WX_MOL_ED_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "hastl.h"
 #include <stdexcept>

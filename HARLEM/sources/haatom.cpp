@@ -12,7 +12,7 @@
 #include <assert.h>
 #include <math.h>
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haio.h"
 

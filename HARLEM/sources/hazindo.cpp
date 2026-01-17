@@ -9,7 +9,7 @@
 
 #define HAZINDO_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #ifdef _MSC_VER
 #include <process.h>
@@ -31,8 +31,7 @@ HaZindoMod::~HaZindoMod()
 
 }
 
-int 
-HaZindoMod::SaveParamFile(const char* fname)
+int HaZindoMod::SaveParamFile(const char* fname)
 {
    FILE* fpar = fopen(fname,"w");
    if(fpar == NULL) return FALSE;  

@@ -10,9 +10,6 @@
 #include <ctime>
 #include <exception>
 
-#define HARLEM_MPI 1
-#include <mpi.h>
-
 #include <math.h>
 
 #include "haio.h"
@@ -440,8 +437,10 @@ MMDriverAmber::MMDriverAmber(HaMolMechMod* p_mm_mod_new)
 	mytaskid = 0;
 	my_atm_cnt = 0;
 
+#ifdef HARLEM_MPI
 	driver_mpi_comm   = MPI_COMM_NULL;
 	driver_mpi_group  = MPI_GROUP_NULL;
+#endif
 
 	numtasks = 1;
 	mytaskid = 0;
@@ -485,6 +484,7 @@ MMDriverAmber::~MMDriverAmber()
 	delete p_tm;
 }
 
+#ifdef HARLEM_MPI
 void MMDriverAmber::BcastCrd(MPI_Comm& comm)
 {
 	int ires;
@@ -525,7 +525,6 @@ void MMDriverAmber::BcastPBox(MPI_Comm& comm)
 	int ires;
 	int rank;
 
-#if defined(HARLEM_MPI)
 	ires = MPI_Comm_rank(comm,&rank);
 
 	if(rank == 0) GetPBoxDataFromFortran();
@@ -551,8 +550,8 @@ void MMDriverAmber::BcastPBox(MPI_Comm& comm)
 	ires = MPI_Bcast(&uc_sphere,1,MPI_DOUBLE,0,comm);
 	
 	if(rank != 0) SetPBoxDataToFortran();
-#endif
 }
+#endif
 
 void MMDriverAmber::SetupMasterNode()
 {	
@@ -663,6 +662,7 @@ int MMDriverAmber::SetMPICommAllProcs()
 {
 	int ires, itmp;
 //	PrintLog(" MMDriverAmber::SetMPICommAllProcs() pt 1 \n");
+#ifdef HARLEM_MPI
 	if(driver_mpi_comm  != MPI_COMM_NULL) MPI_Comm_free(&driver_mpi_comm);
 	if(driver_mpi_group != MPI_GROUP_NULL) MPI_Group_free(&driver_mpi_group);
 	if( pApp->mpi_driver->nprocs == 1)
@@ -684,6 +684,7 @@ int MMDriverAmber::SetMPICommAllProcs()
 	if(p_mm_mod->single_job_comm != MPI_COMM_NULL) MPI_Comm_free(&p_mm_mod->single_job_comm);
 	ires = MPI_Comm_dup(MPI_COMM_WORLD,&p_mm_mod->single_job_comm);
 	ires = MPI_Comm_rank(p_mm_mod->single_job_comm,&p_mm_mod->single_job_rank);
+#endif
 
 	return TRUE;
 }
@@ -1419,13 +1420,17 @@ void MMDriverAmber::InitAddMDCtrlParams()
 	FC_FUNC_MODULE(random_mod,amrset)(&p_mm_mod->random_seed);
 #endif
 
+#ifdef HARLEM_MPI
 	if(p_mm_mod->run_ti || numtasks > 1)
 	{
 		BCastAddMDCtrlParams(p_mm_mod->single_job_comm);
 	}
+#endif
+
 	SetAddMDCtrParamsFortran();
 }
 
+#ifdef HARLEM_MPI
 void MMDriverAmber::BCastAddMDCtrlParams(MPI_Comm& comm)
 {
 	int ires;
@@ -1453,6 +1458,7 @@ void MMDriverAmber::BCastAddMDCtrlParams(MPI_Comm& comm)
 	ires = MPI_Bcast(&p_mm_mod->num_md_steps,1,MPI_INT,0,comm);
 	ires = MPI_Bcast(&p_mm_mod->wrt_log_freq,1,MPI_INT,0,comm);
 }
+#endif
 
 void MMDriverAmber::SetAddMDCtrParamsFortran()
 {
@@ -1612,6 +1618,7 @@ void MMDriverAmber::GetAtomCrdFromInternalArrays()
 void MMDriverAmber::InitParallelDatMod()
 {
 	int ires,itmp;
+#ifdef HARLEM_MPI
 	if( driver_mpi_comm  == MPI_COMM_NULL )
 	{
 		numtasks = 1;
@@ -1631,6 +1638,7 @@ void MMDriverAmber::InitParallelDatMod()
 	FC_FUNC_MODULE(parallel_dat_mod,mytaskid) = mytaskid;
 	FC_FUNC_MODULE(parallel_dat_mod,master) = master;
 #	endif
+#endif
 }
 
 void AmberMMModel::FindResMolPartition()
@@ -3486,7 +3494,9 @@ int MMDriverAmber::SaveAmberTopToStream(std::ostream& os)
 
 int MMDriverAmber::CheckForStop()
 {
+#ifdef HARLEM_MPI
 	if( numtasks > 1 || p_mm_mod->run_ti ) MPI_Bcast(&p_mm_mod->to_stop_simulations, 1, MPI_INT , 0, p_mm_mod->single_job_comm);
+#endif
 	if( p_mm_mod->to_stop_simulations && mytaskid == 0) PrintLog (" Terminating MM Calculations: \n"); 
 	return p_mm_mod->to_stop_simulations;
 }
@@ -3692,7 +3702,9 @@ void MMDriverAmber::RunMinSlave()
      // For minimization, everyone gets a full set of crds from the master;
      // minimization is unfortunately not well parallelized.
 
+#ifdef HARLEM_MPI
 		int ierr = MPI_Bcast(atm_crd.v(), 3 * p_amber_model->natom, MPI_DOUBLE, 0, driver_mpi_comm);
+#endif
 		          
 		p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 
@@ -3889,11 +3901,13 @@ void MMDriverAmber::RunMinMaster()
   // For minimization, everyone gets a full set of crds from the master;
   // minimization is unfortunately not well parallelized.
 
+#ifdef HARLEM_MPI
 		if( numtasks > 1 )
 		{	
 			ierr = MPI_Bcast(atm_crd.v(), 3 * p_amber_model->natom, MPI_DOUBLE, 0, driver_mpi_comm);
 			p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 		}
+#endif
 
 		if (p_amber_model->using_pme_potential)
 		{
@@ -4515,8 +4529,9 @@ void MMDriverAmber::RunMD()
 
 // Save old, or last velocities...
 
+#ifdef HARLEM_MPI
 		if( p_mm_mod->run_ti && nstep % p_mm_mod->p_ti_mod->ti_sync_freq == 0) p_mm_mod->p_ti_mod->SincCrdAndVelTI();
-		
+#endif
 		SaveVelToLastVel(all_vels_valid);
         
 // Update the step counter and the integration time:
@@ -4551,7 +4566,9 @@ void MMDriverAmber::RunMD()
 		}
 		if (p_mm_mod->run_ti)
 		{
+#ifdef HARLEM_MPI
 			if (numtasks > 1) BCastAddMDCtrlParams(p_mm_mod->single_job_comm);
+#endif
 			if (!p_mm_mod->to_stop_simulations)
 			{
 				OpenOutputFiles();
@@ -4588,7 +4605,9 @@ void MMDriverAmber::CalcCurrEne()
 
 	if(numtasks > 1)
 	{
+#ifdef HARLEM_MPI
 		ierr = MPI_Bcast(atm_crd.v(), 3 * p_amber_model->natom, MPI_DOUBLE, 0, driver_mpi_comm);
+#endif
 		p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 	}
 	
@@ -4723,6 +4742,7 @@ int MMDriverAmber::InitSimulationsStep2()
 
 	if ( master ) SetupMasterNode();
 
+#ifdef HARLEM_MPI
 	if( numtasks > 1)
 	{
 		p_mm_mod->BcastCtrlParams(driver_mpi_comm);
@@ -4733,6 +4753,7 @@ int MMDriverAmber::InitSimulationsStep2()
 		BcastVel(driver_mpi_comm);
 		BcastPBox(driver_mpi_comm);
 	}
+#endif
 
 	CalcNumDegFreedom();
 #if defined(WITH_LIB_PMEMD)
@@ -4805,7 +4826,9 @@ void MMDriverAmber::CalcForceAndEne(int new_list, int ncalls)
 //	PrintLog(" MMDriverAmber::CalcForceAndEne() pt 1  sys_info[SI_BOND_ENE] = %12.6f \n",
 //		         sys_info[SI_BOND_ENE] );
 
+#ifdef HARLEM_MPI
 	if(p_mm_mod->run_ti) p_mm_mod->p_ti_mod->CollectForceAndEneTI(sys_info);
+#endif
 
 //	PrintLog(" MMDriverAmber::CalcForceAndEne() pt 2  sys_info[SI_BOND_ENE] = %12.6f \n",
 //		         sys_info[SI_BOND_ENE] );
@@ -4928,6 +4951,7 @@ void MMDriverAmber::CalcKinEne(int only_cur_vel)
 	ekpbs *= 0.5;
 	ekph  *= 0.5;  // Kinetic energy at the point t+ 1/2 * md_time_step
 
+#ifdef HARLEM_MPI
 	if( numtasks > 1 )
 	{
 		// Sum up the partial kinetic energies and complete the skin check. 
@@ -4945,6 +4969,7 @@ void MMDriverAmber::CalcKinEne(int only_cur_vel)
 		ekph = reduce_buf_out[1];
 		ekpbs = reduce_buf_out[2];
 	}
+#endif
 
 	sys_info[SI_KIN_ENE] = eke;
 	sys_info[SI_KIN_ENE_PLUS_HALF_DT] = ekph;
@@ -5637,6 +5662,7 @@ void MMDriverAmber::RemoveCOMVelocity()
 			vcm[2] += aamass * atm_vel[3*j+2];
 		}
 
+#ifdef HARLEM_MPI
 		if( numtasks > 1) 
 		{
 			for(k = 0; k < 3; k++)
@@ -5650,6 +5676,8 @@ void MMDriverAmber::RemoveCOMVelocity()
 			for(k = 0; k < 3; k++)
 				vcm[k] = reduce_buf_out[k];
 		} 
+#endif
+
 		for(k = 0; k < 3; k++)
 			vcm[k] *= tmassinv;
 
@@ -6067,8 +6095,11 @@ int MMDriverAmber::CheckForNewNonBondList()
 		}
     
         p_tm->UpdateTime(TimerAmber::RUNMD_TIME);
+
+#ifdef HARLEM_MPI
 		int ierr = MPI_Allreduce(&new_list_cnt, &new_list_cnt_out, 1, MPI_DOUBLE,
                              MPI_SUM, driver_mpi_comm);
+#endif
         p_tm->UpdateTime(TimerAmber::FCVE_DIST_TIME);
 
     // Determine if any process saw an atom exceed the skin check.  We use the
@@ -7819,6 +7850,7 @@ int AmberMMModel::SetAtomPosRestrData()
 	return TRUE;	
 }
 
+#ifdef HARLEM_MPI
 void AmberMMModel::Bcast(MPI_Comm& comm)
 {
 	int ires;
@@ -8310,6 +8342,7 @@ void AmberMMModel::BcastAtmMass(MPI_Comm& comm)
 	ires = MPI_Bcast(&tmass,1,MPI_DOUBLE,0,comm);
 	ires = MPI_Bcast(atm_mass_inv.v(),natom,MPI_DOUBLE,0,comm);
 }
+#endif
 
 void AmberMMModel::Clear()
 {
@@ -8755,6 +8788,7 @@ int MolMechModel::UpdateConstraints_2()
 	// Broadcast Atom-Atom Distance Constraints:
 //	PrintLog(" MolMechModel::UpdateConstraints_2 () pt 1 \n");
 
+#ifdef HARLEM_MPI
 	if(  p_mm_mod->p_amber_driver->numtasks > 1 )
 	{
 		MPI_Comm comm = p_mm_mod->p_amber_driver->driver_mpi_comm;
@@ -8771,6 +8805,8 @@ int MolMechModel::UpdateConstraints_2()
 		ires = MPI_Bcast(p_amber_model->dist_constr_idx.v(),   3*p_amber_model->num_dist_constr,MPI_INT,   0,comm);
 		ires = MPI_Bcast(p_amber_model->dist_constr_params.v(),2*p_amber_model->num_dist_constr,MPI_DOUBLE,0,comm);
 	}
+#endif
+
 #if defined(WITH_LIB_PMEMD)
 	FC_FUNC_MODULE(dist_constr_mod,dist_constr_alloc)( &p_amber_model->num_dist_constr );
 

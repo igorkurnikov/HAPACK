@@ -9,7 +9,7 @@
 
 #define HALOCEXCIT_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haqchem.h"
 #include "hamultipole.h"

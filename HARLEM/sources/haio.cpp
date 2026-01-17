@@ -10,7 +10,7 @@
 
 #define HAIO_CPP
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "haconst.h"
 #include "stdarg.h"
@@ -26,7 +26,6 @@
 #include <errno.h>
 #endif
 
-#include "hampi.h"
 #include "harlemapp.h"
 
 // extern "C" DllExport 
@@ -49,10 +48,12 @@ int PrintLogC(const char* str, ... )
 		{
 			vprintf(str, arg_list);
 		}
+#ifdef HARLEM_MPI
 		else if( pApp->mpi_driver != NULL && pApp->mpi_driver->myrank == 0 )
 		{
 			vprintf(str, arg_list);
 		}
+#endif
 		else
 		{
 			vprintf(str, arg_list);
@@ -94,10 +95,12 @@ int PrintLogCount(int type, const char* str,  ...)
 		{
 			vprintf(str, arg_list);
 		}
+#ifdef HARLEM_MPI
 		else if (pApp->mpi_driver != NULL && pApp->mpi_driver->myrank == 0)
 		{
 			vprintf(str, arg_list);
 		}
+#endif
 		else
 		{
 			vprintf(str, arg_list);
@@ -163,11 +166,14 @@ void AddProcessNumberToFileName(char * out, const char *in, const char *pref, in
 	}
 }
 
+
 int RedirectIOToMultipleFilesMPI(const char* fname)
 {
 	char filenameTMPOUT[512];
 
-	int myrank, nprocs;
+	int myrank = 0, nprocs = 1;
+
+#ifdef HARLEM_MPI
 	MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
 
@@ -179,10 +185,12 @@ int RedirectIOToMultipleFilesMPI(const char* fname)
 	*stdout=*curr_stdout_fp;
 	stderr=curr_stdout_fp;
 #endif
+#endif
 	setvbuf( stdout, NULL, _IONBF, 0 );
 	std::ios::sync_with_stdio();
 	return True;
 }
+
 
 
 int RedirectIOToFile(const char* fname)

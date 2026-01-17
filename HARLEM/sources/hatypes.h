@@ -9,7 +9,7 @@
 #if !defined(HATYPES_H)
 #define HATYPES_H
 
-#include <mpi.h>
+#include "hampi.h"
 
 #include "hastl.h"
 #include "hastring.h"
@@ -123,7 +123,9 @@ public:
 
 	HaEnum& operator=(int value) { SetWithValue(value); return (*this); }  
 
+#ifdef HARLEM_MPI
 	int Bcast(MPI_Comm& comm, int root = 0); //!< Broadcast HaEnum over MPI communicator
+#endif
 
 	virtual std::vector<int> all_values() const = 0;
 	virtual std::vector<std::string> GetAllLabels() const = 0;
