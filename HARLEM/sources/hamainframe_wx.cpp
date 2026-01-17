@@ -996,8 +996,8 @@ void HaMainFrameWX::OnClose(wxCloseEvent& event)
         pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
     }
 #endif
-    // wxMDIParentFrame::Close(true);
-    // this->DestroyChildren();
+	//wxMDIParentFrame::Close(true);
+    this->DestroyChildren();
     this->Destroy();
     
 	/* IGOR TMP 
