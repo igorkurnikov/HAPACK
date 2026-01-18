@@ -2299,16 +2299,23 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 					if (match_at_id)
 					{
 						AtomGroup grp1_m, grp2_m;
+						// int nn = 0;
 						for (HaAtom* aptr1 : group1)
 						{
 							std::string at_ref1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL);
 							if (!match_chain) at_ref1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL_NO_CHAIN);
+
+							// PrintLog("Try to match AT1: %s \n", at_ref1);
+							// nn++;
+							//if (nn > 10) break;
 
 							HaAtom* aptr_m = nullptr;
 							for (HaAtom* aptr2 : group2)
 							{
 								std::string at_ref2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL);
 								if (!match_chain) at_ref2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL_NO_CHAIN);
+
+								// PrintLog("Try to match AT2: %s \n", at_ref2);
 								if (at_ref1 == at_ref2)
 								{
 									aptr_m = aptr2;
@@ -2324,7 +2331,7 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 						}
 						group1 = grp1_m;
 						group2 = grp2_m;
-						PrintLog("Group1 has %d matched atoms,  Group2 has %s matched atoms \n", 
+						PrintLog("Group1 has %d matched atoms,  Group2 has %d matched atoms \n", 
 							group1.size(), group2.size());
 					}
 
