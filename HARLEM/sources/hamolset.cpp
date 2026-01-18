@@ -7834,7 +7834,9 @@ void MolSet::SelectAtomsExprObj( AtomExpr* expr )
 	AtomIteratorMolSet aitr(this);
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
+		
 		bool bres = expr->EvaluateExprFor(aptr);
+		// PrintLog(" atom: %s Expr val = %d \n", aptr->GetRef(), bres);
 		if( bres )
 		{   
 			aptr->Select();

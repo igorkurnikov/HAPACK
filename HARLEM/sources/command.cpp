@@ -739,7 +739,7 @@ std::shared_ptr<AtomExpr> CmdParser::ParseRange(int neg )
 		
         tmp1 = std::make_shared<AtomExpr>();
         tmp1->type = OpLftProp|OpRgtVal|OpLessEq;
-        tmp1->rgt = neg? -(long)TokenValue : (long)TokenValue;
+        tmp1->rgt = neg? -(int)TokenValue : (int)TokenValue;
         tmp1->lft = (long) PropResId;
         tmp2->lft = tmp1;
         tmp1 = tmp2;
