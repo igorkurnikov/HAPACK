@@ -338,6 +338,7 @@ const int  LoadAmberRestartTok = 2200;
 const int  CombineBondingAtomsTok = 2210;
 const int  AlignMolTok = 2220;
 const int  AlignMolMatchTok = 2230;
+const int  AlignMolMatchNoChainTok = 2240;
 
 /* Edit Molecule Tokens */
 const int  EditTok     = 2310;

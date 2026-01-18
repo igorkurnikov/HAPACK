@@ -651,7 +651,7 @@ bool HaAtom::FillRef(char* buf, int ref_type) const
 		}
 		j += sprintf(buf+j,"%d",phost_res->GetSerNo());
 		
-		if( phost_chain->ident != ' ' )
+		if( phost_chain->ident != ' ' && ref_type != ATOMREF_NO_MOL_NO_CHAIN )
 		{
 			j += sprintf(buf+j, ":%c",phost_chain->ident);
 		}

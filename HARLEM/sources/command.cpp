@@ -361,6 +361,7 @@ int CmdParser::InitKeywords()
 	RegisterKeyword( "SAVEAMBERPARM", SaveAmberParmTok);
 	RegisterKeyword( "ALIGNMOL", AlignMolTok);
 	RegisterKeyword("ALIGNMOLMATCH", AlignMolMatchTok);
+	RegisterKeyword("ALIGNMOLMATCHNOCHAIN", AlignMolMatchNoChainTok);
 	RegisterKeyword( "LOADAMBERRESTART", LoadAmberRestartTok);
 	RegisterKeyword( "COMBINEBONDINGATOMS", CombineBondingAtomsTok);
 	

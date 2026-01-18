@@ -171,7 +171,8 @@ public:
   enum AtomRefType{ ATOMREF_FULL = 0,  //!< Full atom reference include molecule name  
 	                ATOMREF_STD,       //!< Include molecule name only if there are more than 1 molecule in the molecular set
 					ATOMREF_NO_MOL,    //!< Do not include molecule name in the atom reference
-					ATOMREF_NO_RES, 
+					ATOMREF_NO_MOL_NO_CHAIN, //!< Do not include molecule name and chain name in the atom reference
+					ATOMREF_NO_RES,    //!< Do not include Residue Name in the atom reference
 					ATOMREF_ELEM_NAME,
 					ATOMREF_ELEM_NO}; //!< Atom Reference Type to use in GetRef and FillRef
 

@@ -2273,9 +2273,12 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 
 	case(AlignMolTok):
 	case(AlignMolMatchTok):
+	case(AlignMolMatchNoChainTok):
 	{
 		bool match_at_id = false;
-		if (cmd_pr.CurToken == AlignMolMatchTok)  match_at_id = true;
+		bool match_chain = true;
+		if (cmd_pr.CurToken == AlignMolMatchTok || cmd_pr.CurToken == AlignMolMatchNoChainTok)  match_at_id = true;
+		if (cmd_pr.CurToken == AlignMolMatchNoChainTok) match_chain = false;
 
 		cmd_pr.FetchToken(); //this worked
 
@@ -2299,10 +2302,13 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 						for (HaAtom* aptr1 : group1)
 						{
 							std::string at_ref1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL);
+							if (!match_chain) at_ref1 = aptr1->GetRef(HaAtom::ATOMREF_NO_MOL_NO_CHAIN);
+
 							HaAtom* aptr_m = nullptr;
 							for (HaAtom* aptr2 : group2)
 							{
 								std::string at_ref2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL);
+								if (!match_chain) at_ref2 = aptr2->GetRef(HaAtom::ATOMREF_NO_MOL_NO_CHAIN);
 								if (at_ref1 == at_ref2)
 								{
 									aptr_m = aptr2;
@@ -2311,13 +2317,14 @@ int MolSet::ExecuteCommand(CmdParser& cmd_pr)
 							}
 							if (aptr_m)
 							{
+								PrintLog("Matched: AT1:  %s %s \n", aptr1->GetRef(), aptr_m->GetRef());
 								grp1_m.push_back(aptr1);
 								grp2_m.push_back(aptr_m);
 							}	
 						}
 						group1 = grp1_m;
 						group2 = grp2_m;
-						PrintLog("Group1 has %s matched atoms,  Group2 has %s matched atoms \n", 
+						PrintLog("Group1 has %d matched atoms,  Group2 has %s matched atoms \n", 
 							group1.size(), group2.size());
 					}
 
