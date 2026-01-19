@@ -86,7 +86,7 @@ REM ###########################################################################
 echo "Linking harlem gui python files"
 
 if not exist %OutputDir%\molset\harlempy (
-    mklink /D %OutputDir%\molset\harlempy     %script_path%\..\HARLEM\molset\harlempy
+    mklink /D %OutputDir%\molset\harlempy     %script_path%\..\MOLSET\molset\harlempy
 )
 
 REM ###########################################################################

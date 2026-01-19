@@ -166,11 +166,11 @@ REM ###########################################################################
 echo "Linking molset module python files"
 
 if not exist %OutputDir%\molset\__init__.py (
-    mklink %OutputDir%\molset\__init__.py  %script_path%\..\HARLEM\molset\__init__.py
+    mklink %OutputDir%\molset\__init__.py  %script_path%\..\MOLSET\molset\__init__.py
 )
 
 if not exist %OutputDir%\molset\molset_ext (
-    mklink /D %OutputDir%\molset\molset_ext   %script_path%\..\HARLEM\molset\molset_ext
+    mklink /D %OutputDir%\molset\molset_ext   %script_path%\..\MOLSET\molset\molset_ext
 )
 
 echo "Done library copying and linking"

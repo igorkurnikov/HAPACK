@@ -70,4 +70,7 @@
   <ItemGroup>
     <CustomBuild Include="..\HARLEM\sources\harlem.i" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\HARLEM\sources\colours.bmp" />
+  </ItemGroup>
 </Project>

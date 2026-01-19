@@ -16,7 +16,7 @@ class HaQCMod;
 class HaBasisSet;
 class GauBasisSet;
 
-class HaOperR 
+class MSET_API HaOperR 
 //! Electric Dipole moment operator
 {
 public:
@@ -32,7 +32,7 @@ public:
 };
 
 
-class HaOperRDelt 
+class MSET_API HaOperRDelt 
 //! Operator R X Grad ( -i Magnetic moment operator)
 {
 public:
@@ -58,7 +58,7 @@ public:
 };
 
 
-class HaOperGrad
+class MSET_API HaOperGrad
 //! Operator Delta ( Gradient)
 {
 public:
@@ -70,7 +70,7 @@ public:
 	         
 };
 
-class HaOperKinEner 
+class MSET_API HaOperKinEner 
 //! Kinetic Energy Operator
 {
 public:

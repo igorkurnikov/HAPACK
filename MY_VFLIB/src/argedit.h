@@ -31,7 +31,6 @@
 
 #include "argraph.h"
 
-
 /*---------------------------------------------------------
  * Class ARGEdit
  * A simple ARGLoader providing graph edit operations.

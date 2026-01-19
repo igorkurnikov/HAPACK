@@ -10,13 +10,14 @@
 
 enum OPER_TYPE {REAL_OPER,IMAG_OPER};
 
+#include "hastl.h"
 #include "halocorb.h"
 #include "halocexcit.h"
 #include "haatgroup.h"
 #include "hamatdb.h"
 
 
-class HaRPAvec
+class MSET_API HaRPAvec
 //!< Class to define RPA vector 
 {
 public:
@@ -46,14 +47,14 @@ public:
 	//!< set RPA vector from the submatrix of operator matrix fmat 
 	//!< (premultiplied by S^-1) on active local orbitals of groups ig1 and ig2
 
-	friend double
+	friend MSET_API double
 		   SProd(const HaRPAvec & left, const HaRPAvec & right); 
 	// Calculate scalar product between two RPA vector
 	
-	friend HaMat_double
+	friend MSET_API HaMat_double
 		   SProd(const std::vector<HaRPAvec> & left, const std::vector<HaRPAvec> & right);
 
-	friend HaVec_double
+	friend MSET_API HaVec_double
 		   SProd(const HaRPAvec & RPAv, const std::vector<HaRPAvec> & RPAv_arr);
 
 	// Calculate scalar product between arrays of RPA vectors 

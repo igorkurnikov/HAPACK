@@ -16,6 +16,7 @@ class HaMatDB;
 
 class InternalBasis;
 
+#include "hastl.h"
 #include "haatombasis.h"
 #include "halocorb.h"
 #include "haatgroup.h"
@@ -354,14 +355,14 @@ extern double gint1_(double* exp1,double* exp2, int* n1, int* n2, double* r,
 #ifdef HAQCHEM_CPP
 
 bool   qc_db_init_flag=false;
-HaPseudoPotDB pseudo_db;
-HaAtBasDB bas_db;
+MSET_API HaPseudoPotDB pseudo_db;
+MSET_API HaAtBasDB bas_db;
 
 #else
 
 extern bool   qc_db_init_flag;
-extern HaPseudoPotDB pseudo_db;
-extern HaAtBasDB bas_db;
+MSET_API extern HaPseudoPotDB pseudo_db;
+MSET_API extern HaAtBasDB bas_db;
 
 
 #endif // end if HAQCHEM_CPP

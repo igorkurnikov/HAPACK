@@ -14,7 +14,6 @@
 
 #include "hampi.h"
 #include "Python.h"
-#include "wx/wfstream.h"
 
 #include "haio.h"
 #include "harlemapp.h"

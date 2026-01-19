@@ -25,19 +25,19 @@
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
 		<Filter Name="CONT ELECTROSTATICS">
-		<File RelativePath="..\HARLEM\sources\delphutil.f"/></Filter>
+		<File RelativePath="..\MOLSET\sources\delphutil.f"/></Filter>
 		<Filter Name="GAUSSIAN RELATED">
-		<File RelativePath="..\HARLEM\sources\gextr.f"/></Filter>
+		<File RelativePath="..\MOLSET\sources\gextr.f"/></Filter>
 		<Filter Name="math" Filter="fi;fd">
-		<File RelativePath="..\HARLEM\sources\axx_fit.f"/>
-		<File RelativePath="..\HARLEM\sources\math\fd05.f"/>
-		<File RelativePath="..\HARLEM\sources\gmath.f"/>
-		<File RelativePath="..\HARLEM\sources\math\id05.f"/>
-		<File RelativePath="..\HARLEM\sources\math\mc11.f"/>
-		<File RelativePath="..\HARLEM\sources\math\va13.f"/>
-		<File RelativePath="..\HARLEM\sources\math\za02.f"/></Filter>
+		<File RelativePath="..\MOLSET\sources\axx_fit.f"/>
+		<File RelativePath="..\MOLSET\sources\math\fd05.f"/>
+		<File RelativePath="..\MOLSET\sources\gmath.f"/>
+		<File RelativePath="..\MOLSET\sources\math\id05.f"/>
+		<File RelativePath="..\MOLSET\sources\math\mc11.f"/>
+		<File RelativePath="..\MOLSET\sources\math\va13.f"/>
+		<File RelativePath="..\MOLSET\sources\math\za02.f"/></Filter>
 		<Filter Name="QUANTUM CHEMISTRY">
-		<File RelativePath="..\HARLEM\sources\dalton_utils.f"/></Filter>
+		<File RelativePath="..\MOLSET\sources\dalton_utils.f"/></Filter>
 		<Filter Name="Surfaces">
-		<File RelativePath="..\HARLEM\sources\gsurf.f"/></Filter></Files>
+		<File RelativePath="..\MOLSET\sources\gsurf.f"/></Filter></Files>
 	<Globals/></VisualStudioProject>

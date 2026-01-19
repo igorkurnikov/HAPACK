@@ -12,6 +12,7 @@
 #define TNT_BOUNDS_CHECK
 
 
+#include "hastl.h"
 #include "haio.h" 
 #include "hastring.h"
 //#include "const.h"       
@@ -199,11 +200,11 @@ class HaHist
 		double* end();
 	};
 #else
-	typedef Fortran_matrix<double>   HaMat_double_parent ;	
+	typedef Fortran_matrix<double>  HaMat_double_parent ;	
 #endif
 
 
-class HaMat_double : public HaMat_double_parent
+class MSET_API HaMat_double : public HaMat_double_parent
 //! class for two-dimensional matrix of doubles
 {
 public:
@@ -310,7 +311,7 @@ extern void va13ad_ ( int* iptr, ptrMinFunc1 pfunc,
 					  int* n, double* x, double* f ,double* g,double* scale,double* acc,double* w);
 }
 
-class HaMinimizer
+class MSET_API HaMinimizer
 //! Class to minimize a function of multiple variables
 {
 public:

@@ -9,11 +9,12 @@
 #ifndef HAMATDB_H
 #define HAMATDB_H
 
+#include "hastl.h"
 #include "halinalg.h"
 #include "haatgroup.h"
 #include "command.h"
 
-class StrKey
+class MSET_API StrKey
 {
 public:
 	StrKey();
@@ -29,7 +30,7 @@ public:
 };
 
 
-class HaGrpOperID: public StrKey
+class MSET_API HaGrpOperID: public StrKey
 {
 public:
 	HaGrpOperID();
@@ -44,7 +45,7 @@ public:
 
 };
 
-class HaGrp4MatID: public StrKey
+class MSET_API HaGrp4MatID: public StrKey
 //!< class for ID of 4-group index matrix 
 {
 public:
@@ -54,7 +55,7 @@ public:
 
 };
 
-class HaMatDB 
+class MSET_API HaMatDB 
 //!  Class to define Database of sub matricies
 {
 public:

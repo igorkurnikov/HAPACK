@@ -14,7 +14,7 @@
 #include "haatombasis.h"
 
 
-class HaAtBasDB 
+class MSET_API HaAtBasDB 
 //!< Class to define database of quantum chemical gaussian basis sets in HARLEM 
 {
 public:

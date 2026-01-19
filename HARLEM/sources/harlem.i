@@ -13,5 +13,5 @@
 void StartHaMainFrameWX();  
 %}
 
-%include "dialogs_wx_2.h"  
+%include "dialogs_wx_2.h" 
 void StartHaMainFrameWX(); 

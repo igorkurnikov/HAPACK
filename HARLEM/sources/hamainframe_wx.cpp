@@ -60,7 +60,6 @@
 
 #include "contworld.h"//<mikola July 30, 2007
 #include "mapio.h"//<mikola Jan 8, 2008
-#include "hasvnrev.h"
 #if defined(_MSC_VER)
 #include <windows.h>
 #endif

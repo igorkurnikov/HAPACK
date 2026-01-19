@@ -17,7 +17,7 @@
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "hawx_add.h"
+//#include "hawx_add.h"
 #include "FCMangle.h"
 
 #include "harlemapp.h"

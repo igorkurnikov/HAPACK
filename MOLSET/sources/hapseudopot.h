@@ -39,7 +39,7 @@ public:
 
 };
 
-class HaPseudoPot
+class MSET_API HaPseudoPot
 //! class to define Core Pseudopotentials 
 {
 public:
@@ -80,7 +80,7 @@ protected:
 };
 
 
-class HaPseudoPotDB
+class MSET_API HaPseudoPotDB
 {
 public:
 	HaPseudoPotDB();

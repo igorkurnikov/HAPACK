@@ -71,6 +71,7 @@ namespace std {
 #include "haempirical.h"
 #include "etcoupl.h"
 #include "hamatdb.h"
+#include "hatests.h"
 #include "hatypes.h"
 #include "mm_elements.h"
 #include "mm_model.h"
@@ -91,12 +92,8 @@ namespace std {
 #include "haempirical.h"
 #include "hasurface.h"
 #include "apbsmod.h"
-#include "hatests.h"
 #include "moleditor.h" 
 #include "protonredox.h"
-
-//#include "dialogs_wx_2.h"    //  move to harlem?
-//void StartHaMainFrameWX();   //  move to harlem?
 
 void StartHarlemApp();
 %}
@@ -111,6 +108,7 @@ void StartHarlemApp();
 %include "abstree.h"
 %include "haconst.h"
 %include "hastring.h"  
+%include "hatests.h"
 %include "hatypes.h"
 %include "haconsts.h"
 %include "tinyxml.h"
@@ -170,11 +168,7 @@ void StartHarlemApp();
 
 %include "haresdb.h"
 %include "hamatdb.h"
-%include "hatests.h"
 %include "moleditor.h" 
 %include "protonredox.h"
-
-// %include "dialogs_wx_2.h"   // Move to Harlem ?
-// void StartHaMainFrameWX();  // Move to Harlem ?
 
 void StartHarlemApp();

@@ -9,10 +9,11 @@
 #ifndef HARPAHAM_H
 #define HARPAHAM_H
 
+#include "hastl.h"
 #include "harpavec.h"
 
 
-class HaRPAHam 
+class MSET_API HaRPAHam 
 //! Class to define CIS or RPA Hamiltonian 
 {
 public:
@@ -23,15 +24,14 @@ public:
 	bool SetEnergy(const double NewEne); //!< Set Energy if Calc (E-H)
 
 
-bool Apply(std::vector<HaRPAvec> & RPAvec); //!< Apply RPA Hamiltonian to the array
+	bool Apply(std::vector<HaRPAvec> & RPAvec); //!< Apply RPA Hamiltonian to the array
                                        //!<  of RPA vectors defined as 
 
-bool Apply_init(std::vector<HaRPAvec> & RPAvec) const;
+	bool Apply_init(std::vector<HaRPAvec> & RPAvec) const;
       // Apply zero order RPA Hamiltonian 
 
-
-std::vector<HaRPAvec>
-operator *(const std::vector<HaRPAvec> & RPAvec); //!< Apply Hamiltonian
+	std::vector<HaRPAvec>
+	operator *(const std::vector<HaRPAvec> & RPAvec); //!< Apply Hamiltonian
 
 protected: 
 	double Ene;
@@ -39,7 +39,7 @@ protected:
 };
 
 
-class HaRPAResolv 
+class MSET_API HaRPAResolv 
 //! Class to define CIS or RPA Resolvent operator 
 {
 public:
@@ -47,20 +47,20 @@ public:
 	virtual ~HaRPAResolv();
 
 
-bool SetOpMode(const int imode);
+	bool SetOpMode(const int imode);
 
-bool SetEnergy(const double NewEne); 
+	bool SetEnergy(const double NewEne); 
 
-bool SetImag(const bool new_imag);
+	bool SetImag(const bool new_imag);
 
 
-bool Apply_Init(std::vector<HaRPAvec> & RPAvec) const; //!< Apply Zero order approximation
+	bool Apply_Init(std::vector<HaRPAvec> & RPAvec) const; //!< Apply Zero order approximation
                                                   //!< (diagonal MO) RPA resolvent
 
-bool Apply(std::vector<HaRPAvec> & RPAvec) const; //!< Apply RPA Resolvent 
+	bool Apply(std::vector<HaRPAvec> & RPAvec) const; //!< Apply RPA Resolvent 
                                              //!< to the array of RPA vectors defined as 
 
-std::vector<HaRPAvec> solve(const std::vector<HaRPAvec> & CISvec) const; //!< Apply RPA Resolvent 
+	std::vector<HaRPAvec> solve(const std::vector<HaRPAvec> & CISvec) const; //!< Apply RPA Resolvent 
                                                                //!< in the given approximation
 
 protected: 

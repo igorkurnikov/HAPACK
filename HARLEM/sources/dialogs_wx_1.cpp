@@ -11,7 +11,7 @@
 #include "hampi.h"
 
 #include "vec3d.h"
-#include "g94_globals.h"
+#include "g94_globals.h" 
 #include "g94_protos.h"
 
 #include "rapidxml.hpp"

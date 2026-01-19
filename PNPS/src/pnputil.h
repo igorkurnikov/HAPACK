@@ -14,7 +14,7 @@
 #include <vector>
 #include <string>
 #ifdef HARLEM_MOD
-#include <halinalg.h>
+#include "halinalg.h"
 #endif
 class ContWorld;
 class TiXmlElement;
