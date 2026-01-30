@@ -177,7 +177,7 @@ public:
 	virtual int SetFrom(const harlem::Coord* pcrd);     //!< Set Coordinates from the other coordinate object   
 	virtual int SetFromVecDouble(const HaVec_double& dbl_vec);      //!< Set Coordinates from a vector of double values
 	virtual int LoadFromStream(std::istream& is, const harlem::HashMap* popt = NULL );       //!< Read Coordinates from stream
-	virtual int SaveToStream(std::ostream&  os,  const harlem::HashMap* popt = NULL ) const; //!< Write Coordinates to stream
+	virtual int SaveToStream(std::ostream& os,  const harlem::HashMap* popt = NULL ) const; //!< Write Coordinates to stream
 
 	HaAtom* aptr1; //!<  1-st atom of the dihedral 
 	HaAtom* aptr2; //!<  2-nd atom of the dihedral ( or 1st atom of the bond or valence angle)

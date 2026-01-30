@@ -138,10 +138,10 @@ typedef struct Namelist Namelist;
 
 //#define abs(x) ((x) >= 0 ? (x) : -(x))
 //#define dabs(x) (doublereal)abs(x)
-//#define min(a,b) ((a) <= (b) ? (a) : (b))
-//#define max(a,b) ((a) >= (b) ? (a) : (b))
-//#define dmin(a,b) (doublereal)min(a,b)
-//#define dmax(a,b) (doublereal)max(a,b)
+//#define std::min(a,b) ((a) <= (b) ? (a) : (b))
+//#define std::max(a,b) ((a) >= (b) ? (a) : (b))
+//#define dmin(a,b) (doublereal)std::min(a,b)
+//#define dmax(a,b) (doublereal)std::max(a,b)
 
 /* procedure parameter types for -A and -C++ */
 

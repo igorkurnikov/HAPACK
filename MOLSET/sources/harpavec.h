@@ -28,7 +28,7 @@ public:
 
 	int GetNBfunc() const;
 	
-	bool Print_info(std::ostream &sout, const int level) const;
+	bool Print_info(std::ostream& sout, const int level) const;
 
     int GetNumOccMO() const; // the number occupied MOs
 	int GetNumVacMO() const; // the number of vacant MOs

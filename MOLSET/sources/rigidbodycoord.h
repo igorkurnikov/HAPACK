@@ -32,7 +32,7 @@ namespace harlem
 		virtual void FreezeCrd(int idx);         //!< Freeze Internal Coordinate with the index idx
 		virtual int IsCrdFrozen(int idx) const; //!< Check if the coordinate is frozen
 		virtual int LoadFromStream(std::istream& is, const harlem::HashMap* popt = NULL ); //!< Read Coordinates from stream
-		virtual int SaveToStream(std::ostream&  os, const harlem::HashMap* popt = NULL ) const; //!< Write Coordinates to stream
+		virtual int SaveToStream(std::ostream& os, const harlem::HashMap* popt = NULL ) const; //!< Write Coordinates to stream
 		int SetFromCurrAtomCrd(AtomContainer* at_cont, int iobj);     //!< Set internal coordinates of iobj object from Current Cartesian Coordinates of Atom Collection 
 		int SetFromCurrAtomCrd(std::vector<AtomContainer*> vec_at_cont);  //!< Set from Current Cartesian Coordinates of an Array of Atom Collections
 

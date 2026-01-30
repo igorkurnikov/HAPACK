@@ -166,7 +166,7 @@ public:
 //@{
   static int AtTypeFromLbl(const std::string & Label); //!< Determine atom element number from the atom label
 
-  bool Print_info(std::ostream &sout, const int level) const;
+  bool Print_info(std::ostream& sout, const int level) const;
 
   enum AtomRefType{ ATOMREF_FULL = 0,  //!< Full atom reference include molecule name  
 	                ATOMREF_STD,       //!< Include molecule name only if there are more than 1 molecule in the molecular set

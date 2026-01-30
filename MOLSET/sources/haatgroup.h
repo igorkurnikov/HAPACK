@@ -336,7 +336,7 @@ public:
  
   static std::string GetIDFromRef(const std::string& buf);
 
-  bool Print_info(std::ostream &sout, const int level) const;
+  bool Print_info(std::ostream& sout, const int level) const;
 
 protected:
 
@@ -495,7 +495,7 @@ public:
 
 	std::string NameModifier;    //!< Modifier of the residue name
 
-//    vector<AltChemState> alt_res_states; //!<  Alternative Residue States (protonated, deprotonated etc) 
+//    std::vector<AltChemState> alt_res_states; //!<  Alternative Residue States (protonated, deprotonated etc) 
     Vec3DValArray std_crd_sys;       //!< Standard coordinate system 
 
 	static int RegisterResName( const std::string& res_name); //!< return Reference number of the residue name

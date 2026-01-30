@@ -67,8 +67,8 @@ Canvas3D::~Canvas3D()
 
 void Canvas3D::resize(int new_XRange, int new_YRange)
 {
-//	cerr << " Canvas3D::resize() new_XRange & new_YRange = " << 
-//		    new_XRange << "  " << new_YRange << endl;
+//	std::cerr << " Canvas3D::resize() new_XRange & new_YRange = " << 
+//		    new_XRange << "  " << new_YRange << std::endl;
 
 	m_XRange= new_XRange; 
 	m_YRange= new_YRange;

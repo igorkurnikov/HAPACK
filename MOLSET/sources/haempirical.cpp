@@ -212,7 +212,7 @@ double p_pair =0;
 //	}
 //	sprintf(buf,"Time 1= %d , 2= %d , 3= %d , 4= %d , 5= %d , 6= %d , 7= %d , 8= %d , 9= %d , 10= %d ",
 //		 t2-t1, t3-t2,t4-t3,t5-t4,t6-t5,t7-t6,t8-t7,t9-t8,t10-t9,t11-t10);
-//	component_file << buf << endl;
+//	component_file << buf << std::endl;
 
 	score_ene = center_attract + p_packdist+ p_packangle + p_contct + p_vdw + p_bured +p_pair + p_sym + p_constr + p_helicepack + p_toy + p_rep;
  //   score_ene = p_vdw ;
@@ -228,7 +228,7 @@ double p_pair =0;
 	component_file.close();
 	}
 //	sprintf(buf,"PACK DENSITY %4.3f BringToCenter %3.2f \n", pack_dens_calculated, p_btc); 
-//	component_file << buf << endl; // Remove
+//	component_file << buf << std::endl; // Remove
 
 //PrintLog("score_ene %4.3f \n", score_ene);
 	com_flag = TRUE ;
@@ -356,7 +356,7 @@ HaEmpiricalMod::PenaltyPackDistance()
 			cur_pack_dist_ene = SqrPotential(dist,pack_dist_com, sigma_pack_dist_com,weight_pack_distance);
 			pack_dist_ene += cur_pack_dist_ene;	
 //sprintf(buf,"PACK DISTANCE %3.2f imol1 %d imol2 %d \n", dist, imol, imol+1);
-//	component_file << buf << endl;
+//	component_file << buf << std::endl;
 		}
 	}
 //	PrintLog ("pack_dist_ene %4.2f  \n", pack_dist_ene);
@@ -1531,7 +1531,7 @@ HaEmpiricalMod::PenaltySymmetry()
 			i++;
 		}
 		//	sprintf(buf,"Molecule %d", j+1); // Remove
-		//	component_file << buf<< endl ; // Remove
+		//	component_file << buf<< std::endl; // Remove
 //		PrintLog ("SYMMETRY before E= %2.3f  \n", cur_sym_ene);
 		for(n =0; n < nchain -1 ; n++ )
 		{
@@ -1576,7 +1576,7 @@ HaEmpiricalMod::PenaltySymmetry()
 		}
 
 		//	sprintf(buf,"Side lenght %4.3f ", side_arr[nchain -1]); // Remove
-		//	component_file << buf << endl; // Remove
+		//	component_file << buf << std::endl; // Remove
 	}
 	for(j =0; j < n_count ; j++ )
 	{
@@ -2028,7 +2028,7 @@ HaEmpiricalMod::FindAxes()
 		
 		//		buf1 = pMol-> GetRef();
 		//		sprintf(buf,"Molname %s, imol %i \n", buf1.c_str(), imol); // Remove
-		//		component_file << buf << endl; // Remove
+		//		component_file << buf << std::endl; // Remove
 		//PrintLog(" Molname  %s, imol %i \n", buf1.c_str(), imol); // Remove
 		
 		//		FindAxis(pMol);
@@ -3278,9 +3278,9 @@ HaEmpiricalMod::PenaltyVDW()
 //		if(imol == 1 ||imol == 3)
 //		{
 //	sprintf(buf,"p1[0] %2.4f p1[1] %2.4f p1[2] %2.4f p2[0] %2.4f p2[1] %2.4f p0[2] %2.4f", p1[0], p1[1],p1[2], p2[0],p2[1], p2[2]);
-//	dist_file<< buf << endl;
+//	dist_file<< buf << std::endl;
 //	sprintf(buf,"distAt %2.4f center_attract %2.4f imol %d" , dist,center_attract, imol);
-//	dist_file<< buf << endl;
+//	dist_file<< buf << std::endl;
 //		}
 		for( jmol = imol; jmol < nmol ; jmol++)
 		{
@@ -3308,7 +3308,7 @@ HaEmpiricalMod::PenaltyVDW()
 					//vdw_ene +=(repulse_vdw_ene - atract_vdw_ene)*weight_vdw;
 					vdw_ene += repulse_vdw_ene*weight_vdw;
 					//				sprintf(buf,"dist %2.4f repulse_vdw_ene %2.4f atract_vdw_ene %2.4f imol %d jmol %d ", dist,repulse_vdw_ene, atract_vdw_ene, imol, jmol);
-					//				dist_file<< buf << endl;
+					//				dist_file<< buf << std::endl;
 				}
 				else vdw_ene = 10e16;
 			}
@@ -3971,7 +3971,7 @@ double HaEmpiricalMod::MinEnergy() // added by jose 06-04-08
 					j++;
 				}
 			}
-			//constraints_file<<Ma_dist[i][0]<<"  "<<Ma_dist[i][1]<<"  "<<Ma_dist[i][2]<<"  "<<Ma_dist[i][3]<<"  "<<Ma_dist[i][4]<<"  "<<Ma_dist[i][5]<<"  "<<Ma_dist[i][6]<<"  "<<Ma_dist[i][7]<<endl;
+			//constraints_file<<Ma_dist[i][0]<<"  "<<Ma_dist[i][1]<<"  "<<Ma_dist[i][2]<<"  "<<Ma_dist[i][3]<<"  "<<Ma_dist[i][4]<<"  "<<Ma_dist[i][5]<<"  "<<Ma_dist[i][6]<<"  "<<Ma_dist[i][7]<< std::endl;
 			i++;
 		} 
 	}
@@ -4159,7 +4159,7 @@ double HaEmpiricalMod::ToyEnergy() // added by jose 05-21-08 it will be deleted 
 
 	}
 	//sprintf(buf,"Eharm %3.2f Evdw %3.2f", energy_final, vdw_ene);
-	//harmonic_file << buf << endl;
+	//harmonic_file << buf << std::endl;
 	harmonic_file << energy_final << "  "<< vdw_ene <<"  "<<ene_tor<<"  "<<ene_val<< std::endl;
 
 	return energy_final+vdw_ene;//+ene_tor+ene_val;
@@ -5196,8 +5196,8 @@ double HaEmpiricalMod::LJ_eneCylinder() //added by jose
 
 		}
 	}
-	//energy_LJ_file<< ene<<endl;
-	//energy_LJ_file << ene*(1-lambda)<<endl;
+	//energy_LJ_file<< ene<< std::endl;
+	//energy_LJ_file << ene*(1-lambda)<< std::endl;
 	//PrintLog("LJ energy: %f\n",ene);
 	return /*ene;*/ ene*(1-lambda);
 
@@ -5273,7 +5273,7 @@ double HaEmpiricalMod::LJ_ene() //added by jose
 							j++;
 						}
 					//double dist_ijmol = Vec3D::CalcDistanceSq(&center_arr[imol], &center_arr[jmol]);
-					//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<<endl;
+					//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<< std::endl;
 					}
 				}
 			}
@@ -5418,7 +5418,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 						h2++;
 					}
 					//double dist_ijmol = Vec3D::CalcDistanceSq(&center_arr[imol], &center_arr[jmol]);
-					//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<<endl;
+					//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<< std::endl;
 			}
 			h1++;
 		} 
@@ -5454,7 +5454,7 @@ double HaEmpiricalMod::LJState_ene() //added by jose
 					h2++;
 				}
 				//double dist_ijmol = Vec3D::CalcDistanceSq(&center_arr[imol], &center_arr[jmol]);
-				//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<<endl;
+				//energy_LJ_file<<imol<<" "<<jmol<<" "<<sqrt(dist_ijmol)<<"  "<< ene<< std::endl;
 		}
 		h1++;
 	} 

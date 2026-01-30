@@ -7275,12 +7275,12 @@ int AmberMMModel::UpdateAmberData()
 
 //	int idx_fst_hb_atom_type = ntypes + 1; // index of the first atom type involved in H-Bond   
 
-//	map<HaVec_double, int, less<HaVec_double> > hbnd_par_idx_map; // map H-Bond Parameters to indexes in loc_hbond_params
+//	std::map<HaVec_double, int, std::less<HaVec_double> > hbnd_par_idx_map; // map H-Bond Parameters to indexes in loc_hbond_params
 //	HaVec_double hbpar(2);
 
-//	map<HaVec_double, int, less<HaVec_double> >::iterator hbitr;
+//	std::map<HaVec_double, int, std::less<HaVec_double> >::iterator hbitr;
 
-//	vector<AtomContact>::iterator cnt_itr = DistConstraints.begin();
+//	std::vector<AtomContact>::iterator cnt_itr = DistConstraints.begin();
 
 	nbonh  = bonds_h.size();      
 	nbona  = bonds_a.size();        

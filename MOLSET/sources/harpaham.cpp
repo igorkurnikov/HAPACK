@@ -181,7 +181,7 @@ bool HaRPAHam::Apply(std::vector<HaRPAvec> & RPAvec)
 	{
 		matmult(scr,C_vac,RPAvec[iv].Z_mat);
 		matmult_T2(X_AO,scr,C_occ);
-//		cout << " X_AO " << endl;
+//		std::cout << " X_AO " << std::endl;
 //		X_AO.Print_format(cout,"%7.4f ");
 		X_AO.GetSymmPart(&tdsymm(1,2*iv+1));
 		X_AO.GetASymmPart(&tdasymm(1,2*iv+1));
@@ -192,9 +192,9 @@ bool HaRPAHam::Apply(std::vector<HaRPAvec> & RPAvec)
 		X_AO.GetSymmPart(&tdsymm(1,2*iv+2));
 		X_AO.GetASymmPart(&tdasymm(1,2*iv+2));
 	}
-//		cout << " tdsymm " << endl;
+//		std::cout << " tdsymm " << std::endl;
 //		tdsymm.Print_format(cout,"%7.4f ");
-//		cout << " tdasymm " << endl;
+//		std::cout << " tdasymm " << std::endl;
 //		tdasymm.Print_format(cout,"%7.4f ");
 	
 	int iprtf=0, iopcl=0, icntrl=230;
@@ -225,9 +225,9 @@ bool HaRPAHam::Apply(std::vector<HaRPAvec> & RPAvec)
 	free(pwork);
 	v_td.newsize(0);
 
-//		cout << " fa " << endl;
+//		std::cout << " fa " << std::endl;
 //		fa.Print_format(cout,"%7.4f ");
-//		cout << " fb " << endl;
+//		std::cout << " fb " << std::endl;
 //		fb.Print_format(cout,"%7.4f ");
   
 
@@ -238,7 +238,7 @@ bool HaRPAHam::Apply(std::vector<HaRPAvec> & RPAvec)
 		HaMat_double AmB_Z(nb,nb); // (A-B)*Z
 		AmB_Z=0.0;  
 		AmB_Z.AddSymmPart(&fa(1,2*iv+1)); //FoFdir calculates 1/2 of (A(1) - B) X 
-//		cout << " AmB_Z " << endl;
+//		std::cout << " AmB_Z " << std::endl;
 //		AmB_Z.Print_format(cout,"%6.3f ");
 
 		HaMat_double ApB_Z(nb,nb);  // (A+B)*Z 
@@ -398,7 +398,7 @@ HaRPAResolv::Apply(std::vector<HaRPAvec> & a1) const
 	tol=0.00000001;
 	int result=CG_mult(h1,x,a1,g0,maxiter,tol);
 
-//	cout << " Second call to CG_mult " << endl;
+//	std::cout << " Second call to CG_mult " << std::endl;
 //	result=CG_mult(h1,x,a1,g0,maxiter,tol);
 
 

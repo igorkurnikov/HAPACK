@@ -242,7 +242,7 @@ ProtonRedoxMod::~ProtonRedoxMod()
 
 void ProtonRedoxMod::ClearResAltChemStates(HaResidue* pres)
 {
-	vector<AltChemState*>::iterator sitr = alt_chem_states.begin();
+	std::vector<AltChemState*>::iterator sitr = alt_chem_states.begin();
 	for(; sitr != alt_chem_states.end(); )
 	{
 		AltChemState* p_alt_st = *sitr;
@@ -278,7 +278,7 @@ AltChemState* ProtonRedoxMod::GetResAltChemState(HaResidue* pres, int alt_state_
 	int ns = GetNumResAltChemStates(pres);
 	if( alt_state_idx < 0 || alt_state_idx >= ns ) return NULL; 
 
-	pair<altst_map_type::iterator,altst_map_type::iterator> eq_range_pair;
+	std::pair<altst_map_type::iterator,altst_map_type::iterator> eq_range_pair;
 	eq_range_pair = res_altst_map.equal_range(pres);
 	altst_map_type::iterator sitr;
 
@@ -297,7 +297,7 @@ AltChemState* ProtonRedoxMod::GetResAltChemStateByAtName(HaResidue* pres, const 
 	int ns = GetNumResAltChemStates(pres);
 	if( ns == 0) return NULL;
 
-	pair<altst_map_type::iterator,altst_map_type::iterator> eq_range_pair;
+	std::pair<altst_map_type::iterator,altst_map_type::iterator> eq_range_pair;
 	eq_range_pair = res_altst_map.equal_range(pres);
 	altst_map_type::iterator sitr;
 
@@ -771,7 +771,7 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
   
 	TiXmlElement RootElt("MolSet::CalcPKs");
 	
-	vector<string> AltNames;
+	std::vector<string> AltNames;
 //>mikola's adding
 //
 // Find active alternative chemical states (titratable or redox-active residues)
@@ -854,7 +854,7 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 
 		elmod->SetBoundaryAtoms(xmin, ymin, zmin, xmax, ymax, zmax);
 
-		vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
+		std::vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
 		double ch;
 
 		for(i=0; i < nst; i++) // fill sites - array of maps of atoms to  changes of atomic charges during protonation/deprotonation or oxidation/reduction 
@@ -940,8 +940,8 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 		//	}
 		//} jose comment
 	//<< jose added
-		fstream matrix_file1;
-		fstream matrix_file2;
+		std::fstream matrix_file1;
+		std::fstream matrix_file2;
 		matrix_file1.open("Matrix_int223.dat",ios::out | ios::app);
 		matrix_file2.open("Matrix_int257.dat",ios::out | ios::app);
 		for(ist1 = 0 ; ist1 < nst ; ist1++) 
@@ -1038,7 +1038,7 @@ void ProtonRedoxMod::CalcPKaForSelection(bool pnp)
 			inter_mat_db.PutMat("ALT_ST_INTER_MAT_1", inter_mat);
 			inter_mat_db.close();
 			//<<jose added
-		fstream matrix_file3;
+		std::fstream matrix_file3;
 		matrix_file3.open("Matrix_intMCK.dat",ios::out | ios::app);
 		for(int ist1 = 0 ; ist1 < nst ; ist1++) 
 		{   

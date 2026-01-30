@@ -172,11 +172,11 @@ class HaXML
     //!@brief Set vector on integer variables as element with name TagName, as child of element Elt
     //!
     //!Will write size of array as atribute N
-    static int SetElement(TiXmlElement* Elt,const char* TagName,std::vector< vector<float> >* Vec,const char* Format="%.8g\0");
+    static int SetElement(TiXmlElement* Elt,const char* TagName,std::vector< std::vector<float> >* Vec,const char* Format="%.8g\0");
     //!@brief Set vector on integer variables as element with name TagName, as child of element Elt
     //!
     //!Will write size of array as atribute N
-    static int SetElement(TiXmlElement* Elt,const char* TagName,std::vector< vector<double> >* Vec,const char* Format="%.10lg\0");
+    static int SetElement(TiXmlElement* Elt,const char* TagName,std::vector< std::vector<double> >* Vec,const char* Format="%.10lg\0");
     //Diffrent stuff
     //!Save Data in table format ,...=vector<T1>,vector<T2>,vector<T3>, 'S' means sdt::string
     static int SetTableElement(TiXmlElement* Elt,const char* TagName,const char* Format,const char* note,int n,...);

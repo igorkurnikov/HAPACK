@@ -108,7 +108,7 @@ int TrajIOAgent::Init(TrajPointInfo* ppt_info)
 //      HaVec_double crd_v = p_crd->AsVecDouble();
 //		sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f ",
 //					-1, crd_v[0], crd_v[1], crd_v[2], crd_v[3], crd_v[4], crd_v[5]);
-//		traj_file << buf << endl;
+//		traj_file << buf << std::endl;
 //	}
 	return TRUE;
 }

@@ -486,7 +486,7 @@ class Fortran_matrix
         v_[i] = new_val; 
 	}
 
-//friend istream& operator>><>(istream &s, Fortran_matrix<T> &A); 
+//friend istream& operator>><>(std::istream&s, Fortran_matrix<T> &A); 
         
 #ifdef TNT_USE_REGIONS
 
@@ -506,7 +506,7 @@ class Fortran_matrix
 #endif
 
 
-	int Print_format(std::ostream &sout, const char* format) const
+	int Print_format(std::ostream& sout, const char* format) const
 	{
 		
 		char buf[120]; // set max 20 characters per number
@@ -640,7 +640,7 @@ class Fortran_matrix
 /* ***************************  I/O  ********************************/
 
 template <class T>
-std::ostream& operator<<(std::ostream &s, const Fortran_matrix<T> &A)
+std::ostream& operator<<(std::ostream& s, const Fortran_matrix<T> &A)
 {
     size_t M=A.num_rows();
     size_t N=A.num_cols();
@@ -663,7 +663,7 @@ std::ostream& operator<<(std::ostream &s, const Fortran_matrix<T> &A)
 
 
 template <class T>
-std::istream& operator>>(std::istream &s, Fortran_matrix<T> &A)
+std::istream& operator>>(std::istream& s, Fortran_matrix<T> &A)
 {
     size_t M, N;
 

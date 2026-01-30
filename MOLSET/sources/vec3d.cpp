@@ -1567,7 +1567,7 @@ Vec3DValArray::Vec3DValArray()
 
 }
 
-Vec3DValArray::Vec3DValArray(int n): vector<Vec3D>(n)
+Vec3DValArray::Vec3DValArray(int n): std::vector<Vec3D>(n)
 {
 
 }

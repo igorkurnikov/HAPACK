@@ -28,7 +28,7 @@ namespace harlem
 		virtual int SetFrom(const Coord* pcrd) = 0;   //!< Set Coordinates from the other coordinate object   
 		virtual int SetFromVecDouble(const HaVec_double& dbl_vec) = 0;   //!< Set Coordinates from a vector of double values
 		virtual int LoadFromStream(std::istream& is, const harlem::HashMap* popt = NULL ) = 0; //!< Read Coordinates from stream
-		virtual int SaveToStream(std::ostream&  os,  const harlem::HashMap* popt = NULL ) const = 0;  //!< Write Coordinates to stream 
+		virtual int SaveToStream(std::ostream& os,  const harlem::HashMap* popt = NULL ) const = 0;  //!< Write Coordinates to stream 
 	};
 
 	class LoadCrdOptions: public harlem::HashMap

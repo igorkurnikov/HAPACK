@@ -132,7 +132,7 @@ public:
 
 public:   	
     
-	bool Print_info(std::ostream &sout, const int level) const; //!< Print information about the molecule
+	bool Print_info(std::ostream& sout, const int level) const; //!< Print information about the molecule
 
 // Residues Related Functions:
 

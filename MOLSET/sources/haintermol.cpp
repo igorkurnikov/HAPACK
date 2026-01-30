@@ -1058,8 +1058,8 @@ InterMolMCSimulator::RunMC()
 	
 	int nmol = p_im_mod->interact_groups.size();
 
-	vector<Quaternion> vec_quat_old(nmol);
-	vector<Quaternion> vec_quat_cur(nmol);
+	std::vector<Quaternion> vec_quat_old(nmol);
+	std::vector<Quaternion> vec_quat_cur(nmol);
 
 	Quaternion q_incr;
 	Quaternion q_temp;
@@ -1081,7 +1081,7 @@ InterMolMCSimulator::RunMC()
 
 	int ind = 0;
 	
-	fstream eff_ene_file;
+	std::fstream eff_ene_file;
 	
 	if(p_im_mod->dont_calc_ene_flag)
 	{
@@ -1093,8 +1093,8 @@ InterMolMCSimulator::RunMC()
 		eff_ene_file.open("eff_ene_file.dat", ios::out);
 	}
 
-	fstream traj_file;
-	fstream all_points_file;
+	std::fstream traj_file;
+	std::fstream all_points_file;
 
 	sprintf(buf,"%s%i%s", p_im_mod->p_rex_sim->MC_traj_file_replica_basename.c_str(), p_im_mod->p_rex_sim->ireplica,"REG.dat");
 	traj_file.open(buf, ios::out|ios::app  );
@@ -1121,7 +1121,7 @@ InterMolMCSimulator::RunMC()
 		sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 			-1, trans1[0], trans1[1], trans1[2], qang, qx, qy,qz);
 		
-		traj_file << buf << endl;
+		traj_file << buf << std::endl;
 	}
 
     HaMat_double cur_trans(3,nmol);
@@ -1281,7 +1281,7 @@ InterMolMCSimulator::RunMC()
 					
 				average_eff_ene+= p_im_mod->cur_intermol_ene; 
 				eff_ene_file << np_accept << "  " << p_im_mod->cur_intermol_ene ;
-				eff_ene_file << endl;
+				eff_ene_file << std::endl;
 
 				if(output_rejected_points)
 				{
@@ -1290,7 +1290,7 @@ InterMolMCSimulator::RunMC()
 						vec_quat_cur[ii].GetQuaternion(qang, qx, qy, qz);
 						sprintf(buf,"%6d  %14.10f %14.10f %14.10f %14.10f %14.10f %14.10f %14.10f",
 						np_accept, cur_trans(1,ii+1), cur_trans(2,ii+1), cur_trans(3,ii+1), qang, qx, qy, qz);
-						all_points_file << buf << endl; //added by Jose
+						all_points_file << buf << std::endl; //added by Jose
 					}
 				}
 			}
@@ -1412,8 +1412,8 @@ int InterMolMCSimulator::RunMCQuantSampling()
 		
 	int nmol = interact_groups.size();
 
-	vector<Quaternion> vec_quat_old(nmol);
-	vector<Quaternion> vec_quat_cur(nmol);
+	std::vector<Quaternion> vec_quat_old(nmol);
+	std::vector<Quaternion> vec_quat_cur(nmol);
 
 	Quaternion q_incr;
 	Quaternion q_temp;
@@ -1437,7 +1437,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 
 	int ind = 0;
 	
-	fstream eff_ene_file;
+	std::fstream eff_ene_file;
 	
 	if(dont_calc_ene_flag)
 	{
@@ -1449,8 +1449,8 @@ int InterMolMCSimulator::RunMCQuantSampling()
 		eff_ene_file.open("eff_ene_file.dat", ios::out);
 	}
 	
-	fstream traj_file;
-	fstream all_points_file;
+	std::fstream traj_file;
+	std::fstream all_points_file;
 	Vec3D trans1;
 	double qang_r, qx_r, qy_r, qz_r, state_r;
 	if (play_back_flag)
@@ -1468,7 +1468,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 
 // Read coordinates of the first molecule
 		
-		istrstream is(buf);
+		std::istrstream is(buf);
 		int junk;
 
 		if(npt_begin > 0)
@@ -1514,7 +1514,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 			sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 				-1, trans1[0], trans1[1], trans1[2], qang, qx, qy,qz);
 			
-			traj_file << buf << endl;
+			traj_file << buf << std::endl;
 		}
 	}
 	
@@ -1579,7 +1579,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 		for( imol = 0; imol < nmol; imol++)
 		{
 //sprintf(buf,"%2.3f %2.3f", ang_ratio, tr_ratio);
-//check1 << buf << endl;
+//check1 << buf << std::endl;
 			if( freeze_first_mol && (imol == 0) )
 					continue;
 
@@ -1658,7 +1658,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 						stop_calc_flag = TRUE;
 						break;
 					}
-					istrstream is(buf);
+					std::istrstream is(buf);
 					
 					int junk;
 
@@ -1722,7 +1722,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 //						cur_intermol_ene = emp_mod->HarmonicEnergy();
 //						cur_intermol_ene = emp_mod->ToyEnergy();
 //							sprintf(buf," %2.3f ", cur_intermol_ene);
-//				check4 << buf << endl;
+//				check4 << buf << std::endl;
 						if((istep+1)%100 == 0) PrintLog("Score Energy %10.3f imol %d\n", cur_intermol_ene, imol);
 					}
 					
@@ -1797,7 +1797,7 @@ int InterMolMCSimulator::RunMCQuantSampling()
 					{
 						//average_eff_ene+= cur_intermol_ene; 
 						eff_ene_file << count_step << "  " << cur_intermol_ene ;
-						eff_ene_file << endl;
+						eff_ene_file << std::endl;
 					}
 			}
 		} // End of for(imol)
@@ -1953,8 +1953,8 @@ int InterMolMCSimulator::RunMCXY()
 	int nmol = interact_groups.size();
 
 
-	vector<Quaternion> vec_quat_old(nmol);
-	vector<Quaternion> vec_quat_cur(nmol);
+	std::vector<Quaternion> vec_quat_old(nmol);
+	std::vector<Quaternion> vec_quat_cur(nmol);
 
 	Quaternion q_incr;
 	Quaternion q_temp;
@@ -1975,7 +1975,7 @@ int InterMolMCSimulator::RunMCXY()
 
 	int ind = 0;
 	
-	fstream eff_ene_file;
+	std::fstream eff_ene_file;
 	
 	if(dont_calc_ene_flag)
 	{
@@ -1987,8 +1987,8 @@ int InterMolMCSimulator::RunMCXY()
 		eff_ene_file.open("eff_ene_file.dat", ios::out);
 	}
 	
-	fstream traj_file;
-	fstream all_points_file;
+	std::fstream traj_file;
+	std::fstream all_points_file;
 	
 
 		sprintf(buf,"%s%i%s", MC_traj_file_replica_basename.c_str(), ireplica,"REG.dat");
@@ -2016,7 +2016,7 @@ int InterMolMCSimulator::RunMCXY()
 			sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 				-1, trans1[0], trans1[1], trans1[2], qang, qx, qy,qz);
 			
-			traj_file << buf << endl;
+			traj_file << buf << std::endl;
 		}
 
 		
@@ -2186,7 +2186,7 @@ int InterMolMCSimulator::RunMCXY()
 					{
 						average_eff_ene+= cur_intermol_ene; 
 						eff_ene_file << np_accept << "  " << cur_intermol_ene ;
-						eff_ene_file << endl;
+						eff_ene_file << std::endl;
 					}
 
 					
@@ -2199,7 +2199,7 @@ int InterMolMCSimulator::RunMCXY()
 								vec_quat_cur[ii].GetQuaternion(qang, qx, qy, qz);
 								sprintf(buf,"%6d  %14.10f %14.10f %14.10f %14.10f %14.10f %14.10f %14.10f",
 								np_accept, cur_trans(1,ii+1), cur_trans(2,ii+1), cur_trans(3,ii+1), qang, qx, qy, qz);
-								all_points_file << buf << " accepted " << endl;
+								all_points_file << buf << " accepted " << std::endl;
 							}
 						}
 					}
@@ -2216,7 +2216,7 @@ int InterMolMCSimulator::RunMCXY()
 				vec_quat_cur[imol].GetQuaternion(qang, qx, qy, qz);
 				sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 					imol+1, cur_trans(1,imol+1), cur_trans(2,imol+1), cur_trans(3,imol+1), qang, qx, qy, qz);
-				traj_file << buf << endl;	
+				traj_file << buf << std::endl;	
 			}
 		}
 
@@ -2332,8 +2332,8 @@ int InterMolMCSimulator::RunMCNMA()
 	int nmol = interact_groups.size();
 	
 	
-	vector<Quaternion> vec_quat_old(nmol);
-	vector<Quaternion> vec_quat_cur(nmol);
+	std::vector<Quaternion> vec_quat_old(nmol);
+	std::vector<Quaternion> vec_quat_cur(nmol);
 	
 	Quaternion q_incr;
 	Quaternion q_temp;
@@ -2354,7 +2354,7 @@ int InterMolMCSimulator::RunMCNMA()
 	
 	int ind = 0;
 	
-	fstream eff_ene_file;
+	std::fstream eff_ene_file;
 	
 	if(dont_calc_ene_flag)
 	{
@@ -2366,8 +2366,8 @@ int InterMolMCSimulator::RunMCNMA()
 		eff_ene_file.open("eff_ene_file.dat", ios::out);
 	}
 	
-	fstream traj_file;
-	fstream all_points_file;
+	std::fstream traj_file;
+	std::fstream all_points_file;
 	
 	sprintf(buf,"%s%i%s", MC_traj_file_replica_basename.c_str(), ireplica,"NMA.dat");
 	traj_file.open(buf, ios::out|ios::app  );
@@ -2394,7 +2394,7 @@ int InterMolMCSimulator::RunMCNMA()
 		sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 			-1, trans1[0], trans1[1], trans1[2], qang, qx, qy,qz);
 		
-		traj_file << buf << endl;
+		traj_file << buf << std::endl;
 	}
 	
 	 
@@ -2650,7 +2650,7 @@ int InterMolMCSimulator::RunMCNMA()
 							vec_quat_cur[imol].GetQuaternion(qang, qx, qy, qz);
 							sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 								np_accept, cur_trans(1,imol+1), cur_trans(2,imol+1), cur_trans(3,imol+1), qang, qx, qy, qz);
-							all_points_file << buf << " rejected " << endl;
+							all_points_file << buf << " rejected " << std::endl;
 						}
 						
 						ind =0;						
@@ -2695,7 +2695,7 @@ int InterMolMCSimulator::RunMCNMA()
 				{
 					average_eff_ene+= cur_intermol_ene; 
 					eff_ene_file << np_accept << "  " << cur_intermol_ene ;
-					eff_ene_file << endl;
+					eff_ene_file << std::endl;
 				}
 				
 				
@@ -2703,7 +2703,7 @@ int InterMolMCSimulator::RunMCNMA()
 				{
 					if(output_rejected_points)
 					{
-						all_points_file << buf << " accepted " << endl;
+						all_points_file << buf << " accepted " << std::endl;
 					}
 				}
 			}
@@ -2718,7 +2718,7 @@ int InterMolMCSimulator::RunMCNMA()
 				vec_quat_cur[imol].GetQuaternion(qang, qx, qy, qz);
 				sprintf(buf,"%6d  %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f %14.9f",
 					imol+1, cur_trans(1,imol+1), cur_trans(2,imol+1), cur_trans(3,imol+1), qang, qx, qy, qz);
-				traj_file << buf << endl;	
+				traj_file << buf << std::endl;	
 			}
 		}
 		
@@ -2913,7 +2913,7 @@ HaInterMolMod::NormalModes(int energy_type, VecPtr ptmol)
 	{
 		PrintLog("eig_val(%d)=%3.2f \n",i,normalmode_val(i));
 		sprintf(buf,"eig_val(%d)=%3.2f ",i,normalmode_val(i));
-		eigen << buf << endl;
+		eigen << buf << std::endl;
 	}
 	PrintLog("Mode1  Mode2    Mode3    Mode4    Mode5    Mode6\n" );
 	for( i = 1; i <= n_size; i++)
@@ -3676,8 +3676,8 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 	//	PrintLog("POINTER ENERGY %2.2f \n", hhh);
 	//	HaInterMolMod* mm = pmset->GetInterMolMod(true);
 	//	double nnn = (emp_mod ->* FuncPtn)();
-	//	cout<<"Wasup "<< nnn <<"\n";
-	//	cout<<"Wasup "<<foo2(&fsq,11)<<"\n";
+	//	std::cout <<"Wasup "<< nnn <<"\n";
+	//	std::cout <<"Wasup "<<foo2(&fsq,11)<<"\n";
 	//
 
 	int nmol = ptmol.size();
@@ -3816,7 +3816,7 @@ int InterMolEnergyMinimizer::MinimizeEnergy(int energy_type, VecPtr ptmol)
 			{
 				step_vector(i)= - step_vector(i);
 				//			sprintf(buf,"1step_vector(%d)= %4.6f,sqrt %4.6f", i, step_vector(i),sqrt(len_vec));
-				//			stepfile << buf << endl ;
+				//			stepfile << buf << std::endl;
 				len_vec += step_vector(i)*step_vector(i);
 			}
 			len_vec = 1/sqrt(len_vec);
@@ -3878,7 +3878,7 @@ int InterMolEnergyMinimizer::LineSearch(int energy_type, VecPtr ptmol, HaVec_dou
 //	for( i= 0; i < 24; i++)
 //	{
 //		sprintf(buf,"LS i(%d) g = %2.3f p= %2.3f",i, g[i],p[i]);
-//		enefile << buf << endl ;
+//		enefile << buf << std::endl;
 //	}
 //	enefile.close();
 	// Given an n-dimensional point xold[1..n], the value of the function and gradient there, fold

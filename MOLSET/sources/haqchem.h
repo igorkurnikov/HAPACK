@@ -57,7 +57,7 @@ public:
 
 	void SetStdParams();
 
-	bool Print_info(std::ostream &sout, const int level) const;
+	bool Print_info(std::ostream& sout, const int level) const;
 	virtual int SaveXMLToStream(std::ostream& os, const harlem::SaveOptions* popt = NULL ) const;
 
 //! \name Atom Center functions:  

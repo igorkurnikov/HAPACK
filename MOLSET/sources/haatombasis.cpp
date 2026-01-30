@@ -402,7 +402,7 @@ int GauBasisSet::LoadToGaussianBas(b_type& gaub) const
 //			case(G_SHELL):		gaub.shellt[nshell-1]= 4; gaub.shellc[nshell-1]=2; break;
 			default:
 				{
-				cerr << "Unsupported Shell Momentum value in GauBasisSet::LoadToGaussianBCommon() " << l_sh << endl;
+				std::cerr << "Unsupported Shell Momentum value in GauBasisSet::LoadToGaussianBCommon() " << l_sh << std::endl;
 				return false;
 				}
 			}
@@ -478,6 +478,7 @@ int GauBasisSet::LoadToGaussianBas(b_type& gaub) const
 }
 
 
+#ifdef USE_IPACK
 InternalBasis* GauBasisSet::CreateIPackBas()
 //! InternalBasis object can be used to compute integrals using IPACK
 {
@@ -487,7 +488,7 @@ InternalBasis* GauBasisSet::CreateIPackBas()
 	basis.pbasis.resize(ncnt);
 	basis.name.resize(ncnt);
 
-    list<PureBasisSet> pure_bset_list;
+    std::list<PureBasisSet> pure_bset_list;
 
     pure_bset_list.clear();
 
@@ -546,8 +547,14 @@ InternalBasis* GauBasisSet::CreateIPackBas()
 			pibas->norm[i] = fnorm[i];
 	}
 
-	return pibas;	
+	return pibas;
 }
+#else
+InternalBasis* GauBasisSet::CreateIPackBas()
+{
+	return NULL;  // IPACK not available
+}
+#endif // USE_IPACK
 
 GauShell::GauShell()
 {
@@ -598,8 +605,8 @@ GauShell::GetNumGauss(void) const
 	 return(NumGauss);
  else
  {
-	 cerr << "error in GauShell::GetNumGauss" << endl;
-	 cerr << "invalid number of Elemental Gaussians: " << NumGauss << endl;
+	 std::cerr << "error in GauShell::GetNumGauss" << std::endl;
+	 std::cerr << "invalid number of Elemental Gaussians: " << NumGauss << std::endl;
 	 exit(1);
  }
  return -1;
@@ -616,8 +623,8 @@ GauShell::SetNumGauss(const int NGauss)
  }
  else
  {
-	 cerr << "error in GauShell::SetNumGauss" << endl;
-	 cerr << "invalid number of Elemental Gaussians: " << NGauss << endl;
+	 std::cerr << "error in GauShell::SetNumGauss" << std::endl;
+	 std::cerr << "invalid number of Elemental Gaussians: " << NGauss << std::endl;
 	 return false;
  }
  return true;
@@ -714,7 +721,7 @@ const char* GauShell::GetShellSymbol(void) const
 		return "G";
     default:
 		{
-			cerr << "GauShell::GetShellSymbol unsupported Angular momentum " << l_ang << endl;
+			std::cerr << "GauShell::GetShellSymbol unsupported Angular momentum " << l_ang << std::endl;
 			return "U";
 		}
     }
@@ -760,8 +767,8 @@ GauShell::SetCoef(const HaMat_double& new_cf_mat)
 {
 	if( new_cf_mat.num_cols() != NumGauss || new_cf_mat.num_rows() != 2 )
 	{
-		cerr << " Error in GauShell::SetCoef() " << endl;
-		cerr << " Dimensions of the Coef matrix doesn't correspond to the number of Gaussians in the shell " << endl;
+		std::cerr << " Error in GauShell::SetCoef() " << std::endl;
+		std::cerr << " Dimensions of the Coef matrix doesn't correspond to the number of Gaussians in the shell " << std::endl;
 		return false;
 	}
 	coef= new_cf_mat;
@@ -1416,7 +1423,7 @@ void GauAtomBasis::Clear()
 
 static char bufl;
 
-bool GauAtomBasis::SetFromGaussianInp(istream& is)
+bool GauAtomBasis::SetFromGaussianInp(std::istream& is)
 {
 	std::string str;
 	is >> str;
@@ -1446,8 +1453,8 @@ bool GauAtomBasis::SetFromGaussianInp(istream& is)
 			nsbsh = 3;
 		else
 		{
-			cerr << " Error in GauAtomBasis::SetFromGaussianInp() " << endl;
-			cerr << " Invalid Shell Symbol  " << sh_symb << endl;
+			std::cerr << " Error in GauAtomBasis::SetFromGaussianInp() " << std::endl;
+			std::cerr << " Invalid Shell Symbol  " << sh_symb << std::endl;
 			return false;
 		}
 
@@ -1508,28 +1515,28 @@ bool GauAtomBasis::SetPseudoPotFromName()
 	if(PseudoName.empty()) return true;
 	if(AtomType.empty())
 	{
-		cerr << " Error in GauAtomBasis::SetPseudoPotFromName() " << endl;
-		cerr << " Pseudopotential name is set but Atom Type name is not " << endl;
+		std::cerr << " Error in GauAtomBasis::SetPseudoPotFromName() " << std::endl;
+		std::cerr << " Pseudopotential name is set but Atom Type name is not " << std::endl;
 		return false;
 	}
 
 	ppot= pseudo_db.Extract(PseudoName,AtomType);
 	if(ppot == NULL)
 	{
-		cerr << " Error in GauAtomBasis::SetPseudoPotFromName() " << endl;
-		cerr << " Cannot find in DB Pseudopotential " << PseudoName  << " For Atom " 
-			 << AtomType << endl;
+		std::cerr << " Error in GauAtomBasis::SetPseudoPotFromName() " << std::endl;
+		std::cerr << " Cannot find in DB Pseudopotential " << PseudoName  << " For Atom " 
+			 << AtomType << std::endl;
 		return false;
 	}
 	return true;
 }
 
-bool GauAtomBasis::Print_info(ostream & sout, const int level) const
+bool GauAtomBasis::Print_info(std::ostream& sout, const int level) const
 {
-	sout << "Atomic Basis info: " << endl;
+	sout << "Atomic Basis info: " << std::endl;
 	sout << "Name = " << BasName << " AtomType= " 
-		 << AtomType << endl;
-	sout << "Number of shells: " << Shells.size() << endl;
+		 << AtomType << std::endl;
+	sout << "Number of shells: " << Shells.size() << std::endl;
     return true;
 }
 
@@ -1574,7 +1581,7 @@ int GauAtomBasis::GetNumElectr() const
 
 int GauBasisSet::GetNBfunc() const
 {
-	vector<GauAtomBasis>::const_iterator bfitr;
+	std::vector<GauAtomBasis>::const_iterator bfitr;
 
 	int nb = 0;
 	for(bfitr = at_bas_vec.begin(); bfitr != at_bas_vec.end(); bfitr++)
@@ -1586,7 +1593,7 @@ int GauBasisSet::GetNBfunc() const
 
 int GauBasisSet::GetNBfuncCart() const
 {
-	vector<GauAtomBasis>::const_iterator bfitr;
+	std::vector<GauAtomBasis>::const_iterator bfitr;
 
 	int nb = 0;
 	for(bfitr = at_bas_vec.begin(); bfitr != at_bas_vec.end(); bfitr++)
@@ -1862,7 +1869,8 @@ int GauBasisSet::CalcOvlpMat(GauBasisSet* pbas1, GauBasisSet* pbas2, HaMat_doubl
 	PrintLog("Gaussian Library is not initialized \n");
 #endif
 	}
-	else if(HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK) 
+#ifdef USE_IPACK
+	else if(HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK)
 	{
         HaMat_double* p_save_mat = HaBasisSet::GetCachedOvlpMat(pbas1,pbas2);
 		if( p_save_mat != NULL)
@@ -1883,14 +1891,15 @@ int GauBasisSet::CalcOvlpMat(GauBasisSet* pbas1, GauBasisSet* pbas2, HaMat_doubl
 
         compute_overlap(*ip_bas1, *ip_bas2, ovlp_arr, same_bas);
 		normalize(*ip_bas1,*ip_bas2,ovlp_arr,0);
-//		cout << ovlp_arr[0];
+//		std::cout << ovlp_arr[0];
 		ovlp_mat.set_from(ovlp_arr[0]);
-		
+
 		delete ip_bas1;
 		if(!same_bas) delete ip_bas2;
 
 		HaBasisSet::SaveInCacheOverlapMap(pbas1, pbas2, ovlp_mat);
 	}
+#endif // USE_IPACK
 	return TRUE;
 }
 
@@ -1943,7 +1952,7 @@ GauBasisSet::MatchBasisSet(const GauBasisSet* basis_frag, IntIntMap& frag_bas_fu
 	int iat,jat;
 	int jfst = 0;
 
-	set<const HaAtom*, less<const HaAtom*> > atoms_mol_non_matched; 
+	std::set<const HaAtom*, std::less<const HaAtom*> > atoms_mol_non_matched; 
 	HaVec_double at_bas_frag_pert(natb_frag);
 
 	if( bas_pert_vec != NULL)
@@ -2008,7 +2017,7 @@ GauBasisSet::MatchBasisSet(const GauBasisSet* basis_frag, IntIntMap& frag_bas_fu
 
 	if(bas_pert_vec != NULL)
 	{
-		vector< HaVec_int > at_bas_frag_close;
+		std::vector< HaVec_int > at_bas_frag_close;
 		at_bas_frag_close.resize(natb_frag);
 		
 		for( jat = 0; jat < natb_frag; jat++)
@@ -2027,7 +2036,7 @@ GauBasisSet::MatchBasisSet(const GauBasisSet* basis_frag, IntIntMap& frag_bas_fu
 			
 			if( at_bas_frag_pert[jat] < 0.999)
 			{
-				set<const HaAtom*, less<const HaAtom*> >::iterator itr;
+				std::set<const HaAtom*, std::less<const HaAtom*> >::iterator itr;
 				
 				double dist_min = 10.0;
 				for( itr = atoms_mol_non_matched.begin(); itr != atoms_mol_non_matched.end(); itr++)

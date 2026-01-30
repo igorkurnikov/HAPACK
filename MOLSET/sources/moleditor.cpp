@@ -832,7 +832,7 @@ int MolEditor::CalcProteinHBonds(HaChain* chn1 )
         {   /* Only consider non-empty peptide chains! */
 
             pos2 = 0;
-//			cout << " res # " << group1->serno << endl;
+//			std::cout << " res # " << group1->serno << std::endl;
 			ResidueIteratorChain ritr_ch_2(chn2);
 			for( group2 = ritr_ch_2.GetFirstRes(); group2; group2 = ritr_ch_2.GetNextRes() )
             {   
@@ -3043,7 +3043,7 @@ void MolEditor::FindBetaSheets_old(HaMolecule* pmol)
 	HaResidue* curri = NULL;
 	HaResidue* nexti = NULL;
 
-	list<HaChain>::iterator chain;
+	std::list<HaChain>::iterator chain;
     for(chain=Chains.begin(); chain != Chains.end(); chain++)
 	{
 		if( (nexti = (*chain).GetFirstRes()) )

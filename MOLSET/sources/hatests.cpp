@@ -974,9 +974,9 @@ void HaTests::test_oper_1()
 	HaOperRDelt rd1(ptr_qc_mod);
 	
 //	rd1.RecalcLondon(&ptr_qc_mod->AtBasis);
-//	cout << " r X Grad for london orbitals";
+//	std::cout << " r X Grad for london orbitals";
 //	rd1.Print_info(cout,1);	
-//	cout << std::endl;
+//	std::cout << std::endl;
 
 	HaMat_doubleArr rm;
 	HaMat_doubleArr gm;

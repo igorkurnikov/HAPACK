@@ -1277,7 +1277,7 @@ int MMForceField::SaveResFFTemplatesFromMort(const char* fname, MolSet* pmset_re
 	
 	char buf[256];
 
-//	std::map<std::string, HaResidue*, less<std::string> > str_templ_map;
+//	std::map<std::string, HaResidue*, std::less<std::string> > str_templ_map;
 	HaResDB* p_res_db = HaResDB::GetDefaultResDB();
 
 //	int nm = p_res_db->HostMolecules.size();

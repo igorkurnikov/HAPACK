@@ -420,7 +420,7 @@ VecPtr::VecPtr()
 
 }
 
-VecPtr::VecPtr(int n): vector<void*>(n)
+VecPtr::VecPtr(int n): std::vector<void*>(n)
 {
 
 }

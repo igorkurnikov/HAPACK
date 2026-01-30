@@ -125,7 +125,7 @@ bool ElectrostMod::SaveParamFile()
 	std::string tail, tmp;
 	std::ofstream fpar(param_file_name.c_str());
 	
-//	fpar << param_file_title << endl;
+//	fpar << param_file_title << std::endl;
 
     tail="                 ! igrid - Grid size";
     sprintf(buf," %3d %3d %3d %s\n",nx,ny,nz,tail.c_str());
@@ -277,32 +277,32 @@ bool ElectrostMod::SaveRadiusFile()
 	fclose(frad);
 
 //	ofstream frad(radius_file_name.c_str());
-//	frad << "! PARSE atom radii set" << endl;
-//	frad << "atom__res_radius_" << endl;
-//	frad << "c           1.70 " << endl;
-//	frad << "o           1.60 " << endl;
-//	frad << "n           1.50 " << endl;
-//	frad << "h           1.00 " << endl;
-//	frad << "s           1.90 " << endl;
-//	frad << "p           2.00 " << endl;
-//	frad << "ir1         2.00 " << endl;
-//	frad << "ir2         2.00 " << endl;
-//	frad << "fe          2.00 " << endl;
-//	frad << "fe1         2.00 " << endl;
-//	frad << "fe2         2.00 " << endl;
-//	frad << "fe3         2.00 " << endl;
-//	frad << "fe4         2.00 " << endl;
-//	frad << "fe5         2.00 " << endl;
-//	frad << "fe6         2.00 " << endl;
-//	frad << "fe7         2.00 " << endl;
-//	frad << "fe8         2.00 " << endl;
-//	frad << "ru          2.00 " << endl;
-//	frad << "mg          2.00 " << endl;
-//	frad << "al          2.00 " << endl;
-//	frad << "f           2.00 " << endl;
-//	frad << "mo          2.00 " << endl;
-//	frad << "be          1.50 " << endl;
-//	frad << "xx          0.00 " << endl;
+//	frad << "! PARSE atom radii set" << std::endl;
+//	frad << "atom__res_radius_" << std::endl;
+//	frad << "c           1.70 " << std::endl;
+//	frad << "o           1.60 " << std::endl;
+//	frad << "n           1.50 " << std::endl;
+//	frad << "h           1.00 " << std::endl;
+//	frad << "s           1.90 " << std::endl;
+//	frad << "p           2.00 " << std::endl;
+//	frad << "ir1         2.00 " << std::endl;
+//	frad << "ir2         2.00 " << std::endl;
+//	frad << "fe          2.00 " << std::endl;
+//	frad << "fe1         2.00 " << std::endl;
+//	frad << "fe2         2.00 " << std::endl;
+//	frad << "fe3         2.00 " << std::endl;
+//	frad << "fe4         2.00 " << std::endl;
+//	frad << "fe5         2.00 " << std::endl;
+//	frad << "fe6         2.00 " << std::endl;
+//	frad << "fe7         2.00 " << std::endl;
+//	frad << "fe8         2.00 " << std::endl;
+//	frad << "ru          2.00 " << std::endl;
+//	frad << "mg          2.00 " << std::endl;
+//	frad << "al          2.00 " << std::endl;
+//	frad << "f           2.00 " << std::endl;
+//	frad << "mo          2.00 " << std::endl;
+//	frad << "be          1.50 " << std::endl;
+//	frad << "xx          0.00 " << std::endl;
 //
 //	frad.close();
 	return true;

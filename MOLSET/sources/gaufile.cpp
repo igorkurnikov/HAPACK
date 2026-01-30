@@ -117,8 +117,8 @@ GauFile::close(char* mode)
     idisp=1;
   else
     {
-    cerr << "error in Gaufile::close " << endl;
-    cerr << "Unknown close mode: " << mode << endl;
+    std::cerr << "error in Gaufile::close " << std::endl;
+    std::cerr << "Unknown close mode: " << mode << std::endl;
     return 1;
    }
   fclose_(&fort_iunit,&idisp);
@@ -164,14 +164,14 @@ GauFile::fileio(const char* operation, const int sub_file,
     ioper=-2;
   else
     {
-      cerr << "error in GauFile::fileio :" << endl;
-      cerr << "unknown IO operation: " << operation << endl;
+      std::cerr << "error in GauFile::fileio :" << std::endl;
+      std::cerr << "unknown IO operation: " << operation << std::endl;
       return False;
     }
   if(sub_file == 0)
     {
-      cerr << "error in GauFile::fileio :" << endl;
-      cerr << "subfile number is equal to 0 " << endl;
+      std::cerr << "error in GauFile::fileio :" << std::endl;
+      std::cerr << "subfile number is equal to 0 " << std::endl;
       return False;
     } 
 

@@ -186,7 +186,7 @@ public:
   bool operator == (const GauAtomBasis & rhs) const;
   bool operator <  (const GauAtomBasis & rhs) const;
 
-  bool Print_info(std::ostream &sout, const int level) const;
+  bool Print_info(std::ostream& sout, const int level) const;
 
 protected:
   HaAtom* host_atom;       //!< Atom - Basis Set reside on	 
@@ -294,7 +294,7 @@ protected:
 //	SlaterBasisSet();
 //	virtual ~SlaterBasisSet(); 
 
-//	vector<SlaterAtomBasis> at_bas_vec;           //!< vector of atom bases    
+//	std::vector<SlaterAtomBasis> at_bas_vec;           //!< vector of atom bases    
 
 //	static int CalcOvlpMat(SlaterBasisSet* pbas1, SlaterBasisSet* pbas2, HaMat_double& ovlp_mat); //!< Compute overlap matrix between two basis sets (may be the same)
 	

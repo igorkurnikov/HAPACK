@@ -55,20 +55,20 @@ StmMod::CalcTMatr1()
 
 	//HaOperR r1(*ptr_qc_mod);   // Initial Electric Dipole  operator
 	//r1.Print_info(cout,1);	
-//cout << endl;
+//std::cout << std::endl;
 
     //HaOperGrad rg1(*ptr_qc_mod);  // Initiate gradient operator
 	//rg1.Print_info(cout,1);	
-	//cout << endl;
+	//std::cout << std::endl;
 
 	//HaOperRDelt rd1(*ptr_qc_mod);  // Initiate R X Delt (magnetic dipole) operator
-//	cout << " r X Grad for non-london orbitals";
+//	std::cout << " r X Grad for non-london orbitals";
 	//rd1.Print_info(cout,1);
 
 //	rd1.RecalcLondon();
-//	cout << " r X Grad for london orbitals";
+//	std::cout << " r X Grad for london orbitals";
 //	rd1.Print_info(cout,1);	
-//	cout << endl;
+//	std::cout << std::endl;
 
 	HaMat_double ss,hh,sp; // Fill Overlap Matrix
 	
@@ -81,9 +81,9 @@ StmMod::CalcTMatr1()
 		//for(j=1;j<=nb;j++)
 		//{
 			//hh(j,i)=1.75*ss(j,i);
-			//cout<< hh(j,i)<<endl;
+			//std::cout << hh(j,i)<< std::endl;
 	//	}
-	//cout<<"\n";	
+	//std::cout <<"\n";	
 	//}
 
     
@@ -136,7 +136,7 @@ StmMod::CalcTMatr1()
 	sp = ss;
 	sp.SqRoot(-1);
 
-//	cout << " Eigen Values of SS matrix" << endl;
+//	std::cout << " Eigen Values of SS matrix" << std::endl;
 //	for( i = 1; i <= nb; i++)
 //	{
 	   
@@ -161,7 +161,7 @@ StmMod::CalcTMatr1()
 
 //		}
 	
-//		cout << i << "  " << eig(i) << endl;
+//		std::cout << i << "  " << eig(i) << std::endl;
 	   
 //	}
 	std::cout << " Huckel Matrix" << std::endl;
@@ -270,11 +270,11 @@ StmMod::CalcTMatr1()
 		 //no+=4;
 		// nev+=11;
 	}
-		//cout << i << "  " << eig(i) << endl;
+		//std::cout << i << "  " << eig(i) << std::endl;
 	   
 	}
-//cout<<"Orbital number: "<<no<<endl;
-//cout <<"Number of valent electron: "<<nev<<endl;
+//std::cout <<"Orbital number: "<<no<< std::endl;
+//std::cout <<"Number of valent electron: "<<nev<< std::endl;
     //hh(1,1)=-4.880;
 	hh(num_mol_ao+1,num_mol_ao+1)=-4.86;
 	for (i=1;i<=nb;i++)
@@ -295,16 +295,16 @@ StmMod::CalcTMatr1()
 		{
 			sprintf(buf, "%7.4f ",hh(i,j));
           //sprintf(buf, "%7.4f ",sp(i,j));
-			cout << buf ;
+			std::cout << buf ;
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}*/
-//	cout << hh(1,2) <<endl;
+//	std::cout << hh(1,2) << std::endl;
      matmult(sh,sp,hh);
      matmult(shs,sh,sp);
      HaMat_double::mat_sdiag(shs,eigv,eig);
 	 matmult(rev,sp,eigv);
-//cout<< " Eigenvectors"<<endl;
+//std::cout << " Eigenvectors"<< std::endl;
 //char buf[256];
 for(i=1;i<=nb;i++)
 	{
@@ -312,25 +312,25 @@ for(i=1;i<=nb;i++)
 		{
 			//sprintf(buf, "%7.4f ",shs(i,j));
           sprintf(buf, "%7.4f ",rev(i,j));
-		  cout << buf ;
+		  std::cout << buf ;
 		}
-		cout << endl;*/
+		std::cout << std::endl;*/
 	std::cout <<i<<" "<<eig(i)<< std::endl;
 
 }
 
-/*cout << hh(2,2) << endl;
-cout << hh(5,5) << endl;
-cout << ss(1,5) << endl;
-cout << ss(2,5) << endl;
-cout << ss(3,5) << endl;
-cout << ss(4,5) << endl;
-cout << ss(2,6) << endl;
-cout << ss(3,6) << endl;
-cout << ss(4,6) << endl;
-cout << ss(3,7) << endl;
-cout << ss(4,7) << endl;
-cout << ss(4,8) << endl; */
+/*std::cout << hh(2,2) << std::endl;
+cout << hh(5,5) << std::endl;
+cout << ss(1,5) << std::endl;
+cout << ss(2,5) << std::endl;
+cout << ss(3,5) << std::endl;
+cout << ss(4,5) << std::endl;
+cout << ss(2,6) << std::endl;
+cout << ss(3,6) << std::endl;
+cout << ss(4,6) << std::endl;
+cout << ss(3,7) << std::endl;
+cout << ss(4,7) << std::endl;
+cout << ss(4,8) << std::endl; */
 // Density of states
 /*int counter;
 double estart,emax,emin;
@@ -345,7 +345,7 @@ for(s=1;s<=54;s++)
 				if(eig(i)>=emin && eig(i)<=emax)
 						counter++;
 			}
-		cout <<estart << " " <<counter<<endl;
+		std::cout <<estart << " " <<counter<< std::endl;
 	}*/			
 //double sum,sum1,sum2,kx,ky,kz,la;
 //sum1=0;
@@ -383,10 +383,10 @@ for(s=1;s<=54;s++)
 	//}
 
 	sum=sum1*sum1+sum2*sum2;
-	cout << sum <<endl;
+	std::cout << sum << std::endl;
 	}*/
-//cout << sum2 <<endl;					
-/*cout<< "Transimission Matrix"<<endl;
+//std::cout << sum2 << std::endl;					
+/*std::cout << "Transimission Matrix"<< std::endl;
 HaMat_double sg,sgs,esb,greenb;
 double ga1,ga2,ga3,ga4;
 mat_scale(esb,ss,-4.86);
@@ -402,16 +402,16 @@ HaMat_double::mat_inverse(greenb);*/
 //wave_ve_2=ga3;
 //ga4=greenb(25,32)*greenb(25,32);
 //wave_ve_3=ga4;
-//cout << sgs(1,189) << endl;
-//cout << sgs(2,190) << endl;
-//cout << sgs(3,191) << endl;
-//cout << sgs(4,192) << endl;
+//std::cout << sgs(1,189) << std::endl;
+//std::cout << sgs(2,190) << std::endl;
+//std::cout << sgs(3,191) << std::endl;
+//std::cout << sgs(4,192) << std::endl;
 
-//cout << sgs(2,nb-6)<< endl;
-//cout << sgs(3,nb-5) << endl;
-//cout << sgs(4,nb-4) << endl;
-//cout << sgs(5,nb-3) << endl;
-//cout << " ---------------------------------------------"<<endl;
+//std::cout << sgs(2,nb-6)<< std::endl;
+//std::cout << sgs(3,nb-5) << std::endl;
+//std::cout << sgs(4,nb-4) << std::endl;
+//std::cout << sgs(5,nb-3) << std::endl;
+//std::cout << " ---------------------------------------------"<< std::endl;
 
 //HaMat_double es[50],green[50],sg[50],sgs[50];
 /*HaMat_double ng[1];
@@ -452,9 +452,9 @@ ng[4].newsize(nb,nb);*/
 			}
 			ng[0](l,m)=sum;
             sprintf(buf, "%16.9f ",ng[0](l,m));
-			cout << buf;
+			std::cout << buf;
 		}
-		cout<<endl;
+		std::cout << std::endl;
 
 		}*/
 
@@ -467,20 +467,20 @@ ng[4].newsize(nb,nb);*/
 		{
 			//sprintf(buf, "%16.9f ",green[k](i,j));
            sprintf(buf, "%16.9f ",sgs[k](i,j));
-			cout << buf ;
+			std::cout << buf ;
 		}
-		cout <<endl;
+		std::cout << std::endl;
 	
 	}
-	cout<<"----------------------"<<endl;*/
-	//cout << (1-((-3.0+(k+1)*6.0/3)/(-2*0.05882*27.2))*((-3.0+(k+1)*6.0/3)/(-2*0.05882*27.2)))*sgs[k](25,29)*sgs[k](25,29) << endl;
-	//cout << sgs[k](33,37) << endl;
-//	cout << sgs[k](17,174)/sgs[k](17,173)+sgs[k](17,173)/sgs[k](17,174)<<endl;
-//	cout<<sgs[k](17,174)<<sgs[k](17,175)<<endl;
-	//cout<<"------------------------------------------------------------------"<<endl;
+	std::cout <<"----------------------"<< std::endl;*/
+	//std::cout << (1-((-3.0+(k+1)*6.0/3)/(-2*0.05882*27.2))*((-3.0+(k+1)*6.0/3)/(-2*0.05882*27.2)))*sgs[k](25,29)*sgs[k](25,29) << std::endl;
+	//std::cout << sgs[k](33,37) << std::endl;
+//	std::cout << sgs[k](17,174)/sgs[k](17,173)+sgs[k](17,173)/sgs[k](17,174)<< std::endl;
+//	std::cout <<sgs[k](17,174)<<sgs[k](17,175)<< std::endl;
+	//std::cout <<"------------------------------------------------------------------"<< std::endl;
 //}
 //for (k=0;((k*6+9)<=nb);k++)
-//cout << sgs(2,9+k*6)<<endl;
+//std::cout << sgs(2,9+k*6)<< std::endl;
 	/*sum=0;
 	for(s=1;s<=25;s++)
 	{
@@ -493,7 +493,7 @@ ng[4].newsize(nb,nb);*/
 			}
 	}
 
-	cout<<sum*sum << endl;*/
+	std::cout <<sum*sum << std::endl;*/
 //}
 //HaMat_double es[50],green[50],sg[50],sgs[50];
 //double tot,tot1,tot2,e0,vc,e;
@@ -529,8 +529,8 @@ ng[4].newsize(nb,nb);*/
 				}
 		}
 	tot=tot1*tot1+tot2*tot2;
-	cout << tot<< endl;*/
-//	cout << s << endl;
+	std::cout << tot<< std::endl;*/
+//	std::cout << s << std::endl;
 //}
 /*	double tot,tot1,tot2,e0,vc,e;
 	int q;
@@ -573,11 +573,11 @@ ng[4].newsize(nb,nb);*/
 				}*/
 //		}
 	//tot=tot1*tot1+tot2*tot2;
-//	cout << tot<< endl;
-//	cout << s << endl;
+//	std::cout << tot<< std::endl;
+//	std::cout << s << std::endl;
 	//	}
-//cout <<sgs(90,107)<<endl;
-/*cout << " print 5" << endl;
+//std::cout <<sgs(90,107)<< std::endl;
+/*std::cout << " print 5" << std::endl;
 	double tot,tot1,tot2,estart,emax,emin;
 	double ener(int i,int j,int k);
 	int q,counter,v;
@@ -628,7 +628,7 @@ ng[4].newsize(nb,nb);*/
 			}
 			}
 			if(counter>0)
-     cout << tot <<"                "  <<v << "             " << counter << endl;
+     std::cout << tot <<"                "  <<v << "             " << counter << std::endl;
      }
 }
 
@@ -640,7 +640,7 @@ cos(-2*3.1415926*b/qe+2*3.1415926*a/qe+2*3.1415926*c/20)*cos(2*3.1415926*b/qe+2*
 cos(2*3.1415926*b/qe+2*3.1415926*a/qe-2*3.1415926*c/20)*cos(2*3.1415926*b/qe-2*3.1415926*a/qe+2*3.1415926*c/20)));	
 }*/
 
-/*cout << " print 5" << endl;
+/*std::cout << " print 5" << std::endl;
 	double tot,tot1,tot2,estart,emax,emin;
 	double ener(int i,int j,int k);
 	int q,counter,v;
@@ -691,7 +691,7 @@ cos(2*3.1415926*b/qe+2*3.1415926*a/qe-2*3.1415926*c/20)*cos(2*3.1415926*b/qe-2*3
 			}
 			}
 			if(counter>0)
-     cout << tot <<"                "  <<v << "             " << counter << endl;
+     std::cout << tot <<"                "  <<v << "             " << counter << std::endl;
      }
 }
 
@@ -703,7 +703,7 @@ cos(-2*3.1415926*b/qe+2*3.1415926*a/qe+2*3.1415926*c/20)*cos(2*3.1415926*b/qe+2*
 cos(2*3.1415926*b/qe+2*3.1415926*a/qe-2*3.1415926*c/20)*cos(2*3.1415926*b/qe-2*3.1415926*a/qe+2*3.1415926*c/20)));	
 }*/
 
-//cout << hh(1,6) << "   "  << ss(1,6) <<endl;
+//std::cout << hh(1,6) << "   "  << ss(1,6) << std::endl;
 
 
  /*HaMat_double ng,nss;
@@ -718,7 +718,7 @@ cos(2*3.1415926*b/qe+2*3.1415926*a/qe-2*3.1415926*c/20)*cos(2*3.1415926*b/qe-2*3
 	 }
 	 }
 
-cout << " print 5" << endl;
+cout << " print 5" << std::endl;
 	double tot,tot1,tot2,estart,emax,emin;
 	double ener(int i,int j,int k);
 	int q,counter,v;
@@ -778,7 +778,7 @@ cout << " print 5" << endl;
 			}
 			//tot=tot+tot1*tot1+tot2*tot2;
 			if(counter>0)
-     cout << tot <<"                "  <<v << "             " << counter << endl;
+     std::cout << tot <<"                "  <<v << "             " << counter << std::endl;
      }*/
 	 /*HaMat_double ng,nss;
      ng.newsize(56,56);
@@ -797,7 +797,7 @@ cout << " print 5" << endl;
 	        HaMat_double::mat_inverse(green);
 			//matmult(sg,ss,green);
 	        //matmult(sgs,sg,ss);
-			cout << green(1,37)*green(1,37) << "  " << green(1,37)<< endl;
+			std::cout << green(1,37)*green(1,37) << "  " << green(1,37)<< std::endl;
 }*/
 
 /*double ener(int a,int b,int c)
@@ -813,7 +813,7 @@ cos(kxa/2-1.7320508*kya/6-2.44948974*kza/3)));
 }*/
 
 
-/*cout << " print 5" << endl;
+/*std::cout << " print 5" << std::endl;
 	double tot,tot1,tot2,estart,emax,emin;
 	double ener(int i,int j,int k);
 	int q,counter,v;
@@ -850,7 +850,7 @@ cos(kxa/2-1.7320508*kya/6-2.44948974*kza/3)));
 			}
 			}
 			if(counter>0)
-     cout << tot <<"                "  <<v << "             " << counter << endl;
+     std::cout << tot <<"                "  <<v << "             " << counter << std::endl;
      }
 }
 

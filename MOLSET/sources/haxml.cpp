@@ -534,7 +534,7 @@ int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,double* Vec,int n,co
   }
   return EXIT_FAILURE;
 }
-int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,std::vector< vector<float> >* VVec,const char* Format)
+int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,std::vector< std::vector<float> >* VVec,const char* Format)
 {
   char buffer[33];
   int j;
@@ -561,7 +561,7 @@ int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,std::vector< vector<
   }
   return EXIT_SUCCESS;
 }
-int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,std::vector< vector<double> >* VVec,const char* Format)
+int HaXML::SetElement(TiXmlElement* Elt,const char* TagName,std::vector< std::vector<double> >* VVec,const char* Format)
 {
   char buffer[33];
   int j;
@@ -1714,7 +1714,7 @@ int HaXML::GetElement(TiXmlElement* Elt,const char* TagName,HaMat_double* Mat)
 TiXmlElement* BldXmlEltFromCstr(const char* Cstr)
 {
   TiXmlElement* Elt=new TiXmlElement("TiXmlElement");
-  istringstream ins(Cstr);
+  std::istringstream ins(Cstr);
   ins>>*Elt;
   return Elt;
 }
@@ -1791,7 +1791,7 @@ int HaWriteMapGZ(const char *filename, TiXmlElement *header, float * fmap, int* 
 		fprintf(stderr, "ERROR 102: Can not open file %s\n", filename);
 		return EXIT_FAILURE;
 	}
-	string StrHeader;
+	std::string StrHeader;
 	StrHeader << *header;
 	gzprintf(file, "%s\n", StrHeader.c_str());
 	//header.Print(file);
@@ -1871,7 +1871,7 @@ int HaReadMapGZ(const char *filename, TiXmlElement** pheader, float **pfmap, int
 		return EXIT_FAILURE;
 	}
 	//string StrHeader(string);
-	istringstream ins(str);
+	std::istringstream ins(str);
 	TiXmlElement *header = new TiXmlElement("Field");
 	*pheader = header;
 	ins >> *header;

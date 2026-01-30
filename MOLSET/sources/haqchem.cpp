@@ -175,7 +175,7 @@ void HaQCMod::set_max_gauss_mem(int new_max_mem)
 }
 
 
-bool HaQCMod::Print_info(ostream &sout, const int level) const
+bool HaQCMod::Print_info(std::ostream& sout, const int level) const
 // Output information about the Quantum Chemical Model
 {
 	AtBasisType::const_iterator itrb=AtBasis.at_bas_vec.begin();
@@ -191,9 +191,9 @@ bool HaQCMod::Print_info(ostream &sout, const int level) const
 		{
 			aptr->FillRef(buf);
 		}
-		sout << "Basis set for Atom " << buf << endl;
+		sout << "Basis set for Atom " << buf << std::endl;
         (*itrb).Print_info(sout,level);
-		sout << endl;
+		sout << std::endl;
 	}
 	return true;
 }
@@ -219,8 +219,8 @@ bool HaQCMod::GetCntCharges(HaVec_double& charges) const
 {
 	if(phost_mset == NULL) 
 	{
-		cerr << " Error in HaQCMod::GetCntCharges " << endl;
-		cerr << " phost_mset == NULL " << endl;
+		std::cerr << " Error in HaQCMod::GetCntCharges " << std::endl;
+		std::cerr << " phost_mset == NULL " << std::endl;
 		return false;
 	}
 	int nn= phost_mset->GetNAtoms();
@@ -373,11 +373,11 @@ int HaQCMod::FBasFunPos(const HaAtom* ref_aptr) const
 
 	if(bsitr == AtBasis.at_bas_vec.end()) 
 	{
-		cerr << " Error in HaQCMod::FBasFunPos() : " << endl ;
+		std::cerr << " Error in HaQCMod::FBasFunPos() : " << std::endl;
 		char buf[256];
 		ref_aptr->FillRef(buf);
-		cerr << " Atom Basis of atom " << buf << endl;
-		cerr << " is not found " << endl;
+		std::cerr << " Atom Basis of atom " << buf << std::endl;
+		std::cerr << " is not found " << std::endl;
 		return (-1);
 	}
 
@@ -762,7 +762,7 @@ bool HaQCMod::InitLocOrb(const char* setid)
 	int i_fst = 0;
 
 	VecPtr atoms_orb;
-	map<std::string, HaMat_double, less<std::string> > tr_cf;
+	std::map<std::string, HaMat_double, std::less<std::string> > tr_cf;
 
 	AtBasisType::iterator bitr = AtBasis.at_bas_vec.begin();
 	for(; bitr != AtBasis.at_bas_vec.end(); bitr++)
@@ -770,8 +770,8 @@ bool HaQCMod::InitLocOrb(const char* setid)
 		aptr= (HaAtom*) (*bitr).GetAtHost();
 		if(aptr == NULL )
 		{
-			cerr << "Error in HaQCMod::InitLocOrb() " << endl;
-			cerr << "Cannot find host Atom of the Atom Basis Set " << endl;
+			std::cerr << "Error in HaQCMod::InitLocOrb() " << std::endl;
+			std::cerr << "Cannot find host Atom of the Atom Basis Set " << std::endl;
 			return false;
 		}
 
@@ -882,15 +882,15 @@ int HaQCMod::GetLocOrbIdxOfGrp(const std::string& gid, HaVec_int & lorb_idx ) co
 	ChemGroup* gptr=phost_mset->GetChemGroupByID( gid );
 	if(gptr == NULL)
 	{
-		cerr << " Error in HaQCMod::GetLocOrbIdxOfGrp() " << endl;
-		cerr << " Can't find group with ID: " << gid << endl;
+		std::cerr << " Error in HaQCMod::GetLocOrbIdxOfGrp() " << std::endl;
+		std::cerr << " Can't find group with ID: " << gid << std::endl;
 		return False;
 	}
 
 	int nab=ActBas->GetNBfunc();
 
 	int i;
-	list<int> tmp_list;
+	std::list<int> tmp_list;
 	for( i=1; i <= nab; i++)
 	{
 		HaAtom* aptr = (HaAtom*) ActBas->GetHostPt(i-1);
@@ -903,7 +903,7 @@ int HaQCMod::GetLocOrbIdxOfGrp(const std::string& gid, HaVec_int & lorb_idx ) co
 	int ns=tmp_list.size();
 	lorb_idx.newsize(ns);
 
-	list<int>::iterator itr;
+	std::list<int>::iterator itr;
 	i=1;
 	for( itr= tmp_list.begin(); itr != tmp_list.end(); itr++ )
 	{
@@ -965,23 +965,23 @@ bool HaQCMod::InsertLocOrbSubMat(const std::string & gid1, const std::string & g
 
 	if( ActOrbSubMat.num_rows() != n1 )
 	{
-		cerr << " Error in HaQCMod::InsertLocOrbSubMat() " << endl;
-		cerr << " Number of local orbitals n1= " << n1 << " in the group Id= " << gid1
-			 <<  endl;
-		cerr << " Doesn't equal to the number of rows in ActOrbSubMat " 
-			 << ActOrbSubMat.num_rows() << endl;
-		cerr << endl;
+		std::cerr << " Error in HaQCMod::InsertLocOrbSubMat() " << std::endl;
+		std::cerr << " Number of local orbitals n1= " << n1 << " in the group Id= " << gid1
+			 << std::endl;
+		std::cerr << " Doesn't equal to the number of rows in ActOrbSubMat " 
+			 << ActOrbSubMat.num_rows() << std::endl;
+		std::cerr << std::endl;
 		return false;
 	}
 
 	if( ActOrbSubMat.num_cols() != n2 )
 	{
-		cerr << " Error in HaQCMod::InsertLocOrbSubMat() " << endl;
-		cerr << " Number of local orbitals n2= " << n2 << " in the group Id= " << gid2
-			 <<  endl;
-		cerr << " Doesn't equal to the number of coloumns in ActOrbSubMat " 
-			 << ActOrbSubMat.num_cols() << endl;
-		cerr << endl;
+		std::cerr << " Error in HaQCMod::InsertLocOrbSubMat() " << std::endl;
+		std::cerr << " Number of local orbitals n2= " << n2 << " in the group Id= " << gid2
+			 << std::endl;
+		std::cerr << " Doesn't equal to the number of coloumns in ActOrbSubMat " 
+			 << ActOrbSubMat.num_cols() << std::endl;
+		std::cerr << std::endl;
 		return false;
 	}
 	
@@ -999,9 +999,9 @@ bool HaQCMod::EvalLinCombOnGrid(const HaVec_double& orb_coef, ArrayOrb3D& bas_se
 {
 	if(bas_set.GetNBfunc() != orb_coef.size() )
 	{
-		cerr << " Error in HaQCMod::BuildMOgrid() " << endl;
-		cerr << " The size of Orbital coef matrix " << orb_coef.size() 
-			 << " is not equal to the number of basis functions " << bas_set.GetNBfunc() << endl;
+		std::cerr << " Error in HaQCMod::BuildMOgrid() " << std::endl;
+		std::cerr << " The size of Orbital coef matrix " << orb_coef.size() 
+			 << " is not equal to the number of basis functions " << bas_set.GetNBfunc() << std::endl;
 		return false;
 	}
 	
@@ -1073,18 +1073,18 @@ bool HaQCMod::EvalLinCombOnGrid(const HaVec_double& orb_coef, ArrayOrb3D& bas_se
 	{
 		char buf[256];
 		
-		cout << " Field 3D: " << endl;
+		std::cout << " Field 3D: " << std::endl;
 		for( k = 0; k < nz; k++ )
 		{
-			cout << " Layer #= " << k << endl;
+			std::cout << " Layer #= " << k << std::endl;
 			for( j = 0; j < ny; j++ ) 
 			{
 				for (i = 0; i < nx ; i++ )
 				{	
 					sprintf(buf,"%12.6e  ", *(mo_field.GetValPtr(i,j,k)) );
-					cout << buf;
+					std::cout << buf;
 				}
-				cout << endl;
+				std::cout << std::endl;
 			}
 		}
 	}
@@ -1101,9 +1101,9 @@ bool HaQCMod::CreateMOcontour(const int imo, const double mo_isolvl, const int n
 		HaVec_double orb_coef( nb );
 		if( nb != MO_coef.num_rows() )
 		{
-			cerr << " Error in HaQCMod::CreateMOcontour() " << endl;
-			cerr << " The number of basis functions " << nb << 
-				    " is not equal to the size of MOs " <<  MO_coef.num_rows() << endl;
+			std::cerr << " Error in HaQCMod::CreateMOcontour() " << std::endl;
+			std::cerr << " The number of basis functions " << nb << 
+				    " is not equal to the size of MOs " <<  MO_coef.num_rows() << std::endl;
 			return false;
 		}
                 int i;
@@ -1536,11 +1536,11 @@ static bool fill_float_vec(double* fmat, FILE* fp, const int nn)
 		str=fgets(buf,256,fp);
 		if(str == NULL)
 		{
-			cerr << " Error in fill_float_mat() " << endl;
-			cerr << " Error in reading line from the file " << endl;
+			std::cerr << " Error in fill_float_mat() " << std::endl;
+			std::cerr << " Error in reading line from the file " << std::endl;
 			return false;
 		}
-		istrstream is(buf);
+		std::istrstream is(buf);
 
 		for(j =0; j < 5; j++)
 		{
@@ -1556,11 +1556,11 @@ static bool fill_float_vec(double* fmat, FILE* fp, const int nn)
 		str=fgets(buf,256,fp);
 		if(str == NULL)
 		{
-			cerr << " Error in fill_float_mat() " << endl;
-			cerr << " Error in reading line from the file " << endl;
+			std::cerr << " Error in fill_float_mat() " << std::endl;
+			std::cerr << " Error in reading line from the file " << std::endl;
 			return false;
 		}
-		istrstream is(buf);
+		std::istrstream is(buf);
 		
 		for(j= 1; j <= nr; j++)
 		{
@@ -1578,16 +1578,16 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 	FILE* fp= fopen(fname,"r");
 	if(fp == NULL)
 	{
-		cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " Error opening formatted checkpoint file " << fname << endl;
+		std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " Error opening formatted checkpoint file " << fname << std::endl;
 		return false;
 	}
 
 	result= find_line_in_file(fp, "Number of atoms", buf, 256);
 	if(!result)
 	{
-		cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " Cannot find a number of Atoms in Fchk file " << endl;
+		std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " Cannot find a number of Atoms in Fchk file " << std::endl;
 		return false;
 	}
 	int na;
@@ -1598,17 +1598,17 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 
 	if( na != nat_real )
 	{
-		cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " Number of atoms in the host molecule " << GetMolSet()->GetNAtoms() << endl;
-		cerr << " Is not equal to the number of atoms in fchk file " << na << endl;
+		std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " Number of atoms in the host molecule " << GetMolSet()->GetNAtoms() << std::endl;
+		std::cerr << " Is not equal to the number of atoms in fchk file " << na << std::endl;
 		return false;
 	}
 
 	result= find_line_in_file(fp, "Number of basis functions", buf, 256);
 	if(!result)
 	{
-		cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " Cannot find a number of Basis Functions in Fchk file " << endl;
+		std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " Cannot find a number of Basis Functions in Fchk file " << std::endl;
 		return false;
 	}
 
@@ -1616,9 +1616,9 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 	sscanf(buf+44,"%d",&nb);
 	if( nb != GetNBfunc() )
 	{
-		cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " The number of basis functions " << GetNBfunc() << endl;
-		cerr << " Is not equal to the number of basis functions in the fchk file " << nb << endl;
+		std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " The number of basis functions " << GetNBfunc() << std::endl;
+		std::cerr << " Is not equal to the number of basis functions in the fchk file " << nb << std::endl;
 		return false;
 	}
 
@@ -1630,9 +1630,9 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 	}
 	else
 	{
-		cerr << " Warning in HaQCMod::LoadDataFromFChk() " << endl;
-		cerr << " Cannot find the number of independent basis functions in Fchk file " << endl;
-		cerr << " The number of MOs is assumed to be equal to the number of basis functions " << endl;
+		std::cerr << " Warning in HaQCMod::LoadDataFromFChk() " << std::endl;
+		std::cerr << " Cannot find the number of independent basis functions in Fchk file " << std::endl;
+		std::cerr << " The number of MOs is assumed to be equal to the number of basis functions " << std::endl;
 		rewind(fp);
 	}
 
@@ -1641,8 +1641,8 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 		result= find_line_in_file(fp, "Alpha Orbital Energies", buf, 256);
 		if(!result)
 		{
-			cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-			cerr << " Cannot find Molecular Orbital energies in Fchk file " << endl;
+			std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+			std::cerr << " Cannot find Molecular Orbital energies in Fchk file " << std::endl;
 			return false;
 		}
 		
@@ -1653,8 +1653,8 @@ bool HaQCMod::LoadDataFromFChk(const char* fname)
 		result= find_line_in_file(fp, "Alpha MO coefficients", buf, 256);
 		if(!result)
 		{
-			cerr << " Error in HaQCMod::LoadDataFromFChk() " << endl;
-			cerr << " Cannot find Molecular Orbital Coeffcients in Fchk file " << endl;
+			std::cerr << " Error in HaQCMod::LoadDataFromFChk() " << std::endl;
+			std::cerr << " Cannot find Molecular Orbital Coeffcients in Fchk file " << std::endl;
 			return false;
 		}
 
@@ -1890,7 +1890,7 @@ int HaQCMod::TestIPack1()
 
 //	compute_overlap(*pibas,*pibas, ovlp_arr, same);
 
-	cout << ovlp_arr[0];
+	std::cout << ovlp_arr[0];
 
 	timer -> stop(t_main);
 	timer -> print();
@@ -1906,13 +1906,13 @@ int HaQCMod::TestRandomGen()
 
 	int i;
 	
-	ofstream frand("Random_num.dat");
+	std::ofstream frand("Random_num.dat");
 
 	for(i = 0; i < 10000; i++)
 	{
 		frand << rand_num_gen() << "  ";
 		rand_num_gen();
-		frand << rand_num_gen() << "  " << endl;
+		frand << rand_num_gen() << "  " << std::endl;
 		rand_num_gen();
 	}
 
@@ -1955,7 +1955,7 @@ int HaQCMod::TestIPack2()
 
 	nuc_attr_arr[0].write("NUC_ATTR_INT");
 
-	cout << nuc_attr_arr[0];
+	std::cout << nuc_attr_arr[0];
 
 	timer -> stop(t_main);
 	timer -> print();
@@ -1965,4 +1965,9 @@ int HaQCMod::TestIPack2()
 	return True;
 }
 
+#else
+int HaQCMod::InitIPack()
+{
+	return FALSE;  // IPACK not available
+}
 #endif

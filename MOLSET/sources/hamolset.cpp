@@ -5795,7 +5795,7 @@ bool MolSet::SetAlchemicalTransformationForRes(std::string res_id, std::string m
 	return pres->SetAlchemicalTransformation(mut_res_name);
 }
 
-bool MolSet::Print_info(std::ostream &sout, const int level)
+bool MolSet::Print_info(std::ostream& sout, const int level)
 {
 	MoleculesType::iterator mol_itr;
 	for( mol_itr=HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++)

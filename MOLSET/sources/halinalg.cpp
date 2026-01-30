@@ -14,7 +14,9 @@
 #include "g94_protos.h"
 #include "halinalg.h"
 #include "math.h"
+#ifdef USE_IPACK
 #include "vtype.h"
+#endif
 
 #include "tinyxml.h"
 
@@ -243,7 +245,7 @@ int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck
 	int nsize = dvec.size();
 		if(nsize == 0)
 		{
-			os << endl;
+			os << std::endl;
 			return TRUE;
 		}
 
@@ -255,7 +257,7 @@ int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck
 		{
 			if( loc_idx != 0) 
 			{
-				os << endl;
+				os << std::endl;
 			}
 			break;
 		}
@@ -279,7 +281,7 @@ int write_double_array_chuncks( std::ostream& os, HaVec_double& dvec, int chunck
 		loc_idx++;
 		if( loc_idx >=  chunck_size)
 		{
-			os << endl;
+			os << std::endl;
 			loc_idx = 0;
 		}
 	}
@@ -304,7 +306,7 @@ int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_s
 	int nsize = fvec.size();
 		if(nsize == 0)
 		{
-			os << endl;
+			os << std::endl;
 			return TRUE;
 		}
 
@@ -316,7 +318,7 @@ int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_s
 		{
 			if( loc_idx != 0) 
 			{
-				os << endl;
+				os << std::endl;
 			}
 			break;
 		}
@@ -340,7 +342,7 @@ int write_float_array_chuncks( std::ostream& os, HaVec_float& fvec, int chunck_s
 		loc_idx++;
 		if( loc_idx >=  chunck_size)
 		{
-			os << endl;
+			os << std::endl;
 			loc_idx = 0;
 		}
 	}
@@ -355,7 +357,7 @@ int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size,
 	int nsize = ivec.size();
 	if(nsize == 0)
 	{
-		os << endl;
+		os << std::endl;
 		return TRUE;
 	}
 
@@ -367,7 +369,7 @@ int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size,
 		{
 			if( loc_idx != 0) 
 			{
-				os << endl;
+				os << std::endl;
 			}
 			break;
 		}
@@ -376,7 +378,7 @@ int write_int_array_chuncks( std::ostream& os, HaVec_int& ivec, int chunck_size,
 		loc_idx++;
 		if( loc_idx >=  chunck_size)
 		{
-			os << endl;
+			os << std::endl;
 			loc_idx = 0;
 		}
 	}
@@ -463,6 +465,7 @@ int HaMat_double::solv_lin_syst_1(HaMat_double& a, HaMat_double& b)
 
 }
 
+#ifdef USE_IPACK
 int HaMat_double::set_from(Matrix& ipack_mat)
 {
 	int n1 = ipack_mat.size1();
@@ -480,10 +483,16 @@ int HaMat_double::set_from(Matrix& ipack_mat)
 	}
 	return TRUE;
 }
+#else
+int HaMat_double::set_from(Matrix& ipack_mat)
+{
+	return FALSE;  // IPACK not available
+}
+#endif // USE_IPACK
 
 int HaMat_double::SetFromStr(const char* str)
 {
-	istrstream is(str);
+	std::istrstream is(str);
 	int i;
 	int n = num_rows() * num_cols();
 
@@ -576,7 +585,7 @@ int HaMat_double::DiagMat(HaMat_double& hmat, HaMat_double& ss, HaMat_double& ei
 	return true;
 }
 
-int HaMat_double::PrintSymmMat(ostream& sout, double* fmat,int nn, const char* frm_str)
+int HaMat_double::PrintSymmMat(std::ostream& sout, double* fmat,int nn, const char* frm_str)
 {
 	char buf[128];
 	std::string format = frm_str;
@@ -591,7 +600,7 @@ int HaMat_double::PrintSymmMat(ostream& sout, double* fmat,int nn, const char* f
 			sout << buf;
 			ij++;
 		}
-		sout << endl;
+		sout << std::endl;
 	}
 	return TRUE;
 }
@@ -626,7 +635,7 @@ HaMat_double::AddXml( TiXmlElement* parent_element, const char* name,  int optio
 
 	int ipos = 0;
 
-	ostrstream str_buf;
+	std::ostrstream str_buf;
 	str_buf.precision(9);
 	str_buf.width(16);
 
@@ -698,7 +707,7 @@ int HaMat_double::LoadXml( const TiXmlElement* mat_element, int option )
 
 	const char* elem_text = mat_element->GetText();
 
-	istrstream istr(elem_text);
+	std::istrstream istr(elem_text);
 
 	int i;
 	int j; 

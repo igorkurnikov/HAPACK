@@ -2805,7 +2805,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 		HaAtom* aptr;
 		HaResidue* pres = (HaResidue*) alt_st->GetHostAtomGroup();
 		
-		map<void*,double,less<void*> > map_aptr_ch;
+		std::map<void*,double, std::less<void*> > map_aptr_ch;
 		AtomIteratorResidue aitr_res(pres);
 	
 		for(aptr = aitr_res.GetFirstAtom(); aptr; aptr = aitr_res.GetNextAtom())
@@ -2859,7 +2859,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 		HaAtom* aptr;
 		HaResidue* pres = (HaResidue*) alt_st->GetHostAtomGroup();
 		
-		map<void*,double,less<void*> > map_aptr_ch;
+		std::map<void*,double, std::less<void*> > map_aptr_ch;
 		AtomIteratorResidue aitr_res(pres);
 		
 		phost_mset->UnSelectAtomsAll();
@@ -2948,7 +2948,7 @@ int pKaCalcMod::RunCalcUsingElMod()
 		aptr->SetCharge(0.0);
 	}
 	
-	vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
+	std::vector< AtomDoubleMap > sites; // changes of atomic charges during protonation/deprotonation or oxidation/reduction 
 	double ch;
 
 	for(i=0; i < NumberOfAltStates; i++)
@@ -3650,7 +3650,7 @@ int PNPMod::ReadAMBERFF(const char* filename)
 	/*int i;
 	for(i=0; i < AtomTypesDB.size(); i++) 
 	{
-		std::cout << AtomTypesDB[i] << " "  << HalfSigmaDB[i] << " "  << FourEpsilonDB[i] << " "  << endl;
+		std::cout << AtomTypesDB[i] << " "  << HalfSigmaDB[i] << " "  << FourEpsilonDB[i] << " "  << std::endl;
 	}*/
 	return EXIT_SUCCESS;
 }

@@ -256,7 +256,7 @@ AtomGroup::AtomGroup(AtomExpr* expr, MolSet* pmset)
 	SetFromExpr(expr, pmset);	
 }
 
-AtomGroup::AtomGroup(const AtomGroup& ref_atset): vector<HaAtom*>(ref_atset)
+AtomGroup::AtomGroup(const AtomGroup& ref_atset): std::vector<HaAtom*>(ref_atset)
 {
 	id = ref_atset.id;
 }
@@ -282,7 +282,7 @@ bool AtomGroup::DeleteAtom(HaAtom* aptr)
 	if(aptr == NULL)
 		return false;
 
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 
 	for(aitr = this->begin(); aitr != this->end();)
 	{
@@ -311,7 +311,7 @@ HaAtom* AtomGroup::GetAtomByName(const std::string& at_id)
 
 int AtomGroup::DelSelAtoms()
 {
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 
 	int ndel= 0; 
 
@@ -332,7 +332,7 @@ int AtomGroup::DelSelAtoms()
 
 int AtomGroup::DeleteAtoms(const PtrSet& ptr_set)
 {
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 
 	int ndel= 0; 
 
@@ -355,7 +355,7 @@ int AtomGroup::DeleteAtoms(const PtrSet& ptr_set)
 
 int AtomGroup::HasAtom(const HaAtom* aptr) const
 {
-	vector<HaAtom*>::const_iterator itr;
+	std::vector<HaAtom*>::const_iterator itr;
 	
 	for(itr= begin(); itr != end(); itr++)
 	{
@@ -555,11 +555,11 @@ std::string ChemGroup::GetIDFromRef(const std::string& buf)
 	return tmp_id;
 }
  
-bool ChemGroup::Print_info(std::ostream &sout, const int level) const
+bool ChemGroup::Print_info(std::ostream& sout, const int level) const
 {
 	sout << " Atom Group with id " << id << "\n";
 	sout << " contains  " << size() << "  atoms" << "\n";
-	vector<HaAtom*>::const_iterator caitr;
+	std::vector<HaAtom*>::const_iterator caitr;
 	for ( caitr= begin(); caitr != end(); caitr++);
 	{
 		char buf[256];
@@ -729,7 +729,7 @@ HaResidue* HaResidue::GetNextResInChain() const
 bool HaResidue::IsBonded(HaResidue* res2) 
 {
 	if(res2 == NULL) return false;
-	vector<HaAtom*>::const_iterator aitr1, aitr2;
+	std::vector<HaAtom*>::const_iterator aitr1, aitr2;
 	for(aitr1= this->begin(); aitr1 != this->end(); aitr1++)
 	{
 		for(aitr2= res2->begin(); aitr2 != res2->end(); aitr2++)
@@ -1057,7 +1057,7 @@ bool HaResidue::SplitResidue()
 {
 	int idx=0;
 	bool is_large = false;
-	vector<HaAtom*>::iterator aitr;
+	std::vector<HaAtom*>::iterator aitr;
 	for(aitr= begin(); aitr != end(); aitr++)
 	{
 		idx++;

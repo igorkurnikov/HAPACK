@@ -119,6 +119,7 @@ int HaOperRDelt::EvalGauBasisSet(GauBasisSet* pbset, HaMat_doubleArr& rmats)
 		PrintLog(" GAUSSIAN Library is not available \n");
 #endif
 	}
+#ifdef USE_IPACK
 	else if(HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK)
 	{
 		PrintLog("Compute Angular Momentum Operator Matricies using IPACK Library \n");
@@ -145,6 +146,7 @@ int HaOperRDelt::EvalGauBasisSet(GauBasisSet* pbset, HaMat_doubleArr& rmats)
 		}
 		free(ip_bas);
 	}
+#endif // USE_IPACK
 
 	return true;
 }
@@ -208,10 +210,10 @@ HaOperRDelt::RecalcLondon(GauBasisSet* pbas)
 	mat_scale(TdB, TdB, 0.5);
 
 #if 0
-	cout << "Print Tdb matricies: " << endl;
+	std::cout << "Print Tdb matricies: " << std::endl;
 	for(i=1; i <=3 ; i++)
 	{
-		cout << "TdB component " << i << endl;
+		std::cout << "TdB component " << i << std::endl;
 		HaVec_double fmat_lin(ntt,&TdB(1,i));
 		HaMat_double scr;
 		mat_asymm_from_lin(scr,fmat_lin,nbasis);
@@ -267,10 +269,10 @@ HaOperRDelt::RecalcLondon(GauBasisSet* pbas)
 	UdB.set_ext_alloc(valmat.begin(),ntt,3);
 
 #if 0	
-	cout << "Print Udb matricies: " << endl;
+	std::cout << "Print Udb matricies: " << std::endl;
 	for(i=1; i <=3 ; i++)
 	{
-		cout << "UdB component " << i << endl;
+		std::cout << "UdB component " << i << std::endl;
 		HaVec_double fmat_lin(ntt,&UdB(1,i));
 		HaMat_double scr;
 		mat_asymm_from_lin(scr,fmat_lin,nbasis);
@@ -350,7 +352,7 @@ HaOperRDelt::LondonDaltonCalc()
 	int nv=ptr_qc_mod->GetNumVacMO();
 	int nb2;
 
-	ifstream mofile("MO.DAT");
+	std::ifstream mofile("MO.DAT");
 	mofile >> nb2;
 	assert( nb2 == nb*nb);
 
@@ -377,7 +379,7 @@ HaOperRDelt::LondonDaltonCalc()
 
 	int nsize;
 
-	ifstream idfile("MAGLON.DAT");
+	std::ifstream idfile("MAGLON.DAT");
 	idfile >> nsize;
 	assert( no*nv == nsize);
 
@@ -503,7 +505,7 @@ HaOperRDelt::RecalcFromHr2()
 	HaRPAHam h1;
 	h1.SetEnergy(0.0);
 
-	vector<HaRPAvec> x;
+	std::vector<HaRPAvec> x;
 	
 	HaMat_double OrbMat;
 	int ic;
@@ -659,11 +661,12 @@ int HaOperGrad::EvalGauBasisSet(GauBasisSet* pbset,HaMat_doubleArr& fmats)
 		PrintLog("GAUSSIAN Library is not available \n");
 #endif
 	}
+#ifdef USE_IPACK
 	else if(HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK)
 	{
 		PrintLog("Compute Gradient Operator Matrix using IPACK Library \n");
 		PrintLog("Incorrectly computed in IPACK!!! - substituted by R operator \n");
- 
+
 		HaQCMod::InitIPack();
 		InternalBasis* ip_bas = pbset->CreateIPackBas();
 
@@ -680,7 +683,7 @@ int HaOperGrad::EvalGauBasisSet(GauBasisSet* pbset,HaMat_doubleArr& fmats)
 		MomentData mom_data;
 		mom_data.max_mu = 1;
 		mom_data.loc.assign(cnt);
-        
+
 		moment(*ip_bas, mom_data, r_mat_arr);
 		normalize(*ip_bas, *ip_bas,r_mat_arr,1);
 		if(fmats.size() != 3) fmats.resize(3);
@@ -690,6 +693,7 @@ int HaOperGrad::EvalGauBasisSet(GauBasisSet* pbset,HaMat_doubleArr& fmats)
 		}
 		free(ip_bas);
 	}
+#endif // USE_IPACK
 	return true;
 }
 
@@ -768,12 +772,13 @@ int HaOperKinEner::EvalGauBasisSet(GauBasisSet* pbset,HaMat_double& fmat)
 		PrintLog("GAUSSIAN Library is not available \n");
 #endif
 	}
+#ifdef USE_IPACK
 	else if( HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK )
 	{
 		PrintLog("Compute Kinetic Energy Matrix using IPACK Library \n");
     	HaQCMod::InitIPack();
 		InternalBasis* ip_bas = pbset->CreateIPackBas();
-		
+
 		int nb = pbset->GetNBfunc();
 
 	    ARRAY<Mat> t_mat_arr(1);
@@ -783,9 +788,10 @@ int HaOperKinEner::EvalGauBasisSet(GauBasisSet* pbset,HaMat_double& fmat)
 		kinetic(*ip_bas,t_mat_arr);
 		normalize(*ip_bas,*ip_bas,t_mat_arr,0);
 		fmat.set_from(t_mat_arr[0]);
-		
-		free(ip_bas);		
+
+		free(ip_bas);
 	}
+#endif // USE_IPACK
 
 	return true;
 }
@@ -951,6 +957,7 @@ int HaOperR::EvalGauBasisSet(GauBasisSet* pbas1, HaMat_doubleArr& rmats)
 		PrintLog("GAUSSIAN Library is not available \n");
 #endif
 	}
+#ifdef USE_IPACK
 	else if(HaQCMod::int_engine == QCIntEngineType::INT_ENGINE_IPACK)
 	{
 		PrintLog("Compute electric dipole Matrix using IPACK Library \n");
@@ -970,7 +977,7 @@ int HaOperR::EvalGauBasisSet(GauBasisSet* pbas1, HaMat_doubleArr& rmats)
 		MomentData mom_data;
 		mom_data.max_mu = 1;
 		mom_data.loc.assign(cnt);
-        
+
 		moment(*ip_bas, mom_data, r_mat_arr);
 		normalize(*ip_bas, *ip_bas,r_mat_arr,1);
 		if(rmats.size() != 3) rmats.resize(3);
@@ -980,6 +987,7 @@ int HaOperR::EvalGauBasisSet(GauBasisSet* pbas1, HaMat_doubleArr& rmats)
 		}
 		free(ip_bas);
 	}
+#endif // USE_IPACK
 	return true;
 }
 

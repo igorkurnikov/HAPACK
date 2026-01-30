@@ -84,7 +84,7 @@ public:
 	enum DEBUG_FLAG_PARAMS { file_reading_debug = 0x0001 };
 	int debug_flag;
 //! Print information about the molecule set
-	bool Print_info(std::ostream &sout, const int level); //!< Print molecular set info
+	bool Print_info(std::ostream& sout, const int level); //!< Print molecular set info
 //@}
 
 //! \name Axxiliary classes:

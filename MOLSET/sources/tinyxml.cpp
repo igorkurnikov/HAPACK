@@ -1566,7 +1566,7 @@ TiXmlAttribute*	TiXmlAttributeSet::Find( const char* name )
 }
 */
 
-std::istream& operator>> (std::istream & in, TiXmlNode & base)
+std::istream& operator>> (std::istream& in, TiXmlNode & base)
 {
 	std::string tag;
 	tag.reserve( 8 * 1000 );
@@ -1576,7 +1576,7 @@ std::istream& operator>> (std::istream & in, TiXmlNode & base)
 	return in;
 }
 	
-std::ostream& operator<< (std::ostream & out, const TiXmlNode & base)
+std::ostream& operator<< (std::ostream& out, const TiXmlNode & base)
 {
 	TiXmlPrinter printer;
 	printer.SetStreamPrinting();

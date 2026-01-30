@@ -506,7 +506,7 @@ class NumVector
         return v_[i]; 
     }
 
-//    friend istream& operator>><>(istream &s, NumVector<T> &A);
+//    friend istream& operator>><>(std::istream&s, NumVector<T> &A);
 
 };
 
@@ -514,7 +514,7 @@ class NumVector
 /* ***************************  I/O  ********************************/
 
 template <class T>
-std::ostream& operator<<(std::ostream &s, const NumVector<T> &A)
+std::ostream& operator<<(std::ostream& s, const NumVector<T> &A)
 {
     size_t N=A.dim();
 
@@ -528,7 +528,7 @@ std::ostream& operator<<(std::ostream &s, const NumVector<T> &A)
 }
 
 template <class T>
-std::istream& operator>>(std::istream &s, NumVector<T> &A)
+std::istream& operator>>(std::istream& s, NumVector<T> &A)
 {
     size_t N;
 

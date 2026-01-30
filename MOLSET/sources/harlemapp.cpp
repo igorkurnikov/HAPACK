@@ -196,7 +196,7 @@ int HarlemApp::InitFirst()
 	//RedirectIOLogWindow();
 	//ios::sync_with_stdio();
 	
-	//cout << "HarlemApp::InitFirst() Check output to cout" << endl;
+	//std::cout << "HarlemApp::InitFirst() Check output to cout" << std::endl;
 	//printf("HarlemApp::InitFirst()  Check output to stdout \n");
 	//PrintLog(" HarlemApp::InitFirst() Check output to PrintLog \n");
 	//cout.flush();

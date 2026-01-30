@@ -246,8 +246,8 @@ HaScatterMod::CalcPseudoPotAO()
 
 	mat_diff(pseudo_pot_ao,fock_mat,t_kin_mat);
 
-	cout << " Pseudo-potential matrix on AOs before multiplying by S-1 " << endl; 
-	pseudo_pot_ao.Print_format(cout,"%7.4f ");
+	std::cout << " Pseudo-potential matrix on AOs before multiplying by S-1 " << std::endl; 
+	pseudo_pot_ao.Print_format(std::cout,"%7.4f ");
 
 	t_kin_mat.newsize(0,0);
 	
@@ -357,10 +357,11 @@ HaScatterMod::GetPsP_xyz(double x1, double y1, double z1,
 }
 
 
+#ifdef USE_IPACK
 double
 HaScatterMod::GetKinEne_Gauss_xyz(double x1, double y1, double z1,
 	                           double x2, double y2, double z2)
-{	
+{
 	HaQCMod::InitIPack();
 
 	PureBasisSet grid_pure_bf_set;
@@ -391,12 +392,20 @@ HaScatterMod::GetKinEne_Gauss_xyz(double x1, double y1, double z1,
 	return( ipack_kin_ene_matr[0](0,1) );
 
 }
+#else
+double
+HaScatterMod::GetKinEne_Gauss_xyz(double x1, double y1, double z1,
+	                           double x2, double y2, double z2)
+{
+	return 0.0;  // IPACK not available
+}
+#endif
 
 double
 HaScatterMod::GetPsP_Gauss_xyz(double x1, double y1, double z1,
 	                           double x2, double y2, double z2)
 {
-#ifdef USE_IPACK	
+#ifdef USE_IPACK
 	MolSet* pmset = GetMolSet();
 	HaQCMod* ptr_qc_mod = pmset->GetQCMod(false);
 
@@ -439,7 +448,7 @@ HaScatterMod::GetPsP_Gauss_xyz(double x1, double y1, double z1,
 
 	HaMat_double s1(nb,1), s2(nb,1);
 
-	cout << " dimensions of the overlap matrix "<< ipack_ovlp_matr[0].size1() << "  " << ipack_ovlp_matr[0].size2() << endl;
+	std::cout << " dimensions of the overlap matrix "<< ipack_ovlp_matr[0].size1() << "  " << ipack_ovlp_matr[0].size2() << std::endl;
 
 	int i;
 	for(i = 0; i < nb; i++) 
@@ -516,18 +525,18 @@ HaScatterMod::FindGridHamEigVec(int num_vec)
 		return FALSE;
 	}
 
-	list<ValAtPoint>::iterator vitr;
+	std::list<ValAtPoint>::iterator vitr;
 
 	int i;
 	for( i = 1; i <= ngrid_size ; i++)
 	{
-		list<ValAtPoint>& vlist = pot_grid->fvals[i-1];
+		std::list<ValAtPoint>& vlist = pot_grid->fvals[i-1];
 		for( vitr = vlist.begin(); vitr != vlist.end(); vitr++)
 		{
 			int lidx = pot_grid->GetLinIdx((*vitr).ix,(*vitr).iy,(*vitr).iz);
 			ham(i,lidx) = (*vitr).val;
 
-//			cout << " i = " << i << ";   lidx = " <<  lidx <<  endl;
+//			std::cout << " i = " << i << ";   lidx = " <<  lidx << std::endl;
 //			ham(i,lidx) = -1.0;
 		}
 	}

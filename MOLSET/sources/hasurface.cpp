@@ -442,18 +442,18 @@ bool HaField3D::GetXYZ(float& x, float& y , float& z,
 {
 	if(m_Nx < 2 ||  m_Ny < 2 || m_Nz < 2)
 	{
-		cerr << " Error in HaField3D::GetXYZ() " << endl;
-		cerr << " Some of the 3D Field dimensions are less than 2" << endl;
+		std::cerr << " Error in HaField3D::GetXYZ() " << std::endl;
+		std::cerr << " Some of the 3D Field dimensions are less than 2" << std::endl;
 		x=y=z=0.0;
 		return false;
 	}
 
 	if( ix >= m_Nx || iy >= m_Ny || iz >= m_Nz )
 	{
-		cerr << "Error in HaField3D::GetXYZ() " << endl;
-		cerr << " One of the indexes out of dimensions of the 3D field " << endl;
-		cerr << " ix= " << ix << " iy= " << iy << " iz= " << iz << endl;
-		cerr << " nx= " << m_Nx << " Nc= " << m_Ny << " Nl= " << m_Nz << endl;
+		std::cerr << "Error in HaField3D::GetXYZ() " << std::endl;
+		std::cerr << " One of the indexes out of dimensions of the 3D field " << std::endl;
+		std::cerr << " ix= " << ix << " iy= " << iy << " iz= " << iz << std::endl;
+		std::cerr << " nx= " << m_Nx << " Nc= " << m_Ny << " Nl= " << m_Nz << std::endl;
 		x=y=z=0.0;
 		return false;
 	}
@@ -471,18 +471,18 @@ Vec3D HaField3D::GetGridPtCrd(int ix, int iy, int iz)
 	
 	if(m_Nx < 2 ||  m_Ny < 2 || m_Nz < 2)
 	{
-		cerr << " Error in HaField3D::GetGridPtCrd() " << endl;
-		cerr << " Some of the 3D Field dimensions are less than 2" << endl;
+		std::cerr << " Error in HaField3D::GetGridPtCrd() " << std::endl;
+		std::cerr << " Some of the 3D Field dimensions are less than 2" << std::endl;
 		vec[0] = 0.0; vec[1] = 0.0;vec[2] = 0.0;
 		return vec;
 	}
 
 	if( ix >= m_Nx || iy >= m_Ny || iz >= m_Nz )
 	{
-		cerr << "Error in HaField3D::GetGridPtCrd() " << endl;
-		cerr << " One of the indexes out of dimensions of the 3D field " << endl;
-		cerr << " ix= " << ix << " iy= " << iy << " iz= " << iz << endl;
-		cerr << " nx= " << m_Nx << " Nc= " << m_Ny << " Nl= " << m_Nz << endl;
+		std::cerr << "Error in HaField3D::GetGridPtCrd() " << std::endl;
+		std::cerr << " One of the indexes out of dimensions of the 3D field " << std::endl;
+		std::cerr << " ix= " << ix << " iy= " << iy << " iz= " << iz << std::endl;
+		std::cerr << " nx= " << m_Nx << " Nc= " << m_Ny << " Nl= " << m_Nz << std::endl;
 		vec[0] = 0.0; vec[1] = 0.0;vec[2] = 0.0;
 		return vec;
 	}
@@ -521,15 +521,15 @@ float* HaField3D::GetValPtr(int ix, int iy, int iz)
 {
 	if(m_Ny < 2 ||  m_Nx < 2 || m_Nz < 2)
 	{
-		cerr << " Error in HaField3D::GetValPtr() " << endl;
-		cerr << " Some of the 3D Field dimensions less than 2 " << endl;
+		std::cerr << " Error in HaField3D::GetValPtr() " << std::endl;
+		std::cerr << " Some of the 3D Field dimensions less than 2 " << std::endl;
 		return NULL;
 	}
 
 	if( ix >= m_Nx || iy >= m_Ny || iz >= m_Nz)
 	{
-		cerr << "Error in HaField3D::GetValPtr() " << endl;
-		cerr << " One of the indexes out of dimensions of the 3D field " << endl;
+		std::cerr << "Error in HaField3D::GetValPtr() " << std::endl;
+		std::cerr << " One of the indexes out of dimensions of the 3D field " << std::endl;
 		return NULL;
 	}
 	
@@ -698,8 +698,8 @@ HaField3D::grid_to_xyz_float(const int numverts, const float* vr, const float* v
 {
 	if(m_Ny < 2 ||  m_Nx < 2 || m_Nz < 2)
 	{
-		cerr << " Error in HaField3D::grid_to_xyz_float " << endl;
-		cerr << " m_Ny < 2 ||  m_Nx < 2 || m_Nz < 2 " << endl;
+		std::cerr << " Error in HaField3D::grid_to_xyz_float " << std::endl;
+		std::cerr << " m_Ny < 2 ||  m_Nx < 2 || m_Nz < 2 " << std::endl;
 		return false;
 	}
 
@@ -827,11 +827,11 @@ bool HaSurface::calc_isosurf( HaField3D* field, float iso_level)
 		  SetNumVerts(numverts);
 		  field->grid_to_xyz_float( numverts, vr,vc,vl, verts.begin() );
 
-//		  cerr << endl << " vertices coordinates: " << endl;
+//		  std::cerr << endl << " vertices coordinates: " << std::endl;
 //		  for( int j= 1; j <= numverts; j++)
 //		  {
-//			  cout << " vert# " << j << " grd coord=" << "(" << vr[j-1] << "," << vc[j-1] << "," << vl[j-1] << ")" << endl;
-//			  cout << "          cartesian coord = " << "(" << verts(1,j) << "," <<  verts(2,j) << "," << verts(3,j) << ")" << endl;
+//			  std::cout << " vert# " << j << " grd coord=" << "(" << vr[j-1] << "," << vc[j-1] << "," << vl[j-1] << ")" << std::endl;
+//			  std::cout << "          cartesian coord = " << "(" << verts(1,j) << "," <<  verts(2,j) << "," << verts(3,j) << ")" << std::endl;
 //		  }
 		  
 		  norms.newsize(3,numverts);
@@ -854,7 +854,7 @@ bool HaSurface::calc_isosurf( HaField3D* field, float iso_level)
 		  bool subst_vert_1= true;
 		  int idx1, idx2, idx3;
 
-		  list<int> tr_idx_list;
+		  std::list<int> tr_idx_list;
 		  int i;
 		  for(i = 1; i <= numindexes; i++ )
 		  {
@@ -878,7 +878,7 @@ bool HaSurface::calc_isosurf( HaField3D* field, float iso_level)
 		  }
 		  int ntr = tr_idx_list.size()/3; // the number of triangles
 		  tr_indx.newsize(3,ntr);
-		  list<int>::iterator itr = tr_idx_list.begin();
+		  std::list<int>::iterator itr = tr_idx_list.begin();
 		  i = 0;
 		  int idx;
 		  for(; itr != tr_idx_list.end(); itr++)
@@ -911,19 +911,19 @@ bool HaSurface::calc_isosurf( HaField3D* field, float iso_level)
 }
 
 bool
-HaSurface::Print_info(ostream& sout, const int level) const
+HaSurface::Print_info(std::ostream& sout, const int level) const
 {
 	int i, nv;
-	sout << endl;
-	sout << " Description of the surface " << endl;
+	sout << std::endl;
+	sout << " Description of the surface " << std::endl;
 	nv = GetNumVerts();
-	sout << " Number of Verticies " << nv << endl;
-	sout << " List of Verticies " << endl;
+	sout << " Number of Verticies " << nv << std::endl;
+	sout << " List of Verticies " << std::endl;
 	for(i = 1; i <= nv; i++)
 	{
-		sout << i << "  " << verts(1,i) << "  " << verts(2,i) << "  " << verts(3,i) << endl;
+		sout << i << "  " << verts(1,i) << "  " << verts(2,i) << "  " << verts(3,i) << std::endl;
 	}
-	sout << endl;
+	sout << std::endl;
 	return true;
 }
 
@@ -1059,7 +1059,7 @@ DotStruct::RotateObj( const HaMat_double& rot_mat, const Vec3D& cnt)
 {
 	Object3D::RotateObj( rot_mat, cnt );
 	
-	vector<HaDot>::iterator ditr;;
+	std::vector<HaDot>::iterator ditr;;
 
 	for(ditr = dots.begin(); ditr != dots.end(); ditr++)
 	{
@@ -1082,7 +1082,7 @@ DotStruct::Translate(const Vec3D& tr_vec )
 	bool add_y = ( fabs(tr_vec[1]) > DBL_EPSILON );
 	bool add_z = ( fabs(tr_vec[2]) > DBL_EPSILON );
 
-	vector<HaDot>::iterator ditr;;
+	std::vector<HaDot>::iterator ditr;;
 
 	for(ditr = dots.begin(); ditr != dots.end(); ditr++)
 	{
@@ -1223,11 +1223,11 @@ int HaNonLocField3D::SaveField(const std::string& fname)
 			for( ix = 1; ix <= nx; ix++)
 			{
 				lidx++;
-				list<ValAtPoint>& val_list = fvals[lidx-1];
+				std::list<ValAtPoint>& val_list = fvals[lidx-1];
 
 				fprintf(fp," %5d%5d%5d %8zu \n", ix, iy, iz, val_list.size());
 				
-				list<ValAtPoint>::iterator vitr;
+				std::list<ValAtPoint>::iterator vitr;
 				for(vitr = val_list.begin(); vitr != val_list.end(); vitr++)
 				{
 					fprintf(fp," %5d%5d%5d %16.9e \n", 

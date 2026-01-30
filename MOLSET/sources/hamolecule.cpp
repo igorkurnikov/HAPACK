@@ -155,7 +155,7 @@ bool HaMolecule::AddMolCopy(HaMolecule& Mol_ref, bool create_new_chain, AtomAtom
 		fbptr->SetParamFrom(*bptr_ref);	
 	}
 	
-//	list<HaHBond>::iterator hbitr;
+//	std::list<HaHBond>::iterator hbitr;
 //	for(hbptr= Mol_ref.HBonds.begin(); hbitr != Mol_ref.HBonds.end(); hbitr++)
 //	{		
 //			HaAtom* faptr1=at_map[(*hbitr).srcatom];
@@ -1068,7 +1068,7 @@ int HaMolecule::GetNAtoms() const
 }
 
 
-bool HaMolecule::Print_info(std::ostream &sout, const int level) const
+bool HaMolecule::Print_info(std::ostream& sout, const int level) const
 // Output information about the molecule
 {
 	sout << "This is the molecule info " << std::endl;

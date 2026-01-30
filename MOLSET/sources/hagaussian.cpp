@@ -991,23 +991,23 @@ void QCDriverGaussian::PrintCurBcommon()
 			b_.y[i],
 			b_.z[i]);
 	}
-	cout << endl;	
+	std::cout << std::endl;	
 	
-	cout << " Gaussian exponents and expansion coef. of S and P orb.: " << endl;	
+	std::cout << " Gaussian exponents and expansion coef. of S and P orb.: " << std::endl;	
 	
 	for( i=0; i < b_.nshell ; i++)
 	{
-		cout << " Shell # " << (i+1) << endl;
-		cout << " Gaussian exponents and expansion coef. of S and P orb.: " << endl;
+		std::cout << " Shell # " << (i+1) << std::endl;
+		std::cout << " Gaussian exponents and expansion coef. of S and P orb.: " << std::endl;
 		int ng= b_.shelln[i];
 		int ib_sp=b_.shella[i]-1;
 		for(int j=0; j < ng; j++)
 		{
 			sprintf(buf," %16.9f  %16.9f  %16.9f ", b_.exx[ib_sp],b_.c1[ib_sp],b_.c2[ib_sp]);
-			cout << buf << endl;
+			std::cout << buf << std::endl;
 			ib_sp++;
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}	
 #endif
 }

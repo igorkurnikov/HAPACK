@@ -524,7 +524,7 @@ int DihedralAngleCoord::LoadFromStream(std::istream& is, const harlem::HashMap* 
 	return FALSE;
 }
 
-int DihedralAngleCoord::SaveToStream(std::ostream&  os, const harlem::HashMap* popt ) const
+int DihedralAngleCoord::SaveToStream(std::ostream& os, const harlem::HashMap* popt ) const
 {
 	// FINISH!!
 

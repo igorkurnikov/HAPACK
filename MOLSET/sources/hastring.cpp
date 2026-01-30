@@ -229,7 +229,7 @@ void StrDoubleMap::clear()
 
 //int StrDoubleMap::count(const char* str)
 //{
-//	return map<std::string, double, less<std::string> >::count(str);
+//	return std::map<std::string, double, std::less<std::string> >::count(str);
 //}
 
 int StrDoubleMap::size()
@@ -239,7 +239,7 @@ int StrDoubleMap::size()
 
 double StrDoubleMap::GetVal(const char* str)
 {
-	map<std::string, double>::iterator itr;
+	std::map<std::string, double>::iterator itr;
 	itr = this->find(str);
 	if(this->end() == itr) 
 	{

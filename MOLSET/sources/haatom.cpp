@@ -614,7 +614,7 @@ int HaAtom::AtTypeFromLbl(const std::string & Label)
 }
 
 
-bool HaAtom::Print_info(std::ostream &sout, const int level) const
+bool HaAtom::Print_info(std::ostream& sout, const int level) const
 {
 	assert(level >= 0);
 	sout << "element #= " << GetElemNo() << " Name = " << GetName() << "\n";
@@ -1714,7 +1714,7 @@ AtomDoubleMap::~AtomDoubleMap()
 
 double AtomDoubleMap::GetValue(HaAtom* aptr) const
 {
-	map<HaAtom*,double>::const_iterator itr;
+	std::map<HaAtom*,double>::const_iterator itr;
 	itr = find(aptr);
 	if( itr == this->end()) return 0.0;
 
@@ -1723,7 +1723,7 @@ double AtomDoubleMap::GetValue(HaAtom* aptr) const
 
 int AtomDoubleMap::SetValue(HaAtom* aptr, double new_val)
 {
-	map<HaAtom*,double>::iterator itr;
+	std::map<HaAtom*,double>::iterator itr;
 	itr = find(aptr);
 	if( itr == this->end())
 	{

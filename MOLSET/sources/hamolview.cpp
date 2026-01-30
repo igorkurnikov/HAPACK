@@ -1385,8 +1385,8 @@ void HaMolView::PickAtom( int shift, int xpos, int ypos )
     if( PickMode == PickNone )
         return;
     
-//	cerr << " HaMolView::PickAtom() " << endl;
-//	cerr << " xpos = " << xpos << "  ypos= " << ypos << endl;
+//	std::cerr << " HaMolView::PickAtom() " << std::endl;
+//	std::cerr << " xpos = " << xpos << "  ypos= " << ypos << std::endl;
 
 		IdentifyAtom(xpos,ypos);
 		

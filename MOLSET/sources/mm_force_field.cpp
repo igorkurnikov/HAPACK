@@ -108,7 +108,7 @@ int MMForceField::Init()
 
 	namespace fs = std::filesystem;
  
-//	cout << "MMForceField::Init() pt 1 \n" << "Current PATH:" << current_path() << std::endl;
+//	std::cout << "MMForceField::Init() pt 1 \n" << "Current PATH:" << current_path() << std::endl;
 
 	try
 	{
