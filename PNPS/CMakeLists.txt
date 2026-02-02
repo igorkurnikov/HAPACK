@@ -7,6 +7,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Find Python for headers
 find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
+find_package(ZLIB REQUIRED)
 
 set(PNPS_SOURCES
     src/buildworldni.cpp
@@ -36,7 +37,7 @@ target_include_directories(pnps PUBLIC
 )
 
 # Link Python for header access
-target_link_libraries(pnps PUBLIC Python::Module)
+target_link_libraries(pnps PUBLIC Python::Module ZLIB::ZLIB)
 
 # Optional CUDA support
 option(PNPS_ENABLE_CUDA "Enable CUDA support for PNPS" OFF)

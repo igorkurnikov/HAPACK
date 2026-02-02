@@ -14,6 +14,7 @@
 
 #include "haconst.h"
 #include "stdarg.h"
+#include <string.h>
 #include "hastring.h"
 #include "haio.h"
 #include <boost/format.hpp>
