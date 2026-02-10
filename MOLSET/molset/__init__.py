@@ -9,17 +9,18 @@ if( os.getenv("HARLEM_HOME") != None ):
 molset_dir = os.path.dirname(__file__)
 if( os.getenv("MOLSET_HOME") == None ):
     test_dirs = []
+    prefix_dir = os.path.join(molset_dir,"..","..","..","..")
+    test_dirs.append( os.path.join(prefix_dir,"share","molset"))
+    test_dirs.append( os.path.join(prefix_dir,"share","harlem"))
+    test_dirs.append( os.path.join(prefix_dir,"share","interx"))
+    test_dirs.append( os.path.join(prefix_dir,"opt","harlem"))
+    test_dirs.append( os.path.join(prefix_dir,"opt","molset"))
+    test_dirs.append( os.path.join(prefix_dir,"opt","interx"))
     test_dirs.append( os.path.join(molset_dir,"..") )
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","opt","interx"))
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","opt","harlem"))
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","opt","molset"))
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","share","interx"))
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","share","harlem"))
-    test_dirs.append( os.path.join(molset_dir,"..","..","..","..","share","molset"))
     for d in test_dirs:
         test_res_db_dir = os.path.join(d,"residues_db")
         if( os.path.isdir( test_res_db_dir ) ):
-            os.environ["MOLSET_HOME"] = d 
+            os.environ["MOLSET_HOME"] = d
             os.environ["HARLEM_HOME"] = d
             break
 

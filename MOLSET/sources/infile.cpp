@@ -163,7 +163,7 @@ void MolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_
 //			throw std::runtime_error(" zero coordinate pseudo atom record is ignored "); 
 //		}
 
-		std::string serno_str; line.substr(22,4); // Reading Residue ID
+		std::string serno_str = line.substr(22,4); // Reading Residue ID
 		std::string temp_str;
 		int i;
 		for( i = 0; i < serno_str.size(); i++)
@@ -220,7 +220,7 @@ void MolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_
 			throw std::runtime_error(" Invalid serial atom number ");
 		}
 
-		std::string tmp; line.substr(12,4);
+		std::string tmp = line.substr(12,4);
 
 		// Deal with alternative atom positions
 		// Will Load only the first alternative atom position
@@ -234,7 +234,7 @@ void MolSet::ProcessPDBAtom(const std::string& line, int heta, IntPtrMap& id_at_
 
 
 		ptr->SetName(tmp.c_str());
-		std::string at_name; ptr->GetName();
+		std::string at_name = ptr->GetName();
 
 		std::string elem_str = line.substr(76, 2);
 		boost::trim(elem_str);

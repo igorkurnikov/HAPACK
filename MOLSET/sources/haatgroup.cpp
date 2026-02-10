@@ -3657,7 +3657,7 @@ void AtomSaveOptions::SetStdOptions()
 	save_connect    = TRUE;
 	save_atom_ref   = TRUE; 
 	save_amber_pdb  = TRUE;
-	save_sep_solv_mol = FALSE;
+	save_sep_solv_mol = TRUE;
 	alchemical_state = AlchemicalState::MIXED;
 	saved_atoms.clear();
 

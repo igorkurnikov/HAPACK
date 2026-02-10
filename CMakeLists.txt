@@ -135,3 +135,14 @@ install(TARGETS molsetc
 install(FILES "${CMAKE_SWIG_OUTDIR}/molsetc.py"
     DESTINATION molset
 )
+
+# Install data directories to $PREFIX/share/molset/
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/residues_db"
+    DESTINATION "${SKBUILD_DATA_DIR}/share/molset"
+)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/basis"
+    DESTINATION "${SKBUILD_DATA_DIR}/share/molset"
+)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/examples"
+    DESTINATION "${SKBUILD_DATA_DIR}/share/molset"
+)
