@@ -397,6 +397,7 @@ const char* amber_prep_filters = "*.in;*.prep";
 const char* amber_top_filters = "*.top;*.crd;*.rst";
 const char* amber_off_filters = "*.off;*.lib";
 const char* nrg_filters = "*.nrg";
+const char* sdf_filters = "*.sdf";
 
 void ChooseMolFileDlg::FillFileTypes()
 {
@@ -413,6 +414,7 @@ void ChooseMolFileDlg::FillFileTypes()
 	file_types_ch->Append("AMBER OFF File Format (*.off;*.lib)", (void*)amber_off_filters);
 	file_types_ch->Append("ARBALEST File Format (*.hin)",(void*)hin_filters);
 	file_types_ch->Append("MBX Program File Format (*.nrg)", (void*)nrg_filters);
+	file_types_ch->Append("SDF File Format (*.sdf)", (void*)sdf_filters);
 
     file_types_ch->SetSelection(5);
 }
@@ -448,6 +450,7 @@ void ChooseMolFileDlg::OnLoadFile( wxCommandEvent &event )
 		case(8): file_format = FormatAmberOff;   break;
 		case(9): file_format = FormatHIN;      break;
 		case(10): file_format = FormatNRG;      break;
+		case(11): file_format = FormatSDF;      break;
     }
 	this->Close();
 }

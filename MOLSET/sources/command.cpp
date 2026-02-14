@@ -479,6 +479,7 @@ int MolSet::FetchFile(int format, std::string file_name, const AtomLoadOptions& 
 	case(FormatNMRPDB):      opt.set_i("NMRPDB", 1);  done = LoadPDBFile(fname, opt); break;
 	case(FormatMol2):        done = LoadMol2File(fname,      opt); break;
 	case(FormatMDL):         done = LoadMDLFile(fname,       opt); break;
+	case(FormatSDF):         done = LoadSDFFile(fname,       opt); break;
 	case(FormatXYZ):         done = LoadXYZFile(fname,       opt); break;
 	case(FormatHIN):         done = LoadHINFile(fname,       opt); break;
 	case(FormatNRG):         done = LoadNRGFile(fname,       opt); break;

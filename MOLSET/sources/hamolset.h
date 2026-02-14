@@ -120,7 +120,8 @@ public:
 	int LoadRWFMolecule (std::string fname, const AtomLoadOptions& opt = load_opt_default );   //!< Load Molecular System in binary Gaussian checkpoint (*.rwf, *.chk) format
 	int LoadPDBFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in PDB format (flag = 1 - NMR extension)
 	int LoadMol2File(std::string fname, const AtomLoadOptions& opt = load_opt_default );       //!< Load Molecular System in TRIPOS *.mol format 
-	int LoadMDLFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TRIPOS *.mdl format 
+	int LoadMDLFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TRIPOS *.mdl format
+	int LoadSDFFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in SDF (*.sdf) format (multiple MOL records)
 	int LoadXYZFile(std::string fname, const AtomLoadOptions& opt = load_opt_default );        //!< Load Molecular System in TINKER XYZ format ( idx, at_nm,x,y,z, ff_idx, at_bond_1, at_bond_2,...)
 	int LoadHINFile(std::string fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in Arbalest HIN format
 	int LoadNRGFile(std::string fname, const AtomLoadOptions& opt = load_opt_default);         //!< Load Molecular System in NRG format (MBX program )

@@ -783,6 +783,197 @@ int MolSet::LoadMDLFile(std::string fname, const AtomLoadOptions& opt )
 	return( True );
 }
 
+int MolSet::LoadSDFFile(std::string fname, const AtomLoadOptions& opt )
+{
+	using boost::trim_copy;
+	using boost::lexical_cast;
+
+	MolEditor* p_mol_editor = this->GetMolEditor(true);
+
+	std::ifstream is(fname);
+
+	if( is.fail() )
+	{
+        PrintLog("\nError: File  %s not found!\n",fname );
+        return( FALSE );
+	}
+
+	HaAtom  *ptr;
+	int i, type;
+	int atoms, bonds;
+	int srcatm, dstatm;
+	std::string str, line;
+	int mol_count = 0;
+
+	while( !is.eof() )
+	{
+		// --- Header block (3 lines) ---
+		// Line 1: Molecule name
+		std::getline(is, line);
+		if( is.fail() ) break;
+		boost::trim(line);
+		if( line.empty() && is.eof() ) break;
+
+		std::string mol_name = line;
+
+		// Line 2: Program/timestamp info
+		std::getline(is, line);
+		if( is.fail() ) break;
+
+		// Line 3: Comment
+		std::getline(is, line);
+		if( is.fail() ) break;
+
+		// --- Counts line ---
+		std::getline(is, line);
+		if( is.fail() ) break;
+
+		atoms = 0;
+		bonds = 0;
+		try {
+			atoms = lexical_cast<int>( trim_copy(line.substr(0,3)) );
+			bonds = lexical_cast<int>( trim_copy(line.substr(3,3)) );
+		}
+		catch(boost::bad_lexical_cast&)
+		{
+			atoms = 0;
+		}
+
+		if( !atoms )
+		{
+			PrintLog(" Warning in MolSet::LoadSDFFile(): Num atoms = 0, skipping record\n");
+			// Skip to next $$$$ or EOF
+			while( std::getline(is, line) )
+			{
+				if( line.size() >= 4 && line.substr(0,4) == "$$$$" ) break;
+			}
+			continue;
+		}
+
+		HaMolecule* pMol = AddNewMolecule();
+		HaChain*    pch_cur  = NULL;
+		HaResidue*  pres_cur = NULL;
+
+		if( !mol_name.empty() )
+			pMol->SetObjName(mol_name.c_str());
+		else
+		{
+			std::string molname = harlem::GetPrefixFromFullName(fname);
+			pMol->SetObjName(molname.c_str());
+		}
+
+		IntPtrMap id_at_map;
+
+		pres_cur = pMol->AddChainAndResidue();
+
+		// --- Atom block ---
+		for( i=1; i<=atoms; i++ )
+		{
+			std::getline(is, line);
+			if( is.fail() ) break;
+
+			try
+			{
+				ptr = pres_cur->AddNewAtom();
+
+				double x = lexical_cast<double>( trim_copy(line.substr( 0,10)) );
+				double y = lexical_cast<double>( trim_copy(line.substr(10,10)) );
+				double z = lexical_cast<double>( trim_copy(line.substr(20,10)) );
+
+				ptr->SetX_Ang( x );
+				ptr->SetY_Ang( y );
+				ptr->SetZ_Ang( z );
+
+				// Atom symbol starts at position 31 (3 chars)
+				int idx = 31;
+				while( idx < (int)line.size() && line[idx] == ' ' ) idx++;
+				std::string at_name = trim_copy(line.substr(idx, 3));
+
+				ptr->SetName(at_name.c_str());
+				ptr->SetElemNo( HaAtom::GetElemNoFromName( ptr->GetName(), pres_cur ) );
+
+				// Charge field at position 36 (3 chars)
+				if( line.size() >= 39 )
+				{
+					int chg_code = 0;
+					try { chg_code = lexical_cast<int>( trim_copy(line.substr(36,3)) ); }
+					catch(...) {}
+
+					switch( chg_code )
+					{
+					case(1):  ptr->tempf =  3.0;  break;
+					case(2):  ptr->tempf =  2.0;  break;
+					case(3):  ptr->tempf =  1.0;  break;
+					case(5):  ptr->tempf = -1.0;  break;
+					case(6):  ptr->tempf = -2.0;  break;
+					case(7):  ptr->tempf = -3.0;  break;
+					default:  ptr->tempf =  0.0;
+					}
+				}
+
+				id_at_map[i] = (void*)ptr;
+			}
+			catch( const std::exception& ex )
+			{
+				PrintLog(" Error in MolSet::LoadSDFFile()   atom line:\n");
+				PrintLog(" %s\n", line.c_str());
+				PrintLog(" %s\n", ex.what());
+			}
+		}
+
+		// --- Bond block ---
+		for( i=0; i<bonds; i++ )
+		{
+			std::getline(is, line);
+			if( is.fail() ) break;
+
+			try
+			{
+				srcatm = lexical_cast<int>( trim_copy(line.substr(0,3)) );
+				dstatm = lexical_cast<int>( trim_copy(line.substr(3,3)) );
+				type   = lexical_cast<int>( trim_copy(line.substr(6,3)) );
+				HaBond* pbnd = AddBond((HaAtom*)id_at_map[srcatm],(HaAtom*)id_at_map[dstatm]);
+
+				if( type==2 ) pbnd->SetDouble();            /* DOUBLE */
+				else if( type==3 ) pbnd->SetTriple();       /* TRIPLE */
+				else if( type==4 ) pbnd->SetAromatic();     /* AROMATIC */
+			}
+			catch( const std::exception& ex )
+			{
+				PrintLog(" Error in MolSet::LoadSDFFile()   bond line:\n");
+				PrintLog(" %s\n", line.c_str());
+				PrintLog(" %s\n", ex.what());
+			}
+		}
+
+		// --- Skip properties block and data items until $$$$ ---
+		while( std::getline(is, line) )
+		{
+			if( line.size() >= 4 && line.substr(0,4) == "$$$$" ) break;
+		}
+
+		if( opt.ToCalcBonds() )
+		{
+			p_mol_editor->CreateCovBonds(pMol);
+		}
+		if( opt.UniqueAtNames() )
+		{
+			pMol->SetUniqueAtomNames();
+		}
+
+		mol_count++;
+	}
+
+	if( mol_count == 0 )
+	{
+		PrintLog(" Error in MolSet::LoadSDFFile(): No molecules read from %s\n", fname);
+		return( False );
+	}
+
+	PrintLog(" MolSet::LoadSDFFile(): %d molecule(s) loaded from %s\n", mol_count, fname);
+	return( True );
+}
+
 int MolSet::SetCoordFromFile(std::string fname, int iform)
 {
 	MolSet axx_mset;

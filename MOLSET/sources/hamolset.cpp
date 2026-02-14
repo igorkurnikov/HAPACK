@@ -190,6 +190,7 @@ MolSet* LoadMolFile(std::string fname)
 	if(ext == "hin") ires = pmset->LoadHINFile(fname);
 	if(ext == "xyz") ires = pmset->LoadXYZFile(fname);
 	if(ext == "off") ires = pmset->LoadAmberOffFile(fname);
+	if(ext == "sdf") ires = pmset->LoadSDFFile(fname);
 
 	
 	

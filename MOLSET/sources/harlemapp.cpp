@@ -93,6 +93,7 @@ HarlemApp::HarlemApp()
 	FormatOpt["gaussian"]  =  FormatGaussian;
 	FormatOpt["macromodel"]=  FormatMacroMod;
 	FormatOpt["mdl"]       =  FormatMDL;
+	FormatOpt["sdf"]       =  FormatSDF;
 	FormatOpt["mmdb"]      =  FormatMMDB;
 	FormatOpt["mol2"]      =  FormatMol2;
 	FormatOpt["mopac"]     =  FormatMOPAC;
