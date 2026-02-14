@@ -146,6 +146,7 @@ public:
 	int SaveXYZRadFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );   //!< Save file with lines (x,y,z, atom_radius) for MSMS input
 	int SaveDimerXYZFile(std::string prefix, const AtomSaveOptions& opt = save_opt_default ); //!< Save Dimer XYZ files for Quantum calculations using InterX scrips
 	int SaveHINFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in Arbalest HIN format
+	int SaveSDFFile(std::string filename, const AtomSaveOptions& opt = save_opt_default );      //!< Save molecules into a file in SDF (V2000) format
 	int SaveNRGFile(std::string filename, const AtomSaveOptions& opt = save_opt_default);      //!< Save MolSet in MBX NRG format
 	
 	int SavePQRFile(std::string filename, const AtomSaveOptions& opt = save_opt_default ); //!< Save molecule into PQR format file

@@ -536,6 +536,7 @@ void SaveMolFileDlg::FillFileTypes()
     file_types_ch->Append("MSMS XYZR Format   (*.xyz)",(void*)xyz_filters);
 	file_types_ch->Append("ARBALEST HIN Format   (*.hin)",(void*)hin_filters);
 	file_types_ch->Append("MBX Program NRG Format   (*.nrg)", (void*)nrg_filters);
+	file_types_ch->Append("SDF File Format (*.sdf)", (void*)sdf_filters);
 
     file_types_ch->SetSelection(1);
 }
@@ -583,7 +584,8 @@ void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
 			case(4): pmset->SaveXYZRadFile(file_name_full);  break;	
 			case(5): pmset->SaveHINFile(file_name_full);  break;	
 			case(6): pmset->SaveNRGFile(file_name_full);  break;
-		}		
+			case(7): pmset->SaveSDFFile(file_name_full);  break;
+		}
 	}
 	delete this;
 }

@@ -206,6 +206,56 @@ class TestSaveFile:
         assert mset2.LoadHINFile(out_file)
         assert mset2.GetNAtoms() == mset.GetNAtoms()
 
+    def test_savefile_sdf(self, tmp_path):
+        mset = new_molset()
+        mset.LoadSDFFile(DATA_CROWN_SDF)
+
+        out_file = str(tmp_path / "out.sdf")
+        mset.SaveFile(out_file)
+        assert os.path.isfile(out_file)
+
+        mset2 = new_molset()
+        assert mset2.LoadSDFFile(out_file)
+        assert mset2.GetNAtoms() == mset.GetNAtoms()
+
+
+class TestSaveLoadSDF:
+    """Test saving to SDF and reloading."""
+
+    def test_roundtrip_sdf(self, tmp_path):
+        """Load SDF, save SDF, reload and check atoms/bonds."""
+        mset = new_molset()
+        mset.LoadSDFFile(DATA_CROWN_SDF)
+        natoms_orig = mset.GetNAtoms()
+        nbonds_orig = mset.GetNBonds()
+
+        out_file = str(tmp_path / "out.sdf")
+        mset.SaveSDFFile(out_file)
+        assert os.path.isfile(out_file)
+
+        mset2 = new_molset()
+        result = mset2.LoadSDFFile(out_file)
+        assert result
+        assert mset2.GetNAtoms() == natoms_orig
+        assert mset2.GetNBonds() == nbonds_orig
+
+    def test_roundtrip_multi_mol_sdf(self, tmp_path):
+        """Multi-molecule SDF round trip."""
+        mset = new_molset()
+        mset.LoadSDFFile(DATA_TYK2_SDF)
+        natoms_orig = mset.GetNAtoms()
+        nmol_orig = mset.GetNMol()
+
+        out_file = str(tmp_path / "out.sdf")
+        mset.SaveSDFFile(out_file)
+        assert os.path.isfile(out_file)
+
+        mset2 = new_molset()
+        result = mset2.LoadSDFFile(out_file)
+        assert result
+        assert mset2.GetNMol() == nmol_orig
+        assert mset2.GetNAtoms() == natoms_orig
+
 
 # ============================================================
 #  Cross-format conversion tests
@@ -260,6 +310,20 @@ class TestCrossFormat:
 
         mset2 = new_molset()
         mset2.LoadHINFile(out_file)
+        assert mset2.GetNAtoms() == natoms
+
+    def test_pdb_to_sdf(self, tmp_path):
+        """PDB -> SDF save."""
+        mset = new_molset()
+        mset.LoadPDBFile(DATA_GLY_PDB)
+        natoms = mset.GetNAtoms()
+
+        out_file = str(tmp_path / "gly.sdf")
+        mset.SaveSDFFile(out_file)
+        assert os.path.isfile(out_file)
+
+        mset2 = new_molset()
+        mset2.LoadSDFFile(out_file)
         assert mset2.GetNAtoms() == natoms
 
 

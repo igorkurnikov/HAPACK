@@ -312,6 +312,7 @@ int MolSet::SaveFile(std::string filename, const AtomSaveOptions& opt)
 	else if (ext == "hin") this->SaveHINFile(filename, opt);
 	else if (ext == "xyz") this->SaveXYZFile(filename, &opt);
 	else if (ext == "gro") this->SaveGROFile(filename, &opt);
+	else if (ext == "sdf") this->SaveSDFFile(filename, opt);
 	else
 	{
 		PrintLog("Error in: MolSet::SaveFile() Unrecognized file extension in file %s \n", filename);
@@ -2097,6 +2098,112 @@ int MolSet::SaveNRGFile(std::string filename, const AtomSaveOptions& opt)
 
 	int ires = SaveNRGToStream(fout, opt);
 	return ires;
+}
+
+int MolSet::SaveSDFFile(std::string filename, const AtomSaveOptions& opt )
+{
+	std::ofstream os(filename);
+	if( os.fail() )
+	{
+		PrintLog(" Error in MolSet::SaveSDFFile()  opening file %s\n", filename);
+		return FALSE;
+	}
+
+	int mol_count = 0;
+	MoleculesType::const_iterator mol_itr;
+
+	for( mol_itr = HostMolecules.begin(); mol_itr != HostMolecules.end(); mol_itr++ )
+	{
+		const HaMolecule* pmol = *mol_itr;
+		if( pmol->GetNAtoms() == 0 ) continue;
+
+		// Build atom-to-index map (1-based)
+		CAtomIntMap at_seqn_map = pmol->GetAtomSeqNumMap();
+		int natoms = (int)at_seqn_map.size();
+
+		// Collect bonds for this molecule (each bond once)
+		struct BondRec { int src; int dst; int type; };
+		std::vector<BondRec> bond_list;
+
+		AtomIteratorMolecule aitr(const_cast<HaMolecule*>(pmol));
+		for( HaAtom* aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom() )
+		{
+			if( at_seqn_map.count(aptr) == 0 ) continue;
+			int idx_a = at_seqn_map[aptr] + 1; // 1-based
+
+			auto bitr     = aptr->Bonds_begin();
+			auto bitr_end = aptr->Bonds_end();
+			for( ; bitr != bitr_end; bitr++ )
+			{
+				const HaBond* pbond = (*bitr).get();
+				const HaAtom* aptr_b = pbond->GetFirstAtom();
+				if( aptr_b == aptr ) aptr_b = pbond->GetSecondAtom();
+
+				if( at_seqn_map.count(aptr_b) == 0 ) continue;
+				int idx_b = at_seqn_map[aptr_b] + 1; // 1-based
+
+				// Write each bond only once: when idx_a < idx_b
+				if( idx_a < idx_b )
+				{
+					int btype = 1; // single
+					if( pbond->IsDouble() )   btype = 2;
+					else if( pbond->IsTriple() )  btype = 3;
+					else if( pbond->IsAromatic() ) btype = 4;
+					bond_list.push_back({ idx_a, idx_b, btype });
+				}
+			}
+		}
+
+		int nbonds = (int)bond_list.size();
+
+		// --- Header block (3 lines) ---
+		std::string mol_name = pmol->GetName();
+		os << mol_name << "\n";
+		os << "  HARLEM   \n";
+		os << "\n";
+
+		// --- Counts line ---
+		os << boost::format("%3d%3d  0  0  0  0  0  0  0  0999 V2000\n") % natoms % nbonds;
+
+		// --- Atom block ---
+		AtomIteratorMolecule aitr2(const_cast<HaMolecule*>(pmol));
+		for( HaAtom* aptr = aitr2.GetFirstAtom(); aptr; aptr = aitr2.GetNextAtom() )
+		{
+			if( at_seqn_map.count(aptr) == 0 ) continue;
+
+			double x = aptr->GetX_Ang();
+			double y = aptr->GetY_Ang();
+			double z = aptr->GetZ_Ang();
+			std::string symbol = aptr->GetStdSymbol();
+			boost::trim(symbol);
+
+			// Charge code: 0=none, 1=+3, 2=+2, 3=+1, 5=-1, 6=-2, 7=-3
+			int chg_code = 0;
+			double charge = aptr->tempf;
+			if(      fabs(charge - 3.0) < 0.01 ) chg_code = 1;
+			else if( fabs(charge - 2.0) < 0.01 ) chg_code = 2;
+			else if( fabs(charge - 1.0) < 0.01 ) chg_code = 3;
+			else if( fabs(charge + 1.0) < 0.01 ) chg_code = 5;
+			else if( fabs(charge + 2.0) < 0.01 ) chg_code = 6;
+			else if( fabs(charge + 3.0) < 0.01 ) chg_code = 7;
+
+			os << boost::format("%10.4f%10.4f%10.4f %-3s 0%3d  0  0  0  0  0  0  0  0  0  0\n")
+				% x % y % z % symbol % chg_code;
+		}
+
+		// --- Bond block ---
+		for( const BondRec& br : bond_list )
+		{
+			os << boost::format("%3d%3d%3d  0  0  0  0\n") % br.src % br.dst % br.type;
+		}
+
+		os << "M  END\n";
+		os << "$$$$\n";
+		mol_count++;
+	}
+
+	PrintLog(" MolSet::SaveSDFFile(): %d molecule(s) saved to %s\n", mol_count, filename);
+	return TRUE;
 }
 
 int MolSet::SaveOldHarlemFile(std::string filename, const AtomSaveOptions& opt)
