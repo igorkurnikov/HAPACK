@@ -29,6 +29,9 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["pytest", "numpy"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.scikit-build]
 wheel.packages = ["MOLSET/molset"]
 cmake.minimum-version = "3.18"
