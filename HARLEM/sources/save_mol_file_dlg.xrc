@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
+
+<object class="wxDialog" name="SaveMolFileDlgBase">
+    <title>Save Molecular File</title>
+    <centered>1</centered>
+    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+    <object class="wxBoxSizer">
+        <orient>wxVERTICAL</orient>
+
+        <!-- Row 1: Directory -->
+        <object class="sizeritem">
+            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+            <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxStaticText" name="IDC_DIR_LABEL">
+                        <label>Directory:</label>
+                    </object>
+                </object>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxTextCtrl" name="IDC_DIR_NAME">
+                        <size>250,-1</size>
+                    </object>
+                </object>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxButton" name="IDC_CHOOSE_DIR">
+                        <label>Choose Dir</label>
+                    </object>
+                </object>
+            </object>
+        </object>
+
+        <!-- Row 2: File list -->
+        <object class="sizeritem">
+            <flag>wxALIGN_CENTER|wxALL</flag>
+            <border>5</border>
+            <object class="wxListCtrl" name="IDC_FILE_LIST">
+                <size>400,120</size>
+                <style>wxLC_LIST|wxLC_NO_HEADER|wxSUNKEN_BORDER|wxLC_SORT_ASCENDING</style>
+            </object>
+        </object>
+
+        <!-- Row 3: File name + Save button -->
+        <object class="sizeritem">
+            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+            <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxStaticText" name="IDC_FILENAME_LABEL">
+                        <label>File Name</label>
+                    </object>
+                </object>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxTextCtrl" name="IDC_FILE_NAME">
+                        <size>250,-1</size>
+                    </object>
+                </object>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxButton" name="IDC_SAVE_FILE">
+                        <label>Save File</label>
+                    </object>
+                </object>
+            </object>
+        </object>
+
+        <!-- Row 4: File type choice -->
+        <object class="sizeritem">
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+            <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxStaticText" name="IDC_FILETYPE_LABEL">
+                        <label>File Type</label>
+                    </object>
+                </object>
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxChoice" name="IDC_FILE_TYPE">
+                    </object>
+                </object>
+            </object>
+        </object>
+
+        <!-- Row 5: Checkboxes in two columns -->
+        <object class="sizeritem">
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+            <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+
+                <!-- Left column -->
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                            <border>5</border>
+                            <object class="wxCheckBox" name="IDC_SAVE_TRANSFORMED">
+                                <label>Save Transformed</label>
+                            </object>
+                        </object>
+                        <object class="sizeritem">
+                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                            <border>5</border>
+                            <object class="wxCheckBox" name="IDC_SAVE_CONNECT">
+                                <label>Save Connectivity</label>
+                            </object>
+                        </object>
+                        <object class="sizeritem">
+                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                            <border>5</border>
+                            <object class="wxCheckBox" name="IDC_SAVE_FRAGMENTS">
+                                <label>Save Fragments</label>
+                                <checked>1</checked>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+
+                <!-- Right column -->
+                <object class="sizeritem">
+                    <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                    <border>5</border>
+                    <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                            <border>5</border>
+                            <object class="wxCheckBox" name="IDC_SAVE_AMBER_PDB">
+                                <label>Save AMBER PDB</label>
+                            </object>
+                        </object>
+                        <object class="sizeritem">
+                            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                            <border>5</border>
+                            <object class="wxCheckBox" name="IDC_SAVE_SEP_WAT_MOL">
+                                <label>Save Separate Water Molecules</label>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+
+            </object>
+        </object>
+
+    </object>
+</object>
+
+</resource>

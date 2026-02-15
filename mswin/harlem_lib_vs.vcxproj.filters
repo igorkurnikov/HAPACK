@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_1.cpp" />
+    <ClCompile Include="..\HARLEM\sources\save_mol_file_dlg_base.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_2.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_aux_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_ed_wdr.cpp" />
@@ -26,7 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\HARLEM\sources\ctrl_wx.h" />
+    <ClInclude Include="..\HARLEM\sources\ha_file_dlg1.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_1.h" />
+    <ClInclude Include="..\HARLEM\sources\save_mol_file_dlg_base.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_2.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_aux_1.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_ed_wdr.h" />
@@ -60,6 +63,8 @@
     <None Include="..\HARLEM\sources\ha_wx_res_mikola.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res_molflex.wdr" />
     <None Include="..\HARLEM\sources\ha_wx_res_wdr.xrc" />
+    <None Include="..\HARLEM\sources\save_mol_file_dlg.xrc" />
+    <None Include="..\HARLEM\sources\save_mol_file_dlg.fbp" />
     <None Include="..\HARLEM\sources\harlemwin.hlp" />
     <None Include="..\HARLEM\sources\harlem_i.ico" />
     <None Include="..\HARLEM\sources\osgview.i" />

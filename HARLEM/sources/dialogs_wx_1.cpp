@@ -69,6 +69,7 @@
 #include "ha_wx_aux_1.h"
 
 #include "dialogs_wx_1.h"
+#include "save_mol_file_dlg_base.h"
 #include "dialogs_wx_2.h"
 #include "qc_dialogs_wx.h"
 #include "ha_wx_res_wdr.h"
@@ -464,40 +465,26 @@ void ChooseMolFileDlg::OnClose(wxCloseEvent& event)
 // SaveMolFileDlg
 //----------------------------------------------------------------------------
 
-// WDR: event table for SaveMolFileDlg
-BEGIN_EVENT_TABLE(SaveMolFileDlg,HaFileDlg1)
-    EVT_BUTTON( IDC_SAVE_FILE, SaveMolFileDlg::OnSaveFile )
-END_EVENT_TABLE()
-
 SaveMolFileDlg::SaveMolFileDlg( MolSet* pmset_new, wxWindow *parent, wxWindowID id, const wxString &title,
     const wxPoint &position, const wxSize& size, long style ) :
-    HaFileDlg1( parent, id, title, position, size, style )
+    SaveMolFileDlgBase( parent, id, title, position, size, style )
 {
     pmset = pmset_new;
 
-    save_mol_file_dlg( this, TRUE );
-
-	file_types_ch = (wxChoice*) FindWindow(IDC_FILE_TYPE);
-	wxCheckBox* chk_box;
-	chk_box = (wxCheckBox*) FindWindow( IDC_SAVE_TRANSFORMED );
 	if(pmset->save_opt_default.save_transform)
-		chk_box->SetValue(true);
-	chk_box  = (wxCheckBox*) FindWindow( IDC_SAVE_CONNECT );
+		m_saveTransformed->SetValue(true);
 	if(pmset->save_opt_default.save_connect)
-		chk_box->SetValue(true);
-	chk_box  = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
+		m_saveConnect->SetValue(true);
 	if(pmset->save_opt_default.save_amber_pdb)
-		chk_box->SetValue(true);
-	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	if (pmset->save_opt_default.save_sep_solv_mol)
-		chk_box->SetValue(true);
+		m_saveAmberPdb->SetValue(true);
+	if(pmset->save_opt_default.save_sep_solv_mol)
+		m_saveSepWatMol->SetValue(true);
 
     FillFileTypes();
     wxString cur_dir = ::wxGetCwd();
-    wxTextCtrl* dir_name = (wxTextCtrl*) FindWindow( IDC_DIR_NAME );
-    dir_name->SetValue(cur_dir);
-     
-    OnChangeDir(); 
+    m_dirName->SetValue(cur_dir);
+
+    OnChangeDir();
 }
 
 const char* bmp_filters = "*.bmp";
@@ -541,29 +528,15 @@ void SaveMolFileDlg::FillFileTypes()
     file_types_ch->SetSelection(1);
 }
 
-// WDR: handler implementations for SaveMolFileDlg
-
-void SaveMolFileDlg::OnSaveFile( wxCommandEvent &event )
+void SaveMolFileDlg::OnSaveFileClicked( wxCommandEvent &event )
 {
-	wxCheckBox* chk_box;
+	pmset->save_opt_default.save_transform = m_saveTransformed->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_connect = m_saveConnect->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_amber_pdb = m_saveAmberPdb->IsChecked() ? TRUE : FALSE;
+	pmset->save_opt_default.save_sep_solv_mol = m_saveSepWatMol->IsChecked() ? TRUE : FALSE;
 
-	chk_box = (wxCheckBox*) FindWindow( IDC_SAVE_TRANSFORMED );
-	pmset->save_opt_default.save_transform = chk_box->IsChecked() ? TRUE : FALSE;
-	
-	chk_box   = (wxCheckBox*) FindWindow( IDC_SAVE_CONNECT );
-	pmset->save_opt_default.save_connect = chk_box->IsChecked() ? TRUE : FALSE;
-
-	chk_box   = (wxCheckBox*) FindWindow( IDC_SAVE_AMBER_PDB );
-	pmset->save_opt_default.save_amber_pdb = chk_box->IsChecked() ? TRUE : FALSE;
-
-	chk_box = (wxCheckBox*)FindWindow(IDC_SAVE_SEP_WAT_MOL);
-	pmset->save_opt_default.save_sep_solv_mol = chk_box->IsChecked() ? TRUE : FALSE;
-		
-    wxTextCtrl* file_name_edt =  (wxTextCtrl*) FindWindow( IDC_FILE_NAME );
-    wxString file_name = file_name_edt->GetValue();
-
-    wxTextCtrl* dir_name_edt = (wxTextCtrl*) FindWindow( IDC_DIR_NAME );
-    wxString dir_name = dir_name_edt->GetValue();
+    wxString file_name = m_fileName->GetValue();
+    wxString dir_name = m_dirName->GetValue();
 
     wxFileName fname_full;
     fname_full.Assign(dir_name,file_name);

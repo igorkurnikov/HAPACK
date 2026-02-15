@@ -38,43 +38,7 @@ class HaEmpiricalMod;
 class ProtonRedoxMod;
 class CrdSnapshot;
 
-//----------------------------------------------------------------------------
-// HaFileDlg1
-//----------------------------------------------------------------------------
-
-class HaFileDlg1: public wxDialog
-{
-public:
-    // constructors and destructors
-    HaFileDlg1( wxWindow *parent, wxWindowID id, const wxString &title,
-        const wxPoint& pos = wxDefaultPosition,
-        const wxSize& size = wxDefaultSize,
-        long style = wxDEFAULT_DIALOG_STYLE );
-
-	//virtual ~HaFileDlg1();
-
-	void OnClose(wxCloseEvent& event);
-   
-	wxChoice* file_types_ch; //!< choice box for file types choices
-    
-protected:
-    // WDR: member variable declarations for HaFileDlg1
-    int nsubdir; //!< number of subdirectories including .. and . listed in the ListCtrl
-
-protected:
-    // WDR: handler declarations for HaFileDlg1
-    void OnChangeFileType( wxCommandEvent &event );
-    void OnSelectFile( wxListEvent &event );
-	void OnActivateFile( wxListEvent &event );
-    void ChooseDir( wxCommandEvent &event );
-    void OnLoadFile( wxCommandEvent &event );
-
-    virtual void FillFileTypes(); //!< Fill File Types filters choice box
-    void OnChangeDir();   //!< Fill file list in the current directory
-
-private:
-    DECLARE_EVENT_TABLE()
-};
+#include "ha_file_dlg1.h"
 
 //----------------------------------------------------------------------------
 // ChooseMolFileDlg
@@ -121,7 +85,9 @@ private:
 // SaveMolFileDlg
 //----------------------------------------------------------------------------
 
-class SaveMolFileDlg: public HaFileDlg1
+#include "save_mol_file_dlg_base.h"
+
+class SaveMolFileDlg: public SaveMolFileDlgBase
 {
 public:
     // constructors and destructors
@@ -132,21 +98,13 @@ public:
 
 	MolSet* pmset;
 
-    // WDR: method declarations for SaveMolFileDlg
 	virtual bool TransferDataToWindow();
 	virtual bool TransferDataFromWindow();
-    
+
 protected:
-    // WDR: member variable declarations for SaveMolFileDlg
-    
-protected:
-    // WDR: handler declarations for SaveMolFileDlg
-    void OnSaveFile( wxCommandEvent &event );
+    virtual void OnSaveFileClicked( wxCommandEvent &event ) override;
 
     virtual void FillFileTypes(); //!< Fill File Types filters choice box
-    
-private:
-    DECLARE_EVENT_TABLE()
 };
 
 //----------------------------------------------------------------------------
