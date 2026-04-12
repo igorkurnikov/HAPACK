@@ -1,7 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:forums.wxwidgets.org)"
+      "WebFetch(domain:forums.wxwidgets.org)",
+      "Bash(git -C /d/MYPROG/HAPACK ls-files)",
+      "Bash(git -C \"d:\\\\MYPROG\\\\HAPACK\" log --oneline -5)",
+      "Bash(git -C \"d:\\\\MYPROG\\\\HAPACK\" ls-files)",
+      "Bash(git config:*)",
+      "Bash(git -C \"d:\\\\MYPROG\\\\HAPACK\" ls-files -- \"*.h\" \"*.cpp\" \"*.fbp\" \"*.wdr\")",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(ls:*)",
+      "Bash(git ls-files:*)",
+      "Bash(test:*)",
+      "Bash(git -C \"d:/MYPROG/HAPACK\" ls-files)",
+      "Bash(git grep:*)"
     ]
   }
 }

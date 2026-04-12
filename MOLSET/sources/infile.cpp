@@ -1089,11 +1089,11 @@ int MolSet::LoadHINFile(std::string fname, const AtomLoadOptions& opt_par )
 }
 
 int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
-{	
+{
 	MolEditor* p_mol_editor = this->GetMolEditor(true);
- 
+
 	if( !is_arg.good() )
-	{   
+	{
         PrintLog("Error in MolSet::LoadXYZStream() \n");
         PrintLog("Can not read from input stream \n");
         return( FALSE );
@@ -1104,60 +1104,127 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 	using boost::lexical_cast;
 	using std::string;
 
-    int na;
+    int na = 0;
     HaAtom* aptr;
-    int i;
 	std::string line;
 
-	HaMolecule* pMol = AddNewMolecule();
-	pMol->SetObjName(opt.GetDefaultMolName().c_str() );
+	HaMolecule* pMol = NULL;
 	HaChain*   pch_cur  = NULL;
-	HaResidue* pres_cur = NULL; 
+	HaResidue* pres_cur = NULL;
 
 	AtomGroup atoms_new;
-	std::vector<std::vector<int> > bonds; 
 	std::string msg;
+
+	int mol_idx = 0;
+	int nat_read = 0;     // atoms read for current molecule
+	int nat_res = 0;
+	int res_idx = 1;
+	int iat = 0;
+	int idx_chk  = -1;
+	bool expect_comment = false;  // next line is comment line after atom count
+
+	// Helper lambda to finalize the current molecule
+	auto finalize_mol = [&]() {
+		if( pMol && pMol->GetNAtoms() > 0 )
+		{
+			p_mol_editor->CreateCovBonds(pMol);
+			if( opt.UniqueAtNames() )
+			{
+				pMol->SetUniqueAtomNames();
+			}
+		}
+	};
+
+	// Helper lambda to start a new molecule
+	auto start_new_mol = [&](int natoms) {
+		finalize_mol();
+		mol_idx++;
+		pMol = AddNewMolecule();
+		string mol_name = opt.GetDefaultMolName();
+		if( mol_idx > 1 )
+		{
+			mol_name += "_" + lexical_cast<string>(mol_idx);
+		}
+		pMol->SetObjName(mol_name.c_str());
+		pres_cur = pMol->AddChainAndResidue();
+		pch_cur  = pres_cur->GetHostChain();
+		na = natoms;
+		nat_read = 0;
+		nat_res = 0;
+		res_idx = 1;
+		iat = 0;
+		atoms_new.clear();
+	};
 
 	try
 	{
-		pres_cur = pMol->AddChainAndResidue();
-		pch_cur  = pres_cur->GetHostChain();
-		int nat_res = 0;
-		int res_idx = 1;
-		int iat = 0;
-		int idx_line = -1;
-		int idx_chk  = -1;
-		int na_max = 10000000;
-
 		std::vector<string> str_arr;
 
 		while(1)
-		{   
+		{
 			std::getline(is_arg,line);
 			if( is_arg.fail() ) break;
-			idx_line++;
 
 			boost::trim(line);
+			if( line.empty() ) continue;
+
 			boost::split(str_arr, line, boost::is_any_of("\t "),boost::token_compress_on);
-			
+
 			if( str_arr.size() == 0 ) continue;
-			if( str_arr.size() < 3  ) 
+
+			// Skip comment line after atom count
+			// Only skip if line does not look like atom data (i.e. not parseable as coordinates)
+			if( expect_comment )
 			{
-				if( idx_line == 0 && harlem::IsInt(str_arr[0])) 
+				expect_comment = false;
+				// Check if this line looks like atom data rather than a comment.
+				// If the line has enough numeric fields to be atom coords, don't skip it.
+				bool looks_like_atom_data = false;
+				if( str_arr.size() >= 3 )
 				{
-					na = lexical_cast<int>( str_arr[0]);
+					// Check common atom data patterns: "x y z" or "sym x y z" or "idx elem x y z ..."
+					if( IsFloat(str_arr[0]) && IsFloat(str_arr[1]) && IsFloat(str_arr[2]) )
+						looks_like_atom_data = true;
+					else if( str_arr.size() >= 4 && IsFloat(str_arr[1]) && IsFloat(str_arr[2]) && IsFloat(str_arr[3]) )
+						looks_like_atom_data = true;
+					else if( str_arr.size() >= 5 && IsFloat(str_arr[2]) && IsFloat(str_arr[3]) && IsFloat(str_arr[4]) )
+						looks_like_atom_data = true;
+					else if( str_arr.size() >= 6 && IsFloat(str_arr[3]) && IsFloat(str_arr[4]) && IsFloat(str_arr[5]) )
+						looks_like_atom_data = true;
 				}
-				continue;
+				if( !looks_like_atom_data )
+					continue;
+				// else fall through to parse as atom data
 			}
 
-			int idx_check;
+			// Check for atom count line (single integer, starts new molecule block)
+			// This triggers when: (a) first line of file, or (b) we've read all expected atoms
+			if( str_arr.size() == 1 && IsInt(str_arr[0]) )
+			{
+				int new_na = lexical_cast<int>( str_arr[0] );
+				if( new_na > 0 )
+				{
+					start_new_mol(new_na);
+					expect_comment = true;
+					continue;
+				}
+			}
+
+			// If no molecule started yet (file without atom count header), create one
+			if( !pMol )
+			{
+				start_new_mol(0);
+			}
+
+			if( str_arr.size() < 3  ) continue;
+
 			int elem = -1;
 			int ff_num = -1;
 			std::string ats;
 			double xpos = -9999.00;
 			double ypos = -9999.00;
 			double zpos = -9999.00;
-			
+
 			if( str_arr.size() == 3 )
 			{
 				if( IsFloat(str_arr[0]) && IsFloat(str_arr[1]) && IsFloat(str_arr[2]) )
@@ -1177,12 +1244,12 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 			else if( str_arr.size() >= 4 )
 			{
 				if( IsFloat(str_arr[1]) && IsFloat(str_arr[2]) && IsFloat(str_arr[3]) )
-				{	
+				{
 					iat++;
 					xpos = lexical_cast<double>(str_arr[1]);
 					ypos = lexical_cast<double>(str_arr[2]);
 					zpos = lexical_cast<double>(str_arr[3]);
-					if( IsInt(str_arr[0]) )  
+					if( IsInt(str_arr[0]) )
 					{
 						elem = lexical_cast<int>(str_arr[0]);
 						ats = HaAtom::GetStdSymbolElem(elem) + lexical_cast<string>(iat);
@@ -1204,7 +1271,7 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 					xpos = lexical_cast<double>(str_arr[0]);
 					ypos = lexical_cast<double>(str_arr[1]);
 					zpos = lexical_cast<double>(str_arr[2]);
-					if( IsInt(str_arr[3]) ) 
+					if( IsInt(str_arr[3]) )
 					{
 						elem = lexical_cast<int>(str_arr[3]);
 						ats = HaAtom::GetStdSymbolElem(elem) + lexical_cast<string>(iat);
@@ -1222,7 +1289,7 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 				}
 				else if( str_arr.size() >= 5 && !IsFloat(str_arr[0]) && !IsFloat(str_arr[1]) )
 				{
-					if( IsFloat( str_arr[2]) && IsFloat(str_arr[3]) && IsFloat(str_arr[4]) ) 
+					if( IsFloat( str_arr[2]) && IsFloat(str_arr[3]) && IsFloat(str_arr[4]) )
 					{
 						iat++;
 						xpos = lexical_cast<double>(str_arr[2]);
@@ -1231,7 +1298,7 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 						if( IsInt( str_arr[0] ) )
 						{
 							idx_chk = lexical_cast<int>( str_arr[0] );
-							if( IsInt(str_arr[1]) ) 
+							if( IsInt(str_arr[1]) )
 							{
 								elem = lexical_cast<int>( str_arr[1] );
 								ats = HaAtom::GetStdSymbolElem(elem) + lexical_cast<string>(iat);
@@ -1265,9 +1332,10 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 			}
 
 			if( elem < 0 ) continue;
+			nat_read++;
 			nat_res++;
 
-			if(nat_res >= 100) 
+			if(nat_res >= 100)
 			{
 				res_idx++;
 				pres_cur = pch_cur->AddResidue(res_idx);
@@ -1283,20 +1351,11 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 			aptr->SetX_Ang( xpos );
 			aptr->SetY_Ang( ypos );
 			aptr->SetZ_Ang( zpos );
-			
+
 			if( ff_num > 0 )
 			{
 				aptr->SetFFSymbol( lexical_cast<string>(ff_num) );
 			}
-				
-	//		int idx_b;
-	//		for(;;)
-	//		{
-	//			is_line >> idx_b;
-	//			if( is_line.fail() ) break;
-	//			if( bonds.empty() ) bonds.resize(na);
-	//			bonds[i].push_back(idx_b);
-	//		}
 		}
 	}
 	catch( std::exception ex )
@@ -1305,33 +1364,9 @@ int MolSet::LoadXYZStream( std::istream& is_arg, const AtomLoadOptions& opt )
 		PrintLog( ex.what() );
 	}
 
-	//int j;
-	//if( !bonds.empty() )
-	//{
-	//	for(i = 0; i < na; i++)
-	//	{
-	//		for(j = 0; j < bonds[i].size(); j++)
-	//		{
-	//			int idx2 = bonds[i][j];
-	//			if( idx2 > na || idx2 < 1 ) continue;
-	//			HaAtom* aptr1 = atoms_new[i];
-	//			HaAtom* aptr2 = atoms_new[idx2-1];
-	//			if( !aptr1->IsBonded(*aptr2) )
-	//			{
-	//				AddBond(aptr1,aptr2);
-	//			}
-	//		}
-	//	}
-	//}
-	
-//	if( p_opt->ToCalcBonds() && bonds.empty() )
-//	{
-		p_mol_editor->CreateCovBonds(pMol);
-//	}
-	if( opt.UniqueAtNames() )
-	{
-		pMol->SetUniqueAtomNames();
-	}
+	// Finalize the last molecule
+	finalize_mol();
+
 	return( TRUE );
 }
 

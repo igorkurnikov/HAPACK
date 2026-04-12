@@ -17,6 +17,7 @@ DATA_TYR_PDB = os.path.join(REPO_ROOT, "examples", "VRML", "tyr.pdb")
 DATA_CROWN_SDF = os.path.join(REPO_ROOT, "MORT_LIB", "python", "crown.sdf")
 DATA_PEPT_XYZ = os.path.join(REPO_ROOT, "examples", "MD", "PEPT3", "pept_3.xyz")
 DATA_LIG_HIN = os.path.join(REPO_ROOT, "examples", "MD", "EDIT_MUT_MAP", "1b.hin")
+DATA_MULTI_XYZ = os.path.join(REPO_ROOT, "tests", "data", "multi_mol.xyz")
 DATA_TYK2_SDF = os.path.join(REPO_ROOT, "tests", "data", "tyk2_ligands.sdf")
 
 
@@ -93,6 +94,18 @@ class TestLoadXYZ:
         assert result, f"LoadXYZFile failed for {DATA_PEPT_XYZ}"
         assert mset.GetNAtoms() == 43
         assert mset.GetNMol() == 1
+
+    def test_load_multi_mol_xyz(self):
+        mset = new_molset()
+        result = mset.LoadXYZFile(DATA_MULTI_XYZ)
+        assert result, f"LoadXYZFile failed for {DATA_MULTI_XYZ}"
+        assert mset.GetNMol() == 3
+        mol1 = mset.GetMolByIdx(0)
+        mol2 = mset.GetMolByIdx(1)
+        mol3 = mset.GetMolByIdx(2)
+        assert mol1.GetNAtom() == 3   # water
+        assert mol2.GetNAtom() == 5   # methane
+        assert mol3.GetNAtom() == 3   # water
 
 
 class TestFetchFile:

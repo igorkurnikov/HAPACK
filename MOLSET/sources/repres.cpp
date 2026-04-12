@@ -840,6 +840,8 @@ void HaMolView::DisplayDotSurfaces()
 	{
 		if( (*oitr)->GetObjType() != OBJ3D_DOT_SURFACE )
 			continue;
+		if( !(*oitr)->IsDisplayed() )
+			continue;
 
 		DotStruct* ptr = (DotStruct*)(*oitr);
 
