@@ -37,7 +37,7 @@ public:
 	bool IsConnected() { return connect_flag; }
 	void SetConnected(const bool status) { connect_flag = status; } 
 
-	bool IsDisplayed() { return (displayed_flag) ; }
+	bool IsDisplayed() const { return (displayed_flag) ; }
 	void SetDisplayed(const bool status) { displayed_flag = status; }
 
 	virtual const char* GetObjName() const { return name.c_str(); } 

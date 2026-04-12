@@ -51,6 +51,7 @@
 
 #include "dialogs_wx_1.h"
 #include "dialogs_wx_2.h"
+#include "dialogs_wx_3.h"
 #include "mm_dialogs_wx.h"
 #include "qc_dialogs_wx.h"
 #include "wx_prot_redox_dlg.h"

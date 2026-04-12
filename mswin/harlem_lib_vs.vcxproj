@@ -208,6 +208,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\save_mol_file_dlg_base.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_2.cpp" />
+    <ClCompile Include="..\HARLEM\sources\dialogs_wx_3.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_aux_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\ha_wx_ed_wdr.cpp" />
@@ -244,6 +245,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_1.h" />
     <ClInclude Include="..\HARLEM\sources\save_mol_file_dlg_base.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_2.h" />
+    <ClInclude Include="..\HARLEM\sources\dialogs_wx_3.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_aux_1.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_ed_wdr.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_res_2_wdr.h" />

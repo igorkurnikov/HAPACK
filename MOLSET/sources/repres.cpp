@@ -187,7 +187,7 @@ void HaMolView::DisplayLabels()
     AtomIteratorMolSet aitr(this->GetMolSet());
 	for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 	{
-        if( !aptr->label.empty() )
+        if( !aptr->label.empty() && aptr->GetHostMol()->IsDisplayed() )
         {   
 			chain=aptr->GetHostChain();
 			group=aptr->GetHostRes();

@@ -355,16 +355,16 @@ HaMolView::DisplaySpaceFill()
 		AtomIteratorMolSet aitr(this->GetMolSet());
 		for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
-		   if( aptr->IsDrawSphere())
+		   if( aptr->IsDrawSphere() && aptr->GetHostMol()->IsDisplayed() )
 			   pCanv->ClipSphere(aptr->x,aptr->y,aptr->z,aptr->irad,aptr->col);
 		}
-   } 
-   else 
+   }
+   else
    {
 		AtomIteratorMolSet aitr(this->GetMolSet());
 		for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
-	       if( aptr->IsDrawSphere() )
+	       if( aptr->IsDrawSphere() && aptr->GetHostMol()->IsDisplayed() )
 		      pCanv->DrawSphere(aptr->x,aptr->y,aptr->z,aptr->irad,aptr->col);
 		}
    }
@@ -386,21 +386,21 @@ void HaMolView::DisplayWireframe()
 		for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond()) // Plot Bonds
 		{
 			if( bptr->IsToDraw() )
-			{   
+			{
 				s = bptr->srcatom; d = bptr->dstatom;
-				if( !bptr->col ) 
-				{   
+				if( !bptr->col )
+				{
 					sc = s->col;  dc = d->col;
-				} 
+				}
 				else
 				{
 					sc = dc = bptr->col;
 				}
 
 //				PrintLog("Draw bond with color idx %d-%d \n",sc, dc);
-				
+
 				if( bptr->flag&WireFlag )
-				{   
+				{
 					if (bptr->IsDouble())
 					{
 						pCanv->ClipTwinVector(s->x - 2, s->y - 2,  s->z - 2, d->x - 2, d->y - 2 , d->z - 2, sc, dc);
@@ -415,18 +415,18 @@ void HaMolView::DisplayWireframe()
 					{
 						pCanv->ClipTwinVector(s->x, s->y, s->z, d->x, d->y, d->z, sc, dc);
 					}
-				} 
+				}
 				else if( bptr->flag&CylinderFlag )
-				{   
+				{
 					if( bptr->irad>0 )
-					{  
+					{
 						pCanv->ClipCylinder(s->x,s->y,s->z,d->x,d->y,d->z,
 							sc,dc,bptr->irad);
-					} 
-					else 
+					}
+					else
 						pCanv->ClipTwinVector(s->x,s->y,s->z,d->x,d->y,d->z,
 						sc,dc);
-				} 
+				}
 				else /* bptr->flag & DashFlag */
 				{
 					pCanv->ClipDashVector(s->x, s->y, s->z, d->x, d->y, d->z, sc, dc);
@@ -438,7 +438,7 @@ void HaMolView::DisplayWireframe()
 		AtomIteratorMolSet aitr(this->GetMolSet());     // Plot non-bonded atoms as crosses
         for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
-			if( aptr->Selected() && aptr->GetNBonds() == 0 )
+			if( aptr->Selected() && aptr->GetNBonds() == 0 && aptr->GetHostMol()->IsDisplayed() )
 			{
 				size= (int)(1.0*Scale); 
 				pCanv->ClipTwinVector(aptr->x - size, aptr->y, aptr->z,
@@ -453,34 +453,34 @@ void HaMolView::DisplayWireframe()
 	else
 	{
 		BondIteratorMolSet bitr(GetMolSet());
-		for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond()) 
+		for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond())
 		{
 			if( bptr->IsToDraw() )
-			{   
+			{
 				s = bptr->srcatom; d = bptr->dstatom;
 				if( !bptr->col )
-				{   
+				{
 					sc = s->col;  dc = d->col;
-				} 
-				else 
+				}
+				else
 					sc = dc = bptr->col;
-				
+
 				if( bptr->flag&WireFlag )
-				{      
+				{
 					pCanv->DrawTwinVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
-				} 
+				}
 				else if( bptr->flag&CylinderFlag )
-				{   
+				{
 					if( bptr->irad>0 )
-					{  
+					{
 						pCanv->DrawCylinder(s->x,s->y,s->z,d->x,d->y,d->z,
 							sc,dc,bptr->irad);
-					} 
-					else 
+					}
+					else
 						pCanv->DrawTwinVector(s->x,s->y,s->z,d->x,d->y,d->z,
 						sc,dc);
-				} 
-				else 
+				}
+				else
 					pCanv->ClipDashVector(s->x,s->y,s->z,d->x,d->y,d->z,sc,dc);
 			}
 		}
@@ -489,7 +489,7 @@ void HaMolView::DisplayWireframe()
 		AtomIteratorMolSet aitr(this->GetMolSet());    // Plot non-bonded atoms as crosses
         for(aptr = aitr.GetFirstAtom(); aptr; aptr = aitr.GetNextAtom())
 		{
-			if( aptr->Selected() && aptr->GetNBonds() )
+			if( aptr->Selected() && aptr->GetNBonds() && aptr->GetHostMol()->IsDisplayed() )
 			{
 				size= 10; 
 				pCanv->DrawTwinVector(aptr->x - size, aptr->y , aptr->z -size,
@@ -541,14 +541,14 @@ void HaMolView::DisplayDoubleBonds()
     int k,flag;
 	
 	BondIteratorMolSet bitr(GetMolSet());
-	for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond()) 
+	for(bptr = bitr.GetFirstBond();bptr;bptr = bitr.GetNextBond())
         if( bptr->IsToDraw() )
-        {   
+        {
 			s = bptr->srcatom; d = bptr->dstatom;
-            if( !bptr->col ) 
-            {   
+            if( !bptr->col )
+            {
 				sc = s->col;  dc = d->col;
-            } 
+            }
 			else sc = dc = bptr->col;
 			
             flag = (bptr->flag&CylinderFlag) && (bptr->irad>4);
@@ -709,7 +709,7 @@ void HaMolView::DisplayHBonds()
 	{
 		HaHBond* phbond = (HaHBond*) (&(*bitr));
 		if( (*bitr).IsToDraw() )
-		{   
+		{
 //				s = phbond->srcCA; d = phbond->dstCA;
 //				if( !s || !d ) continue;
 			d = (*bitr).src;
@@ -1052,7 +1052,8 @@ void HaMolView::RenderFrame()
 			ChainIteratorMolSet chitr( this->GetMolSet() );
 			for( chain = chitr.GetFirstChain(); chain; chain = chitr.GetNextChain() )
 			{
-				if( !chain->res_map.empty() ) DisplayRibbon( chain );
+				if( !chain->res_map.empty() && chain->GetHostMol()->IsDisplayed() )
+					DisplayRibbon( chain );
 			}
 		}
 		

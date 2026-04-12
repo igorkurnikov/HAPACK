@@ -172,37 +172,7 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-class Object3DDlgWX : public wxDialog
-{
-// Construction
-public:
-	Object3DDlgWX(HaMolView* new_pview, wxWindow *parent);   // standard constructor
-        virtual ~Object3DDlgWX();
-
-    static int dlg_open;
-
-	virtual bool TransferDataToWindow();
-
-// WDR: method declarations for Object3DDlgWX 
-
-protected:
-// WDR: member variable declarations for Object3DDlgWX 
-	HaMolView* pview;
-	std::vector<Object3D*> obj_vec;
-
-	void DDX_obj_list();
-
-// WDR: handler declarations for Object3DDlgWX 
-	void OnSetTransp(wxCommandEvent &event );
-	void OnDelete(wxCommandEvent &event );
-	void OnDisplay(wxCommandEvent &event );
-	void OnUnDisplay(wxCommandEvent &event );
-	void OnUpdate(wxCommandEvent &event );
-	void OnClose(wxCloseEvent &event);
-
-private:
-	DECLARE_EVENT_TABLE()
-};
+// Object3DDlgWX moved to dialogs_wx_3.h
 
 class SolvateDlgWX : public wxDialog
 {

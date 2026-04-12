@@ -338,7 +338,7 @@ wxSizer *object3d_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item3 = new wxStaticText( parent, ID_TEXT, wxT("List of Objects:"), wxDefaultPosition, wxDefaultSize, 0 );
     item2->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxString strs4[] = 
+    wxString strs4[] =
     {
         wxT("ListItem")
     };

@@ -241,9 +241,11 @@ void HaBond::DrawCylinder(double new_rad)
 //  irad = (int)(Scale*rad);
 }
 
-int HaBond::IsToDraw() const 
-{ 
-	return (flag & DrawBondFlag); 
+int HaBond::IsToDraw() const
+{
+	if( !(flag & DrawBondFlag) ) return 0;
+	if( srcatom && !srcatom->GetHostMol()->IsDisplayed() ) return 0;
+	return 1;
 }
 
 HaHBond::HaHBond()
@@ -379,9 +381,12 @@ int HaHBond::IsToDrawDashed() const
 	return (flag & DashFlag);
 }
 
-int HaHBond::IsToDraw() const 
-{ 
-	return (flag & DrawBondFlag); 
+int HaHBond::IsToDraw() const
+{
+	if( !(flag & DrawBondFlag) ) return 0;
+	if( src && !src->GetHostMol()->IsDisplayed() ) return 0;
+	if( dst && !dst->GetHostMol()->IsDisplayed() ) return 0;
+	return 1;
 }
 
 int HaHBond::GetHCoord(Vec3D& pt)
