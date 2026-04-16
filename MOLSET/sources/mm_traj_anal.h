@@ -132,12 +132,19 @@ public:
 	enum MDAnalScriptStages { SCRIPT_CONTINUE = 0, SCRIPT_START = 1, SCRIPT_STOP = 2}; //!< Stages of MD Analysis Script execution
 	enum ReadPBoxMode  { PBOX_DO_NOT_READ = 0,  PBOX_READ = 1,  PBOX_READ_IF_SET = 2 };  //!< Modes to read periodical boundary information from MD trajectory
 	enum WritePBoxMode { PBOX_DO_NOT_WRITE = 0, PBOX_WRITE = 1, PBOX_WRITE_IF_SET = 2 }; //!< Modes to read periodical boundary information from MD trajectory
+	enum TrajFormat    { TRAJ_AMBER_ASCII = 0, TRAJ_NETCDF = 1 };  //!< Trajectory file format
 
-	int AnalyzeTrajectory(int sync = TRUE ); //!< playback and analyze MD trajectory ( if(!sync) - asynchronously in a separate thread) 
+	int AnalyzeTrajectory(int sync = TRUE ); //!< playback and analyze MD trajectory ( if(!sync) - asynchronously in a separate thread)
 	int AnalyzeTrajectoryInternal();  //!< Playback and analyze MD trajectory
 
 	int OpenAmberTrajFilesToRead();   //!< Open AMBER trajectory files (crd,vel,ene) to prepare reading trajectory
 	int CloseAmberTrajFiles();    //!< Close AMBER trajectory files if open
+
+	int OpenMDTrajFile();    //!< Open trajectory file via mdtraj (supports NetCDF .nc and other formats)
+	int ReadMDTrajPoint();   //!< Read next trajectory point via mdtraj
+	int CloseMDTrajFile();   //!< Close mdtraj trajectory iterator
+
+	TrajFormat DetectTrajFormat() const; //!< Detect trajectory format from file extension
 
 	int BuildTrajIndex();  //!< Build index of MD trajectory points for fast access
 	int ReadTrajPoint();  //!< Read next MD trajectory point 
@@ -200,7 +207,11 @@ protected:
 	int write_pbox;    //!< Write periodical boundary info 0 - do not write, 1 - write , 2 - write if molecular set has a periodical box
 	int wrap_crd;      //!< wrap coordinates into periodical box upon reading 
 	
-	std::vector<fpos_t> pt_pos; //!< Starting position of MD points in MD trajectory file 
+	std::vector<fpos_t> pt_pos; //!< Starting position of MD points in MD trajectory file
+
+	TrajFormat traj_format;      //!< Current trajectory format
+	int mdtraj_n_frames;         //!< Total number of frames in mdtraj trajectory
+	int mdtraj_frame_idx;        //!< Current frame index for mdtraj reading (0-based)
 };
 
 namespace swig {

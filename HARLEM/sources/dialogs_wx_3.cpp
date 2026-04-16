@@ -54,52 +54,52 @@ void Object3DDlgWX::CreateControls()
 	leftSizer->Add( new wxStaticText(this, wxID_ANY, "Molecules and Objects:"),
 		0, wxALIGN_LEFT | wxALL, 5 );
 
-	obj_list_ctrl = new wxListCtrl( this, IDC_OBJ3D_OBJ_LIST,
+	obj_list_ctrl = new wxListCtrl( this, wxID_ANY,
 		wxDefaultPosition, wxSize(280, 200),
 		wxLC_REPORT | wxLC_NO_HEADER );
 	obj_list_ctrl->InsertColumn(0, "Name", wxLIST_FORMAT_LEFT, 260);
 	leftSizer->Add( obj_list_ctrl, 1, wxGROW | wxALL, 5 );
 
-	leftSizer->Add( new wxTextCtrl(this, IDC_OBJ3D_NAME, "",
-		wxDefaultPosition, wxSize(80, -1)),
-		0, wxGROW | wxALL, 5 );
+	name_ctrl = new wxTextCtrl(this, wxID_ANY, "",
+		wxDefaultPosition, wxSize(80, -1));
+	leftSizer->Add( name_ctrl, 0, wxGROW | wxALL, 5 );
 
 	mainSizer->Add( leftSizer, 1, wxGROW | wxALL, 0 );
 
 	// Right side: buttons
 	wxBoxSizer *btnSizer = new wxBoxSizer( wxVERTICAL );
 
-	btnSizer->Add( new wxButton(this, IDC_OBJ3D_DELETE, "Delete"),
-		0, wxALIGN_CENTER | wxALL, 5 );
-	btnSizer->Add( new wxButton(this, IDC_OBJ3D_DISPLAY, "Display"),
-		0, wxALIGN_CENTER | wxALL, 5 );
-	btnSizer->Add( new wxButton(this, IDC_OBJ3D_UNDISPLAY, "Undisplay"),
-		0, wxALIGN_CENTER | wxALL, 5 );
-	btnSizer->Add( new wxButton(this, IDC_OBJ3D_SET_TRANSP, "Set Transparency"),
-		0, wxALIGN_CENTER | wxALL, 5 );
+	auto* deleteBtn = new wxButton(this, wxID_ANY, "Delete");
+	btnSizer->Add( deleteBtn, 0, wxALIGN_CENTER | wxALL, 5 );
+	auto* displayBtn = new wxButton(this, wxID_ANY, "Display");
+	btnSizer->Add( displayBtn, 0, wxALIGN_CENTER | wxALL, 5 );
+	auto* undisplayBtn = new wxButton(this, wxID_ANY, "Undisplay");
+	btnSizer->Add( undisplayBtn, 0, wxALIGN_CENTER | wxALL, 5 );
+	auto* setTranspBtn = new wxButton(this, wxID_ANY, "Set Transparency");
+	btnSizer->Add( setTranspBtn, 0, wxALIGN_CENTER | wxALL, 5 );
 
 	btnSizer->Add( new wxStaticText(this, wxID_ANY, "Transparency:"),
 		0, wxALIGN_CENTER | wxALL, 5 );
-	btnSizer->Add( new wxTextCtrl(this, IDC_OBJ3D_TRANSP, "",
-		wxDefaultPosition, wxSize(80, -1)),
-		0, wxALIGN_CENTER | wxALL, 5 );
+	transp_ctrl = new wxTextCtrl(this, wxID_ANY, "",
+		wxDefaultPosition, wxSize(80, -1));
+	btnSizer->Add( transp_ctrl, 0, wxALIGN_CENTER | wxALL, 5 );
 
 	mainSizer->Add( btnSizer, 0, wxALIGN_CENTER | wxALL, 5 );
 
 	topSizer->Add( mainSizer, 1, wxGROW | wxALL, 5 );
 
-	topSizer->Add( new wxButton(this, IDC_OBJ3D_UPDATE, "Update Object List"),
-		0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
+	auto* updateBtn = new wxButton(this, wxID_ANY, "Update Object List");
+	topSizer->Add( updateBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5 );
 
 	SetSizer( topSizer );
 	topSizer->SetSizeHints( this );
 
-	// Bind events (no event table needed)
-	Bind(wxEVT_BUTTON, &Object3DDlgWX::OnSetTransp, this, IDC_OBJ3D_SET_TRANSP);
-	Bind(wxEVT_BUTTON, &Object3DDlgWX::OnDelete,    this, IDC_OBJ3D_DELETE);
-	Bind(wxEVT_BUTTON, &Object3DDlgWX::OnDisplay,   this, IDC_OBJ3D_DISPLAY);
-	Bind(wxEVT_BUTTON, &Object3DDlgWX::OnUnDisplay,  this, IDC_OBJ3D_UNDISPLAY);
-	Bind(wxEVT_BUTTON, &Object3DDlgWX::OnUpdate,    this, IDC_OBJ3D_UPDATE);
+	// Bind events directly to controls
+	setTranspBtn->Bind(wxEVT_BUTTON, &Object3DDlgWX::OnSetTransp, this);
+	deleteBtn->Bind(wxEVT_BUTTON, &Object3DDlgWX::OnDelete, this);
+	displayBtn->Bind(wxEVT_BUTTON, &Object3DDlgWX::OnDisplay, this);
+	undisplayBtn->Bind(wxEVT_BUTTON, &Object3DDlgWX::OnUnDisplay, this);
+	updateBtn->Bind(wxEVT_BUTTON, &Object3DDlgWX::OnUpdate, this);
 	Bind(wxEVT_CLOSE_WINDOW, &Object3DDlgWX::OnClose, this);
 }
 
@@ -140,10 +140,12 @@ Object3DDlgWX::DDX_obj_list()
 		idx++;
 	}
 
-	// Add other 3D objects
+	// Add other 3D objects (skip molecules — already listed above)
 	std::list<Object3D*>::iterator oitr;
 	for(oitr = (pmset->ViewObjects).begin(); oitr != (pmset->ViewObjects).end(); oitr++)
 	{
+		if(dynamic_cast<HaMolecule*>(*oitr) != NULL)
+			continue;
 		obj_list_ctrl->InsertItem(idx, (*oitr)->GetObjName());
 		if( !(*oitr)->IsDisplayed() )
 		{
@@ -163,8 +165,7 @@ void Object3DDlgWX::OnClose(wxCloseEvent &event )
 void Object3DDlgWX::OnSetTransp(wxCommandEvent &event )
 {
 	double transp;
-	wxTextCtrl* edit_transp = (wxTextCtrl*) FindWindow(IDC_OBJ3D_TRANSP);
-	wxString str = edit_transp->GetValue();
+	wxString str = transp_ctrl->GetValue();
 	int ires = str.ToDouble(&transp);
 
 	if( !ires) return;

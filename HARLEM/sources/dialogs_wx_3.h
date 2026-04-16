@@ -31,6 +31,8 @@ protected:
 	std::vector<Object3D*> obj_vec;
 
 	wxListCtrl* obj_list_ctrl;
+	wxTextCtrl* name_ctrl;
+	wxTextCtrl* transp_ctrl;
 
 	void CreateControls();
 	void DDX_obj_list();

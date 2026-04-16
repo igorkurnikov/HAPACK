@@ -76,6 +76,9 @@ MDTrajAnalMod::MDTrajAnalMod(HaMolMechMod* p_mm_mod_new)
 	SetReadPBox(PBOX_READ_IF_SET);
 	SetWritePBox(PBOX_WRITE_IF_SET);
 	SetWrapCrd(FALSE);
+	traj_format = TRAJ_AMBER_ASCII;
+	mdtraj_n_frames = 0;
+	mdtraj_frame_idx = 0;
 }
 
 MDTrajAnalMod::~MDTrajAnalMod()
@@ -123,10 +126,20 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 	HaVec_double crd_init;
 	pmset->SaveCrdToArray(crd_init);
 
+	traj_format = DetectTrajFormat();
+
 	try
 	{
-		int ires = OpenAmberTrajFilesToRead();
-		if(!ires) throw std::runtime_error("Error to open MD trajectory"); 
+		int ires;
+		if(traj_format == TRAJ_NETCDF)
+		{
+			ires = OpenMDTrajFile();
+		}
+		else
+		{
+			ires = OpenAmberTrajFilesToRead();
+		}
+		if(!ires) throw std::runtime_error("Error to open MD trajectory");
 		files_opened = true;
 
 		int i,j;
@@ -240,7 +253,11 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 	catch( const std::exception& ex )
 	{
 		p_mm_mod->to_stop_simulations = TRUE;
-		if( files_opened ) CloseAmberTrajFiles();
+		if( files_opened )
+		{
+			if(traj_format == TRAJ_NETCDF) CloseMDTrajFile();
+			else CloseAmberTrajFiles();
+		}
 		PrintLog("Error in MDTrajAnalMod::AnalyzeTrajectoryInternal() \n");
 		PrintLog("%s\n",ex.what());
 		pmset->SetCrdFromArray(crd_init);
@@ -259,7 +276,11 @@ int MDTrajAnalMod::AnalyzeTrajectoryInternal()
 
 	pmset->SetCrdFromArray(crd_init);
 	p_mm_mod->to_stop_simulations = TRUE;
-	if( files_opened ) CloseAmberTrajFiles();
+	if( files_opened )
+	{
+		if(traj_format == TRAJ_NETCDF) CloseMDTrajFile();
+		else CloseAmberTrajFiles();
+	}
 	return TRUE;
 }
 
@@ -311,6 +332,102 @@ int MDTrajAnalMod::CloseAmberTrajFiles()
 		fclose(p_mm_mod->p_amber_driver->trj_vel_fp);
 		p_mm_mod->p_amber_driver->trj_vel_fp = NULL;
 	}
+	return TRUE;
+}
+
+MDTrajAnalMod::TrajFormat MDTrajAnalMod::DetectTrajFormat() const
+{
+	std::string fname = p_mm_mod->p_amber_driver->amber_trj_coord_file;
+	if(boost::iends_with(fname, ".nc"))
+		return TRAJ_NETCDF;
+	return TRAJ_AMBER_ASCII;
+}
+
+int MDTrajAnalMod::OpenMDTrajFile()
+{
+#if defined(HARLEM_PYTHON_NO)
+	PrintLog("Python is not available, cannot read NetCDF trajectory\n");
+	return FALSE;
+#else
+	std::string fname = p_mm_mod->p_amber_driver->amber_trj_coord_file;
+	// Replace backslashes with forward slashes for Python string literal
+	std::string fname_py = fname;
+	boost::replace_all(fname_py, "\\", "/");
+	PrintLog("Opening trajectory via mdtraj: %s\n", fname.c_str());
+
+	std::string script;
+	script += "import mdtraj as md\n";
+	script += "import molset\n";
+	script += "from molset.molset_ext import mdtraj_utils\n";
+	script += "_mdtraj_mset = molset.GetCurMolSet()\n";
+	script += "_mdtraj_top = mdtraj_utils.MolSet_to_mdtraj_top(_mdtraj_mset)\n";
+	script += "_mdtraj_trj = md.load('" + fname_py + "', top=_mdtraj_top)\n";
+	script += "_mdtraj_n_frames = _mdtraj_trj.n_frames\n";
+	script += "print('mdtraj: loaded %d frames' % _mdtraj_n_frames)\n";
+
+	int ires = pApp->ExecuteScriptInString(script.c_str());
+	if(!ires)
+	{
+		PrintLog("Error: failed to open trajectory via mdtraj\n");
+		return FALSE;
+	}
+
+	// Get number of frames from Python
+	PyGILState_STATE gstate = PyGILState_Ensure();
+	PyObject* main_mod = PyImport_AddModule("__main__");
+	PyObject* main_dict = PyModule_GetDict(main_mod);
+	PyObject* py_nframes = PyDict_GetItemString(main_dict, "_mdtraj_n_frames");
+	if(py_nframes != NULL && PyLong_Check(py_nframes))
+	{
+		mdtraj_n_frames = (int)PyLong_AsLong(py_nframes);
+	}
+	else
+	{
+		mdtraj_n_frames = 0;
+	}
+	PyGILState_Release(gstate);
+
+	mdtraj_frame_idx = 0;
+	PrintLog("mdtraj: %d frames available\n", mdtraj_n_frames);
+	return (mdtraj_n_frames > 0) ? TRUE : FALSE;
+#endif
+}
+
+int MDTrajAnalMod::ReadMDTrajPoint()
+{
+#if defined(HARLEM_PYTHON_NO)
+	return FALSE;
+#else
+	if(mdtraj_frame_idx >= mdtraj_n_frames)
+	{
+		PrintLog("End of mdtraj trajectory\n");
+		return FALSE;
+	}
+
+	// Use Python to extract frame coordinates and set them on mset
+	std::string script;
+	script += "_mdtraj_frame = _mdtraj_trj[" + std::to_string(mdtraj_frame_idx) + "]\n";
+	script += "mdtraj_utils.MolSet_crd_from_frame(_mdtraj_mset, _mdtraj_frame)\n";
+
+	int ires = pApp->ExecuteScriptInString(script.c_str());
+	if(!ires)
+	{
+		PrintLog("Error reading mdtraj frame %d\n", mdtraj_frame_idx);
+		return FALSE;
+	}
+
+	mdtraj_frame_idx++;
+	return TRUE;
+#endif
+}
+
+int MDTrajAnalMod::CloseMDTrajFile()
+{
+#if !defined(HARLEM_PYTHON_NO)
+	pApp->ExecuteScriptInString("del _mdtraj_trj\ndel _mdtraj_n_frames\ndel _mdtraj_top\ndel _mdtraj_mset\ndel _mdtraj_frame\n");
+#endif
+	mdtraj_n_frames = 0;
+	mdtraj_frame_idx = 0;
 	return TRUE;
 }
 
@@ -373,6 +490,9 @@ int MDTrajAnalMod::BuildTrajIndex()
 
 int MDTrajAnalMod::ReadTrajPoint()
 {
+	if(traj_format == TRAJ_NETCDF)
+		return ReadMDTrajPoint();
+
 	char buf[256];
 
 	PrintLog("MDTrajAnalMod::ReadTrajPoint() ipt = %d \n", ipt_curr );
