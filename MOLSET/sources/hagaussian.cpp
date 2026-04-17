@@ -13,7 +13,7 @@
 
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/process.hpp>
+#include <boost/process/v1.hpp>
 
 #include <assert.h>
 #include "f2c.h"
@@ -188,7 +188,7 @@ int QCDriverGaussian::Run( const harlem::RunOptions* popt_par )
 
 	PrintLog(" HaGaussMod::Run() cmd_line:  %s \n", cmd_line );
 
-	namespace bp = boost::process;
+	namespace bp = boost::process::v1;
 	std::error_code ec;
 
 	if( opt.ToRunSync() )
@@ -602,7 +602,7 @@ int QCDriverGaussian::LoadOutSummary( std::string summary_str )
 
 int QCDriverGaussian::RunFormChk(std::string fname_chk, std::string fname_fchk )
 {
-	namespace bp = boost::process;
+	namespace bp = boost::process::v1;
 
 	const std::string fname_exe = "formchk";
 

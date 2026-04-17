@@ -10,7 +10,24 @@
 #if !defined(HARLEM_MPI_H)
 #define HARLEM_MPI_H
 
-#undef HARLEM_MPI 
+#ifdef _WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#endif
+
+// Force Python.h to link against release python312.lib even in Debug builds.
+// pyconfig.h emits #pragma comment(lib, "python312_d.lib") when _DEBUG is set,
+// which creates a mixed debug/release Python dep (python312.dll + python312_d.dll)
+// in the resulting .pyd and breaks module loading under Release-Python harlem.exe.
+// push_macro/pop_macro preserves _DEBUG's original value (MSVC sets it to 1).
+#ifdef _WIN32
+#pragma push_macro("_DEBUG")
+#undef _DEBUG
+#include <Python.h>
+#pragma pop_macro("_DEBUG")
+#endif
+
+#undef HARLEM_MPI
 
 #ifdef HARLEM_MPI
 #include <mpi.h>

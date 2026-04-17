@@ -27,6 +27,12 @@
 
 #include "haconsts.h"
 
+// Windows SDK <minwindef.h> defines OUT as an empty parameter-direction macro.
+// This file uses OUT as a local FILE* variable — undef defensively.
+#ifdef OUT
+#undef OUT
+#endif
+
 double APBSMod::d = 0.0;
 
 APBSMod::APBSMod(MolSet* new_phost_mset) :

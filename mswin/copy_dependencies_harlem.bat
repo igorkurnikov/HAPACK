@@ -41,6 +41,12 @@ if not defined WX_DLLS_PATH (
 )
 echo WX_DLLS_PATH set to %WX_DLLS_PATH%
 
+if not defined PYTHON_HOME_PATH (
+    echo "Variable PYTHON_HOME_PATH is not defined, defaulting to D:\Python312"
+    set PYTHON_HOME_PATH="D:\Python312"
+)
+echo PYTHON_HOME_PATH set to %PYTHON_HOME_PATH%
+
 echo "Configuration: %CONF%"
 echo "Script Path: %script_path%"
 SET OutputDir="%script_path%%CONF%"
@@ -80,7 +86,13 @@ REM ###########################################################################
 REM Copy MPI
 
 xcopy /y /d C:\Windows\System32\msmpi.dll %OutputDir%\molset
- 
+
+REM ###########################################################################
+REM Copy Python stdlib (Lib/ and DLLs/) from PYTHON_HOME_PATH.
+REM /E = include subdirs (and empty), /I = dest is directory, /Y = no overwrite prompt, /D = copy only newer.
+echo "Copying Python stdlib from %PYTHON_HOME_PATH%"
+xcopy /E /I /Y /D %PYTHON_HOME_PATH%\Lib  %OutputDir%\Lib
+xcopy /E /I /Y /D %PYTHON_HOME_PATH%\DLLs %OutputDir%\DLLs
 
 REM ###########################################################################
 echo "Linking harlem gui python files"

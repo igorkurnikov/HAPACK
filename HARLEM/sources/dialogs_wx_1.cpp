@@ -85,7 +85,7 @@
 //#include <wxPlot/wxPlot.h>
 #include <wx/scrolwin.h>
 
-#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string.hpp>
 
 CmdTextCtrl::CmdTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value,
 		const wxPoint& pos,const wxSize& size, long style, const wxValidator& validator,

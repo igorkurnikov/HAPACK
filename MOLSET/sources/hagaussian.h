@@ -11,7 +11,7 @@
 
 #include "hastl.h"
 #include "hacompmod.h" 
-#include <boost/process.hpp>
+#include <boost/process/v1.hpp>
 
 namespace harlem
 {
@@ -110,7 +110,7 @@ public:
 
 	// Keep handles alive for async mode
 private:
-	std::shared_ptr<boost::process::child> child_;
+	std::shared_ptr<boost::process::v1::child> child_;
 	std::thread watcher_;
 	std::atomic<bool> running_{ false };            //!< Flag to indicate that the external Gaussian process is running 
 	//std::atomic<bool> stop_requested_{ false };     //!< Flag to indicate that termination of the Gaussian process is requested

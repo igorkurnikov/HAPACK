@@ -2,19 +2,21 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <PYTHON_HOME_PATH>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python39_64</PYTHON_HOME_PATH>
+    <PYTHON_HOME_PATH>D:\Python312</PYTHON_HOME_PATH>
     <PYTHON_BIN_PATH>$(PYTHON_HOME_PATH)</PYTHON_BIN_PATH>
     <PYTHON_DLLS_PATH>$(PYTHON_HOME_PATH)</PYTHON_DLLS_PATH>
-    <WX_DLLS_PATH>C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll</WX_DLLS_PATH>
+    <PHOENIX_PATH>D:\MYPROG\Phoenix_4.2.5_P312</PHOENIX_PATH>
+    <WX_DLLS_PATH>$(PHOENIX_PATH)\ext\wxWidgets\lib\vc140_x64_dll</WX_DLLS_PATH>
+    <WX_INCLUDE_PATH>$(PHOENIX_PATH)\ext\wxWidgets\include</WX_INCLUDE_PATH>
     <PLPLOT_DLLS_PATH>$(VCPKG_DLL)</PLPLOT_DLLS_PATH>
-    <WX_VERSION>31u</WX_VERSION>
+    <WX_VERSION>33u</WX_VERSION>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python39_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PYTHON_HOME_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python39_64\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PYTHON_HOME_PATH)\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -30,8 +32,16 @@
       <Value>$(PYTHON_DLLS_PATH)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
+    <BuildMacro Include="PHOENIX_PATH">
+      <Value>$(PHOENIX_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
     <BuildMacro Include="WX_DLLS_PATH">
       <Value>$(WX_DLLS_PATH)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="WX_INCLUDE_PATH">
+      <Value>$(WX_INCLUDE_PATH)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
     <BuildMacro Include="PLPLOT_DLLS_PATH">

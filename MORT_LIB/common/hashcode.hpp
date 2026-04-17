@@ -5,6 +5,15 @@
 #include <map>
 #include <string>
 
+// Windows SDK defines CONST (windef.h) and OPTIONAL (SAL) as macros that
+// collide with the hash constants declared below.
+#ifdef CONST
+#undef CONST
+#endif
+#ifdef OPTIONAL
+#undef OPTIONAL
+#endif
+
 namespace mort
 {
     typedef long long hashid_t;

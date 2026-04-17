@@ -17,6 +17,10 @@
 #include "g94_protos.h"
 #include "math.h"
 
+#ifdef scr1
+#undef scr1
+#endif
+
 HaMatDB* HaQCMod::p_ndo_pars_db = NULL;
 
 extern "C"{

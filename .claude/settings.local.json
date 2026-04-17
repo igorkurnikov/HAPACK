@@ -25,7 +25,9 @@
       "Bash('/c/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/dumpbin.exe' //directives /d/MYPROG/HAPACK/mswin/obj/Debug_x64/harlem_vs/harlem.obj)",
       "Read(//d/MYPROG/vcpkg/**)",
       "Bash(./vcpkg.exe depend-info *)",
-      "Bash(./vcpkg.exe remove *)"
+      "Bash(./vcpkg.exe remove *)",
+      "Bash(awk '{print $2}')",
+      "Bash(dumpbin /dependents \"D:/MYPROG/HAPACK/mswin/Debug_x64/molset/_molsetc.pyd\")"
     ]
   }
 }

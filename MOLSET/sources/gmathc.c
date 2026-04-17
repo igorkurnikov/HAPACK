@@ -7,21 +7,17 @@
 
 #ifdef _WIN32
 /* Windows-specific implementation */
-#define DllImport   __declspec( dllimport )
-
-extern int* __p___argc();
-extern char*** __p___argv();
+#include <stdlib.h>  /* provides __argc / __argv macros via UCRT */
 
 int iargc_ () {
-	int __argc = *__p___argc();
 	return ((int) (__argc - 1));
 }
 
 void getarg_ (int* num, char* arg, int len)
 {
 	int i,lena;
-	char** __argv = *__p___argv();
-	strncpy ( arg, *(__argv + *num), len );
+	char** argv_local = __argv;
+	strncpy ( arg, *(argv_local + *num), len );
 	lena = strlen(arg);
 	for(i = lena; i < len; i++)
 	{

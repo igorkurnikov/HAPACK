@@ -18,6 +18,7 @@
 
 #include <filesystem>
 #include <boost/algorithm/string.hpp>
+#include <boost/process/v1.hpp>
 
 #include <chrono>
 #include <thread>
@@ -952,7 +953,7 @@ static std::string quote_for_log(const std::string& s)
 	return q;
 }
 
-namespace bp = boost::process;
+namespace bp = boost::process::v1;
 
 long HarlemApp::RunExternalProgram(RunMode rmode, const std::string& prog_name, std::vector<std::string>& prog_args,
 			std::vector<std::string>& prog_output, int get_prog_output )

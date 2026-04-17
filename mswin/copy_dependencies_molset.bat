@@ -87,9 +87,9 @@ REM Copy Things from VCPKG
 REM BOOST
 echo "Copying BOOST Dlls"
 if "%IS_DEBUG%" == "Y" (
-    set BOOST_SUFFIX=-vc142-mt-gd-x*-1_79.dll
+    set BOOST_SUFFIX=-vc143-mt-gd-x*-1_90.dll
 ) else (
-    set BOOST_SUFFIX=-vc142-mt-x*-1_79.dll
+    set BOOST_SUFFIX=-vc143-mt-x*-1_90.dll
 )
 
 REM set BOOST_LIBS=^

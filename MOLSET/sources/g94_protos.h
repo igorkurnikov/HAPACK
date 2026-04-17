@@ -1,11 +1,16 @@
 #ifndef G94_PROTOS_H
 #define G94_PROTOS_H
 //! \file  g94_protos.h
-//!  
+//!
 //!  Prototypes of functions of GAUSSIAN
 //!
 //!
 
+// Windows SDK <dlgs.h> defines scr1 as a macro (0x0490), colliding with
+// the scr1 parameter name below. Undef defensively.
+#ifdef scr1
+#undef scr1
+#endif
 
 extern "C" {
 

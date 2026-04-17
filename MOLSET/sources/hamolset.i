@@ -1,9 +1,18 @@
 %module molsetc
 
 %begin %{
-//#include <mpi.h>  
+//#include <mpi.h>
 #include <cstddef>
+// Force release python312.lib link (avoid mixed debug/release Python ABI).
+// pyconfig.h emits #pragma comment(lib,"python312_d.lib") when _DEBUG is set.
+#ifdef _WIN32
+#pragma push_macro("_DEBUG")
+#undef _DEBUG
 #include <Python.h>
+#pragma pop_macro("_DEBUG")
+#else
+#include <Python.h>
+#endif
 
 %}
          

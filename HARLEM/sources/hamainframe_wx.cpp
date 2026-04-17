@@ -3011,7 +3011,7 @@ void HaLogWindow::DoLog(wxLogLevel level, const wxChar* szString, time_t t)
 {
 	// first let the previous logger show it
 	wxLogRecordInfo info(__FILE__, __LINE__, "DoLog", "HaLogWindow");
-	info.timestamp = t;
+	info.timestampMS = static_cast<wxLongLong_t>(t) * 1000;
 	wxLogPassThrough::DoLogRecord(level, szString, info);
 
 	if (m_pLogFrame) {
