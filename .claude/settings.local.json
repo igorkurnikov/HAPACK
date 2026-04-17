@@ -14,7 +14,18 @@
       "Bash(test:*)",
       "Bash(git -C \"d:/MYPROG/HAPACK\" ls-files)",
       "Bash(git grep:*)",
-      "Bash(find /d/MYPROG/HAPACK -type f -name dialogs_wx_*.cpp -o -name dialogs_wx_*.h)"
+      "Bash(find /d/MYPROG/HAPACK -type f -name dialogs_wx_*.cpp -o -name dialogs_wx_*.h)",
+      "Read(//d/HARLEM_P312//**)",
+      "Read(//d/HARLEM_P312/include//**)",
+      "Read(//d/HARLEM_P312/**)",
+      "Bash(\"/d/HARLEM_P312/python.exe\" --version)",
+      "Bash(\"/d/Python312/python.exe\" --version)",
+      "Bash('/c/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/dumpbin.exe' //dependents /d/MYPROG/HAPACK/mswin/Debug_x64/harlem.exe)",
+      "Bash('/c/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/dumpbin.exe' //imports:python39_d.dll /d/MYPROG/HAPACK/mswin/Debug_x64/harlem.exe)",
+      "Bash('/c/Program Files/Microsoft Visual Studio/18/Insiders/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/dumpbin.exe' //directives /d/MYPROG/HAPACK/mswin/obj/Debug_x64/harlem_vs/harlem.obj)",
+      "Read(//d/MYPROG/vcpkg/**)",
+      "Bash(./vcpkg.exe depend-info *)",
+      "Bash(./vcpkg.exe remove *)"
     ]
   }
 }

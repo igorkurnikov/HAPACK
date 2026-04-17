@@ -4,7 +4,7 @@
 		<Platform Name="x64"/>
 	</Platforms>
 	<Configurations>
-		<Configuration Name="Release|x64" UseCompiler="ifortCompiler" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+		<Configuration Name="Release|x64" UseCompiler="ifxCompiler" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
 			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" MultiProcessorCompilation="true" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" RuntimeLibrary="rtMultiThreadedDLL"/>
 			<Tool Name="VFLibrarianTool"/>
 			<Tool Name="VFResourceCompilerTool"/>
@@ -15,7 +15,7 @@
 			<Tool Name="VFPostBuildEventTool"/>
 			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
 		</Configuration>
-		<Configuration Name="Debug|x64" UseCompiler="ifortCompiler" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
+		<Configuration Name="Debug|x64" UseCompiler="ifxCompiler" OutputDirectory="$(SolutionDir)$(Configuration)_$(PlatformName)" IntermediateDirectory="$(SolutionDir)obj\$(Configuration)_$(PlatformName)\$(ProjectName)" ConfigurationType="typeStaticLibrary">
 			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" MultiProcessorCompilation="true" Optimization="optimizeDisabled" SourceFileFormat="fileFormatFixed" FixedFormLineLength="fixedLength132" WarnInterfaces="true" ExternalNameInterpretation="extNameLowerCase" CallingConvention="callConventionCRef" StringLengthArgPassing="strLenArgsMixed" ExternalNameUnderscore="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
 			<Tool Name="VFLibrarianTool"/>
 			<Tool Name="VFResourceCompilerTool"/>

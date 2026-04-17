@@ -6,6 +6,7 @@
 *.u2d
 *.in
 .cache
+.claude
 /.idea
 /mswin/harlem_python_tests_1/obj
 /mswin/UpgradeLog.XML
