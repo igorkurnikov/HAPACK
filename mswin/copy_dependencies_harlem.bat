@@ -54,11 +54,9 @@ echo "Output Dir: %OutputDir%"
 
 REM WXWIDGETS
 echo "Copying wxWidgets Dlls"
-if "%IS_DEBUG%" == "Y" (
-    set WXVER=ud
-) else (
-    set WXVER=u
-)
+REM Always use RELEASE wxWidgets — HARLEM links release wx even in Debug
+REM to stay consistent with wxPython's release wx DLLs (wxTheApp shared instance).
+set WXVER=u
 
 xcopy /y /d %WX_DLLS_PATH%\wxbase*%WXVER%_vc*.dll  %OutputDir%\molset
 xcopy /y /d %WX_DLLS_PATH%\wxmsw*%WXVER%_*core*.dll  %OutputDir%\molset

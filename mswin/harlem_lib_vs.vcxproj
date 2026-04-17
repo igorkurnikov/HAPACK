@@ -86,7 +86,7 @@
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>_harlemc_d</TargetName>
+    <TargetName>_harlemc</TargetName>
     <TargetExt>.pyd</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)_$(PlatformName)\molset\</OutDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
@@ -100,8 +100,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(PYTHON_HOME_PATH)\include;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\MOLSET\sources;$(ProjectDir)\..\MOLSET\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(WX_INCLUDE_PATH);$(WX_DLLS_PATH)\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;NOMINMAX;_HAS_STD_BYTE=0;_DLGSH_INCLUDED_;_DEBUG;__WXDEBUG__;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PYTHON_HOME_PATH)\include;$(ProjectDir)\..\HARLEM\sources;$(ProjectDir)\..\MOLSET\sources;$(ProjectDir)\..\MOLSET\sources\math;$(ProjectDir)\..\HARLEM\sources\gl;$(ProjectDir)\..\MY_VFLIB\src;$(ProjectDir)\..\WOLFGANG\DO_LIB\include;$(ProjectDir)\..\WOLFGANG\DO_LIB\template;$(ProjectDir)\..\WOLFGANG\IPACK;$(ProjectDir)\..\WOLFGANG\generic;$(ProjectDir)\..\PNPS\src;$(ProjectDir)\..\PNPS\pnpmod;$(ProjectDir)\..\MORT_LIB;$(WX_INCLUDE_PATH);$(WX_DLLS_PATH)\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;NOMINMAX;_HAS_STD_BYTE=0;_DLGSH_INCLUDED_;_DEBUG;_WINDOWS;HARLEM_MOD;THIRTYTWOBIT;HAOGL;BLAS;USE_IPACK;PYTHON_COMMAND;INT_JUMNA;INT_DELPHI;WX;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -112,9 +112,10 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ForcedIncludeFiles>py_release.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;_molsetc.lib;mpir.lib;Rpcrt4.lib;wxbase33ud.lib;wxmsw33ud_core.lib;wxmsw33ud_adv.lib;boost_filesystem-vc143-mt-gd-x64-1_90.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;_molsetc.lib;mpir.lib;Rpcrt4.lib;wxbase33u.lib;wxmsw33u_core.lib;wxmsw33u_adv.lib;boost_filesystem-vc143-mt-gd-x64-1_90.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -168,6 +169,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
       </DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ForcedIncludeFiles>py_release.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>zlib.lib;mpir.lib;_molsetc.lib;Rpcrt4.lib;wxbase33u.lib;wxmsw33u_core.lib;wxmsw33u_adv.lib;boost_filesystem-vc143-mt-x64-1_90.lib;%(AdditionalDependencies)</AdditionalDependencies>
