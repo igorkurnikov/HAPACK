@@ -22,14 +22,14 @@
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <UseMpiLibrary1A>MSMPI</UseMpiLibrary1A>
     <UseInteloneMKL>Sequential</UseInteloneMKL>
   </PropertyGroup>
@@ -37,13 +37,13 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
     <UseIntelMKL>Sequential</UseIntelMKL>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <UseInteloneMKL>Sequential</UseInteloneMKL>
     <UseMpiLibrary1A>MSMPI</UseMpiLibrary1A>
   </PropertyGroup>
