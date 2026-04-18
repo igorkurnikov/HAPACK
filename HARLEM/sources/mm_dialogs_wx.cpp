@@ -44,6 +44,876 @@
 
 int MolMechDlgWX::dlg_open = FALSE;
 
+// ---------------------------------------------------------------------------
+// Page builder functions relocated from ha_wx_res_wdr.cpp (wxDesigner-generated).
+// Each function constructs the controls of one notebook tab.
+// ---------------------------------------------------------------------------
+
+wxSizer *mol_mech_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
+{
+    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxNotebook *item3 = new wxNotebook( parent, ID_MM_DLG, wxDefaultPosition, wxDefaultSize, 0 );
+#if !wxCHECK_VERSION(2,5,2)
+    wxNotebookSizer *item2 = new wxNotebookSizer( item3 );
+#else
+    wxWindow *item2 = item3;
+#endif
+
+    wxPanel *item4 = new wxPanel( item3, -1 );
+    mm_run_param_page( item4, FALSE );
+    item3->AddPage( item4, wxT("MM Run parameters") );
+
+    wxPanel *item5 = new wxPanel( item3, -1 );
+    mm_par_setup_page( item5, FALSE );
+    item3->AddPage( item5, wxT("Force Field Parameters") );
+
+    wxPanel *item6 = new wxPanel( item3, -1 );
+    mm_edit_model_page( item6, FALSE );
+    item3->AddPage( item6, wxT("Edit MM Model") );
+
+    wxPanel *item7 = new wxPanel( item3, -1 );
+    mm_md_anal_page( item7, FALSE );
+    item3->AddPage( item7, wxT("MD analysis") );
+
+    item1->Add( item2, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item1, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    if (set_sizer)
+    {
+        parent->SetSizer( item0 );
+        if (call_fit)
+            item0->SetSizeHints( parent );
+    }
+
+    return item0;
+}
+
+wxSizer *mm_edit_model_page( wxWindow *parent, bool call_fit, bool set_sizer )
+{
+    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item2 = new wxStaticText( parent, ID_TEXT, wxT("Molecular Mechanics Model Element List(Atoms, Bonds, Angles ):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item1->Add( item2, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item1, 0, wxALIGN_CENTER|wxALL|wxSHAPED, 5 );
+
+    wxBoxSizer *item3 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item4 = new wxStaticText( parent, ID_TEXT, wxT("Default Force Field Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs5 = (wxString*) NULL;
+    wxComboBox *item5 = new wxComboBox( parent, IDC_MM_FF_TYPE_DEFAULT, wxT(""), wxDefaultPosition, wxSize(200,-1), 0, strs5, wxCB_DROPDOWN );
+    item3->Add( item5, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item6 = new wxStaticText( parent, ID_TEXT, wxT("Current Force Field of the model:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item7 = new wxTextCtrl( parent, IDC_MM_FF_TYPE, wxT(""), wxDefaultPosition, wxSize(80,-1), wxTE_READONLY );
+    item3->Add( item7, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item8 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item9 = new wxBoxSizer( wxVERTICAL );
+
+    static wxString strs10[] =
+    {
+        wxT("Valence Bonds"),
+        wxT("Valence Angles"),
+        wxT("Dihedrals"),
+        wxT("Improper Dihedrals"),
+        wxT("Atoms")
+    };
+    wxRadioBox *item10 = new wxRadioBox( parent, IDC_RADIO_ELEMENTS, wxT("Elements type"), wxDefaultPosition, wxDefaultSize, 5, strs10, 1, wxRA_SPECIFY_COLS );
+    item9->Add( item10, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item8->Add( item9, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    wxString *strs11 = (wxString*) NULL;
+    wxListBox *item11 = new wxListBox( parent, IDC_MM_ELEM_LIST, wxDefaultPosition, wxSize(400,150), 0, strs11, wxLB_SINGLE );
+    item8->Add( item11, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item8, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item12 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item13 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item14 = new wxStaticText( parent, ID_TEXT, wxT("Atoms of the selected element"), wxDefaultPosition, wxDefaultSize, 0 );
+    item13->Add( item14, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxBoxSizer *item15 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item16 = new wxStaticText( parent, ID_TEXT, wxT("ATOM 1:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item15->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item17 = new wxTextCtrl( parent, IDC_AT1, wxT(""), wxDefaultPosition, wxSize(160,-1), 0 );
+    item15->Add( item17, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item13->Add( item15, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item18 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item19 = new wxStaticText( parent, ID_TEXT, wxT("ATOM 2:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item18->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item20 = new wxTextCtrl( parent, IDC_AT2, wxT(""), wxDefaultPosition, wxSize(160,-1), 0 );
+    item18->Add( item20, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item13->Add( item18, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item21 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item22 = new wxStaticText( parent, ID_TEXT, wxT("ATOM 3:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item21->Add( item22, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item23 = new wxTextCtrl( parent, IDC_AT3, wxT(""), wxDefaultPosition, wxSize(160,-1), 0 );
+    item21->Add( item23, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item13->Add( item21, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item24 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item25 = new wxStaticText( parent, ID_TEXT, wxT("ATOM 4:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item24->Add( item25, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item26 = new wxTextCtrl( parent, IDC_AT4, wxT(""), wxDefaultPosition, wxSize(160,-1), 0 );
+    item24->Add( item26, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item13->Add( item24, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item12->Add( item13, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    wxBoxSizer *item27 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item28 = new wxStaticText( parent, ID_TEXT, wxT("Element FF params:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item27->Add( item28, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxBoxSizer *item29 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item30 = new wxStaticText( parent, ID_TEXT, wxT("force constant:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item30, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item31 = new wxTextCtrl( parent, IDC_MM_FCONST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item31, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item32 = new wxStaticText( parent, IDC_FF_UNIT_LABEL, wxT("(kcal/A^2)"), wxDefaultPosition, wxDefaultSize, 0 );
+    item29->Add( item32, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item27->Add( item29, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item33 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item34 = new wxStaticText( parent, ID_TEXT, wxT("Eq dist (angle)"), wxDefaultPosition, wxDefaultSize, 0 );
+    item33->Add( item34, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item35 = new wxTextCtrl( parent, IDC_MM_EQ_DIST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item33->Add( item35, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item36 = new wxStaticText( parent, ID_TEXT, wxT("Ang"), wxDefaultPosition, wxDefaultSize, 0 );
+    item33->Add( item36, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item27->Add( item33, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item37 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item38 = new wxStaticText( parent, ID_TEXT, wxT("Curr Dist(Angle):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item37->Add( item38, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_MM_CUR_DIST, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item37->Add( item39, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item40 = new wxStaticText( parent, ID_TEXT, wxT("Ang"), wxDefaultPosition, wxDefaultSize, 0 );
+    item37->Add( item40, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item27->Add( item37, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item41 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item42 = new wxStaticText( parent, ID_TEXT, wxT("Param Set Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item41->Add( item42, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString strs43[] =
+    {
+        wxT("NOT_SET"),
+        wxT("DEFAULT VAL"),
+        wxT("FROM FF FIELD"),
+        wxT("FROM RES TEMPL"),
+        wxT("SPECIAL VALUE")
+    };
+    wxComboBox *item43 = new wxComboBox( parent, IDC_MM_SET_TYPE, wxT(""), wxDefaultPosition, wxDefaultSize, 5, strs43, wxCB_DROPDOWN );
+    item41->Add( item43, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item27->Add( item41, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item12->Add( item27, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL|wxSHAPED, 5 );
+
+    wxBoxSizer *item44 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item45 = new wxStaticText( parent, ID_TEXT,
+        wxT("FF Symbols of\n")
+        wxT("atoms of the element:"),
+        wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+    item44->Add( item45, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item46 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_1, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item44->Add( item46, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_2, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item44->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item48 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_3, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item44->Add( item48, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item49 = new wxTextCtrl( parent, IDC_MM_AT_SYMBOL_4, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item44->Add( item49, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item12->Add( item44, 0, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL|wxSHAPED, 5 );
+
+    item0->Add( item12, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item50 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item51 = new wxButton( parent, IDC_FFPAR_INIT_MOLMECH, wxT("Init MM Model"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item51, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticLine *item52 = new wxStaticLine( parent, ID_LINE_MM_1, wxDefaultPosition, wxSize(-1,20), wxLI_VERTICAL );
+    item50->Add( item52, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item53 = new wxButton( parent, IDC_MM_UPDATE_ELEM_LIST, wxT("Update Model Elements List"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item53, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item54 = new wxButton( parent, IDC_RESPAR_SET_NEW_PAR, wxT("Set New Params"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item54, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticLine *item55 = new wxStaticLine( parent, ID_LINE_SP_DNA, wxDefaultPosition, wxSize(-1,20), wxLI_VERTICAL );
+    item50->Add( item55, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item50->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item50->Add( 20, 20, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item56 = new wxButton( parent, IDC_SET_DNA_CS_PARS, wxT("Set DNA CG Pars"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item56, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item50, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxBoxSizer *item57 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item58 = new wxButton( parent, IDC_DEL_IMPROPER_ANG, wxT("Delete Improper Angles"), wxDefaultPosition, wxDefaultSize, 0 );
+    item57->Add( item58, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxCheckBox *item59 = new wxCheckBox( parent, IDC_MM_USE_MORT, wxT("use MORT to set MM Model"), wxDefaultPosition, wxDefaultSize, 0 );
+    item57->Add( item59, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item57, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    if (set_sizer)
+    {
+        parent->SetSizer( item0 );
+        if (call_fit)
+            item0->SetSizeHints( parent );
+    }
+
+    return item0;
+}
+
+wxSizer *mm_par_setup_page( wxWindow *parent, bool call_fit, bool set_sizer )
+{
+    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item2 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item3 = new wxStaticText( parent, ID_TEXT, wxT("Electrostatics:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item3, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxString *strs4 = (wxString*) NULL;
+    wxChoice *item4 = new wxChoice( parent, IDC_MM_ELECTR_MODEL, wxDefaultPosition, wxSize(200,-1), 0, strs4, 0 );
+    item2->Add( item4, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item5 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item6 = new wxStaticText( parent, ID_TEXT, wxT("Dielectric Constant:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item5->Add( item6, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item7 = new wxTextCtrl( parent, IDC_MM_DIEL_CONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item5->Add( item7, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item5, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item8 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item9 = new wxStaticText( parent, ID_TEXT, wxT("Non-Bond Cutoff (Ang):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item8->Add( item9, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item10 = new wxTextCtrl( parent, IDC_MM_NONB_CUTOFF_DIST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item8->Add( item10, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    item2->Add( item8, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item11 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item12 = new wxStaticText( parent, ID_TEXT, wxT("Ionic Strength (M):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item11->Add( item12, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item13 = new wxTextCtrl( parent, IDC_MM_ION_STRENGTH, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item11->Add( item13, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item11, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item14 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item15 = new wxStaticText( parent, ID_TEXT, wxT("Scale 1-4 Electr:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item14->Add( item15, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item16 = new wxTextCtrl( parent, IDC_MM_SCALE_14_ELECTR, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item14->Add( item16, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item14, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item17 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item18 = new wxStaticText( parent, ID_TEXT, wxT("Scale 1-4 VdW:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item17->Add( item18, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item19 = new wxTextCtrl( parent, IDC_MM_SCALE_14_VDW, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item17->Add( item19, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item17, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item20 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item21 = new wxStaticText( parent, ID_TEXT, wxT("AMOEBA params:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item21->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item20->Add( item21, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item20, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxBoxSizer *item22 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item23 = new wxStaticText( parent, ID_TEXT, wxT("Thole's dumping const:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item22->Add( item23, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item24 = new wxTextCtrl( parent, IDC_MM_THOLE_DUMP_CONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item22->Add( item24, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item22, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item1->Add( item2, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    wxBoxSizer *item25 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item26 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item27 = new wxStaticText( parent, ID_TEXT, wxT("Atom Position Restraints:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item27->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item26->Add( item27, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item26, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item28 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item29 = new wxButton( parent, IDC_MM_CHOOSE_MOVING_ATOMS, wxT("Moving Atoms:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item28->Add( item29, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item30 = new wxTextCtrl( parent, IDC_MM_MOVING_ATOMS, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item28->Add( item30, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item28, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item31 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item32 = new wxButton( parent, IDC_MM_CHOOSE_RESTRAINED_ATOMS, wxT("Restrained Atoms:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item31->Add( item32, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item33 = new wxTextCtrl( parent, IDC_RESTRAINED_ATOMS, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item31->Add( item33, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item31, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item34 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item35 = new wxButton( parent, IDC_MM_CHOOSE_RESTR_REF_CRD, wxT("Restrained Atoms Coordinates:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item34->Add( item35, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs36 = (wxString*) NULL;
+    wxComboBox *item36 = new wxComboBox( parent, IDC_MM_RESTR_REF_CRD_TYPE, wxT(""), wxDefaultPosition, wxSize(100,-1), 0, strs36, wxCB_DROPDOWN );
+    item34->Add( item36, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item34, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item37 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item38 = new wxStaticText( parent, ID_TEXT, wxT("Restraints Force Constant:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item37->Add( item38, 0, wxALIGN_CENTER|wxALL, 10 );
+
+    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_MM_RESTR_FRC_CONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item37->Add( item39, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item25->Add( item37, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxStaticText *item40 = new wxStaticText( parent, ID_TEXT, wxT("Atom-Atom Distance Restraints:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item40->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item25->Add( item40, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item41 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item42 = new wxButton( parent, IDC_MM_LOAD_HARM_CONSTR_FILE, wxT("Load Distance Restraints File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item41->Add( item42, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxStaticText *item43 = new wxStaticText( parent, ID_TEXT, wxT("Num Restriants:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item41->Add( item43, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item44 = new wxTextCtrl( parent, IDC_MM_NUM_HARM_CONSTR, wxT(""), wxDefaultPosition, wxSize(80,-1), wxTE_READONLY );
+    item41->Add( item44, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item41, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item45 = new wxButton( parent, IDC_RESTRAIN_HBONDS, wxT("Set Distance Restraints for H-bonds"), wxDefaultPosition, wxDefaultSize, 0 );
+    item25->Add( item45, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item46 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item47 = new wxStaticText( parent, ID_TEXT, wxT("Restraints Force Constant:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item46->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item48 = new wxTextCtrl( parent, IDC_CONSTRAIN_FRCCONST, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item46->Add( item48, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item25->Add( item46, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxStaticText *item49 = new wxStaticText( parent, ID_TEXT, wxT("Valence Bonds Constraints:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item49->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item25->Add( item49, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item50 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item51 = new wxStaticText( parent, ID_TEXT, wxT("SHAKE Bond Constraints:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item51, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxString *strs52 = (wxString*) NULL;
+    wxComboBox *item52 = new wxComboBox( parent, IDC_MM_SHAKE_METHOD, wxT(""), wxDefaultPosition, wxDefaultSize, 0, strs52, wxCB_DROPDOWN );
+    item50->Add( item52, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item25->Add( item50, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item1->Add( item25, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item1, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    if (set_sizer)
+    {
+        parent->SetSizer( item0 );
+        if (call_fit)
+            item0->SetSizeHints( parent );
+    }
+
+    return item0;
+}
+
+wxSizer *mm_run_param_page( wxWindow *parent, bool call_fit, bool set_sizer )
+{
+    wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item2 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item3 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item4 = new wxStaticText( parent, ID_TEXT, wxT("Type of Calculations"), wxDefaultPosition, wxDefaultSize, 0 );
+    item3->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs5 = (wxString*) NULL;
+    wxChoice *item5 = new wxChoice( parent, IDC_MM_RUN_TYPE, wxDefaultPosition, wxDefaultSize, 0, strs5, 0 );
+    item3->Add( item5, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    item2->Add( item3, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxButton *item6 = new wxButton( parent, IDC_MM_CALC_SP_ENE, wxT("Calculate Single Point Energy"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item7 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item8 = new wxButton( parent, IDC_MM_RUN_CALC, wxT("Run MM Calculations"), wxDefaultPosition, wxDefaultSize, 0 );
+    item7->Add( item8, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxCheckBox *item9 = new wxCheckBox( parent, IDC_MM_RUN_INT, wxT("Run Internally"), wxDefaultPosition, wxDefaultSize, 0 );
+    item7->Add( item9, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item2->Add( item7, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item10 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item11 = new wxStaticText( parent, ID_TEXT, wxT("External Program:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item10->Add( item11, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs12 = (wxString*) NULL;
+    wxChoice *item12 = new wxChoice( parent, IDC_MM_EXT_PROG, wxDefaultPosition, wxSize(100,-1), 0, strs12, 0 );
+    item10->Add( item12, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item10, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxButton *item13 = new wxButton( parent, IDC_SAVE_EXT_PROG_INP, wxT("Save Input Files For External Program"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item13, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxCheckBox *item14 = new wxCheckBox( parent, IDC_MM_RESTART_FLAG, wxT("Restart Job"), wxDefaultPosition, wxDefaultSize, 0 );
+    item2->Add( item14, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item15 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item16 = new wxButton( parent, IDC_MM_STOP, wxT("Stop Calculations"), wxDefaultPosition, wxDefaultSize, 0 );
+    item15->Add( item16, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxButton *item17 = new wxButton( parent, IDC_MM_SHOW_INFO, wxT("Show MM Info"), wxDefaultPosition, wxDefaultSize, 0 );
+    item15->Add( item17, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item2->Add( item15, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item1->Add( item2, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    wxBoxSizer *item18 = new wxBoxSizer( wxVERTICAL );
+
+    wxStaticText *item19 = new wxStaticText( parent, ID_TEXT_PARAM_MIN, wxT("Parameters for Minimization:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item19->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item18->Add( item19, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item20 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item21 = new wxStaticText( parent, ID_TEXT_MIN_TYPE, wxT("Minimization Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item20->Add( item21, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs22 = (wxString*) NULL;
+    wxChoice *item22 = new wxChoice( parent, IDC_MM_MIN_TYPE, wxDefaultPosition, wxDefaultSize, 0, strs22, 0 );
+    item20->Add( item22, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item20, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item23 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item24 = new wxStaticText( parent, ID_TEXT_NUM_MIN_STEPS, wxT("Number of Minimization Steps:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item23->Add( item24, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item25 = new wxTextCtrl( parent, IDC_MM_MAX_COMP_CYCLES, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item23->Add( item25, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxStaticText *item26 = new wxStaticText( parent, ID_TEXT_NUM_STEEP_DEC_STEPS, wxT("Number of Steepest Descent Steps:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item23->Add( item26, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item27 = new wxTextCtrl( parent, IDC_MM_NUM_STEP_STEEP_DESCENT, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item23->Add( item27, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item23, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item28 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item29 = new wxStaticText( parent, ID_TEXT_CONV_CRT, wxT("Convergence Criterion:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item28->Add( item29, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item30 = new wxTextCtrl( parent, IDC_MM_MIN_CNVRG_CRITERIUM, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item28->Add( item30, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxStaticText *item31 = new wxStaticText( parent, ID_TEXT_KCAL_MOL_A, wxT("kcal/mole A"), wxDefaultPosition, wxDefaultSize, 0 );
+    item28->Add( item31, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item32 = new wxStaticText( parent, ID_TEXT_INIT_STEP, wxT("  Initial Step:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item28->Add( item32, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item33 = new wxTextCtrl( parent, IDC_MM_INIT_MIN_STEP, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item28->Add( item33, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item28, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxStaticText *item34 = new wxStaticText( parent, ID_TEXT_MD_PARAMS, wxT("Molecular Dynamics parameters:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item34->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item18->Add( item34, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item35 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item36 = new wxStaticText( parent, ID_TEXT_MD_STEPS_NUM, wxT("MD steps number "), wxDefaultPosition, wxDefaultSize, 0 );
+    item35->Add( item36, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item37 = new wxTextCtrl( parent, IDC_MM_LENGTH_MD_RUN, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item35->Add( item37, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    wxStaticText *item38 = new wxStaticText( parent, ID_TEXT_MD_TIME_STEP, wxT("MD time step (ps):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item35->Add( item38, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item39 = new wxTextCtrl( parent, IDC_MM_MD_TIME_STEP, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item35->Add( item39, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item35, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item40 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item41 = new wxStaticText( parent, ID_TEXT_TEMP_CTRL_METH, wxT("Temperature Control Method:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item40->Add( item41, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxString *strs42 = (wxString*) NULL;
+    wxChoice *item42 = new wxChoice( parent, IDC_TEMP_CONTROL_METHOD, wxDefaultPosition, wxSize(250,-1), 0, strs42, 0 );
+    item40->Add( item42, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item18->Add( item40, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item43 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item44 = new wxStaticText( parent, ID_TEXT_INIT_TEMP, wxT("Initial Temp (K):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item43->Add( item44, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item45 = new wxTextCtrl( parent, IDC_MM_INIT_TEMP, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item43->Add( item45, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item46 = new wxStaticText( parent, ID_TEXT_REF_TEMP, wxT("Reference Temp (K):"), wxDefaultPosition, wxDefaultSize, 0 );
+    item43->Add( item46, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item47 = new wxTextCtrl( parent, IDC_MM_REF_TEMP, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item43->Add( item47, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item48 = new wxStaticText( parent, ID_TEXT_LANG_DUMP_CONST, wxT("Langevin Damping  (ps-1)"), wxDefaultPosition, wxDefaultSize, 0 );
+    item43->Add( item48, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item49 = new wxTextCtrl( parent, IDC_LANGEVIN_DUMP_CONST, wxT(""), wxDefaultPosition, wxSize(60,-1), 0 );
+    item43->Add( item49, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item18->Add( item43, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item50 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item51 = new wxStaticText( parent, ID_TEXT_INIT_INFO_READ, wxT("Init Info to read:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item51, 0, wxALIGN_CENTER|wxALL, 10 );
+
+    wxString *strs52 = (wxString*) NULL;
+    wxChoice *item52 = new wxChoice( parent, IDC_MM_INIT_READ_COORD, wxDefaultPosition, wxDefaultSize, 0, strs52, 0 );
+    item50->Add( item52, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item53 = new wxStaticText( parent, ID_TEXT_START_VEL_METH, wxT("Start velocity method:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item50->Add( item53, 0, wxALIGN_CENTER|wxALL, 10 );
+
+    wxString *strs54 = (wxString*) NULL;
+    wxChoice *item54 = new wxChoice( parent, IDC_MM_START_VEL_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs54, 0 );
+    item50->Add( item54, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item50, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item55 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxCheckBox *item56 = new wxCheckBox( parent, IDC_MM_REMOVE_INIT_MOTION, wxT("Remove initial motion"), wxDefaultPosition, wxDefaultSize, 0 );
+    item55->Add( item56, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxCheckBox *item57 = new wxCheckBox( parent, IDC_MM_WRAP_COORD, wxT("Wrap crd to box"), wxDefaultPosition, wxDefaultSize, 0 );
+    item55->Add( item57, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item58 = new wxStaticText( parent, ID_TEXT_REM_COM_MOTION_FREQ, wxT("Remove COM motion freq:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item55->Add( item58, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item59 = new wxTextCtrl( parent, IDC_MM_REMOVE_RB_MOTION_FREQ, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
+    item55->Add( item59, 0, wxALIGN_CENTER|wxALL, 0 );
+
+    item18->Add( item55, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item60 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item61 = new wxStaticText( parent, ID_TEXT, wxT("Boundary Conditions:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item61->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item60->Add( item61, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxString *strs62 = (wxString*) NULL;
+    wxChoice *item62 = new wxChoice( parent, IDC_MM_PERIOD_BCOND, wxDefaultPosition, wxSize(150,-1), 0, strs62, 0 );
+    item60->Add( item62, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxStaticText *item63 = new wxStaticText( parent, ID_TEXT_PRESS_CTRL, wxT("Pressure control:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item60->Add( item63, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxString *strs64 = (wxString*) NULL;
+    wxChoice *item64 = new wxChoice( parent, IDC_MM_PRESSURE_REG_METHOD, wxDefaultPosition, wxDefaultSize, 0, strs64, 0 );
+    item60->Add( item64, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    item18->Add( item60, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item65 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item66 = new wxButton( parent, IDC_MM_EDIT_PERIODIC_BOX, wxT("Edit Periodic Box"), wxDefaultPosition, wxDefaultSize, 0 );
+    item65->Add( item66, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item18->Add( item65, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item1->Add( item18, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item1, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item67 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxBoxSizer *item68 = new wxBoxSizer( wxVERTICAL );
+
+    wxBoxSizer *item69 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item70 = new wxStaticText( parent, ID_TEXT, wxT("Input/Output files:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item70->SetFont( wxFont( 12, wxROMAN, wxNORMAL, wxBOLD ) );
+    item69->Add( item70, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item68->Add( item69, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+
+    wxBoxSizer *item71 = new wxBoxSizer( wxHORIZONTAL );
+
+    item71->Add( 80, 20, 2, wxALIGN_CENTER|wxALL, 0 );
+
+    wxStaticText *item72 = new wxStaticText( parent, ID_TEXT, wxT("Input Files:    "), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+    item71->Add( item72, 5, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item73 = new wxStaticText( parent, ID_TEXT, wxT("Output files:        "), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+    item71->Add( item73, 5, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item74 = new wxStaticText( parent, ID_TEXT, wxT("Output Freq:"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
+    item71->Add( item74, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item71, 0, wxGROW|wxALIGN_CENTER_VERTICAL, 0 );
+
+    wxBoxSizer *item75 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item76 = new wxButton( parent, IDC_MM_EDIT_AMBER_INP, wxT("Input Pars:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item75->Add( item76, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item77 = new wxTextCtrl( parent, IDC_MM_INP_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item75->Add( item77, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item78 = new wxTextCtrl( parent, IDC_MM_LOG_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item75->Add( item78, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item79 = new wxButton( parent, IDC_MM_LOAD_LOG_FILE, wxT("Log File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item75->Add( item79, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item80 = new wxTextCtrl( parent, IDC_MM_PRINT_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item75->Add( item80, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item75, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item81 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item82 = new wxButton( parent, IDC_MM_EDIT_AMBER_TOP, wxT("Top file:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item81->Add( item82, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item83 = new wxTextCtrl( parent, IDC_MM_TOP_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item81->Add( item83, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item84 = new wxTextCtrl( parent, IDC_MM_CRD_TRAJ_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item81->Add( item84, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item85 = new wxButton( parent, IDC_MM_CHOOSE_MDCRD_FILE, wxT("Coordinates"), wxDefaultPosition, wxDefaultSize, 0 );
+    item81->Add( item85, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item86 = new wxTextCtrl( parent, IDC_MM_WRT_COORD_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item81->Add( item86, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item81, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item87 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item88 = new wxStaticText( parent, ID_TEXT, wxT("Init crd file:     "), wxDefaultPosition, wxDefaultSize, 0 );
+    item87->Add( item88, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item89 = new wxTextCtrl( parent, IDC_MM_INIT_CRD_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item87->Add( item89, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item90 = new wxTextCtrl( parent, IDC_MM_VEL_TRAJ_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item87->Add( item90, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item91 = new wxButton( parent, IDC_MM_CHOOSE_MDVEL_FILE, wxT("Velocities"), wxDefaultPosition, wxDefaultSize, 0 );
+    item87->Add( item91, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item92 = new wxTextCtrl( parent, IDC_MM_WRT_VEL_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item87->Add( item92, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item87, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item93 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item94 = new wxStaticText( parent, ID_TEXT, wxT("Restraints file:      "), wxDefaultPosition, wxDefaultSize, 0 );
+    item93->Add( item94, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item95 = new wxTextCtrl( parent, IDC_MM_CONSTR_CRD_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item93->Add( item95, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item96 = new wxTextCtrl( parent, IDC_MM_ENE_TRAJ_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item93->Add( item96, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item97 = new wxButton( parent, IDC_MM_CHOOSE_MDENE_FILE, wxT("Energy"), wxDefaultPosition, wxDefaultSize, 0 );
+    item93->Add( item97, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item98 = new wxTextCtrl( parent, IDC_MM_WRT_ENER_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item93->Add( item98, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item93, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item99 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item100 = new wxButton( parent, IDC_MM_EDIT_AMBER_RUN, wxT("UNIX Run file"), wxDefaultPosition, wxDefaultSize, 0 );
+    item99->Add( item100, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item101 = new wxTextCtrl( parent, IDC_MM_AMBER_RUN_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item99->Add( item101, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item102 = new wxTextCtrl( parent, IDC_MM_RESTART_FILE, wxT(""), wxDefaultPosition, wxSize(140,-1), 0 );
+    item99->Add( item102, 3, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item103 = new wxButton( parent, IDC_MM_EDIT_AMBER_RST, wxT("Restart File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item99->Add( item103, 1, wxALIGN_CENTER|wxALL, 0 );
+
+    wxTextCtrl *item104 = new wxTextCtrl( parent, IDC_MM_WRT_RSTRT_FREQ, wxT(""), wxDefaultPosition, wxDefaultSize, 0 );
+    item99->Add( item104, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item99, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item105 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxButton *item106 = new wxButton( parent, IDC_AMBER_LOAD_RESTART, wxT("Load Restart File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item105->Add( item106, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item107 = new wxButton( parent, IDC_AMBER_SAVE_RESTART, wxT("Save Restart File"), wxDefaultPosition, wxDefaultSize, 0 );
+    item105->Add( item107, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxCheckBox *item108 = new wxCheckBox( parent, IDC_AMBER_WRITE_BINARY, wxT("Binary output"), wxDefaultPosition, wxDefaultSize, 0 );
+    item105->Add( item108, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item105, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item109 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxTextCtrl *item110 = new wxTextCtrl( parent, IDC_MM_CONSTR_TRAJ_FILE, wxT(""), wxDefaultPosition, wxSize(210,-1), 0 );
+    item109->Add( item110, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    wxButton *item111 = new wxButton( parent, IDC_MM_CHOOSE_CONSTR_TRAJ_FILE, wxT("Constraints Traj"), wxDefaultPosition, wxDefaultSize, 0 );
+    item109->Add( item111, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item112 = new wxTextCtrl( parent, IDC_MM_WRT_CONSTR_FREQ, wxT(""), wxDefaultPosition, wxSize(40,-1), 0 );
+    item109->Add( item112, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item68->Add( item109, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    item67->Add( item68, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item67, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    if (set_sizer)
+    {
+        parent->SetSizer( item0 );
+        if (call_fit)
+            item0->SetSizeHints( parent );
+    }
+
+    return item0;
+}
+
+
 MolMechDlgWX::MolMechDlgWX(HaMolMechMod* ptr_mm_mod_new, wxWindow *parent ):
 wxFrame( parent, -1, "Molecular Mechanics Module")
 {
@@ -67,11 +937,58 @@ wxFrame( parent, -1, "Molecular Mechanics Module")
 	mol_mech_dlg( this, TRUE );
 
 //    wxMenuBar* edit_groups_menu_bar = edit_groups_menu();
-//    SetMenuBar(edit_groups_menu_bar); 
+//    SetMenuBar(edit_groups_menu_bar);
 
 	// ptr_mm_mod->p_mm_dlg = this;
 
-	
+	// Event wiring (migrated from BEGIN_EVENT_TABLE / END_EVENT_TABLE).
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnInitMolMech, this, IDC_FFPAR_INIT_MOLMECH);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnRestrainHBonds, this, IDC_RESTRAIN_HBONDS);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseRestrainedAtoms, this, IDC_MM_CHOOSE_RESTRAINED_ATOMS);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseMovingAtoms, this, IDC_MM_CHOOSE_MOVING_ATOMS);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseRestrRefCrd, this, IDC_MM_CHOOSE_RESTR_REF_CRD);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::LoadAtomAtomRestrFile, this, IDC_MM_LOAD_HARM_CONSTR_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnSaveExtProgInp, this, IDC_SAVE_EXT_PROG_INP);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnRunMMCalc, this, IDC_MM_RUN_CALC);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnAmberLoadRestart, this, IDC_AMBER_LOAD_RESTART);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnCalcSinglePtEne, this, IDC_MM_CALC_SP_ENE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnLoadLogFile, this, IDC_MM_LOAD_LOG_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnChooseMDCrdFile, this, IDC_MM_CHOOSE_MDCRD_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnChooseMDVelFile, this, IDC_MM_CHOOSE_MDVEL_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnChooseMDEneFile, this, IDC_MM_CHOOSE_MDENE_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnChooseConstrTrajFile, this, IDC_MM_CHOOSE_CONSTR_TRAJ_FILE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnMMStop, this, IDC_MM_STOP);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnPlaybackTrj, this, IDC_MM_PLAYBACK_TRJ);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnIndexTrj, this, IDC_MM_INDEX_TRAJ);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnSetCurrPt, this, IDC_MM_SET_CURR_PT);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnChooseMDAnalScript, this, IDC_MM_CHOOSE_MDANAL_SCRIPT);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditMDAnalScript, this, IDC_MM_EDIT_MDANAL_SCRIPT);
+	Bind(wxEVT_CHECKBOX, &MolMechDlgWX::OnChkRMSDAnal, this, IDC_MM_CHK_RMSD_ANAL);
+	Bind(wxEVT_CHECKBOX, &MolMechDlgWX::OnChkMMRunInt, this, IDC_MM_RUN_INT);
+	Bind(wxEVT_CHOICE, &MolMechDlgWX::OnChoiceRunType, this, IDC_MM_RUN_TYPE);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseFitAtoms, this, IDC_MM_CHOOSE_FIT_ATOMS);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseRMSDAtoms, this, IDC_MM_CHOOSE_RMSD_ATOMS);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseRefCrdFit, this, IDC_MM_CHOOSE_REF_CRD_FIT);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::ChooseRefCrdRMSD, this, IDC_MM_CHOOSE_REF_CRD_RMSD);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditAmberInp, this, IDC_MM_EDIT_AMBER_INP);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditAmberTop, this, IDC_MM_EDIT_AMBER_TOP);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditAmberRun, this, IDC_MM_EDIT_AMBER_RUN);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditAmberRst, this, IDC_MM_EDIT_AMBER_RST);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnAmberSaveRestart, this, IDC_AMBER_SAVE_RESTART);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnShowMMInfo, this, IDC_MM_SHOW_INFO);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnEditPeriodicBox, this, IDC_MM_EDIT_PERIODIC_BOX);
+	Bind(wxEVT_COMBOBOX, &MolMechDlgWX::OnSelChangeFFTypeDefault, this, IDC_MM_FF_TYPE_DEFAULT);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnUpdateElemList, this, IDC_MM_UPDATE_ELEM_LIST);
+	Bind(wxEVT_RADIOBOX, &MolMechDlgWX::OnUpdateElemList, this, IDC_RADIO_ELEMENTS);
+	Bind(wxEVT_LISTBOX, &MolMechDlgWX::OnChangeSelElem, this, IDC_MM_ELEM_LIST);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnSetNewPar, this, IDC_RESPAR_SET_NEW_PAR);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnDelImprAng, this, IDC_DEL_IMPROPER_ANG);
+	Bind(wxEVT_BUTTON, &MolMechDlgWX::OnSetDnaCSPars, this, IDC_SET_DNA_CS_PARS);
+	Bind(wxEVT_MENU, &MolMechDlgWX::OnSaveResffFromMort, this, IDC_SAVE_RESFF_FROM_MORT);
+	Bind(wxEVT_MENU, &MolMechDlgWX::OnSaveAtomIndRestrArb, this, IDM_SAVE_ATOM_IND_RESTR_ARB);
+	Bind(wxEVT_NOTEBOOK_PAGE_CHANGING, &MolMechDlgWX::OnChangingPage, this, ID_MM_DLG);
+	Bind(wxEVT_NOTEBOOK_PAGE_CHANGED, &MolMechDlgWX::OnChangePage, this, ID_MM_DLG);
+	Bind(wxEVT_CLOSE_WINDOW, &MolMechDlgWX::OnClose, this);
 
 	OnInitDialog();
 }
@@ -82,57 +999,6 @@ MolMechDlgWX::~MolMechDlgWX()
 	 delete p_mm_info_dlg;
 }
 
-
-BEGIN_EVENT_TABLE(MolMechDlgWX,wxFrame)
-    EVT_BUTTON(IDC_FFPAR_INIT_MOLMECH, MolMechDlgWX::OnInitMolMech)
-	EVT_BUTTON(IDC_RESTRAIN_HBONDS, MolMechDlgWX::OnRestrainHBonds)
-	EVT_BUTTON(IDC_MM_CHOOSE_RESTRAINED_ATOMS, MolMechDlgWX::ChooseRestrainedAtoms)
-	EVT_BUTTON(IDC_MM_CHOOSE_MOVING_ATOMS,     MolMechDlgWX::ChooseMovingAtoms)
-	EVT_BUTTON(IDC_MM_CHOOSE_RESTR_REF_CRD,  MolMechDlgWX::ChooseRestrRefCrd)
-	EVT_BUTTON(IDC_MM_LOAD_HARM_CONSTR_FILE,  MolMechDlgWX::LoadAtomAtomRestrFile)
-	EVT_BUTTON(IDC_SAVE_EXT_PROG_INP, MolMechDlgWX::OnSaveExtProgInp)
-	EVT_BUTTON(IDC_MM_RUN_CALC, MolMechDlgWX::OnRunMMCalc)
-	EVT_BUTTON(IDC_AMBER_LOAD_RESTART, MolMechDlgWX::OnAmberLoadRestart)
-	EVT_BUTTON(IDC_MM_CALC_SP_ENE, MolMechDlgWX::OnCalcSinglePtEne)
-	EVT_BUTTON(IDC_MM_LOAD_LOG_FILE, MolMechDlgWX::OnLoadLogFile)
-	EVT_BUTTON(IDC_MM_CHOOSE_MDCRD_FILE, MolMechDlgWX::OnChooseMDCrdFile)
-	EVT_BUTTON(IDC_MM_CHOOSE_MDVEL_FILE, MolMechDlgWX::OnChooseMDVelFile)
-	EVT_BUTTON(IDC_MM_CHOOSE_MDENE_FILE, MolMechDlgWX::OnChooseMDEneFile)
-	EVT_BUTTON(IDC_MM_CHOOSE_CONSTR_TRAJ_FILE, MolMechDlgWX::OnChooseConstrTrajFile)
-	EVT_BUTTON(IDC_MM_STOP, MolMechDlgWX::OnMMStop)
-	EVT_BUTTON(IDC_MM_PLAYBACK_TRJ, MolMechDlgWX::OnPlaybackTrj)
-	EVT_BUTTON(IDC_MM_INDEX_TRAJ, MolMechDlgWX::OnIndexTrj)
-	EVT_BUTTON(IDC_MM_SET_CURR_PT, MolMechDlgWX::OnSetCurrPt)
-	EVT_BUTTON(IDC_MM_CHOOSE_MDANAL_SCRIPT, MolMechDlgWX::OnChooseMDAnalScript)
-	EVT_BUTTON(IDC_MM_EDIT_MDANAL_SCRIPT, MolMechDlgWX::OnEditMDAnalScript)
-	EVT_CHECKBOX(IDC_MM_CHK_RMSD_ANAL, MolMechDlgWX::OnChkRMSDAnal)
-	EVT_CHECKBOX(IDC_MM_RUN_INT, MolMechDlgWX::OnChkMMRunInt)
-	EVT_CHOICE(IDC_MM_RUN_TYPE, MolMechDlgWX::OnChoiceRunType )
-	EVT_BUTTON(IDC_MM_CHOOSE_FIT_ATOMS, MolMechDlgWX::ChooseFitAtoms)
-	EVT_BUTTON(IDC_MM_CHOOSE_RMSD_ATOMS, MolMechDlgWX::ChooseRMSDAtoms)
-	EVT_BUTTON(IDC_MM_CHOOSE_REF_CRD_FIT,  MolMechDlgWX::ChooseRefCrdFit)
-	EVT_BUTTON(IDC_MM_CHOOSE_REF_CRD_RMSD, MolMechDlgWX::ChooseRefCrdRMSD)
-	EVT_BUTTON(IDC_MM_EDIT_AMBER_INP, MolMechDlgWX::OnEditAmberInp)
-	EVT_BUTTON(IDC_MM_EDIT_AMBER_TOP, MolMechDlgWX::OnEditAmberTop)
-	EVT_BUTTON(IDC_MM_EDIT_AMBER_RUN, MolMechDlgWX::OnEditAmberRun)
-	EVT_BUTTON(IDC_MM_EDIT_AMBER_RST, MolMechDlgWX::OnEditAmberRst)
-	EVT_BUTTON(IDC_AMBER_SAVE_RESTART, MolMechDlgWX::OnAmberSaveRestart)
-	EVT_BUTTON(IDC_MM_SHOW_INFO, MolMechDlgWX::OnShowMMInfo)
-	EVT_BUTTON(IDC_MM_EDIT_PERIODIC_BOX, MolMechDlgWX::OnEditPeriodicBox)
-	EVT_COMBOBOX(IDC_MM_FF_TYPE_DEFAULT, MolMechDlgWX::OnSelChangeFFTypeDefault)
-	EVT_BUTTON(IDC_MM_UPDATE_ELEM_LIST, MolMechDlgWX::OnUpdateElemList)
-//    EVT_BUTTON(IDC_SELECT_FF_PARAM_FILE, MolMechDlgWX::OnSelectFFParamFile)
-    EVT_RADIOBOX( IDC_RADIO_ELEMENTS, MolMechDlgWX::OnUpdateElemList)
-	EVT_LISTBOX(IDC_MM_ELEM_LIST, MolMechDlgWX::OnChangeSelElem)
-	EVT_BUTTON(IDC_RESPAR_SET_NEW_PAR, MolMechDlgWX::OnSetNewPar)
-	EVT_BUTTON(IDC_DEL_IMPROPER_ANG, MolMechDlgWX::OnDelImprAng)
-	EVT_BUTTON(IDC_SET_DNA_CS_PARS, MolMechDlgWX::OnSetDnaCSPars)
-	EVT_MENU(IDC_SAVE_RESFF_FROM_MORT, MolMechDlgWX::OnSaveResffFromMort)
-	EVT_MENU(IDM_SAVE_ATOM_IND_RESTR_ARB, MolMechDlgWX::OnSaveAtomIndRestrArb)
-	EVT_NOTEBOOK_PAGE_CHANGING(ID_MM_DLG, MolMechDlgWX::OnChangingPage)
-	EVT_NOTEBOOK_PAGE_CHANGED (ID_MM_DLG, MolMechDlgWX::OnChangePage)
-	EVT_CLOSE(MolMechDlgWX::OnClose)
-END_EVENT_TABLE()
 
 void MolMechDlgWX::OnClose(wxCloseEvent& event)
 {

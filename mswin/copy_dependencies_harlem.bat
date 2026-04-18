@@ -92,6 +92,13 @@ echo "Copying Python stdlib from %PYTHON_HOME_PATH%"
 xcopy /E /I /Y /D %PYTHON_HOME_PATH%\Lib  %OutputDir%\Lib
 xcopy /E /I /Y /D %PYTHON_HOME_PATH%\DLLs %OutputDir%\DLLs
 
+REM Copy Python interpreter and core DLLs (release variants only — debug Python is not used).
+echo "Copying Python interpreter and core DLLs"
+xcopy /Y /D %PYTHON_HOME_PATH%\python.exe   %OutputDir%
+xcopy /Y /D %PYTHON_HOME_PATH%\pythonw.exe  %OutputDir%
+xcopy /Y /D %PYTHON_HOME_PATH%\python312.dll %OutputDir%
+xcopy /Y /D %PYTHON_HOME_PATH%\python3.dll  %OutputDir%
+
 REM ###########################################################################
 echo "Linking harlem gui python files"
 

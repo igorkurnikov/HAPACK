@@ -105,9 +105,7 @@ protected:
 	void OnChangePage(wxNotebookEvent& event);
 
 private:
-	DECLARE_EVENT_TABLE()
-
-	wxCheckBox* chk_run_internal;     //!< CheckBox for HaMolMechMod::run_internal_flag 
+	wxCheckBox* chk_run_internal;     //!< CheckBox for HaMolMechMod::run_internal_flag
 	wxChoice*  choice_ctrl_ext_prog;  //!< Choice control for MM External Program
 	wxChoice*  choice_ctrl_run_type;  //!< Choice control for MM External Program
 	wxChoice*  choice_ctrl_per_bcond; //!< Choice control for Periodical Boundary conditions simulations
