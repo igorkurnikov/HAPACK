@@ -361,7 +361,9 @@ int MDTrajAnalMod::OpenMDTrajFile()
 	script += "from molset.molset_ext import mdtraj_utils\n";
 	script += "_mdtraj_mset = molset.GetCurMolSet()\n";
 	script += "_mdtraj_top = mdtraj_utils.MolSet_to_mdtraj_top(_mdtraj_mset)\n";
-	script += "_mdtraj_trj = md.load('" + fname_py + "', top=_mdtraj_top)\n";
+	// load_trajectory handles both AMBER NetCDF ('coordinates') and OpenMM/OpenFE
+	// NetCDF ('positions' in nanometers), falling back through netCDF4 directly.
+	script += "_mdtraj_trj = mdtraj_utils.load_trajectory('" + fname_py + "', _mdtraj_top)\n";
 	script += "_mdtraj_n_frames = _mdtraj_trj.n_frames\n";
 	script += "print('mdtraj: loaded %d frames' % _mdtraj_n_frames)\n";
 
@@ -436,7 +438,19 @@ int MDTrajAnalMod::BuildTrajIndex()
 	char buf[256];
 	char* cres;
 
-	if( p_mm_mod->p_amber_driver->trj_coord_fp == NULL ) 
+	traj_format = DetectTrajFormat();
+	if( traj_format == TRAJ_NETCDF )
+	{
+		int ires = OpenMDTrajFile();
+		if( !ires ) return FALSE;
+		// For NetCDF, pt_pos[] entries are unused; only its size acts as the
+		// frame count for range checks and UI (N Pt display).
+		pt_pos.clear();
+		pt_pos.resize(mdtraj_n_frames);
+		return TRUE;
+	}
+
+	if( p_mm_mod->p_amber_driver->trj_coord_fp == NULL )
 	{
 		int ires = OpenAmberTrajFilesToRead();
 		if( !ires ) return FALSE;
@@ -600,9 +614,26 @@ int MDTrajAnalMod::LoadCurrPt()
 {
 	try
 	{
+		if( traj_format == TRAJ_NETCDF )
+		{
+			if( mdtraj_n_frames == 0 ) throw std::runtime_error(" NetCDF trajectory is not open ");
+			if( ipt_curr < 1 || ipt_curr > (int)mdtraj_n_frames ) throw std::runtime_error(" Current point index is out of range ");
+#if !defined(HARLEM_PYTHON_NO)
+			std::string script;
+			script += "_mdtraj_frame = _mdtraj_trj[" + std::to_string(ipt_curr - 1) + "]\n";
+			script += "mdtraj_utils.MolSet_crd_from_frame(_mdtraj_mset, _mdtraj_frame)\n";
+			int ires = pApp->ExecuteScriptInString(script.c_str());
+			if( !ires ) throw std::runtime_error(" Error loading NetCDF frame ");
+			mdtraj_frame_idx = ipt_curr;  // keep sequential reads consistent
+#else
+			throw std::runtime_error(" NetCDF trajectory support requires Python ");
+#endif
+			return TRUE;
+		}
+
 		if( p_mm_mod->p_amber_driver->trj_coord_fp == NULL ) throw std::runtime_error(" MD trajectory is not open ");
 		if( pt_pos.size() == 0 ) throw std::runtime_error(" Index of MD trajectory is not built ");
-		if( ipt_curr < 1 && ipt_curr > pt_pos.size() ) throw std::runtime_error("  Current point index is out of range ");
+		if( ipt_curr < 1 || ipt_curr >(int) pt_pos.size() ) throw std::runtime_error("  Current point index is out of range ");
 		fpos_t& pos = pt_pos[ipt_curr - 1];
 		fsetpos( p_mm_mod->p_amber_driver->trj_coord_fp, &pos );
 		if( feof(p_mm_mod->p_amber_driver->trj_coord_fp) ) throw std::runtime_error(" Error to position file at current point index ");
@@ -610,7 +641,7 @@ int MDTrajAnalMod::LoadCurrPt()
 	}
 	catch( const std::exception& ex )
 	{
-		PrintLog(" Error in MDTrajAnalMod::LoadCurrPt()  ipt_curr = \n", ipt_curr);
+		PrintLog(" Error in MDTrajAnalMod::LoadCurrPt()  ipt_curr = %d\n", ipt_curr);
 		PrintLog("%s\n",ex.what());
 		return FALSE;
 
