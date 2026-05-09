@@ -946,10 +946,48 @@ int MolSet::LoadSDFFile(std::string fname, const AtomLoadOptions& opt )
 			}
 		}
 
-		// --- Skip properties block and data items until $$$$ ---
+		// --- Read properties block and data items until $$$$ ---
 		while( std::getline(is, line) )
 		{
 			if( line.size() >= 4 && line.substr(0,4) == "$$$$" ) break;
+
+			// Data property tag has the form:  >  <tag_name>
+			if( !line.empty() && line[0] == '>' )
+			{
+				size_t lt = line.find('<');
+				size_t gt = line.rfind('>');
+				if( lt == std::string::npos || gt == std::string::npos || gt <= lt )
+					continue;
+
+				std::string tag_name = line.substr(lt+1, gt-lt-1);
+
+				// Read value lines until a blank line (end of this data item)
+				std::vector<std::string> value_lines;
+				std::string vline;
+				while( std::getline(is, vline) )
+				{
+					boost::trim_right(vline);
+					if( vline.empty() ) break;
+					value_lines.push_back(vline);
+				}
+
+				if( tag_name == "atom.dprop.PartialCharge" )
+				{
+					std::ostringstream all_oss;
+					for( size_t k = 0; k < value_lines.size(); ++k )
+						all_oss << value_lines[k] << ' ';
+					std::istringstream iss(all_oss.str());
+
+					int idx = 1;
+					double q;
+					while( idx <= atoms && (iss >> q) )
+					{
+						HaAtom* aptr = (HaAtom*)id_at_map[idx];
+						if( aptr ) aptr->SetCharge(q);
+						idx++;
+					}
+				}
+			}
 		}
 
 		if( opt.ToCalcBonds() )
