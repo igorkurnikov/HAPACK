@@ -996,21 +996,7 @@ void HaMainFrameWX::OnClose(wxCloseEvent& event)
         pApp->mpi_driver->SendXmlMsgAllProc(msg.c_str());
     }
 #endif
-	//wxMDIParentFrame::Close(true);
-    this->DestroyChildren();
-    this->Destroy();
-    
-	/* IGOR TMP 
-    if (HarlemApp::m_HarlemApp)
-    {
-        delete HarlemApp::m_HarlemApp;
-        HarlemApp::m_HarlemApp = NULL;
-    }
-	*/
-
-	// Py_FinalizeEx(); // IGOR TMP
-    
-    //PyRun_SimpleString("exit(0)");
+    ExitProcess(0);
 }
 
 // WDR: handler implementations for HaMainFrameWX
