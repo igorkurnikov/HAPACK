@@ -7,6 +7,7 @@ def start_harlem():
     """
     Start Harlem
     """
+    import os
     import wx
     import wx.py
     import molset
@@ -19,6 +20,7 @@ def start_harlem():
     test_wx.expand_file_menu()
     test_wx.add_tests()
     app.MainLoop()
+    os._exit(0)
 
 """
 Launch as module, i.e. python3 -m harlempy
