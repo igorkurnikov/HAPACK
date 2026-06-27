@@ -338,7 +338,10 @@ int MDTrajAnalMod::CloseAmberTrajFiles()
 MDTrajAnalMod::TrajFormat MDTrajAnalMod::DetectTrajFormat() const
 {
 	std::string fname = p_mm_mod->p_amber_driver->amber_trj_coord_file;
-	if(boost::iends_with(fname, ".nc"))
+	if(boost::iends_with(fname, ".nc") ||
+	   boost::iends_with(fname, ".xtc") ||
+	   boost::iends_with(fname, ".trr") ||
+	   boost::iends_with(fname, ".dcd"))
 		return TRAJ_NETCDF;
 	return TRAJ_AMBER_ASCII;
 }
@@ -346,7 +349,7 @@ MDTrajAnalMod::TrajFormat MDTrajAnalMod::DetectTrajFormat() const
 int MDTrajAnalMod::OpenMDTrajFile()
 {
 #if defined(HARLEM_PYTHON_NO)
-	PrintLog("Python is not available, cannot read NetCDF trajectory\n");
+	PrintLog("Python is not available, cannot read trajectory via mdtraj\n");
 	return FALSE;
 #else
 	std::string fname = p_mm_mod->p_amber_driver->amber_trj_coord_file;
