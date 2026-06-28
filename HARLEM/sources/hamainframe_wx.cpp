@@ -780,168 +780,16 @@ std::shared_ptr<BaseMolView> HaMainFrameWX::CreateMolView(MolSet* pmset)
 
 // WDR: event table for HaMainFrameWX
 
-BEGIN_EVENT_TABLE(HaMainFrameWX, wxMDIParentFrame)
+BEGIN_EVENT_TABLE(HaMainFrameWX, HaMainMenuBase)
     EVT_MOVE(HaMainFrameWX::OnMove)
 	EVT_SIZE(HaMainFrameWX::OnSize)
 	EVT_CLOSE(HaMainFrameWX::OnClose)
 	EVT_BUTTON( IDC_CMD_EXEC, HaMainFrameWX::OnExecuteCommand )
     EVT_TEXT_ENTER( IDC_CMD_TXT, HaMainFrameWX::OnExecuteCommand )
-//File Menu
-    EVT_MENU( ID_FILE_NEW_WX,         HaMainFrameWX::OnFileNew )
-    EVT_MENU( ID_FILE_OPEN_WX,        HaMainFrameWX::OnFileOpen )
-    EVT_MENU( IDM_MOL_SAVE_WX,        HaMainFrameWX::OnMolSave )
-    EVT_MENU( IDM_MOL_SAVE_AS_WX,     HaMainFrameWX::OnMolSaveAs )
-    EVT_MENU( IDM_LOAD_SCRIPT_WX,     HaMainFrameWX::DoLoadScriptDialog )
-    EVT_MENU( IDM_REDIRECT_IO_WX,     HaMainFrameWX::DoRedirectIODialog )
-    EVT_MENU( IDM_SAVE_IMAGE_WX,      HaMainFrameWX::SaveOutputFile )
-    EVT_MENU( IDM_SAVE_IMAGE_CLIPBOARD_WX, HaMainFrameWX::OnSaveImageClipboard )
-    EVT_MENU( IDM_COMP_ACCOUNTS_WX,   HaMainFrameWX::DoCompAccountsDialog )
-    EVT_MENU( IDM_INFO_WX,            HaMainFrameWX::OnInfo )
-    EVT_MENU( ID_FILE_CLOSE_WX,       HaMainFrameWX::OnFileClose )
-    EVT_MENU( IDM_PRINT_WX,           HaMainFrameWX::OnPrint )
-    EVT_MENU( IDM_SETUP_WX,           HaMainFrameWX::OnSetup )
-    EVT_MENU( IDM_EXIT_WX,            HaMainFrameWX::OnExit )
-//    EVT_MENU( IDM_PYMOD_WX,            HaMainFrameWX::OnPyMod )//<mikola Jul 19, 2006
-// Edit Menu
-    EVT_MENU( IDM_SELECT_WX,              HaMainFrameWX::OnSelectAll )
-    EVT_MENU( IDM_EDIT_ATOM_PARAM_WX,     HaMainFrameWX::DoAtomParamsDialog )
-    EVT_MENU( IDM_EDIT_RES_PARAM_WX,      HaMainFrameWX::DoResidueParamsDialog )
-    EVT_MENU( IDM_EDIT_MOLSETS,           HaMainFrameWX::DoMolSetParamDialog )
-	EVT_MENU( IDM_ATOM_PROP_COLORS,       HaMainFrameWX::DoAtomPropColorDialog )
-    EVT_MENU( IDM_EDIT_GROUPS_WX,         HaMainFrameWX::DoEditGroupsDialog )
-	EVT_MENU( IDM_CRD_SNAPSHOT,           HaMainFrameWX::DoCrdSnapshotDialog )
-    EVT_MENU( IDM_EDIT_GEOM_WX,           HaMainFrameWX::DoEditGeomDialog )
-	EVT_MENU( IDM_EDIT_MUT_MAP,           HaMainFrameWX::DoEditMutationMapDialog)
-    EVT_MENU( IDM_FIND_HBONDS_WX,         HaMainFrameWX::OnFindHbonds )
-    EVT_MENU( IDM_SOLVATE_WX,             HaMainFrameWX::DoSolvateDialog )
-	EVT_MENU( IDM_WRAP_UNIT_CELL,         HaMainFrameWX::OnWrapIntoUnitCell )
-	EVT_MENU( IDM_CENTER_SOLUTE,          HaMainFrameWX::OnCenterSolute )
-	EVT_MENU( IDM_CENTER_MOL_PBOX,        HaMainFrameWX::OnCenterMolInPBox )
-    EVT_MENU( IDM_ADD_MISSING_ATOMS_WX,   HaMainFrameWX::OnAddMissingAtoms )
-    EVT_MENU( IDM_ADD_POLAR_HYDROGENS_WX, HaMainFrameWX::OnAddPolarHydrogens )
-    EVT_MENU( IDM_ADD_H_HYBRID_WX,        HaMainFrameWX::OnAddHHybrid )
-    EVT_MENU( IDM_ADD_HYDROGENS_WX,       HaMainFrameWX::OnAddHydrogens )
-    EVT_MENU( IDM_DEL_SEL_ATOMS_WX,       HaMainFrameWX::OnDelSelAtoms )
-	EVT_MENU( IDM_DEL_OVLP_MOLS,          HaMainFrameWX::OnDelOvlpMols )
-    EVT_MENU( IDM_EDIT_FRAGM_WX,          HaMainFrameWX::DoEditFragmDialog )
-    EVT_MENU( IDM_BUILD_FILM_WX,          HaMainFrameWX::DoBuildFilmDialog )
-    EVT_MENU( IDM_CLEAR_PICKED_WX,        HaMainFrameWX::OnClearPicked )
-	EVT_MENU( IDM_SEL_ATOMS_IN_BOUND_BOX, HaMainFrameWX::OnSelAtomsInBoundBox )
-	EVT_MENU( IDM_REVERT_SELECTION,       HaMainFrameWX::OnRevertAtomSelection )
-	EVT_MENU( IDM_EXPAND_SELECTION_BONDED, HaMainFrameWX::OnExpandAtomSelectionBonded )
-    EVT_MENU( IDM_NUCL_ACID_WX,           HaMainFrameWX::DoNuclAcidDialog )
-	EVT_MENU( IDM_DESCRIBE_SEC_STRUCT,    HaMainFrameWX::OnDescribeSecStruct )
-	EVT_MENU( IDM_PRINT_HBONDS,           HaMainFrameWX::OnPrintHBonds )
-	EVT_MENU( IDM_SET_ALPHA_HELIX,        HaMainFrameWX::OnSetAlphaHelix )
-    EVT_MENU( IDM_SHOW_RES_DB_WX,         HaMainFrameWX::OnShowResDb )
-// Display Menu
-//   Display->Display Mode menu
-    EVT_MENU( IDM_WIREFRAME_WX,    HaMainFrameWX::OnWireFrame )
-//    EVT_MENU( IDM_BACKBONE_WX,     HaMainFrameWX::OnBackBone )
-    EVT_MENU( IDM_STICKS_WX,       HaMainFrameWX::OnSticks )
-    EVT_MENU( IDM_SPHERES_WX,      HaMainFrameWX::OnSpheres )
-    EVT_MENU( IDM_BALLSTICK_WX,    HaMainFrameWX::OnBallStick )
-    EVT_MENU( IDM_RIBBONS_WX,      HaMainFrameWX::OnRibbons )
-    EVT_MENU( IDM_STRANDS_WX,      HaMainFrameWX::OnStrands )
-    EVT_MENU( IDM_CARTOONS_WX,     HaMainFrameWX::OnCartoons )
-//   Display->Colours menu
-    EVT_MENU( IDM_MONO_WX,         HaMainFrameWX::OnMono )
-    EVT_MENU( IDM_CPK_WX,          HaMainFrameWX::OnCPK )
-    EVT_MENU( IDM_SHAPELY_WX,      HaMainFrameWX::OnShapely )
-    EVT_MENU( IDM_COL_GROUPS_WX,   HaMainFrameWX::OnColGroups )
-    EVT_MENU( IDM_COL_RESIDUES_WX, HaMainFrameWX::OnColResidues )
-    EVT_MENU( IDM_CHAIN_WX,        HaMainFrameWX::OnColChain )
-    EVT_MENU( IDM_TEMPER_WX,       HaMainFrameWX::OnColTemper )
-    EVT_MENU( IDM_STRUCT_WX,       HaMainFrameWX::OnStruct )
-    EVT_MENU( IDM_COL_DON_COUPL_WX,HaMainFrameWX::OnColTemper )
-//   Display->Options menu
-    EVT_MENU( IDM_SLAB_WX,         HaMainFrameWX::OnSlab )
-    EVT_MENU( IDM_HYDROGEN_WX,     HaMainFrameWX::OnHydrogen )
-    EVT_MENU( IDM_HETERO_WX,       HaMainFrameWX::OnHetero )
-    EVT_MENU( IDM_SPECULAR_WX,     HaMainFrameWX::OnSpecular )
-    EVT_MENU( IDM_STEREO_WX,       HaMainFrameWX::OnStereo )
-    EVT_MENU( IDM_LABELS_WX,       HaMainFrameWX::OnLabels )
-	EVT_MENU( IDM_DISPLAY_PBOX,    HaMainFrameWX::OnDisplayPBox )
-//
-    EVT_MENU( IDM_VIEW_PARAM_WX,   HaMainFrameWX::DoViewParamDlg )
-    EVT_MENU( IDM_OBJECT3D_WX,     HaMainFrameWX::DoObject3DDialog )
-//   Display->Labels menu
-    EVT_MENU( IDM_LABELS_ATOM_ID_WX,     HaMainFrameWX::OnLabelsAtomId )
-    EVT_MENU( IDM_LABELS_ATOM_NAMES_WX,  HaMainFrameWX::OnLabelsAtomNames )
-    EVT_MENU( IDM_LABELS_ATOM_SEQNUM_WX, HaMainFrameWX::OnLabelsAtomSeqNum )
-	EVT_MENU( IDM_LABELS_ATOM_FF_SYMB,   HaMainFrameWX::OnLabelsAtomFFSymb )
-    EVT_MENU( IDM_LABELS_OFF_WX ,        HaMainFrameWX::OnLabelsOff )
-// Display->Windows menu
-    EVT_MENU( ID_WINDOW_CASCADE_WX,      HaMainFrameWX::OnWindowsCascade )
-    EVT_MENU( ID_WINDOW_TILE_VERT_WX,    HaMainFrameWX::OnWindowsTileVert )
-    EVT_MENU( IDM_CENTER_VIEW_SEL_WX,    HaMainFrameWX::OnCenterViewSel )   
-// Measure Menu
-    EVT_MENU( IDM_SHOW_ATOMID_WX,      HaMainFrameWX::OnShowAtomID )
-    EVT_MENU( IDM_MEASURE_DISTANCE_WX, HaMainFrameWX::OnMeasureDist )
-    EVT_MENU( IDM_MEASURE_ANGLE_WX,    HaMainFrameWX::OnMeasureAngle )
-    EVT_MENU( IDM_MEASURE_DIHEDRAL_WX, HaMainFrameWX::OnMeasureDihed )
-	EVT_MENU( IDM_ADD_DIST_MONITOR,    HaMainFrameWX::OnAddDistMonitor)
-	EVT_MENU( IDM_SHOW_ATOM_LABEL,     HaMainFrameWX::OnShowAtomLabel)
-// ET Menu
-    EVT_MENU( IDM_EDIT_REDOX_WX,       HaMainFrameWX::OnEditRedox )
-    EVT_MENU( IDM_RUN_PATHWAYS_WX,     HaMainFrameWX::DoPathwaysDialog )
-    EVT_MENU( IDM_ET_EFF_HAM_WX,       HaMainFrameWX::DoETEffHamDialog )
-    EVT_MENU( IDM_RESET_ET_WX,         HaMainFrameWX::OnResetETModule )
-    EVT_MENU( IDM_EL_SCATTER_WX,       HaMainFrameWX::DoScatterDialog )
-// QChem Menu
-    EVT_MENU( IDM_QCHEM_PARAM_WX,       HaMainFrameWX::DoQChemParamDialog )
-    EVT_MENU( IDM_QCHEM_LOAD_DATA_WX,   HaMainFrameWX::DoLoadQCDatDialog )
-    EVT_MENU( IDM_WAVEFUN_ANAL_WX,      HaMainFrameWX::DoWaveFunAnalDialog )
-    EVT_MENU( IDM_CALC_POLAR_GCONTR_WX, HaMainFrameWX::OnCalcPolarGcontr )
-    EVT_MENU( IDM_SAVE_GROUP_OPER_WX,   HaMainFrameWX::OnSaveGrpOperMat )
-    EVT_MENU( IDM_POL_GRP_CONTR_F_WX,   HaMainFrameWX::OnCalcPolarContrF )
-    EVT_MENU( IDM_READ_POLAR_CONTR_WX,  HaMainFrameWX::OnReadPolarContr )
-    EVT_MENU( IDM_CALC_ROTANG_GRP_CONTR2_WX, HaMainFrameWX::OnCalcBetaContr2idx )
-    EVT_MENU( IDM_READ_ROTANG_GRP_CONTR2_WX, HaMainFrameWX::OnReadBetaContr2idx )
-// MMech Menu
-    EVT_MENU( IDM_MM_PARAM_WX,         HaMainFrameWX::DoMolMechDialog )
-    EVT_MENU( IDM_INTER_MOL_WX,        HaMainFrameWX::DoInterMolDialog )
-    EVT_MENU( IDM_CONT_ELECTR_WX,      HaMainFrameWX::DoContElectrDialog )
-    EVT_MENU( IDM_PNP,                 HaMainFrameWX::DoPNPDialog )
-    //EVT_MENU( IDM_CONT_ELECTR_WX_PNP,  HaMainFrameWX::DoContElectrPNPDialog )
-    EVT_MENU( IDM_PNP_SMLPNP,          HaMainFrameWX::DoSmlPNPDialog )
-    EVT_MENU( IDM_PNP_RF,          HaMainFrameWX::DoRFDialog )
-	EVT_MENU( ID_FLEX_MOD,          HaMainFrameWX::DoFlexModDialog )
-	EVT_MENU( ID_MENU_ED,              HaMainFrameWX::DoEDDialog )
-	EVT_MENU( IDM_PROT_REDOX,          HaMainFrameWX::DoProtRedoxDialog )
-//Test Menu
-		EVT_MENU( IDM_OPENVECFIELD_HAVIEW,HaMainFrameWX::OnOpenVectorFieldInHaMolView )
-		EVT_MENU( IDM_OPEN_EPS_NIND,HaMainFrameWX::OnOpenDielConstFromNindexInHaMolView )
-		EVT_MENU( IDM_OPEN_DIFF_NIND,HaMainFrameWX::OnOpenDiffConstFromNindexInHaMolView )
-		EVT_MENU( IDM_OPEN_QST_NIND,HaMainFrameWX::OnOpenQstFromNindexInHaMolView )
-// Main Toolbar
-    EVT_MENU( IDM_MANUAL_WX,           HaMainFrameWX::OnLoadManual )
-    EVT_MENU( IDM_MOL_CONNECT_WX,      HaMainFrameWX::OnMolConnect )
-    EVT_MENU( IDM_WORLD_CONNECT_WX,    HaMainFrameWX::OnWorldConnect )
-    EVT_MENU( IDM_MOL_INFO_WX, HaMainFrameWX::OnDumpMolInfo )
-    EVT_MENU( IDM_GAUSS_BCOMMON_WX, HaMainFrameWX::OnDumpGaussBCommon )
-    EVT_MENU( IDM_DUMP_OVERLAP, HaMainFrameWX::OnDumpOverlap )
-    EVT_MENU( IDM_DUMP_OVERLAP2_WX, HaMainFrameWX::OnDumpOverlap2 )
-    EVT_MENU( IDM_TEST_OPER_1_WX, HaMainFrameWX::OnTestOper1 )
-    EVT_MENU( IDM_TEST_OPER_2_WX, HaMainFrameWX::OnTestOper2 )
-    EVT_MENU( IDM_TEST_QCMOD_1_WX, HaMainFrameWX::OnTestQCMod1 )
-    EVT_MENU( IDM_CALC_MATR_1_WX, HaMainFrameWX::OnCalcTMatr1 )
-    EVT_MENU( IDM_TEST_MAP_WX, HaMainFrameWX::OnTestMap )
-    EVT_MENU( IDM_TEST_MIN_1_WX, HaMainFrameWX::OnTestMin1 )
-    EVT_MENU( IDM_TEST_GRAPH_1_WX, HaMainFrameWX::OnTestGraph1 )
-	EVT_MENU( IDM_TEST_PYTHON_1, HaMainFrameWX::OnTestPython1 )
-	EVT_MENU( IDM_TEST_AVG_POP_FUNC, HaMainFrameWX::OnTestAvgPopFunc )
-	EVT_MENU( IDM_SAVE_AMOEBA_TOP_FILE_1, HaMainFrameWX::OnSaveAmoebaTopFile1 )
-	EVT_MENU( IDM_SAVE_AMOEBA_TOP_FILE_2, HaMainFrameWX::OnSaveAmoebaTopFile2 )
-	EVT_MENU( IDM_TEST_FFT_1, HaMainFrameWX::OnTestFFT1 )
-    EVT_MENU( IDM_ABOUT_WX, HaMainFrameWX::OnAbout )
-    EVT_MENU( IDM_HELP_WX, HaMainFrameWX::OnHelp )
-//
-    
 END_EVENT_TABLE()
 
 HaMainFrameWX::HaMainFrameWX() :
-    wxMDIParentFrame(NULL, -1, "HARLEM", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
+    HaMainMenuBase(NULL, -1, "HARLEM", wxPoint(0, 0), wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL , "HaMainFrameWX")
 {
 
     m_HaMainFrameWX = this;
@@ -951,10 +799,7 @@ HaMainFrameWX::HaMainFrameWX() :
     int xp = MinFun(xs*3/4,1200);
     int yp = MinFun(ys*3/4,900);
 
-    this->SetInitialSize( wxSize(xp, yp) );
-
-    wxMenuBar* main_menu_bar = MainMenu();
-     SetMenuBar(main_menu_bar);    
+    this->SetInitialSize( wxSize(xp, yp) );    
 
 //	 CreateToolBar();
 //   MainToolBarFunc(this->GetToolBar());
@@ -2012,6 +1857,18 @@ void HaMainFrameWX::OnLabelsAtomFFSymb(wxCommandEvent &event)
 	if(pview)
 	{
 		pview->DefineLabels("%f");	
+		pview->UpdateThisView(RFRefresh);
+	}
+}
+
+void HaMainFrameWX::OnLabelsAtomCharges(wxCommandEvent &event)
+{
+	MolSet* pmset = GetCurMolSet();
+	HaMolView* pview = NULL;
+	if(pmset != NULL) pview = pmset->GetActiveMolView();
+	if(pview)
+	{
+		pview->DefineLabels("%q");
 		pview->UpdateThisView(RFRefresh);
 	}
 }

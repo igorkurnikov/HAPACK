@@ -314,6 +314,11 @@ HaMolView::FormatLabel(HaChain* chain, HaResidue* group, HaAtom* aptr, const cha
                                    *ptr++ = name[j];
                            break;
 
+               case('q'):  /* Atomic Charge */
+                           j = sprintf(ptr, "%.3f", aptr->GetCharge());
+                           ptr += j;
+                           break;
+
                case('r'):  /* Residue Number */
                            ptr = FormatInteger(ptr,group->serno);
                            break;

@@ -209,6 +209,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
     <ClCompile Include="..\HARLEM\sources\edit_mut_map_dlg_wx.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_1.cpp" />
     <ClCompile Include="..\HARLEM\sources\save_mol_file_dlg_base.cpp" />
+    <ClCompile Include="..\HARLEM\sources\main_menu_base.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_2.cpp" />
     <ClCompile Include="..\HARLEM\sources\dialogs_wx_3.cpp" />
     <ClCompile Include="..\HARLEM\sources\hachart.cpp" />
@@ -246,6 +247,7 @@ $(SolutionDir)copy_dependencies_harlem.bat
     <ClInclude Include="..\HARLEM\sources\ha_file_dlg1.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_1.h" />
     <ClInclude Include="..\HARLEM\sources\save_mol_file_dlg_base.h" />
+    <ClInclude Include="..\HARLEM\sources\main_menu_base.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_2.h" />
     <ClInclude Include="..\HARLEM\sources\dialogs_wx_3.h" />
     <ClInclude Include="..\HARLEM\sources\ha_wx_aux_1.h" />
@@ -293,6 +295,7 @@ copy $(IntDir)harlemc.py $(OutputPath)</Command>
     <None Include="..\HARLEM\sources\harlem_i.ico" />
     <None Include="..\HARLEM\sources\osgview.i" />
     <None Include="..\doc\DEVELOP_NOTES\iterators_1.txt" />
+    <None Include="..\HARLEM\sources\save_mol_file_dlg.fbp" />
     <None Include="copy_dependencies_harlem.bat" />
   </ItemGroup>
   <ItemGroup>
