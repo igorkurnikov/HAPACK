@@ -2491,7 +2491,7 @@ void MolMechDlgWX::OnChooseMDCrdFile(wxCommandEvent& event)
 
 	wxString mdcrd_file_name = ::wxFileSelector("Choose MD Trajectory Coordinates File",
 		::wxGetCwd(),ptr_mm_mod->p_amber_driver->amber_trj_coord_file.c_str(),
-		"mdcrd","AMBER Trajectory (*.mdcrd)|*.mdcrd|NetCDF Trajectory (*.nc)|*.nc|All files (*.*)|*.*");
+		"mdcrd","AMBER Trajectory (*.mdcrd)|*.mdcrd|NetCDF Trajectory (*.nc)|*.nc|GROMACS XTC (*.xtc)|*.xtc|GROMACS TRR (*.trr)|*.trr|DCD Trajectory (*.dcd)|*.dcd|All files (*.*)|*.*");
 
 	if(!mdcrd_file_name.empty() )
 	{

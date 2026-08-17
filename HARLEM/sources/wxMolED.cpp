@@ -210,7 +210,7 @@ void wxMolED::OnChooseMDTraj(wxCommandEvent& event)
 
 	wxString mdcrd_file_name = ::wxFileSelector("Choose MD Trajectory Coordinates File",
 		::wxGetCwd(),p_ccrd_mod->p_md_traj->CrdFileName.c_str(),
-		"mdcrd","*.mdcrd");
+		"mdcrd","AMBER Trajectory (*.mdcrd)|*.mdcrd|NetCDF Trajectory (*.nc)|*.nc|GROMACS XTC (*.xtc)|*.xtc|GROMACS TRR (*.trr)|*.trr|DCD Trajectory (*.dcd)|*.dcd|All files (*.*)|*.*");
 
 	if(!mdcrd_file_name.empty() )
 	{

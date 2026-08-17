@@ -380,7 +380,9 @@ void wxMolFlex::OnComputeDutyCycle(wxCommandEvent& event)
 
 void wxMolFlex::OnChooseMDTrajectory(wxCommandEvent& event)
 {
-	wxString traj_file = wxFileSelector("Choose MD Trajectory File");
+	wxString traj_file = wxFileSelector("Choose MD Trajectory File",
+		::wxGetCwd(), wxEmptyString, "mdcrd",
+		"AMBER Trajectory (*.mdcrd)|*.mdcrd|NetCDF Trajectory (*.nc)|*.nc|GROMACS XTC (*.xtc)|*.xtc|GROMACS TRR (*.trr)|*.trr|DCD Trajectory (*.dcd)|*.dcd|All files (*.*)|*.*");
 	myHaFlexMod->md_traj_file_name = traj_file.c_str();
 	TransferDataToWindow();
 }
