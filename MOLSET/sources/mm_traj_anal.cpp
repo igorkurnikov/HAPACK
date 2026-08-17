@@ -66,7 +66,7 @@ MDTrajAnalMod::MDTrajAnalMod(HaMolMechMod* p_mm_mod_new)
 	p_amber_driver = p_mm_mod->p_amber_driver;
 	pmset = p_mm_mod->GetMolSet();
 
-	delay_time = 0.0;
+	delay_time = 0.5;
     SetPtBegin(1);
 	SetPtStep(1);
 	SetPtEnd(999999999);

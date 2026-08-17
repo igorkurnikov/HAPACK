@@ -2123,6 +2123,35 @@ void HaMainFrameWX::DoMolMechDialog(wxCommandEvent &event)
 	}
 }
 
+void HaMainFrameWX::OnOpenMDTrajectory(wxCommandEvent &event)
+{
+	MolSet* pmset = GetCurMolSet();
+	if(pmset == NULL) return;
+
+	wxString mdcrd_file_name = ::wxFileSelector("Choose MD Trajectory Coordinates File",
+		::wxGetCwd(), wxEmptyString, "mdcrd",
+		"AMBER Trajectory (*.mdcrd)|*.mdcrd|NetCDF Trajectory (*.nc)|*.nc|GROMACS XTC (*.xtc)|*.xtc|GROMACS TRR (*.trr)|*.trr|DCD Trajectory (*.dcd)|*.dcd|All files (*.*)|*.*");
+
+	if(mdcrd_file_name.empty()) return;
+
+	wxFileName scr_fname(mdcrd_file_name);
+	wxString cur_dir = ::wxGetCwd();
+	scr_fname.MakeRelativeTo(cur_dir);
+	wxString rel_path = scr_fname.GetFullPath();
+
+	HaMolMechMod* ptr_mm_mod = pmset->GetMolMechMod(true);
+	if(ptr_mm_mod == NULL) return;
+
+	ptr_mm_mod->p_amber_driver->amber_trj_coord_file = rel_path.ToStdString();
+
+	if(MolMechDlgWX::dlg_open) return;
+
+	MolMechDlgWX* mol_mech_dlg = new MolMechDlgWX(ptr_mm_mod, this);
+	wxNotebook* noteb = (wxNotebook*)mol_mech_dlg->FindWindow(ID_MM_DLG);
+	if(noteb) noteb->SetSelection(3);
+	mol_mech_dlg->Show(TRUE);
+}
+
 void HaMainFrameWX::DoInterMolDialog(wxCommandEvent &event)
 {
     if( InterMolDlgWX::dlg_open) return;

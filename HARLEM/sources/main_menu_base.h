@@ -47,6 +47,7 @@ protected:
     virtual void OnPrint( wxCommandEvent& event ) { event.Skip(); }
     virtual void OnSetup( wxCommandEvent& event ) { event.Skip(); }
     virtual void OnExit( wxCommandEvent& event ) { event.Skip(); }
+    virtual void OnOpenMDTrajectory( wxCommandEvent& event ) { event.Skip(); }
 
     // Edit menu
     virtual void OnSelectAll( wxCommandEvent& event ) { event.Skip(); }

@@ -31,6 +31,8 @@ HaMainMenuBase::HaMainMenuBase( wxWindow* parent, wxWindowID id, const wxString&
     fileMenu->Append( IDM_MOL_SAVE_WX, wxT("Save Molecule\tCtrl-s"), wxT("") );
     fileMenu->Append( IDM_MOL_SAVE_AS_WX, wxT("Save Molecule As"), wxT("") );
     fileMenu->AppendSeparator();
+    fileMenu->Append( IDM_OPEN_MD_TRAJ_WX, wxT("Open MD Trajectory"), wxT("") );
+    fileMenu->AppendSeparator();
     fileMenu->Append( IDM_LOAD_SCRIPT_WX, wxT("Load Script\tAlt-Ctrl-s"), wxT("") );
     fileMenu->Append( IDM_REDIRECT_IO_WX, wxT("Redirect IO"), wxT("") );
     fileMenu->AppendSeparator();
@@ -304,6 +306,7 @@ HaMainMenuBase::HaMainMenuBase( wxWindow* parent, wxWindowID id, const wxString&
     Bind( wxEVT_MENU, &HaMainMenuBase::OnPrint, this, IDM_PRINT_WX );
     Bind( wxEVT_MENU, &HaMainMenuBase::OnSetup, this, IDM_SETUP_WX );
     Bind( wxEVT_MENU, &HaMainMenuBase::OnExit, this, IDM_EXIT_WX );
+    Bind( wxEVT_MENU, &HaMainMenuBase::OnOpenMDTrajectory, this, IDM_OPEN_MD_TRAJ_WX );
 
     // Edit menu
     Bind( wxEVT_MENU, &HaMainMenuBase::OnSelectAll, this, IDM_SELECT_WX );

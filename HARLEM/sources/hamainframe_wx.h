@@ -43,6 +43,7 @@ class HaMainFrameWX : public HaMainMenuBase
     void OnPrint (wxCommandEvent &event) override;
     void OnSetup (wxCommandEvent &event) override;
     void OnExit(wxCommandEvent &event) override;
+    void OnOpenMDTrajectory(wxCommandEvent &event) override;
     void OnPyMod(wxCommandEvent &event);//<mikola Jul 19, 2006
 // Edit Menu
     void OnSelectAll ( wxCommandEvent &event ) override;
